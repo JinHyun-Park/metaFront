@@ -7,19 +7,25 @@ Vue.use(Router);
 export default new Router({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: Home,
-    },
-    {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/About.vue'),
-    },
+  routes: [{
+    path: '/',
+    name: 'home',
+    component: Home,
+  },
+  {
+    path: '/meta/eigw/onlineList',
+    name: 'onlineList',
+    component: () => import('@/views/meta/eigw/OnlineList.vue'),
+  },
+  {
+    path: '/meta/mcg/dtlList',
+    name: 'mcgDtlList',
+    component: () => import('@/views/meta/mcg/dtlList.vue'),
+  },
+  {
+    path: '/ifReg/eaiReg',
+    name: 'eaiReg',
+    component: () => import('@/views/ifReg/EaiReg.vue'),
+  },
   ],
 });
