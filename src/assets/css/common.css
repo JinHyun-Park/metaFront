@@ -9,7 +9,7 @@ html,
 #app {
     display: flex;
     display: -ms-flexbox;
-    margin: 0;
+    margin: 0px;
     padding: 0;
     width: 100%;
     min-width: 1080px;
@@ -22,6 +22,11 @@ html,
     font-size: 12px;
     font-weight: 700;
     color: #555
+}
+
+body {
+    margin: 0px;
+    width: 100%;
 }
 
 header {
@@ -49,7 +54,8 @@ section {
     display: flex;
     display: -ms-flexbox;
     width: 1080px;
-    flex-direction: column
+    flex-direction: column;
+    padding-top: 15px;
 }
 
 article {
@@ -160,7 +166,8 @@ nav .menu li:hover i.menu_bar {
     display: -ms-flexbox;
     width: 100%;
     height: 3px;
-    background: #5a7ae3
+    /* background: #5a7ae3 */
+    background: white;
 }
 
 nav .menu li:last-child {
@@ -202,7 +209,8 @@ nav .menu li .sub_menu li:hover {
 
 .contents .title>h2 {
     font-size: 17px;
-    color: #1a1a1a;
+    /* color: #1a1a1a; */
+    color: #443E8E;
     font-weight: 700;
     line-height: .8
 }
@@ -224,9 +232,11 @@ nav .menu li .sub_menu li:hover {
     width: 260px;
     max-width: 39%;
     height: 30px;
-    border: 1px solid #fe6353;
+    /* border: 1px solid #fe6353; */
+    border: 1px solid #D89E92;
     border-radius: 5px;
-    background: #f07568;
+    /* background: #f07568; */
+    background: #D89E92;
     box-sizing: border-box
 }
 
@@ -281,7 +291,8 @@ nav .menu li .sub_menu li:hover {
 .contents .form_area>h5 i.ico-bar-2 {
     width: 12px;
     height: 3px;
-    background: #f07568
+    /* background: #f07568 */
+    background: #A55463;
 }
 
 .contents .form_area .row_contain {
@@ -374,9 +385,10 @@ select,
     display: flex;
     display: -ms-flexbox;
     padding: 8px 0 9px 17px;
-    height: 40px;
+    /* height: 40px; */
+    height: 35px;
     width: 100%;
-    font-size: 14px;
+    font-size: 12px;
     color: #777;
     font-weight: 700;
     border: 2px solid #dfdfdf;
@@ -431,7 +443,7 @@ select,
     justify-content: center;
     align-items: center;
     width: 36px;
-    height: 40px;
+    height: 35px;
     border-left: 1px solid #c9c9c9;
     cursor: pointer
 }
@@ -481,7 +493,8 @@ select,
     margin-bottom: 24px;
     padding: 7px 0 6px;
     /* border-top: 2px solid #5275e8; */
-    border-top: 2px solid #B1D8C2;
+    /* border-top: 2px solid #B1D8C2; */
+    border-top: 1px solid #cbcbcb;
     border-bottom: 1px solid #cbcbcb;
     box-sizing: border-box
 }
@@ -527,9 +540,11 @@ select,
 
 .contents .grid_form input[type=text] {
     padding: 8px 0 9px 5px;
-    height: 40px;
+    /* height: 40px; */
+    height: 35px;
     width: 100%;
-    font-size: 13px;
+    /* font-size: 13px; */
+    font-size: 12px;
     color: #777;
     font-weight: 700;
     letter-spacing: -.4px;
@@ -547,7 +562,8 @@ select,
 .contents .grid_form .search_group:hover input[type=text],
 .contents .grid_form input[type=text]:hover {
     color: #303030;
-    border-color: #7b96ef
+    /* border-color: #7b96ef */
+    border-color: #82BEA3;
 }
 
 .contents .grid_form .search_group .search {
@@ -559,7 +575,8 @@ select,
     justify-content: center;
     align-items: center;
     width: 25px;
-    height: 40px;
+    /* height: 40px; */
+    height: 35px;
     border-left: 1px solid #c9c9c9;
     cursor: pointer
 }
@@ -585,7 +602,8 @@ select,
     place-self: stretch;
     padding-left: 10px;
     font-size: 12px;
-    color: #171717;
+    /* color: #171717; */
+    color: #443E8E;
     font-weight: 700;
     letter-spacing: -1px;
     background: #efefef;
@@ -722,7 +740,8 @@ select,
 .table_grid .table_head .th_cell {
     display: table-cell;
     padding: 15px 10px;
-    height: 40px;
+    /* height: 40px; */
+    height: 30px;
     font-size: 12px;
     font-weight: 700;
     color: #171717;
@@ -777,7 +796,7 @@ select,
     padding: 9px 10px;
     width: 12.5%;
     height: 35px;
-    font: 15px normal Arial;
+    font: 12px normal Arial;
     font-family: '나눔고딕', Nanum Gothic, Arial;
     font-size: 15px;
     font-weight: normal;
@@ -812,14 +831,16 @@ select,
     padding: 4px 0 5px 10px;
     height: 35px;
     width: auto;
-    font-size: 14px
+    /* font-size: 14px */
+    font-size: 12px;
 }
 
 .table_grid .table_row .td_cell .select_group select {
     padding: 4px 0 5px 10px;
     height: 35px;
     width: 100%;
-    font-size: 14px
+    /* font-size: 14px */
+    font-size: 12px;
 }
 
 .table_grid .table_row .td_cell .search_group .search,
@@ -833,7 +854,8 @@ select,
 .table_grid .table_row .td_cell.on .select_group select,
 .table_grid .table_row .td_cell:hover .select_group select {
     color: #303030;
-    border-color: #7b96ef
+    /* border-color: #7b96ef */
+    border-color: #82BEA3;
 }
 
 .table_grid .table_row .td_cell.on .select_group .select,
@@ -889,8 +911,10 @@ select,
 
 .default_button {
     margin-left: 15px;
-    width: 130px;
-    height: 40px;
+    /* width: 130px; */
+    width: 110px;
+    /* height: 40px; */
+    height: 35px;
     color: #404040;
     font-size: 13px;
     font-weight: 700;

@@ -3,7 +3,7 @@
     <div class="gnb">
       <h1
         class="inH1"
-        @click="gotoHome()"
+        @click="movePage('home')"
       >
         META PORTAL
         <!-- <img
@@ -30,16 +30,22 @@
               <li>
                 I/F
               </li>
-              <li @click="gotoEaiReg()">
+              <li
+                :class="{ov: isActive('eaiReg')}"
+                @click="movePage('eaiReg')"
+              >
                 EAI
               </li>
               <li
-                class="ov"
-                @click="gotoEigw()"
+                :class="{ov: isActive('onlineList')}"
+                @click="movePage('onlineList')"
               >
                 EiGW
               </li>
-              <li @click="gotoMcg()">
+              <li
+                :class="{ov: isActive('mcgDtlList')}"
+                @click="movePage('mcgDtlList')"
+              >
                 MCG
               </li>
             </ul>
@@ -63,30 +69,49 @@
 </template>
 
 <script>
+// import { mapState, mapActions } from 'vuex';
+
 export default {
   data() {
     return {
-      navItems: [
-        { title: 'I/F', path: '' },
-        { title: 'EAI', path: '' },
-        { title: 'EiGW', path: '' },
-        { title: 'MCG', path: '' },
-        { title: 'BOARD', path: '' },
-      ],
+      activeItem: '',
     };
   },
+  computed: {
+    // ...mapState('header', ['activeLi']),
+  },
+  // created() {
+  //   console.log('created!');
+  //   console.log(this.$router.currentRoute.name);
+  //   this.activeItem = this.$router.currentRoute.name;
+  //   console.log('created end!');
+  // },
+  created() {
+    // console.log('mounted!');
+    // console.log(this.$router.currentRoute.name);
+    // this.activeItem = this.$router.currentRoute.name;
+    // console.log('mounted end!');
+    this.setActiveItem();
+  },
+  // updated() {
+  //   this.setActiveItem();
+  // },
   methods: {
-    gotoHome() {
-      this.$router.push({ name: 'home' });
+    // ...mapActions('header', ['setActiveLi']),
+    isActive(page) {
+      return this.activeItem === page;
     },
-    gotoEaiReg() {
-      this.$router.push({ name: 'eaiReg' });
+    setActiveItem() {
+      console.log(this.$router);
+      console.log(this.$router.currentRoute.name);
+      this.activeItem = this.$router.currentRoute.name;
     },
-    gotoEigw() {
-      this.$router.push({ name: 'onlineList' });
-    },
-    gotoMcg() {
-      this.$router.push({ name: 'mcgDtlList' });
+    movePage(page) {
+      this.activeItem = page;
+      // this.setActiveLi({ activeLi: page });
+      // console.log(this.$router.currentRoute.name);
+      // console.log(this.$router);
+      this.$router.push({ name: page });
     },
   },
 };
