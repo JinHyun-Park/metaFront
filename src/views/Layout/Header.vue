@@ -5,13 +5,12 @@
         class="inH1"
         @click="movePage('home')"
       >
-        META PORTAL
-        <!-- <img
+        <!-- META PORTAL -->
+        <img
           class="bi"
-          src="@/assets/images/logo.png"
+          src="@/assets/images/naru.png"
           alt="SK C&C 로고"
-          @click="gotoHome()"
-        > -->
+        >
       </h1>
       <nav>
         <ul class="menu">
@@ -62,6 +61,7 @@
             BOARD
             <i class="menu_bar" />
           </li>
+          {{ gf_isEmpty('') }}
         </ul>
       </nav>
     </div>
@@ -70,47 +70,37 @@
 
 <script>
 // import { mapState, mapActions } from 'vuex';
+import common from '@/mixins/common';
 
 export default {
+  mixins: [common],
   data() {
     return {
       activeItem: '',
     };
   },
   computed: {
-    // ...mapState('header', ['activeLi']),
+    aaa() {
+      return this.gf_isEmpty('1');
+    },
   },
-  // created() {
-  //   console.log('created!');
-  //   console.log(this.$router.currentRoute.name);
-  //   this.activeItem = this.$router.currentRoute.name;
-  //   console.log('created end!');
-  // },
   created() {
-    // console.log('mounted!');
-    // console.log(this.$router.currentRoute.name);
-    // this.activeItem = this.$router.currentRoute.name;
-    // console.log('mounted end!');
     this.setActiveItem();
   },
-  // updated() {
-  //   this.setActiveItem();
-  // },
   methods: {
     // ...mapActions('header', ['setActiveLi']),
     isActive(page) {
       return this.activeItem === page;
     },
     setActiveItem() {
-      console.log(this.$router);
-      console.log(this.$router.currentRoute.name);
-      this.activeItem = this.$router.currentRoute.name;
+      if (this.activeItem === '' || this.activeItem === null || this.activeItem === undefined) {
+        this.activeItem = localStorage.getItem('LS_ROUTE_KEY');
+      }
     },
     movePage(page) {
+    //   gf_isEmpty('1');
       this.activeItem = page;
       // this.setActiveLi({ activeLi: page });
-      // console.log(this.$router.currentRoute.name);
-      // console.log(this.$router);
       this.$router.push({ name: page });
     },
   },
