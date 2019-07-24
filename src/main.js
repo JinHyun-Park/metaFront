@@ -6,7 +6,11 @@ import store from './store';
 
 import './assets/css/common.css';
 
+import globalMixin from '@/mixins/globalMixin';
+
 Vue.config.productionTip = false;
+
+Vue.mixin(globalMixin); // 공통 함수 사용을 위한 믹스인 주입
 
 new Vue({
   router,

@@ -61,7 +61,6 @@
             BOARD
             <i class="menu_bar" />
           </li>
-          {{ gf_isEmpty('') }}
         </ul>
       </nav>
     </div>
@@ -70,19 +69,13 @@
 
 <script>
 // import { mapState, mapActions } from 'vuex';
-import common from '@/mixins/common';
 
 export default {
-  mixins: [common],
+//   mixins: [common],
   data() {
     return {
       activeItem: '',
     };
-  },
-  computed: {
-    aaa() {
-      return this.gf_isEmpty('1');
-    },
   },
   created() {
     this.setActiveItem();
@@ -98,7 +91,7 @@ export default {
       }
     },
     movePage(page) {
-    //   gf_isEmpty('1');
+    //   console.log(this.gf_isEmpty(''));
       this.activeItem = page;
       // this.setActiveLi({ activeLi: page });
       this.$router.push({ name: page });
