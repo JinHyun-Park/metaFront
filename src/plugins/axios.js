@@ -8,7 +8,7 @@ import axios from 'axios';
 // axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
 // csrf 적용
-// axios.defaults.headers.common['X-CSRF-TOKEN'] = token;
+axios.defaults.headers.common['X-CSRF-TOKEN'] = token;
 
 const config = {
     // baseURL: process.env.baseURL || process.env.apiUrl || ""

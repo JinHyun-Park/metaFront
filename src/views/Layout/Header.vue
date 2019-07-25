@@ -69,6 +69,7 @@
 
 <script>
 // import { mapState, mapActions } from 'vuex';
+import helpers from '@/utils/helpers';
 
 export default {
 //   mixins: [common],
@@ -92,6 +93,8 @@ export default {
     },
     movePage(page) {
     //   console.log(this.gf_isEmpty(''));
+      console.log(helpers.isEmpty('1'));
+      console.log(helpers.isEmpty2(''));
       this.activeItem = page;
       // this.setActiveLi({ activeLi: page });
       this.$router.push({ name: page });

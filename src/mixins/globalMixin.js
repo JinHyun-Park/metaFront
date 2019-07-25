@@ -1,7 +1,4 @@
 const common = {
-  //   created() {
-  //     console.log('common.js mix Created!');
-  //   },
   methods: {
     gf_isEmpty(value) {
       console.log('isEmpty 진입!');
