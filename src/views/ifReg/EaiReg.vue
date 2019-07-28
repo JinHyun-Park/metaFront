@@ -1,16 +1,39 @@
 <template>
-  <article class="contents">
-    <section class="title">
+  <div class="right_space">
+    <section class="title style-2">
       <h2><i class="ico-bar" />EAI 인터페이스 등록</h2>
+      <div class="breadcrumb">
+        <span>EGIW</span><em class="on">EAI</em>
+      </div>
     </section>
 
-    <section class="form_area">
-      <div class="row_contain">
+    <section class="sub_info">
+      <h4 class="sub_tit">
+        사용자 안내
+      </h4>
+      <ul class="sub_list">
+        <li>
+          정보시스템 서비스 운영자가 자체 개선을 위해 변경 작업 등이 필요한 경우 작성하는 요청서입니다.
+        </li>
+        <li>
+          고객 또는 현업 사용자 요청을 대리 등록할 수 없습니다.
+        </li>
+        <li>
+          요청서 제출 후 변경계획서를 작성할 수 있습니다.
+        </li>
+      </ul>
+    </section>
+
+    <section class="form_area border_group">
+      <h5 class="s_tit">
+        기본 정보
+      </h5>
+      <div class="row_contain type-2">
         <div class="column on w-2">
           <label class="column_label">인터페이스 ID</label>
           <input
             type="text"
-            value=""
+            value="myidisyoungjunyumyidisyoungjunyu12"
           >
         </div>
         <div class="column w-4">
@@ -21,8 +44,8 @@
           >
         </div>
       </div>
-      <div class="row_contain">
-        <div class="column w-1">
+      <div class="row_contain type-2">
+        <div class="column w-2">
           <label class="column_label">유형</label>
           <div class="select_group">
             <select>
@@ -39,7 +62,7 @@
             <span class="select" />
           </div>
         </div>
-        <div class="column on w-1">
+        <div class="column on w-2">
           <label class="column_label">HUB</label>
           <div class="select_group">
             <select>
@@ -62,7 +85,7 @@
             <span class="select" />
           </div>
         </div>
-        <div class="column w-1">
+        <div class="column w-2">
           <label class="column_label">방향</label>
           <div class="select_group">
             <select>
@@ -79,7 +102,7 @@
             <span class="select" />
           </div>
         </div>
-        <div class="column w-1">
+        <div class="column w-2">
           <label class="column_label">브로커</label>
           <div class="select_group">
             <select>
@@ -96,7 +119,7 @@
             <span class="select" />
           </div>
         </div>
-        <div class="column w-1">
+        <div class="column w-2">
           <label class="column_label">사용여부</label>
           <div class="select_group disabled">
             <select disabled>
@@ -114,13 +137,18 @@
           </div>
         </div>
       </div>
+    </section>
+    <section class="form_area border_group">
+      <h5 class="s_tit">
+        DB / Program
+      </h5>
       <div class="row_contain type-2">
         <div class="column on w-3">
           <label class="column_label">송신 I/F DB</label>
           <div class="search_group">
             <input
               type="text"
-              value=""
+              value="myidisyoungjunyumyidisyoungjunyu12myidisyo"
             >
             <span class="search">
               <i class="ico-search" />
@@ -132,7 +160,7 @@
           <div class="search_group">
             <input
               type="text"
-              value=""
+              value="myidisyoungjunyumyidisyoungjunyu12myidisyo"
             >
             <span class="search">
               <i class="ico-search" />
@@ -140,8 +168,8 @@
           </div>
         </div>
       </div>
-      <div class="row_contain type-1">
-        <div class="column w-1">
+      <div class="row_contain type-2">
+        <div class="column w-2">
           <label class="column_label">수신전문처리</label>
           <div class="select_group">
             <select>
@@ -161,17 +189,22 @@
             <span class="select" />
           </div>
         </div>
-        <div class="column w-2">
+        <div class="column w-3">
           <label class="column_label">수신 프로그램</label>
           <input
             type="text"
-            value=""
+            value="myidisyoungjunyumyidisyoungjunyu12myidisyo"
           >
         </div>
-        <div class="column w-2" />
+        <div class="column w-3" />
       </div>
-      <div class="row_contain type-1">
-        <div class="column w-1">
+    </section>
+    <section class="form_area border_group">
+      <h5 class="s_tit">
+        File 연동
+      </h5>
+      <div class="row_contain type-2">
+        <div class="column w-2">
           <label class="column_label">파일 전송 유형</label>
           <div class="select_group">
             <select>
@@ -188,21 +221,26 @@
             <span class="select" />
           </div>
         </div>
-        <div class="column w-2">
+        <div class="column w-3">
           <label class="column_label">송신 디렉토리</label>
           <input
             type="text"
-            value=""
+            value="myidisyoungjunyumyidisyoungjunyu12myidisyo"
           >
         </div>
-        <div class="column w-2">
+        <div class="column w-3">
           <label class="column_label">수신 디렉토리</label>
           <input
             type="text"
-            value=""
+            value="myidisyoungjunyumyidisyoungjunyu12myidisyo"
           >
         </div>
       </div>
+    </section>
+    <section class="form_area border_group">
+      <h5 class="s_tit">
+        담당자 정보
+      </h5>
       <div class="row_contain type-2">
         <div class="column w-2">
           <label class="column_label">송신 담당자1</label>
@@ -303,191 +341,199 @@
       </div>
     </section>
 
-    <section class="grid_form">
-      <div>
-        <i class="bg-left" />
-        <label class="column_label">요청 송신 Q</label>
-        <div class="search_group">
+    <section class="grid_form border_group">
+      <h5 class="s_tit">
+        Queue 상세 정보
+      </h5>
+      <div class="division_row">
+        <div>
+          <!--                    <i class="bg-left"></i>-->
+          <label class="column_label">요청 송신 Q</label>
+          <div class="search_group">
+            <input
+              type="text"
+              value="qsign"
+            >
+            <span class="search">
+              <i class="ico-search" />
+            </span>
+          </div>
           <input
             type="text"
-            value=""
+            value="2documents2documents2documents2documents2document"
           >
-          <span class="search">
-            <i class="ico-search" />
-          </span>
-        </div>
-        <input
-          type="text"
-          value=""
-        >
-        <label class="column_label">요청 송신 XQ</label>
-        <div class="search_group">
+          <label class="column_label">요청 송신 XQ</label>
+          <div class="search_group">
+            <input
+              type="text"
+              value="qsign"
+            >
+            <span class="search">
+              <i class="ico-search" />
+            </span>
+          </div>
           <input
             type="text"
-            value=""
+            value="2documents2documents2documents2documents2document"
           >
-          <span class="search">
-            <i class="ico-search" />
-          </span>
-        </div>
-        <input
-          type="text"
-          value=""
-        >
-        <label class="column_label">HUB 수신 Q</label>
-        <div class="search_group">
+          <label class="column_label">HUB 수신 Q</label>
+          <div class="search_group">
+            <input
+              type="text"
+              value="qsign"
+            >
+            <span class="search">
+              <i class="ico-search" />
+            </span>
+          </div>
           <input
             type="text"
-            value=""
+            value="2documents2documents2documents2documents2document"
           >
-          <span class="search">
-            <i class="ico-search" />
-          </span>
-        </div>
-        <input
-          type="text"
-          value=""
-        >
-        <label class="column_label">HUB 송신 Q</label>
-        <div class="search_group">
+          <label class="column_label">HUB 송신 Q</label>
+          <div class="search_group">
+            <input
+              type="text"
+              value="qsign"
+            >
+            <span class="search">
+              <i class="ico-search" />
+            </span>
+          </div>
           <input
             type="text"
-            value=""
+            value="2documents2documents2documents2documents2document"
           >
-          <span class="search">
-            <i class="ico-search" />
-          </span>
-        </div>
-        <input
-          type="text"
-          value=""
-        >
-        <label class="column_label">HUB 송신 XQ</label>
-        <div class="search_group">
+          <label class="column_label">HUB 송신 XQ</label>
+          <div class="search_group">
+            <input
+              type="text"
+              value="qsign"
+            >
+            <span class="search">
+              <i class="ico-search" />
+            </span>
+          </div>
           <input
             type="text"
-            value=""
+            value="2documents2documents2documents2documents2document"
           >
-          <span class="search">
-            <i class="ico-search" />
-          </span>
-        </div>
-        <input
-          type="text"
-          value=""
-        >
-        <label class="column_label">요청 수신 Q</label>
-        <div class="search_group">
+          <label class="column_label">요청 수신 Q</label>
+          <div class="search_group">
+            <input
+              type="text"
+              value="qsign"
+            >
+            <span class="search">
+              <i class="ico-search" />
+            </span>
+          </div>
           <input
             type="text"
-            value=""
+            value="2documents2documents2documents2documents2document"
           >
-          <span class="search">
-            <i class="ico-search" />
-          </span>
         </div>
-        <input
-          type="text"
-          value=""
-        >
-      </div>
-      <div>
-        <i class="bg-left" />
-        <label class="column_label">요청 송신 Q</label>
-        <div class="search_group">
+        <div>
+          <!--                    <i class="bg-left"></i>-->
+          <label class="column_label">요청 송신 Q</label>
+          <div class="search_group">
+            <input
+              type="text"
+              value="qsign"
+            >
+            <span class="search">
+              <i class="ico-search" />
+            </span>
+          </div>
           <input
             type="text"
-            value=""
+            value="2documents2documents2documents2documents2document"
           >
-          <span class="search">
-            <i class="ico-search" />
-          </span>
-        </div>
-        <input
-          type="text"
-          value=""
-        >
-        <label class="column_label">요청 송신 XQ</label>
-        <div class="search_group">
+          <label class="column_label">요청 송신 XQ</label>
+          <div class="search_group">
+            <input
+              type="text"
+              value="qsign"
+            >
+            <span class="search">
+              <i class="ico-search" />
+            </span>
+          </div>
           <input
             type="text"
-            value=""
+            value="2documents2documents2documents2documents2document"
           >
-          <span class="search">
-            <i class="ico-search" />
-          </span>
-        </div>
-        <input
-          type="text"
-          value=""
-        >
-        <label class="column_label">HUB 수신 Q</label>
-        <div class="search_group on">
+          <label class="column_label">HUB 수신 Q</label>
+          <div class="search_group on">
+            <input
+              type="text"
+              value="qsign"
+            >
+            <span class="search">
+              <i class="ico-search" />
+            </span>
+          </div>
+          <input
+            class="on"
+            type="text"
+            value="2documents2documents2documents2documents2document"
+          >
+          <label class="column_label">HUB 송신 Q</label>
+          <div class="search_group">
+            <input
+              type="text"
+              value="qsign"
+            >
+            <span class="search">
+              <i class="ico-search" />
+            </span>
+          </div>
           <input
             type="text"
-            value=""
+            value="2documents2documents2documents2documents2document"
           >
-          <span class="search">
-            <i class="ico-search" />
-          </span>
-        </div>
-        <input
-          class="on"
-          type="text"
-          value=""
-        >
-        <label class="column_label">HUB 송신 Q</label>
-        <div class="search_group">
+          <label class="column_label">HUB 송신 XQ</label>
+          <div class="search_group">
+            <input
+              type="text"
+              value="qsign"
+            >
+            <span class="search">
+              <i class="ico-search" />
+            </span>
+          </div>
           <input
             type="text"
-            value=""
+            value="2documents2documents2documents2documents2document"
           >
-          <span class="search">
-            <i class="ico-search" />
-          </span>
-        </div>
-        <input
-          type="text"
-          value=""
-        >
-        <label class="column_label">HUB 송신 XQ</label>
-        <div class="search_group">
+          <label class="column_label">요청 수신 Q</label>
+          <div class="search_group">
+            <input
+              type="text"
+              value="qsign"
+            >
+            <span class="search">
+              <i class="ico-search" />
+            </span>
+          </div>
           <input
             type="text"
-            value=""
+            value="2documents2documents2documents2documents2document"
           >
-          <span class="search">
-            <i class="ico-search" />
-          </span>
         </div>
-        <input
-          type="text"
-          value="2documents2documents2documents2documents2document"
-        >
-        <label class="column_label">요청 수신 Q</label>
-        <div class="search_group">
-          <input
-            type="text"
-            value=""
-          >
-          <span class="search">
-            <i class="ico-search" />
-          </span>
-        </div>
-        <input
-          type="text"
-          value=""
-        >
       </div>
     </section>
 
-    <section class="form_area style-1">
+    <section class="form_area border_group style-1">
+      <h5 class="s_tit">
+        참고 사항
+      </h5>
       <div class="row_contain">
-        <div class="column w-3">
+        <div class="column on w-3">
           <label class="column_label">장애 영향도</label>
           <textarea
             cols="50"
-            rows="4"
+            rows="5"
             placeholder="이러한 장애가 있습니다."
           />
         </div>
@@ -495,8 +541,8 @@
           <label class="column_label">비고</label>
           <textarea
             cols="50"
-            rows="4"
-            placeholder=""
+            rows="5"
+            placeholder="비고란 입니다."
           />
         </div>
       </div>
@@ -510,5 +556,5 @@
         수정
       </button>
     </section>
-  </article>
+  </div>
 </template>

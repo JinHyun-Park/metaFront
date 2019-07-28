@@ -1,68 +1,89 @@
 <template>
   <header>
     <div class="gnb">
-      <h1
-        class="inH1"
-        @click="movePage('home')"
-      >
-        <!-- META PORTAL -->
+      <h1>
         <img
           class="bi"
-          src="@/assets/images/naru.png"
+          src="@/assets/images/bi.png"
           alt="SK C&C 로고"
         >
       </h1>
-      <nav>
-        <ul class="menu">
-          <li>
-            I/F
-            <i class="menu_bar" />
-          </li>
-          <li>
-            EAI
-            <i class="menu_bar" />
-          </li>
-          <li class="on">
-            EiGW
-            <i class="menu_bar" />
-            <ul class="sub_menu">
-              <li>
-                I/F
-              </li>
-              <li
-                :class="{ov: isActive('eaiReg')}"
-                @click="movePage('eaiReg')"
-              >
-                EAI
-              </li>
-              <li
-                :class="{ov: isActive('onlineList')}"
-                @click="movePage('onlineList')"
-              >
-                EiGW
-              </li>
-              <li
-                :class="{ov: isActive('mcgDtlList')}"
-                @click="movePage('mcgDtlList')"
-              >
-                MCG
-              </li>
-            </ul>
-          </li>
-          <li>
-            MCG
-            <i class="menu_bar" />
-          </li>
-          <li>
-            EiGW
-            <i class="menu_bar" />
-          </li>
-          <li>
-            BOARD
-            <i class="menu_bar" />
-          </li>
-        </ul>
-      </nav>
+      <div>
+        <div class="util_space">
+          <em><i class="ico-user" />유영준님 환영합니다!</em>
+          <button class="log">
+            로그아웃<i class="ico-logout" />
+          </button>
+        </div>
+        <nav>
+          <ul class="menu">
+            <li>
+              <span>신청</span>
+              <ul class="sub_menu">
+                <li
+                  :class="{ov: isActive('eaiReg')}"
+                  @click="movePage('eaiReg')"
+                >
+                  EAI
+                </li>
+                <li
+                  :class="{ov: isActive('onlineList')}"
+                  @click="movePage('onlineList')"
+                >
+                  EiGW
+                </li>
+                <li
+                  :class="{ov: isActive('mcgDtlList')}"
+                  @click="movePage('mcgDtlList')"
+                >
+                  MCG
+                </li>
+              </ul>
+            </li>
+            <li>
+              <span>조회</span>
+              <ul class="sub_menu">
+                <li>I/F</li>
+                <li>EAI</li>
+                <li class="ov">
+                  EiGW
+                </li>
+              </ul>
+            </li>
+            <li class="n">
+              <span>모니터링</span>
+              <ul class="sub_menu">
+                <li>I/F</li>
+                <li>EAI</li>
+                <li class="ov">
+                  EiGW
+                </li>
+                <li>MCG</li>
+                <li>EiGW</li>
+              </ul>
+            </li>
+            <li>
+              <span>공지사항</span>
+              <ul class="sub_menu">
+                <li class="ov">
+                  EiGW
+                </li>
+                <li>MCG</li>
+                <li>EiGW</li>
+              </ul>
+            </li>
+            <li>
+              <span>관리</span>
+              <ul class="sub_menu">
+                <li>EAI</li>
+                <li class="ov">
+                  EiGW
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+      </div>
     </div>
   </header>
 </template>

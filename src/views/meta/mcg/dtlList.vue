@@ -1,7 +1,14 @@
 <template>
-  <article class="contents">
-    <section class="title style-2">
-      <h2><i class="ico-bar" />MCG 채널 조회</h2>
+  <div class="right_space">
+    <section class="title style-1">
+      <h2>
+        <div>
+          <i class="ico-bar" />MCG 채널 조회
+        </div>
+        <div class="breadcrumb">
+          <span>EGIW</span><em class="on">EAI</em>
+        </div>
+      </h2>
       <div class="right_button_area">
         <button
           type="button"
@@ -21,48 +28,51 @@
     <section class="add_info">
       <input
         type="text"
-        class="add_text"
-        value="채널 업무 조회 추가 1"
+        class="add_text on"
+        value="채널 업무 담당조회 추가"
       >
       <input
         type="text"
         class="add_text"
-        value="채널양식 업무 추가자"
+        value="채널양식 업무 담당추가"
       >
       <input
         type="text"
         class="add_text"
-        value="채널양식 업무코드 12"
+        value="채널양식 업무 담당코드"
       >
       <input
         type="text"
         class="add_text"
-        value="채널 업무 조회 추가 2"
+        value="채널 업무 담당 조회추가"
       >
       <input
         type="text"
         class="add_text"
-        value="채널 연동 ID 추가자 2"
+        value="채널 연동 담당 ID추가2"
       >
       <input
         type="text"
         class="add_text"
-        value="채널 ID 조회 추가 2"
+        value="채널 ID 조회 담당추가 2"
       >
       <input
         type="text"
         class="add_text"
-        value="채널 대표 담당 추가"
+        value="채널 대표 업무 담당추가"
       >
       <input
         type="text"
         class="add_text"
-        value="채널 대표 조회 추가2"
+        value="채널 대표 업무 조회추가"
       >
     </section>
 
-    <section class="table_grid">
+    <section class="table_grid border_group">
       <div class="table_head">
+        <h5 class="s_tit">
+          기본 정보
+        </h5>
         <ul>
           <li class="th_cell">
             업무코드<i class="ico-sort-down" />
@@ -229,7 +239,7 @@
       <i class="ico-remove" />
     </section>
 
-    <section class="form_area">
+    <section class="form_area border_group">
       <div class="row_contain">
         <div class="column on w-1">
           <label class="column_label">업무코드</label>
@@ -339,7 +349,7 @@
           <label class="column_label">비고</label>
           <input
             type="text"
-            value="Interface1"
+            value=""
           >
         </div>
         <div class="column w-1">
@@ -370,5 +380,5 @@
         </div>
       </div>
     </section>
-  </article>
+  </div>
 </template>

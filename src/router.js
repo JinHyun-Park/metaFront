@@ -13,6 +13,11 @@ const router = new Router({
     component: Home,
   },
   {
+    path: '/login',
+    name: 'login',
+    component: () => import('@/views/login/Login.vue'),
+  },
+  {
     path: '/meta/eigw/onlineList',
     name: 'onlineList',
     component: () => import('@/views/meta/eigw/OnlineList.vue'),
