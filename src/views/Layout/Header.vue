@@ -92,8 +92,8 @@
 </template>
 
 <script>
-// import { mapState, mapActions } from 'vuex';
-import helpers from '@/utils/helpers';
+// import helpers from '@/utils/helpers';
+import { mapActions } from 'vuex';
 
 export default {
 //   mixins: [common],
@@ -107,6 +107,7 @@ export default {
   },
   methods: {
     // ...mapActions('header', ['setActiveLi']),
+    ...mapActions('frameSet', ['setHeaderOn', 'setAsideOn', 'setFooterOn']),
     isActive(page) {
       return this.activeItem === page;
     },
@@ -116,9 +117,13 @@ export default {
       }
     },
     movePage(page) {
-    //   console.log(this.gf_isEmpty(''));
-      console.log(helpers.isEmpty('1'));
-      console.log(helpers.isEmpty2(''));
+    //   console.log(helpers.isEmpty('1'));
+    //   console.log(helpers.isEmpty2(''));
+      if (page !== 'login') {
+        this.setHeaderOn({ headerOn: true });
+        this.setAsideOn({ asideOn: true });
+        this.setFooterOn({ footerOn: true });
+      }
       this.activeItem = page;
       // this.setActiveLi({ activeLi: page });
       this.$router.push({ name: page });

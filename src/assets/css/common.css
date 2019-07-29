@@ -14,6 +14,7 @@ body,
     width: 100%;
     min-width: 1600px;
     justify-content: center;
+    align-content: center;
     align-items: flex-start;
     flex: auto;
     flex-wrap: wrap;
@@ -78,7 +79,7 @@ aside {
 
 section {
     flex-direction: column;
-    width: 1080px
+    width: 1160px
 }
 
 section div {
@@ -347,7 +348,7 @@ nav .menu li .sub_menu li:hover {
     flex: auto;
     justify-content: flex-start;
     flex-direction: column;
-    margin-right: 463px;
+    margin-right: 383px;
     width: calc(100% - 360px);
     _padding: 20px 40px 0px 25px;
     _box-shadow: 1px 1px 4px 0 rgba(0, 0, 0, .14);
@@ -367,7 +368,8 @@ nav .menu li .sub_menu li:hover {
     margin-bottom: 7px;
     padding-bottom: 12px;
     flex-direction: column;
-    align-items: center
+    align-items: center;
+    font-family: Moebius_Regular_kor, Moebius_Regular_eng
 }
 
 .contents .title.style-1 h2 {
@@ -382,7 +384,7 @@ nav .menu li .sub_menu li:hover {
 }
 
 .contents .title>h2 {
-    font-size: 15px;
+    font-size: 17px;
     color: #1a1a1a;
     font-family: Moebius_Regular_kor, Moebius_Regular_eng;
     line-height: .95
@@ -397,9 +399,9 @@ nav .menu li .sub_menu li:hover {
 
 .contents .title .breadcrumb {
     width: auto;
-    font-size: 12px;
+    font-size: 13px;
     color: #999;
-    font-family: Moebius_Bold_kor, Moebius_Bold_eng;
+    font-family: Moebius_Regular_kor, Moebius_Regular_eng;
     letter-spacing: .2px
 }
 
@@ -449,7 +451,7 @@ aside .lnb li {
     margin-left: 14px;
     margin-bottom: 11px;
     padding: 0px 0 2px 7px;
-    font-size: 14px;
+    font-size: 15px;
     color: #999;
     font-family: Moebius_Bold_kor, Moebius_Bold_eng;
     box-sizing: border-box
@@ -467,19 +469,20 @@ aside .lnb li:hover {
 /* LOGIN */
 
 .contents.index {
-    padding-top: 210px;
     justify-content: center;
-    _background: #fbfbfb
+    align-items: center;
+    padding: 0;
+    height: 100%
 }
 
 .contents.index .login_contn {
     display: flex;
     display: -ms-flexbox;
     position: relative;
-    padding: 54px 46px 31px 30px;
+    padding: 56px 83px 51px 39px;
     justify-content: center;
     flex-direction: row;
-    background: rgba(216, 158, 146, .7);
+    background: white;
     border: 1px solid #c68f84;
     border-radius: 3px;
     box-shadow: 2px 2px 4px 0 rgba(0, 0, 0, .19)
@@ -490,7 +493,7 @@ aside .lnb li:hover {
     align-items: flex-start;
     margin-right: 40px;
     margin-top: 6px;
-    margin-bottom: 82px;
+    margin-bottom: 182px;
     padding-top: 10px;
     padding-bottom: 0;
     border-right: 1px solid #dfdfdf;
@@ -506,8 +509,16 @@ aside .lnb li:hover {
     width: 480px
 }
 
+.contents.index .login .login_form {
+    display: flex;
+    display: -ms-flexbox;
+    flex: auto;
+    width: 480px
+}
+
 .contents.index .login.form_area {
-    padding: 26px 17px 51px
+    padding: 26px 17px 51px;
+    margin-bottom: 43px
 }
 
 .contents.index .login.form_area .column input[type=text],
@@ -518,7 +529,7 @@ aside .lnb li:hover {
 
 .contents.index .login.form_area .column.on input[type=text],
 .contents.index .login.form_area .column:hover input[type=text],
-.contents.index in.form_area .row_contain .column.on input[type=password],
+.contents.index .login.form_area .row_contain .column.on input[type=password],
 .contents.index .login.form_area .row_contain .column:hover input[type=password] {
     font-size: 14px
 }
@@ -527,14 +538,35 @@ aside .lnb li:hover {
     font-size: 13px
 }
 
+.contents.index .login_contn .login_form .btm_button_area {
+    width: 480px
+}
+
+.contents.index .login_contn .login_form .btm_button_area .default_button {
+    margin-left: 0;
+    width: 49.5%;
+    height: 53px;
+    font-size: 16px;
+    letter-spacing: 1.4px
+}
+
+.contents.index .login_contn .login_form .btm_button_area .default_button:first-child {
+    border-radius: 6px 0 0 6px
+}
+
+.contents.index .login_contn .login_form .btm_button_area .default_button:last-child {
+    border-radius: 0 6px 6px 0;
+    border-color: #46576b;
+    border-style: solid solid solid none;
+    background: #fefefe
+}
+
 .contents.index .login_contn .help {
     display: flex;
     display: -ms-flexbox;
     align-items: center;
+    justify-content: flex-end;
     flex-direction: row;
-    position: absolute;
-    bottom: 40px;
-    right: 130px;
     color: #777
 }
 
@@ -554,7 +586,7 @@ aside .lnb li:hover {
     padding: 13px;
     width: 100%;
     min-height: 150px;
-    width: 1080px;
+    width: 1160px;
     box-shadow: 1px 1px 4px 0 rgba(0, 0, 0, .14);
     box-sizing: border-box
 }
@@ -563,7 +595,7 @@ aside .lnb li:hover {
     padding-bottom: 14px;
     color: #666;
     font-size: 14px;
-    font-family: Moebius_Bold_kor, Moebius_Bold_eng
+    font-family: Moebius_Regular_kor, Moebius_Regular_eng
 }
 
 .contents .sub_info .sub_list {
@@ -573,8 +605,8 @@ aside .lnb li:hover {
 .contents .sub_info .sub_list li {
     padding-left: 17px;
     line-height: 28px;
-    color: #777;
-    font-size: 12px;
+    color: #888;
+    font-size: 14px;
     font-family: Moebius_Regular_kor, Moebius_Regular_eng
 }
 
@@ -595,10 +627,10 @@ aside .lnb li:hover {
 
 .contents .info_title {
     position: relative;
-    padding: 5px 34px 7px 10px;
+    padding: 6px 34px 7px 10px;
     width: 260px;
     max-width: 39%;
-    height: 30px;
+    height: 33px;
     border: 1px solid #D89E92;
     border-radius: 4px 4px 0 0;
     background: #e6afa4;
@@ -606,7 +638,7 @@ aside .lnb li:hover {
 }
 
 .contents .info_title>em.sub_tit {
-    font-size: 14px;
+    font-size: 15px;
     color: #fff;
     text-shadow: 1px 1px 0 rgba(0, 0, 0, .2);
     font-family: Moebius_Regular_kor, Moebius_Regular_eng;
@@ -618,7 +650,7 @@ aside .lnb li:hover {
 .contents .info_title .ico-remove {
     position: absolute;
     right: -32px;
-    bottom: 1px;
+    bottom: 3px;
     margin-right: 3px;
     width: 26px;
     height: 26px;
@@ -633,7 +665,7 @@ aside .lnb li:hover {
     flex-direction: row;
     margin-bottom: 15px;
     padding: 0 9px;
-    width: 1080px;
+    width: 1160px;
     box-sizing: border-box
 }
 
@@ -642,7 +674,7 @@ aside .lnb li:hover {
     padding: 7px 5px 7px 8px;
     width: 12.5%;
     height: 30px;
-    font-size: 12px;
+    font-size: 13px;
     color: #bfbfbf;
     font-family: Moebius_Regular_kor, Moebius_Regular_eng;
     letter-spacing: -.4px;
@@ -655,7 +687,7 @@ aside .lnb li:hover {
 .add_info input[type=text].add_text.on,
 .add_info input[type=text].add_text:hover {
     color: #777;
-    font-family: Moebius_Bold_kor, Moebius_Bold_eng;
+    font-family: Moebius_Regular_kor, Moebius_Regular_eng;
     border-color: #ababab
 }
 
@@ -666,7 +698,7 @@ aside .lnb li:hover {
     flex-direction: column;
     margin-bottom: 74px;
     padding: 13px 17px 30px;
-    width: 100%;
+    width: 1160px;
     min-height: 50px;
     box-shadow: 1px 1px 4px 0 rgba(0, 0, 0, .14);
     border-radius: 6px;
@@ -679,7 +711,7 @@ aside .lnb li:hover {
 .contents .form_area {
     margin-bottom: 74px;
     padding: 13px 17px 30px;
-    width: 1080px;
+    width: 1160px;
     _border: 1px solid #dfdfdf;
     border-radius: 6px;
     background: #fff;
@@ -708,7 +740,7 @@ aside .lnb li:hover {
     margin-top: 13px;
     padding: 0;
     padding-bottom: 26px;
-    font-size: 12px;
+    font-size: 15px;
     color: #46576b;
     font-family: Moebius_Regular_kor, Moebius_Regular_eng
 }
@@ -810,9 +842,9 @@ aside .lnb li:hover {
     padding: 0;
     padding-left: 7px;
     padding-bottom: 5px;
-    font-size: 12px;
+    font-size: 14px;
     color: #869DAB;
-    font-family: Moebius_Bold_kor, Moebius_Bold_eng
+    font-family: Moebius_Regular_kor, Moebius_Regular_eng
 }
 
 .contents .form_area .row_contain .column input[type=text],
@@ -827,7 +859,7 @@ select,
     padding: 5px 0 6px 17px;
     height: 30px;
     width: 100%;
-    font-size: 12px;
+    font-size: 14px;
     color: #888;
     font-family: Moebius_Regular_kor, Moebius_Regular_eng;
     letter-spacing: .2px;
@@ -846,11 +878,11 @@ select {
 
 .contents .form_area .row_contain .column textarea {
     padding: 7px 9px 8px 17px;
-    font-family: Moebius_Bold_kor, Moebius_Bold_eng;
-    font-size: 11px;
+    font-family: Moebius_Regular_kor, Moebius_Regular_eng;
+    font-size: 14px;
     color: #888;
     letter-spacing: -.2px;
-    line-height: 18px;
+    line-height: 22px;
     min-height: 120px;
     background: #fbfbfb
 }
@@ -864,8 +896,8 @@ select {
 .contents .form_area .row_contain .column.on textarea,
 .contents .form_area .row_contain .column:hover textarea {
     color: #555;
-    font-size: 13px;
-    font-family: Moebius_Bold_kor, Moebius_Bold_eng;
+    font-size: 15px;
+    font-family: Moebius_Regular_kor, Moebius_Regular_eng;
     text-transform: capitalize;
     line-height: 23px;
     border-color: #82BEA3;
@@ -962,7 +994,7 @@ select {
     flex-direction: column;
     margin-bottom: 74px;
     padding: 13px 10px 26px 15px;
-    width: 1080px;
+    width: 1160px;
     box-sizing: border-box
 }
 
@@ -984,8 +1016,8 @@ select {
     display: grid;
     display: -ms-grid;
     width: 100%;
-    grid-template-columns: 79px 79px 342px;
-    -ms-grid-colsumns: 70px 70px 370px;
+    grid-template-columns: 89px 79px 372px;
+    -ms-grid-colsumns: 89px 79px 372px;
     grid-template-rows: 30px 30px 30px 30px 30px 30px;
     -ms-grid-rows: 30px 30px 30px 30px 30px 30px;
     grid-template-areas: "요청송신Q qsign 2documents2Documents2documents2documents2document";
@@ -1006,7 +1038,7 @@ select {
     padding: 5px 0 6px 5px;
     height: 30px;
     width: 100%;
-    font-size: 12px;
+    font-size: 14px;
     color: #888;
     font-family: Moebius_Regular_kor, Moebius_Regular_eng;
     text-transform: lowercase;
@@ -1017,7 +1049,7 @@ select {
 }
 
 .contents .grid_form input[type=text]:last-child {
-    width: 342px
+    width: 372px
 }
 
 .contents .grid_form .search_group {
@@ -1033,9 +1065,9 @@ select {
 .contents .grid_form .search_group:hover input[type=text],
 .contents .grid_form input[type=text]:hover {
     color: #555;
-    font-size: 13px;
-    font-family: Moebius_Bold_kor, Moebius_Bold_eng;
-    letter-spacing: -.2px;
+    font-size: 15px;
+    font-family: Moebius_Regular_kor, Moebius_Regular_eng;
+    letter-spacing: -.4px;
     border-color: #82BEA3;
     border-style: none none solid;
     border-width: 2px;
@@ -1078,10 +1110,10 @@ select {
     grid-row-gap: 0;
     place-self: stretch;
     padding-left: 10px;
-    font-size: 12px;
+    font-size: 14px;
     color: #869DAB;
-    font-family: Moebius_Bold_kor, Moebius_Bold_eng;
-    letter-spacing: -.2px;
+    font-family: Moebius_Regular_kor, Moebius_Regular_eng;
+    letter-spacing: -.4px;
     background: #fff;
     box-sizing: border-box;
     z-index: 5
@@ -1171,7 +1203,7 @@ select {
     display: table;
     margin-bottom: 74px;
     padding: 0 10px 10px;
-    width: 1080px;
+    width: 1160px;
     border-radius: 0px;
     _box-shadow: 1px 1px 6px 0 rgba(0, 0, 0, .1);
     box-sizing: border-box
@@ -1193,10 +1225,10 @@ select {
     display: table-cell;
     position: relative;
     padding: 5px 10px 6px;
-    height: 32px;
+    height: 35px;
     border-top: 1px solid #565656;
-    font-size: 12px;
-    font-family: Moebius_Bold_kor, Moebius_Bold_eng;
+    font-size: 14px;
+    font-family: Moebius_Regular_kor, Moebius_Regular_eng;
     color: #555;
     vertical-align: middle;
     letter-spacing: -.4px;
@@ -1246,16 +1278,21 @@ select {
 
 .table_grid .table_row .td_cell {
     display: table-cell;
-    padding: 9px 10px;
+    padding: 12px 10px;
     width: 12.5%;
-    height: 35px;
-    font-size: 13px;
+    height: 40px;
+    font-size: 15px;
     color: #888;
     font-family: Moebius_Regular_kor, Moebius_Regular_eng;
     border-bottom: 1px solid #dfdfdf;
     line-height: 1;
     letter-spacing: -.2px;
     box-sizing: border-box
+}
+
+.table_grid .table_row.form_type .td_cell {
+    padding: 14px 10px;
+    height: 42px
 }
 
 .table_grid .table_row.w-auto .td_cell {
@@ -1277,7 +1314,7 @@ select {
 .table_grid .table_row .td_cell input[type=text],
 .table_grid .table_row .td_cell .select_group select {
     height: 30px;
-    font-size: 12px;
+    font-size: 13px;
     color: #888;
     font-family: Moebius_Regular_kor, Moebius_Regular_eng;
     letter-spacing: .2px;
@@ -1293,8 +1330,8 @@ select {
 .table_grid .table_row .td_cell.on .select_group select,
 .table_grid .table_row .td_cell:hover .select_group select {
     color: #555;
-    font-size: 13px;
-    font-family: Moebius_Bold_kor, Moebius_Bold_eng;
+    font-size: 14px;
+    font-family: Moebius_Regular_kor, Moebius_Regular_eng;
     border-color: #82BEA3;
     border-style: none none solid;
     border-width: 0 0 2px;
@@ -1354,7 +1391,7 @@ select {
     justify-content: flex-end;
     flex-direction: row;
     margin-bottom: 60px;
-    width: auto
+    width: 100%
 }
 
 .right_button_area {
@@ -1363,23 +1400,26 @@ select {
     align-items: center
 }
 
-.right_button_area .default_button:nth-of-type(1) {
-    margin-left: 30px
-}
-
 .default_button {
-    margin-left: 8px;
-    width: 120px;
-    height: 35px;
+    margin-left: 9px;
+    width: 135px;
+    height: 40px;
     color: #404040;
-    font-size: 12px;
-    font-family: Moebius_Bold_kor, Moebius_Bold_eng;
+    font-size: 14px;
+    font-family: Moebius_Regular_kor, Moebius_Regular_eng;
     line-height: 1;
+    letter-spacing: 1.8px;
     border: 1px solid #b6b6b6;
     border-radius: 3px;
     background: #f3f3f3;
     box-sizing: border-box;
     cursor: pointer
+}
+
+.contents .form_area .default_button {
+    width: 120px;
+    height: 35px;
+    font-size: 13px
 }
 
 .default_button.on {

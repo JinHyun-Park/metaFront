@@ -10,6 +10,8 @@ import globalMixin from '@/mixins/globalMixin';
 
 Vue.config.productionTip = false;
 
+require('es6-promise').polyfill();
+
 Vue.mixin(globalMixin); // 공통 함수 사용을 위한 믹스인 주입
 
 new Vue({
