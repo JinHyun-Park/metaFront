@@ -246,7 +246,8 @@ header .gnb>div .util_space .log {
     font-size: 11px;
     font-family: Moebius_Bold_kor, Moebius_Bold_eng;
     line-height: 1;
-    background: #f7f3f2
+    background: #f7f3f2;
+    cursor: pointer;
 }
 
 header .gnb>div .util_space .log .ico-logout {
@@ -254,7 +255,7 @@ header .gnb>div .util_space .log .ico-logout {
     width: 14px;
     height: 14px;
     background: url(../images/ico-unlock.png) center center no-repeat;
-    background-size: 100%
+    background-size: 100%;
 }
 
 h1>.bi {
@@ -517,7 +518,7 @@ aside .lnb li:hover {
 
 .contents.index .login.form_area .column.on input[type=text],
 .contents.index .login.form_area .column:hover input[type=text],
-.contents.index .login.form_area .row_contain .column.on input[type=password],
+.contents.index in.form_area .row_contain .column.on input[type=password],
 .contents.index .login.form_area .row_contain .column:hover input[type=password] {
     font-size: 14px
 }

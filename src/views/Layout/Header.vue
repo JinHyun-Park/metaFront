@@ -11,7 +11,10 @@
       <div>
         <div class="util_space">
           <em><i class="ico-user" />유영준님 환영합니다!</em>
-          <button class="log">
+          <button
+            class="log"
+            @click="movePage('login')"
+          >
             로그아웃<i class="ico-logout" />
           </button>
         </div>
