@@ -31,3 +31,18 @@
     </div>
   </article>
 </template>
+
+<script>
+import { mapActions } from 'vuex';
+
+export default {
+  created() {
+    this.setHeaderOn({ headerOn: false });
+    this.setAsideOn({ asideOn: false });
+    this.setFooterOn({ footerOn: false });
+  },
+  methods: {
+    ...mapActions('frameSet', ['setHeaderOn', 'setAsideOn', 'setFooterOn']),
+  },
+};
+</script>

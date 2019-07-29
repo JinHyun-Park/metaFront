@@ -7,6 +7,7 @@ Vue.use(Router);
 const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
+  scrollBehavior: () => ({ y: 0 }),
   routes: [{
     path: '/',
     name: 'home',
@@ -32,7 +33,12 @@ const router = new Router({
     name: 'eaiReg',
     component: () => import('@/views/ifReg/EaiReg.vue'),
   },
+  {
+    path: '*',
+    redirect: '/',
+  },
   ],
+
 });
 
 router.afterEach((to) => {
