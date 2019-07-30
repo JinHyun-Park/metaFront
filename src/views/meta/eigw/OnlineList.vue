@@ -139,7 +139,6 @@
           </ul>
         </div>
       </div>
-      </h5>
     </section>
 
     <section class="form_area border_group">

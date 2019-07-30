@@ -11,4 +11,5 @@ export default {
     type: Boolean,
     default: true,
   },
+  loginPageOn: false,
 };

@@ -1,11 +1,16 @@
 <template>
   <div id="app">
-    <Header v-if="headerOn" />
-    <article class="contents">
-      <Aside v-if="asideOn" />
+    <div v-if="loginPageOn === 'true'">
       <router-view />
-    </article>
-    <Footer v-if="footerOn" />
+    </div>
+    <div v-else>
+      <Header v-if="headerOn" />
+      <article class="contents">
+        <Aside v-if="asideOn" />
+        <router-view />
+      </article>
+      <Footer v-if="footerOn" />
+    </div>
   </div>
 </template>
 
@@ -25,7 +30,11 @@ export default {
     };
   },
   computed: {
-    ...mapState('frameSet', ['headerOn', 'asideOn', 'footerOn']),
+    ...mapState('frameSet', ['headerOn', 'asideOn', 'footerOn', 'loginPageOn']),
+  },
+  created() {
+    console.log(typeof this.loginPageOn);
+    console.log(this.loginPageOn);
   },
 };
 </script>
