@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div v-if="loginPageOn === 'true'">
+    <div v-if="loginPageOn">
       <router-view />
     </div>
     <div v-else>
@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 import Header from '@/views/Layout/Header.vue';
 import Footer from '@/views/Layout/Footer.vue';
 import Aside from '@/views/Layout/Aside.vue';
@@ -35,6 +35,13 @@ export default {
   created() {
     console.log(typeof this.loginPageOn);
     console.log(this.loginPageOn);
+    // this.setLoginPageOn({ loginPageOn: true });
+    // console.log('야야야');
+    // console.log(typeof this.loginPageOn);
+    // console.log(this.loginPageOn);
+  },
+  methods: {
+    ...mapActions('frameSet', ['setLoginPageOn']),
   },
 };
 </script>

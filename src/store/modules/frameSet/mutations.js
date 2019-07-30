@@ -8,4 +8,7 @@ export default {
   setFooterOn: (state, payload) => {
     state.footerOn = payload.footerOn;
   },
+  setLoginPageOn: (state, payload) => {
+    state.loginPageOn = payload.loginPageOn;
+  },
 };

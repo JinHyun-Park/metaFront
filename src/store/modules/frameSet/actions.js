@@ -8,4 +8,7 @@ export default {
   setFooterOn: (store, payload) => {
     store.commit('setFooterOn', payload);
   },
+  setLoginPageOn: (store, payload) => {
+    store.commit('setLoginPageOn', payload);
+  },
 };
