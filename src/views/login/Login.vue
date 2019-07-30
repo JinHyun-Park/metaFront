@@ -2,7 +2,7 @@
   <div class="contents index">
     <article class="login_contn">
       <section class="title style-2">
-        <h2><i class="ico-bar" />META  PORTAL  WORLD</h2>
+        <h2><i class="ico-bar" />META  PORTAL</h2>
       </section>
       <section class="login form_area border_group">
         <div class="row_contain type-1">

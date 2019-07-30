@@ -26,7 +26,7 @@ const router = new Router({
   {
     path: '/meta/mcg/dtlList',
     name: 'mcgDtlList',
-    component: () => import('@/views/meta/mcg/dtlList.vue'),
+    component: () => import('@/views/meta/mcg/DtlList.vue'),
   },
   {
     path: '/ifReg/eaiReg',
