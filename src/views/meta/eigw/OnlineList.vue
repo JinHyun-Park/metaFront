@@ -9,26 +9,26 @@
           <span>EGIW</span><em class="on">EAI</em>
         </div>
       </h2>
-      <div class="right_button_area">
-        <button
-          type="button"
-          class="default_button"
-        >
-          추가
-        </button>
-        <button
-          type="button"
-          class="default_button on"
-        >
-          검색
-        </button>
-      </div>
     </section>
     <section class="form_area border_group">
-      <h5 class="s_tit">
+      <h5 class="s_tit type-2">
         기본 정보
+        <div class="right_button_area">
+          <button
+            type="button"
+            class="default_button"
+          >
+            추가
+          </button>
+          <button
+            type="button"
+            class="default_button on"
+          >
+            검색
+          </button>
+        </div>
       </h5>
-      <div class="row_contain">
+      <div class="row_contain except">
         <div class="column on w-1">
           <label class="column_label">EIGW구분</label>
           <input
@@ -72,76 +72,74 @@
           >
         </div>
       </div>
-    </section>
 
-    <section class="table_grid border_group">
-      <div class="table_head w-auto">
-        <h5 class="s_tit">
-          기본 정보
-        </h5>
-        <ul>
-          <li class="th_cell">
-            EIGW구분<i class="ico-sort-down" />
-          </li>
-          <li class="th_cell">
-            I/F ID<i class="ico-sort-up" />
-          </li>
-          <li class="th_cell">
-            프로그램/설정파일<i class="ico-sort-down" />
-          </li>
-          <li class="th_cell">
-            대외기관<i class="ico-sort-down" />
-          </li>
-          <li class="th_cell">
-            IP/PORT<i class="ico-sort-down" />
-          </li>
-          <li class="th_cell">
-            담당자정보<i class="ico-sort-up" />
-          </li>
-        </ul>
+      <div class="table_grid">
+        <div class="table_head w-auto">
+          <ul>
+            <li class="th_cell">
+              EIGW구분<i class="ico-sort-down" />
+            </li>
+            <li class="th_cell">
+              I/F ID<i class="ico-sort-up" />
+            </li>
+            <li class="th_cell">
+              프로그램/설정파일<i class="ico-sort-down" />
+            </li>
+            <li class="th_cell">
+              대외기관<i class="ico-sort-down" />
+            </li>
+            <li class="th_cell">
+              IP/PORT<i class="ico-sort-down" />
+            </li>
+            <li class="th_cell">
+              담당자정보<i class="ico-sort-up" />
+            </li>
+          </ul>
+        </div>
+        <div class="table_body">
+          <ul class="table_row w-auto">
+            <li class="td_cell">
+              2 documents
+            </li>
+            <li class="td_cell">
+              2 documents
+            </li>
+            <li class="td_cell">
+              2 documents
+            </li>
+            <li class="td_cell">
+              2 documents
+            </li>
+            <li class="td_cell">
+              2 documents
+            </li>
+            <li class="td_cell">
+              2 documents
+            </li>
+          </ul>
+          <ul class="table_row w-auto">
+            <li class="td_cell">
+              q sign
+            </li>
+            <li class="td_cell">
+              q sign
+            </li>
+            <li class="td_cell">
+              q sign
+            </li>
+            <li class="td_cell">
+              q sign
+            </li>
+            <li class="td_cell">
+              q sign
+            </li>
+            <li class="td_cell">
+              q sign
+            </li>
+          </ul>
+        </div>
       </div>
-      <div class="table_body">
-        <ul class="table_row w-auto">
-          <li class="td_cell">
-            2 documents
-          </li>
-          <li class="td_cell">
-            2 documents
-          </li>
-          <li class="td_cell">
-            2 documents
-          </li>
-          <li class="td_cell">
-            2 documents
-          </li>
-          <li class="td_cell">
-            2 documents
-          </li>
-          <li class="td_cell">
-            2 documents
-          </li>
-        </ul>
-        <ul class="table_row w-auto">
-          <li class="td_cell">
-            q sign
-          </li>
-          <li class="td_cell">
-            q sign
-          </li>
-          <li class="td_cell">
-            q sign
-          </li>
-          <li class="td_cell">
-            q sign
-          </li>
-          <li class="td_cell">
-            q sign
-          </li>
-          <li class="td_cell">
-            q sign
-          </li>
-        </ul>
-      </div>
+      </h5>
     </section>
 
     <section class="form_area border_group">
@@ -279,6 +277,7 @@
             value=""
           >
         </div>
+        <div class="column w-4" />
       </div>
     </section>
 
@@ -400,22 +399,23 @@
         비고
       </h5>
       <div class="row_contain">
-        <div class="column w-5">
-          <input
-            type="text"
-            value=""
-          >
-        </div>
-        <div class="column w-1" />
-        <div class="column w-1">
-          <button
-            type="button"
-            class="default_button on"
-          >
-            수정
-          </button>
+        <div class="column w-6">
+          <textarea
+            cols="50"
+            rows="5"
+            placeholder="비고란 입니다."
+          />
         </div>
       </div>
+    </section>
+
+    <section class="btm_button_area">
+      <button
+        type="button"
+        class="default_button on"
+      >
+        수정
+      </button>
     </section>
   </div>
 </template>

@@ -85,4 +85,6 @@ export default {
 </script>
 
 <style scoped>
+.contents {justify-content:center;}
+html {align-content:center}
 </style>
