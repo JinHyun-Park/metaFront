@@ -305,7 +305,7 @@
         </ul>
       </div>
       <div class="table_body">
-        <ul class="table_row w-auto except">
+        <ul class="table_row form_type except w-auto">
           <li class="td_cell on">
             <div class="select_group">
               <select>
@@ -349,7 +349,7 @@
             <i class="ico-edit" /><i class="ico-del" />
           </li>
         </ul>
-        <ul class="table_row w-auto except">
+        <ul class="table_row form_type except w-auto">
           <li class="td_cell">
             <div class="select_group">
               <select>

@@ -9,228 +9,229 @@
           <span>EGIW</span><em class="on">EAI</em>
         </div>
       </h2>
-      <div class="right_button_area">
-        <button
-          type="button"
-          class="default_button"
-        >
-          추가
-        </button>
-        <button
-          type="button"
-          class="default_button on"
-        >
-          검색
-        </button>
-      </div>
     </section>
 
-    <section class="add_info">
-      <input
-        type="text"
-        class="add_text on"
-        value="채널 업무 담당조회 추가"
-      >
-      <input
-        type="text"
-        class="add_text"
-        value="채널양식 업무 담당추가"
-      >
-      <input
-        type="text"
-        class="add_text"
-        value="채널양식 업무 담당코드"
-      >
-      <input
-        type="text"
-        class="add_text"
-        value="채널 업무 담당 조회추가"
-      >
-      <input
-        type="text"
-        class="add_text"
-        value="채널 연동 담당 ID추가2"
-      >
-      <input
-        type="text"
-        class="add_text"
-        value="채널 ID 조회 담당추가 2"
-      >
-      <input
-        type="text"
-        class="add_text"
-        value="채널 대표 업무 담당추가"
-      >
-      <input
-        type="text"
-        class="add_text"
-        value="채널 대표 업무 조회추가"
-      >
-    </section>
-
-    <section class="table_grid border_group">
-      <div class="table_head">
-        <h5 class="s_tit">
-          기본 정보
-        </h5>
-        <ul>
-          <li class="th_cell">
-            업무코드<i class="ico-sort-down" />
-          </li>
-          <li class="th_cell">
-            기관코드<i class="ico-sort-up" />
-          </li>
-          <li class="th_cell">
-            채널그룹<i class="ico-sort-down" />
-          </li>
-          <li class="th_cell">
-            채널양식<i class="ico-sort-down" />
-          </li>
-          <li class="th_cell">
-            연동방식<i class="ico-sort-down" />
-          </li>
-          <li class="th_cell">
-            채널ID<i class="ico-sort-up" />
-          </li>
-          <li class="th_cell">
-            채널명<i class="ico-sort-up" />
-          </li>
-          <li class="th_cell">
-            대표담당자<i class="ico-sort-down" />
-          </li>
-        </ul>
+    <section class="border_group">
+      <h5 class="s_tit type-2">
+        기본 정보
+        <div class="right_button_area">
+          <button
+            type="button"
+            class="default_button"
+          >
+            추가
+          </button>
+          <button
+            type="button"
+            class="default_button on"
+          >
+            검색
+          </button>
+        </div>
+      </h5>
+      <div class="add_info">
+        <input
+          type="text"
+          class="add_text on"
+          value="채널 업무 담당조회추가"
+        >
+        <input
+          type="text"
+          class="add_text"
+          value="채널양식 업무 담당추가"
+        >
+        <input
+          type="text"
+          class="add_text"
+          value="채널양식 업무 담당코드"
+        >
+        <input
+          type="text"
+          class="add_text"
+          value="채널 업무 담당 조회추가"
+        >
+        <input
+          type="text"
+          class="add_text"
+          value="채널 연동 담당 ID추가"
+        >
+        <input
+          type="text"
+          class="add_text"
+          value="채널 ID 조회 담당추가"
+        >
+        <input
+          type="text"
+          class="add_text"
+          value="채널 대표 업무 담당추가"
+        >
+        <input
+          type="text"
+          class="add_text"
+          value="채널 대표 업무 조회추가"
+        >
       </div>
-      <div class="table_body">
-        <ul class="table_row">
-          <li class="td_cell">
-            2 documents
-          </li>
-          <li class="td_cell">
-            2 documents
-          </li>
-          <li class="td_cell">
-            2 documents
-          </li>
-          <li class="td_cell">
-            2 documents
-          </li>
-          <li class="td_cell">
-            2 documents
-          </li>
-          <li class="td_cell">
-            2 documents
-          </li>
-          <li class="td_cell">
-            2 documents
-          </li>
-          <li class="td_cell">
-            2 documents
-          </li>
-        </ul>
-        <ul class="table_row">
-          <li class="td_cell">
-            q sign
-          </li>
-          <li class="td_cell">
-            q sign
-          </li>
-          <li class="td_cell">
-            q sign
-          </li>
-          <li class="td_cell">
-            q sign
-          </li>
-          <li class="td_cell">
-            q sign
-          </li>
-          <li class="td_cell">
-            q sign
-          </li>
-          <li class="td_cell">
-            q sign
-          </li>
-          <li class="td_cell">
-            q sign
-          </li>
-        </ul>
-        <ul class="table_row">
-          <li class="td_cell">
-            q sign
-          </li>
-          <li class="td_cell">
-            q sign
-          </li>
-          <li class="td_cell">
-            q sign
-          </li>
-          <li class="td_cell">
-            q sign
-          </li>
-          <li class="td_cell">
-            q sign
-          </li>
-          <li class="td_cell">
-            q sign
-          </li>
-          <li class="td_cell">
-            q sign
-          </li>
-          <li class="td_cell">
-            q sign
-          </li>
-        </ul>
-        <ul class="table_row">
-          <li class="td_cell">
-            2 documents
-          </li>
-          <li class="td_cell">
-            2 documents
-          </li>
-          <li class="td_cell">
-            2 documents
-          </li>
-          <li class="td_cell">
-            2 documents
-          </li>
-          <li class="td_cell">
-            2 documents
-          </li>
-          <li class="td_cell">
-            2 documents
-          </li>
-          <li class="td_cell">
-            2 documents
-          </li>
-          <li class="td_cell">
-            2 documents
-          </li>
-        </ul>
-        <ul class="table_row">
-          <li class="td_cell">
-            2 documents
-          </li>
-          <li class="td_cell">
-            2 documents
-          </li>
-          <li class="td_cell">
-            2 documents
-          </li>
-          <li class="td_cell">
-            2 documents
-          </li>
-          <li class="td_cell">
-            2 documents
-          </li>
-          <li class="td_cell">
-            2 documents
-          </li>
-          <li class="td_cell">
-            2 documents
-          </li>
-          <li class="td_cell">
-            2 documents
-          </li>
-        </ul>
+      <div class="table_grid">
+        <div class="table_head">
+          <ul>
+            <li class="th_cell">
+              업무코드<i class="ico-sort-down" />
+            </li>
+            <li class="th_cell">
+              기관코드<i class="ico-sort-up" />
+            </li>
+            <li class="th_cell">
+              채널그룹<i class="ico-sort-down" />
+            </li>
+            <li class="th_cell">
+              채널양식<i class="ico-sort-down" />
+            </li>
+            <li class="th_cell">
+              연동방식<i class="ico-sort-down" />
+            </li>
+            <li class="th_cell">
+              채널ID<i class="ico-sort-up" />
+            </li>
+            <li class="th_cell">
+              채널명<i class="ico-sort-up" />
+            </li>
+            <li class="th_cell">
+              대표담당자<i class="ico-sort-down" />
+            </li>
+          </ul>
+        </div>
+        <div class="table_body">
+          <ul class="table_row">
+            <li class="td_cell">
+              2 documents
+            </li>
+            <li class="td_cell">
+              2 documents
+            </li>
+            <li class="td_cell">
+              2 documents
+            </li>
+            <li class="td_cell">
+              2 documents
+            </li>
+            <li class="td_cell">
+              2 documents
+            </li>
+            <li class="td_cell">
+              2 documents
+            </li>
+            <li class="td_cell">
+              2 documents
+            </li>
+            <li class="td_cell">
+              2 documents
+            </li>
+          </ul>
+          <ul class="table_row">
+            <li class="td_cell">
+              q sign
+            </li>
+            <li class="td_cell">
+              q sign
+            </li>
+            <li class="td_cell">
+              q sign
+            </li>
+            <li class="td_cell">
+              q sign
+            </li>
+            <li class="td_cell">
+              q sign
+            </li>
+            <li class="td_cell">
+              q sign
+            </li>
+            <li class="td_cell">
+              q sign
+            </li>
+            <li class="td_cell">
+              q sign
+            </li>
+          </ul>
+          <ul class="table_row">
+            <li class="td_cell">
+              q sign
+            </li>
+            <li class="td_cell">
+              q sign
+            </li>
+            <li class="td_cell">
+              q sign
+            </li>
+            <li class="td_cell">
+              q sign
+            </li>
+            <li class="td_cell">
+              q sign
+            </li>
+            <li class="td_cell">
+              q sign
+            </li>
+            <li class="td_cell">
+              q sign
+            </li>
+            <li class="td_cell">
+              q sign
+            </li>
+          </ul>
+          <ul class="table_row">
+            <li class="td_cell">
+              2 documents
+            </li>
+            <li class="td_cell">
+              2 documents
+            </li>
+            <li class="td_cell">
+              2 documents
+            </li>
+            <li class="td_cell">
+              2 documents
+            </li>
+            <li class="td_cell">
+              2 documents
+            </li>
+            <li class="td_cell">
+              2 documents
+            </li>
+            <li class="td_cell">
+              2 documents
+            </li>
+            <li class="td_cell">
+              2 documents
+            </li>
+          </ul>
+          <ul class="table_row">
+            <li class="td_cell">
+              2 documents
+            </li>
+            <li class="td_cell">
+              2 documents
+            </li>
+            <li class="td_cell">
+              2 documents
+            </li>
+            <li class="td_cell">
+              2 documents
+            </li>
+            <li class="td_cell">
+              2 documents
+            </li>
+            <li class="td_cell">
+              2 documents
+            </li>
+            <li class="td_cell">
+              2 documents
+            </li>
+            <li class="td_cell">
+              2 documents
+            </li>
+          </ul>
+        </div>
       </div>
     </section>
 

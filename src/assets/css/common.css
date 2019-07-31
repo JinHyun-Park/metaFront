@@ -671,7 +671,7 @@ aside .lnb li:hover {
 
 .add_info input[type=text].add_text {
     margin-right: 4px;
-    padding: 7px 5px 7px 8px;
+    padding: 7px 4px 7px 6px;
     width: 12.5%;
     height: 30px;
     font-size: 13px;
@@ -734,7 +734,8 @@ aside .lnb li:hover {
 
 .contents .form_area h5.s_tit,
 .contents .grid_form h5.s_tit,
-.contents .table_grid h5.s_tit {
+.contents .table_grid h5.s_tit,
+.contents .border_group h5.s_tit {
     flex-direction: row;
     justify-items: flex-start;
     align-items: center;
@@ -749,13 +750,16 @@ aside .lnb li:hover {
 
 .contents .form_area h5.s_tit.type-2,
 .contents .grid_form h5.s_tit.type-2,
-.contents .table_grid h5.s_tit.type-2 {
+.contents .table_grid h5.s_tit.type-2,
+.contents .border_group h5.s_tit.type-2 {
     justify-content: space-between;
+    padding-bottom: 28px
 }
 
 .contents .form_area h5.s_tit .right_button_area,
 .contents .grid_form h5.s_tit .right_button_area,
-.contents .table_grid h5.s_tit .right_button_area {
+.contents .table_grid h5.s_tit .right_button_area,
+.contents .border_group h5.s_tit .right_button_area {
     width: auto
 }
 
@@ -789,7 +793,8 @@ aside .lnb li:hover {
 
 .contents .form_area h5.s_tit:before,
 .contents .grid_form h5.s_tit:before,
-.contents .table_grid h5.s_tit:before {
+.contents .table_grid h5.s_tit:before,
+.contents .border_group h5.s_tit:before {
     content: '';
     position: absolute;
     top: -5px;
@@ -801,7 +806,8 @@ aside .lnb li:hover {
 
 .contents .form_area h5.s_tit.type-2:before,
 .contents .grid_form h5.s_tit.type-2:before,
-.contents .table_grid h5.s_tit.type-2:before {
+.contents .table_grid h5.s_tit.type-2:before,
+.contents .border_group h5.s_tit.type-2:before {
     top: 3px
 }
 
@@ -1340,8 +1346,8 @@ colgroup {
 }
 
 .table_grid .table_row.form_type .td_cell {
-    padding: 14px 10px;
-    height: 42px
+    padding: 14px 10px 0;
+    box-sizing: content-box
 }
 
 .table_grid .table_row.w-auto .td_cell {
@@ -1471,7 +1477,8 @@ colgroup {
     background: #c46979
 }
 
-.contents .form_area .default_button {
+.contents .form_area .default_button,
+.contents .border_group .default_button {
     width: 120px;
     height: 35px;
     font-size: 13px
