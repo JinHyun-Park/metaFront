@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Home from './views/Home.vue';
+import helpers from '@/utils/helpers';
 
 Vue.use(Router);
 
@@ -42,7 +43,10 @@ const router = new Router({
 });
 
 router.afterEach((to) => {
+  console.log('rotuer 진입');
   localStorage.setItem('LS_ROUTE_KEY', to.name);
+
+  helpers.setFrame(to.name);
 });
 
 export default router;
