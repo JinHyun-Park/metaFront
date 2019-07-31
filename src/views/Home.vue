@@ -28,3 +28,7 @@ export default {
   },
 };
 </script>
+
+<style>
+html {align-content:flex-start}
+</style>
