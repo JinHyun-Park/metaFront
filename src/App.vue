@@ -35,7 +35,7 @@ export default {
   created() {
     console.log(typeof this.loginPageOn);
     console.log(this.loginPageOn);
-    // this.setLoginPageOn({ loginPageOn: true });
+    this.setLoginPageOn({ loginPageOn: false });
     // console.log('야야야');
     // console.log(typeof this.loginPageOn);
     // console.log(this.loginPageOn);
