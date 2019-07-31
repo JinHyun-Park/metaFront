@@ -26,7 +26,7 @@
           </div>
         </div>
       </section>
-      <section class="btm_button_area">
+      <section class="btm_button_area log">
         <button
           type="button"
           class="default_button on"
@@ -36,7 +36,7 @@
         </button>
         <button
           type="button"
-          class="default_button"
+          class="default_button sign"
         >
           SIGN UP
         </button>
@@ -86,6 +86,6 @@ export default {
 </script>
 
 <style>
-.contents {justify-content:center;}
+.contents {justify-content:center}
 html {align-content:center}
 </style>
