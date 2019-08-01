@@ -21,6 +21,7 @@ const helpers = {
   /**
      * 화면 이동, 새로 고침 등을 하면서 헤더, 좌측 nav 등 세팅 용도
      * @param {*} page
+     * @return 없음
      */
   setFrame(page) {
     if (page === 'login') { // 로그인 페이지 - 헤더, left side 없음
