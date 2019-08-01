@@ -8,6 +8,7 @@
       <article class="contents">
         <Aside v-if="asideOn" />
         <router-view />
+        <RightSide v-if="asideOn" />
       </article>
       <Footer v-if="footerOn" />
     </div>
@@ -19,11 +20,12 @@ import { mapState, mapActions } from 'vuex';
 import Header from '@/views/Layout/Header.vue';
 import Footer from '@/views/Layout/Footer.vue';
 import Aside from '@/views/Layout/Aside.vue';
+import RightSide from '@/views/Layout/RightSide.vue';
 
 export default {
   name: 'App',
   components: {
-    Header, Footer, Aside,
+    Header, Footer, Aside, RightSide,
   },
   data() {
     return {
@@ -33,8 +35,8 @@ export default {
     ...mapState('frameSet', ['headerOn', 'asideOn', 'footerOn', 'loginPageOn']),
   },
   mounted() {
-    console.log(typeof this.loginPageOn);
-    console.log(this.loginPageOn);
+    // console.log(typeof this.loginPageOn);
+    // console.log(this.loginPageOn);
     // this.setLoginPageOn({ loginPageOn: false });
     // console.log('야야야');
     // console.log(typeof this.loginPageOn);
