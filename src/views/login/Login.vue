@@ -76,9 +76,6 @@ export default {
         .catch((ex) => {
           console.log(`error occur!! : ${ex}`);
         });
-      // this.setHeaderOn({ headerOn: true });
-      // this.setAsideOn({ asideOn: true });
-      // this.setFooterOn({ footerOn: true });
       this.$router.push({ name: 'home' });
     },
   },
