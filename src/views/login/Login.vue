@@ -84,8 +84,3 @@ export default {
   },
 };
 </script>
-
-<style>
-.contents {justify-content:center}
-html {align-content:center}
-</style>
