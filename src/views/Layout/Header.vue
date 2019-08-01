@@ -119,11 +119,11 @@ export default {
     movePage(page) {
     //   console.log(helpers.isEmpty('1'));
     //   console.log(helpers.isEmpty2(''));
-      if (page !== 'login') {
-        this.setHeaderOn({ headerOn: true });
-        this.setAsideOn({ asideOn: true });
-        this.setFooterOn({ footerOn: true });
-      }
+      // if (page !== 'login') {
+      //   this.setHeaderOn({ headerOn: true });
+      //   this.setAsideOn({ asideOn: true });
+      //   this.setFooterOn({ footerOn: true });
+      // }
       this.activeItem = page;
       // this.setActiveLi({ activeLi: page });
       this.$router.push({ name: page });
@@ -132,6 +132,6 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .inH1 {cursor: pointer; color: white;}
 </style>

@@ -1,4 +1,7 @@
 const common = {
+  created() {
+
+  },
   methods: {
     gf_isEmpty(value) {
       console.log('isEmpty 진입!');

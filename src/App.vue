@@ -32,10 +32,10 @@ export default {
   computed: {
     ...mapState('frameSet', ['headerOn', 'asideOn', 'footerOn', 'loginPageOn']),
   },
-  created() {
+  mounted() {
     console.log(typeof this.loginPageOn);
     console.log(this.loginPageOn);
-    this.setLoginPageOn({ loginPageOn: false });
+    // this.setLoginPageOn({ loginPageOn: false });
     // console.log('야야야');
     // console.log(typeof this.loginPageOn);
     // console.log(this.loginPageOn);

@@ -60,12 +60,13 @@ export default {
     };
   },
   created() {
-    this.setHeaderOn({ headerOn: false });
-    this.setAsideOn({ asideOn: false });
-    this.setFooterOn({ footerOn: false });
+    // this.setHeaderOn({ headerOn: false });
+    // this.setAsideOn({ asideOn: false });
+    // this.setFooterOn({ footerOn: false });
+    // this.setLoginPageOn({ loginPageOn: true });
   },
   methods: {
-    ...mapActions('frameSet', ['setHeaderOn', 'setAsideOn', 'setFooterOn']),
+    ...mapActions('frameSet', ['setHeaderOn', 'setAsideOn', 'setFooterOn', 'setLoginPageOn']),
     login() {
       console.log('로그인 시도!');
       this.$axios.post('http://127.0.0.1/3000/auth/login', { id: this.user_id, pwd: this.user_pw })
@@ -75,9 +76,9 @@ export default {
         .catch((ex) => {
           console.log(`error occur!! : ${ex}`);
         });
-      this.setHeaderOn({ headerOn: true });
-      this.setAsideOn({ asideOn: true });
-      this.setFooterOn({ footerOn: true });
+      // this.setHeaderOn({ headerOn: true });
+      // this.setAsideOn({ asideOn: true });
+      // this.setFooterOn({ footerOn: true });
       this.$router.push({ name: 'home' });
     },
   },
