@@ -42,8 +42,8 @@
         </button>
       </section>
       <section class="help">
-        <em class="notice">forgot password</em>
-        <i class="ico-help" />
+        <em class="notice">Reset password<i class="ico-reset" /></em>
+        <em class="notice">forgot password<i class="ico-help" /></em>
       </section>
     </article>
   </div>
