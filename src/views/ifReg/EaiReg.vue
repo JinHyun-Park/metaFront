@@ -558,7 +558,3 @@
     </section>
   </div>
 </template>
-
-<style>
-article {justify-content: flex-start}
-</style>

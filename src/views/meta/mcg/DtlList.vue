@@ -386,7 +386,3 @@
 
 <script>
 </script>
-
-<style>
-article {justify-content: flex-start}
-</style>
