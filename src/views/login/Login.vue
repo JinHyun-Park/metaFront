@@ -69,7 +69,7 @@ export default {
     ...mapActions('frameSet', ['setHeaderOn', 'setAsideOn', 'setFooterOn', 'setLoginPageOn']),
     login() {
       console.log('로그인 시도!');
-      this.$axios.post('http://127.0.0.1/3000/auth/login', { id: this.user_id, pwd: this.user_pw })
+      this.$axios.post('/api/auth/login', { id: this.user_id, pwd: this.user_pw })
         .then((res) => {
           console.log(res);
         })
