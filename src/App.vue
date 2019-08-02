@@ -8,8 +8,7 @@
       <article class="contents">
         <Aside v-if="asideOn" />
         <router-view />
-        <RightSide v-if="asideOn" />
-      </article>
+</article>
       <Footer v-if="footerOn" />
     </div>
   </div>

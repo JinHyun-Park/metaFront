@@ -75,7 +75,7 @@ section {
 }
 
 article {
-    justify-content: space-around;
+    justify-content: flex-start;
     align-content: flex-start;
     flex-direction: row;
     padding: 0;

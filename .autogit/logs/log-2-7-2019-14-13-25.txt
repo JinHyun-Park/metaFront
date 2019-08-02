@@ -1,0 +1,15 @@
+-------------------- Auto-Git Log --------------------
+		Fri Aug 02 2019 14:13:25 GMT+0900 (한국 표준시)
+------------------------------------------------------
+
+Modified files:
+
+
+Created files:
+* .autogit/logs/log-2-7-2019-13-43-20.txt
+
+
+Deleted files:
+
+
+Renamed files:
