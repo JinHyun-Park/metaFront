@@ -28,7 +28,7 @@
       <h5 class="s_tit">
         기본 정보
       </h5>
-      <div class="row_contain type-2">
+      <div class="row_contain">
         <div class="column on w-2">
           <label class="column_label">인터페이스 ID</label>
           <input
@@ -44,8 +44,8 @@
           >
         </div>
       </div>
-      <div class="row_contain type-2">
-        <div class="column w-2">
+      <div class="row_contain">
+        <div class="column w-1">
           <label class="column_label">유형</label>
           <div class="select_group">
             <select>
@@ -62,7 +62,7 @@
             <span class="select" />
           </div>
         </div>
-        <div class="column on w-2">
+        <div class="column on w-1">
           <label class="column_label">HUB</label>
           <div class="select_group">
             <select>
@@ -85,7 +85,7 @@
             <span class="select" />
           </div>
         </div>
-        <div class="column w-2">
+        <div class="column w-1">
           <label class="column_label">방향</label>
           <div class="select_group">
             <select>
@@ -102,7 +102,7 @@
             <span class="select" />
           </div>
         </div>
-        <div class="column w-2">
+        <div class="column w-1">
           <label class="column_label">브로커</label>
           <div class="select_group">
             <select>
@@ -119,7 +119,7 @@
             <span class="select" />
           </div>
         </div>
-        <div class="column w-2">
+        <div class="column w-1">
           <label class="column_label">사용여부</label>
           <div class="select_group disabled">
             <select disabled>
@@ -136,13 +136,14 @@
             <span class="select" />
           </div>
         </div>
+        <div class="column w-1" />
       </div>
     </section>
     <section class="form_area border_group">
       <h5 class="s_tit">
         DB / Program
       </h5>
-      <div class="row_contain type-2">
+      <div class="row_contain">
         <div class="column on w-3">
           <label class="column_label">송신 I/F DB</label>
           <div class="search_group">
@@ -168,7 +169,7 @@
           </div>
         </div>
       </div>
-      <div class="row_contain type-2">
+      <div class="row_contain">
         <div class="column w-2">
           <label class="column_label">수신전문처리</label>
           <div class="select_group">
@@ -203,7 +204,7 @@
       <h5 class="s_tit">
         File 연동
       </h5>
-      <div class="row_contain type-2">
+      <div class="row_contain">
         <div class="column w-2">
           <label class="column_label">파일 전송 유형</label>
           <div class="select_group">
@@ -241,7 +242,7 @@
       <h5 class="s_tit">
         담당자 정보
       </h5>
-      <div class="row_contain type-2">
+      <div class="row_contain">
         <div class="column w-2">
           <label class="column_label">송신 담당자1</label>
           <div class="search_group">
@@ -290,7 +291,7 @@
           </div>
         </div>
       </div>
-      <div class="row_contain type-2">
+      <div class="row_contain">
         <div class="column w-2">
           <label class="column_label">수신 담당자1</label>
           <div class="search_group">
@@ -347,7 +348,6 @@
       </h5>
       <div class="division_row">
         <div>
-          <!--                    <i class="bg-left"></i>-->
           <label class="column_label">요청 송신 Q</label>
           <div class="search_group">
             <input
@@ -434,7 +434,6 @@
           >
         </div>
         <div>
-          <!--                    <i class="bg-left"></i>-->
           <label class="column_label">요청 송신 Q</label>
           <div class="search_group">
             <input

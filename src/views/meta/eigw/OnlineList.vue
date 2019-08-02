@@ -145,29 +145,29 @@
       <h5 class="s_tit">
         서버 &amp; 접속정보
       </h5>
-      <div class="row_contain">
-        <div class="column on w-2">
+      <div class="row_contain type-2">
+        <div class="column on w-1">
           <label class="column_label">I/F ID &amp; 명</label>
           <input
             type="text"
             value="OPGROUP"
           >
         </div>
-        <div class="column w-2">
+        <div class="column w-1">
           <label class="column_label">&nbsp;</label>
           <input
             type="text"
             value=""
           >
         </div>
-        <div class="column w-2">
+        <div class="column w-1">
           <label class="column_label">대외기관</label>
           <input
             type="text"
             value=""
           >
         </div>
-        <div class="column w-2">
+        <div class="column w-1">
           <label class="column_label">EIGW구분</label>
           <input
             type="text"

@@ -287,6 +287,7 @@
             <span class="select" />
           </div>
         </div>
+        <div class="column w-1" />
       </div>
       <div class="row_contain">
         <div class="column on w-1">
@@ -344,9 +345,70 @@
             <span class="select" />
           </div>
         </div>
+        <div class="column w-1" />
+      </div>
+      <div class="row_contain type-3">
+        <div class="column w-1">
+          <label class="column_label">개발기 IP</label>
+          <input
+            type="text"
+            value="10.10.4.10"
+          >
+        </div>
+        <div class="column w-1">
+          <label class="column_label">개발기 Port</label>
+          <input
+            type="text"
+            value="8080"
+          >
+        </div>
+        <div class="column w-1">
+          <label class="column_label">Backup 개발기 IP</label>
+          <input
+            type="text"
+            value="10.10.4.10"
+          >
+        </div>
+        <div class="column w-1">
+          <label class="column_label">Backup 개발기 Port</label>
+          <input
+            type="text"
+            value="8080"
+          >
+        </div>
+      </div>
+      <div class="row_contain type-3">
+        <div class="column w-1">
+          <label class="column_label">운영기 IP</label>
+          <input
+            type="text"
+            value="10.10.4.10"
+          >
+        </div>
+        <div class="column w-1">
+          <label class="column_label">운영기 Port</label>
+          <input
+            type="text"
+            value="8080"
+          >
+        </div>
+        <div class="column w-1">
+          <label class="column_label">Backup 운영기 IP</label>
+          <input
+            type="text"
+            value="10.10.4.10"
+          >
+        </div>
+        <div class="column w-1">
+          <label class="column_label">Backup 운영기 Port</label>
+          <input
+            type="text"
+            value="8080"
+          >
+        </div>
       </div>
       <div class="row_contain">
-        <div class="column w-5">
+        <div class="column w-6">
           <label class="column_label">비고</label>
           <input
             type="text"
