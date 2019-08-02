@@ -92,7 +92,6 @@ aside {
     padding-top: 17px;
     padding-left: 20px;
     width: 260px;
-    /* min-height: 100%; */
     background: #fefefe;
     border-radius: 0 10px 0 0;
     box-shadow: 1px 1px 4px 0 rgba(0, 0, 0, .14)
@@ -371,12 +370,12 @@ nav .menu li .sub_menu li:hover {
     display: flex;
     display: -ms-flexbox;
     flex-direction: column;
-    justify-content: flex-end;
+    justify-content: flex-start;
     align-self: center;
     margin: 0 56px 0 57px;
     padding: 14px 17px 14px 16px;
     width: 270px;
-    height: 450px;
+    height: 100%;
     border-radius: 6px;
     box-sizing: border-box
 }
@@ -709,8 +708,8 @@ aside .lnb li:hover {
 .contents .info_title {
     position: relative;
     padding: 6px 34px 7px 10px;
-    width: 260px;
-    max-width: 39%;
+    width: auto;
+    max-width: 42.5%;
     height: 33px;
     border: 1px solid #D89E92;
     border-radius: 4px 4px 0 0;
@@ -753,7 +752,7 @@ aside .lnb li:hover {
 .add_info input[type=text].add_text {
     margin-right: 4px;
     padding: 7px 4px 7px 6px;
-    width: 12.5%;
+    width: 100%;
     height: 30px;
     font-size: 13px;
     color: #bfbfbf;
@@ -895,13 +894,19 @@ aside .lnb li:hover {
 .contents .form_area .row_contain {
     width: 100%;
     margin-bottom: 36px;
-    /* padding: 0;
-    padding-left: 10px; */
     box-sizing: border-box
 }
 
 .contents .form_area .row_contain.except {
     margin-bottom: 36px
+}
+
+.contents .form_area .row_contain.odd .column:nth-last-of-type(2) {
+    padding-right: 0
+}
+
+.contents .form_area .row_contain.odd .column:last-child {
+    padding-left: 23px
 }
 
 .contents .form_area .row_contain:last-child {
@@ -912,25 +917,38 @@ aside .lnb li:hover {
     width: calc(100% - 6.6666%)
 }
 
-.contents .form_area .row_contain.type-1 .column.w-1 {
-    width: 25%
-}
-
-.contents .form_area .row_contain.type-1 .column.w-2 {
-    width: 50%
-}
-
-.contents .form_area .row_contain.type-1 .column.w-3 {
-    width: 75%
-}
-
-.contents .form_area .row_contain.type-1 .column.w-4 {
-    width: 100%
-}
-
 .contents .form_area .row_contain.type-2 {
     width: 100%;
     padding: 0
+}
+
+.contents .form_area .row_contain.type-3 {
+    width: calc(100% - .9666%);
+    padding: 0
+}
+
+.contents .form_area .row_contain.type-1 .column.w-1,
+.contents .form_area .row_contain.type-2 .column.w-1,
+.contents .form_area .row_contain.type-3 .column.w-1 {
+    width: 25%
+}
+
+.contents .form_area .row_contain.type-1 .column.w-2,
+.contents .form_area .row_contain.type-2 .column.w-2,
+.contents .form_area .row_contain.type-3 .column.w-2 {
+    width: 50%
+}
+
+.contents .form_area .row_contain.type-1 .column.w-3,
+.contents .form_area .row_contain.type-2 .column.w-3,
+.contents .form_area .row_contain.type-3 .column.w-3 {
+    width: 75%
+}
+
+.contents .form_area .row_contain.type-1 .column.w-4,
+.contents .form_area .row_contain.type-2 .column.w-4,
+.contents .form_area .row_contain.type-3 .column.w-4 {
+    width: 100%
 }
 
 .contents .form_area .row_contain .column.w-1 {
@@ -970,6 +988,84 @@ aside .lnb li:hover {
     padding-right: 0
 }
 
+
+/*RADIO BUTTON*/
+
+.contents .form_area .row_contain .column .radio_group {
+    flex-direction: row;
+    align-items: center;
+    position: relative
+}
+
+.contents .form_area .row_contain .column .radio_group .default_radio {
+    display: flex;
+    display: -ms-flexbox;
+    align-items: center;
+    position: relative;
+    margin-left: 104px;
+    padding-left: 24px;
+    font-size: 14px;
+    color: #555
+}
+
+.contents .form_area .row_contain .column .radio_group .default_radio:first-child {
+    margin-left: 14px
+}
+
+.contents .form_area .row_contain .column .radio_group .default_radio input[type=radio],
+input[type=radio] {
+    display: flex;
+    display: -ms-flexbox;
+    margin: 0;
+    padding: 0;
+}
+
+.contents .form_area .row_contain .column .radio_group .default_radio input[type=radio]:not(old) {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 13px;
+    height: 13px
+}
+
+.contents .form_area .row_contain .column .radio_group .default_radio input[type=radio]+label {
+    display: flex;
+    display: -ms-flexbox;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 14px;
+    height: 14px;
+    border: 1px solid #d9eae0;
+    border-radius: 50%;
+    background: #f9f9f9;
+    z-index: 22
+}
+
+.contents .form_area .row_contain .column .radio_group .default_radio input[type=radio]:checked+label,
+.contents .form_area .row_contain .column .radio_group .default_radio.on input[type=radio]+label {
+    border-width: 2px;
+    border-color: #82BEA3;
+    background: #fff
+}
+
+.contents .form_area .row_contain .column .radio_group .default_radio input[type=radio]+label span {
+    display: flex;
+    display: -ms-flexbox;
+    justify-content: center;
+    width: 8px;
+    height: 8px;
+    background: #ccc;
+    border-radius: 50%
+}
+
+.contents .form_area .row_contain .column .radio_group .default_radio input[type=radio]:checked+label span,
+.contents .form_area .row_contain .column .radio_group .default_radio.on input[type=radio]+label span {
+    background: #82BEA3
+}
+
 .contents .form_area .row_contain .column .column_label {
     padding: 0;
     padding-left: 7px;
@@ -983,6 +1079,8 @@ aside .lnb li:hover {
 input[type=text],
 .contents .form_area .row_contain .column input[type=number],
 input[type=number],
+.contents .form_area .row_contain .column input[type=radio],
+input[type=radio],
 .contents .form_area .row_contain .column input[type=password],
 input[type=password],
 .contents .form_area .row_contain .column select,

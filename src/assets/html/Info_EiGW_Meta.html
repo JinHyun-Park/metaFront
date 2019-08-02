@@ -3,8 +3,8 @@
     <head>
         <meta http-equiv="content-type" content="text/html; charset=utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>EiGW 메타 정보(실시간)</title>
-        <meta name="description" content="EiGW 메타 정보(실시간)입니다.">
+        <title>EiGW 메타 정보</title>
+        <meta name="description" content="EiGW 메타 정보 입니다.">
         <link type="text/css" rel="stylesheet" href="../css/common.css">
         <script type="text/javascript" src="../js/common.js"></script>
     </head>
@@ -80,7 +80,7 @@
                 <section class="title style-1">
                     <h2>
                         <div>
-                            <i class="ico-bar"></i>EiGW 메타 정보(실시간)
+                            <i class="ico-bar"></i>EiGW 메타 정보
                         </div>
                         <div class="breadcrumb">
                             <span>EGIW</span><em class="on">EAI</em>
@@ -90,11 +90,11 @@
                 <section class="form_area border_group">
                     <h5 class="s_tit type-2">기본 정보
                         <div class="right_button_area">    
-                            <button type="button" class="default_button">추가</button>
+                            <button type="button" class="default_button">신규신청</button>
                             <button type="button" class="default_button on">검색</button>
                         </div>
                     </h5>
-                    <div class="row_contain">
+                    <div class="row_contain type-2">
                         <div class="column on w-1">
                             <label class="column_label">EIGW구분</label>
                             <input type="text" value="OPGROUP">
@@ -108,28 +108,36 @@
                             <input type="text" value="OPGROUP">
                         </div>
                         <div class="column w-1">
-                            <label class="column_label">프로그램/설정파일</label>
+                            <label class="column_label">파일명</label>
                             <input type="text" value="channeltype_01">
+                        </div>
+                    </div>
+                    <div class="row_contain type-2">
+                        <div class="column w-1">
+                            <label class="column_label">송수신구분</label>
+                            <input type="text" value="">
+                        </div>
+                        <div class="column w-1">
+                            <label class="column_label">전송주기</label>
+                            <input type="text" value="">
                         </div>
                         <div class="column w-1">
                             <label class="column_label">IP</label>
                             <input type="text" value="">
                         </div>
-                        <div class="column w-1">
-                            <label class="column_label">PORT</label>
-                            <input type="text" value="">
-                        </div>
+                        <div class="column w-1"></div>
                     </div>
                 
                     <div class="table_grid">
                         <div class="table_head w-auto">
                             <ul>
-                                <li class="th_cell">EIGW구분<i class="ico-sort-down"></i></li>
-                                <li class="th_cell">I/F ID<i class="ico-sort-up"></i></li>
-                                <li class="th_cell">프로그램/설정파일<i class="ico-sort-down"></i></li>
+                                <li class="th_cell">파일명<i class="ico-sort-down"></i></li>
                                 <li class="th_cell">대외기관<i class="ico-sort-down"></i></li>
+                                <li class="th_cell">I/F ID<i class="ico-sort-up"></i></li>
+                                <li class="th_cell">송수신<i class="ico-sort-down"></i></li>
+                                <li class="th_cell">전송방식<i class="ico-sort-down"></i></li>
                                 <li class="th_cell">IP/PORT<i class="ico-sort-down"></i></li>
-                                <li class="th_cell">담당자정보<i class="ico-sort-up"></i></li>
+                                <li class="th_cell">변경자(ID)<i class="ico-sort-up"></i></li>
                             </ul>
                         </div>
                         <div class="table_body">
@@ -140,8 +148,10 @@
                                 <li class="td_cell">2 documents</li>
                                 <li class="td_cell">2 documents</li>
                                 <li class="td_cell">2 documents</li>
+                                <li class="td_cell">2 documents</li>
                             </ul>
                             <ul class="table_row w-auto">
+                                <li class="td_cell">q sign</li>
                                 <li class="td_cell">q sign</li>
                                 <li class="td_cell">q sign</li>
                                 <li class="td_cell">q sign</li>
@@ -154,72 +164,307 @@
                 </section>
 
                 <section class="form_area border_group">
-                    <h5 class="s_tit">서버 &amp; 접속정보</h5>
-                    <div class="row_contain">
-                        <div class="column on w-2">
-                            <label class="column_label">I/F ID &amp; 명</label>
+                    <h5 class="s_tit">상세정보</h5>
+                    <div class="row_contain type-2">
+                        <div class="column w-2">
+                            <label class="column_label">전송방식</label>
+                            <div class="radio_group">
+                                <span class="default_radio on">
+                                    <input type="radio" id="radio_1" name="radio_1">(S)FTP<label for="radio_1"><span></span></label>
+                                </span>
+                                <span class="default_radio">
+                                    <input type="radio" id="radio_2" name="radio_1">TCP<label for="radio_2"><span></span></label>
+                                </span>
+                                <span class="default_radio">
+                                    <input type="radio" id="radio_3" name="radio_1">기타<label for="radio_3"><span></span></label>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="column w-1"></div>
+                    </div>
+                    <div class="row_contain type-2">
+                        <div class="column w-1">
+                            <label class="column_label">파일명</label>
                             <input type="text" value="OPGROUP">
                         </div>
-                        <div class="column w-2">
+                        <div class="column w-1">
                             <label class="column_label">&nbsp;</label>
                             <input type="text" value="">
                         </div>
-                        <div class="column w-2">
+                        <div class="column w-1">
+                            <label class="column_label">&nbsp;</label>
+                            <input type="text" value="">
+                        </div>
+                        <div class="column w-1">
                             <label class="column_label">대외기관</label>
                             <input type="text" value="">
                         </div>
-                        <div class="column w-2">
+                    </div>
+                    <div class="row_contain type-2">
+                        <div class="column on w-1">
                             <label class="column_label">EIGW구분</label>
+                            <input type="text" value="OPGROUP">
+                        </div>
+                        <div class="column w-1">
+                            <label class="column_label">송수신구분</label>
+                            <input type="text" value="송신">
+                        </div>
+                        <div class="column w-1">
+                            <label class="column_label">파일설명</label>
+                            <input type="text" value="">
+                        </div>
+                        <div class="column w-1">
+                            <label class="column_label">사용유무</label>
+                            <input type="text" value="Y/N">
+                        </div>
+                    </div>
+                </section>
+                
+                <section class="form_area border_group">
+                    <h5 class="s_tit">SKT_EIGW 정보</h5>
+                    <div class="row_contain type-2">
+                        <div class="column on w-1">
+                            <label class="column_label">I/F ID &amp; 명</label>
+                            <input type="text" value="OPGROUP">
+                        </div>
+                        <div class="column w-1">
+                            <label class="column_label">&nbsp;</label>
+                            <input type="text" value="">
+                        </div>
+                        <div class="column w-1">
+                            <label class="column_label">프로세스ID</label>
+                            <input type="text" value="">
+                        </div>
+                        <div class="column w-1">
+                            <label class="column_label">실행프로그램</label>
                             <input type="text" value="OPGROUP">
                         </div>
                     </div>
                     <div class="row_contain">
                         <div class="column w-2">
-                            <label class="column_label">프로그램명</label>
+                            <label class="column_label">OPCODE</label>
                             <input type="text" value="channeltype_01">
                         </div>
                         <div class="column w-2">
-                            <label class="column_label">설정파일명</label>
+                            <label class="column_label">시작경로</label>
                             <input type="text" value="channeltype_01">
                         </div>
                         <div class="column w-2">
-                            <label class="column_label">프로그램유형</label>
+                            <label class="column_label">최종경로</label>
                             <input type="text" value="channeltype_01">
                         </div>
                     </div>
                     <div class="row_contain">
                         <div class="column w-2">
-                            <label class="column_label">세션수</label>
+                            <label class="column_label">성공경로</label>
                             <input type="text" value="">
                         </div>
                         <div class="column w-2">
-                            <label class="column_label">소켓타임아웃</label>
+                            <label class="column_label">실패경로</label>
+                            <input type="text" value="">
+                        </div>
+                    
+                        <div class="column w-2">
+                            <label class="column_label">History경로</label>
+                            <input type="text" value="channeltype_01">
+                        </div>
+                    </div>
+                    <div class="row_contain">
+                        <div class="column w-2">
+                            <label class="column_label">재시도건수</label>
                             <input type="text" value="">
                         </div>
                         <div class="column w-2">
-                            <label class="column_label">설정유형</label>
+                            <label class="column_label">재시도주기</label>
                             <input type="text" value="">
+                        </div>
+                        <div class="column w-2">
+                            <label class="column_label">분류제목</label>
+                            <input type="text" value="ORD">
+                        </div>
+                    </div>
+                </section>
+                
+                <section class="form_area border_group">
+                    <h5 class="s_tit">EIGW_EIGW 정보</h5>
+                    <div class="row_contain">
+                        <div class="column on w-2">
+                            <label class="column_label">프로세스ID</label>
+                            <input type="text" value="OPGROUP">
+                        </div>
+                        <div class="column w-2">
+                            <label class="column_label">실행프로그램</label>
+                            <input type="text" value="OPGROUP">
+                        </div>
+                        <div class="column w-2">
+                        </div>
+                    </div>
+                    <div class="row_contain">
+                        <div class="column w-2">
+                            <label class="column_label">성공경로</label>
+                            <input type="text" value="channeltype_01">
+                        </div>
+                        <div class="column w-2">
+                            <label class="column_label">최종경로</label>
+                            <input type="text" value="channeltype_01">
+                        </div>
+                        <div class="column w-2">
+                            <label class="column_label">분류제목</label>
+                            <input type="text" value="MOVIS">
+                        </div>
+                    </div>
+                </section>
+                
+                <section class="form_area border_group">
+                    <h5 class="s_tit">EIGW_AGENCY 정보</h5>
+                    <div class="row_contain">
+                        <div class="column on w-2">
+                            <label class="column_label">실행프로그램</label>
+                            <input type="text" value="OPGROUP">
+                        </div>
+                        <div class="column w-2">
+                            <label class="column_label">프로세스ID</label>
+                            <input type="text" value="">
+                        </div>
+                        <div class="column w-2">
+                            <label class="column_label">AP유형</label>
+                            <input type="text" value="OPGROUP">
+                        </div>
+                    </div>
+                    <div class="row_contain">
+                        <div class="column w-2">
+                            <label class="column_label">User ID</label>
+                            <input type="text" value="OPGROUP">
+                        </div>
+                        <div class="column w-2">
+                            <label class="column_label">Password</label>
+                            <input type="text" value="">
+                        </div>
+                        <div class="column w-2">
+                            <label class="column_label">분류제목</label>
+                            <input type="text" value="ORD">
+                        </div>
+                    </div>
+                    <div class="row_contain">
+                        <div class="column w-2">
+                            <label class="column_label">REAL IP</label>
+                            <input type="text" value="OPGROUP">
+                        </div>
+                        <div class="column w-2">
+                            <label class="column_label">NAT IP</label>
+                            <input type="text" value="">
+                        </div>
+                        <div class="column w-2">
+                            <label class="column_label">Port</label>
+                            <input type="text" value="">
+                        </div>
+                    </div>
+                    <div class="row_contain">
+                        <div class="column w-2">
+                            <label class="column_label">시작경로</label>
+                            <input type="text" value="channeltype_01">
+                        </div>
+                        <div class="column w-2">
+                            <label class="column_label">최종경로</label>
+                            <input type="text" value="channeltype_01">
+                        </div>
+                        <div class="column w-2">
+                            <label class="column_label">성공경로</label>
+                            <input type="text" value="">
+                        </div>
+                    </div>
+                    <div class="row_contain">
+                        <div class="column w-2">
+                            <label class="column_label">실패경로</label>
+                            <input type="text" value="">
+                        </div>
+                    
+                        <div class="column w-2">
+                            <label class="column_label">History경로</label>
+                            <input type="text" value="channeltype_01">
+                        </div>
+                        <div class="column w-2">
+                        </div>
+                    </div>
+                    <div class="row_contain">
+                        <div class="column w-2">
+                            <label class="column_label">재시도건수</label>
+                            <input type="text" value="">
+                        </div>
+                        <div class="column w-2">
+                            <label class="column_label">재시도주기</label>
+                            <input type="text" value="">
+                        </div>
+                        <div class="column w-2">
+                        </div>
+                    </div>
+                </section>
+                
+                <section class="form_area border_group">
+                    <h5 class="s_tit">TCP정보</h5>
+                    <div class="row_contain type-2">
+                        <div class="column w-2">
+                            <label class="column_label">전송방식</label>
+                            <div class="radio_group">
+                                <span class="default_radio">
+                                    <input type="radio" id="radio_4" name="radio_1">(S)FTP<label for="radio_4"><span></span></label>
+                                </span>
+                                <span class="default_radio">
+                                    <input type="radio" id="radio_5" name="radio_1">TCP<label for="radio_5"><span></span></label>
+                                </span>
+                                <span class="default_radio">
+                                    <input type="radio" id="radio_6" name="radio_1">기타<label for="radio_6"><span></span></label>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="column w-1"></div>
+                    </div>
+                    <div class="row_contain">
+                        <div class="column on w-2">
+                            <label class="column_label">프로그램명</label>
+                            <input type="text" value="OPGROUP">
+                        </div>
+                        <div class="column w-2">
+                            <label class="column_label">설정파일명</label>
+                            <input type="text" value="">
+                        </div>
+                        <div class="column w-2">
+                            <label class="column_label">내부파일명</label>
+                            <input type="text" value="OPGROUP">
+                        </div>
+                    </div>
+                    <div class="row_contain">
+                        <div class="column w-2">
+                            <label class="column_label">외부파일명</label>
+                            <input type="text" value="OPGROUP">
+                        </div>
+                        <div class="column w-2">
+                            <label class="column_label">전송주기</label>
+                            <input type="text" value="">
+                        </div>
+                        <div class="column w-2">
+                            <label class="column_label">전송시간</label>
+                            <input type="text" value="ORD">
                         </div>
                     </div>
                     <div class="row_contain">
                         <div class="column w-2">
                             <label class="column_label">개발 REAL IP</label>
-                            <input type="text" value="">
+                            <input type="text" value="OPGROUP">
                         </div>
                         <div class="column w-2">
                             <label class="column_label">개발 NAT IP</label>
                             <input type="text" value="">
                         </div>
-                    
                         <div class="column w-2">
                             <label class="column_label">개발 Port</label>
-                            <input type="text" value="channeltype_01">
+                            <input type="text" value="">
                         </div>
                     </div>
                     <div class="row_contain">
                         <div class="column w-2">
                             <label class="column_label">운영 REAL IP</label>
-                            <input type="text" value="">
+                            <input type="text" value="OPGROUP">
                         </div>
                         <div class="column w-2">
                             <label class="column_label">운영 NAT IP</label>
@@ -230,13 +475,82 @@
                             <input type="text" value="">
                         </div>
                     </div>
-                    <div class="row_contain">
+                </section>
+                
+                <section class="form_area border_group">
+                    <h5 class="s_tit">기타정보</h5>
+                    <div class="row_contain type-2">
                         <div class="column w-2">
-                            <label class="column_label">MQ 타임아웃</label>
+                            <label class="column_label">전송방식</label>
+                            <div class="radio_group">
+                                <span class="default_radio">
+                                    <input type="radio" id="radio_7" name="radio_1">(S)FTP<label for="radio_7"><span></span></label>
+                                </span>
+                                <span class="default_radio">
+                                    <input type="radio" id="radio_8" name="radio_1">TCP<label for="radio_8"><span></span></label>
+                                </span>
+                                <span class="default_radio on">
+                                    <input type="radio" id="radio_9" name="radio_1">기타<label for="radio_9"><span></span></label>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="column w-1"></div>
+                    </div>
+                    <div class="row_contain">
+                        <div class="column on w-2">
+                            <label class="column_label">프로그램명</label>
+                            <input type="text" value="OPGROUP">
+                        </div>
+                        <div class="column w-2">
+                            <label class="column_label">설정파일명</label>
                             <input type="text" value="">
                         </div>
-                        <div class="column w-2"></div>
-                        <div class="column w-2"></div>
+                        <div class="column w-2">
+                            <label class="column_label">내부파일명</label>
+                            <input type="text" value="OPGROUP">
+                        </div>
+                    </div>
+                    <div class="row_contain">
+                        <div class="column w-2">
+                            <label class="column_label">외부파일명</label>
+                            <input type="text" value="OPGROUP">
+                        </div>
+                        <div class="column w-2">
+                            <label class="column_label">전송주기</label>
+                            <input type="text" value="">
+                        </div>
+                        <div class="column w-2">
+                            <label class="column_label">전송시간</label>
+                            <input type="text" value="ORD">
+                        </div>
+                    </div>
+                    <div class="row_contain">
+                        <div class="column w-2">
+                            <label class="column_label">개발 REAL IP</label>
+                            <input type="text" value="OPGROUP">
+                        </div>
+                        <div class="column w-2">
+                            <label class="column_label">개발 NAT IP</label>
+                            <input type="text" value="">
+                        </div>
+                        <div class="column w-2">
+                            <label class="column_label">개발 Port</label>
+                            <input type="text" value="">
+                        </div>
+                    </div>
+                    <div class="row_contain">
+                        <div class="column w-2">
+                            <label class="column_label">운영 REAL IP</label>
+                            <input type="text" value="OPGROUP">
+                        </div>
+                        <div class="column w-2">
+                            <label class="column_label">운영 NAT IP</label>
+                            <input type="text" value="">
+                        </div>
+                        <div class="column w-2">
+                            <label class="column_label">운영 Port</label>
+                            <input type="text" value="">
+                        </div>
                     </div>
                 </section>
 
@@ -304,19 +618,54 @@
                     </div>
                 </section>
 
-                <section class="form_area border_group">
-                    <h5 class="s_tit">비고</h5>
-                    <div class="row_contain">
-                        <div class="column w-6">
-                            <textarea cols="50" row="5" placeholder="비고란 입니다."></textarea>
-                        </div>
-                    </div>
-                </section>
-                
                 <section class="btm_button_area">
                     <button type="button" class="default_button on">수정</button>
                 </section>
             </div>
+            
+            <aside class="move_form">
+                <section class="form_area">
+                    <h5 class="s_tit">기본 설정</h5>
+                    <div class="row_contain type-2">
+                        <div class="column w-6">
+                            <label class="column_label">인터페이스 ID</label>
+                            <input type="text" value="myidisyoungjunyu">
+                        </div>
+                    </div>
+                    <div class="row_contain type-2">
+                        <div class="column w-6">
+                            <label class="column_label">인터페이스명</label>
+                            <input type="text" value="Interface12">
+                        </div>
+                    </div>
+                    <div class="row_contain type-2">
+                        <div class="column w-6">
+                            <label class="column_label">유형</label>
+                            <div class="select_group">
+                                <select>
+                                    <option value="" selected>MQ</option>
+                                    <option value="">FILE</option>
+                                </select>
+                                <span class="select"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row_contain type-2">
+                        <div class="column w-6">
+                            <label class="column_label">HUB</label>
+                            <div class="select_group">
+                                <select>
+                                    <option value="" selected>1</option>
+                                    <option value="">2</option>
+                                    <option value="">3</option>
+                                    <option value="">4</option>
+                                </select>
+                                <span class="select"></span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </aside>
         </article>
         
         <footer>
