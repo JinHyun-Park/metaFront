@@ -21,13 +21,23 @@ const router = new Router({
   },
   {
     path: '/meta/eigw/onlineList',
-    name: 'onlineList',
+    name: 'eigwOnlineList',
     component: () => import('@/views/meta/eigw/OnlineList.vue'),
+  },
+  {
+    path: '/meta/eigw/fileList',
+    name: 'eigwFileList',
+    component: () => import('@/views/meta/eigw/FileList.vue'),
   },
   {
     path: '/meta/mcg/dtlList',
     name: 'mcgDtlList',
     component: () => import('@/views/meta/mcg/DtlList.vue'),
+  },
+  {
+    path: '/meta/mcg/transInfo',
+    name: 'mcgTransInfo',
+    component: () => import('@/views/meta/mcg/TransInfo.vue'),
   },
   {
     path: '/ifReg/eaiReg',

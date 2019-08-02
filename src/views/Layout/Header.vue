@@ -30,16 +30,28 @@
                   EAI
                 </li>
                 <li
-                  :class="{ov: isActive('onlineList')}"
-                  @click="movePage('onlineList')"
+                  :class="{ov: isActive('eigwOnlineList')}"
+                  @click="movePage('eigwOnlineList')"
                 >
                   EiGW
+                </li>
+                <li
+                  :class="{ov: isActive('eigwFileList')}"
+                  @click="movePage('eigwFileList')"
+                >
+                  EiGW FILE
                 </li>
                 <li
                   :class="{ov: isActive('mcgDtlList')}"
                   @click="movePage('mcgDtlList')"
                 >
                   MCG
+                </li>
+                <li
+                  :class="{ov: isActive('mcgTransInfo')}"
+                  @click="movePage('mcgTransInfo')"
+                >
+                  MCG TRANS
                 </li>
               </ul>
             </li>
