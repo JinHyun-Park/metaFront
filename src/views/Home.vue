@@ -19,9 +19,9 @@ export default {
     HelloWorld,
   },
   created() {
-    this.setHeaderOn({ headerOn: true });
-    this.setAsideOn({ asideOn: false });
-    this.setFooterOn({ footerOn: true });
+    // this.setHeaderOn({ headerOn: true });
+    // this.setAsideOn({ asideOn: false });
+    // this.setFooterOn({ footerOn: true });
   },
   methods: {
     ...mapActions('frameSet', ['setHeaderOn', 'setAsideOn', 'setFooterOn']),

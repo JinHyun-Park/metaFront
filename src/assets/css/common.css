@@ -32,7 +32,7 @@ body {
 
 #app,
 #app>div {
-    display: flex;
+    /* display: flex; */
     display: -ms-flexbox;
     flex-direction: column;
     width: 100%;

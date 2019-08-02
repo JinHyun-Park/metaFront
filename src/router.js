@@ -43,7 +43,6 @@ const router = new Router({
 });
 
 router.afterEach((to) => {
-  console.log('rotuer 진입');
   localStorage.setItem('LS_ROUTE_KEY', to.name);
 
   helpers.setFrame(to.name);
