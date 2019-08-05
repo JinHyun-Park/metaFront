@@ -332,7 +332,7 @@ nav .menu li .sub_menu {
     left: 0;
     top: 43px;
     flex-direction: column;
-    padding: 7px 0 4px;
+    padding: 0px 0 4px;
     width: 100%;
     background: #fff;
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14);
@@ -347,13 +347,19 @@ header>div:hover nav .menu li:hover .sub_menu {
 }
 
 nav .menu li .sub_menu li {
+    justify-content: flex-start;
     margin: 0;
-    padding-bottom: 15px;
+    padding: 8px 4px 15px 34px;
+    /*    padding-bottom: 15px;*/
     height: 13px;
     font-size: 12px;
     font-family: Moebius_Bold_kor, Moebius_Bold_eng;
     color: #a2a2a2;
     line-height: 1
+}
+
+nav .menu li .sub_menu li:first-child {
+    padding-top: 15px
 }
 
 nav .menu li .sub_menu li.ov,
