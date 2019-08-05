@@ -332,7 +332,7 @@ nav .menu li .sub_menu {
     left: 0;
     top: 43px;
     flex-direction: column;
-    padding: 0px 0 4px;
+    padding: 0;
     width: 100%;
     background: #fff;
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14);
@@ -342,8 +342,8 @@ nav .menu li .sub_menu {
 header>div.on nav .menu li.on .sub_menu,
 header>div:hover nav .menu li:hover .sub_menu {
     display: flex;
-    transform: translate(3s, 4s);
-    transition: transform (240s)
+    /* transform: translate(3s, 4s); */
+    transition: transform (6s)
 }
 
 nav .menu li .sub_menu li {
@@ -360,6 +360,10 @@ nav .menu li .sub_menu li {
 
 nav .menu li .sub_menu li:first-child {
     padding-top: 15px
+}
+
+nav .menu li .sub_menu li:last-child {
+    padding-bottom: 23px
 }
 
 nav .menu li .sub_menu li.ov,
