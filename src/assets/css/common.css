@@ -387,7 +387,8 @@ nav .menu li .sub_menu li:hover {
     width: 270px;
     height: 100%;
     border-radius: 6px;
-    box-sizing: border-box
+    box-sizing: border-box;
+    position: sticky;
 }
 
 .contents .move_form .form_area {

@@ -120,3 +120,6 @@ https://velog.io/@skyepodium/VS-code%EC%97%90%EC%84%9C-vue%ED%94%84%EB%A1%9C%EC%
   
   ES6 사용을 위한 polyfill 설정(IE에서 Promise 함수 사용을 위함)
   npm install --save es6-promise
+
+  VUE SCROLL
+  npm install vue-scroll --save
