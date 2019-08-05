@@ -381,7 +381,7 @@ nav .menu li .sub_menu li:hover {
     display: -ms-flexbox;
     flex-direction: column;
     justify-content: flex-start;
-    align-self: center;
+    /* align-self: center; */
     margin: 0 56px 0 57px;
     padding: 14px 17px 14px 16px;
     width: 270px;
@@ -389,6 +389,7 @@ nav .menu li .sub_menu li:hover {
     border-radius: 6px;
     box-sizing: border-box;
     position: sticky;
+    transition: 0.5s;
 }
 
 .contents .move_form .form_area {
