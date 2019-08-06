@@ -671,10 +671,61 @@ aside .lnb li:hover {
 }
 
 
+/* PROGRESS */
+
+.contents .right_space .progress {
+    margin-bottom: 34px
+}
+
+.contents .right_space .progress ul li {
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding: 15px 0px 14px;
+    width: 33.3333%;
+    font-size: 15px;
+    color: #555;
+    /*    box-shadow:0px 1px 3px 0px rgba(0,0,0,.14);*/
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    background: #fbfbfb;
+    box-sizing: border-box
+}
+
+.contents .right_space .progress ul li.on,
+.contents .right_space .progress ul li:hover {
+    color: #fff;
+    border-color: #bd6776;
+    background: #c46979;
+}
+
+.contents .right_space .progress ul li:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 100%;
+    width: 0;
+    height: 0;
+    border-left: 24px solid #fbfbfb;
+    border-top: 24px solid transparent;
+    border-bottom: 24px solid transparent;
+    z-index: 3
+}
+
+.contents .right_space .progress ul li.on:after,
+.contents .right_space .progress ul li:hover:after {
+    border-left-color: #c46979
+}
+
+.contents .right_space .progress ul li:last-child:after {
+    content: none
+}
+
+
 /* TABS */
 
 .contents .right_space .big_tabs {
-    margin-bottom: 28px
+    margin-bottom: 49px
 }
 
 .contents .right_space .big_tabs ul li {
@@ -1145,6 +1196,20 @@ input[type=radio] {
     border-width: 2px;
     border-color: #82BEA3;
     background: #fff
+}
+
+.contents .form_area .row_contain .column .radio_group .default_radio input[type=radio]+label.border-brickpink {
+    border-color: rgba(196, 105, 121, .24) !important;
+}
+
+.contents .form_area .row_contain .column .radio_group .default_radio input[type=radio]:checked+label.border-brickpink,
+.contents .form_area .row_contain .column .radio_group .default_radio.on input[type=radio]+label.border-brickpink {
+    border-color: #c46979 !important;
+}
+
+.contents .form_area .row_contain .column .radio_group .default_radio input[type=radio]:checked+label.border-brickpink span,
+.contents .form_area .row_contain .column .radio_group .default_radio.on input[type=radio]+label.border-brickpink span {
+    background: #c46979 !important;
 }
 
 .contents .form_area .row_contain .column .radio_group .default_radio input[type=radio]+label span {
@@ -1730,6 +1795,7 @@ colgroup col {
     padding: 2px 16px;
     border: 1px solid #c46979;
     border-radius: 3px;
+    background: #fff
 }
 
 .table_grid .table_row .td_cell>a {
