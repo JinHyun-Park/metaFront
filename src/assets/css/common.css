@@ -1742,7 +1742,8 @@ colgroup col {
 .table_grid .table_body .fold_colgroup>.table_row.colspan .td_cell:last-child,
 .table_grid.fold .th_cell:last-child,
 .table_grid.fold .td_cell:last-child {
-    width: 60px
+    width: 60px;
+    min-width: 60px
 }
 
 .table_grid .table_row .td_cell {
