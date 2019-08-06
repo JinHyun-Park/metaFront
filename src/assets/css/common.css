@@ -1544,9 +1544,16 @@ select {
     box-sizing: border-box;
 }
 
+
+/*
 colgroup {
     display: table-column-group
 }
+
+colgroup col {
+    display: table-column
+}
+*/
 
 .table_grid .table_head {
     display: table-header-group;
@@ -1626,6 +1633,53 @@ colgroup {
     display: table-row
 }
 
+.table_grid.tb_layout {
+    table-layout: fixed
+}
+
+.table_grid .table_body .fold_colgroup {
+    display: table-row
+}
+
+.table_grid .table_body .fold_colgroup>.table_row {
+    display: table-cell
+}
+
+.table_grid .table_body .fold_colgroup>.table_row.colspan {
+    display: table-row !important;
+    display: none;
+    margin-top: -1px;
+    margin-bottom: -1px
+}
+
+.table_grid .table_body .fold_colgroup>.table_row.colspan .td_cell {
+    min-width: 185px;
+    background: #f9f9f9
+}
+
+.table_grid.tb_layout .th_cell:first-child,
+.table_grid.tb_layout .td_cell:first-child,
+.table_grid .table_body .fold_colgroup>.table_row.colspan .td_cell:first-child {
+    width: 125px;
+    min-width: 125px
+}
+
+.table_grid.tb_layout .th_cell:nth-child(2),
+.table_grid.tb_layout .td_cell:nth-child(2),
+.table_grid .table_body .fold_colgroup>.table_row.colspan .td_cell:nth-child(2),
+.table_grid.tb_layout .th_cell:nth-child(3),
+.table_grid.tb_layout .td_cell:nth-child(3),
+.table_grid .table_body .fold_colgroup>.table_row.colspan .td_cell:nth-child(3) {
+    width: 285px;
+    min-width: 285px
+}
+
+.table_grid .table_body .fold_colgroup>.table_row.colspan .td_cell:last-child,
+.table_grid.fold .th_cell:last-child,
+.table_grid.fold .td_cell:last-child {
+    width: 60px
+}
+
 .table_grid .table_row .td_cell {
     display: table-cell;
     padding: 12px 10px;
@@ -1639,6 +1693,12 @@ colgroup {
     line-height: 1;
     letter-spacing: -.2px;
     box-sizing: border-box
+}
+
+.table_grid .table_row .td_cell.colspan {
+    display: none;
+    margin-top: -1px;
+    margin-bottom: -1px
 }
 
 .table_grid .table_row.form_type .td_cell {
@@ -1664,6 +1724,28 @@ colgroup {
 
 .table_grid .table_row:last-child .td_cell {
     border-bottom-color: #bbb
+}
+
+.table_grid .table_row .td_cell label.label-default {
+    padding: 2px 16px;
+    border: 1px solid #c46979;
+    border-radius: 3px;
+}
+
+.table_grid .table_row .td_cell>a {
+    padding-left: 11px;
+    font-size: 14px;
+    color: #333;
+    text-decoration: none
+}
+
+.table_grid .table_row .td_cell>a.on,
+.table_grid .table_row .td_cell>a:hover {
+    text-decoration: underline
+}
+
+.table_grid .table_row .td_cell label.label-default.color-green {
+    border-color: #82BEA3
 }
 
 .table_grid .table_row .td_cell input[type=text],
