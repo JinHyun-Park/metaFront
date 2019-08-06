@@ -1,11 +1,9 @@
 <template>
   <transition>
     <aside
-      ref="movee"
       v-scroll="onScroll"
       class="move_form"
-      :style="{top: topY+'px'}"
-      @click="movee"
+      :style="{top: topY + 'px'}"
     >
       <!-- :style="{top: topY+'px'}" -->
       <section
@@ -85,7 +83,7 @@
 export default {
   data() {
     return {
-      topY: 200 + window.scrollY,
+      topY: 150,
     };
   },
   created() {
@@ -95,13 +93,8 @@ export default {
     window.removeEventListener('scroll', this.onScroll);
   },
   methods: {
-    onScroll(e, position) {
-      console.log(`${e} || ${position}`);
-    },
-    movee() {
-      console.log(window.scrollY);
-      // this.$refs.movee.top = '150px';
-      this.topY = 300 + window.scrollY;
+    onScroll() {
+      this.topY = window.scrollY + 100;
     },
   },
 };

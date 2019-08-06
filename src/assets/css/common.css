@@ -388,8 +388,8 @@ nav .menu li .sub_menu li:hover {
     height: 100%;
     border-radius: 6px;
     box-sizing: border-box;
-    position: sticky;
-    transition: 0.5s;
+    position: relative;
+    transition: 0.7s;
 }
 
 .contents .move_form .form_area {
