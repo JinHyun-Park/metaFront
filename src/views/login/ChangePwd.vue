@@ -1,0 +1,49 @@
+<template>
+  <div class="contents index">
+    <article class="login_contn">
+      <section class="title style-2">
+        <h2><i class="ico-bar" />비밀번호 변경</h2>
+      </section>
+      <section class="login form_area border_group">
+        <div class="row_contain type-1">
+          <div class="column on w-4">
+            <label class="column_label">기존 비밀번호</label>
+            <input
+              type="password"
+              value="SKCC1234"
+            >
+          </div>
+        </div>
+        <div class="row_contain type-1">
+          <div class="column w-4">
+            <label class="column_label">신규 비밀번호</label>
+            <input
+              type="password"
+              value="SKCC123456*"
+            >
+          </div>
+        </div>
+        <div class="row_contain type-1">
+          <div class="column w-4">
+            <label class="column_label">신규 비밀번호 확인</label>
+            <input
+              type="password"
+              value="SKCC123456*"
+            >
+          </div>
+        </div>
+      </section>
+      <section class="btm_button_area">
+        <button
+          type="button"
+          class="default_button on"
+        >
+          확인
+        </button>
+      </section>
+    </article>
+  </div>
+</template>
+
+<script>
+</script>
