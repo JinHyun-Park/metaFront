@@ -15,7 +15,7 @@ const router = new Router({
     component: Home,
   },
   {
-    path: '/login',
+    path: '/login/login',
     name: 'login',
     component: () => import('@/views/login/Login.vue'),
   },
@@ -50,6 +50,10 @@ const router = new Router({
   },
   ],
 
+});
+
+router.beforeEach((to, from, next) => {
+  next();
 });
 
 router.afterEach((to) => {

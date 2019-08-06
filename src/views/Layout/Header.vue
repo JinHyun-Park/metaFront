@@ -1,12 +1,16 @@
 <template>
   <header>
     <div class="gnb">
-      <h1>
-        <img
+      <h1
+        class="inH1"
+        @click="movePage('home')"
+      >
+        <!-- <img
           class="bi"
           src="@/assets/images/bi.png"
           alt="SK C&C 로고"
-        >
+        > -->
+        NARU
       </h1>
       <div>
         <div class="util_space">
@@ -104,7 +108,6 @@
 </template>
 
 <script>
-// import helpers from '@/utils/helpers';
 import { mapActions } from 'vuex';
 
 export default {
@@ -118,7 +121,6 @@ export default {
     this.setActiveItem();
   },
   methods: {
-    // ...mapActions('header', ['setActiveLi']),
     ...mapActions('frameSet', ['setHeaderOn', 'setAsideOn', 'setFooterOn']),
     isActive(page) {
       return this.activeItem === page;
@@ -129,15 +131,7 @@ export default {
       }
     },
     movePage(page) {
-    //   console.log(helpers.isEmpty('1'));
-    //   console.log(helpers.isEmpty2(''));
-      // if (page !== 'login') {
-      //   this.setHeaderOn({ headerOn: true });
-      //   this.setAsideOn({ asideOn: true });
-      //   this.setFooterOn({ footerOn: true });
-      // }
       this.activeItem = page;
-      // this.setActiveLi({ activeLi: page });
       this.$router.push({ name: page });
     },
   },
