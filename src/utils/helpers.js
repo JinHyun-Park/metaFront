@@ -20,10 +20,13 @@ const helpers = {
 
   /**
      * 화면 이동, 새로 고침 등을 하면서 헤더, 좌측 nav 등 세팅 용도
-     * @param {*} page
+     * @param {*} to - 이동할 경로
      */
-  setFrame(page) {
-    if (page === 'login') { // 로그인 페이지 - 헤더, left side 없음
+  setFrame(to) {
+    const page = to.name;
+    const { path } = to;
+    console.log(`???? : ${path}`);
+    if (path.indexOf('/login/') >= 0) { // 로그인 영역 페이지 - 헤더, left side 없음
       store.dispatch('frameSet/setLoginPageOn', { loginPageOn: true });
     } else if (page === '/' || page === 'home') { // 메인 페이지
       store.dispatch('frameSet/setLoginPageOn', { loginPageOn: false });

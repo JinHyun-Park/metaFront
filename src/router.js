@@ -15,9 +15,20 @@ const router = new Router({
     component: Home,
   },
   {
-    path: '/login/login',
-    name: 'login',
-    component: () => import('@/views/login/Login.vue'),
+    path: '/login',
+    name: 'loginForm',
+    component: () => import('@/views/login/LoginForm.vue'),
+    children: [{
+      path: '/login/login',
+      name: 'login',
+      component: () => import('@/views/login/Login.vue'),
+    },
+    {
+      path: '/login/changePwd',
+      name: 'changePwd',
+      component: () => import('@/views/login/ChangePwd.vue'),
+    },
+    ],
   },
   {
     path: '/meta/eigw/onlineList',
@@ -59,7 +70,7 @@ router.beforeEach((to, from, next) => {
 router.afterEach((to) => {
   localStorage.setItem('LS_ROUTE_KEY', to.name);
 
-  helpers.setFrame(to.name);
+  helpers.setFrame(to);
 });
 
 export default router;

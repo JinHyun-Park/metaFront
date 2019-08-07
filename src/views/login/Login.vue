@@ -42,28 +42,34 @@
         </button>
       </section>
       <section class="help">
-        <em class="notice">Reset password<i class="ico-reset" /></em>
-        <em class="notice">forgot password<i class="ico-help" /></em>
+        <em
+          class="notice"
+          @click="popReset"
+        >Reset password<i class="ico-reset" /></em>
+        <em
+          class="notice"
+          @click="movePage('changePwd')"
+        >Change password<i class="ico-help" /></em>
       </section>
     </article>
+    <ResetPwdPopup :style="{display: disYn}" />
   </div>
 </template>
 
 <script>
 import { mapActions } from 'vuex';
+import ResetPwdPopup from '@/components/login/ResetPwdPopup.vue';
 
 export default {
+  components: {
+    ResetPwdPopup,
+  },
   data() {
     return {
       user_id: 'SKCC',
       user_pw: '',
+      disYn: false,
     };
-  },
-  created() {
-    // this.setHeaderOn({ headerOn: false });
-    // this.setAsideOn({ asideOn: false });
-    // this.setFooterOn({ footerOn: false });
-    // this.setLoginPageOn({ loginPageOn: true });
   },
   methods: {
     ...mapActions('frameSet', ['setHeaderOn', 'setAsideOn', 'setFooterOn', 'setLoginPageOn']),
@@ -76,10 +82,13 @@ export default {
         .catch((ex) => {
           console.log(`error occur!! : ${ex}`);
         });
-      // this.setHeaderOn({ headerOn: true });
-      // this.setAsideOn({ asideOn: true });
-      // this.setFooterOn({ footerOn: true });
       this.$router.push({ name: 'home' });
+    },
+    movePage(page) {
+      this.$router.push({ name: page });
+    },
+    popReset() {
+      this.disYn = !this.disYn;
     },
   },
 };

@@ -37,6 +37,7 @@
         <button
           type="button"
           class="default_button on"
+          @click="movePage('login')"
         >
           확인
         </button>
@@ -46,4 +47,11 @@
 </template>
 
 <script>
+export default {
+  methods: {
+    movePage(page) {
+      this.$router.push({ name: page });
+    },
+  },
+};
 </script>
