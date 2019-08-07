@@ -759,6 +759,15 @@ aside .lnb li:hover {
     border-radius: 0 5px 0 0
 }
 
+
+/*
+.contents .right_space .big_tabs_contents, .contents .right_space .big_tabs_contents .tab_contn {
+    display:flex;
+    display:-ms-flexbox;
+    flex-direction: column
+}
+*/
+
 .contents .right_space .small_tabs {
     flex-direction: row;
     margin-left: 0px;
@@ -946,6 +955,14 @@ aside .lnb li:hover {
     box-sizing: border-box
 }
 
+.contents .form_area.several_table .table_grid {
+    margin-bottom: 34px
+}
+
+.contents .form_area.several_table .table_grid:last-child {
+    margin-bottom: 0
+}
+
 .contents .form_area.style-1 .row_contain {
     margin: 0 10px 84px 10px;
     padding: 0;
@@ -1046,6 +1063,10 @@ aside .lnb li:hover {
 
 .contents .form_area .row_contain.except {
     margin-bottom: 36px
+}
+
+.contents .form_area .row_contain.except-2 {
+    margin-bottom: 24px
 }
 
 .contents .form_area .row_contain.odd .column:nth-last-of-type(2) {
@@ -1308,14 +1329,18 @@ select {
 }
 
 .contents .form_area .row_contain .column .search_group,
+.contents .form_area .row_contain .column .calander_group,
 .contents .form_area .row_contain .column .select_group,
 .search_group,
+.calander_group,
 .select_group {
     position: relative
 }
 
 .contents .form_area .row_contain .column .search_group .search,
 .search_group .search,
+.contents .form_area .row_contain .column .calander_group .calander,
+.calander_group .calander,
 .contents .form_area .row_contain .column .select_group .select,
 .select_group .select {
     position: absolute;
@@ -1331,25 +1356,65 @@ select {
     cursor: pointer
 }
 
+
+/*
 .contents .form_area .row_contain .column .select_group .select,
 .select_group .select {
     width: 24px
 }
+*/
 
 .contents .form_area .row_contain .column .search_group .search .ico-search,
 .search_group .search .ico-search {
     width: 14px;
     height: 14px;
-    background: url(../images/zoom-2.png) center center no-repeat;
+    background: url(../images/ico-search.png) center center no-repeat;
+    background-size: 100%
+}
+
+.contents .form_area .row_contain .column.cal-style {
+    position: relative
+}
+
+.contents .form_area .row_contain .column .calander_group.first_cal:after {
+    content: '';
+    display: flex;
+    position: absolute;
+    right: -15px;
+    bottom: 15px;
+    width: 6px;
+    height: 1px;
+    background: #999
+}
+
+.contents .form_area .row_contain .column .calander_group .calander .ico-cal,
+.calander_group .calander .ico-cal {
+    width: 14px;
+    height: 14px;
+    background: url(../images/ico-cal.png) center center no-repeat;
     background-size: 100%
 }
 
 .contents .form_area .row_contain .column.on .search_group .search,
+.contents .form_area .row_contain .column.on .calander_group .calander,
 .contents .form_area .row_contain .column.on .select_group .select,
 .contents .form_area .row_contain .column:hover .search_group .search,
+.contents .form_area .row_contain .column:hover .calander_group .calander,
 .contents .form_area .row_contain .column:hover .select_group .select {
     border-color: #9f9f9f;
     border-left: none
+}
+
+.contents .form_area .row_contain .column.on .search_group .search .ico-search,
+.contents .form_area .row_contain .column:hover .search_group .search .ico-search {
+    background: url(../images/ico-search-on.png) center center no-repeat;
+    background-size: 100%
+}
+
+.contents .form_area .row_contain .column.on .calander_group .calander .ico-cal,
+.contents .form_area .row_contain .column:hover .calander_group .calander .ico-cal {
+    background: url(../images/ico-cal-on.png) center center no-repeat;
+    background-size: 100%
 }
 
 .contents .form_area .row_contain .column .select_group.disabled .select,
@@ -1370,15 +1435,31 @@ select {
     background: #dfdfdf url(../images/ico-droparrow-dis.png) right 6px center no-repeat
 }
 
+.contents .form_area .row_contain .column .calander_group.disabled input[type=text],
+.contents .form_area .row_contain .column:hover .calander_group.disabled input[type=text]:disabled {
+    color: #898989;
+    border-color: #d9d9d9;
+    border-style: solid;
+    background: #dfdfdf
+}
+
+.contents .form_area .row_contain .column:hover .calander_group.disabled input[type=text]:disabled {
+    border-style: none none solid;
+    background: #fff
+}
+
+.contents .form_area .row_contain .column:hover .calander_group.disabled .calander {
+    cursor: default
+}
+
+.contents .form_area .row_contain .column .calander_group.disabled .calander .ico-cal,
+.contents .form_area .row_contain .column:hover .calander_group.disabled .calander .ico-cal {
+    background: url(../images/ico-cal-dis.png) center center no-repeat
+}
+
 .contents .form_area .row_contain .column:hover .select_group.disabled select {
     border-style: none none solid;
     background: #fff url(../images/ico-droparrow-dis.png) right 6px center no-repeat
-}
-
-.contents .form_area .row_contain .column.on .search_group .search .ico-search,
-.contents .form_area .row_contain .column:hover .search_group .search .ico-search {
-    background: url(../images/zoom-2-on.png) center center no-repeat;
-    background-size: 100%
 }
 
 
@@ -1493,7 +1574,7 @@ select {
 .contents .grid_form .search_group .search .ico-search {
     width: 13px;
     height: 13px;
-    background: url(../images/zoom-2.png) center center no-repeat;
+    background: url(../images/ico-search.png) center center no-repeat;
     background-size: 100%
 }
 
@@ -1587,7 +1668,7 @@ select {
 
 .contents .grid_form .search_group.on .search .ico-search,
 .contents .grid_form .search_group:hover .search .ico-search {
-    background: url(../images/zoom-2-on.png) center center no-repeat;
+    background: url(../images/ico-search-on.png) center center no-repeat;
     background-size: 100%
 }
 
@@ -1607,6 +1688,10 @@ select {
     border-radius: 0px;
     _box-shadow: 1px 1px 6px 0 rgba(0, 0, 0, .1);
     box-sizing: border-box;
+}
+
+.table_grid+.table_grid {
+    margin-top: 24px
 }
 
 
@@ -1655,7 +1740,7 @@ colgroup col {
     min-width: 115px
 }
 
-.table_grid .table_head .th_cell:first-child {
+.table_grid.tb_layout .table_head .th_cell:first-child {
     min-width: 125px
 }
 
@@ -1851,7 +1936,7 @@ colgroup col {
 
 .table_grid .table_row .td_cell.on .search_group .search .ico-search,
 .table_grid .table_row .td_cell:hover .search_group .search .ico-search {
-    background: url(../images/zoom-2-on.png) center center no-repeat;
+    background: url(../images/ico-search-on.png) center center no-repeat;
     background-size: 100%
 }
 
@@ -1974,6 +2059,12 @@ colgroup col {
     width: 120px;
     height: 35px;
     font-size: 13px
+}
+
+.contents .form_area .default_button.extend,
+.contents .border_group .default_button.extend {
+    padding: 0 10px;
+    box-sizing: content-box
 }
 
 
