@@ -28,7 +28,7 @@ body {
     flex: auto;
     flex-wrap: wrap;
     flex-direction: row;
-    font-family: Moebius_Regular_kor, Moebius_Regular_eng, Moebius_Bold_kor, Moebius_Bold_eng;
+    font-family: Moebius_Regular_kor, Moebius_Regular_eng, Moebius_Bold_kor, Moebius_Bold_eng, Moebius, '뫼비우스', ;
     font-size: 12px;
     color: #555
 }
@@ -161,7 +161,7 @@ em {
 }
 
 button {
-    font-family: Moebius_Regular_kor, Moebius_Regular_eng, Moebius_Bold_kor, Moebius_Bold_eng
+    font-family: Moebius_Regular_kor, Moebius_Regular_eng, Moebius_Bold_kor, Moebius_Bold_eng, Moebius, '뫼비우스'
 }
 
 select {
@@ -181,34 +181,32 @@ select::-ms-expand {
 
 @font-face {
     font-family: 'Moebius_Regular_kor';
-    src: local(※), url('../css/font/Moebius_Regular_kor.woof') format('woff'), url('../css/font/Moebius_Regular_kor.otf') format('opentype'), url('../css/font/Moebius_Regular_kor.ttf') format('truetype');
+    src: local(※), url('../css/font/Moebius_Regular_kor.woff') format('woff'), url('../css/font/Moebius_Regular_kor.woff2') format('woff2');
+    src: url('../css/font/Moebius_Regular_kor.ttf') format('truetype'), url('../css/font/Moebius_Regular_kor.otf') format('opentype');
     font-weight: normal;
     font-style: normal
 }
 
 @font-face {
     font-family: 'Moebius_Regular_eng';
-    /* src: local(※), url('../css/font/Moebius_Regular_eng.woof') format('woof'); */
-    src: url('../css/font/Moebius_Regular_eng.otf') format('opentype');
-    src: url('../css/font/Moebius_Regular_eng.ttf') format('truetype');
+    src: local(※), url('../css/font/Moebius_Regular_eng.woff') format('woff'), url('../css/font/Moebius_Regular_eng.woff2') format('woff2');
+    src: url('../css/font/Moebius_Regular_eng.ttf') format('truetype'), url('../css/font/Moebius_Regular_eng.otf') format('opentype');
     font-weight: normal;
     font-style: normal
 }
 
 @font-face {
     font-family: 'Moebius_Bold_kor';
-    /* src: local(※), url('../css/font/Moebius_Bold_kor.woof') format('woof'); */
-    src: url('../css/font/Moebius_Bold_kor.otf') format('opentype');
-    src: url('../css/font/Moebius_Bold_kor.ttf') format('truetype');
+    src: local(※), url('../css/font/Moebius_Bold_kor.woff') format('woff'), url('../css/font/Moebius_Bold_kor.woff2') format('woff2');
+    src: url('../css/font/Moebius_Bold_kor.ttf') format('truetype'), url('../css/font/Moebius_Bold_kor.otf') format('opentype');
     font-weight: bold;
     font-style: normal
 }
 
 @font-face {
     font-family: 'Moebius_Bold_eng';
-    /* src: local(※), url('../css/font/Moebius_Bold_eng.woof') format('woof'); */
-    src: url('../css/font/Moebius_Bold_eng.otf') format('opentype');
-    src: url('../css/font/Moebius_Bold_eng.ttf') format('truetype');
+    src: local(※), url('../css/font/Moebius_Bold_eng.woff') format('woff'), url('../css/font/Moebius_Bold_eng.woff2') format('woff2');
+    src: url('../css/font/Moebius_Bold_eng.ttf') format('truetype'), url('../css/font/Moebius_Bold_eng.otf') format('opentype');
     font-weight: bold;
     font-style: normal
 }
@@ -261,7 +259,7 @@ header .gnb>div .util_space>em {
     padding-right: 19px;
     color: #F5F5EB;
     font-size: 12px;
-    font-family: Moebius_Regular_kor, Moebius_Regular_eng
+    font-family: Moebius_Regular_kor, Moebius_Regular_eng, Moebius, '뫼비우스'
 }
 
 header .gnb>div .util_space>em .ico-user {
@@ -318,7 +316,7 @@ nav .menu li {
     padding: 8px 51px 9px;
     height: 100%;
     font-size: 18px;
-    font-family: Moebius_Regular_kor, Moebius_Regular_eng;
+    font-family: Moebius_Regular_kor, Moebius_Regular_eng, Moebius, '뫼비우스';
     color: #F5F5EB;
     letter-spacing: .4px;
     box-sizing: border-box;
@@ -452,7 +450,7 @@ nav .menu li .sub_menu li:hover {
     padding-bottom: 12px;
     flex-direction: column;
     align-items: center;
-    font-family: Moebius_Regular_kor, Moebius_Regular_eng
+    font-family: Moebius_Regular_kor, Moebius_Regular_eng, Moebius, '뫼비우스'
 }
 
 .contents .title.style-1 h2 {
@@ -464,13 +462,13 @@ nav .menu li .sub_menu li:hover {
 
 .contents .title.style-2 {
     margin-bottom: 17px;
-    font-family: Moebius_Regular_kor, Moebius_Regular_eng
+    font-family: Moebius_Regular_kor, Moebius_Regular_eng, Moebius, '뫼비우스'
 }
 
 .contents .title>h2 {
     font-size: 17px;
     color: #1a1a1a;
-    font-family: Moebius_Regular_kor, Moebius_Regular_eng;
+    font-family: Moebius_Regular_kor, Moebius_Regular_eng, Moebius, '뫼비우스';
     line-height: 1
 }
 
@@ -485,7 +483,7 @@ nav .menu li .sub_menu li:hover {
     width: auto;
     font-size: 13px;
     color: #999;
-    font-family: Moebius_Regular_kor, Moebius_Regular_eng;
+    font-family: Moebius_Regular_kor, Moebius_Regular_eng, Moebius, '뫼비우스';
     letter-spacing: .2px
 }
 
@@ -853,7 +851,7 @@ flex-direction: column
     padding-bottom: 14px;
     color: #666;
     font-size: 14px;
-    font-family: Moebius_Regular_kor, Moebius_Regular_eng
+    font-family: Moebius_Regular_kor, Moebius_Regular_eng, Moebius, '뫼비우스'
 }
 
 .contents .sub_info .sub_list {
@@ -865,7 +863,7 @@ flex-direction: column
     line-height: 28px;
     color: #888;
     font-size: 14px;
-    font-family: Moebius_Regular_kor, Moebius_Regular_eng
+    font-family: Moebius_Regular_kor, Moebius_Regular_eng, Moebius, '뫼비우스'
 }
 
 .contents .sub_info .sub_list li:before {
@@ -899,7 +897,7 @@ flex-direction: column
     font-size: 15px;
     color: #fff;
     text-shadow: 1px 1px 0 rgba(0, 0, 0, .2);
-    font-family: Moebius_Regular_kor, Moebius_Regular_eng;
+    font-family: Moebius_Regular_kor, Moebius_Regular_eng, Moebius, '뫼비우스';
     letter-spacing: -.2px;
     white-space: pre-wrap;
     font-style: normal
@@ -934,7 +932,7 @@ flex-direction: column
     height: 30px;
     font-size: 13px;
     color: #bfbfbf;
-    font-family: Moebius_Regular_kor, Moebius_Regular_eng;
+    font-family: Moebius_Regular_kor, Moebius_Regular_eng, Moebius, '뫼비우스';
     letter-spacing: -.4px;
     border: 1px solid #cdcdcd;
     border-radius: 15px;
@@ -945,7 +943,7 @@ flex-direction: column
 .add_info input[type=text].add_text.on,
 .add_info input[type=text].add_text:hover {
     color: #777;
-    font-family: Moebius_Regular_kor, Moebius_Regular_eng;
+    font-family: Moebius_Regular_kor, Moebius_Regular_eng, Moebius, '뫼비우스';
     border-color: #ababab
 }
 
@@ -1012,7 +1010,7 @@ flex-direction: column
     width: 100%;
     font-size: 15px;
     color: #46576b;
-    font-family: Moebius_Regular_kor, Moebius_Regular_eng
+    font-family: Moebius_Regular_kor, Moebius_Regular_eng, Moebius, '뫼비우스'
 }
 
 .contents .form_area h5.s_tit.type-2,
@@ -1277,7 +1275,7 @@ input[type=radio] {
     padding-bottom: 5px;
     font-size: 14px;
     color: #869DAB;
-    font-family: Moebius_Regular_kor, Moebius_Regular_eng
+    font-family: Moebius_Regular_kor, Moebius_Regular_eng, Moebius, '뫼비우스'
 }
 
 .contents .form_area .row_contain .column input[type=text],
@@ -1298,7 +1296,7 @@ select,
     width: 100%;
     font-size: 14px;
     color: #888;
-    font-family: Moebius_Regular_kor, Moebius_Regular_eng;
+    font-family: Moebius_Regular_kor, Moebius_Regular_eng, Moebius, '뫼비우스';
     letter-spacing: .2px;
     border: 1px solid #d9eae0;
     border-radius: 3px;
@@ -1315,7 +1313,7 @@ select {
 
 .contents .form_area .row_contain .column textarea {
     padding: 7px 9px 8px 17px;
-    font-family: Moebius_Regular_kor, Moebius_Regular_eng;
+    font-family: Moebius_Regular_kor, Moebius_Regular_eng, Moebius, '뫼비우스';
     font-size: 14px;
     color: #888;
     letter-spacing: -.2px;
@@ -1336,7 +1334,7 @@ select {
 .contents .form_area .row_contain .column:hover textarea {
     color: #555;
     font-size: 15px;
-    font-family: Moebius_Regular_kor, Moebius_Regular_eng;
+    font-family: Moebius_Regular_kor, Moebius_Regular_eng, Moebius, '뫼비우스';
     text-transform: capitalize;
     line-height: 23px;
     border-color: #82BEA3;
@@ -1539,7 +1537,7 @@ width: 24px
     width: 100%;
     font-size: 14px;
     color: #888;
-    font-family: Moebius_Regular_kor, Moebius_Regular_eng;
+    font-family: Moebius_Regular_kor, Moebius_Regular_eng, Moebius, '뫼비우스';
     text-transform: lowercase;
     letter-spacing: -.2px;
     border: 1px solid #d9eae0;
@@ -1565,7 +1563,7 @@ width: 24px
 .contents .grid_form input[type=text]:hover {
     color: #555;
     font-size: 15px;
-    font-family: Moebius_Regular_kor, Moebius_Regular_eng;
+    font-family: Moebius_Regular_kor, Moebius_Regular_eng, Moebius, '뫼비우스';
     letter-spacing: -.4px;
     border-color: #82BEA3;
     border-style: none none solid;
@@ -1611,7 +1609,7 @@ width: 24px
     padding-left: 10px;
     font-size: 14px;
     color: #869DAB;
-    font-family: Moebius_Regular_kor, Moebius_Regular_eng;
+    font-family: Moebius_Regular_kor, Moebius_Regular_eng, Moebius, '뫼비우스';
     letter-spacing: -.4px;
     background: #fff;
     box-sizing: border-box;
@@ -1749,7 +1747,7 @@ display: table-column
     height: 35px;
     border-top: 1px solid #565656;
     font-size: 14px;
-    font-family: Moebius_Regular_kor, Moebius_Regular_eng;
+    font-family: Moebius_Regular_kor, Moebius_Regular_eng, Moebius, '뫼비우스';
     color: #555;
     vertical-align: middle;
     letter-spacing: -.4px;
@@ -1862,7 +1860,7 @@ display: table-column
     height: 40px;
     font-size: 15px;
     color: #888;
-    font-family: Moebius_Regular_kor, Moebius_Regular_eng;
+    font-family: Moebius_Regular_kor, Moebius_Regular_eng, Moebius, '뫼비우스';
     border-bottom: 1px solid #dfdfdf;
     line-height: 1;
     letter-spacing: -.2px;
@@ -1928,7 +1926,7 @@ display: table-column
     height: 30px;
     font-size: 13px;
     color: #888;
-    font-family: Moebius_Regular_kor, Moebius_Regular_eng;
+    font-family: Moebius_Regular_kor, Moebius_Regular_eng, Moebius, '뫼비우스';
     letter-spacing: .2px;
     border: 1px solid #d9eae0;
     border-radius: 3px;
@@ -1943,7 +1941,7 @@ display: table-column
 .table_grid .table_row .td_cell:hover .select_group select {
     color: #555;
     font-size: 14px;
-    font-family: Moebius_Regular_kor, Moebius_Regular_eng;
+    font-family: Moebius_Regular_kor, Moebius_Regular_eng, Moebius, '뫼비우스';
     border-color: #82BEA3;
     border-style: none none solid;
     border-width: 0 0 2px;
@@ -2022,7 +2020,7 @@ display: table-column
 .right_button_area {
     justify-content: flex-end;
     flex-direction: row;
-    margin-bottom: 60px;
+    padding-bottom: 60px;
     width: 100%
 }
 
@@ -2038,8 +2036,8 @@ display: table-column
     height: 40px;
     color: #404040;
     font-size: 14px;
-    font-family: Moebius_Regular_kor, Moebius_Regular_eng;
-    line-height: 1;
+    font-family: Moebius_Regular_kor, Moebius_Regular_eng, Moebius, '뫼비우스';
+    line-height: 30px;
     letter-spacing: 1.8px;
     border: 1px solid #b6b6b6;
     border-radius: 3px;
@@ -2117,7 +2115,7 @@ footer .copyright {
     height: 50px;
     font-size: 11px;
     color: #999;
-    font-family: Moebius_Regular_kor, Moebius_Regular_eng;
+    font-family: Moebius_Regular_kor, Moebius_Regular_eng, Moebius, '뫼비우스';
     box-sizing: border-box
 }
 
