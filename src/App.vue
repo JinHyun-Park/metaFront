@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
+import { mapState } from 'vuex';
 import Header from '@/views/Layout/Header.vue';
 import Footer from '@/views/Layout/Footer.vue';
 import Aside from '@/views/Layout/Aside.vue';
@@ -33,17 +33,6 @@ export default {
   },
   computed: {
     ...mapState('frameSet', ['headerOn', 'asideOn', 'footerOn', 'loginPageOn']),
-  },
-  mounted() {
-    // console.log(typeof this.loginPageOn);
-    // console.log(this.loginPageOn);
-    // this.setLoginPageOn({ loginPageOn: false });
-    // console.log('야야야');
-    // console.log(typeof this.loginPageOn);
-    // console.log(this.loginPageOn);
-  },
-  methods: {
-    ...mapActions('frameSet', ['setLoginPageOn']),
   },
 };
 </script>

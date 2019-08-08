@@ -11,4 +11,7 @@ export default {
   setLoginPageOn: (store, payload) => {
     store.commit('setLoginPageOn', payload);
   },
+  setResetPopOn: (store, payload) => {
+    store.commit('setResetPopOn', payload);
+  },
 };

@@ -108,8 +108,6 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
-
 export default {
 //   mixins: [common],
   data() {
@@ -121,7 +119,6 @@ export default {
     this.setActiveItem();
   },
   methods: {
-    ...mapActions('frameSet', ['setHeaderOn', 'setAsideOn', 'setFooterOn']),
     isActive(page) {
       return this.activeItem === page;
     },

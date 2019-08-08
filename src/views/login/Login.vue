@@ -2,7 +2,7 @@
   <div class="contents index">
     <article class="login_contn">
       <section class="title style-2">
-        <h2><i class="ico-bar" />META  PORTAL</h2>
+        <h2><i class="ico-bar" />NARU</h2>
       </section>
       <section class="login form_area border_group">
         <div class="row_contain type-1">
@@ -44,7 +44,7 @@
       <section class="help">
         <em
           class="notice"
-          @click="popReset"
+          @click="popResetPage"
         >Reset password<i class="ico-reset" /></em>
         <em
           class="notice"
@@ -52,12 +52,12 @@
         >Change password<i class="ico-help" /></em>
       </section>
     </article>
-    <ResetPwdPopup :style="{display: disYn}" />
+    <ResetPwdPopup :style="{display: resetPopOn}" />
   </div>
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 import ResetPwdPopup from '@/components/login/ResetPwdPopup.vue';
 
 export default {
@@ -68,11 +68,13 @@ export default {
     return {
       user_id: 'SKCC',
       user_pw: '',
-      disYn: false,
     };
   },
+  computed: {
+    ...mapState('frameSet', ['resetPopOn']),
+  },
   methods: {
-    ...mapActions('frameSet', ['setHeaderOn', 'setAsideOn', 'setFooterOn', 'setLoginPageOn']),
+    ...mapActions('frameSet', ['setResetPopOn']),
     login() {
       console.log('로그인 시도!');
       this.$axios.post('/api/auth/login', { id: this.user_id, pwd: this.user_pw })
@@ -87,8 +89,8 @@ export default {
     movePage(page) {
       this.$router.push({ name: page });
     },
-    popReset() {
-      this.disYn = !this.disYn;
+    popResetPage() {
+      this.setResetPopOn({ resetPopOn: 'flex' });
     },
   },
 };

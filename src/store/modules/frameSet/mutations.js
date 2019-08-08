@@ -11,4 +11,7 @@ export default {
   setLoginPageOn: (state, payload) => {
     state.loginPageOn = payload.loginPageOn;
   },
+  setResetPopOn: (state, payload) => {
+    state.resetPopOn = payload.resetPopOn;
+  },
 };

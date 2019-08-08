@@ -15,4 +15,5 @@ export default {
     type: Boolean,
     default: false,
   },
+  resetPopOn: 'none',
 };
