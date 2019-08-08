@@ -181,7 +181,7 @@ select::-ms-expand {
 
 @font-face {
     font-family: 'Moebius_Regular_kor';
-    src: local(※), url('../css/font/Moebius_Regular_kor.woof') format('woff'), url('../css/font/Moebius_Regular_kor.otf') format('opentype'), url('../css/font/Moebius_Regular_kor.ttf') format('truetype');
+    src: local(※), url('../css/font/Moebius_Regular_kor.woff') format('woff'), url('../css/font/Moebius_Regular_kor.otf') format('opentype'), url('../css/font/Moebius_Regular_kor.ttf') format('truetype');
     font-weight: normal;
     font-style: normal
 }
