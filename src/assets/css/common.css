@@ -28,7 +28,7 @@ body {
     flex: auto;
     flex-wrap: wrap;
     flex-direction: row;
-    font-family: Moebius_Regular_kor, Moebius_Regular_eng, Moebius_Bold_kor, Moebius_Bold_eng, Moebius, '뫼비우스', ;
+    font-family: Moebius_Regular_kor, Moebius_Regular_eng, Moebius_Bold_kor, Moebius_Bold_eng, Moebius, '뫼비우스';
     font-size: 12px;
     color: #555
 }
@@ -283,7 +283,7 @@ header .gnb>div .util_space .log {
     border-radius: 2px;
     color: #787878;
     font-size: 11px;
-    font-family: Moebius_Bold_kor, Moebius_Bold_eng;
+    font-family: Moebius_Bold_kor, Moebius_Bold_eng, Moebius, '뫼비우스';
     line-height: 1;
     background: #f7f3f2;
     cursor: pointer;
@@ -371,7 +371,7 @@ nav .menu li .sub_menu li {
     /*    padding-bottom: 15px;*/
     height: 13px;
     font-size: 12px;
-    font-family: Moebius_Bold_kor, Moebius_Bold_eng;
+    font-family: Moebius_Bold_kor, Moebius_Bold_eng, Moebius, '뫼비우스';
     color: #a2a2a2;
     line-height: 1
 }
@@ -573,6 +573,11 @@ aside .lnb li:hover {
     box-shadow: 2px 2px 8px 0 rgba(0, 0, 0, .18);
     z-index: 9
 }
+
+
+/* .contents.index .login_contn+.login_contn {
+    position: absolute
+} */
 
 .contents.index .title {
     align-items: flex-start
@@ -886,7 +891,7 @@ flex-direction: column
     padding: 6px 34px 7px 10px;
     width: auto;
     max-width: 42.5%;
-    height: 33px;
+    height: auto;
     border: 1px solid #D89E92;
     border-radius: 4px 4px 0 0;
     background: #e6afa4;
@@ -1008,6 +1013,7 @@ flex-direction: column
     padding: 0;
     padding-bottom: 26px;
     width: 100%;
+    height: auto;
     font-size: 15px;
     color: #46576b;
     font-family: Moebius_Regular_kor, Moebius_Regular_eng, Moebius, '뫼비우스'
@@ -1018,6 +1024,8 @@ flex-direction: column
 .contents .table_grid h5.s_tit.type-2,
 .contents .border_group h5.s_tit.type-2 {
     justify-content: space-between;
+    align-items: flex-start;
+    padding-top: 8px;
     padding-bottom: 28px
 }
 
@@ -1025,7 +1033,8 @@ flex-direction: column
 .contents .grid_form h5.s_tit .right_button_area,
 .contents .table_grid h5.s_tit .right_button_area,
 .contents .border_group h5.s_tit .right_button_area {
-    width: auto
+    width: auto;
+    padding-bottom: 0
 }
 
 
