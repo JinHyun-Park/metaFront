@@ -48,13 +48,15 @@ header {
     display: flex;
     display: -ms-flexbox;
     justify-content: center;
-    margin-bottom: 37px;
+    position: fixed;
+    /* margin-bottom: 37px; */
     width: 100%;
     border-bottom: 1px solid #cdcdcd;
     box-shadow: 1px 1px 4px 0 rgba(0, 0, 0, .12);
     box-sizing: border-box;
     _background: rgba(255, 138, 0, .1);
-    background: #2D3847
+    background: #2D3847;
+    z-index: 33
 }
 
 nav {
@@ -79,6 +81,7 @@ article {
     align-content: flex-start;
     flex-direction: row;
     padding: 0;
+    padding-top: 123px;
     width: 100%;
     box-sizing: border-box
 }
