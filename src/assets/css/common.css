@@ -1,7 +1,10 @@
 @charset "utf-8";
 html {
     position: relative;
-    height: 100%;
+}
+
+body {
+    overflow-y: hidden
 }
 
 body.centre {
@@ -48,7 +51,7 @@ header {
     display: flex;
     display: -ms-flexbox;
     justify-content: center;
-    position: fixed;
+    position: absolute;
     /* margin-bottom: 37px; */
     width: 100%;
     border-bottom: 1px solid #cdcdcd;
@@ -80,10 +83,14 @@ article {
     justify-content: flex-start;
     align-content: flex-start;
     flex-direction: row;
+    position: relative;
+    top: 85px;
     padding: 0;
-    padding-top: 123px;
+    padding-top: 37px;
     width: 100%;
-    box-sizing: border-box
+    height: calc(100% - 135px);
+    box-sizing: border-box;
+    overflow-y: auto
 }
 
 aside {
@@ -91,10 +98,14 @@ aside {
     display: -ms-flexbox;
     justify-content: flex-start;
     flex-direction: column;
+    position: sticky;
+    top: 0;
+    left: 0;
     margin-right: 80px;
     padding-top: 17px;
     padding-left: 20px;
     width: 260px;
+    height: 100%;
     background: #fefefe;
     border-radius: 0 10px 0 0;
     box-shadow: 1px 1px 4px 0 rgba(0, 0, 0, .14)
@@ -163,7 +174,7 @@ select::-ms-expand {
     display: none
 }
 
-::selection {
+ ::selection {
     color: inherit;
     background: #ebf1fb
 }
@@ -384,11 +395,11 @@ nav .menu li .sub_menu li:hover {
     display: -ms-flexbox;
     flex-direction: column;
     justify-content: flex-start;
-    /* align-self: center; */
+    align-self: center;
     margin: 0 56px 0 57px;
     padding: 14px 17px 14px 16px;
     width: 270px;
-    height: 100%;
+    height: auto;
     border-radius: 6px;
     box-sizing: border-box;
     position: relative;
@@ -396,7 +407,8 @@ nav .menu li .sub_menu li:hover {
 }
 
 .contents .move_form .form_area {
-    margin-bottom: 0;
+    flex-direction: column;
+    margin-bottom: 0
 }
 
 .contents .move_form .form_area h5.s_tit {
@@ -413,10 +425,11 @@ nav .menu li .sub_menu li:hover {
 .contents .right_space {
     display: flex;
     display: -ms-flexbox;
-    flex-wrap: wrap;
+    /* flex-wrap: wrap; */
     justify-content: flex-start;
     flex-direction: column;
-    width: 1160px
+    width: 1160px;
+    height: calc(100% - 135px);
 }
 
 .contents .title {
@@ -765,9 +778,9 @@ aside .lnb li:hover {
 
 /*
 .contents .right_space .big_tabs_contents, .contents .right_space .big_tabs_contents .tab_contn {
-    display:flex;
-    display:-ms-flexbox;
-    flex-direction: column
+display:flex;
+display:-ms-flexbox;
+flex-direction: column
 }
 */
 
@@ -938,7 +951,7 @@ aside .lnb li:hover {
     margin-bottom: 54px;
     padding: 13px 17px 30px;
     width: 100%;
-    min-height: 50px;
+    /* min-height: 50px; */
     box-shadow: 1px 1px 4px 2px rgba(0, 0, 0, .14);
     border-radius: 6px;
     box-sizing: border-box
@@ -990,6 +1003,7 @@ aside .lnb li:hover {
     margin-top: 13px;
     padding: 0;
     padding-bottom: 26px;
+    width: 100%;
     font-size: 15px;
     color: #46576b;
     font-family: Moebius_Regular_kor, Moebius_Regular_eng
@@ -1012,20 +1026,20 @@ aside .lnb li:hover {
 
 
 /* .contents .table_grid .table_head .tit_area {
-    display: table-row
+display: table-row
 }
 
 .contents .table_grid .table_head .tit_area h5.s_tit,
 .contents .table_grid .table_head .tit_area .right_button_area {
-    display: table-cell
+display: table-cell
 }
 
 .contents .table_grid .table_head .add_info {
-    display: table-row
+display: table-row
 }
 
 .contents .table_grid .table_head .add_info .add_text {
-    display: table-cell
+display: table-cell
 } */
 
 .contents .grid_form h5.s_tit {
@@ -1363,7 +1377,7 @@ select {
 /*
 .contents .form_area .row_contain .column .select_group .select,
 .select_group .select {
-    width: 24px
+width: 24px
 }
 */
 
@@ -1700,11 +1714,11 @@ select {
 
 /*
 colgroup {
-    display: table-column-group
+display: table-column-group
 }
 
 colgroup col {
-    display: table-column
+display: table-column
 }
 */
 
@@ -2045,7 +2059,7 @@ colgroup col {
 }
 
 .default_button.btn_next {
-    background: #f3f3f3 url(../images/ico-next.png) right 8px center no-repeat;
+    background: #f3f3f3 url(..//images/ico-next.png) right 8px center no-repeat;
     border-color: #777
 }
 
@@ -2077,7 +2091,7 @@ footer {
     display: flex;
     display: -ms-flexbox;
     justify-content: center;
-    position: relative;
+    position: absolute;
     left: 0;
     bottom: 0;
     width: 100%;
