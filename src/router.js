@@ -31,6 +31,16 @@ const router = new Router({
     ],
   },
   {
+    path: '/notice',
+    name: 'noticeForm',
+    component: () => import('@/views/notice/NoticeForm.vue'),
+    children: [{
+      path: '/notice/noticeMain',
+      name: 'noticeMain',
+      component: () => import('@/views/notice/NoticeMain.vue'),
+    }],
+  },
+  {
     path: '/meta/eigw/onlineList',
     name: 'eigwOnlineList',
     component: () => import('@/views/meta/eigw/OnlineList.vue'),

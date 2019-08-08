@@ -315,7 +315,7 @@
           </div>
         </div>
         <div class="column w-1">
-          <label class="column_label">적용서버</label>
+          <label class="column_label">TCP Gateway 명</label>
           <input
             type="text"
             value="OPGROUP"

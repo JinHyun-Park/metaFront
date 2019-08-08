@@ -25,6 +25,17 @@
         <nav>
           <ul class="menu">
             <li>
+              <span>공지사항</span>
+              <ul class="sub_menu">
+                <li
+                  class="ov"
+                  @click="movePage('noticeMain')"
+                >
+                  공지사항 확인
+                </li>
+              </ul>
+            </li>
+            <li>
               <span>신청</span>
               <ul class="sub_menu">
                 <li
@@ -82,16 +93,6 @@
               </ul>
             </li>
             <li>
-              <span>공지사항</span>
-              <ul class="sub_menu">
-                <li class="ov">
-                  EiGW
-                </li>
-                <li>MCG</li>
-                <li>EiGW</li>
-              </ul>
-            </li>
-            <li>
               <span>관리</span>
               <ul class="sub_menu">
                 <li>EAI</li>
@@ -127,8 +128,8 @@ export default {
         this.activeItem = localStorage.getItem('LS_ROUTE_KEY');
       }
     },
-    movePage(page) {
-      this.activeItem = page;
+    movePage(page) { // 페이지 이동
+      this.activeItem = page; // 헤더에서 내려오는 바에 현 위치 표시
       this.$router.push({ name: page });
     },
   },
