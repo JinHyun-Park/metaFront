@@ -181,28 +181,34 @@ select::-ms-expand {
 
 @font-face {
     font-family: 'Moebius_Regular_kor';
-    src: url('../css/font/Moebius_Regular_kor.woof') format('woff'), url('../css/font/Moebius_Regular_kor.ttf') format('truetype');
+    src: local(※), url('../css/font/Moebius_Regular_kor.woof') format('woff'), url('../css/font/Moebius_Regular_kor.otf') format('opentype'), url('../css/font/Moebius_Regular_kor.ttf') format('truetype');
     font-weight: normal;
     font-style: normal
 }
 
 @font-face {
     font-family: 'Moebius_Regular_eng';
-    src: url('../css/font/Moebius_Regular_eng.woof') format('woof'), url('../css/font/Moebius_Regular_eng.ttf') format('truetype');
+    /* src: local(※), url('../css/font/Moebius_Regular_eng.woof') format('woof'); */
+    src: url('../css/font/Moebius_Regular_eng.otf') format('opentype');
+    src: url('../css/font/Moebius_Regular_eng.ttf') format('truetype');
     font-weight: normal;
     font-style: normal
 }
 
 @font-face {
     font-family: 'Moebius_Bold_kor';
-    src: url('../css/font/Moebius_Bold_kor.woof') format('woof'), url('../css/font/Moebius_Bold_kor.ttf') format('truetype');
+    /* src: local(※), url('../css/font/Moebius_Bold_kor.woof') format('woof'); */
+    src: url('../css/font/Moebius_Bold_kor.otf') format('opentype');
+    src: url('../css/font/Moebius_Bold_kor.ttf') format('truetype');
     font-weight: bold;
     font-style: normal
 }
 
 @font-face {
     font-family: 'Moebius_Bold_eng';
-    src: url('../css/font/Moebius_Bold_eng.woof') format('woof'), url('../css/font/Moebius_Bold_eng.ttf') format('truetype');
+    /* src: local(※), url('../css/font/Moebius_Bold_eng.woof') format('woof'); */
+    src: url('../css/font/Moebius_Bold_eng.otf') format('opentype');
+    src: url('../css/font/Moebius_Bold_eng.ttf') format('truetype');
     font-weight: bold;
     font-style: normal
 }
