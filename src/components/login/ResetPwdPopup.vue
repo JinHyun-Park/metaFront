@@ -42,6 +42,13 @@
       <section class="btm_button_area">
         <button
           type="button"
+          class="default_button"
+          @click="popResetPage"
+        >
+          취소
+        </button>
+        <button
+          type="button"
           class="default_button on"
           @click="popResetPage"
         >

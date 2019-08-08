@@ -36,6 +36,13 @@
       <section class="btm_button_area">
         <button
           type="button"
+          class="default_button"
+          @click="movePage('login')"
+        >
+          취소
+        </button>
+        <button
+          type="button"
           class="default_button on"
           @click="movePage('login')"
         >
