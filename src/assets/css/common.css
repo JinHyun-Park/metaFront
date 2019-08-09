@@ -717,6 +717,28 @@ aside .lnb li:hover {
     box-sizing: border-box
 }
 
+.contents .right_space .progress ul li:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 100%;
+    width: 0;
+    height: 0;
+    border-left: 24px solid #888;
+    border-right: 24px solid transparent;
+    border-top: 24px solid transparent;
+    border-bottom: 24px solid transparent;
+    z-index: 3
+}
+
+.contents .right_space .progress ul li:last-child:before {
+    content: none
+}
+
+.contents .right_space .progress.duo ul li {
+    width: 50%
+}
+
 .contents .right_space .progress ul li.on,
 .contents .right_space .progress ul li:hover {
     color: #fff;
@@ -898,6 +920,10 @@ flex-direction: column
     box-sizing: border-box
 }
 
+.contents .info_title.small {
+    max-width: 16.5%
+}
+
 .contents .info_title>em.sub_tit {
     font-size: 15px;
     color: #fff;
@@ -966,6 +992,14 @@ flex-direction: column
     box-sizing: border-box
 }
 
+.contents .border_group.border-none {
+    margin-bottom: 0;
+    padding-top: 0;
+    padding-left: 0;
+    padding-bottom: 0;
+    box-shadow: none
+}
+
 
 /* FORM */
 
@@ -1004,7 +1038,8 @@ flex-direction: column
 .contents .form_area h5.s_tit,
 .contents .grid_form h5.s_tit,
 .contents .table_grid h5.s_tit,
-.contents .border_group h5.s_tit {
+.contents .border_group h5.s_tit,
+.contents .border_group .table_head h5.s_tit {
     flex-direction: row;
     justify-items: flex-start;
     align-items: center;
@@ -1022,11 +1057,16 @@ flex-direction: column
 .contents .form_area h5.s_tit.type-2,
 .contents .grid_form h5.s_tit.type-2,
 .contents .table_grid h5.s_tit.type-2,
-.contents .border_group h5.s_tit.type-2 {
+.contents .border_group h5.s_tit.type-2,
+.contents .border_group .table_head h5.s_tit.type-2 {
     justify-content: space-between;
     align-items: flex-start;
     padding-top: 8px;
     padding-bottom: 28px
+}
+
+.contents .border_group h5.s_tit.type-2>select {
+    width: 200px
 }
 
 .contents .form_area h5.s_tit .right_button_area,
@@ -1036,24 +1076,6 @@ flex-direction: column
     width: auto;
     padding-bottom: 0
 }
-
-
-/* .contents .table_grid .table_head .tit_area {
-display: table-row
-}
-
-.contents .table_grid .table_head .tit_area h5.s_tit,
-.contents .table_grid .table_head .tit_area .right_button_area {
-display: table-cell
-}
-
-.contents .table_grid .table_head .add_info {
-display: table-row
-}
-
-.contents .table_grid .table_head .add_info .add_text {
-display: table-cell
-} */
 
 .contents .grid_form h5.s_tit {
     margin-left: 2px
