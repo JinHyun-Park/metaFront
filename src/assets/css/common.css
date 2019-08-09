@@ -387,7 +387,7 @@ nav .menu li .sub_menu li:last-child {
 nav .menu li .sub_menu li.ov,
 nav .menu li .sub_menu li:hover {
     font-size: 12px;
-    font-family: Moebius_Bold_kor, Moebius_Bold_eng;
+    font-family: Moebius_Bold_kor, Moebius_Bold_eng, Moebius, '뫼비우스';
     color: #626262
 }
 
