@@ -1217,7 +1217,8 @@ flex-direction: column
     position: relative
 }
 
-.contents .form_area .row_contain .column .radio_group .default_radio {
+.contents .form_area .row_contain .column .radio_group .default_radio,
+.default_radio {
     display: flex;
     display: -ms-flexbox;
     align-items: center;
@@ -1228,11 +1229,17 @@ flex-direction: column
     color: #555
 }
 
+.default_radio {
+    margin: 0;
+    padding: 0
+}
+
 .contents .form_area .row_contain .column .radio_group .default_radio:first-child {
     margin-left: 14px
 }
 
 .contents .form_area .row_contain .column .radio_group .default_radio input[type=radio],
+.default_radio input[type=radio],
 input[type=radio] {
     display: flex;
     display: -ms-flexbox;
@@ -1240,7 +1247,8 @@ input[type=radio] {
     padding: 0;
 }
 
-.contents .form_area .row_contain .column .radio_group .default_radio input[type=radio]:not(old) {
+.contents .form_area .row_contain .column .radio_group .default_radio input[type=radio]:not(old),
+.default_radio input[type=radio]:not(old) {
     position: absolute;
     top: 2px;
     left: 2px;
@@ -1248,7 +1256,13 @@ input[type=radio] {
     height: 13px
 }
 
-.contents .form_area .row_contain .column .radio_group .default_radio input[type=radio]+label {
+.default_radio input[type=radio]:not(old) {
+    width: 11px;
+    height: 11px
+}
+
+.contents .form_area .row_contain .column .radio_group .default_radio input[type=radio]+label,
+.default_radio input[type=radio]+label {
     display: flex;
     display: -ms-flexbox;
     justify-content: center;
@@ -1264,28 +1278,46 @@ input[type=radio] {
     z-index: 22
 }
 
+.default_radio input[type=radio]+label {
+    width: 12px;
+    height: 12px
+}
+
 .contents .form_area .row_contain .column .radio_group .default_radio input[type=radio]:checked+label,
-.contents .form_area .row_contain .column .radio_group .default_radio.on input[type=radio]+label {
+.default_radio input[type=radio]:checked+label,
+.contents .form_area .row_contain .column .radio_group .default_radio.on input[type=radio]+label,
+.default_radio.on input[type=radio]+label {
     border-width: 2px;
     border-color: #82BEA3;
     background: #fff
 }
 
-.contents .form_area .row_contain .column .radio_group .default_radio input[type=radio]+label.border-brickpink {
+.default_radio input[type=radio]:checked+label,
+.default_radio.on input[type=radio]+label {
+    border-width: 1px
+}
+
+.contents .form_area .row_contain .column .radio_group .default_radio input[type=radio]+label.border-brickpink,
+input[type=radio]+label.border-brickpink {
     border-color: rgba(196, 105, 121, .24) !important;
 }
 
 .contents .form_area .row_contain .column .radio_group .default_radio input[type=radio]:checked+label.border-brickpink,
-.contents .form_area .row_contain .column .radio_group .default_radio.on input[type=radio]+label.border-brickpink {
+.default_radio input[type=radio]:checked+label.border-brickpink,
+.contents .form_area .row_contain .column .radio_group .default_radio.on input[type=radio]+label.border-brickpink,
+.default_radio.on input[type=radio]+label.border-brickpink {
     border-color: #c46979 !important;
 }
 
 .contents .form_area .row_contain .column .radio_group .default_radio input[type=radio]:checked+label.border-brickpink span,
-.contents .form_area .row_contain .column .radio_group .default_radio.on input[type=radio]+label.border-brickpink span {
+.default_radio input[type=radio]:checked+label.border-brickpink span,
+.contents .form_area .row_contain .column .radio_group .default_radio.on input[type=radio]+label.border-brickpink span,
+.default_radio.on input[type=radio]+label.border-brickpink span {
     background: #c46979 !important;
 }
 
-.contents .form_area .row_contain .column .radio_group .default_radio input[type=radio]+label span {
+.contents .form_area .row_contain .column .radio_group .default_radio input[type=radio]+label span,
+.default_radio input[type=radio]+label span {
     display: flex;
     display: -ms-flexbox;
     justify-content: center;
@@ -1295,8 +1327,15 @@ input[type=radio] {
     border-radius: 50%
 }
 
+.default_radio input[type=radio]+label span {
+    width: 8px;
+    height: 8px
+}
+
 .contents .form_area .row_contain .column .radio_group .default_radio input[type=radio]:checked+label span,
-.contents .form_area .row_contain .column .radio_group .default_radio.on input[type=radio]+label span {
+.default_radio input[type=radio]:checked+label span,
+.contents .form_area .row_contain .column .radio_group .default_radio.on input[type=radio]+label span,
+.default_radio.on input[type=radio]+label span {
     background: #82BEA3
 }
 
@@ -1866,6 +1905,36 @@ display: table-column
     min-width: 125px
 }
 
+.contents .layer_popup .table_colgroup .table_grid .table_head ul .th_cell:first-child,
+.contents .layer_popup .table_colgroup .table_grid .table_body .table_row .td_cell:first-child {
+    width: 125px;
+    min-width: 125px
+}
+
+.contents .layer_popup .table_colgroup .table_grid .table_head ul .th_cell:last-child,
+.contents .layer_popup .table_colgroup .table_grid .table_body .table_row .td_cell:last-child {
+    width: 125px;
+    min-width: 125px
+}
+
+.contents .layer_popup.small .table_colgroup .table_grid .table_head ul .th_cell,
+.contents .layer_popup.small .table_colgroup .table_grid .table_body .table_row .td_cell {
+    width: 95px;
+    min-width: 95px
+}
+
+.contents .layer_popup .table_colgroup .table_grid.radio_group .table_head ul .th_cell:first-child,
+.contents .layer_popup .table_colgroup .table_grid.radio_group .table_body .table_row .td_cell:first-child {
+    width: 45px;
+    min-width: 45px
+}
+
+.contents .layer_popup.small .table_colgroup .table_grid .table_head ul .th_cell:last-child,
+.contents .layer_popup.small .table_colgroup .table_grid .table_body .table_row .td_cell:last-child {
+    width: 175px;
+    min-width: 175px
+}
+
 .table_grid.tb_layout .table_head ul .th_cell:nth-child(2),
 .table_grid.tb_layout .table_body .table_row .td_cell:nth-child(2),
 .table_grid.tb_layout .table_body .fold_colgroup>.table_row.colspan .td_cell:nth-child(2),
@@ -1878,7 +1947,9 @@ display: table-column
 
 .table_grid.tb_layout .table_body .fold_colgroup>.table_row.colspan .td_cell:last-child,
 .table_grid.tb_layout .table_head ul .th_cell:last-child,
-.table_grid.tb_layout .table_body .table_row .td_cell:last-child {
+.table_grid.tb_layout .table_body .table_row .td_cell:last-child,
+.table_grid .table_head.w-auto ul .th_cell:last-child,
+.table_grid .table_body .table_row.w-auto .td_cell:last-child {
     width: 60px;
     min-width: 60px
 }
@@ -2044,6 +2115,101 @@ display: table-column
     z-index: 10
 }
 
+.contents.popup {
+    display: flex;
+    display: -ms-flexbox;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    height: 100%
+}
+
+.contents.popup .layer_popup {
+    display: flex;
+    display: -ms-flexbox;
+    position: absolute;
+    padding: 27px 63px 51px;
+    justify-content: center;
+    flex-direction: column;
+    width: auto;
+    height: auto;
+    border-radius: 3px;
+    background: #fff;
+    box-shadow: 2px 2px 8px 0 rgba(0, 0, 0, .18);
+    z-index: 11
+}
+
+
+/* .contents.popup .layer_popup+.layer_popup {
+    position: absolute
+} */
+
+.contents.popup .title {
+    align-items: flex-start
+}
+
+.contents.popup .title h2 {
+    font-size: 17px
+}
+
+.contents.popup .layer_popup.small>section {
+    width: 600px
+}
+
+.contents.popup .layer_popup>section,
+.contents.popup .layer_popup.medium>section {
+    width: 800px
+}
+
+.contents.popup .layer_popup.large>section {
+    width: 1000px
+}
+
+.contents.popup .layer_popup>.form_area {
+    padding: 26px 17px 51px
+}
+
+.contents.popup .layer_popup>.form_area .row_contain.last {
+    margin-bottom: 43px
+}
+
+.contents.popup .layer_popup>.form_area .column input[type=text],
+.contents.popup .layer_popup>.form_area .column input[type=number],
+.contents.popup .layer_popup>.form_area .row_contain .column input[type=password] {
+    height: 40px;
+    font-size: 13px
+}
+
+.contents.popup .layer_popup>.form_area .column.on input[type=text],
+.contents.popup .layer_popup>.form_area .column:hover input[type=text],
+.contents.popup .layer_popup>.form_area .column.on input[type=number],
+.contents.popup .layer_popup>.form_area .column:hover input[type=number],
+.contents.popup .layer_popup>.form_area .row_contain .column.on input[type=password],
+.contents.popup .layer_popup>.form_area .row_contain .column:hover input[type=password] {
+    font-size: 14px
+}
+
+.contents.popup .layer_popup>.form_area .column .column_label {
+    font-size: 13px
+}
+
+.contents.popup .layer_popup>.form_area .table_colgroup+.table_colgroup {
+    margin-top: 24px
+}
+
+.contents.popup .layer_popup .btm_button_area.log {
+    margin-bottom: 60px
+}
+
+.contents.popup .layer_popup .btm_button_area {
+    justify-content: center;
+    margin-bottom: 0
+}
+
+.contents.popup .layer_popup .btm_button_area .default_button:first-child {
+    margin-left: 0
+}
+
 
 /* BUTTON */
 
@@ -2057,7 +2223,7 @@ display: table-column
 
 .right_button_area {
     width: 100%;
-    margin-bottom: 0;
+    padding-bottom: 0;
     align-items: center
 }
 
