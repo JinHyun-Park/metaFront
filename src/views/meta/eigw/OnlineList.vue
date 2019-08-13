@@ -74,7 +74,7 @@
       </div>
 
       <div class="table_grid">
-        <div class="table_head w-auto">
+        <div class="table_head">
           <ul>
             <li class="th_cell">
               EIGW구분<i class="ico-sort-down" />
@@ -97,7 +97,7 @@
           </ul>
         </div>
         <div class="table_body">
-          <ul class="table_row w-auto">
+          <ul class="table_row">
             <li class="td_cell">
               2 documents
             </li>
@@ -117,7 +117,7 @@
               2 documents
             </li>
           </ul>
-          <ul class="table_row w-auto">
+          <ul class="table_row">
             <li class="td_cell">
               q sign
             </li>
