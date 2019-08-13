@@ -1065,8 +1065,12 @@ flex-direction: column
     padding-bottom: 28px
 }
 
-.contents .border_group h5.s_tit.type-2>select {
-    width: 200px
+.contents .border_group h5.s_tit.type-2 .select_group select {
+    width: 180px
+}
+
+.contents .border_group h5.s_tit.type-2 .select_group {
+    width: auto
 }
 
 .contents .form_area h5.s_tit .right_button_area,
@@ -1339,13 +1343,19 @@ input[type=radio]+label.border-brickpink {
     background: #82BEA3
 }
 
-.contents .form_area .row_contain .column .column_label {
+.contents .form_area .row_contain .column .column_label,
+.select_group>.column_label {
     padding: 0;
     padding-left: 7px;
+    padding-right: 7px;
     padding-bottom: 5px;
     font-size: 14px;
     color: #869DAB;
     font-family: Moebius_Regular_kor, Moebius_Regular_eng, Moebius, '뫼비우스'
+}
+
+.select_group>.column_label {
+    align-self: center
 }
 
 .contents .form_area .row_contain .column input[type=text],
@@ -1433,6 +1443,7 @@ select {
 .contents .form_area .row_contain .column .calander_group .calander,
 .calander_group .calander,
 .contents .form_area .row_contain .column .select_group .select,
+.border_group h5.s_tit.type-2 .select_group .select,
 .select_group .select {
     position: absolute;
     right: 0;
@@ -1444,7 +1455,8 @@ select {
     width: 24px;
     height: 30px;
     border-left: 1px solid #e2e2e2;
-    cursor: pointer
+    cursor: pointer;
+    z-index: 5
 }
 
 
@@ -2024,7 +2036,8 @@ display: table-column
 }
 
 .table_grid .table_row .td_cell input[type=text],
-.table_grid .table_row .td_cell .select_group select {
+.table_grid .table_row .td_cell .select_group select,
+.border_group h5.s_tit.type-2>.select_group select {
     height: 30px;
     font-size: 13px;
     color: #888;
@@ -2040,7 +2053,9 @@ display: table-column
 .table_grid .table_row .td_cell.on input[type=text],
 .table_grid .table_row .td_cell:hover input[type=text],
 .table_grid .table_row .td_cell.on .select_group select,
-.table_grid .table_row .td_cell:hover .select_group select {
+.table_grid .table_row .td_cell:hover .select_group select,
+.border_group h5.s_tit.type-2>.select_group.on select,
+.border_group h5.s_tit.type-2>.select_group:hover select {
     color: #555;
     font-size: 14px;
     font-family: Moebius_Regular_kor, Moebius_Regular_eng, Moebius, '뫼비우스';
@@ -2063,12 +2078,15 @@ display: table-column
     background-size: 100%
 }
 
-.table_grid .table_row .td_cell .select_group select {
+.table_grid .table_row .td_cell .select_group select,
+.border_group h5.s_tit.type-2>.select_group select {
     background: url(../images/ico-droparrow.png) right 6px center no-repeat
 }
 
 .table_grid .table_row .td_cell.on .select_group select,
-.table_grid .table_row .td_cell:hover .select_group select {
+.table_grid .table_row .td_cell:hover .select_group select,
+.border_group h5.s_tit.type-2>.select_group.on select,
+.border_group h5.s_tit.type-2>.select_group:hover select {
     background: url(../images/ico-droparrow-on.png) right 6px center no-repeat
 }
 
@@ -2152,6 +2170,13 @@ display: table-column
     font-size: 17px
 }
 
+.contents.popup .layer_popup {
+    justify-content: flex-start;
+    max-height: 674px;
+    overflow-y: auto;
+    box-sizing: border-box
+}
+
 .contents.popup .layer_popup.small>section {
     width: 600px
 }
@@ -2173,40 +2198,40 @@ display: table-column
     margin-bottom: 43px
 }
 
-.contents.popup .layer_popup>.form_area .column input[type=text],
-.contents.popup .layer_popup>.form_area .column input[type=number],
-.contents.popup .layer_popup>.form_area .row_contain .column input[type=password] {
+.contents.index .login_contn.layer_popup>.form_area .row_contain .column input[type=text],
+.contents.index .login_contn.layer_popup>.form_area .row_contain .column input[type=number],
+.contents.index .login_contn.layer_popup>.form_area .row_contain .column input[type=password] {
     height: 40px;
     font-size: 13px
 }
 
-.contents.popup .layer_popup>.form_area .column.on input[type=text],
-.contents.popup .layer_popup>.form_area .column:hover input[type=text],
-.contents.popup .layer_popup>.form_area .column.on input[type=number],
-.contents.popup .layer_popup>.form_area .column:hover input[type=number],
-.contents.popup .layer_popup>.form_area .row_contain .column.on input[type=password],
-.contents.popup .layer_popup>.form_area .row_contain .column:hover input[type=password] {
+.contents.index .login_contn.layer_popup>.form_area .row_contain .column.on input[type=text],
+.contents.index .login_contn.layer_popup>.form_area .row_contain .column:hover input[type=text],
+.contents.index .login_contn.layer_popup>.form_area .row_contain .column.on input[type=number],
+.contents.index .login_contn.layer_popup>.form_area .row_contain .column:hover input[type=number],
+.contents.index .login_contn.layer_popup>.form_area .row_contain .column.on input[type=password],
+.contents.index .login_contn.layer_popup>.form_area .row_contain .column:hover input[type=password] {
     font-size: 14px
 }
 
-.contents.popup .layer_popup>.form_area .column .column_label {
+.contents.index .login_contn.layer_popup>.form_area .row_contain .column .column_label {
     font-size: 13px
 }
 
-.contents.popup .layer_popup>.form_area .table_colgroup+.table_colgroup {
+.contents.index .login_contn.layer_popup>.form_area .table_colgroup+.table_colgroup {
     margin-top: 24px
 }
 
-.contents.popup .layer_popup .btm_button_area.log {
-    margin-bottom: 60px
+.contents.index .login_contn.layer_popup .btm_button_area.log {
+    padding-bottom: 60px
 }
 
-.contents.popup .layer_popup .btm_button_area {
+.contents .layer_popup .btm_button_area {
     justify-content: center;
-    margin-bottom: 0
+    padding-bottom: 0
 }
 
-.contents.popup .layer_popup .btm_button_area .default_button:first-child {
+.contents.index .login_contn.layer_popup .btm_button_area .default_button:first-child {
     margin-left: 0
 }
 
