@@ -1065,6 +1065,11 @@ flex-direction: column
     padding-bottom: 28px
 }
 
+
+/* .contents .form_area .table_grid+h5.s_tit.type-2 {
+    margin-top: 63px
+} */
+
 .contents .border_group h5.s_tit.type-2 .select_group select {
     width: 180px
 }
@@ -1924,7 +1929,9 @@ display: table-column
 }
 
 .contents .layer_popup .table_colgroup .table_grid .table_head ul .th_cell:last-child,
-.contents .layer_popup .table_colgroup .table_grid .table_body .table_row .td_cell:last-child {
+.contents .right_space .table_colgroup .table_grid .table_head.w-auto ul .th_cell:last-child,
+.contents .layer_popup .table_colgroup .table_grid .table_body .table_row .td_cell:last-child,
+.contents .right_space .table_colgroup .table_grid .table_body .table_row.w-auto .td_cell:last-child {
     width: 125px;
     min-width: 125px
 }
@@ -1936,7 +1943,9 @@ display: table-column
 }
 
 .contents .layer_popup .table_colgroup .table_grid.radio_group .table_head ul .th_cell:first-child,
-.contents .layer_popup .table_colgroup .table_grid.radio_group .table_body .table_row .td_cell:first-child {
+.contents .right_space .table_colgroup .table_grid.radio_group .table_head ul .th_cell:first-child,
+.contents .layer_popup .table_colgroup .table_grid.radio_group .table_body .table_row .td_cell:first-child,
+.contents .right_space .table_colgroup .table_grid.radio_group .table_body .table_row .td_cell:first-child {
     width: 45px;
     min-width: 45px
 }
@@ -1945,6 +1954,12 @@ display: table-column
 .contents .layer_popup.small .table_colgroup .table_grid .table_body .table_row .td_cell:last-child {
     width: 175px;
     min-width: 175px
+}
+
+.contents .right_space .table_colgroup .table_grid.extend .table_head ul .th_cell:last-child,
+.contents .right_space .table_colgroup .table_grid.extend .table_body .table_row .td_cell:last-child {
+    width: 575px;
+    min-width: 575px
 }
 
 .table_grid.tb_layout .table_head ul .th_cell:nth-child(2),
@@ -1957,11 +1972,9 @@ display: table-column
     min-width: 285px
 }
 
-.table_grid.tb_layout .table_body .fold_colgroup>.table_row.colspan .td_cell:last-child,
-.table_grid.tb_layout .table_head ul .th_cell:last-child,
-.table_grid.tb_layout .table_body .table_row .td_cell:last-child,
-.table_grid .table_head.w-auto ul .th_cell:last-child,
-.table_grid .table_body .table_row.w-auto .td_cell:last-child {
+.contents .right_space .table_colgroup .table_grid.tb_layout .table_body .fold_colgroup>.table_row.colspan .td_cell:last-child,
+.contents .right_space .table_colgroup .table_grid.tb_layout .table_head ul .th_cell:last-child,
+.contents .right_space .table_colgroup .table_grid.tb_layout .table_body .table_row .td_cell:last-child {
     width: 60px;
     min-width: 60px
 }

@@ -116,9 +116,73 @@
                 
                 <section class="form_area border_group">
                     <h5 class="s_tit type-2">신청목록
+                    </h5>
+                    <div class="table_colgroup">
+                        <div class="table_grid tb_layout">
+                            <div class="table_head w-auto">
+                                <ul>
+                                    <li class="th_cell">방식<i class="ico-sort-down"></i></li>
+                                    <li class="th_cell">인터페이스명(영문)<i class="ico-sort-up"></i></li>
+                                    <li class="th_cell">인터페이스명(한글)<i class="ico-sort-down"></i></li>
+                                    <li class="th_cell">방향<i class="ico-sort-down"></i></li>
+                                    <li class="th_cell">비동기<i class="ico-sort-down"></i></li>
+                                    <li class="th_cell">&nbsp;</li>
+                                </ul>
+                            </div>
+                            <div class="table_body">
+                                <ul class="table_row w-auto">
+                                    <li class="td_cell">MQ</li>
+                                    <li class="td_cell">SEND1P</li>
+                                    <li class="td_cell">서비스 연동</li>
+                                    <li class="td_cell">단방향</li>
+                                    <li class="td_cell">Y</li>
+                                    <li class="td_cell"><i class="ico-del"></i></li>
+                                </ul>
+                                <div class="fold_colgroup">
+                                    <ul class="table_row colspan w-auto">
+                                        <li class="td_cell"><label class="label-default">운영</label></li>
+                                        <li class="td_cell">송신 <a href="#n" title="" class="on">HostP1</a> <a href="#n" title="">HostP2</a> <a href="#n" title="">HostP3</a></li>
+                                        <li class="td_cell">상세 내용</li>
+                                        <li class="td_cell">수신 <a href="#n" title="">Host-PA</a></li>
+                                        <li class="td_cell"></li>
+                                        <li class="td_cell"></li>
+                                    </ul>
+                                    <ul class="table_row colspan w-auto">
+                                        <li class="td_cell"><label class="label-default color-green">개발</label></li>
+                                        <li class="td_cell">송신 <a href="#n" title="">HostD1</a> <a href="#n" title="">HostD2</a></li>
+                                        <li class="td_cell">상세 내용</li>
+                                        <li class="td_cell">수신 <a href="#n" title="" class="on">Host-DA</a></li>
+                                        <li class="td_cell"></li>
+                                        <li class="td_cell"></li>
+                                    </ul>
+                                </div>
+                                <ul class="table_row w-auto">
+                                    <li class="td_cell">MQ</li>
+                                    <li class="td_cell">SMS_RSLT</li>
+                                    <li class="td_cell">SMS 결과</li>
+                                    <li class="td_cell">단방향</li>
+                                    <li class="td_cell">Y</li>
+                                    <li class="td_cell"><i class="ico-del"></i></li>
+                                </ul>
+                                <ul class="table_row w-auto">
+                                    <li class="td_cell">FILE</li>
+                                    <li class="td_cell">WEEK_DATA</li>
+                                    <li class="td_cell">주간 데이터</li>
+                                    <li class="td_cell">단방향</li>
+                                    <li class="td_cell">Y</li>
+                                    <li class="td_cell"><i class="ico-del"></i></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                
+                <section class="form_area border_group">
+                    <h5 class="s_tit type-2">기본정보
                         <div class="right_button_area">    
                             <button type="button" class="default_button">수정</button>
-                            <button type="button" class="default_button on">인터페이스 추가</button>
+                            <button type="button" class="default_button extend on">인터페이스 추가</button>
                         </div>
                     </h5>
                     <div class="row_contain">
@@ -253,74 +317,15 @@
                             <textarea cols="50" row="5" placeholder="이러한 영향도 입니다."></textarea>
                         </div>
                     </div>
-                    
-                    <div class="table_colgroup">
-                        <div class="table_grid tb_layout">
-                            <div class="table_head w-auto">
-                                <ul>
-                                    <li class="th_cell">방식<i class="ico-sort-down"></i></li>
-                                    <li class="th_cell">인터페이스명(영문)<i class="ico-sort-up"></i></li>
-                                    <li class="th_cell">인터페이스명(한글)<i class="ico-sort-down"></i></li>
-                                    <li class="th_cell">방향<i class="ico-sort-down"></i></li>
-                                    <li class="th_cell">비동기<i class="ico-sort-down"></i></li>
-                                    <li class="th_cell">&nbsp;</li>
-                                </ul>
-                            </div>
-                            <div class="table_body">
-                                <ul class="table_row w-auto">
-                                    <li class="td_cell">MQ</li>
-                                    <li class="td_cell">SEND1P</li>
-                                    <li class="td_cell">서비스 연동</li>
-                                    <li class="td_cell">단방향</li>
-                                    <li class="td_cell">Y</li>
-                                    <li class="td_cell"><i class="ico-del"></i></li>
-                                </ul>
-                                <div class="fold_colgroup">
-                                    <ul class="table_row colspan w-auto">
-                                        <li class="td_cell"><label class="label-default">운영</label></li>
-                                        <li class="td_cell">송신 <a href="#n" title="" class="on">HostP1</a> <a href="#n" title="">HostP2</a> <a href="#n" title="">HostP3</a></li>
-                                        <li class="td_cell">상세 내용</li>
-                                        <li class="td_cell">수신 <a href="#n" title="">Host-PA</a></li>
-                                        <li class="td_cell"></li>
-                                        <li class="td_cell"></li>
-                                    </ul>
-                                    <ul class="table_row colspan w-auto">
-                                        <li class="td_cell"><label class="label-default color-green">개발</label></li>
-                                        <li class="td_cell">송신 <a href="#n" title="">HostD1</a> <a href="#n" title="">HostD2</a></li>
-                                        <li class="td_cell">상세 내용</li>
-                                        <li class="td_cell">수신 <a href="#n" title="" class="on">Host-DA</a></li>
-                                        <li class="td_cell"></li>
-                                        <li class="td_cell"></li>
-                                    </ul>
-                                </div>
-                                <ul class="table_row w-auto">
-                                    <li class="td_cell">MQ</li>
-                                    <li class="td_cell">SMS_RSLT</li>
-                                    <li class="td_cell">SMS 결과</li>
-                                    <li class="td_cell">단방향</li>
-                                    <li class="td_cell">Y</li>
-                                    <li class="td_cell"><i class="ico-del"></i></li>
-                                </ul>
-                                <ul class="table_row w-auto">
-                                    <li class="td_cell">FILE</li>
-                                    <li class="td_cell">WEEK_DATA</li>
-                                    <li class="td_cell">주간 데이터</li>
-                                    <li class="td_cell">단방향</li>
-                                    <li class="td_cell">Y</li>
-                                    <li class="td_cell"><i class="ico-del"></i></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-                <section class="btm_button_area">
-                    <button type="button" class="default_button on">추가</button>
-                    <button type="button" class="default_button">수정</button>
-                    <button type="button" class="default_button">삭제</button>
                 </section>
                 
                 <section class="form_area border_group">
-                    <h5 class="s_tit">시스템 신청
+                    <h5 class="s_tit type-2">시스템 정보
+                        <section class="right_button_area">
+                            <button type="button" class="default_button">삭제</button>
+                            <button type="button" class="default_button">수정</button>
+                            <button type="button" class="default_button on">추가</button>
+                        </section>
                     </h5>
                     <div class="row_contain">
                         <div class="column w-2">
