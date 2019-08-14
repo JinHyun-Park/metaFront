@@ -2177,6 +2177,10 @@ display: table-column
     box-sizing: border-box
 }
 
+.contents.popup .layer_popup.xsmall>section {
+    width: 400px
+}
+
 .contents.popup .layer_popup.small>section {
     width: 600px
 }
@@ -2218,7 +2222,7 @@ display: table-column
     font-size: 13px
 }
 
-.contents.index .login_contn.layer_popup>.form_area .table_colgroup+.table_colgroup {
+.contents.popup .layer_popup>.form_area .table_colgroup+.table_colgroup {
     margin-top: 24px
 }
 
