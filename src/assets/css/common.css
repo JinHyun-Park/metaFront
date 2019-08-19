@@ -2400,11 +2400,14 @@ footer em {
 @media (min-width:1028px) and (max-width:1536px) {
     html,
     body {
-        min-width: 1028px
+        min-width: 1519px
     }
     aside {
         width: 220px;
         margin-right: 40px
+    }
+    aside>h3 {
+        width: 220px
     }
     .contents .right_space {
         width: 63%
@@ -2412,9 +2415,33 @@ footer em {
     section {
         width: 100%
     }
+    .contents .info_title {
+        max-width: 54.5%
+    }
+    .table_grid .table_head .th_cell:first-child,
+    .table_grid .table_row .td_cell:first-child {
+        padding-left: 10px
+    }
+    .table_grid .table_row.form_type .td_cell:last-child {
+        padding-right: 5px
+    }
+    .table_grid .table_row .td_cell .ico-edit {
+        margin-right: 13px
+    }
+    .contents .grid_form .division_row>div {
+        grid-template-columns: 89px 84px 278px;
+        -ms-grid-columns: 89px 84px 278px
+    }
+    .contents .grid_form input[type=text] {
+        width: 268px
+    }
+    .contents .grid_form .search_group input[type=text] {
+        width: 74px
+    }
     .contents .move_form {
         margin: 0;
         margin-left: 40px;
-        width: 220px
+        width: 207px;
+        box-sizing: content-box
     }
 }
