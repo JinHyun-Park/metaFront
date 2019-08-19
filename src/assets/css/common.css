@@ -2396,3 +2396,25 @@ footer em {
     font: 12px bold Arial;
     font-style: normal
 }
+
+@media (min-width:1028px) and (max-width:1536px) {
+    html,
+    body {
+        min-width: 1028px
+    }
+    aside {
+        width: 220px;
+        margin-right: 40px
+    }
+    .contents .right_space {
+        width: 63%
+    }
+    section {
+        width: 100%
+    }
+    .contents .move_form {
+        margin: 0;
+        margin-left: 40px;
+        width: 220px
+    }
+}
