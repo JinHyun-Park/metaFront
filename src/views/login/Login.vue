@@ -1,5 +1,6 @@
 <template>
   <div class="contents index">
+    <!-- <i class="dim" /> -->
     <article class="login_contn">
       <section class="title style-2">
         <h2><i class="ico-bar" />NARU</h2>
@@ -52,6 +53,7 @@
         >Change password<i class="ico-help" /></em>
       </section>
     </article>
+
     <ResetPwdPopup :style="{display: resetPopOn}" />
   </div>
 </template>

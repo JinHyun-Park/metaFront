@@ -1,6 +1,5 @@
 <template>
   <div class="contents index">
-    <i class="dim" />
     <article class="login_contn layer_popup">
       <section class="title style-2">
         <h2><i class="ico-bar" />비밀번호 초기화</h2>

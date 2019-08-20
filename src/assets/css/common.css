@@ -576,7 +576,7 @@ aside .lnb li:hover {
 .contents.index .login_contn {
     display: flex;
     display: -ms-flexbox;
-    /* position: absolute; */
+    /* position: relative; */
     padding: 27px 63px 51px;
     justify-content: center;
     flex-direction: column;
@@ -588,9 +588,9 @@ aside .lnb li:hover {
     z-index: 9
 }
 
-.contents.index .login_contn+.contents.index .login_contn {
+.contents.index .login_contn+.contents.index .login_contn.layer_popup {
     position: absolute;
-    right: 0
+    right: 0;
 }
 
 .contents.index .title {
