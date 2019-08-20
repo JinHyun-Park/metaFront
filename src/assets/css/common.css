@@ -415,7 +415,7 @@ nav .menu li .sub_menu li:hover {
     border-radius: 6px;
     box-sizing: border-box;
     position: relative;
-    transition: 0.7s;
+    transition: 0.7s
 }
 
 .contents .move_form .form_area {
