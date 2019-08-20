@@ -588,10 +588,11 @@ aside .lnb li:hover {
     z-index: 9
 }
 
-.contents.index .login_contn+.contents.index .login_contn.layer_popup {
+
+/* .contents.index .login_contn+.contents.index .login_contn.layer_popup {
     position: absolute;
-    right: 0;
-}
+    right:0
+} */
 
 .contents.index .title {
     align-items: flex-start
@@ -2153,6 +2154,10 @@ display: table-column
 /* POPUP */
 
 .contents.index .login_contn.layer_popup {
+    position: absolute;
+    top: 23%;
+    left: 33.9%;
+    min-height: 0;
     z-index: 11
 }
 
