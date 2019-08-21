@@ -2028,6 +2028,10 @@ display: table-column
     box-sizing: content-box
 }
 
+.table_grid .table_row.form_type .td_cell:last-child {
+    padding-right: 5px
+}
+
 .table_grid .table_row.w-auto .td_cell {
     width: auto
 }
@@ -2152,18 +2156,19 @@ display: table-column
 }
 
 .table_grid .table_row .td_cell .ico-add {
-    width:20px;
-    height:18px;
+    width: 20px;
+    height: 18px;
     background: url(../images/ico-add.png) center center no-repeat;
     background-size: 100%
 }
+
 
 /* POPUP */
 
 .contents.index .login_contn.layer_popup {
     position: absolute;
     top: 23%;
-    left: 33.9%;
+    left: 34.2%;
     min-height: 0;
     z-index: 11
 }
@@ -2435,10 +2440,12 @@ footer em {
         padding-left: 10px
     }
     .table_grid .table_row.form_type .td_cell:last-child {
-        padding-right: 5px
+        padding-right: 5px;
+        min-width: 75px
     }
+    .table_grid .table_row .td_cell .ico-add,
     .table_grid .table_row .td_cell .ico-edit {
-        margin-right: 13px
+        margin-right: 11px
     }
     .contents .grid_form .division_row>div {
         grid-template-columns: 89px 84px 278px;
@@ -2449,6 +2456,9 @@ footer em {
     }
     .contents .grid_form .search_group input[type=text] {
         width: 74px
+    }
+    .contents.index .login_contn.layer_popup {
+        left: 30.2%
     }
     .contents .move_form {
         margin: 0;

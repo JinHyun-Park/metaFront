@@ -794,116 +794,126 @@
       </div>
     </section>
 
-    <section class="table_grid border_group">
-      <div class="table_head w-auto except">
-        <h5 class="s_tit">
-          담당자 정보
-        </h5>
-        <ul>
-          <li class="th_cell">
-            기관
-          </li>
-          <li class="th_cell">
-            부서
-          </li>
-          <li class="th_cell">
-            이름
-          </li>
-          <li class="th_cell">
-            연락처
-          </li>
-          <li class="th_cell">
-            E-mail
-          </li>
-          <li class="th_cell" />
-        </ul>
-      </div>
-      <div class="table_body">
-        <ul class="table_row form_type except w-auto">
-          <li class="td_cell on">
-            <div class="select_group">
-              <select>
-                <option
-                  value=""
-                  selected
+    <section class="border_group">
+      <h5 class="s_tit type-2">
+        담당자 정보
+        <div class="right_button_area">
+          <button
+            type="button"
+            class="default_button on"
+          >
+            추가
+          </button>
+        </div>
+      </h5>
+      <div class="table_grid">
+        <div class="table_head w-auto except">
+          <ul>
+            <li class="th_cell">
+              기관
+            </li>
+            <li class="th_cell">
+              부서
+            </li>
+            <li class="th_cell">
+              이름
+            </li>
+            <li class="th_cell">
+              연락처
+            </li>
+            <li class="th_cell">
+              E-mail
+            </li>
+            <li class="th_cell" />
+          </ul>
+        </div>
+        <div class="table_body">
+          <ul class="table_row form_type except w-auto">
+            <li class="td_cell on">
+              <div class="select_group">
+                <select>
+                  <option
+                    value=""
+                    selected
+                  >
+                    대외기관
+                  </option>
+                  <option value="">
+                    유사관련기관
+                  </option>
+                </select>
+                <span class="select" />
+              </div>
+            </li>
+            <li class="td_cell">
+              2 documents
+            </li>
+            <li class="td_cell on">
+              <div class="search_group">
+                <input
+                  type="text"
+                  value="유영준"
                 >
-                  대외기관
-                </option>
-                <option value="">
-                  유사관련기관
-                </option>
-              </select>
-              <span class="select" />
-            </div>
-          </li>
-          <li class="td_cell">
-            2 documents
-          </li>
-          <li class="td_cell on">
-            <div class="search_group">
+                <span class="search">
+                  <i class="ico-search" />
+                </span>
+              </div>
+            </li>
+            <li class="td_cell">
+              010-123-1234
+            </li>
+            <li class="td_cell on">
               <input
                 type="text"
-                value="유영준"
+                value="skcc@skcc.com"
               >
-              <span class="search">
-                <i class="ico-search" />
-              </span>
-            </div>
-          </li>
-          <li class="td_cell">
-            010-123-1234
-          </li>
-          <li class="td_cell on">
-            <input
-              type="text"
-              value="skcc@skcc.com"
-            >
-          </li>
-          <li class="td_cell">
-            <i class="ico-edit" /><i class="ico-del" />
-          </li>
-        </ul>
-        <ul class="table_row form_type except w-auto">
-          <li class="td_cell">
-            <div class="select_group">
-              <select>
-                <option
+            </li>
+            <li class="td_cell">
+              <i class="ico-add" /><i class="ico-edit" /><i class="ico-del" />
+            </li>
+          </ul>
+          <ul class="table_row form_type except w-auto">
+            <li class="td_cell">
+              <div class="select_group">
+                <select>
+                  <option
+                    value=""
+                    selected
+                  >
+                    대외기관
+                  </option>
+                  <option value="">
+                    유사관련기관
+                  </option>
+                </select>
+                <span class="select" />
+              </div>
+            </li>
+            <li class="td_cell">
+              q sign
+            </li>
+            <li class="td_cell">
+              <div class="search_group">
+                <input
+                  type="text"
                   value=""
-                  selected
                 >
-                  대외기관
-                </option>
-                <option value="">
-                  유사관련기관
-                </option>
-              </select>
-              <span class="select" />
-            </div>
-          </li>
-          <li class="td_cell">
-            q sign
-          </li>
-          <li class="td_cell">
-            <div class="search_group">
-              <input
-                type="text"
-                value=""
-              >
-              <span class="search">
-                <i class="ico-search" />
-              </span>
-            </div>
-          </li>
-          <li class="td_cell">
-            010-000-0000
-          </li>
-          <li class="td_cell">
-            gmail@gmail.com
-          </li>
-          <li class="td_cell">
-            <i class="ico-edit" /><i class="ico-del" />
-          </li>
-        </ul>
+                <span class="search">
+                  <i class="ico-search" />
+                </span>
+              </div>
+            </li>
+            <li class="td_cell">
+              010-000-0000
+            </li>
+            <li class="td_cell">
+              gmail@gmail.com
+            </li>
+            <li class="td_cell">
+              <i class="ico-add" /><i class="ico-edit" /><i class="ico-del" />
+            </li>
+          </ul>
+        </div>
       </div>
     </section>
 
