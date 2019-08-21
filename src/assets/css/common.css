@@ -576,16 +576,26 @@ aside .lnb li:hover {
 .contents.index .login_contn {
     display: flex;
     display: -ms-flexbox;
-    /* position: relative; */
+    position: absolute;
     padding: 27px 63px 51px;
     justify-content: center;
     flex-direction: column;
     width: auto;
     height: auto;
+    min-height: 0;
     border-radius: 3px;
     background: #fff;
     box-shadow: 2px 2px 8px 0 rgba(0, 0, 0, .18);
     z-index: 9
+}
+
+.contents.index .login_contn.layer_popup {
+    position: relative;
+    /* position: absolute;
+    top: 23%;
+    left: 34.2%; */
+    min-height: 0;
+    z-index: 11
 }
 
 
@@ -2165,14 +2175,6 @@ display: table-column
 
 /* POPUP */
 
-.contents.index .login_contn.layer_popup {
-    position: absolute;
-    top: 23%;
-    left: 34.2%;
-    min-height: 0;
-    z-index: 11
-}
-
 .dim {
     justify-content: center;
     align-items: center;
@@ -2457,9 +2459,9 @@ footer em {
     .contents .grid_form .search_group input[type=text] {
         width: 74px
     }
-    .contents.index .login_contn.layer_popup {
+    /* .contents.index .login_contn.layer_popup {
         left: 30.2%
-    }
+    } */
     .contents .move_form {
         margin: 0;
         margin-left: 40px;
