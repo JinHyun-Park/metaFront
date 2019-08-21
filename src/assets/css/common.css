@@ -2131,6 +2131,7 @@ display: table-column
     border-left: none
 }
 
+.table_grid .table_row .td_cell .ico-add,
 .table_grid .table_row .td_cell .ico-edit,
 .table_grid .table_row .td_cell .ico-del {
     display: inline-flex;
@@ -2150,6 +2151,12 @@ display: table-column
     background-size: 100%
 }
 
+.table_grid .table_row .td_cell .ico-add {
+    width:20px;
+    height:18px;
+    background: url(../images/ico-add.png) center center no-repeat;
+    background-size: 100%
+}
 
 /* POPUP */
 
