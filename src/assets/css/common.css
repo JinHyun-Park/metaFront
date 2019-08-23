@@ -458,26 +458,6 @@ nav .menu li .sub_menu li:hover {
     padding-bottom: 24px
 }
 
-.contents .title.style-1 {
-    margin-bottom: 7px;
-    padding-bottom: 12px;
-    flex-direction: column;
-    align-items: center;
-    font-family: Moebius_Regular_kor, Moebius_Regular_eng
-}
-
-.contents .title.style-1 h2 {
-    margin-bottom: 45px;
-    width: 100%;
-    align-items: center;
-    justify-content: space-between
-}
-
-.contents .title.style-2 {
-    margin-bottom: 17px;
-    font-family: Moebius_Regular_kor, Moebius_Regular_eng
-}
-
 .contents .title>h2 {
     font-size: 17px;
     color: #1a1a1a;
@@ -491,6 +471,35 @@ nav .menu li .sub_menu li:hover {
     width: 3px;
     height: 15px;
     background: #A55463
+}
+
+.contents .title.style-1 {
+    margin-bottom: 7px;
+    padding-bottom: 12px;
+    flex-direction: column;
+    align-items: center;
+    font-family: Moebius_Regular_kor, Moebius_Regular_eng
+}
+
+.contents .title.style-1 h2 {
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 45px;
+    width: 100%
+}
+
+.contents .title.style-2 {
+    margin-bottom: 17px
+}
+
+.contents .title.style-2 h2 {
+    align-items: center;
+    justify-content: space-between;
+    width: 100%
+}
+
+.contents .title.login.style-2 h2 {
+    width: auto
 }
 
 .contents .title .breadcrumb {
@@ -658,6 +667,10 @@ aside .lnb li:hover {
 .contents.index .login_contn .btm_button_area {
     justify-content: center;
     margin-bottom: 0
+}
+
+.contents.index .login_contn .btm_button_area .default_button {
+    line-height: 40px
 }
 
 .contents.index .login_contn .btm_button_area .default_button:first-child {

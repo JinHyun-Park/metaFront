@@ -1,7 +1,7 @@
 <template>
   <div class="contents index">
     <article class="login_contn">
-      <section class="title style-2">
+      <section class="title login style-2">
         <h2><i class="ico-bar" />비밀번호 변경</h2>
       </section>
       <section class="login form_area border_group">
