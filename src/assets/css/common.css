@@ -259,7 +259,7 @@ header .gnb>div .util_space {
 header .gnb>div .util_space>em {
     flex-direction: row;
     align-items: center;
-    padding-top: 3px;
+    padding-top: 4px;
     padding-right: 19px;
     color: #F5F5EB;
     font-size: 12px;
