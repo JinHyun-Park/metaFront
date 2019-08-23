@@ -18,6 +18,7 @@ body {
     font-family: Moebius_Regular_kor, Moebius_Regular_eng, Moebius_Bold_kor, Moebius_Bold_eng;
     font-size: 12px;
     color: #555;
+    letter-spacing: -.2px
 }
 
 
@@ -48,6 +49,7 @@ header {
     /* position: absolute; */
     margin-bottom: 37px;
     width: 100%;
+    font-size: 0;
     border-bottom: 1px solid #cdcdcd;
     box-shadow: 1px 1px 4px 0 rgba(0, 0, 0, .12);
     box-sizing: border-box;
@@ -60,7 +62,7 @@ nav {
     display: flex;
     display: -ms-flexbox;
     width: 100%;
-    height: 100%;
+    height: 42px;
     justify-content: center;
     align-items: center
 }
@@ -235,8 +237,9 @@ header .gnb div {
 header .gnb>div {
     justify-content: flex-end;
     flex-direction: column;
-    height: 100%;
-    padding: 10px 0 0;
+    height: 85px;
+    padding: 0;
+    /* padding: 10px 0 0; */
     box-sizing: border-box
 }
 
@@ -244,17 +247,19 @@ header .gnb>div .util_space {
     position: relative;
     top: 2px;
     justify-content: flex-end;
-    align-items: center;
-    padding-bottom: 20px;
+    align-items: flex-start;
+    padding-top: 5px;
     width: 100%;
-    height: 20px;
+    height: 43px;
     line-height: 1;
-    font-style: normal
+    font-style: normal;
+    box-sizing: border-box
 }
 
 header .gnb>div .util_space>em {
     flex-direction: row;
     align-items: center;
+    padding-top: 3px;
     padding-right: 19px;
     color: #F5F5EB;
     font-size: 12px;
@@ -283,6 +288,7 @@ header .gnb>div .util_space .log {
     color: #787878;
     font-size: 11px;
     font-family: Moebius_Bold_kor, Moebius_Bold_eng;
+    font-weight: bold;
     line-height: 1;
     background: #f7f3f2;
     cursor: pointer;
@@ -311,11 +317,13 @@ nav .menu {
 
 nav .menu li {
     position: relative;
-    align-items: center;
-    padding: 8px 51px 9px;
+    align-items: flex-end;
+    padding: 11px 51px 11px;
     height: 100%;
+    line-height: 1;
     font-size: 18px;
-    font-family: Moebius_Regular_kor, Moebius_Regular_eng;
+    font-family: Moebius_Bold_kor, Moebius_Bold_eng;
+    /* font-weight: bold; */
     color: #F5F5EB;
     letter-spacing: .4px;
     box-sizing: border-box;
@@ -365,22 +373,24 @@ header>div:hover nav .menu li:hover .sub_menu {
 
 nav .menu li .sub_menu li {
     justify-content: flex-start;
+    align-items: flex-start;
     margin: 0;
     padding: 8px 4px 15px 34px;
     /*    padding-bottom: 15px;*/
     height: 13px;
     font-size: 12px;
     font-family: Moebius_Bold_kor, Moebius_Bold_eng;
+    font-weight: bold;
     color: #a2a2a2;
     line-height: 1
 }
 
 nav .menu li .sub_menu li:first-child {
-    padding-top: 15px
+    padding-top: 12px
 }
 
 nav .menu li .sub_menu li:last-child {
-    padding-bottom: 23px
+    padding-bottom: 26px
 }
 
 nav .menu li .sub_menu li.ov,
@@ -472,7 +482,8 @@ nav .menu li .sub_menu li:hover {
     font-size: 17px;
     color: #1a1a1a;
     font-family: Moebius_Regular_kor, Moebius_Regular_eng;
-    line-height: 1
+    line-height: 1;
+    letter-spacing: -.6px
 }
 
 .contents .title>h2 .ico-bar {
@@ -914,6 +925,8 @@ flex-direction: column
 
 .contents .sub_info .sub_list li:before {
     content: '';
+    display: flex;
+    display: -ms-flexbox;
     position: relative;
     margin-right: 6px;
     left: 0px;
@@ -931,7 +944,7 @@ flex-direction: column
     position: relative;
     padding: 6px 34px 7px 10px;
     width: auto;
-    max-width: 42.5%;
+    max-width: 43.5%;
     height: auto;
     border: 1px solid #D89E92;
     border-radius: 4px 4px 0 0;
@@ -1070,7 +1083,8 @@ flex-direction: column
     height: auto;
     font-size: 15px;
     color: #46576b;
-    font-family: Moebius_Regular_kor, Moebius_Regular_eng
+    font-family: Moebius_Regular_kor, Moebius_Regular_eng;
+    letter-spacing: -.4px
 }
 
 .contents .form_area h5.s_tit.type-2,
@@ -1375,7 +1389,8 @@ input[type=radio]+label.border-brickpink {
     padding-bottom: 5px;
     font-size: 14px;
     color: #869DAB;
-    font-family: Moebius_Regular_kor, Moebius_Regular_eng
+    font-family: Moebius_Regular_kor, Moebius_Regular_eng;
+    line-height: 1.2
 }
 
 .select_group>.column_label {
@@ -1637,9 +1652,10 @@ width: 24px
     justify-content: stretch
 }
 
-.contents .grid_form .column_label {
+
+/* .contents .grid_form .column_label {
     margin-bottom: 23px
-}
+} */
 
 .contents .grid_form input[type=text] {
     margin-left: 10px;
@@ -1714,11 +1730,12 @@ width: 24px
     -ms-grid-column: 1;
     grid-row-gap: 0;
     place-self: stretch;
+    margin-bottom: 23px;
     padding-left: 10px;
     font-size: 14px;
     color: #869DAB;
     font-family: Moebius_Regular_kor, Moebius_Regular_eng;
-    letter-spacing: -.4px;
+    letter-spacing: -.48px;
     background: #fff;
     box-sizing: border-box;
     z-index: 5
@@ -2312,7 +2329,7 @@ display: table-column
     font-size: 14px;
     font-family: Moebius_Regular_kor, Moebius_Regular_eng;
     line-height: 30px;
-    letter-spacing: 1.8px;
+    letter-spacing: 1px;
     border: 1px solid #b6b6b6;
     border-radius: 3px;
     background: #f3f3f3;
@@ -2425,6 +2442,10 @@ footer em {
     aside>h3 {
         width: 220px
     }
+    nav .menu>li.on span:after,
+    nav .menu>li:hover span:after {
+        bottom: -11px
+    }
     .contents .right_space {
         width: 63%
     }
@@ -2433,6 +2454,13 @@ footer em {
     }
     .contents .info_title {
         max-width: 54.5%
+    }
+    .contents.index .login_contn.layer_popup {
+        left: 30.2%
+    }
+    .contents .form_area .row_contain .column .column_label,
+    .select_group>.column_label {
+        letter-spacing: .4px
     }
     .table_grid .table_head .th_cell:first-child,
     .table_grid .table_row .td_cell:first-child {
@@ -2456,8 +2484,8 @@ footer em {
     .contents .grid_form .search_group input[type=text] {
         width: 74px
     }
-    .contents.index .login_contn.layer_popup {
-        left: 30.2%
+    .default_button {
+        letter-spacing: 1.4px
     }
     .contents .move_form {
         margin: 0;
