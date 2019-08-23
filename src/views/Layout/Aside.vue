@@ -37,7 +37,7 @@ export default {
     };
   },
   methods: {
-    movePage(url) {
+    movePage() {
       console.log(this.$router.currentRoute.path);
       this.menuLists = Object.assign({}, this.homeMenuLists);
     },
