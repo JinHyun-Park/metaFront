@@ -24,20 +24,23 @@
         </div>
         <nav>
           <ul class="menu">
-            <li>
+            <li @click="movePage('noticeMain')">
               <span>공지사항</span>
+            </li>
+            <li>
+              <span>인터페이스 신청</span>
               <ul class="sub_menu">
-                <li
-                  class="ov"
-                  @click="movePage('noticeMain')"
-                >
-                  공지사항 확인
-                </li>
+                <li>신청목록</li>
+                <li>신청등록</li>
               </ul>
             </li>
             <li>
-              <span>신청</span>
+              <span>메타정보 조회</span>
               <ul class="sub_menu">
+                <li>전체 조회</li>
+                <li>EiGW</li>
+                <li>MCG</li>
+                <li>EAI</li>
                 <li
                   :class="{ov: isActive('eaiReg')}"
                   @click="movePage('eaiReg')"
@@ -70,35 +73,13 @@
                 </li>
               </ul>
             </li>
-            <li>
-              <span>조회</span>
-              <ul class="sub_menu">
-                <li>I/F</li>
-                <li>EAI</li>
-                <li class="ov">
-                  EiGW
-                </li>
-              </ul>
-            </li>
             <li class="n">
-              <span>모니터링</span>
+              <span>메타정보 관리</span>
               <ul class="sub_menu">
-                <li>I/F</li>
-                <li>EAI</li>
-                <li class="ov">
-                  EiGW
-                </li>
-                <li>MCG</li>
+                <li>공통</li>
                 <li>EiGW</li>
-              </ul>
-            </li>
-            <li>
-              <span>관리</span>
-              <ul class="sub_menu">
+                <li>MCG</li>
                 <li>EAI</li>
-                <li class="ov">
-                  EiGW
-                </li>
               </ul>
             </li>
           </ul>
