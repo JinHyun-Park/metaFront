@@ -181,7 +181,7 @@ select::-ms-expand {
 @font-face {
     font-family: 'Moebius_Regular_kor';
     src: local(※), url('../css/font/Moebius_Regular_kor.woff') format('woff'), url('../css/font/Moebius_Regular_kor.woff2') format('woff2');
-    src: url('../css/font/Moebius_Regular_kor.ttf') format('truetype'), url('../css/font/Moebius_Regular_kor.otf') format('opentype');
+    /* src: url('../css/font/Moebius_Regular_kor.ttf') format('truetype'), url('../css/font/Moebius_Regular_kor.otf') format('opentype'); */
     font-weight: normal;
     font-style: normal
 }
@@ -189,7 +189,7 @@ select::-ms-expand {
 @font-face {
     font-family: 'Moebius_Regular_eng';
     src: local(※), url('../css/font/Moebius_Regular_eng.woff') format('woff'), url('../css/font/Moebius_Regular_eng.woff2') format('woff2');
-    src: url('../css/font/Moebius_Regular_eng.ttf') format('truetype'), url('../css/font/Moebius_Regular_eng.otf') format('opentype');
+    /* src: url('../css/font/Moebius_Regular_eng.ttf') format('truetype'), url('../css/font/Moebius_Regular_eng.otf') format('opentype'); */
     font-weight: normal;
     font-style: normal
 }
@@ -197,7 +197,7 @@ select::-ms-expand {
 @font-face {
     font-family: 'Moebius_Bold_kor';
     src: local(※), url('../css/font/Moebius_Bold_kor.woff') format('woff'), url('../css/font/Moebius_Bold_kor.woff2') format('woff2');
-    src: url('../css/font/Moebius_Bold_kor.ttf') format('truetype'), url('../css/font/Moebius_Bold_kor.otf') format('opentype');
+    /* src: url('../css/font/Moebius_Bold_kor.ttf') format('truetype'), url('../css/font/Moebius_Bold_kor.otf') format('opentype'); */
     font-weight: bold;
     font-style: normal
 }
@@ -205,7 +205,7 @@ select::-ms-expand {
 @font-face {
     font-family: 'Moebius_Bold_eng';
     src: local(※), url('../css/font/Moebius_Bold_eng.woff') format('woff'), url('../css/font/Moebius_Bold_eng.woff2') format('woff2');
-    src: url('../css/font/Moebius_Bold_eng.ttf') format('truetype'), url('../css/font/Moebius_Bold_eng.otf') format('opentype');
+    /* src: url('../css/font/Moebius_Bold_eng.ttf') format('truetype'), url('../css/font/Moebius_Bold_eng.otf') format('opentype'); */
     font-weight: bold;
     font-style: normal
 }
