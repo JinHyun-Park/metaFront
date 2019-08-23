@@ -244,11 +244,11 @@ header .gnb>div {
 }
 
 header .gnb>div .util_space {
-    position: relative;
-    top: 2px;
+    /* position: relative;
+    top: 2px; */
     justify-content: flex-end;
     align-items: flex-start;
-    padding-top: 5px;
+    padding-top: 4px;
     width: 100%;
     height: 43px;
     line-height: 1;
@@ -259,7 +259,7 @@ header .gnb>div .util_space {
 header .gnb>div .util_space>em {
     flex-direction: row;
     align-items: center;
-    padding-top: 4px;
+    padding-top: 5px;
     padding-right: 19px;
     color: #F5F5EB;
     font-size: 12px;
@@ -355,7 +355,7 @@ nav .menu li .sub_menu {
     display: none;
     position: absolute;
     left: 0;
-    top: 43px;
+    top: 42px;
     flex-direction: column;
     padding: 0;
     width: 100%;
@@ -1081,9 +1081,11 @@ flex-direction: column
     padding-bottom: 26px;
     width: 100%;
     height: auto;
+    line-height: 1;
     font-size: 15px;
     color: #46576b;
     font-family: Moebius_Regular_kor, Moebius_Regular_eng;
+    /* font-weight: bold; */
     letter-spacing: -.4px
 }
 
@@ -1390,6 +1392,7 @@ input[type=radio]+label.border-brickpink {
     font-size: 14px;
     color: #869DAB;
     font-family: Moebius_Regular_kor, Moebius_Regular_eng;
+    /* font-weight: bold; */
     line-height: 1.2
 }
 
@@ -1454,6 +1457,7 @@ select {
     color: #555;
     font-size: 15px;
     font-family: Moebius_Regular_kor, Moebius_Regular_eng;
+    /* font-weight: bold; */
     text-transform: capitalize;
     line-height: 23px;
     border-color: #82BEA3;
@@ -1735,6 +1739,7 @@ width: 24px
     font-size: 14px;
     color: #869DAB;
     font-family: Moebius_Regular_kor, Moebius_Regular_eng;
+    /* font-weight: bold; */
     letter-spacing: -.48px;
     background: #fff;
     box-sizing: border-box;
