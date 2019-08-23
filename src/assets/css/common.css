@@ -666,10 +666,11 @@ aside .lnb li:hover {
 
 .contents.index .login_contn .btm_button_area {
     justify-content: center;
-    margin-bottom: 0
+    margin-bottom: 0;
 }
 
 .contents.index .login_contn .btm_button_area .default_button {
+    padding: 0;
     line-height: 40px
 }
 
