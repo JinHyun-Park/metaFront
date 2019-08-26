@@ -37,7 +37,9 @@
             <li>
               <span>메타정보 조회</span>
               <ul class="sub_menu">
-                <li>전체 조회</li>
+                <li @click="movePage('allList')">
+                  전체 조회
+                </li>
                 <li>EiGW</li>
                 <li>MCG</li>
                 <li>EAI</li>
@@ -70,6 +72,11 @@
                   @click="movePage('mcgTransInfo')"
                 >
                   MCG TRANS
+                </li>
+                <li
+                  @click="movePage('chnList')"
+                >
+                  EAI 채널 정보
                 </li>
               </ul>
             </li>

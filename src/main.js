@@ -1,5 +1,5 @@
-import 'babel-polyfill';
 import Vue from 'vue';
+import 'babel-polyfill';
 import vuescroll from 'vue-scroll';
 import './plugins/axios';
 import App from './App.vue';

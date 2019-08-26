@@ -14,6 +14,7 @@ const router = new Router({
     name: 'home',
     component: Home,
   },
+  // 로그인
   {
     path: '/login',
     name: 'loginForm',
@@ -30,6 +31,7 @@ const router = new Router({
     },
     ],
   },
+  // 1. 공지사항
   {
     path: '/notice',
     name: 'noticeForm',
@@ -39,6 +41,33 @@ const router = new Router({
       name: 'noticeMain',
       component: () => import('@/views/notice/NoticeMain.vue'),
     }],
+  },
+  // 3. 메타정보 조회
+  {
+    path: '/meta',
+    name: 'metaForm',
+    component: () => import('@/views/meta/MetaForm.vue'),
+    children: [{ // 자식 페이지 시작
+      path: '/meta/allList', // 전체 조회
+      name: 'allList',
+      component: () => import('@/views/meta/AllList.vue'),
+    },
+    { // EAI 시작
+      path: '/meta/eai/queueList',
+      name: 'queueList',
+      component: () => import('@/views/meta/eai/QueueList.vue'),
+    },
+    {
+      path: '/meta/eai/ifIdList',
+      name: 'ifIdList',
+      component: () => import('@/views/meta/eai/IfIdList.vue'),
+    },
+    {
+      path: '/meta/eai/chnList',
+      name: 'chnList',
+      component: () => import('@/views/meta/eai/ChnList.vue'),
+    },
+    ],
   },
   {
     path: '/meta/eigw/onlineList',

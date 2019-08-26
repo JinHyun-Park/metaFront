@@ -1,0 +1,123 @@
+<template>
+  <div class="right_space">
+    <section class="title style-1">
+      <h2>
+        <div>
+          <i class="ico-bar" />채널 목록
+        </div>
+        <div class="breadcrumb">
+          <span>EGIW</span><em class="on">EAI</em>
+        </div>
+      </h2>
+    </section>
+    <section class="form_area border_group">
+      <h5 class="s_tit type-2">
+        기본 정보
+        <div class="right_button_area">
+          <button
+            type="button"
+            class="default_button on"
+          >
+            조회
+          </button>
+        </div>
+      </h5>
+      <div class="row_contain type-3">
+        <div class="column on w-3">
+          <label class="column_label">채널</label>
+          <input
+            type="text"
+            value="QMGR"
+          >
+        </div>
+        <div class="column w-6">
+          <label class="column_label">인터페이스ID</label>
+          <input
+            type="text"
+            value="ABC.IF_ID_MFF"
+          >
+        </div>
+        <div class="column w-2">
+          <label class="column_label">사용</label>
+          <div class="select_group">
+            <select>
+              <option value="">
+                Y
+              </option>
+              <option value="">
+                N
+              </option>
+            </select>
+            <span class="select" />
+          </div>
+        </div>
+        <div class="column w-1" />
+      </div>
+      <div class="table_grid">
+        <div class="table_head w-auto">
+          <ul>
+            <li class="th_cell">
+              채널<i class="ico-sort-up" />
+            </li>
+            <li class="th_cell">
+              인터페이스ID<i class="ico-sort-down" />
+            </li>
+            <li class="th_cell">
+              사용<i class="ico-sort-down" />
+            </li>
+          </ul>
+        </div>
+        <div class="table_body">
+          <ul class="table_row w-auto">
+            <li class="td_cell">
+              ABC.EAI01.NB
+            </li>
+            <li class="td_cell">
+              ABC.IF_ID_MFF ABC.IF_ID_MFF
+            </li>
+            <li class="td_cell">
+              Y
+            </li><li />
+          </ul>
+          <ul class="table_row w-auto">
+            <li class="td_cell">
+              ABC.EAI01.NB
+            </li>
+            <li class="td_cell">
+              ABC.IF_ID_MFF
+            </li>
+            <li class="td_cell">
+              Y
+            </li><li />
+          </ul>
+          <ul class="table_row w-auto">
+            <li class="td_cell">
+              ABC.EAI01.NB
+            </li>
+            <li class="td_cell">
+              ABC.IF_ID_MFF
+            </li>
+            <li class="td_cell">
+              Y
+            </li><li />
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="btm_button_area">
+      <button
+        type="button"
+        class="default_button"
+      >
+        수정
+      </button>
+      <button
+        type="button"
+        class="default_button on"
+      >
+        추가
+      </button>
+    </section>
+  </div>
+</template>
