@@ -58,15 +58,30 @@ const router = new Router({
       component: () => import('@/views/meta/eai/QueueList.vue'),
     },
     {
-      path: '/meta/eai/ifIdList',
-      name: 'ifIdList',
-      component: () => import('@/views/meta/eai/IfIdList.vue'),
+      path: '/meta/eai/queueMgrList',
+      name: 'queueMgrList',
+      component: () => import('@/views/meta/eai/QueueMgrList.vue'),
     },
     {
       path: '/meta/eai/chnList',
       name: 'chnList',
       component: () => import('@/views/meta/eai/ChnList.vue'),
     },
+    {
+      path: '/meta/eai/nodeList',
+      name: 'nodeList',
+      component: () => import('@/views/meta/eai/NodeList.vue'),
+    },
+    {
+      path: '/meta/eai/ifIdList',
+      name: 'ifIdList',
+      component: () => import('@/views/meta/eai/IfIdList.vue'),
+    },
+    {
+      path: '/meta/eai/swingDbInfo',
+      name: 'swingDbInfo',
+      component: () => import('@/views/meta/eai/SwingDbInfo.vue'),
+    }, // EAI 끝
     ],
   },
   {

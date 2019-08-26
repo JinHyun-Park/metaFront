@@ -58,7 +58,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex';
-import ResetPwdPopup from '@/components/login/ResetPwdPopup.vue';
+import ResetPwdPopup from '@/components/popup/login/ResetPwdPopup.vue';
 
 export default {
   components: {

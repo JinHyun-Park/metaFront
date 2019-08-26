@@ -78,6 +78,9 @@
                 >
                   EAI 채널 정보
                 </li>
+                <li @click="movePage('queueMgrList')">
+                  큐매니저
+                </li>
               </ul>
             </li>
             <li class="n">
