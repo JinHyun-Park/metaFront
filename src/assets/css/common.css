@@ -295,8 +295,7 @@ header .gnb>div .util_space .log {
     border-radius: 2px;
     color: #787878;
     font-size: 11px;
-    font-family: Moebius_Regular_kor, Moebius_Regular_eng;
-    font-weight: bold;
+    font-family: Moebius_Bold_kor, Moebius_Bold_eng;
     line-height: 1;
     background: #f7f3f2;
     cursor: pointer;
@@ -331,7 +330,6 @@ nav .menu li {
     line-height: 1;
     font-size: 18px;
     font-family: Moebius_Regular_kor, Moebius_Regular_eng;
-    /* font-weight: bold; */
     color: #F5F5EB;
     letter-spacing: .4px;
     box-sizing: border-box;
@@ -388,7 +386,6 @@ nav .menu li .sub_menu li {
     height: 13px;
     font-size: 12px;
     font-family: Moebius_Bold_kor, Moebius_Bold_eng;
-    /* font-weight: bold; */
     color: #a2a2a2;
     line-height: 1
 }
@@ -1107,7 +1104,6 @@ flex-direction: column
     font-size: 15px;
     color: #46576b;
     font-family: Moebius_Regular_kor, Moebius_Regular_eng;
-    /* font-weight: bold; */
     letter-spacing: -.4px
 }
 
@@ -1414,7 +1410,6 @@ input[type=radio]+label.border-brickpink {
     font-size: 14px;
     color: #869DAB;
     font-family: Moebius_Regular_kor, Moebius_Regular_eng;
-    /* font-weight: bold; */
     line-height: 1.2
 }
 
@@ -1479,7 +1474,6 @@ select {
     color: #555;
     font-size: 15px;
     font-family: Moebius_Regular_kor, Moebius_Regular_eng;
-    /* font-weight: bold; */
     text-transform: capitalize;
     line-height: 23px;
     border-color: #82BEA3;
@@ -1761,7 +1755,6 @@ width: 24px
     font-size: 14px;
     color: #869DAB;
     font-family: Moebius_Regular_kor, Moebius_Regular_eng;
-    /* font-weight: bold; */
     letter-spacing: -.48px;
     background: #fff;
     box-sizing: border-box;
