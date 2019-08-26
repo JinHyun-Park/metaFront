@@ -49,7 +49,7 @@ header {
     /* position: absolute; */
     margin-bottom: 37px;
     width: 100%;
-    font-size: 0;
+    /* font-size: 0; */
     border-bottom: 1px solid #cdcdcd;
     box-shadow: 1px 1px 4px 0 rgba(0, 0, 0, .12);
     box-sizing: border-box;
