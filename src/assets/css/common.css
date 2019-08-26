@@ -183,9 +183,40 @@ select::-ms-expand {
 @font-face {
     font-family: Moebius_Regular_kor;
     /* src: url('font/Moebius_Regular_kor-webfont.eot?#iefix') format(‘embedded-opentype’); */
-    /* src: url('../css/font/Moebius_Regular_kor.woff') format('woff'), url('../css/font/Moebius_Regular_kor.woff2') format('woff2'), url('../css/font/Moebius_Regular_kor-webfont.svg#Moebius_Regular_kor') format('svg'); */
-    src: url('../css/font/Moebius_Regular_kor.ttf') format('truetype');
+    /* src: url('font/Moebius_Regular_kor.woff') format('woff'), url('font/Moebius_Regular_kor.woff2') format('woff2'), url('font/Moebius_Regular_kor-webfont.svg#Moebius_Regular_kor') format('svg'); */
+    src: url('font/Moebius_Regular_kor.woff') format('woff');
+    src: url('font/Moebius_Regular_kor.ttf') format('truetype');
     font-weight: normal;
+    font-style: normal
+}
+
+@font-face {
+    font-family: Moebius_Regular_eng;
+    /* src: url('font/Moebius_Regular_eng-webfont.eot?#iefix') format(‘embedded-opentype’); */
+    /* src: url('font/Moebius_Regular_eng.woff') format('woff'), url('font/Moebius_Regular_eng.woff2') format('woff2'), url('font/Moebius_Regular_eng-webfont.svg#Moebius_Regular_eng') format('svg'); */
+    src: url('font/Moebius_Regular_eng.woff') format('woff');
+    src: url('font/Moebius_Regular_eng.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal
+}
+
+@font-face {
+    font-family: Moebius_Bold_kor;
+    /* src: url('font/Moebius_Bold_kor-webfont.eot?#iefix') format(‘embedded-opentype’); */
+    /* src: url('font/Moebius_Bold_kor.woff') format('woff'), url('font/Moebius_Bold_kor.woff2') format('woff2'), url('font/Moebius_Bold_kor-webfont.svg#Moebius_Bold_kor') format('svg'); */
+    src: url('font/Moebius_Bold_kor.woff') format('woff');
+    src: url('font/Moebius_Bold_kor.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal
+}
+
+@font-face {
+    font-family: Moebius_Bold_eng;
+    /* src: url('font/Moebius_Bold_eng-webfont.eot?#iefix') format(‘embedded-opentype’); */
+    /* src: url('font/Moebius_Bold_eng.woff') format('woff'), url('font/Moebius_Bold_eng.woff2') format('woff2'), url('font/Moebius_Bold_eng-webfont.svg#Moebius_Bold_eng') format('svg'); */
+    src: url('font/Moebius_Bold_eng.woff') format('woff');
+    src: url('font/Moebius_Bold_eng.ttf') format('truetype');
+    font-weight: bold;
     font-style: normal
 }
 
@@ -264,7 +295,7 @@ header .gnb>div .util_space .log {
     border-radius: 2px;
     color: #787878;
     font-size: 11px;
-    font-family: Moebius_Bold_kor, Moebius_Bold_eng;
+    font-family: Moebius_Regular_kor, Moebius_Regular_eng;
     font-weight: bold;
     line-height: 1;
     background: #f7f3f2;
@@ -299,7 +330,7 @@ nav .menu li {
     height: 100%;
     line-height: 1;
     font-size: 18px;
-    font-family: Moebius_Bold_kor, Moebius_Bold_eng;
+    font-family: Moebius_Regular_kor, Moebius_Regular_eng;
     /* font-weight: bold; */
     color: #F5F5EB;
     letter-spacing: .4px;
@@ -357,7 +388,7 @@ nav .menu li .sub_menu li {
     height: 13px;
     font-size: 12px;
     font-family: Moebius_Bold_kor, Moebius_Bold_eng;
-    font-weight: bold;
+    /* font-weight: bold; */
     color: #a2a2a2;
     line-height: 1
 }
@@ -508,7 +539,7 @@ aside>h3 {
     width: 260px;
     font-size: 17px;
     color: #bebebe;
-    font-family: Moebius_Bold_kor, Moebius_Bold_eng;
+    font-family: Moebius_Regular_kor, Moebius_Regular_eng;
     text-transform: uppercase
 }
 
