@@ -1658,14 +1658,14 @@ width: 24px
     display: grid;
     display: -ms-grid;
     width: 100%;
-    grid-template-columns: 89px 89px 368px;
-    -ms-grid-colsumns: 89px 89px 368px;
+    grid-template-columns: 89px 89px 378px;
+    -ms-grid-colsumns: 89px 89px 378px;
     grid-template-rows: 53px 53px 53px 53px 53px 30px;
     -ms-grid-rows: 53px 53px 53px 53px 53px 30px;
     grid-template-areas: "요청송신Q qsign 2documents2Documents2documents2documents2document";
     /* grid-row-gap: 23px; */
     /* grid-column-gap: 10px; */
-    padding: 0 10px 0 0
+    padding: 0 5px 0 0
 }
 
 
@@ -2454,13 +2454,13 @@ footer em {
     font-style: normal */
 }
 
-@media (min-width:1691px) and (max-width:1860px) {
+@media (min-width:1537px) and (max-width:1919px) {
     .contents .grid_form .division_row>div {
-        grid-template-columns: 89px 84px 318px;
-        -ms-grid-columns: 89px 84px 318px
+        grid-template-columns: 89px 84px 68%;
+        -ms-grid-columns: 89px 84px 68%
     }
     .contents .grid_form input[type=text] {
-        width: 308px
+        width: 90%
     }
     .contents .grid_form .search_group input[type=text] {
         width: 74px
@@ -2531,11 +2531,11 @@ footer em {
         margin-right: 11px
     }
     .contents .grid_form .division_row>div {
-        grid-template-columns: 89px 84px 278px;
-        -ms-grid-columns: 89px 84px 278px
+        grid-template-columns: 89px 84px 268px;
+        -ms-grid-columns: 89px 84px 268px
     }
     .contents .grid_form input[type=text] {
-        width: 268px
+        width: 93%
     }
     .contents .grid_form .search_group input[type=text] {
         width: 74px
