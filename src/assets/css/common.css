@@ -6,7 +6,7 @@ body {
     margin: 0;
     padding: 0;
     width: 100%;
-    min-width: 1903px;
+    /* min-width: 1903px; */
     height: 100%;
     min-height: 100%;
     justify-content: center;
@@ -104,7 +104,8 @@ aside {
     margin-right: 80px;
     padding-top: 17px;
     padding-left: 20px;
-    width: 260px;
+    /* width: 260px; */
+    width: 15%;
     /* height: 100%; */
     min-height: 100%;
     background: #fefefe;
@@ -416,7 +417,8 @@ nav .menu li .sub_menu li:hover {
     /* align-self: center; */
     margin: 0 56px 0 57px;
     padding: 14px 17px 14px 16px;
-    width: 270px;
+    /* width: 270px; */
+    width: 17%;
     height: 100%;
     border-radius: 6px;
     box-sizing: border-box;
@@ -448,7 +450,8 @@ nav .menu li .sub_menu li:hover {
     flex-direction: column;
     /* position: relative;
     left: 0px; */
-    width: 1160px;
+    /* width: 1160px; */
+    width: 60%;
     height: 100%;
     min-height: 100%;
     /* height: calc(100% - 135px); */
@@ -460,7 +463,8 @@ nav .menu li .sub_menu li:hover {
     flex-direction: row;
     margin-top: 19px;
     margin-bottom: 31px;
-    padding-bottom: 24px
+    padding-bottom: 24px;
+    width: 100%
 }
 
 .contents .title>h2 {
@@ -533,7 +537,7 @@ aside>h3 {
     align-items: center;
     justify-content: flex-start;
     padding-bottom: 19px;
-    width: 260px;
+    width: 100%;
     font-size: 17px;
     color: #bebebe;
     font-family: Moebius_Regular_kor, Moebius_Regular_eng;
@@ -2450,17 +2454,31 @@ footer em {
     font-style: normal */
 }
 
-@media (min-width:1028px) and (max-width:1536px) {
-    html,
-    body {
-        min-width: 1519px
-    }
+@media (min-width:1537px) and (max-width:1690px) {
     aside {
-        width: 220px;
+        margin-right: 60px;
+        width: 13%
+    }
+    .contents .move_form {
+        margin-left: 60px;
+        margin-right: 26px;
+        width: 20%
+    }
+}
+
+@media (min-width:1386px) and (max-width:1536px) {
+    /* html,
+    body {
+        min-width: 1369px
+    } */
+    aside {
+        width: 15%;
+        /* width:220px; */
         margin-right: 40px
     }
     aside>h3 {
-        width: 220px
+        width: 100%
+        /* width: 220px */
     }
     nav .menu li,
     nav .menu li span {
@@ -2471,8 +2489,8 @@ footer em {
         bottom: -11px
     }
     .contents .right_space {
-        /* width: 63% */
-        width: 959px
+        width: 66%
+        /* width: 959px */
     }
     section {
         width: 100%
@@ -2515,7 +2533,14 @@ footer em {
     .contents .move_form {
         margin: 0;
         margin-left: 40px;
-        width: 207px;
+        /* width: 207px; */
+        width: 16%;
         box-sizing: content-box
+    }
+}
+
+@media (max-width:1385px) {
+    .contents .move_form {
+        width: 200px
     }
 }
