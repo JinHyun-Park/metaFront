@@ -105,7 +105,7 @@ aside {
     padding-top: 17px;
     padding-left: 20px;
     /* width: 260px; */
-    width: 15%;
+    width: 16%;
     /* height: 100%; */
     min-height: 100%;
     background: #fefefe;
@@ -540,7 +540,7 @@ aside>h3 {
     width: 100%;
     font-size: 17px;
     color: #bebebe;
-    font-family: Moebius_Regular_kor, Moebius_Regular_eng;
+    font-family: Moebius_Bold_kor, Moebius_Bold_eng;
     text-transform: uppercase
 }
 
@@ -2457,12 +2457,12 @@ footer em {
 @media (min-width:1537px) and (max-width:1690px) {
     aside {
         margin-right: 60px;
-        width: 13%
+        width: 15%
     }
     .contents .move_form {
         margin-left: 60px;
         margin-right: 26px;
-        width: 20%
+        width: 18%
     }
 }
 
@@ -2472,13 +2472,11 @@ footer em {
         min-width: 1369px
     } */
     aside {
-        width: 15%;
-        /* width:220px; */
+        width: 17%;
         margin-right: 40px
     }
     aside>h3 {
         width: 100%
-        /* width: 220px */
     }
     nav .menu li,
     nav .menu li span {
@@ -2489,8 +2487,7 @@ footer em {
         bottom: -11px
     }
     .contents .right_space {
-        width: 66%
-        /* width: 959px */
+        width: 63%
     }
     section {
         width: 100%
@@ -2534,13 +2531,17 @@ footer em {
         margin: 0;
         margin-left: 40px;
         /* width: 207px; */
-        width: 16%;
+        width: 17%;
         box-sizing: content-box
     }
 }
 
 @media (max-width:1385px) {
+    html,
+    body {
+        min-width: 1903px
+    }
     .contents .move_form {
-        width: 200px
+        width: 17%
     }
 }
