@@ -42,6 +42,28 @@ const router = new Router({
       component: () => import('@/views/notice/NoticeMain.vue'),
     }],
   },
+  //  2. 인터페이스 신청
+  {
+    path: '/ifReg',
+    name: 'ifRegForm',
+    component: () => import('@/views/ifReg/IfRegForm.vue'),
+    children: [{
+      path: '/ifReg/regList',
+      name: 'regList',
+      component: () => import('@/views/ifReg/RegList.vue'),
+    },
+    {
+      path: '/ifReg/regStep2_EAI',
+      name: 'regStep2_EAI',
+      component: () => import('@/views/ifReg/RegStep2_EAI.vue'),
+    },
+    {
+      path: '/ifReg/regStep2_EIGW',
+      name: 'regStep2_EIGW',
+      component: () => import('@/views/ifReg/RegStep2_EIGW.vue'),
+    },
+    ],
+  },
   // 3. 메타정보 조회
   {
     path: '/meta',
@@ -90,10 +112,26 @@ const router = new Router({
     name: 'adminForm',
     component: () => import('@/views/admin/AdminForm.vue'),
     children: [{
+      path: '/admin/ifMgmt/instList',
+      name: 'instList',
+      component: () => import('@/views/admin/ifMgmt/InstList.vue'),
+    },
+    {
       path: '/admin/ifMgmt/serverList',
       name: 'serverList',
       component: () => import('@/views/admin/ifMgmt/ServerList.vue'),
-    }],
+    },
+    {
+      path: '/admin/ifMgmt/accListEigw',
+      name: 'accListEigw',
+      component: () => import('@/views/admin/ifMgmt/AccListEigw.vue'),
+    },
+    {
+      path: '/admin/portalMgmt/accList',
+      name: 'accList',
+      component: () => import('@/views/admin/portalMgmt/AccList.vue'),
+    },
+    ],
   },
   {
     path: '/meta/eigw/onlineList',
