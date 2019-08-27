@@ -32,15 +32,6 @@
               <ul class="sub_menu">
                 <li>신청목록</li>
                 <li>신청등록</li>
-                <li @click="movePage('regList')">
-                  신청목록(승인)
-                </li>
-                <li @click="movePage('regStep2_EAI')">
-                  등록#2 EAI
-                </li>
-                <li @click="movePage('regStep2_EIGW')">
-                  등록#2 EiGW
-                </li>
               </ul>
             </li>
             <li>
@@ -99,18 +90,6 @@
                 <li>EiGW</li>
                 <li>MCG</li>
                 <li>EAI</li>
-                <li @click="movePage('accList')">
-                  사용자 계정 관리
-                </li>
-                <li @click="movePage('accListEigw')">
-                  EiGW 담당자 관리
-                </li>
-                <li @click="movePage('instList')">
-                  기관 코드 관리
-                </li>
-                <li @click="movePage('serverList')">
-                  서버 정보 관리
-                </li>
               </ul>
             </li>
           </ul>
@@ -147,8 +126,8 @@ export default {
     logout() {
       this.$axios.get('/api/logout')
         .then((res) => {
-          if (res.status === 200) {
-
+          if(res.status === 200) {
+            
           }
         })
         .catch((ex) => {
