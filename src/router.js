@@ -84,6 +84,17 @@ const router = new Router({
     }, // EAI 끝
     ],
   },
+  // 4. 메타정보 관리
+  {
+    path: '/admin',
+    name: 'adminForm',
+    component: () => import('@/views/admin/AdminForm.vue'),
+    children: [{
+      path: '/admin/ifMgmt/serverList',
+      name: 'serverList',
+      component: () => import('@/views/admin/ifMgmt/ServerList.vue'),
+    }],
+  },
   {
     path: '/meta/eigw/onlineList',
     name: 'eigwOnlineList',

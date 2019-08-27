@@ -90,6 +90,9 @@
                 <li>EiGW</li>
                 <li>MCG</li>
                 <li>EAI</li>
+                <li @click="movePage('serverList')">
+                  서버 정보 관리
+                </li>
               </ul>
             </li>
           </ul>
