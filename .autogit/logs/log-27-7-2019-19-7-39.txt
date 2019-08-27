@@ -1,0 +1,16 @@
+-------------------- Auto-Git Log --------------------
+		Tue Aug 27 2019 19:07:39 GMT+0900 (한국 표준시)
+------------------------------------------------------
+
+Modified files:
+* src/assets/css/common.css
+
+
+Created files:
+* .autogit/logs/log-27-7-2019-18-37-26.txt
+
+
+Deleted files:
+
+
+Renamed files:
