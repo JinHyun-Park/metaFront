@@ -2462,12 +2462,16 @@ footer em {
     aside>h3 {
         width: 220px
     }
+    nav .menu>li {
+        color: #f5f5eb
+    }
     nav .menu>li.on span:after,
     nav .menu>li:hover span:after {
         bottom: -11px
     }
     .contents .right_space {
-        width: 63%
+        /* width: 63% */
+        width: 959px
     }
     section {
         width: 100%
