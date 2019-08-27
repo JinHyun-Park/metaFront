@@ -2462,7 +2462,8 @@ footer em {
     aside>h3 {
         width: 220px
     }
-    nav .menu>li {
+    nav .menu li,
+    nav .menu li span {
         color: #f5f5eb
     }
     nav .menu>li.on span:after,
