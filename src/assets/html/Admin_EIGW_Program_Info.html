@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>EiGW 프로그램 정보</title>
+        <meta name="description" content="EiGW 프로그램 정보 입니다.">
+        <link type="text/css" rel="stylesheet" href="../css/common.css">
+        <script type="text/javascript" src="../js/common.js"></script>
+    </head>
+    <body>
+        <header>
+            <div class="gnb">
+                <h1>
+                    <img class="bi" src="../images/bi.png" alt="SK C&C 로고">
+                </h1>
+                <div>
+                    <div class="util_space">
+                        <em><i class="ico-user"></i>유영준님 환영합니다!</em>
+                        <button class="log">로그아웃<i class="ico-logout"></i></button>
+                    </div>
+                    <nav>
+                        <ul class="menu">
+                            <li><span>신청</span>
+                                <ul class="sub_menu">
+                                    <li>EAI</li>
+                                    <li class="ov">EiGW</li>
+                                    <li>EiGW FILE</li>
+                                    <li>MCG</li>
+                                    <li>MCG TRANS</li>
+                                </ul>
+                            </li>
+                            <li><span>조회</span>
+                                <ul class="sub_menu">
+                                    <li>I/F</li>
+                                    <li>EAI</li>
+                                    <li class="ov">EiGW</li>
+                                </ul>
+                            </li>
+                            <li class="on"><span>모니터링</span>
+                                <ul class="sub_menu">
+                                    <li>I/F</li>
+                                    <li>EAI</li>
+                                    <li class="ov">EiGW</li>
+                                    <li>MCG</li>
+                                    <li>EiGW</li>
+                                </ul>
+                            </li>
+                            <li><span>공지사항</span>
+                                <ul class="sub_menu">
+                                    <li class="ov">EiGW</li>
+                                    <li>MCG</li>
+                                    <li>EiGW</li>
+                                </ul>
+                            </li>
+                            <li><span>관리</span>
+                                <ul class="sub_menu">
+                                    <li>EAI</li>
+                                    <li class="ov">EiGW</li>
+                                </ul>
+                            </li>                        
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </header>
+        
+        <article class="contents">
+            <aside>
+                <h3><i class="ico-bar-2"></i>EiGW Interface</h3>
+                <ul class="lnb">
+                    <li>I/F</li>
+                    <li class="on">EAI</li>
+                    <li>EiGW</li>
+                    <li>MCG</li>
+                    <li>EiGW</li>
+                </ul>
+            </aside>
+            <div class="right_space">
+                <section class="title style-1">
+                    <h2>
+                        <div>
+                            <i class="ico-bar"></i>EiGW 프로그램 정보
+                        </div>
+                        <div class="breadcrumb">
+                            <span>EGIW</span><em class="on">EAI</em>
+                        </div>
+                    </h2>
+                </section>
+                <section class="form_area border_group">
+                    <h5 class="s_tit type-2">프로그램 정보
+                        <div class="right_button_area">    
+<!--                            <button type="button" class="default_button">추가</button>-->
+                            <button type="button" class="default_button on">검색</button>
+                        </div>
+                    </h5>
+                    <div class="row_contain">
+                        <div class="column on w-2">
+                            <label class="column_label">EIGW구분</label>
+                            <div class="select_group">
+                                <select>
+                                    <option value="" selected>OPGROUP</option>
+                                    <option value="">OGROUP</option>
+                                </select>
+                                <span class="select"></span>
+                            </div>
+                        </div>
+                        <div class="column w-2">
+                            <label class="column_label">프로그램</label>
+                            <input type="text" value="">
+                        </div>
+                        <div class="column w-2">
+                            <label class="column_label">프로그램유형</label>
+                            <input type="text" value="OPGROUP">
+                        </div>
+                        <div class="column w-2">
+                            <label class="column_label">설정파일</label>
+                            <input type="text" value="channeltype_01">
+                        </div>
+                    </div>
+                    <div class="row_contain">
+                        <div class="column w-2">
+                            <label class="column_label">연결유형</label>
+                            <input type="text" value="">
+                        </div>
+                        <div class="column w-2">
+                            <label class="column_label">IP</label>
+                            <input type="text" value="10.10.4.10">
+                        </div>
+                        <div class="column w-2">
+                            <label class="column_label">PORT</label>
+                            <input type="text" value="8080">
+                        </div>
+                        <div class="column w-2"></div>
+                    </div>
+                    
+                    <!-- TABLE_GRID
+                    <div class="table_grid">
+                        <div class="table_head w-auto">
+                            <ul>
+                                <li class="th_cell">EIGW구분<i class="ico-sort-down"></i></li>
+                                <li class="th_cell">프로그램<i class="ico-sort-up"></i></li>
+                                <li class="th_cell">설정파일<i class="ico-sort-down"></i></li>
+                                <li class="th_cell">IP<i class="ico-sort-down"></i></li>
+                                <li class="th_cell">PORT<i class="ico-sort-down"></i></li>
+                                <li class="th_cell">프로그램유형<i class="ico-sort-down"></i></li>
+                                <li class="th_cell">연결유형<i class="ico-sort-up"></i></li>
+                            </ul>
+                        </div>
+                        <div class="table_body">
+                            <ul class="table_row w-auto">
+                                <li class="td_cell">2 documents</li>
+                                <li class="td_cell">2 documents</li>
+                                <li class="td_cell">2 documents</li>
+                                <li class="td_cell">2 documents</li>
+                                <li class="td_cell">2 documents</li>
+                                <li class="td_cell">2 documents</li>
+                                <li class="td_cell">2 documents</li>
+                            </ul>
+                            <ul class="table_row w-auto">
+                                <li class="td_cell">q sign</li>
+                                <li class="td_cell">q sign</li>
+                                <li class="td_cell">q sign</li>
+                                <li class="td_cell">q sign</li>
+                                <li class="td_cell">q sign</li>
+                                <li class="td_cell">q sign</li>
+                                <li class="td_cell">q sign</li>
+                            </ul>
+                        </div>
+                    </div>
+                    TABLE_GRID //-->
+                </section>
+                
+                
+                <section class="form_area border_group">
+                    <h5 class="s_tit">기본정보</h5>
+                    <div class="row_contain">
+                        <div class="column w-2">
+                            <label class="column_label">EIGW구분</label>
+                            <input type="text" value="50byte">
+                        </div>
+                        <div class="column w-2">
+                            <label class="column_label">프로그램명</label>
+                            <input type="text" value="">
+                        </div>
+                    
+                        <div class="column w-2">
+                            <label class="column_label">설정파일명</label>
+                            <input type="text" value="channeltype_01">
+                        </div>
+                    </div>
+                </section>
+
+                <section class="form_area border_group">
+                    <h5 class="s_tit">상세정보</h5>
+                    <div class="row_contain">
+                        <div class="column w-2">
+                            <label class="column_label">개발 REAL IP</label>
+                            <input type="text" value="">
+                        </div>
+                        <div class="column w-2">
+                            <label class="column_label">개발 NAT IP</label>
+                            <input type="text" value="">
+                        </div>
+                    
+                        <div class="column w-2">
+                            <label class="column_label">개발 Port</label>
+                            <input type="text" value="channeltype_01">
+                        </div>
+                    </div>
+                    <div class="row_contain">
+                        <div class="column w-2">
+                            <label class="column_label">운영 REAL IP</label>
+                            <input type="text" value="">
+                        </div>
+                        <div class="column w-2">
+                            <label class="column_label">운영 NAT IP</label>
+                            <input type="text" value="">
+                        </div>
+                        <div class="column w-2">
+                            <label class="column_label">운영 Port</label>
+                            <input type="text" value="">
+                        </div>
+                    </div>
+                    <div class="row_contain">
+                        <div class="column w-2">
+                            <label class="column_label">프로그램유형</label>
+                            <input type="text" value="channeltype_01">
+                        </div>
+                        <div class="column w-2">
+                            <label class="column_label">연결유형</label>
+                            <input type="text" value="type_01">
+                        </div>
+                        <div class="column w-2">
+                            <label class="column_label">사용유무</label>
+                            <input type="text" value="Y">
+                        </div>
+                    </div>
+                </section>
+                
+                <section class="btm_button_area">
+                    <button type="button" class="default_button on">수정</button>
+                </section>
+            </div>
+            
+            <aside class="move_form">
+                <section class="form_area">
+                    <h5 class="s_tit">기본 설정</h5>
+                    <div class="row_contain type-2">
+                        <div class="column w-6">
+                            <label class="column_label">인터페이스 ID</label>
+                            <input type="text" value="myidisyoungjunyu">
+                        </div>
+                    </div>
+                    <div class="row_contain type-2">
+                        <div class="column w-6">
+                            <label class="column_label">인터페이스명</label>
+                            <input type="text" value="Interface12">
+                        </div>
+                    </div>
+                    <div class="row_contain type-2">
+                        <div class="column w-6">
+                            <label class="column_label">유형</label>
+                            <div class="select_group">
+                                <select>
+                                    <option value="" selected>MQ</option>
+                                    <option value="">FILE</option>
+                                </select>
+                                <span class="select"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row_contain type-2">
+                        <div class="column w-6">
+                            <label class="column_label">HUB</label>
+                            <div class="select_group">
+                                <select>
+                                    <option value="" selected>1</option>
+                                    <option value="">2</option>
+                                    <option value="">3</option>
+                                    <option value="">4</option>
+                                </select>
+                                <span class="select"></span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </aside>
+        </article>
+        
+        <footer>
+            <div class="copyright">
+                <div>
+                    <img class="copy_logo" src="../images/logo2.gif" alt="copyright 로고">
+                    COPYRIGHTⓒ2019 BY SK HOLDINGS CO., LTD. ALL RIGHTS RESERVED. 
+                </div>
+                <em>SK C&amp;C</em>
+            </div>
+        </footer>
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
