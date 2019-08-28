@@ -90,6 +90,18 @@
                 <li>EiGW</li>
                 <li>MCG</li>
                 <li>EAI</li>
+                <li @click="movePage('accList')">
+                  사용자 계정 관리
+                </li>
+                <li @click="movePage('accListEigw')">
+                  EiGW 담당자 관리
+                </li>
+                <li @click="movePage('instList')">
+                  기관 코드 관리
+                </li>
+                <li @click="movePage('serverList')">
+                  서버 정보 관리
+                </li>
               </ul>
             </li>
           </ul>
@@ -126,8 +138,8 @@ export default {
     logout() {
       this.$axios.get('/api/logout')
         .then((res) => {
-          if(res.status === 200) {
-            
+          if (res.status === 200) {
+
           }
         })
         .catch((ex) => {
