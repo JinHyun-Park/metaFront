@@ -10,15 +10,17 @@
           <div class="column on w-2">
             <label class="column_label">ID(SKT 사번)</label>
             <input
+              v-model="userId"
               type="text"
-              value="190731"
+              value=""
             >
           </div>
           <div class="column w-2">
             <label class="column_label">이름</label>
             <input
+              v-model="hanNm"
               type="text"
-              value="SKCC"
+              value=""
             >
           </div>
         </div>
@@ -26,13 +28,15 @@
           <div class="column w-2">
             <label class="column_label">생년월일(YYMMDD)</label>
             <input
+              v-model="juminNo"
               type="number"
-              value="930731"
+              value="YYMMDD"
             >
           </div>
           <div class="column w-2">
             <label class="column_label">휴대전화번호</label>
             <input
+              v-model="mblPhonNum"
               type="number"
               value="0101231234"
             >
@@ -64,10 +68,34 @@ import { mapActions } from 'vuex';
 
 export default {
   name: 'ResetPwdPopup',
+  data() {
+    return {
+      userId : "",
+      hanNm : "",
+      juminNo : "",
+      mblPhonNum : "",
+    };
+  },
   methods: {
     ...mapActions('frameSet', ['setResetPopOn']),
     popResetPage() {
       this.setResetPopOn({ resetPopOn: 'none' });
+    },
+    resetReqUserPw() {
+      var reqData = { userId: this.userId, hanNm: this.hanNm,
+                      juminNo: this.juminNo, mblPhonNum: this.mblPhonNum };
+      this.$axios.post('/api/user/reqresetpasswd', reqData)
+        .then((res) => {
+          if(res.data.rstCd == 'S') {
+            console.log(res.headers);
+            this.popResetPage();
+          } else {
+            alert(res.data.rstMsg);
+          }
+        })
+        .catch((ex) => {
+          console.log(`error occur!! : ${ex}`);
+        });
     },
   },
 };

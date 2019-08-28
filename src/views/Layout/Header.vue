@@ -17,7 +17,7 @@
           <em><i class="ico-user" />유영준님 환영합니다!</em>
           <button
             class="log"
-            @click="movePage('login')"
+            @click="logout()"
           >
             로그아웃<i class="ico-logout" />
           </button>
@@ -143,6 +143,18 @@ export default {
     movePage(page) { // 페이지 이동
       this.activeItem = page; // 헤더에서 내려오는 바에 현 위치 표시
       this.$router.push({ name: page });
+    },
+    logout() {
+      this.$axios.get('/api/logout')
+        .then((res) => {
+          if (res.status === 200) {
+
+          }
+        })
+        .catch((ex) => {
+          console.log(`error occur!! : ${ex}`);
+        });
+      this.movePage('login');
     },
   },
 };
