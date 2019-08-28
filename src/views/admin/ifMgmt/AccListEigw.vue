@@ -1,10 +1,14 @@
 <template>
   <div class="right_space">
     <section class="title style-2">
-      <h2><i class="ico-bar" />담당자 조회</h2>
-      <div class="breadcrumb">
-        <span>EGIW</span><em class="on">EAI</em>
-      </div>
+      <h2>
+        <div>
+          <i class="ico-bar" />담당자 조회
+        </div>
+        <div class="breadcrumb">
+          <span>EGIW</span><em class="on">EAI</em>
+        </div>
+      </h2>
     </section>
     <section class="form_area border_group">
       <div class="row_contain last">
