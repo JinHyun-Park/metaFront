@@ -2455,6 +2455,16 @@ footer em {
 }
 
 @media (min-width:1537px) and (max-width:1919px) {
+    .table_grid .table_body .fold_colgroup>.table_row.colspan .td_cell {
+        min-width: 123px
+    }
+    .table_grid .table_row.form_type .td_cell:last-child {
+        padding-right: 0
+    }
+    .table_grid .table_row .td_cell .ico-add,
+    .table_grid .table_row .td_cell .ico-edit {
+        margin-right: 8px
+    }
     .contents .grid_form .division_row>div {
         grid-template-columns: 89px 84px 68%;
         -ms-grid-columns: 89px 84px 68%
@@ -2517,6 +2527,18 @@ footer em {
     .contents .form_area .row_contain .column .column_label,
     .select_group>.column_label {
         letter-spacing: .4px
+    }
+    .table_grid .table_head.w-auto ul .th_cell,
+    .table_grid .table_body .table_row.w-auto .td_cell {
+        width: 176px
+    }
+    .table_grid .table_body .fold_colgroup>.table_row.colspan .td_cell {
+        min-width: 176px
+    }
+    .table_grid.tb_layout .table_head ul .th_cell:first-child,
+    .table_grid.tb_layout .table_body .table_row .td_cell:first-child,
+    .table_grid.tb_layout .table_body .fold_colgroup>.table_row.colspan .td_cell:first-child {
+        min-width: 125px
     }
     .table_grid .table_head .th_cell:first-child,
     .table_grid .table_row .td_cell:first-child {
