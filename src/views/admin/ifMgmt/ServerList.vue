@@ -1,10 +1,12 @@
 <template>
   <div class="right_space">
     <section class="title style-2">
-      <h2><i class="ico-bar" />서버 정보 조회</h2>
-      <div class="breadcrumb">
-        <span>EGIW</span><em class="on">EAI</em>
+      <h2><div><i class="ico-bar" />서버 정보 조회
       </div>
+      <div class="breadcrumb">
+        <span>EIGW</span><em class="on">EAI</em>
+      </div>
+      </h2>
     </section>
     <section class="border_group">
       <h5 class="s_tit type-2">
@@ -40,6 +42,7 @@
           <button
             type="button"
             class="default_button on"
+            @click="searchList()"
           >
             조회
           </button>
@@ -47,9 +50,11 @@
       </h5>
       <div class="add_info">
         <input
+          v-model="svrIp"
           type="text"
           class="add_text on"
-          value="채널 업무 담당조회추가 채널업무"
+          value="IP주소"
+          v-on:keyup.13="searchList()"
         >
         <input
           type="text"
@@ -81,171 +86,60 @@
         <div class="table_grid radio_group">
           <div class="table_head w-auto">
             <ul>
-              <li class="th_cell" />
-              <li class="th_cell">
-                시스템명<i class="ico-sort-down" />
+              <li class="th_cell"> 
+                Num
               </li>
               <li class="th_cell">
-                호스트명<i class="ico-sort-up" />
+                서버타입<i class="ico-sort-down" />
               </li>
               <li class="th_cell">
-                IP(VIP)<i class="ico-sort-down" />
+                IP타입<i class="ico-sort-up" />
               </li>
               <li class="th_cell">
-                IP(NAT)<i class="ico-sort-up" />
+                호스트명<i class="ico-sort-down" />
               </li>
               <li class="th_cell">
-                OS<i class="ico-sort-up" />
+                IP<i class="ico-sort-up" />
               </li>
               <li class="th_cell">
-                고객사<i class="ico-sort-down" />
+                PORT<i class="ico-sort-up" />
+              </li>
+              <li class="th_cell">
+                담당자<i class="ico-sort-down" />
+              </li>
+              <li class="th_cell">
+                사용여부<i class="ico-sort-down" />
               </li>
             </ul>
           </div>
           <div class="table_body">
-            <ul class="table_row w-auto">
-              <li class="td_cell w-auto">
-                <span class="default_radio on">
-                  <input
-                    id="radio_chk_1"
-                    type="radio"
-                    name="radio_chk_1"
-                  ><label for="radio_chk_1"><span /></label>
-                </span>
+            <ul class="table_row w-auto"
+              v-for="server in this.serverList"
+              :key="server.svrNum"
+            >
+              <li class="td_cell">
+                {{server.svrNum}}
+              </li> 
+              <li class="td_cell">
+                {{server.svrTypCd}}
               </li>
               <li class="td_cell">
-                2 documents
+                {{server.ipTyp}}
               </li>
               <li class="td_cell">
-                2 documents
+                {{server.hostNm}}
               </li>
               <li class="td_cell">
-                2 documents
+                {{server.svrIp}}
               </li>
               <li class="td_cell">
-                2 documents
+                {{server.svrPort}}
               </li>
               <li class="td_cell">
-                2 documents
+                {{server.userId}}
               </li>
               <li class="td_cell">
-                2 documents
-              </li>
-            </ul>
-            <ul class="table_row w-auto">
-              <li class="td_cell">
-                <span class="default_radio">
-                  <input
-                    id="radio_chk_2"
-                    type="radio"
-                    name="radio_chk_2"
-                  ><label for="radio_chk_2"><span /></label>
-                </span>
-              </li>
-              <li class="td_cell">
-                q sign
-              </li>
-              <li class="td_cell">
-                q sign
-              </li>
-              <li class="td_cell">
-                q sign
-              </li>
-              <li class="td_cell">
-                q sign
-              </li>
-              <li class="td_cell">
-                q sign
-              </li>
-              <li class="td_cell">
-                q sign
-              </li>
-            </ul>
-            <ul class="table_row w-auto">
-              <li class="td_cell">
-                <span class="default_radio">
-                  <input
-                    id="radio_chk_3"
-                    type="radio"
-                    name="radio_chk_3"
-                  ><label for="radio_chk_3"><span /></label>
-                </span>
-              </li>
-              <li class="td_cell">
-                q sign
-              </li>
-              <li class="td_cell">
-                q sign
-              </li>
-              <li class="td_cell">
-                q sign
-              </li>
-              <li class="td_cell">
-                q sign
-              </li>
-              <li class="td_cell">
-                q sign
-              </li>
-              <li class="td_cell">
-                q sign
-              </li>
-            </ul>
-            <ul class="table_row w-auto">
-              <li class="td_cell">
-                <span class="default_radio">
-                  <input
-                    id="radio_chk_4"
-                    type="radio"
-                    name="radio_chk_4"
-                  ><label for="radio_chk_4"><span /></label>
-                </span>
-              </li>
-              <li class="td_cell">
-                2 documents
-              </li>
-              <li class="td_cell">
-                2 documents
-              </li>
-              <li class="td_cell">
-                2 documents
-              </li>
-              <li class="td_cell">
-                2 documents
-              </li>
-              <li class="td_cell">
-                2 documents
-              </li>
-              <li class="td_cell">
-                2 documents
-              </li>
-            </ul>
-            <ul class="table_row w-auto">
-              <li class="td_cell">
-                <span class="default_radio">
-                  <input
-                    id="radio_chk_5"
-                    type="radio"
-                    name="radio_chk_5"
-                  ><label for="radio_chk_5"><span /></label>
-                </span>
-              </li>
-              <li class="td_cell">
-                2 documents
-              </li>
-              <li class="td_cell">
-                2 documents
-              </li>
-              <li class="td_cell">
-                2 documents
-              </li>
-              <li class="td_cell">
-                2 documents
-              </li>
-              <li class="td_cell">
-                2 documents
-              </li>
-              <li class="td_cell">
-                2 documents
+                {{server.useYn}}
               </li>
             </ul>
           </div>
@@ -275,3 +169,41 @@
     </section>
   </div>
 </template>
+
+<script>
+import { mapState, mapActions } from 'vuex';
+
+export default {
+  data() {
+    return {
+      serverList: '',
+      tgtUrl: '',
+      svrIp: '',
+    };
+  },
+  computed: {
+    ...mapState('frameSet', ['resetPopOn']),
+  },
+  methods: {
+    ...mapActions('frameSet', ['setResetPopOn']),
+    searchList() {
+      this.tgtUrl = "/api/bizcomm/server";
+      if(this.svrIp != null && this.svrIp != '') {
+        this.tgtUrl = this.tgtUrl+"/ip/"+this.svrIp;
+      }
+      this.$axios.get(this.tgtUrl)
+        .then((res) => {
+          console.log(res);
+          if (res.data.rstCd == 'S') {
+            this.serverList = res.data.rstData.serverList;
+          } else {
+            alert('failed');
+          }
+        })
+        .catch((ex) => {
+          console.log(`error occur!! : ${ex}`);
+        });
+    },
+  },
+};
+</script>

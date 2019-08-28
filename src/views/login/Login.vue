@@ -21,7 +21,8 @@
             <input
               v-model="user_pw"
               type="password"
-              value="SKCC"
+              value=""
+              v-on:keyup.13="login()"
             >
           </div>
         </div>
@@ -66,8 +67,9 @@ export default {
   },
   data() {
     return {
-      user_id: 'SKCC',
+      user_id: '',
       user_pw: '',
+      hanNm: '',
     };
   },
   computed: {
@@ -77,14 +79,35 @@ export default {
     ...mapActions('frameSet', ['setResetPopOn']),
     login() {
       console.log('로그인 시도!');
-      this.$axios.post('/api/auth/login', { id: this.user_id, pwd: this.user_pw })
+      let form = new FormData();
+      form.append('userId', this.user_id);
+      form.append('userPw', this.user_pw);
+
+      this.$axios.post('/api/loginProc', form)
         .then((res) => {
+          if(res.status === 200) {
+            console.log(res.headers);
+            this.getUserInfo();
+            this.$router.push({ name: 'home' });
+          }
           console.log(res);
         })
         .catch((ex) => {
           console.log(`error occur!! : ${ex}`);
         });
-      this.$router.push({ name: 'home' });
+    },
+    getUserInfo() {
+      this.$axios.get('/api/user/'+this.user_id)
+        .then((res) => {
+          if(res.status === 200) {
+            this.hanNm = res.data.rstData.user.chrgrInfo.hanNm;
+            alert(this.hanNm+"님 환영합니다.");
+          }
+        })
+        .catch((ex) => {
+          console.log(`error occur!! : ${ex}`);
+        });
+      this.$router.push({ name: 'home', hanNm: this.hanNm });
     },
     movePage(page) {
       this.$router.push({ name: page });
