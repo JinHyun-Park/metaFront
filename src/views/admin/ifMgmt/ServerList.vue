@@ -200,6 +200,7 @@ export default {
           if (res.data.rstCd === 'S') {
             this.serverList = res.data.rstData.serverList;
           } else {
+            // eslint-disable-next-line no-alert
             alert('failed');
           }
         })

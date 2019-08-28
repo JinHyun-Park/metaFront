@@ -32,6 +32,15 @@
               <ul class="sub_menu">
                 <li>신청목록</li>
                 <li>신청등록</li>
+                <li @click="movePage('regList')">
+                  신청목록(승인)
+                </li>
+                <li @click="movePage('regStep2_EAI')">
+                  등록#2 EAI
+                </li>
+                <li @click="movePage('regStep2_EIGW')">
+                  등록#2 EiGW
+                </li>
               </ul>
             </li>
             <li>
@@ -139,7 +148,7 @@ export default {
       this.$axios.get('/api/logout')
         .then((res) => {
           if (res.status === 200) {
-
+            console.log('로그아웃!');
           }
         })
         .catch((ex) => {

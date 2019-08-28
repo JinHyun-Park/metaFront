@@ -22,7 +22,7 @@
               v-model="user_pw"
               type="password"
               value=""
-              v-on:keyup.13="login()"
+              @keyup.13="login()"
             >
           </div>
         </div>
@@ -79,13 +79,13 @@ export default {
     ...mapActions('frameSet', ['setResetPopOn']),
     login() {
       console.log('로그인 시도!');
-      let form = new FormData();
+      const form = new FormData();
       form.append('userId', this.user_id);
       form.append('userPw', this.user_pw);
 
       this.$axios.post('/api/loginProc', form)
         .then((res) => {
-          if(res.status === 200) {
+          if (res.status === 200) {
             console.log(res.headers);
             this.getUserInfo();
             this.$router.push({ name: 'home' });
@@ -97,11 +97,12 @@ export default {
         });
     },
     getUserInfo() {
-      this.$axios.get('/api/user/'+this.user_id)
+      this.$axios.get(`/api/user/${this.user_id}`)
         .then((res) => {
-          if(res.status === 200) {
+          if (res.status === 200) {
             this.hanNm = res.data.rstData.user.chrgrInfo.hanNm;
-            alert(this.hanNm+"님 환영합니다.");
+            // eslint-disable-next-line no-alert
+            alert(`${this.hanNm}님 환영합니다.`);
           }
         })
         .catch((ex) => {

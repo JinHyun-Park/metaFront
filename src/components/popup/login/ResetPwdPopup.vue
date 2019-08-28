@@ -70,10 +70,10 @@ export default {
   name: 'ResetPwdPopup',
   data() {
     return {
-      userId : "",
-      hanNm : "",
-      juminNo : "",
-      mblPhonNum : "",
+      userId: '',
+      hanNm: '',
+      juminNo: '',
+      mblPhonNum: '',
     };
   },
   methods: {
@@ -82,14 +82,19 @@ export default {
       this.setResetPopOn({ resetPopOn: 'none' });
     },
     resetReqUserPw() {
-      var reqData = { userId: this.userId, hanNm: this.hanNm,
-                      juminNo: this.juminNo, mblPhonNum: this.mblPhonNum };
+      const reqData = {
+        userId: this.userId,
+        hanNm: this.hanNm,
+        juminNo: this.juminNo,
+        mblPhonNum: this.mblPhonNum,
+      };
       this.$axios.post('/api/user/reqresetpasswd', reqData)
         .then((res) => {
-          if(res.data.rstCd == 'S') {
+          if (res.data.rstCd === 'S') {
             console.log(res.headers);
             this.popResetPage();
           } else {
+            // eslint-disable-next-line no-alert
             alert(res.data.rstMsg);
           }
         })
