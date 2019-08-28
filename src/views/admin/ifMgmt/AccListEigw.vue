@@ -1,6 +1,6 @@
 <template>
   <div class="right_space">
-    <section class="title style-2">
+    <section class="title style-1">
       <h2>
         <div>
           <i class="ico-bar" />담당자 조회
