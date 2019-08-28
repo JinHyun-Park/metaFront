@@ -1,11 +1,13 @@
 <template>
   <div class="right_space">
-    <section class="title style-2">
-      <h2><div><i class="ico-bar" />서버 정보 조회
-      </div>
-      <div class="breadcrumb">
-        <span>EIGW</span><em class="on">EAI</em>
-      </div>
+    <section class="title style-1">
+      <h2>
+        <div>
+          <i class="ico-bar" />서버 정보 조회
+        </div>
+        <div class="breadcrumb">
+          <span>EGIW</span><em class="on">EAI</em>
+        </div>
       </h2>
     </section>
     <section class="border_group">
@@ -54,7 +56,7 @@
           type="text"
           class="add_text on"
           value="IP주소"
-          v-on:keyup.13="searchList()"
+          @on:keyup.13="searchList()"
         >
         <input
           type="text"
@@ -86,7 +88,7 @@
         <div class="table_grid radio_group">
           <div class="table_head w-auto">
             <ul>
-              <li class="th_cell"> 
+              <li class="th_cell">
                 Num
               </li>
               <li class="th_cell">
@@ -113,33 +115,34 @@
             </ul>
           </div>
           <div class="table_body">
-            <ul class="table_row w-auto"
-              v-for="server in this.serverList"
+            <ul
+              v-for="server in serverList"
               :key="server.svrNum"
+              class="table_row w-auto"
             >
               <li class="td_cell">
-                {{server.svrNum}}
-              </li> 
-              <li class="td_cell">
-                {{server.svrTypCd}}
+                {{ server.svrNum }}
               </li>
               <li class="td_cell">
-                {{server.ipTyp}}
+                {{ server.svrTypCd }}
               </li>
               <li class="td_cell">
-                {{server.hostNm}}
+                {{ server.ipTyp }}
               </li>
               <li class="td_cell">
-                {{server.svrIp}}
+                {{ server.hostNm }}
               </li>
               <li class="td_cell">
-                {{server.svrPort}}
+                {{ server.svrIp }}
               </li>
               <li class="td_cell">
-                {{server.userId}}
+                {{ server.svrPort }}
               </li>
               <li class="td_cell">
-                {{server.useYn}}
+                {{ server.userId }}
+              </li>
+              <li class="td_cell">
+                {{ server.useYn }}
               </li>
             </ul>
           </div>
@@ -187,14 +190,14 @@ export default {
   methods: {
     ...mapActions('frameSet', ['setResetPopOn']),
     searchList() {
-      this.tgtUrl = "/api/bizcomm/server";
-      if(this.svrIp != null && this.svrIp != '') {
-        this.tgtUrl = this.tgtUrl+"/ip/"+this.svrIp;
+      this.tgtUrl = '/api/bizcomm/server';
+      if (this.svrIp != null && this.svrIp !== '') {
+        this.tgtUrl = `${this.tgtUrl}/ip/${this.svrIp}`;
       }
       this.$axios.get(this.tgtUrl)
         .then((res) => {
           console.log(res);
-          if (res.data.rstCd == 'S') {
+          if (res.data.rstCd === 'S') {
             this.serverList = res.data.rstData.serverList;
           } else {
             alert('failed');
