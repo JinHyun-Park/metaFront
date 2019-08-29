@@ -181,11 +181,6 @@ select::-ms-expand {
     background: #ebf1fb
 }
 
-
-/* input:-internal-autofill-selected {
-    background-color: rgb(249, 249, 249) !important;
-} */
-
 @font-face {
     font-family: Moebius_Regular_kor;
     /* src: url('font/Moebius_Regular_kor-webfont.eot?#iefix') format(‘embedded-opentype’); */
@@ -1330,6 +1325,11 @@ input[type=radio] {
     height: 13px
 }
 
+.contents.popup .layer_popup .form_area .table_colgroup .table_grid.radio_group .default_radio input[type=radio]:not(old),
+.contents.popup .layer_popup .border_group .table_colgroup .table_grid.radio_group .default_radio input[type=radio]:not(old) {
+    position: relative
+}
+
 .default_radio input[type=radio]:not(old) {
     width: 11px;
     height: 11px
@@ -1860,7 +1860,8 @@ width: 24px
 /* TABLE */
 
 .table_colgroup {
-    display: table-column-group;
+    /*    display: table-column-group;*/
+    display: block;
     overflow-x: auto
 }
 
@@ -1876,6 +1877,10 @@ width: 24px
 
 .table_grid+.table_grid {
     margin-top: 24px
+}
+
+.contents .form_area .table_colgroup.first {
+    margin-bottom: 36px
 }
 
 
