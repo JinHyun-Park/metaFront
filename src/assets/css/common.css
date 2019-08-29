@@ -2538,8 +2538,8 @@ footer em {
     .select_group>.column_label {
         letter-spacing: .4px
     }
-    .table_grid .table_head.w-auto ul .th_cell,
-    .table_grid .table_body .table_row.w-auto .td_cell {
+    .table_grid.tb_layout .table_head ul .th_cell,
+    .table_grid.tb_layout .table_body .table_row .td_cell {
         width: 176px
     }
     .table_grid .table_body .fold_colgroup>.table_row.colspan .td_cell {
