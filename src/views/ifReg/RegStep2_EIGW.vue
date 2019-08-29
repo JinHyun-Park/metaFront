@@ -49,6 +49,242 @@
           <!-- <button type="button" class="default_button on">수정</button>-->
         </div>
       </h5>
+      <!-- ONLINE -->
+      <div class="table_colgroup first">
+        <div class="table_grid">
+          <div class="table_head">
+            <ul>
+              <li class="th_cell">
+                인터페이스ID<i class="ico-sort-down" />
+              </li>
+              <li class="th_cell">
+                인터페이스명<i class="ico-sort-down" />
+              </li>
+              <li class="th_cell">
+                대외기관명<i class="ico-sort-up" />
+              </li>
+              <li class="th_cell">
+                개발REAL IP<i class="ico-sort-down" />
+              </li>
+              <li class="th_cell">
+                개발포트<i class="ico-sort-down" />
+              </li>
+              <li class="th_cell">
+                운영REAL IP<i class="ico-sort-down" />
+              </li>
+              <li class="th_cell">
+                운영포트<i class="ico-sort-up" />
+              </li>
+              <li class="th_cell">
+                송수신여부<i class="ico-sort-down" />
+              </li>
+              <li class="th_cell">
+                연결유형<i class="ico-sort-up" />
+              </li>
+              <li class="th_cell" />
+            </ul>
+          </div>
+          <div class="table_body">
+            <ul class="table_row">
+              <li class="td_cell">
+                2 documents
+              </li>
+              <li class="td_cell">
+                2 documents
+              </li>
+              <li class="td_cell">
+                2 documents
+              </li>
+              <li class="td_cell">
+                2 documents
+              </li>
+              <li class="td_cell">
+                2 documents
+              </li>
+              <li class="td_cell">
+                2 documents
+              </li>
+              <li class="td_cell">
+                2 documents
+              </li>
+              <li class="td_cell">
+                2 documents
+              </li>
+              <li class="td_cell">
+                2 documents
+              </li>
+              <li class="td_cell">
+                <i class="ico-del" />
+              </li>
+            </ul>
+            <ul class="table_row">
+              <li class="td_cell">
+                q sign
+              </li>
+              <li class="td_cell">
+                q sign
+              </li>
+              <li class="td_cell">
+                q sign
+              </li>
+              <li class="td_cell">
+                q sign
+              </li>
+              <li class="td_cell">
+                q sign
+              </li>
+              <li class="td_cell">
+                q sign
+              </li>
+              <li class="td_cell">
+                q sign
+              </li>
+              <li class="td_cell">
+                q sign
+              </li>
+              <li class="td_cell">
+                q sign
+              </li>
+              <li class="td_cell">
+                <i class="ico-del" />
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- ONLINE //-->
+      <!-- FILE -->
+      <div class="table_colgroup first">
+        <div class="table_grid">
+          <colgroup />
+          <div class="table_head">
+            <ul>
+              <li class="th_cell">
+                파일명<i class="ico-sort-down" />
+              </li>
+              <li class="th_cell">
+                파일날짜<i class="ico-sort-down" />
+              </li>
+              <li class="th_cell">
+                대외기관명<i class="ico-sort-up" />
+              </li>
+              <li class="th_cell">
+                개발REAL IP<i class="ico-sort-down" />
+              </li>
+              <li class="th_cell">
+                개발포트<i class="ico-sort-down" />
+              </li>
+              <li class="th_cell">
+                운영REAL IP<i class="ico-sort-down" />
+              </li>
+              <li class="th_cell">
+                운영포트<i class="ico-sort-up" />
+              </li>
+              <li class="th_cell">
+                송수신<i class="ico-sort-down" />
+              </li>
+              <li class="th_cell">
+                전송주기<i class="ico-sort-up" />
+              </li>
+              <li class="th_cell">
+                전송시각<i class="ico-sort-up" />
+              </li>
+              <li class="th_cell">
+                전송방식<i class="ico-sort-up" />
+              </li>
+              <li class="th_cell">
+                인터페이스ID<i class="ico-sort-up" />
+              </li>
+              <li class="th_cell" />
+            </ul>
+          </div>
+          <div class="table_body">
+            <ul class="table_row">
+              <li class="td_cell">
+                2 documents
+              </li>
+              <li class="td_cell">
+                2 documents
+              </li>
+              <li class="td_cell">
+                2 documents
+              </li>
+              <li class="td_cell">
+                2 documents
+              </li>
+              <li class="td_cell">
+                2 documents
+              </li>
+              <li class="td_cell">
+                2 documents
+              </li>
+              <li class="td_cell">
+                2 documents
+              </li>
+              <li class="td_cell">
+                2 documents
+              </li>
+              <li class="td_cell">
+                2 documents
+              </li>
+              <li class="td_cell">
+                2 documents
+              </li>
+              <li class="td_cell">
+                2 documents
+              </li>
+              <li class="td_cell">
+                2 documents
+              </li>
+              <li class="td_cell">
+                <i class="ico-del" />
+              </li>
+            </ul>
+            <ul class="table_row">
+              <li class="td_cell">
+                q sign
+              </li>
+              <li class="td_cell">
+                q sign
+              </li>
+              <li class="td_cell">
+                q sign
+              </li>
+              <li class="td_cell">
+                q sign
+              </li>
+              <li class="td_cell">
+                q sign
+              </li>
+              <li class="td_cell">
+                q sign
+              </li>
+              <li class="td_cell">
+                q sign
+              </li>
+              <li class="td_cell">
+                q sign
+              </li>
+              <li class="td_cell">
+                q sign
+              </li>
+              <li class="td_cell">
+                q sign
+              </li>
+              <li class="td_cell">
+                q sign
+              </li>
+              <li class="td_cell">
+                q sign
+              </li>
+              <li class="td_cell">
+                <i class="ico-del" />
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- FILE //-->
       <div class="row_contain type-2">
         <div class="column on w-1">
           <label class="column_label">I/F ID(명)</label>
@@ -260,385 +496,127 @@
         </div>
       </div>
       <!-- FILE //-->
-
-      <!-- ONLINE -->
-      <div class="table_colgroup">
-        <div class="table_grid">
-          <div class="table_head">
-            <ul>
-              <li class="th_cell">
-                인터페이스ID<i class="ico-sort-down" />
-              </li>
-              <li class="th_cell">
-                인터페이스명<i class="ico-sort-down" />
-              </li>
-              <li class="th_cell">
-                대외기관명<i class="ico-sort-up" />
-              </li>
-              <li class="th_cell">
-                개발REAL IP<i class="ico-sort-down" />
-              </li>
-              <li class="th_cell">
-                개발포트<i class="ico-sort-down" />
-              </li>
-              <li class="th_cell">
-                운영REAL IP<i class="ico-sort-down" />
-              </li>
-              <li class="th_cell">
-                운영포트<i class="ico-sort-up" />
-              </li>
-              <li class="th_cell">
-                송수신여부<i class="ico-sort-down" />
-              </li>
-              <li class="th_cell">
-                연결유형<i class="ico-sort-up" />
-              </li>
-              <li class="th_cell" />
-            </ul>
-          </div>
-          <div class="table_body">
-            <ul class="table_row">
-              <li class="td_cell">
-                2 documents
-              </li>
-              <li class="td_cell">
-                2 documents
-              </li>
-              <li class="td_cell">
-                2 documents
-              </li>
-              <li class="td_cell">
-                2 documents
-              </li>
-              <li class="td_cell">
-                2 documents
-              </li>
-              <li class="td_cell">
-                2 documents
-              </li>
-              <li class="td_cell">
-                2 documents
-              </li>
-              <li class="td_cell">
-                2 documents
-              </li>
-              <li class="td_cell">
-                2 documents
-              </li>
-              <li class="td_cell">
-                <i class="ico-del" />
-              </li>
-            </ul>
-            <ul class="table_row">
-              <li class="td_cell">
-                q sign
-              </li>
-              <li class="td_cell">
-                q sign
-              </li>
-              <li class="td_cell">
-                q sign
-              </li>
-              <li class="td_cell">
-                q sign
-              </li>
-              <li class="td_cell">
-                q sign
-              </li>
-              <li class="td_cell">
-                q sign
-              </li>
-              <li class="td_cell">
-                q sign
-              </li>
-              <li class="td_cell">
-                q sign
-              </li>
-              <li class="td_cell">
-                q sign
-              </li>
-              <li class="td_cell">
-                <i class="ico-del" />
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <!-- ONLINE //-->
-
-      <!-- FILE -->
-      <div class="table_colgroup">
-        <div class="table_grid">
-          <colgroup />
-          <div class="table_head">
-            <ul>
-              <li class="th_cell">
-                파일명<i class="ico-sort-down" />
-              </li>
-              <li class="th_cell">
-                파일날짜<i class="ico-sort-down" />
-              </li>
-              <li class="th_cell">
-                대외기관명<i class="ico-sort-up" />
-              </li>
-              <li class="th_cell">
-                개발REAL IP<i class="ico-sort-down" />
-              </li>
-              <li class="th_cell">
-                개발포트<i class="ico-sort-down" />
-              </li>
-              <li class="th_cell">
-                운영REAL IP<i class="ico-sort-down" />
-              </li>
-              <li class="th_cell">
-                운영포트<i class="ico-sort-up" />
-              </li>
-              <li class="th_cell">
-                송수신<i class="ico-sort-down" />
-              </li>
-              <li class="th_cell">
-                전송주기<i class="ico-sort-up" />
-              </li>
-              <li class="th_cell">
-                전송시각<i class="ico-sort-up" />
-              </li>
-              <li class="th_cell">
-                전송방식<i class="ico-sort-up" />
-              </li>
-              <li class="th_cell">
-                인터페이스ID<i class="ico-sort-up" />
-              </li>
-              <li class="th_cell" />
-            </ul>
-          </div>
-          <div class="table_body">
-            <ul class="table_row">
-              <li class="td_cell">
-                2 documents
-              </li>
-              <li class="td_cell">
-                2 documents
-              </li>
-              <li class="td_cell">
-                2 documents
-              </li>
-              <li class="td_cell">
-                2 documents
-              </li>
-              <li class="td_cell">
-                2 documents
-              </li>
-              <li class="td_cell">
-                2 documents
-              </li>
-              <li class="td_cell">
-                2 documents
-              </li>
-              <li class="td_cell">
-                2 documents
-              </li>
-              <li class="td_cell">
-                2 documents
-              </li>
-              <li class="td_cell">
-                2 documents
-              </li>
-              <li class="td_cell">
-                2 documents
-              </li>
-              <li class="td_cell">
-                2 documents
-              </li>
-              <li class="td_cell">
-                <i class="ico-del" />
-              </li>
-            </ul>
-            <ul class="table_row">
-              <li class="td_cell">
-                q sign
-              </li>
-              <li class="td_cell">
-                q sign
-              </li>
-              <li class="td_cell">
-                q sign
-              </li>
-              <li class="td_cell">
-                q sign
-              </li>
-              <li class="td_cell">
-                q sign
-              </li>
-              <li class="td_cell">
-                q sign
-              </li>
-              <li class="td_cell">
-                q sign
-              </li>
-              <li class="td_cell">
-                q sign
-              </li>
-              <li class="td_cell">
-                q sign
-              </li>
-              <li class="td_cell">
-                q sign
-              </li>
-              <li class="td_cell">
-                q sign
-              </li>
-              <li class="td_cell">
-                q sign
-              </li>
-              <li class="td_cell">
-                <i class="ico-del" />
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <!-- FILE //-->
     </section>
 
-    <section class="form_area border_group">
-      <h5 class="s_tit">
+    <section class="border_group">
+      <h5 class="s_tit type-2">
         담당자 정보
+        <div class="right_button_area">
+          <button
+            type="button"
+            class="default_button on"
+          >
+            추가
+          </button>
+        </div>
       </h5>
-      <div class="row_contain type-3">
-        <div class="column on w-2">
-          <label class="column_label">사내</label>
-          <div class="search_group">
-            <input
-              type="text"
-              value=""
-            >
-            <span class="search">
-              <i class="ico-search" />
-            </span>
-          </div>
+      <div class="table_grid">
+        <div class="table_head w-auto except">
+          <ul>
+            <li class="th_cell">
+              기관
+            </li>
+            <li class="th_cell">
+              부서
+            </li>
+            <li class="th_cell">
+              이름
+            </li>
+            <li class="th_cell">
+              연락처
+            </li>
+            <li class="th_cell">
+              E-mail
+            </li>
+            <li class="th_cell" />
+          </ul>
         </div>
-        <div class="column w-2">
-          <label class="column_label">부서</label>
-          <input
-            type="text"
-            value=""
-          >
-        </div>
-        <div class="column w-1">
-          <label class="column_label">연락처</label>
-          <input
-            type="text"
-            value=""
-          >
-        </div>
-        <div class="column w-1">
-          <label class="column_label">&nbsp;</label>
-          <input
-            type="text"
-            value=""
-          >
-        </div>
-        <div class="column w-1">
-          <label class="column_label">&nbsp;</label>
-          <input
-            type="text"
-            value=""
-          >
-        </div>
-      </div>
-      <div class="row_contain type-3">
-        <div class="column w-2">
-          <label class="column_label">T/B매니저</label>
-          <div class="search_group">
-            <input
-              type="text"
-              value=""
-            >
-            <span class="search">
-              <i class="ico-search" />
-            </span>
-          </div>
-        </div>
-        <div class="column w-2">
-          <label class="column_label">부서</label>
-          <input
-            type="text"
-            value=""
-          >
-        </div>
-        <div class="column w-1">
-          <label class="column_label">연락처</label>
-          <input
-            type="text"
-            value=""
-          >
-        </div>
-        <div class="column w-1">
-          <label class="column_label">&nbsp;</label>
-          <input
-            type="text"
-            value=""
-          >
-        </div>
-        <div class="column w-1">
-          <label class="column_label">&nbsp;</label>
-          <input
-            type="text"
-            value=""
-          >
-        </div>
-      </div>
-      <div class="row_contain type-3">
-        <div class="column w-2">
-          <label class="column_label">대외기관</label>
-          <input
-            type="text"
-            value=""
-          >
-        </div>
-        <div class="column w-2">
-          <label class="column_label">부서</label>
-          <input
-            type="text"
-            value=""
-          >
-        </div>
-        <div class="column w-1">
-          <label class="column_label">연락처</label>
-          <input
-            type="text"
-            value=""
-          >
-        </div>
-        <div class="column w-1">
-          <label class="column_label">&nbsp;</label>
-          <input
-            type="text"
-            value=""
-          >
-        </div>
-        <div class="column w-1">
-          <label class="column_label">&nbsp;</label>
-          <input
-            type="text"
-            value=""
-          >
-        </div>
-      </div>
-      <div class="row_contain type-3">
-        <div class="column on w-2">
-          <label class="column_label">Email</label>
-          <input
-            type="text"
-            value="skcc@sk.com"
-          >
-        </div>
-        <div class="column w-1" />
-        <div class="column w-1">
-          <!--
-                            <label class="column_label">&nbsp;</label>
-                            <button type="button" class="default_button on">수정</button>
--->
+        <div class="table_body">
+          <ul class="table_row form_type except w-auto">
+            <li class="td_cell on">
+              <div class="select_group">
+                <select>
+                  <option
+                    value=""
+                    selected
+                  >
+                    대외기관
+                  </option>
+                  <option value="">
+                    유사관련기관
+                  </option>
+                </select>
+                <span class="select" />
+              </div>
+            </li>
+            <li class="td_cell">
+              2 documents
+            </li>
+            <li class="td_cell on">
+              <div class="search_group">
+                <input
+                  type="text"
+                  value="유영준"
+                >
+                <span class="search">
+                  <i class="ico-search" />
+                </span>
+              </div>
+            </li>
+            <li class="td_cell">
+              010-123-1234
+            </li>
+            <li class="td_cell on">
+              <input
+                type="text"
+                value="skcc@skcc.com"
+              >
+            </li>
+            <li class="td_cell">
+              <i class="ico-add" /><i class="ico-edit" /><i class="ico-del" />
+            </li>
+          </ul>
+          <ul class="table_row form_type except w-auto">
+            <li class="td_cell">
+              <div class="select_group">
+                <select>
+                  <option
+                    value=""
+                    selected
+                  >
+                    대외기관
+                  </option>
+                  <option value="">
+                    유사관련기관
+                  </option>
+                </select>
+                <span class="select" />
+              </div>
+            </li>
+            <li class="td_cell">
+              q sign
+            </li>
+            <li class="td_cell">
+              <div class="search_group">
+                <input
+                  type="text"
+                  value=""
+                >
+                <span class="search">
+                  <i class="ico-search" />
+                </span>
+              </div>
+            </li>
+            <li class="td_cell">
+              010-000-0000
+            </li>
+            <li class="td_cell">
+              gmail@gmail.com
+            </li>
+            <li class="td_cell">
+              <i class="ico-add" /><i class="ico-edit" /><i class="ico-del" />
+            </li>
+          </ul>
         </div>
       </div>
     </section>
