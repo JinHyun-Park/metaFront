@@ -102,6 +102,9 @@
                 <li @click="movePage('accList')">
                   사용자 계정 관리
                 </li>
+                <li @click="movePage('opsAccList')">
+                  OPS계정 정보 조회
+                </li>
                 <li @click="movePage('accListEigw')">
                   EiGW 담당자 관리
                 </li>

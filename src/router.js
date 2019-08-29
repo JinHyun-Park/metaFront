@@ -127,6 +127,11 @@ const router = new Router({
       component: () => import('@/views/admin/ifMgmt/AccListEigw.vue'),
     },
     {
+      path: '/admin/portalMgmt/opsAccList',
+      name: 'opsAccList',
+      component: () => import('@/views/admin/portalMgmt/OpsAccList.vue'),
+    },
+    {
       path: '/admin/portalMgmt/accList',
       name: 'accList',
       component: () => import('@/views/admin/portalMgmt/AccList.vue'),

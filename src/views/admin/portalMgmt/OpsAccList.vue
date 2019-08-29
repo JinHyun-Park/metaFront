@@ -3,7 +3,7 @@
     <section class="title style-1">
       <h2>
         <div>
-          <i class="ico-bar" />사용자 계정 관리
+          <i class="ico-bar" />OPS 계정 정보 조회
         </div>
         <div class="breadcrumb">
           <span>EGIW</span><em class="on">EAI</em>
@@ -53,16 +53,22 @@
                 사용자ID
               </li>
               <li class="th_cell">
-                사용자명
+                사용자구분
               </li>
               <li class="th_cell">
-                직급
+                기관코드
+              </li>
+              <li class="th_cell">
+                한글명
               </li>
               <li class="th_cell">
                 생년월일
               </li>
               <li class="th_cell">
-                권한
+                기관코드
+              </li>
+              <li class="th_cell">
+                직급
               </li>
               <li class="th_cell">
                 연락처
@@ -73,56 +79,76 @@
               <li class="th_cell">
                 이메일
               </li>
-              <li class="th_cell" />
+              <li class="th_cell">
+                OPSID
+              </li>
+              <li class="th_cell">
+                고객구분
+              </li>
+              <li class="th_cell">
+                삭제여부
+              </li>
+              <li class="th_cell">
+                생성일자
+              </li>
+              <li class="th_cell">
+                수정일자
+              </li>
             </ul>
           </div>
           <div class="table_body">
             <ul
-              v-for="(user, i) in this.userList"
-              :key="user.userId"
+              v-for="(chrgr, i) in this.chrgrList"
+              :key="chrgr.userId"
               class="table_row w-auto"
             >
               <li class="td_cell">
                 {{ i+1 }}
               </li>
               <li class="td_cell">
-                {{ user.userId }}
+                {{ chrgr.userId }}
               </li>
               <li class="td_cell">
-                {{ user.chrgrInfo.hanNm }}
+                {{ chrgr.userGb }}
               </li>
               <li class="td_cell">
-                {{ user.chrgrInfo.ofcLvlNm }}
+                {{ chrgr.instCd }}
               </li>
               <li class="td_cell">
-                {{ user.chrgrInfo.juminNo }}
+                {{ chrgr.hanNm }}
               </li>
               <li class="td_cell">
-                <div class="select_group">
-                  <select v-model='user.userAuth'>
-                    <option value="USER"
-                    >
-                      사용자
-                    </option>
-                    <option value="ADMIN"
-                    >
-                      관리자
-                    </option>
-                  </select>
-                </div>
+                {{ chrgr.juminNo }}
               </li>
               <li class="td_cell">
-                {{ user.chrgrInfo.offcPhonNum }}
+                {{ chrgr.orgCd }}
               </li>
               <li class="td_cell">
-                {{ user.chrgrInfo.mblPhonNum }}
+                {{ chrgr.ofcLvlNm }}
               </li>
               <li class="td_cell">
-                {{ user.chrgrInfo.emailAddr }}
+                {{ chrgr.offcPhonNum }}
               </li>
               <li class="td_cell">
-                 <i class="ico-edit" @click='editList(i)' />
-                 <i class="ico-del" @click='delList(i)' />
+                {{ chrgr.mblPhonNum }}
+              </li>
+              <li class="td_cell">
+                {{ chrgr.emailAddr }}
+              </li>
+              <li class="td_cell">
+                {{ chrgr.opsId }}
+              </li>
+              <li class="td_cell">
+                {{ chrgr.customerGb }}
+              </li>
+              <li class="td_cell">
+                {{ chrgr.delYn }}
+              </li>
+              <li class="td_cell">
+                {{ chrgr.creDt }}
+              </li>
+              <li class="td_cell">
+                {{ chrgr.chgDt }}
               </li>
             </ul>
           </div>
@@ -130,26 +156,6 @@
       </div>
     </section>
 
-    <section class="btm_button_area">
-      <button
-        type="button"
-        class="default_button"
-      >
-        수정
-      </button>
-      <button
-        type="button"
-        class="default_button"
-      >
-        추가
-      </button>
-      <button
-        type="button"
-        class="default_button on"
-      >
-        등록
-      </button>
-    </section>
   </div>
 </template>
 
@@ -159,7 +165,7 @@ import { mapState, mapActions } from 'vuex';
 export default {
   data() {
     return {
-      userList: [],
+      chrgrList: [],
       tgtUrl: '',
     };
   },
@@ -169,15 +175,18 @@ export default {
   methods: {
     ...mapActions('frameSet', ['setResetPopOn']),
     searchList() {
-      this.tgtUrl = '/api/user';
-      if (this.userId != null && this.userId !== '') {
-        this.tgtUrl = `${this.tgtUrl}/${this.userId}`;
+      this.tgtUrl = '/api/bizcomm/chrgr';
+      if (this.userId != null) {
+        this.tgtUrl = `${this.tgtUrl}/${this.userId}/${this.hanNm}`;
+      }
+      if (this.chrgrList != null && this.userId == null) {
+        this.tgtUrl = `${this.tgtUrl}//${this.hanNm}`;
       }
       this.$axios.get(this.tgtUrl)
         .then((res) => {
           console.log(res);
           if (res.data.rstCd === 'S') {
-            this.userList = res.data.rstData.userList;
+            this.chrgrList = res.data.rstData.chrgrInfo;
           } else {
           	// eslint-disable-next-line no-alert
             alert('failed');
@@ -187,17 +196,6 @@ export default {
           console.log(`error occur!! : ${ex}`);
         });
     },
-    editList(i) {
-      if (confirm(`${this.userList[i].chrgrInfo.hanNm}님 권한을 ${this.userList[i].userAuth}로 변경할래요?`)) {
-        //to-do userAuth값을 변경;
-      }
-    },
-    delList(i) {
-      // eslint-disable-next-line no-alert
-      if (confirm(`${this.userList[i].chrgrInfo.hanNm}님 계정을 정말 삭제할래요?`)) {
-        //to-do use_yn을 n으로 변경;
-      }
-    }
   },
 };
 </script>

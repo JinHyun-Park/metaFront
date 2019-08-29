@@ -100,7 +100,7 @@ export default {
       this.$axios.get(`/api/user/${this.user_id}`)
         .then((res) => {
           if (res.status === 200) {
-            this.hanNm = res.data.rstData.user.chrgrInfo.hanNm;
+            this.hanNm = res.data.rstData.userList.chrgrInfo.hanNm;
             // eslint-disable-next-line no-alert
             alert(`${this.hanNm}님 환영합니다.`);
           }
