@@ -181,6 +181,11 @@ select::-ms-expand {
     background: #ebf1fb
 }
 
+
+/* input:-internal-autofill-selected {
+    background-color: rgb(249, 249, 249) !important;
+} */
+
 @font-face {
     font-family: Moebius_Regular_kor;
     /* src: url('font/Moebius_Regular_kor-webfont.eot?#iefix') format(‘embedded-opentype’); */
