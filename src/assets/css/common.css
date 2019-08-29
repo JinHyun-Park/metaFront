@@ -1325,6 +1325,7 @@ input[type=radio] {
     height: 13px
 }
 
+.contents .right_space .border_group .table_colgroup .table_grid.radio_group .default_radio input[type=radio]:not(old),
 .contents.popup .layer_popup .form_area .table_colgroup .table_grid.radio_group .default_radio input[type=radio]:not(old),
 .contents.popup .layer_popup .border_group .table_colgroup .table_grid.radio_group .default_radio input[type=radio]:not(old) {
     position: relative
