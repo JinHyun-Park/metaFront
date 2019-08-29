@@ -131,6 +131,11 @@ const router = new Router({
       name: 'accList',
       component: () => import('@/views/admin/portalMgmt/AccList.vue'),
     },
+    {
+      path: '/admin/eigw/programInfo',
+      name: 'programInfo',
+      component: () => import('@/views/admin/eigw/ProgramInfo.vue'),
+    },
     ],
   },
   {

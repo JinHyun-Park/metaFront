@@ -1,11 +1,13 @@
 <template>
   <div class="right_space">
     <section class="title style-2">
-      <h2><div><i class="ico-bar" />대외기관 조회
-      </div>
-      <div class="breadcrumb">
-        <span>EIGW</span><em class="on">EAI</em>
-      </div>
+      <h2>
+        <div>
+          <i class="ico-bar" />대외기관 조회
+        </div>
+        <div class="breadcrumb">
+          <span>EIGW</span><em class="on">EAI</em>
+        </div>
       </h2>
     </section>
     <section class="form_area border_group">
@@ -36,8 +38,7 @@
         <div class="table_grid radio_group extend">
           <div class="table_head w-auto">
             <ul>
-              <li class="th_cell">
-              </li>
+              <li class="th_cell" />
               <li class="th_cell">
                 기관코드
               </li>
@@ -50,21 +51,22 @@
             </ul>
           </div>
           <div class="table_body">
-            <ul class="table_row w-auto"
+            <ul
               v-for="(instRow, i) in this.instList"
               :key="instRow.instCd"
+              class="table_row w-auto"
             >
               <li class="td_cell">
-                {{i+1}}
-              </li> 
-              <li class="td_cell">
-                {{instRow.instCd}}
+                {{ i+1 }}
               </li>
               <li class="td_cell">
-                {{instRow.instNm}}
+                {{ instRow.instCd }}
               </li>
               <li class="td_cell">
-                {{instRow.instRmk}}
+                {{ instRow.instNm }}
+              </li>
+              <li class="td_cell">
+                {{ instRow.instRmk }}
               </li>
             </ul>
           </div>
@@ -111,16 +113,17 @@ export default {
   methods: {
     ...mapActions('frameSet', ['setResetPopOn']),
     searchList() {
-      this.tgtUrl = "/api/bizcomm/inst_cd";
-      if(this.instCd != null && this.instCd != '') {
-        this.tgtUrl = this.tgtUrl+"/"+this.instCd;
+      this.tgtUrl = '/api/bizcomm/inst_cd';
+      if (this.instCd != null && this.instCd !== '') {
+        this.tgtUrl = `${this.tgtUrl}/${this.instCd}`;
       }
       this.$axios.get(this.tgtUrl)
         .then((res) => {
           console.log(res);
-          if (res.data.rstCd == 'S') {
+          if (res.data.rstCd === 'S') {
             this.instList = res.data.rstData.instCdLst;
           } else {
+            // eslint-disable-next-line no-alert
             alert('failed');
           }
         })

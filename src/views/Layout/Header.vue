@@ -111,6 +111,9 @@
                 <li @click="movePage('serverList')">
                   서버 정보 관리
                 </li>
+                <li @click="movePage('programInfo')">
+                  EiGW 프로그램 관리
+                </li>
               </ul>
             </li>
           </ul>
