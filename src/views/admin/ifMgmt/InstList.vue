@@ -1,22 +1,21 @@
 <template>
   <div class="right_space">
-    <section class="title style-1">
-      <h2>
-        <div>
-          <i class="ico-bar" />대외기관 조회
-        </div>
-        <div class="breadcrumb">
-          <span>EGIW</span><em class="on">EAI</em>
-        </div>
+    <section class="title style-2">
+      <h2><div><i class="ico-bar" />대외기관 조회
+      </div>
+      <div class="breadcrumb">
+        <span>EIGW</span><em class="on">EAI</em>
+      </div>
       </h2>
     </section>
     <section class="form_area border_group">
       <div class="row_contain type-3 last">
         <div class="column on w-5">
-          <label class="column_label">기관명</label>
+          <label class="column_label">기관명(코드)</label>
           <input
+            v-model="instCd"
             type="text"
-            value="QMGR"
+            value=""
           >
         </div>
         <div class="column w-1">
@@ -25,6 +24,7 @@
             <button
               type="button"
               class="default_button on"
+              @click="searchList()"
             >
               검색
             </button>
@@ -37,58 +37,34 @@
           <div class="table_head w-auto">
             <ul>
               <li class="th_cell">
-&nbsp;
               </li>
               <li class="th_cell">
-                기관명<i class="ico-sort-down" />
+                기관코드
               </li>
               <li class="th_cell">
-                기관코드<i class="ico-sort-down" />
+                기관명
               </li>
               <li class="th_cell">
-                주소<i class="ico-sort-up" />
+                기관설명
               </li>
             </ul>
           </div>
           <div class="table_body">
-            <ul class="table_row w-auto">
+            <ul class="table_row w-auto"
+              v-for="(instRow, i) in this.instList"
+              :key="instRow.instCd"
+            >
               <li class="td_cell">
-                <span class="default_radio on">
-                  <input
-                    id="radio_chk_1"
-                    type="radio"
-                    name="radio_chk_1"
-                  ><label for="radio_chk_1"><span /></label>
-                </span>
+                {{i+1}}
+              </li> 
+              <li class="td_cell">
+                {{instRow.instCd}}
               </li>
               <li class="td_cell">
-                2 documents
+                {{instRow.instNm}}
               </li>
               <li class="td_cell">
-                q sign
-              </li>
-              <li class="td_cell">
-                2 documents2 documents22 documents2 documents22 documents2 docume
-              </li>
-            </ul>
-            <ul class="table_row w-auto">
-              <li class="td_cell">
-                <span class="default_radio">
-                  <input
-                    id="radio_chk_2"
-                    type="radio"
-                    name="radio_chk_2"
-                  ><label for="radio_chk_2"><span /></label>
-                </span>
-              </li>
-              <li class="td_cell">
-                q sign
-              </li>
-              <li class="td_cell">
-                q sign
-              </li>
-              <li class="td_cell">
-                q signq signq signq signq signq signq signq signq signq sign
+                {{instRow.instRmk}}
               </li>
             </ul>
           </div>
@@ -118,3 +94,40 @@
     </section>
   </div>
 </template>
+
+<script>
+import { mapState, mapActions } from 'vuex';
+
+export default {
+  data() {
+    return {
+      instList: [],
+      instCd: '',
+    };
+  },
+  computed: {
+    ...mapState('frameSet', ['resetPopOn']),
+  },
+  methods: {
+    ...mapActions('frameSet', ['setResetPopOn']),
+    searchList() {
+      this.tgtUrl = "/api/bizcomm/inst_cd";
+      if(this.instCd != null && this.instCd != '') {
+        this.tgtUrl = this.tgtUrl+"/"+this.instCd;
+      }
+      this.$axios.get(this.tgtUrl)
+        .then((res) => {
+          console.log(res);
+          if (res.data.rstCd == 'S') {
+            this.instList = res.data.rstData.instCdLst;
+          } else {
+            alert('failed');
+          }
+        })
+        .catch((ex) => {
+          console.log(`error occur!! : ${ex}`);
+        });
+    },
+  },
+};
+</script>
