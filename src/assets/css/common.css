@@ -299,15 +299,21 @@ header .gnb>div .util_space .log {
     font-family: Moebius_Bold_kor, Moebius_Bold_eng;
     line-height: 1;
     background: #f7f3f2;
-    cursor: pointer;
+    cursor: pointer
 }
 
+header .gnb>div .util_space .log .ico-login,
 header .gnb>div .util_space .log .ico-logout {
     margin-left: 5px;
     width: 14px;
     height: 14px;
+    background: url(../images/ico-lock.png) center center no-repeat;
+    background-size: 100%
+}
+
+header .gnb>div .util_space .log .ico-logout {
     background: url(../images/ico-unlock.png) center center no-repeat;
-    background-size: 100%;
+    background-size: 100%
 }
 
 h1>.bi {
