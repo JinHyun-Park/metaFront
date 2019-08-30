@@ -117,6 +117,9 @@
                 <li @click="movePage('programInfo')">
                   EiGW 프로그램 관리
                 </li>
+                <li @click="movePage('virtualUserList_MCG')">
+                  MCG 가상 사용자 관리
+                </li>
               </ul>
             </li>
           </ul>

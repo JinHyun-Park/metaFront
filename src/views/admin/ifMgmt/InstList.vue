@@ -76,7 +76,10 @@
                 >
               </li>
               <li class="td_cell">
-                 <i class="ico-del" @click="delList(i)" />
+                <i
+                  class="ico-del"
+                  @click="delList(i)"
+                />
               </li>
             </ul>
           </div>
@@ -133,7 +136,7 @@ export default {
           if (res.data.rstCd === 'S') {
             this.instList = res.data.rstData.instCdLst;
           } else {
-          	// eslint-disable-next-line no-alert
+            // eslint-disable-next-line no-alert
             alert('failed');
           }
         })
@@ -143,7 +146,7 @@ export default {
     },
     delList(i) {
       alert(this.instList[i].instCd);
-    }
+    },
   },
 };
 </script>
