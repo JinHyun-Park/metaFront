@@ -62,6 +62,16 @@ const router = new Router({
       name: 'regStep2_EIGW',
       component: () => import('@/views/ifReg/RegStep2_EIGW.vue'),
     },
+    {
+      path: '/ifReg/regStep3Apply',
+      name: 'regStep3Apply',
+      component: () => import('@/views/ifReg/RegStep3Apply.vue'),
+    },
+    {
+      path: '/ifReg/regStep3Approve',
+      name: 'regStep3Approve',
+      component: () => import('@/views/ifReg/RegStep3Approve.vue'),
+    },
     ],
   },
   // 3. 메타정보 조회
