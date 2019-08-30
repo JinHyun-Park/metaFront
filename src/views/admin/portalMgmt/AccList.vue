@@ -78,7 +78,7 @@
           </div>
           <div class="table_body">
             <ul
-              v-for="(user, i) in this.userList"
+              v-for="(user, i) in userList"
               :key="user.userId"
               class="table_row w-auto"
             >
@@ -99,12 +99,14 @@
               </li>
               <li class="td_cell">
                 <div class="select_group">
-                  <select v-model='user.userAuth'>
-                    <option value="USER"
+                  <select v-model="user.userAuth">
+                    <option
+                      value="USER"
                     >
                       사용자
                     </option>
-                    <option value="ADMIN"
+                    <option
+                      value="ADMIN"
                     >
                       관리자
                     </option>
@@ -121,15 +123,20 @@
                 {{ user.chrgrInfo.emailAddr }}
               </li>
               <li class="td_cell">
-                 <i class="ico-edit" @click='editList(i)' />
-                 <i class="ico-del" @click='delList(i)' />
+                <i
+                  class="ico-edit"
+                  @click="editList(i)"
+                />
+                <i
+                  class="ico-del"
+                  @click="delList(i)"
+                />
               </li>
             </ul>
           </div>
         </div>
       </div>
     </section>
-
     <section class="btm_button_area">
       <button
         type="button"
@@ -181,7 +188,7 @@ export default {
           if (res.data.rstCd === 'S') {
             this.userList = res.data.rstData.userList;
           } else {
-          	// eslint-disable-next-line no-alert
+            // eslint-disable-next-line no-alert
             alert('failed');
           }
         })
@@ -191,15 +198,14 @@ export default {
     },
     editList(i) {
       if (confirm(`${this.userList[i].chrgrInfo.hanNm}님 권한을 ${this.userList[i].userAuth}로 변경할래요?`)) {
-        //to-do userAuth값을 변경;
+        // to-do userAuth값을 변경;
       }
     },
     delList(i) {
-      // eslint-disable-next-line no-alert
       if (confirm(`${this.userList[i].chrgrInfo.hanNm}님 계정을 정말 삭제할래요?`)) {
-        //to-do use_yn을 n으로 변경;
+        // to-do use_yn을 n으로 변경;
       }
-    }
+    },
   },
 };
 </script>
