@@ -48,6 +48,7 @@
               <li class="th_cell">
                 기관설명
               </li>
+              <li class="th_cell" />
             </ul>
           </div>
           <div class="table_body">
@@ -67,6 +68,15 @@
               </li>
               <li class="td_cell">
                 {{ instRow.instRmk }}
+              </li>
+              <li class="td_cell">
+                <input
+                  type="text"
+                  :value="instRow.instRmk"
+                >
+              </li>
+              <li class="td_cell">
+                 <i class="ico-del" @click="delList(i)" />
               </li>
             </ul>
           </div>
@@ -123,7 +133,7 @@ export default {
           if (res.data.rstCd === 'S') {
             this.instList = res.data.rstData.instCdLst;
           } else {
-            // eslint-disable-next-line no-alert
+          	// eslint-disable-next-line no-alert
             alert('failed');
           }
         })
@@ -131,6 +141,9 @@ export default {
           console.log(`error occur!! : ${ex}`);
         });
     },
+    delList(i) {
+      alert(this.instList[i].instCd);
+    }
   },
 };
 </script>
