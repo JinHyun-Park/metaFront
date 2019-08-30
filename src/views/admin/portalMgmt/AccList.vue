@@ -161,6 +161,8 @@ export default {
     return {
       userList: [],
       tgtUrl: '',
+      userId: '',
+      hanNm: '',
     };
   },
   computed: {

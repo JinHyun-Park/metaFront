@@ -167,6 +167,8 @@ export default {
     return {
       chrgrList: [],
       tgtUrl: '',
+      userId: '',
+      hanNm: '',
     };
   },
   computed: {
@@ -176,13 +178,15 @@ export default {
     ...mapActions('frameSet', ['setResetPopOn']),
     searchList() {
       this.tgtUrl = '/api/bizcomm/chrgr';
-      if (this.userId != null) {
-        this.tgtUrl = `${this.tgtUrl}/${this.userId}/${this.hanNm}`;
-      }
-      if (this.chrgrList != null && this.userId == null) {
-        this.tgtUrl = `${this.tgtUrl}//${this.hanNm}`;
-      }
-      this.$axios.get(this.tgtUrl)
+      // if (this.userId != null) {
+      //   this.tgtUrl = `${this.tgtUrl}/${this.userId}/${this.hanNm}`;
+      // }
+      // if (this.chrgrList != null && this.userId == null) {
+      //   this.tgtUrl = `${this.tgtUrl}//${this.hanNm}`;
+      // }
+      let param = {'userId':this.userId, 'hanNm':this.hanNm};
+
+      this.$axios.get(this.tgtUrl, {params: param})
         .then((res) => {
           console.log(res);
           if (res.data.rstCd === 'S') {
