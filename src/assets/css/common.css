@@ -1139,14 +1139,6 @@ flex-direction: column
     margin-top: 63px
 } */
 
-.contents .border_group h5.s_tit.type-2 .select_group select {
-    width: 180px
-}
-
-.contents .border_group h5.s_tit.type-2 .select_group {
-    width: auto
-}
-
 .contents .form_area h5.s_tit .right_button_area,
 .contents .grid_form h5.s_tit .right_button_area,
 .contents .table_grid h5.s_tit .right_button_area,
@@ -1448,6 +1440,7 @@ input[type=radio],
 .contents .form_area .row_contain .column input[type=password],
 input[type=password],
 .contents .form_area .row_contain .column select,
+.contents .border_group h5.s_tit.type-2 .select_group select,
 select,
 .contents .form_area .row_contain .column textarea {
     display: flex;
@@ -1466,10 +1459,19 @@ select,
     outline-color: #f9f9f9
 }
 
+.contents .border_group h5.s_tit.type-2 .select_group {
+    width: auto
+}
+
+.contents .border_group h5.s_tit.type-2 .select_group select {
+    width: 180px
+}
+
 .contents .form_area .row_contain .column select,
 select {
     padding: 4px 0 5px 17px;
-    background: #f9f9f9 url(../images/ico-droparrow.png) right 6px center no-repeat
+    background: #f9f9f9 url(../images/ico-droparrow.png) right 6px center no-repeat;
+    /*    cursor:pointer*/
 }
 
 .contents .form_area .row_contain .column textarea {
@@ -1492,6 +1494,7 @@ select {
 .contents .form_area .row_contain .column:hover input[type=number],
 .contents .form_area .row_contain .column:hover input[type=password],
 .contents .form_area .row_contain .column:hover select,
+.contents .border_group h5.s_tit.type-2:hover .select_group select,
 .contents .form_area .row_contain .column:hover textarea {
     color: #555;
     font-size: 15px;
@@ -1513,6 +1516,7 @@ select {
 .contents .form_area .row_contain .column .search_group,
 .contents .form_area .row_contain .column .calander_group,
 .contents .form_area .row_contain .column .select_group,
+.contents .border_group h5.s_tit.type-2 .select_group,
 .search_group,
 .calander_group,
 .select_group {
@@ -1524,7 +1528,7 @@ select {
 .contents .form_area .row_contain .column .calander_group .calander,
 .calander_group .calander,
 .contents .form_area .row_contain .column .select_group .select,
-.border_group h5.s_tit.type-2 .select_group .select,
+.contents .border_group h5.s_tit.type-2 .select_group .select,
 .select_group .select {
     position: absolute;
     right: 0;
@@ -1538,6 +1542,15 @@ select {
     border-left: 1px solid #e2e2e2;
     cursor: pointer;
     z-index: 5
+}
+
+.contents .form_area .row_contain .column .select_group .select,
+.contents .border_group h5.s_tit.type-2 .select_group .select,
+.select_group .select {
+    right: 24px;
+    width: 1px;
+    border-left: none;
+    background: #e2e2e2
 }
 
 
@@ -1589,6 +1602,12 @@ width: 24px
     border-left: none
 }
 
+.contents .form_area .row_contain .column.on .select_group .select,
+.contents .form_area .row_contain .column:hover .select_group .select,
+.contents .border_group h5.s_tit.type-2:hover .select_group .select {
+    background: transparent
+}
+
 .contents .form_area .row_contain .column.on .search_group .search .ico-search,
 .contents .form_area .row_contain .column:hover .search_group .search .ico-search {
     background: url(../images/ico-search-on.png) center center no-repeat;
@@ -1602,17 +1621,20 @@ width: 24px
 }
 
 .contents .form_area .row_contain .column .select_group.disabled .select,
-.contents .form_area .row_contain .column:hover .select_group.disabled .select {
-    border-color: #aaa
+.contents .form_area .row_contain .column:hover .select_group.disabled .select,
+.contents .border_group h5.s_tit.type-2:hover .select_group.disabled .select {
+    background: #bbb
 }
 
 .contents .form_area .row_contain .column.on .select_group select,
-.contents .form_area .row_contain .column:hover .select_group select {
+.contents .form_area .row_contain .column:hover .select_group select,
+.contents .border_group h5.s_tit.type-2:hover .select_group select {
     background: url(../images/ico-droparrow-on.png) right 6px center no-repeat
 }
 
 .contents .form_area .row_contain .column .select_group.disabled select,
-.contents .form_area .row_contain .column:hover .select_group.disabled select {
+.contents .form_area .row_contain .column:hover .select_group.disabled select,
+.contents .border_group h5.s_tit.type-2:hover .select_group.disabled select {
     color: #898989;
     border-color: #d9d9d9;
     border-style: solid;
@@ -1641,9 +1663,15 @@ width: 24px
     background: url(../images/ico-cal-dis.png) center center no-repeat
 }
 
-.contents .form_area .row_contain .column:hover .select_group.disabled select {
+.contents .form_area .row_contain .column:hover .select_group.disabled select,
+.contents .border_group h5.s_tit.type-2:hover .select_group.disabled select {
     border-style: none none solid;
     background: #fff url(../images/ico-droparrow-dis.png) right 6px center no-repeat
+}
+
+.contents .form_area .row_contain .column:hover .select_group.disabled .select,
+.contents .border_group h5.s_tit.type-2:hover .select_group.disabled .select {
+    background: transparent
 }
 
 
