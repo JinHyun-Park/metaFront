@@ -1468,6 +1468,7 @@ select,
 }
 
 .contents .form_area .row_contain .column select,
+.contents .border_group h5.s_tit.type-2 .select_group select,
 select {
     padding: 4px 0 5px 17px;
     background: #f9f9f9 url(../images/ico-droparrow.png) right 6px center no-repeat;
@@ -1621,20 +1622,29 @@ width: 24px
 }
 
 .contents .form_area .row_contain .column .select_group.disabled .select,
+.contents .form_area .row_contain .column .select_group select:disabled+.select,
 .contents .form_area .row_contain .column:hover .select_group.disabled .select,
-.contents .border_group h5.s_tit.type-2:hover .select_group.disabled .select {
+.contents .border_group h5.s_tit.type-2 .select_group.disabled .select,
+.contents .border_group h5.s_tit.type-2 .select_group select:disabled+.select,
+.contents .border_group h5.s_tit.type-2:hover .select_group.disabled .select,
+.table_grid .table_row .td_cell .select_group.disabled .select {
     background: #bbb
 }
 
 .contents .form_area .row_contain .column.on .select_group select,
 .contents .form_area .row_contain .column:hover .select_group select,
 .contents .border_group h5.s_tit.type-2:hover .select_group select {
-    background: url(../images/ico-droparrow-on.png) right 6px center no-repeat
+    background: #fff url(../images/ico-droparrow-on.png) right 6px center no-repeat
 }
 
 .contents .form_area .row_contain .column .select_group.disabled select,
+.contents .form_area .row_contain .column .select_group select:disabled,
 .contents .form_area .row_contain .column:hover .select_group.disabled select,
-.contents .border_group h5.s_tit.type-2:hover .select_group.disabled select {
+.contents .border_group h5.s_tit.type-2 .select_group.disabled select,
+.contents .border_group h5.s_tit.type-2 .select_group select:disabled,
+.contents .border_group h5.s_tit.type-2:hover .select_group.disabled select,
+.table_grid .table_row .td_cell .select_group.disabled select,
+.table_grid .table_row .td_cell:hover .select_group.disabled select {
     color: #898989;
     border-color: #d9d9d9;
     border-style: solid;
@@ -1664,13 +1674,19 @@ width: 24px
 }
 
 .contents .form_area .row_contain .column:hover .select_group.disabled select,
-.contents .border_group h5.s_tit.type-2:hover .select_group.disabled select {
+.contents .form_area .row_contain .column:hover .select_group select:disabled,
+.contents .border_group h5.s_tit.type-2:hover .select_group.disabled select,
+.contents .border_group h5.s_tit.type-2:hover .select_group select:disabled,
+.table_grid .table_row .td_cell:hover .select_group.disabled select {
     border-style: none none solid;
     background: #fff url(../images/ico-droparrow-dis.png) right 6px center no-repeat
 }
 
 .contents .form_area .row_contain .column:hover .select_group.disabled .select,
-.contents .border_group h5.s_tit.type-2:hover .select_group.disabled .select {
+.contents .form_area .row_contain .column:hover .select_group select:disabled+.select,
+.contents .border_group h5.s_tit.type-2:hover .select_group.disabled .select,
+.contents .border_group h5.s_tit.type-2:hover .select_group select:disabled+.select,
+.table_grid .table_row .td_cell:hover .select_group.disabled .select {
     background: transparent
 }
 
@@ -2178,8 +2194,7 @@ display: table-column
 }
 
 .table_grid .table_row .td_cell input[type=text],
-.table_grid .table_row .td_cell .select_group select,
-.border_group h5.s_tit.type-2>.select_group select {
+.table_grid .table_row .td_cell .select_group select {
     height: 30px;
     font-size: 13px;
     color: #888;
@@ -2195,9 +2210,7 @@ display: table-column
 .table_grid .table_row .td_cell.on input[type=text],
 .table_grid .table_row .td_cell:hover input[type=text],
 .table_grid .table_row .td_cell.on .select_group select,
-.table_grid .table_row .td_cell:hover .select_group select,
-.border_group h5.s_tit.type-2>.select_group.on select,
-.border_group h5.s_tit.type-2>.select_group:hover select {
+.table_grid .table_row .td_cell:hover .select_group select {
     color: #555;
     font-size: 14px;
     font-family: Moebius_Regular_kor, Moebius_Regular_eng;
@@ -2234,7 +2247,8 @@ display: table-column
 
 .table_grid .table_row .td_cell.on .select_group .select,
 .table_grid .table_row .td_cell:hover .select_group .select {
-    border-left: none
+    border-left: none;
+    background: transparent
 }
 
 .table_grid .table_row .td_cell .ico-add,
