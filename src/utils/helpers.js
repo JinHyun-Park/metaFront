@@ -43,12 +43,16 @@ const helpers = {
 
     // LEFT SIDE의 항목 설정
     if (path.indexOf('/notice/') > -1) {
+      store.dispatch('frameSet/setSubNm', { subNm: 'NOTICE' });
       store.dispatch('frameSet/setMenuLists', { menuLists: asConfig.NOTICE });
     } else if (path.indexOf('/ifReg/') > -1) {
+      store.dispatch('frameSet/setSubNm', { subNm: 'IF REGIST' });
       store.dispatch('frameSet/setMenuLists', { menuLists: asConfig.IFREG });
     } else if (path.indexOf('/meta/') > -1) {
+      store.dispatch('frameSet/setSubNm', { subNm: 'META' });
       store.dispatch('frameSet/setMenuLists', { menuLists: asConfig.META });
     } else if (path.indexOf('/admin/') > -1) {
+      store.dispatch('frameSet/setSubNm', { subNm: 'ADMIN' });
       store.dispatch('frameSet/setMenuLists', { menuLists: asConfig.MGMT });
     }
   },

@@ -14,6 +14,9 @@ export default {
   setResetPopOn: (state, payload) => {
     state.resetPopOn = payload.resetPopOn;
   },
+  setSubNm: (state, payload) => {
+    state.subNm = payload.subNm;
+  },
   setMenuLists: (state, payload) => {
     state.menuLists = payload.menuLists;
   },

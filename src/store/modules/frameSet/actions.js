@@ -14,6 +14,9 @@ export default {
   setResetPopOn: (store, payload) => {
     store.commit('setResetPopOn', payload);
   },
+  setSubNm: (store, payload) => {
+    store.commit('setSubNm', payload);
+  },
   setMenuLists: (store, payload) => {
     store.commit('setMenuLists', payload);
   },
