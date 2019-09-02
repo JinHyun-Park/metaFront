@@ -16,11 +16,14 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
+  name: 'Aside',
   data() {
     return {
       asideNm: 'Left Side',
-      menuLists: [
+      menuLists2: [
         { index: 1, menuNm: 'EiGW', url: 'aaa' },
         { index: 2, menuNm: 'MCG', url: 'bbb' },
         { index: 3, menuNm: 'EAI', url: 'ccc' },
@@ -34,17 +37,42 @@ export default {
         { index: 4, menuNm: 'home', url: 'ddd' },
         { index: 5, menuNm: 'home2', url: 'ddd' },
       ],
+      boardLists: [
+        { index: 1, menuNm: 'board', url: 'aaa' },
+        { index: 2, menuNm: 'board', url: 'bbb' },
+        { index: 3, menuNm: 'board', url: 'ccc' },
+        { index: 4, menuNm: 'board', url: 'ddd' },
+        { index: 5, menuNm: 'board', url: 'ddd' },
+      ],
+      nullLists: [],
     };
+  },
+  computed: {
+    ...mapState('frameSet', ['menuLists']),
+    // menuLists() {
+    //   const currentRoute = this.$router.currentRoute.path;
+
+    //   if (currentRoute.indexOf('/notice/') > -1) {
+    //     return this.homeMenuLists;
+    //   } if (currentRoute.indexOf('/meta/') > -1) {
+    //     return this.boardLists;
+    //   }
+    //   return this.nullLists;
+    // },
   },
   methods: {
     movePage() {
-      console.log(this.$router.currentRoute.path);
-      this.menuLists = Object.assign({}, this.homeMenuLists);
+      // this.menuLists = Object.assign({}, this.homeMenuLists);
     },
     isActive(url) {
       const ret = (this.nowPage === url);
       return ret;
     },
+    // getRoutePath() {
+    // this.currentRoute = this.$router.currentRoute.path;
+    //   console.log('변경');
+    //   console.log(this.$router.currentRoute.path);
+    // },
   },
 };
 </script>

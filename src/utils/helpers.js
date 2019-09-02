@@ -1,6 +1,7 @@
 /**
  * 공통 method를 담은 js
  */
+import asConfig from '@/config/asideConfig';
 import store from '@/store';
 
 const helpers = {
@@ -38,6 +39,17 @@ const helpers = {
       store.dispatch('frameSet/setHeaderOn', { headerOn: true });
       store.dispatch('frameSet/setAsideOn', { asideOn: true });
       store.dispatch('frameSet/setFooterOn', { footerOn: true });
+    }
+
+    // LEFT SIDE의 항목 설정
+    if (path.indexOf('/notice/') > -1) {
+      store.dispatch('frameSet/setMenuLists', { menuLists: asConfig.NOTICE });
+    } else if (path.indexOf('/ifReg/') > -1) {
+      store.dispatch('frameSet/setMenuLists', { menuLists: asConfig.IFREG });
+    } else if (path.indexOf('/meta/') > -1) {
+      store.dispatch('frameSet/setMenuLists', { menuLists: asConfig.META });
+    } else if (path.indexOf('/admin/') > -1) {
+      store.dispatch('frameSet/setMenuLists', { menuLists: asConfig.MGMT });
     }
   },
 };
