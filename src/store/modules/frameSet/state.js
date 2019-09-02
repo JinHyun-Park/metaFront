@@ -16,4 +16,5 @@ export default {
     default: false,
   },
   resetPopOn: 'none',
+  menuLists: [],
 };

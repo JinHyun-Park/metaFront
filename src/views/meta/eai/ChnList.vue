@@ -17,6 +17,7 @@
           <button
             type="button"
             class="default_button on"
+            @click="listing()"
           >
             조회
           </button>
@@ -26,25 +27,27 @@
         <div class="column on w-3">
           <label class="column_label">채널</label>
           <input
+            v-model="chnlNm"
             type="text"
-            value="QMGR"
+            value=""
           >
         </div>
         <div class="column w-6">
           <label class="column_label">인터페이스ID</label>
           <input
+            v-model="eaiIfId"
             type="text"
-            value="ABC.IF_ID_MFF"
+            value=""
           >
         </div>
         <div class="column w-2">
           <label class="column_label">사용</label>
           <div class="select_group">
-            <select>
-              <option value="">
+            <select v-model="useYn">
+              <option value="Y">
                 Y
               </option>
-              <option value="">
+              <option value="N">
                 N
               </option>
             </select>
@@ -68,37 +71,19 @@
           </ul>
         </div>
         <div class="table_body">
-          <ul class="table_row w-auto">
+          <ul
+            v-for="chn in chnList"
+            :key="chn.index"
+            class="table_row w-auto"
+          >
             <li class="td_cell">
-              ABC.EAI01.NB
+              {{ chn.chnlNm }}
             </li>
             <li class="td_cell">
-              ABC.IF_ID_MFF ABC.IF_ID_MFF
+              {{ chn.eaiIfId }}
             </li>
             <li class="td_cell">
-              Y
-            </li><li />
-          </ul>
-          <ul class="table_row w-auto">
-            <li class="td_cell">
-              ABC.EAI01.NB
-            </li>
-            <li class="td_cell">
-              ABC.IF_ID_MFF
-            </li>
-            <li class="td_cell">
-              Y
-            </li><li />
-          </ul>
-          <ul class="table_row w-auto">
-            <li class="td_cell">
-              ABC.EAI01.NB
-            </li>
-            <li class="td_cell">
-              ABC.IF_ID_MFF
-            </li>
-            <li class="td_cell">
-              Y
+              {{ chn.useYn }}
             </li><li />
           </ul>
         </div>
@@ -109,15 +94,66 @@
       <button
         type="button"
         class="default_button"
+        @click="save()"
       >
         수정
       </button>
       <button
         type="button"
         class="default_button on"
+        @click="save()"
       >
         추가
       </button>
     </section>
   </div>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      index: 0,
+      chnList: [],
+      pageNo: 1,
+      size: 10,
+      chnlNm: '',
+      eaiIfId: '',
+      useYn: 'Y',
+    };
+  },
+  methods: {
+    listing() {
+      console.log('채널 목록 조회!');
+      this.$axios.get('/api/eai/channel', {
+        params: {
+          pageNo: this.pageNo,
+          size: this.size,
+          chnlNm: this.chnlNm,
+          eaiIfId: this.eaiIfId,
+          useYn: this.useYn,
+        },
+      })
+        .then((res) => {
+          this.chnList = res.data.rstData.searchList;
+          console.log(this.chnList);
+        })
+        .catch((ex) => {
+          console.log(`error occur!! : ${ex}`);
+        });
+    },
+    save() {
+      console.log('채널 정보 등록!');
+      console.log(this.chnlNm);
+      this.$axios.post('/api/eai/channel/post', { chnlNm: this.chnlNm, eaiIfId: this.eaiIfId, useYn: this.useYn })
+        .then((res) => {
+          console.log(res);
+          this.listing();
+        })
+        .catch((ex) => {
+          console.log(`error occur!! : ${ex}`);
+        });
+    },
+  },
+};
+</script>

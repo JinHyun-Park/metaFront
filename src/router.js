@@ -53,12 +53,12 @@ const router = new Router({
       component: () => import('@/views/ifReg/RegList.vue'),
     },
     {
-      path: '/ifReg/regStep2_EAI',
+      path: '/ifReg/regStep2-EAI',
       name: 'regStep2_EAI',
       component: () => import('@/views/ifReg/RegStep2_EAI.vue'),
     },
     {
-      path: '/ifReg/regStep2_EIGW',
+      path: '/ifReg/regStep2-EIGW',
       name: 'regStep2_EIGW',
       component: () => import('@/views/ifReg/RegStep2_EIGW.vue'),
     },
@@ -137,7 +137,7 @@ const router = new Router({
       component: () => import('@/views/admin/ifMgmt/AccListEigw.vue'),
     },
     {
-      path: '/admin/ifMgmt/virtualUserList_MCG',
+      path: '/admin/ifMgmt/virtualUserList-MCG',
       name: 'virtualUserList_MCG',
       component: () => import('@/views/admin/ifMgmt/VirtualUserList_MCG.vue'),
     },

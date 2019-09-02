@@ -14,4 +14,7 @@ export default {
   setResetPopOn: (state, payload) => {
     state.resetPopOn = payload.resetPopOn;
   },
+  setMenuLists: (state, payload) => {
+    state.menuLists = payload.menuLists;
+  },
 };

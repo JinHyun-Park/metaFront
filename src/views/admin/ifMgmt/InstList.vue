@@ -53,7 +53,7 @@
           </div>
           <div class="table_body">
             <ul
-              v-for="(instRow, i) in this.instList"
+              v-for="(instRow, i) in instList"
               :key="instRow.instCd"
               class="table_row w-auto"
             >
@@ -114,6 +114,7 @@
 import { mapState, mapActions } from 'vuex';
 
 export default {
+  name: 'InstList',
   data() {
     return {
       instList: [],
@@ -145,6 +146,7 @@ export default {
         });
     },
     delList(i) {
+      // eslint-disable-next-line
       alert(this.instList[i].instCd);
     },
   },
