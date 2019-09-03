@@ -182,12 +182,9 @@ export default {
       tgtUrl: '',
       userId: '',
       hanNm: '',
-<<<<<<< HEAD
       page: 5,
-=======
       pageNo: '',
       size: '',
->>>>>>> 46cb0b4949cdffcb89cb52cf15af4c50cec78b4a
     };
   },
   computed: {
