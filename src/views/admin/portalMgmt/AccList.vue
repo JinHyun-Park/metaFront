@@ -164,6 +164,7 @@
 import { mapState, mapActions } from 'vuex';
 
 export default {
+  /* eslint-disable */
   data() {
     return {
       userList: [],
@@ -201,19 +202,19 @@ export default {
         // to-do userAuth값을 변경;
         this.tgtUrl = `/api/user/${this.userList[i].userId}`;
         this.$axios.put(this.tgtUrl, this.userList[i])
-        .then((res) => {
-          console.log(res);
-          if (res.data.rstCd === 'S') {
+          .then((res) => {
+            console.log(res);
+            if (res.data.rstCd === 'S') {
             // eslint-disable-next-line no-alert
-            alert('success');
-          } else {
+              alert('success');
+            } else {
             // eslint-disable-next-line no-alert
-            alert('failed');
-          }
-        })
-        .catch((ex) => {
-          console.log(`error occur!! : ${ex}`);
-        });
+              alert('failed');
+            }
+          })
+          .catch((ex) => {
+            console.log(`error occur!! : ${ex}`);
+          });
       }
     },
     delList(i) {

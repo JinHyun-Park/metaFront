@@ -17,7 +17,7 @@
       <div class="row_contain type-3 last">
         <div class="column on w-2">
           <label class="column_label">코드구분</label>
-          <select v-model="opClCd" >
+          <select v-model="opClCd">
             <option
               value="COMM"
             >
@@ -180,6 +180,7 @@
 import { mapState, mapActions } from 'vuex';
 
 export default {
+  /* eslint-disable */
   data() {
     return {
       ccCdLst: [],
@@ -196,7 +197,7 @@ export default {
     ...mapActions('frameSet', ['setResetPopOn']),
     searchList() {
       this.tgtUrl = '/api/bizcomm/cccd';
-      
+
       this.$axios.get(this.tgtUrl)
         .then((res) => {
           console.log(res);
@@ -216,19 +217,19 @@ export default {
         // to-do userAuth값을 변경;
         this.tgtUrl = `/api/user/${this.userList[i].userId}`;
         this.$axios.put(this.tgtUrl, this.userList[i])
-        .then((res) => {
-          console.log(res);
-          if (res.data.rstCd === 'S') {
+          .then((res) => {
+            console.log(res);
+            if (res.data.rstCd === 'S') {
             // eslint-disable-next-line no-alert
-            alert('success');
-          } else {
+              alert('success');
+            } else {
             // eslint-disable-next-line no-alert
-            alert('failed');
-          }
-        })
-        .catch((ex) => {
-          console.log(`error occur!! : ${ex}`);
-        });
+              alert('failed');
+            }
+          })
+          .catch((ex) => {
+            console.log(`error occur!! : ${ex}`);
+          });
       }
     },
     delList(i) {
