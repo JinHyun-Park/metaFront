@@ -54,7 +54,7 @@
         <button
           type="button"
           class="default_button on"
-          @click="popResetPage"
+          @click="resetReqUserPw()"
         >
           확인
         </button>
