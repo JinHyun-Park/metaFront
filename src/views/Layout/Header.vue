@@ -35,11 +35,29 @@
                 <li @click="movePage('regList')">
                   신청목록(승인)
                 </li>
+                <li @click="movePage('regStep1applyIf')">
+                  등록#1ApplyIF
+                </li>
+                <li @click="movePage('regStep1applyChgIf')">
+                  등록#1ApplyChgIF
+                </li>
                 <li @click="movePage('regStep2_EAI')">
                   등록#2 EAI
                 </li>
                 <li @click="movePage('regStep2_EIGW')">
                   등록#2 EiGW
+                </li>
+                <li @click="movePage('regStep2ApplyCh_MCG')">
+                  등록#2 CHNL MCG
+                </li>
+                <li @click="movePage('regStep2ApplyDeal_MCG')">
+                  등록#2 DEAL MCG
+                </li>
+                <li @click="movePage('regStep3Applicant')">
+                  등록#3 Final(Applicant)
+                </li>
+                <li @click="movePage('regStep3Approver')">
+                  등록#3 Final(Approver)
                 </li>
               </ul>
             </li>
@@ -132,6 +150,7 @@
 <script>
 export default {
 //   mixins: [common],
+  name: 'Header',
   data() {
     return {
       activeItem: '',
