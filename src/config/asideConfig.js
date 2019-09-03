@@ -1,17 +1,13 @@
 export default {
   NOTICE: [ // NOTICE 메뉴
-    { index: 1, menuNm: 'board1', url: 'aaa' },
-    { index: 2, menuNm: 'board2', url: 'bbb' },
-    { index: 3, menuNm: 'board3', url: 'ccc' },
-    { index: 4, menuNm: 'board4', url: 'ddd' },
-    { index: 5, menuNm: 'board5', url: 'ddd' },
+    { index: 1, menuNm: '공지사항 조회', url: 'noticeMain' },
   ],
   IFREG: [
-    { index: 1, menuNm: 'if1', url: 'aaa' },
-    { index: 2, menuNm: 'if2', url: 'bbb' },
-    { index: 3, menuNm: 'if3', url: 'ccc' },
-    { index: 4, menuNm: 'if4', url: 'ddd' },
-    { index: 5, menuNm: 'if5', url: 'ddd' },
+    { index: 1, menuNm: 'I/F 신청서', url: 'applyIf' },
+    { index: 2, menuNm: 'I/F 정보 변경 요청서', url: 'regStep1applyChgIf' },
+  ],
+  IFREGLIST: [
+    { index: 1, menuNm: '신청목록', url: 'regList' },
   ],
   META: [
     { index: 1, menuNm: 'meta1', url: 'aaa' },

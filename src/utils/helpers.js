@@ -3,6 +3,7 @@
  */
 import asConfig from '@/config/asideConfig';
 import store from '@/store';
+import Axios from '@/plugins/axios';
 
 const helpers = {
   /**
@@ -45,8 +46,11 @@ const helpers = {
     if (path.indexOf('/notice/') > -1) {
       store.dispatch('frameSet/setSubNm', { subNm: 'NOTICE' });
       store.dispatch('frameSet/setMenuLists', { menuLists: asConfig.NOTICE });
+    } else if (path.indexOf('/ifReg/regList') > -1) {
+      store.dispatch('frameSet/setSubNm', { subNm: '신청목록' });
+      store.dispatch('frameSet/setMenuLists', { menuLists: asConfig.IFREGLIST });
     } else if (path.indexOf('/ifReg/') > -1) {
-      store.dispatch('frameSet/setSubNm', { subNm: 'IF REGIST' });
+      store.dispatch('frameSet/setSubNm', { subNm: '인터페이스 신청' });
       store.dispatch('frameSet/setMenuLists', { menuLists: asConfig.IFREG });
     } else if (path.indexOf('/meta/') > -1) {
       store.dispatch('frameSet/setSubNm', { subNm: 'META' });
@@ -61,6 +65,7 @@ const helpers = {
      * 예시 함수 - 이 함수를 변형/삭제해서 사용해주세요.
      */
   exFunc1() {
+    Axios.post();
     this.$axios.post('/api/loginProc', '')
       .then((res) => {
         if (res.status === 200) {

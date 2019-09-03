@@ -53,6 +53,11 @@ const router = new Router({
       component: () => import('@/views/ifReg/RegList.vue'),
     },
     {
+      path: '/ifReg/applyIf',
+      name: 'applyIf',
+      component: () => import('@/views/ifReg/ApplyIfFrame.vue'),
+    },
+    {
       path: '/ifReg/regStep1applyIf',
       name: 'regStep1applyIf',
       component: () => import('@/views/ifReg/RegStep1ApplyIf.vue'),

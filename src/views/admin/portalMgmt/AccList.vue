@@ -133,6 +133,17 @@
                 />
               </li>
             </ul>
+            <paginate
+              v-model="page"
+              :page-count="10"
+              :page-range="5"
+              :margin-pages="2"
+              :click-handler="pageChanged"
+              :prev-text="'Prev'"
+              :next-text="'Next'"
+              :container-class="'pagination'"
+              :page-class="'page-item'"
+            />
           </div>
         </div>
       </div>
@@ -171,6 +182,7 @@ export default {
       tgtUrl: '',
       userId: '',
       hanNm: '',
+      page: 5,
     };
   },
   computed: {
@@ -221,6 +233,9 @@ export default {
       if (confirm(`${this.userList[i].chrgrInfo.hanNm}님 계정을 정말 삭제할래요?`)) {
         // to-do use_yn을 n으로 변경;
       }
+    },
+    pageChanged(page) { 
+      console.log('click event');
     },
   },
 };

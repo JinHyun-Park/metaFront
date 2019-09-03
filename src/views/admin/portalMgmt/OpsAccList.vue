@@ -98,7 +98,7 @@
           </div>
           <div class="table_body">
             <ul
-              v-for="(chrgr, i) in this.chrgrList"
+              v-for="(chrgr, i) in chrgrList"
               :key="chrgr.userId"
               class="table_row w-auto"
             >
@@ -155,7 +155,6 @@
         </div>
       </div>
     </section>
-
   </div>
 </template>
 
@@ -184,15 +183,15 @@ export default {
       // if (this.chrgrList != null && this.userId == null) {
       //   this.tgtUrl = `${this.tgtUrl}//${this.hanNm}`;
       // }
-      let param = {'userId':this.userId, 'hanNm':this.hanNm};
+      const param = { userId: this.userId, hanNm: this.hanNm };
 
-      this.$axios.get(this.tgtUrl, {params: param})
+      this.$axios.get(this.tgtUrl, { params: param })
         .then((res) => {
           console.log(res);
           if (res.data.rstCd === 'S') {
             this.chrgrList = res.data.rstData.chrgrInfo;
           } else {
-          	// eslint-disable-next-line no-alert
+          // eslint-disable-next-line no-alert
             alert('failed');
           }
         })
