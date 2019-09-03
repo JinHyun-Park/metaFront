@@ -170,6 +170,8 @@ export default {
       tgtUrl: '',
       userId: '',
       hanNm: '',
+      pageNo: '',
+      size: '',
     };
   },
   computed: {
@@ -179,10 +181,14 @@ export default {
     ...mapActions('frameSet', ['setResetPopOn']),
     searchList() {
       this.tgtUrl = '/api/user';
-      if (this.userId != null && this.userId !== '') {
-        this.tgtUrl = `${this.tgtUrl}/${this.userId}`;
-      }
-      this.$axios.get(this.tgtUrl)
+      this.$axios.get(this.tgtUrl, {
+        params: {
+          pageNo: this.pageNo,
+          size: this.size,
+          userId: this.userId,
+          hanNm: this.hanNm,
+        },
+      })
         .then((res) => {
           console.log(res);
           if (res.data.rstCd === 'S') {
@@ -201,19 +207,19 @@ export default {
         // to-do userAuth값을 변경;
         this.tgtUrl = `/api/user/${this.userList[i].userId}`;
         this.$axios.put(this.tgtUrl, this.userList[i])
-        .then((res) => {
-          console.log(res);
-          if (res.data.rstCd === 'S') {
+          .then((res) => {
+            console.log(res);
+            if (res.data.rstCd === 'S') {
             // eslint-disable-next-line no-alert
-            alert('success');
-          } else {
+              alert('success');
+            } else {
             // eslint-disable-next-line no-alert
-            alert('failed');
-          }
-        })
-        .catch((ex) => {
-          console.log(`error occur!! : ${ex}`);
-        });
+              alert('failed');
+            }
+          })
+          .catch((ex) => {
+            console.log(`error occur!! : ${ex}`);
+          });
       }
     },
     delList(i) {
