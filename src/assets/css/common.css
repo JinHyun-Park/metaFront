@@ -1745,7 +1745,7 @@ width: 24px
 } */
 
 .contents .grid_form input[type=text] {
-    margin-left: 7px;
+    margin-left: 8px;
     margin-bottom: 23px;
     padding: 5px 0 6px 5px;
     height: 30px;
@@ -1764,7 +1764,7 @@ width: 24px
 }
 
 .contents .grid_form .search_group input[type=text] {
-    width: 79px
+    width: 78px
 }
 
 .contents .grid_form .search_group.on input[type=text],
