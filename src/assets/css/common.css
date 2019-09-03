@@ -169,6 +169,7 @@ button {
 select {
     -webkit-appearance: none;
     background: url(../images/ico-droparrow.png) right 6px center no-repeat;
+    cursor: pointer;
     z-index: 5
 }
 
@@ -1009,7 +1010,8 @@ flex-direction: column
     width: 26px;
     height: 26px;
     background: url(../images/ico-remove.png) center center no-repeat;
-    background-size: 100%
+    background-size: 100%;
+    cursor: pointer
 }
 
 
@@ -1351,6 +1353,7 @@ input[type=radio] {
     border: 1px solid #d9eae0;
     border-radius: 50%;
     background: #f9f9f9;
+    cursor: pointer;
     z-index: 22
 }
 
@@ -1500,7 +1503,6 @@ select {
     color: #555;
     font-size: 15px;
     font-family: Moebius_Regular_kor, Moebius_Regular_eng;
-    text-transform: capitalize;
     line-height: 23px;
     border-color: #82BEA3;
     border-style: none none solid;
@@ -2008,7 +2010,8 @@ display: table-column
     width: 16px;
     height: 16px;
     background: url(../images/ico-sort-down.png) center center no-repeat;
-    background-size: 100%
+    background-size: 100%;
+    cursor: pointer
 }
 
 .table_grid .table_head .th_cell .ico-sort-up {
@@ -2262,7 +2265,8 @@ display: table-column
     width: 16px;
     height: 16px;
     background: url(../images/ico-edit.png) center center no-repeat;
-    background-size: 100%
+    background-size: 100%;
+    cursor: pointer
 }
 
 .table_grid .table_row .td_cell .ico-del {

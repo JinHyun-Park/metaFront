@@ -56,6 +56,22 @@ const helpers = {
       store.dispatch('frameSet/setMenuLists', { menuLists: asConfig.MGMT });
     }
   },
+
+  /**
+     * 예시 함수 - 이 함수를 변형/삭제해서 사용해주세요.
+     */
+  exFunc1() {
+    this.$axios.post('/api/loginProc', '')
+      .then((res) => {
+        if (res.status === 200) {
+          console.log(res.headers);
+        }
+        console.log(res);
+      })
+      .catch((ex) => {
+        console.log(`error occur!! : ${ex}`);
+      });
+  },
 };
 
 export default helpers;

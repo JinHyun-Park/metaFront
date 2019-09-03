@@ -53,6 +53,16 @@ const router = new Router({
       component: () => import('@/views/ifReg/RegList.vue'),
     },
     {
+      path: '/ifReg/regStep1applyIf',
+      name: 'regStep1applyIf',
+      component: () => import('@/views/ifReg/RegStep1ApplyIf.vue'),
+    },
+    {
+      path: '/ifReg/regStep1applyChgIf',
+      name: 'regStep1applyChgIf',
+      component: () => import('@/views/ifReg/RegStep1ApplyChgIf.vue'),
+    },
+    {
       path: '/ifReg/regStep2-EAI',
       name: 'regStep2_EAI',
       component: () => import('@/views/ifReg/RegStep2_EAI.vue'),
@@ -63,14 +73,24 @@ const router = new Router({
       component: () => import('@/views/ifReg/RegStep2_EIGW.vue'),
     },
     {
-      path: '/ifReg/regStep3Apply',
-      name: 'regStep3Apply',
-      component: () => import('@/views/ifReg/RegStep3Apply.vue'),
+      path: '/ifReg/regStep2ApplyCh-MCG',
+      name: 'regStep2ApplyCh_MCG',
+      component: () => import('@/views/ifReg/RegStep2ApplyCh_MCG.vue'),
     },
     {
-      path: '/ifReg/regStep3Approve',
-      name: 'regStep3Approve',
-      component: () => import('@/views/ifReg/RegStep3Approve.vue'),
+      path: '/ifReg/regStep2ApplyDeal-MCG',
+      name: 'regStep2ApplyDeal_MCG',
+      component: () => import('@/views/ifReg/RegStep2ApplyDeal_MCG.vue'),
+    },
+    {
+      path: '/ifReg/regStep3Applicant',
+      name: 'regStep3Applicant',
+      component: () => import('@/views/ifReg/RegStep3Applicant.vue'),
+    },
+    {
+      path: '/ifReg/regStep3Approver',
+      name: 'regStep3Approver',
+      component: () => import('@/views/ifReg/RegStep3Approver.vue'),
     },
     ],
   },
