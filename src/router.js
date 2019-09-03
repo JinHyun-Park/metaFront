@@ -162,6 +162,11 @@ const router = new Router({
       component: () => import('@/views/admin/ifMgmt/VirtualUserList_MCG.vue'),
     },
     {
+      path: '/admin/ifMgmt/ccCdList',
+      name: 'ccCdList',
+      component: () => import('@/views/admin/ifMgmt/CcCdList.vue'),
+    },
+    {
       path: '/admin/portalMgmt/opsAccList',
       name: 'opsAccList',
       component: () => import('@/views/admin/portalMgmt/OpsAccList.vue'),
