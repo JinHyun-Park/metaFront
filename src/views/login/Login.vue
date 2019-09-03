@@ -88,7 +88,7 @@ export default {
           if (res.status === 200) {
             console.log(res.headers);
             this.getUserInfo();
-            this.$router.push({ name: 'home' });
+            this.$router.push({ name: 'home', hanNm: this.hanNm });
           }
           console.log(res);
         })
@@ -108,7 +108,7 @@ export default {
         .catch((ex) => {
           console.log(`error occur!! : ${ex}`);
         });
-      this.$router.push({ name: 'home', hanNm: this.hanNm });
+      //this.$router.push({ name: 'home', hanNm: this.hanNm });
     },
     movePage(page) {
       this.$router.push({ name: page });

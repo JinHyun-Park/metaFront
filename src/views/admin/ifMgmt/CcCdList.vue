@@ -3,7 +3,7 @@
     <section class="title style-1">
       <h2>
         <div>
-          <i class="ico-bar" />사용자 계정 관리
+          <i class="ico-bar" />공통 코드 관리
         </div>
         <div class="breadcrumb">
           <span>EGIW</span><em class="on">EAI</em>
@@ -16,17 +16,42 @@
       </h5>
       <div class="row_contain type-3 last">
         <div class="column on w-2">
-          <label class="column_label">사용자ID</label>
+          <label class="column_label">코드구분</label>
+          <select v-model="opClCd" >
+            <option
+              value="COMM"
+            >
+              공통
+            </option>
+            <option
+              value="EAI"
+            >
+              EAI
+            </option>
+            <option
+              value="EIGW"
+            >
+              EIGW
+            </option>
+            <option
+              value="MCG"
+            >
+              MCG
+            </option>
+          </select>
+        </div>
+        <div class="column on w-2">
+          <label class="column_label">코드ID</label>
           <input
-            v-model="userId"
+            v-model="cdId"
             type="text"
             value=""
           >
         </div>
         <div class="column on w-2">
-          <label class="column_label">사용자명</label>
+          <label class="column_label">코드상세ID</label>
           <input
-            v-model="hanNm"
+            v-model="cdDtlId"
             type="text"
             value=""
           >
@@ -78,49 +103,40 @@
           </div>
           <div class="table_body">
             <ul
-              v-for="(user, i) in userList"
-              :key="user.userId"
+              v-for="(ccCd, i) in ccCdLst"
+              :key="i"
               class="table_row w-auto"
             >
               <li class="td_cell">
                 {{ i+1 }}
               </li>
               <li class="td_cell">
-                {{ user.userId }}
+                {{ ccCd.opClCd }}
               </li>
               <li class="td_cell">
-                {{ user.chrgrInfo.hanNm }}
+                {{ ccCd.cdId }}
               </li>
               <li class="td_cell">
-                {{ user.chrgrInfo.ofcLvlNm }}
+                {{ ccCd.cdDtlCd }}
               </li>
               <li class="td_cell">
-                {{ user.chrgrInfo.juminNo }}
+                {{ ccCd.cdNm }}
               </li>
               <li class="td_cell">
                 <div class="select_group">
-                  <select v-model="user.userAuth">
+                  <select v-model="ccCd.useYn">
                     <option
-                      value="USER"
+                      value="Y"
                     >
-                      사용자
+                      사용
                     </option>
                     <option
-                      value="ADMIN"
+                      value="N"
                     >
-                      관리자
+                      미사용
                     </option>
                   </select>
                 </div>
-              </li>
-              <li class="td_cell">
-                {{ user.chrgrInfo.offcPhonNum }}
-              </li>
-              <li class="td_cell">
-                {{ user.chrgrInfo.mblPhonNum }}
-              </li>
-              <li class="td_cell">
-                {{ user.chrgrInfo.emailAddr }}
               </li>
               <li class="td_cell">
                 <i
@@ -166,10 +182,11 @@ import { mapState, mapActions } from 'vuex';
 export default {
   data() {
     return {
-      userList: [],
+      ccCdLst: [],
       tgtUrl: '',
-      userId: '',
-      hanNm: '',
+      opClCd: '',
+      cdId: '',
+      cdDtlId: '',
     };
   },
   computed: {
@@ -178,15 +195,13 @@ export default {
   methods: {
     ...mapActions('frameSet', ['setResetPopOn']),
     searchList() {
-      this.tgtUrl = '/api/user';
-      if (this.userId != null && this.userId !== '') {
-        this.tgtUrl = `${this.tgtUrl}/${this.userId}`;
-      }
+      this.tgtUrl = '/api/bizcomm/cccd';
+      
       this.$axios.get(this.tgtUrl)
         .then((res) => {
           console.log(res);
           if (res.data.rstCd === 'S') {
-            this.userList = res.data.rstData.userList;
+            this.ccCdLst = res.data.rstData.ccCdLst;
           } else {
             // eslint-disable-next-line no-alert
             alert('failed');
