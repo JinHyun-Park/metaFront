@@ -110,7 +110,8 @@ aside {
     min-height: 100%;
     background: #fefefe;
     border-radius: 0 10px 0 0;
-    box-shadow: 1px 1px 4px 0 rgba(0, 0, 0, .14)
+    box-shadow: 1px 1px 4px 0 rgba(0, 0, 0, .14);
+    box-sizing: content-box
 }
 
 section {
@@ -2062,6 +2063,12 @@ display: table-column
     background: #f9f9f9
 }
 
+.table_grid.tb_layout .table_head ul .th_cell,
+.table_grid.tb_layout .table_body .table_row .td_cell {
+    width: 176px;
+    min-width: 176px
+}
+
 .table_grid.tb_layout .table_head ul .th_cell:first-child,
 .table_grid.tb_layout .table_body .table_row .td_cell:first-child,
 .table_grid.tb_layout .table_body .fold_colgroup>.table_row.colspan .td_cell:first-child {
@@ -2162,7 +2169,7 @@ display: table-column
     padding-right: 5px
 }
 
-.table_grid .table_row.w-auto .td_cell {
+.table_grid .table_body .table_row.w-auto .td_cell {
     width: auto
 }
 
@@ -2542,9 +2549,10 @@ footer em {
 @media (min-width:1537px) and (max-width:1919px) {
     .table_grid.tb_layout .table_head ul .th_cell,
     .table_grid.tb_layout .table_body .table_row .td_cell {
+        width: 123px;
         min-width: 123px
     }
-    .table_grid .table_body .fold_colgroup>.table_row.colspan .td_cell {
+    .table_grid.tb_layout .table_body .fold_colgroup>.table_row.colspan .td_cell {
         min-width: 123px
     }
     .table_grid .table_row.form_type .td_cell:last-child {
@@ -2622,7 +2630,7 @@ footer em {
     .table_grid.tb_layout .table_body .table_row .td_cell {
         width: 176px
     }
-    .table_grid .table_body .fold_colgroup>.table_row.colspan .td_cell {
+    .table_grid.tb_layout .table_body .fold_colgroup>.table_row.colspan .td_cell {
         min-width: 176px
     }
     .table_grid.tb_layout .table_head ul .th_cell:first-child,
