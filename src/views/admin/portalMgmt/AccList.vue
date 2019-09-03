@@ -182,7 +182,12 @@ export default {
       tgtUrl: '',
       userId: '',
       hanNm: '',
+<<<<<<< HEAD
       page: 5,
+=======
+      pageNo: '',
+      size: '',
+>>>>>>> 46cb0b4949cdffcb89cb52cf15af4c50cec78b4a
     };
   },
   computed: {
@@ -192,10 +197,14 @@ export default {
     ...mapActions('frameSet', ['setResetPopOn']),
     searchList() {
       this.tgtUrl = '/api/user';
-      if (this.userId != null && this.userId !== '') {
-        this.tgtUrl = `${this.tgtUrl}/${this.userId}`;
-      }
-      this.$axios.get(this.tgtUrl)
+      this.$axios.get(this.tgtUrl, {
+        params: {
+          pageNo: this.pageNo,
+          size: this.size,
+          userId: this.userId,
+          hanNm: this.hanNm,
+        },
+      })
         .then((res) => {
           console.log(res);
           if (res.data.rstCd === 'S') {

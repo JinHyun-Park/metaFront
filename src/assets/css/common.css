@@ -548,7 +548,8 @@ aside>h3 {
     width: 100%;
     font-size: 17px;
     color: #bebebe;
-    font-family: Moebius_Bold_kor, Moebius_Bold_eng
+    font-family: Moebius_Bold_kor, Moebius_Bold_eng;
+    text-transform: uppercase
 }
 
 aside>h3:before {
@@ -1721,14 +1722,14 @@ width: 24px
     display: grid;
     display: -ms-grid;
     width: 100%;
-    grid-template-columns: 86px 86px 373px;
-    -ms-grid-colsumns: 86px 86px 373px;
+    grid-template-columns: 89px 89px 378px;
+    -ms-grid-colsumns: 89px 89px 378px;
     grid-template-rows: 53px 53px 53px 53px 53px 30px;
     -ms-grid-rows: 53px 53px 53px 53px 53px 30px;
     grid-template-areas: "요청송신Q qsign 2documents2Documents2documents2documents2document";
     /* grid-row-gap: 23px; */
     /* grid-column-gap: 10px; */
-    padding: 0 0px 0 0
+    padding: 0 5px 0 0
 }
 
 
@@ -1745,14 +1746,15 @@ width: 24px
 } */
 
 .contents .grid_form input[type=text] {
-    margin-left: 8px;
+    margin-left: 10px;
     margin-bottom: 23px;
     padding: 5px 0 6px 5px;
     height: 30px;
-    width: 353px;
+    width: 358px;
     font-size: 14px;
     color: #888;
     font-family: Moebius_Regular_kor, Moebius_Regular_eng;
+    text-transform: lowercase;
     letter-spacing: -.2px;
     border: 1px solid #d9eae0;
     border-radius: 5px;
@@ -1764,7 +1766,7 @@ width: 24px
 }
 
 .contents .grid_form .search_group input[type=text] {
-    width: 78px
+    width: 79px
 }
 
 .contents .grid_form .search_group.on input[type=text],
@@ -1817,7 +1819,7 @@ width: 24px
     grid-row-gap: 0;
     place-self: stretch;
     margin-bottom: 23px;
-    padding-left: 5px;
+    padding-left: 10px;
     font-size: 14px;
     color: #869DAB;
     font-family: Moebius_Regular_kor, Moebius_Regular_eng;
@@ -1825,10 +1827,6 @@ width: 24px
     background: #fff;
     box-sizing: border-box;
     z-index: 5
-}
-
-.contents .grid_form .division_row>div:last-child .column_label {
-    padding-left: 7px
 }
 
 .contents .grid_form .column_label:nth-of-type(2) {
@@ -2544,12 +2542,11 @@ footer em {
         margin-right: 8px
     }
     .contents .grid_form .division_row>div {
-        grid-template-columns: 86px 84px 64%;
-        -ms-grid-columns: 86px 84px 64%
+        grid-template-columns: 89px 84px 68%;
+        -ms-grid-columns: 89px 84px 68%
     }
     .contents .grid_form input[type=text] {
-        margin-left: 10px;
-        width: 94%
+        width: 90%
     }
     .contents .grid_form .search_group input[type=text] {
         width: 74px
@@ -2632,12 +2629,11 @@ footer em {
         margin-right: 11px
     }
     .contents .grid_form .division_row>div {
-        grid-template-columns: 86px 84px 61%;
-        -ms-grid-columns: 86px 84px 61%
+        grid-template-columns: 89px 84px 268px;
+        -ms-grid-columns: 89px 84px 268px
     }
     .contents .grid_form input[type=text] {
-        margin-left: 10px;
-        width: 93.5%
+        width: 93%
     }
     .contents .grid_form .search_group input[type=text] {
         width: 74px

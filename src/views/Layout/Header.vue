@@ -103,6 +103,9 @@
                 <li @click="movePage('accListEigw')">
                   EiGW 담당자 관리
                 </li>
+                <li @click="movePage('ccCdList')">
+                  공통 코드 관리
+                </li>
                 <li @click="movePage('instList')">
                   기관 코드 관리
                 </li>
