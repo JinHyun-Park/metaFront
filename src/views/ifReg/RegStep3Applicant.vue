@@ -331,3 +331,9 @@
     </section>
   </div>
 </template>
+
+<script>
+export default {
+  name: 'RegStep3Applicant',
+};
+</script>
