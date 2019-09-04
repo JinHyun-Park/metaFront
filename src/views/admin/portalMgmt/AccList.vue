@@ -133,20 +133,20 @@
                 />
               </li>
             </ul>
-            <paginate
-              v-model="page"
-              :page-count="10"
-              :page-range="5"
-              :margin-pages="2"
-              :click-handler="pageChanged"
-              :prev-text="'Prev'"
-              :next-text="'Next'"
-              :container-class="'pagination'"
-              :page-class="'page-item'"
-            />
           </div>
         </div>
       </div>
+      <paginate
+        v-model="page"
+        :page-count="10"
+        :page-range="3"
+        :margin-pages="2"
+        :click-handler="pageChanged"
+        :prev-text="'이전'"
+        :next-text="'다음'"
+        :container-class="'pagination'"
+        :page-class="'page-item'"
+      />
     </section>
     <section class="btm_button_area">
       <button
@@ -240,8 +240,8 @@ export default {
         // to-do use_yn을 n으로 변경;
       }
     },
-    pageChanged(page) { 
-      console.log('click event');
+    pageChanged(pageNum) { 
+      console.log(pageNum);
     },
   },
 };

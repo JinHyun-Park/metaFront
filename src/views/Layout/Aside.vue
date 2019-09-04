@@ -38,6 +38,11 @@ export default {
     //   return this.nullLists;
     // },
   },
+  watch: {
+    $route(to) {
+      console.log(to.path);
+    },
+  },
   methods: {
     movePage(page) {
       // this.menuLists = Object.assign({}, this.homeMenuLists);
