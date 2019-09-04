@@ -39,8 +39,9 @@ export default {
     // },
   },
   methods: {
-    movePage() {
+    movePage(page) {
       // this.menuLists = Object.assign({}, this.homeMenuLists);
+      this.$router.push({ name: page });
     },
     isActive(url) {
       const ret = (this.nowPage === url);

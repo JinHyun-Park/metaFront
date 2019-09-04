@@ -133,6 +133,17 @@
                 />
               </li>
             </ul>
+            <paginate
+              v-model="page"
+              :page-count="10"
+              :page-range="5"
+              :margin-pages="2"
+              :click-handler="pageChanged"
+              :prev-text="'Prev'"
+              :next-text="'Next'"
+              :container-class="'pagination'"
+              :page-class="'page-item'"
+            />
           </div>
         </div>
       </div>
@@ -164,12 +175,16 @@
 import { mapState, mapActions } from 'vuex';
 
 export default {
+  /* eslint-disable */
   data() {
     return {
       userList: [],
       tgtUrl: '',
       userId: '',
       hanNm: '',
+      page: 5,
+      pageNo: '',
+      size: '',
     };
   },
   computed: {
@@ -179,10 +194,14 @@ export default {
     ...mapActions('frameSet', ['setResetPopOn']),
     searchList() {
       this.tgtUrl = '/api/user';
-      if (this.userId != null && this.userId !== '') {
-        this.tgtUrl = `${this.tgtUrl}/${this.userId}`;
-      }
-      this.$axios.get(this.tgtUrl)
+      this.$axios.get(this.tgtUrl, {
+        params: {
+          pageNo: this.pageNo,
+          size: this.size,
+          userId: this.userId,
+          hanNm: this.hanNm,
+        },
+      })
         .then((res) => {
           console.log(res);
           if (res.data.rstCd === 'S') {
@@ -201,25 +220,28 @@ export default {
         // to-do userAuth값을 변경;
         this.tgtUrl = `/api/user/${this.userList[i].userId}`;
         this.$axios.put(this.tgtUrl, this.userList[i])
-        .then((res) => {
-          console.log(res);
-          if (res.data.rstCd === 'S') {
+          .then((res) => {
+            console.log(res);
+            if (res.data.rstCd === 'S') {
             // eslint-disable-next-line no-alert
-            alert('success');
-          } else {
+              alert('success');
+            } else {
             // eslint-disable-next-line no-alert
-            alert('failed');
-          }
-        })
-        .catch((ex) => {
-          console.log(`error occur!! : ${ex}`);
-        });
+              alert('failed');
+            }
+          })
+          .catch((ex) => {
+            console.log(`error occur!! : ${ex}`);
+          });
       }
     },
     delList(i) {
       if (confirm(`${this.userList[i].chrgrInfo.hanNm}님 계정을 정말 삭제할래요?`)) {
         // to-do use_yn을 n으로 변경;
       }
+    },
+    pageChanged(page) { 
+      console.log('click event');
     },
   },
 };

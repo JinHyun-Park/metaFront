@@ -108,7 +108,7 @@ export default {
         .catch((ex) => {
           console.log(`error occur!! : ${ex}`);
         });
-      //this.$router.push({ name: 'home', hanNm: this.hanNm });
+      // this.$router.push({ name: 'home', hanNm: this.hanNm });
     },
     movePage(page) {
       this.$router.push({ name: page });

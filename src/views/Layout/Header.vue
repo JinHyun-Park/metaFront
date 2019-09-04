@@ -30,34 +30,11 @@
             <li>
               <span>인터페이스 신청</span>
               <ul class="sub_menu">
-                <li>신청목록</li>
-                <li>신청등록</li>
                 <li @click="movePage('regList')">
-                  신청목록(승인)
+                  신청목록
                 </li>
-                <li @click="movePage('regStep1applyIf')">
-                  등록#1ApplyIF
-                </li>
-                <li @click="movePage('regStep1applyChgIf')">
-                  등록#1ApplyChgIF
-                </li>
-                <li @click="movePage('regStep2_EAI')">
-                  등록#2 EAI
-                </li>
-                <li @click="movePage('regStep2_EIGW')">
-                  등록#2 EiGW
-                </li>
-                <li @click="movePage('regStep2ApplyCh_MCG')">
-                  등록#2 CHNL MCG
-                </li>
-                <li @click="movePage('regStep2ApplyDeal_MCG')">
-                  등록#2 DEAL MCG
-                </li>
-                <li @click="movePage('regStep3Applicant')">
-                  등록#3 Final(Applicant)
-                </li>
-                <li @click="movePage('regStep3Approver')">
-                  등록#3 Final(Approver)
+                <li @click="movePage('applyIf')">
+                  신청등록
                 </li>
               </ul>
             </li>
@@ -125,6 +102,9 @@
                 </li>
                 <li @click="movePage('accListEigw')">
                   EiGW 담당자 관리
+                </li>
+                <li @click="movePage('ccCdList')">
+                  공통 코드 관리
                 </li>
                 <li @click="movePage('instList')">
                   기관 코드 관리

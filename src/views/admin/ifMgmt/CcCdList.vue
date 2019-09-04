@@ -17,7 +17,12 @@
       <div class="row_contain type-3 last">
         <div class="column on w-2">
           <label class="column_label">코드구분</label>
-          <select v-model="opClCd" >
+          <select v-model="opClCd">
+            <option
+              value=""
+            >
+              전체
+            </option>
             <option
               value="COMM"
             >
@@ -75,28 +80,22 @@
             <ul>
               <li class="th_cell" />
               <li class="th_cell">
-                사용자ID
+                코드구분
               </li>
               <li class="th_cell">
-                사용자명
+                코드ID
               </li>
               <li class="th_cell">
-                직급
+                코드상세ID
               </li>
               <li class="th_cell">
-                생년월일
+                코드명
               </li>
               <li class="th_cell">
-                권한
+                사용여부
               </li>
               <li class="th_cell">
-                연락처
-              </li>
-              <li class="th_cell">
-                핸드폰
-              </li>
-              <li class="th_cell">
-                이메일
+                코드설명
               </li>
               <li class="th_cell" />
             </ul>
@@ -117,10 +116,13 @@
                 {{ ccCd.cdId }}
               </li>
               <li class="td_cell">
-                {{ ccCd.cdDtlCd }}
+                {{ ccCd.cdDtlId }}
               </li>
-              <li class="td_cell">
-                {{ ccCd.cdNm }}
+              <li class="td_cell on">
+                <input
+                  v-model="ccCd.cdNm"
+                  type="text"
+                >
               </li>
               <li class="td_cell">
                 <div class="select_group">
@@ -138,40 +140,22 @@
                   </select>
                 </div>
               </li>
+              <li class="td_cell on">
+                <input
+                  v-model="ccCd.cdDef"
+                  type="text"
+                >
+              </li>
               <li class="td_cell">
                 <i
                   class="ico-edit"
                   @click="editList(i)"
-                />
-                <i
-                  class="ico-del"
-                  @click="delList(i)"
                 />
               </li>
             </ul>
           </div>
         </div>
       </div>
-    </section>
-    <section class="btm_button_area">
-      <button
-        type="button"
-        class="default_button"
-      >
-        수정
-      </button>
-      <button
-        type="button"
-        class="default_button"
-      >
-        추가
-      </button>
-      <button
-        type="button"
-        class="default_button on"
-      >
-        등록
-      </button>
     </section>
   </div>
 </template>
@@ -180,6 +164,7 @@
 import { mapState, mapActions } from 'vuex';
 
 export default {
+  /* eslint-disable */
   data() {
     return {
       ccCdLst: [],
@@ -187,6 +172,8 @@ export default {
       opClCd: '',
       cdId: '',
       cdDtlId: '',
+      pageNo: '',
+      size: '',
     };
   },
   computed: {
@@ -196,12 +183,23 @@ export default {
     ...mapActions('frameSet', ['setResetPopOn']),
     searchList() {
       this.tgtUrl = '/api/bizcomm/cccd';
-      
-      this.$axios.get(this.tgtUrl)
+
+      this.$axios.get(this.tgtUrl, {
+        params: {
+          pageNo: this.pageNo,
+          size: this.size,
+          opClCd: this.opClCd,
+          cdId: this.cdId,
+          cdDtlId: this.cdDtlId,
+        },
+      })
         .then((res) => {
           console.log(res);
           if (res.data.rstCd === 'S') {
             this.ccCdLst = res.data.rstData.ccCdLst;
+            if (this.ccCdLst.length === 0) {
+              this.addList();
+            }
           } else {
             // eslint-disable-next-line no-alert
             alert('failed');
@@ -210,30 +208,49 @@ export default {
         .catch((ex) => {
           console.log(`error occur!! : ${ex}`);
         });
+    },
+    addList() {
+      const a = {
+        opClCd: this.opClCd, cdId: this.cdId, cdDtlId: this.cdDtlId, useYn: 'Y', flag: 'I',
+      };
+      this.ccCdLst.push(a);
     },
     editList(i) {
-      if (confirm(`${this.userList[i].chrgrInfo.hanNm}님 권한을 ${this.userList[i].userAuth}로 변경할래요?`)) {
-        // to-do userAuth값을 변경;
-        this.tgtUrl = `/api/user/${this.userList[i].userId}`;
-        this.$axios.put(this.tgtUrl, this.userList[i])
-        .then((res) => {
-          console.log(res);
-          if (res.data.rstCd === 'S') {
-            // eslint-disable-next-line no-alert
-            alert('success');
-          } else {
-            // eslint-disable-next-line no-alert
-            alert('failed');
-          }
-        })
-        .catch((ex) => {
-          console.log(`error occur!! : ${ex}`);
-        });
-      }
-    },
-    delList(i) {
-      if (confirm(`${this.userList[i].chrgrInfo.hanNm}님 계정을 정말 삭제할래요?`)) {
-        // to-do use_yn을 n으로 변경;
+      const confirmText = `${this.ccCdLst[i].cdId} > ${this.ccCdLst[i].cdDtlId} 를 저장하십니까?`;
+      // eslint-disable-next-line no-restricted-globals
+      if (confirm(confirmText)) {
+        this.tgtUrl = '/api/bizcomm/cccd';
+        if (this.ccCdLst[i].flag != null && this.ccCdLst[i].flag === 'I') {
+          this.$axios.post(this.tgtUrl, this.ccCdLst[i])
+            .then((res) => {
+              console.log(res);
+              if (res.data.rstCd === 'S') {
+                // eslint-disable-next-line no-alert
+                alert('success');
+              } else {
+                // eslint-disable-next-line no-alert
+                alert('failed');
+              }
+            })
+            .catch((ex) => {
+              console.log(`error occur!! : ${ex}`);
+            });
+        } else {
+          this.$axios.put(this.tgtUrl, this.ccCdLst[i])
+            .then((res) => {
+              console.log(res);
+              if (res.data.rstCd === 'S') {
+                // eslint-disable-next-line no-alert
+                alert('success');
+              } else {
+                // eslint-disable-next-line no-alert
+                alert('failed');
+              }
+            })
+            .catch((ex) => {
+              console.log(`error occur!! : ${ex}`);
+            });
+        }
       }
     },
   },
