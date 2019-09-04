@@ -2036,13 +2036,6 @@ display: table-column
     table-layout: fixed
 }
 
-
-/* .table_grid.tb_layout .table_head ul .th_cell,
-.table_grid.tb_layout .table_body .table_row .td_cell {
-    min-width: 153px;
-    background: #fff
-} */
-
 .table_grid .table_body .fold_colgroup {
     display: table-row
 }
