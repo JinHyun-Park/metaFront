@@ -137,10 +137,10 @@
         </div>
       </div>
       <paginate
-        v-model="page"
-        :page-count="10"
+        v-model="pageNo"
+        :page-count="pageCount"
         :page-range="3"
-        :margin-pages="2"
+        :margin-pages="1"
         :click-handler="pageChanged"
         :prev-text="'이전'"
         :next-text="'다음'"
@@ -182,8 +182,8 @@ export default {
       tgtUrl: '',
       userId: '',
       hanNm: '',
-      page: 5,
-      pageNo: '',
+      pageNo: 1,   // 페이지 번호
+      pageCount: 10,  // 총 페이지 수
       size: '',
     };
   },
@@ -246,3 +246,8 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+  .pagination { } 
+  .page-item { }
+</style>
