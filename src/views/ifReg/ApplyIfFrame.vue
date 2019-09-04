@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="right_space">
     <RegStep1ApplyIf />
   </div>
 </template>
