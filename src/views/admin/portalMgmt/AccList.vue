@@ -136,17 +136,19 @@
           </div>
         </div>
       </div>
-      <paginate
-        v-model="pageNo"
-        :page-count="pageCount"
-        :page-range="3"
-        :margin-pages="1"
-        :click-handler="pageChanged"
-        :prev-text="'이전'"
-        :next-text="'다음'"
-        :container-class="'pagination'"
-        :page-class="'page-item'"
-      />
+      <div class="pagination_space">
+        <paginate
+          v-model="pageNo"
+          :page-count="pageCount"
+          :page-range="3"
+          :margin-pages="1"
+          :click-handler="pageChanged"
+          :prev-text="'이전'"
+          :next-text="'다음'"
+          :container-class="'pagination'"
+          :page-class="'page-item'"
+        />
+      </div>
     </section>
     <section class="btm_button_area">
       <button
@@ -246,8 +248,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-  .pagination { } 
-  .page-item { }
-</style>
