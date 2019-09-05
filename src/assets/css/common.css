@@ -2351,8 +2351,22 @@ display: table-column
     box-sizing: border-box
 }
 
-.contents.popup .layer_popup.xsmall>section {
-    width: 400px
+.contents.popup .layer_popup.ssmall {
+    padding: 27px 70px 38px;
+    border-radius: 4px
+}
+
+.contents.popup .layer_popup.Ssmall {
+    padding: 27px 63px 43px;
+    border-radius: 4px
+}
+
+.contents.popup .layer_popup.ssmall>section {
+    width: 330px
+}
+
+.contents.popup .layer_popup.Ssmall>section {
+    width: 500px
 }
 
 .contents.popup .layer_popup.small>section {
@@ -2400,6 +2414,50 @@ display: table-column
     margin-top: 24px
 }
 
+.contents.popup .layer_popup .confirm_area {
+    justify-content: center;
+    align-items: center;
+    padding: 21px 0px 74px;
+}
+
+.contents.popup .layer_popup.Ssmall .confirm_area {
+    padding: 24px 0 96px
+}
+
+.contents.popup .layer_popup .confirm_area i.ico-warning {
+    display: flex;
+    display: -ms-flexbox;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 16px;
+    width: 79px;
+    height: 79px;
+    background: url(../images/ico-warning.png) center center no-repeat;
+    background-size: 100%
+}
+
+.contents.popup .layer_popup .confirm_area label {
+    width: auto;
+    font-family: Moebius_Regular_kor, Moebius_Regular_eng;
+    font-size: 15px
+}
+
+.contents.popup .layer_popup.Ssmall .confirm_area label {
+    font-size: 15px
+}
+
+.contents.popup .layer_popup.ssmall .btm_button_area.confirm_btn .default_button {
+    width: 112px;
+    height: 36px;
+    font-size: 13px
+}
+
+.contents.popup .layer_popup.Ssmall .btm_button_area.confirm_btn .default_button {
+    width: 124px;
+    height: 39px;
+    font-size: 13px
+}
+
 .contents.index .login_contn.layer_popup .btm_button_area.log {
     padding-bottom: 60px
 }
@@ -2409,6 +2467,7 @@ display: table-column
     padding-bottom: 0
 }
 
+.contents.popup .layer_popup .btm_button_area .default_button:first-child,
 .contents.index .login_contn.layer_popup .btm_button_area .default_button:first-child {
     margin-left: 0
 }
