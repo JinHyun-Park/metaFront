@@ -63,26 +63,6 @@ const router = new Router({
       component: () => import('@/views/ifReg/ChangeIfInfoFrame.vue'),
     },
     {
-      path: '/ifReg/regStep1applyIf',
-      name: 'regStep1applyIf',
-      component: () => import('@/views/ifReg/RegStep1ApplyIf.vue'),
-    },
-    {
-      path: '/ifReg/regStep1applyChgIf',
-      name: 'regStep1applyChgIf',
-      component: () => import('@/views/ifReg/RegStep1ApplyChgIf.vue'),
-    },
-    {
-      path: '/ifReg/regStep2-EAI',
-      name: 'regStep2_EAI',
-      component: () => import('@/views/ifReg/RegStep2_EAI.vue'),
-    },
-    {
-      path: '/ifReg/regStep2-EIGW',
-      name: 'regStep2_EIGW',
-      component: () => import('@/views/ifReg/RegStep2_EIGW.vue'),
-    },
-    {
       path: '/ifReg/regStep2ApplyCh-MCG',
       name: 'regStep2ApplyCh_MCG',
       component: () => import('@/views/ifReg/RegStep2ApplyCh_MCG.vue'),

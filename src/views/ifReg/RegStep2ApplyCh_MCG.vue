@@ -1,5 +1,5 @@
 <template>
-  <div class="right_space">
+  <div>
     <section class="title style-1">
       <h2>
         <div>
