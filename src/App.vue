@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <comm-alert v-if="false" />
     <div v-if="loginPageOn">
       <router-view />
     </div>
@@ -12,7 +13,6 @@
       </article>
       <Footer v-if="footerOn" />
     </div>
-    <comm-alert v-if="false" />
   </div>
 </template>
 
