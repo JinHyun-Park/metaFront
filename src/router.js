@@ -52,10 +52,15 @@ const router = new Router({
       name: 'regList',
       component: () => import('@/views/ifReg/RegList.vue'),
     },
-    {
+    { // 인터페이스 신청 탭 구분 적용
       path: '/ifReg/applyIf',
       name: 'applyIf',
       component: () => import('@/views/ifReg/ApplyIfFrame.vue'),
+    },
+    { // 인터페이스 정보 변경 요청 탭 구분 적용
+      path: '/ifReg/chgIfinfo',
+      name: 'chgIfinfo',
+      component: () => import('@/views/ifReg/ChangeIfInfoFrame.vue'),
     },
     {
       path: '/ifReg/regStep1applyIf',

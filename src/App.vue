@@ -12,6 +12,7 @@
       </article>
       <Footer v-if="footerOn" />
     </div>
+    <comm-alert v-if="false" />
   </div>
 </template>
 
@@ -22,10 +23,12 @@ import Footer from '@/views/Layout/Footer.vue';
 import Aside from '@/views/Layout/Aside.vue';
 import RightSide from '@/views/Layout/RightSide.vue';
 
+import CommAlert from '@/components/popup/common/CommAlert.vue';
+
 export default {
   name: 'App',
   components: {
-    Header, Footer, Aside, RightSide,
+    Header, Footer, Aside, RightSide, CommAlert,
   },
   data() {
     return {

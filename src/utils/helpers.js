@@ -41,25 +41,6 @@ const helpers = {
       store.dispatch('frameSet/setAsideOn', { asideOn: true });
       store.dispatch('frameSet/setFooterOn', { footerOn: true });
     }
-
-    // Aside.vue 자체적으로 수행될 수 있게 변경
-    // LEFT SIDE의 항목 설정
-    // if (path.indexOf('/notice/') > -1) {
-    //   store.dispatch('frameSet/setSubNm', { subNm: 'NOTICE' });
-    //   store.dispatch('frameSet/setMenuLists', { menuLists: asConfig.NOTICE });
-    // } else if (path.indexOf('/ifReg/regList') > -1) {
-    //   store.dispatch('frameSet/setSubNm', { subNm: '신청목록' });
-    //   store.dispatch('frameSet/setMenuLists', { menuLists: asConfig.IFREGLIST });
-    // } else if (path.indexOf('/ifReg/') > -1) {
-    //   store.dispatch('frameSet/setSubNm', { subNm: '인터페이스 신청' });
-    //   store.dispatch('frameSet/setMenuLists', { menuLists: asConfig.IFREG });
-    // } else if (path.indexOf('/meta/') > -1) {
-    //   store.dispatch('frameSet/setSubNm', { subNm: 'META' });
-    //   store.dispatch('frameSet/setMenuLists', { menuLists: asConfig.META });
-    // } else if (path.indexOf('/admin/') > -1) {
-    //   store.dispatch('frameSet/setSubNm', { subNm: 'ADMIN' });
-    //   store.dispatch('frameSet/setMenuLists', { menuLists: asConfig.MGMT });
-    // }
   },
 
   /**
