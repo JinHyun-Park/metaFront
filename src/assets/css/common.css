@@ -18,7 +18,7 @@ body {
     font-family: Moebius_Regular_kor, Moebius_Regular_eng, Moebius_Bold_kor, Moebius_Bold_eng;
     font-size: 12px;
     color: #555;
-    letter-spacing: -.2px;
+    letter-spacing: -.2px
 }
 
 #app,
@@ -29,15 +29,13 @@ body {
     flex-direction: column;
     width: 100%;
     height: 100%;
-    min-height: 100%;
+    min-height: 100%
 }
 
 #app>.confirm {
     display: flex;
     display: -ms-flexbox;
     position: absolute;
-    bottom: 0;
-    left: 0;
     width: 100%;
     height: 100%
 }
