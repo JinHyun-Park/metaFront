@@ -51,9 +51,9 @@ header {
     display: -ms-flexbox;
     justify-content: center;
     /* position: absolute; */
-    margin-bottom: 37px;
+    /* margin-bottom: 37px; */
+    margin-bottom: 29px;
     width: 100%;
-    /* font-size: 0; */
     border-bottom: 1px solid #cdcdcd;
     box-shadow: 1px 1px 4px 0 rgba(0, 0, 0, .12);
     box-sizing: border-box;
@@ -505,7 +505,8 @@ nav .menu li .sub_menu li:hover {
 .contents .title.style-1 h2 {
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 45px;
+    /* margin-bottom: 45px; */
+    margin-bottom: 23px;
     width: 100%
 }
 
@@ -1078,13 +1079,23 @@ flex-direction: column
 
 .contents .form_area {
     margin-bottom: 54px;
-    padding: 13px 17px 30px;
+    /* padding: 13px 17px 30px; */
+    padding: 13px 17px 21px;
     width: 100%;
     _border: 1px solid #dfdfdf;
     border-radius: 6px;
     background: #fff;
     _box-shadow: 1px 1px 4px 2px rgba(0, 0, 0, .14);
     box-sizing: border-box
+}
+
+.contents .form_area.style-2,
+.contents .form_area.style-3 {
+    padding-top: 24px
+}
+
+.contents .form_area.style-3 {
+    background: #fcfcfc
 }
 
 .contents .form_area.several_table .table_grid {
@@ -1117,7 +1128,8 @@ flex-direction: column
     justify-items: flex-start;
     align-items: center;
     position: relative;
-    margin-top: 13px;
+    /* margin-top: 13px; */
+    margin-top: 11px;
     padding: 0;
     padding-bottom: 26px;
     width: 100%;
@@ -1195,6 +1207,10 @@ flex-direction: column
 
 .contents .form_area .row_contain.except-2 {
     margin-bottom: 24px
+}
+
+.contents .form_area .row_contain.last {
+    margin-bottom: 29px
 }
 
 .contents .form_area .row_contain.odd .column:nth-last-of-type(2) {
@@ -1438,6 +1454,36 @@ input[type=radio]+label.border-brickpink {
     align-self: center
 }
 
+.contents .form_area .row_contain .column .view_text,
+.contents .form_area .row_contain .column .view_text input[type=text],
+.contents .form_area .row_contain .column.on .view_text input[type=text],
+.contents .form_area .row_contain .column:hover .view_text input[type=text],
+.contents .form_area .row_contain .column .view_text input[type=password],
+.contents .form_area .row_contain .column.on .view_text input[type=password],
+.contents .form_area .row_contain .column:hover .view_text input[type=password],
+.contents .form_area .row_contain .column .view_text .textarea,
+.contents .form_area .row_contain .column.on .view_text .textarea,
+.contents .form_area .row_contain .column:hover .view_text .textarea {
+    padding: 5px 7px 6px 17px;
+    height: 30px;
+    width: 100%;
+    height: 100%;
+    font-family: Moebius_Regular_kor, Moebius_Regular_eng;
+    color: #888;
+    font-size: 15px;
+    border: none;
+    background: transparent;
+    box-sizing: border-box
+}
+
+.contents .form_area .row_contain .column .view_text .textarea {
+    min-height: 200px;
+    max-height: 290px;
+    line-height: 22px;
+    white-space: pre-line;
+    overflow-y: auto
+}
+
 .contents .form_area .row_contain .column input[type=text],
 input[type=text],
 .contents .form_area .row_contain .column input[type=number],
@@ -1504,10 +1550,12 @@ select {
 .contents .form_area .row_contain .column:hover select,
 .contents .border_group h5.s_tit.type-2:hover .select_group select,
 .contents .form_area .row_contain .column:hover textarea {
+    padding: 6px 0 5px 17px;
+    height: 30px;
     color: #555;
     font-size: 15px;
     font-family: Moebius_Regular_kor, Moebius_Regular_eng;
-    line-height: 23px;
+    /* line-height: 23px; */
     border-color: #82BEA3;
     border-style: none none solid;
     border-width: 0 0 2px;
@@ -2138,15 +2186,16 @@ display: table-column
 
 .table_grid .table_row .td_cell {
     display: table-cell;
-    padding: 12px 10px;
+    /* padding: 12px 10px; */
+    padding: 7px 10px 6px;
     width: 12.5%;
     min-width: 115px;
-    height: 40px;
+    height: 36px;
     font-size: 15px;
     color: #888;
     font-family: Moebius_Regular_kor, Moebius_Regular_eng;
     border-bottom: 1px solid #dfdfdf;
-    line-height: 1;
+    /* line-height: 1; */
     letter-spacing: -.2px;
     box-sizing: border-box
 }
@@ -2158,7 +2207,7 @@ display: table-column
 }
 
 .table_grid .table_row.form_type .td_cell {
-    padding: 14px 10px 0;
+    padding: 14px 10px 6px;
     box-sizing: content-box
 }
 
@@ -2227,6 +2276,8 @@ display: table-column
 .table_grid .table_row .td_cell:hover input[type=text],
 .table_grid .table_row .td_cell.on .select_group select,
 .table_grid .table_row .td_cell:hover .select_group select {
+    padding: 6px 0 5px 17px;
+    height: 30px;
     color: #555;
     font-size: 14px;
     font-family: Moebius_Regular_kor, Moebius_Regular_eng;
@@ -2739,6 +2790,12 @@ footer em {
     .table_grid .table_row .td_cell .ico-add,
     .table_grid .table_row .td_cell .ico-edit {
         margin-right: 8px
+    }
+    .table_grid .table_row .td_cell.on input[type=text],
+    .table_grid .table_row .td_cell:hover input[type=text],
+    .table_grid .table_row .td_cell.on .select_group select,
+    .table_grid .table_row .td_cell:hover .select_group select {
+        padding: 5px 0 6px 17px
     }
     .contents .grid_form .division_row>div {
         grid-template-columns: 86px 84px 64%;
