@@ -19,29 +19,11 @@
           <label class="column_label">코드구분</label>
           <select v-model="opClCd">
             <option
-              value=""
+              v-for="(code, i) in ccCdList.opClCd"
+              :key="i"
+              :value="code.cdDtlId"
             >
-              전체
-            </option>
-            <option
-              value="COMM"
-            >
-              공통
-            </option>
-            <option
-              value="EAI"
-            >
-              EAI
-            </option>
-            <option
-              value="EIGW"
-            >
-              EIGW
-            </option>
-            <option
-              value="MCG"
-            >
-              MCG
+              {{ code.cdNm }}
             </option>
           </select>
         </div>
@@ -178,9 +160,16 @@ export default {
   },
   computed: {
     ...mapState('frameSet', ['resetPopOn']),
+    ...mapState('ccCdLst', ['ccCdList']),
+  },
+  mounted() {
+    this.setCcCdList({
+      opClCd: 'COMM', cdId: 'OP_CL_CD', allYn: 'Y', listNm: 'opClCd',
+    });
   },
   methods: {
     ...mapActions('frameSet', ['setResetPopOn']),
+    ...mapActions('ccCdLst', ['setCcCdList']),
     searchList() {
       this.tgtUrl = '/api/bizcomm/cccd';
 

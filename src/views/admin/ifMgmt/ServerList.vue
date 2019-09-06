@@ -19,9 +19,11 @@
           <label class="column_label">서버타입</label>
           <select v-model="svrTypCd">
             <option
-              value=""
+              v-for="(code, i) in ccCdList.syrTypCd"
+              :key="i"
+              :value="code.cdDtlId"
             >
-              전체
+              {{ code.cdNm }}
             </option>
           </select>
         </div>
@@ -29,9 +31,11 @@
           <label class="column_label">IP타입</label>
           <select v-model="ipTyp">
             <option
-              value=""
+              v-for="(code, i) in ccCdList.ipTyp"
+              :key="i"
+              :value="code.cdDtlId"
             >
-              전체
+              {{ code.cdNm }}
             </option>
           </select>
         </div>
@@ -160,6 +164,7 @@ export default {
   data() {
     return {
       serverList: '',
+      svrTypCdList: [],
       pageNo: '',
       size: '',
       tgtUrl: '',
@@ -172,9 +177,19 @@ export default {
   },
   computed: {
     ...mapState('frameSet', ['resetPopOn']),
+    ...mapState('ccCdLst', ['ccCdList']),
+  },
+  mounted() {
+    this.setCcCdList({
+      opClCd: 'COMM', cdId: 'SVR_TYP_CD', allYn: 'Y', listNm: 'syrTypCd',
+    });
+    this.setCcCdList({
+      opClCd: 'COMM', cdId: 'IP_TYP', allYn: 'Y', listNm: 'ipTyp',
+    });
   },
   methods: {
     ...mapActions('frameSet', ['setResetPopOn']),
+    ...mapActions('ccCdLst', ['setCcCdList']),
     searchList() {
       this.tgtUrl = '/api/bizcomm/server';
       this.$axios.get(this.tgtUrl, {
