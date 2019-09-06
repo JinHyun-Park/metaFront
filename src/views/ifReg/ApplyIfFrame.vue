@@ -1,25 +1,12 @@
 <template>
   <div class="right_space">
-    <section class="title style-1">
-      <h2>
-        <div>
-          <i class="ico-bar" />인터페이스 신청서
-        </div>
-        <div class="breadcrumb">
-          <span>EGIW</span><em class="on">EAI</em>
-        </div>
-      </h2>
-    </section>
-
-    <Progress />
-
-    <reg-step1-apply-if v-if="false" />
+    <reg-step1-apply-if v-if="true" />
     <RegStep2eai v-if="false" />
     <RegStep2eigw v-if="false" />
     <RegStep2ChMcg v-if="false" />
     <RegStep2DealMcg v-if="false" />
     <RegStep3Applicant v-if="false" />
-    <RegStep3Approver />
+    <RegStep3Approver v-if="false" />
   </div>
 </template>
 
@@ -31,7 +18,6 @@ import RegStep2ChMcg from '@/views/ifReg/RegStep2ApplyCh_MCG.vue'; // 2단계 MC
 import RegStep2DealMcg from '@/views/ifReg/RegStep2ApplyDeal_MCG.vue'; // 2단계 MCG 거래
 import RegStep3Applicant from '@/views/ifReg/RegStep3Applicant.vue'; // 3단계 신청자
 import RegStep3Approver from '@/views/ifReg/RegStep3Approver.vue'; // 3단계 승인자
-import Progress from '@/components/ifReg/Progress.vue'; // 프로그레스
 
 export default {
   name: 'ApplyFrame',
@@ -43,7 +29,6 @@ export default {
     RegStep2DealMcg,
     RegStep3Applicant,
     RegStep3Approver,
-    Progress,
   },
 };
 </script>
