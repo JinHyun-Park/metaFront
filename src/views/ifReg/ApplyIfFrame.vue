@@ -11,19 +11,7 @@
       </h2>
     </section>
 
-    <section class="progress">
-      <ul>
-        <li class="step on">
-          1. 기본정보 입력
-        </li>
-        <li class="step">
-          2. 인터페이스 상세정보 입력
-        </li>
-        <li class="step">
-          3. 신청 내용 확인 및 승인요청
-        </li>
-      </ul>
-    </section>
+    <Progress />
 
     <reg-step1-apply-if v-if="false" />
     <RegStep2eai v-if="false" />
@@ -31,7 +19,7 @@
     <RegStep2ChMcg v-if="false" />
     <RegStep2DealMcg v-if="false" />
     <RegStep3Applicant v-if="false" />
-    <regStep3Approver />
+    <RegStep3Approver />
   </div>
 </template>
 
@@ -42,7 +30,8 @@ import RegStep2eigw from '@/views/ifReg/RegStep2_EIGW.vue'; // 2단계 EiGW
 import RegStep2ChMcg from '@/views/ifReg/RegStep2ApplyCh_MCG.vue'; // 2단계 MCG 채널
 import RegStep2DealMcg from '@/views/ifReg/RegStep2ApplyDeal_MCG.vue'; // 2단계 MCG 거래
 import RegStep3Applicant from '@/views/ifReg/RegStep3Applicant.vue'; // 3단계 신청자
-import regStep3Approver from '@/views/ifReg/RegStep3Approver.vue'; // 3단계 승인자
+import RegStep3Approver from '@/views/ifReg/RegStep3Approver.vue'; // 3단계 승인자
+import Progress from '@/components/ifReg/Progress.vue'; // 프로그레스
 
 export default {
   name: 'ApplyFrame',
@@ -53,7 +42,8 @@ export default {
     RegStep2ChMcg,
     RegStep2DealMcg,
     RegStep3Applicant,
-    regStep3Approver,
+    RegStep3Approver,
+    Progress,
   },
 };
 </script>
