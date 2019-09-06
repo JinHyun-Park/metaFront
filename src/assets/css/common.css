@@ -1471,6 +1471,7 @@ input[type=radio]+label.border-brickpink {
     font-family: Moebius_Regular_kor, Moebius_Regular_eng;
     color: #888;
     font-size: 15px;
+    line-height: 22px;
     border: none;
     background: transparent;
     box-sizing: border-box
