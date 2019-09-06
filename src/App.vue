@@ -1,8 +1,6 @@
 <template>
   <div id="app">
-    <div class="confirm">
-      <comm-alert v-if="true" />
-    </div>
+    <comm-alert v-if="true" />
     <div v-if="loginPageOn">
       <router-view />
     </div>

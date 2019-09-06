@@ -8,7 +8,7 @@ body {
     width: 100%;
     /* min-width: 1903px; */
     height: 100%;
-    min-height: 100%;
+    /* min-height: 100%; */
     justify-content: center;
     /*    align-content: center;*/
     align-items: flex-start;
@@ -29,7 +29,8 @@ body {
     flex-direction: column;
     width: 100%;
     height: 100%;
-    min-height: 100%
+    min-height: 100%;
+    overflow: auto
 }
 
 #app>.confirm {
@@ -37,7 +38,8 @@ body {
     display: -ms-flexbox;
     position: absolute;
     width: 100%;
-    height: 100%
+    height: 100%;
+    min-height: 100%
 }
 
 .contents.center {
@@ -2309,7 +2311,7 @@ display: table-column
     z-index: 10
 }
 
-#app>.confirm>.contents.popup {
+#app>.contents.popup {
     display: flex;
     display: -ms-flexbox;
     justify-content: center;
