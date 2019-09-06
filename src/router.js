@@ -62,26 +62,6 @@ const router = new Router({
       name: 'chgIfinfo',
       component: () => import('@/views/ifReg/ChangeIfInfoFrame.vue'),
     },
-    {
-      path: '/ifReg/regStep2ApplyCh-MCG',
-      name: 'regStep2ApplyCh_MCG',
-      component: () => import('@/views/ifReg/RegStep2ApplyCh_MCG.vue'),
-    },
-    {
-      path: '/ifReg/regStep2ApplyDeal-MCG',
-      name: 'regStep2ApplyDeal_MCG',
-      component: () => import('@/views/ifReg/RegStep2ApplyDeal_MCG.vue'),
-    },
-    {
-      path: '/ifReg/regStep3Applicant',
-      name: 'regStep3Applicant',
-      component: () => import('@/views/ifReg/RegStep3Applicant.vue'),
-    },
-    {
-      path: '/ifReg/regStep3Approver',
-      name: 'regStep3Approver',
-      component: () => import('@/views/ifReg/RegStep3Approver.vue'),
-    },
     ],
   },
   // 3. 메타정보 조회
@@ -170,6 +150,16 @@ const router = new Router({
       path: '/admin/eigw/programInfo',
       name: 'programInfo',
       component: () => import('@/views/admin/eigw/ProgramInfo.vue'),
+    },
+    {
+      path: '/admin/eigw/fileListAdmin',
+      name: 'fileListAdmin',
+      component: () => import('@/views/admin/eigw/FileListAdmin.vue'),
+    },
+    {
+      path: '/admin/eigw/onlineListAdmin',
+      name: 'onlineListAdmin',
+      component: () => import('@/views/admin/eigw/OnlineListAdmin.vue'),
     },
     ],
   },

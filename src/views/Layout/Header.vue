@@ -118,6 +118,12 @@
                 <li @click="movePage('virtualUserList_MCG')">
                   MCG 가상 사용자 관리
                 </li>
+                <li @click="movePage('fileListAdmin')">
+                  fileListAdmin
+                </li>
+                <li @click="movePage('onlineListAdmin')">
+                  onlineListAdmin
+                </li>
               </ul>
             </li>
           </ul>
