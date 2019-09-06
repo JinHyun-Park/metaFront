@@ -2362,7 +2362,7 @@ display: table-column
     z-index: 10
 }
 
-#app>.contents.popup {
+#app>.confirm>.contents.popup {
     display: flex;
     display: -ms-flexbox;
     justify-content: center;
