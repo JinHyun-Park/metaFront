@@ -1464,6 +1464,7 @@ input[type=radio]+label.border-brickpink {
 .contents .form_area.style-3 .row_contain .column .view_text .textarea,
 .contents .form_area.style-3 .row_contain .column.on .view_text .textarea,
 .contents .form_area.style-3 .row_contain .column:hover .view_text .textarea {
+    padding: 5px 7px 6px 17px;
     font-size: 15px;
     color: #666;
     border: none;
@@ -1471,7 +1472,7 @@ input[type=radio]+label.border-brickpink {
     box-sizing: border-box
 }
 
-.contents .form_area .row_contain .column .view_text textarea,
+.contents .form_area.style-3 .row_contain .column .view_text textarea,
 .contents .form_area.style-3 .row_contain .column .view_text .textarea {
     padding: 5px 7px 6px 17px;
     min-height: 200px;
