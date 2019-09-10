@@ -150,26 +150,6 @@
         />
       </div>
     </section>
-    <section class="btm_button_area">
-      <button
-        type="button"
-        class="default_button"
-      >
-        수정
-      </button>
-      <button
-        type="button"
-        class="default_button"
-      >
-        추가
-      </button>
-      <button
-        type="button"
-        class="default_button on"
-      >
-        등록
-      </button>
-    </section>
   </div>
 </template>
 
@@ -185,8 +165,8 @@ export default {
       userId: '',
       hanNm: '',
       pageNo: 1,   // 페이지 번호
-      pageCount: 10,  // 총 페이지 수
-      size: '',
+      pageCount: '',  // 총 페이지 수
+      size: 10,
     };
   },
   computed: {
