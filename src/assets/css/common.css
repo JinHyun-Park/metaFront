@@ -2260,8 +2260,10 @@ display: table-column
 }
 
 .table_grid .table_row.form_type .td_cell input[type=text],
+.table_grid .table_row.form_type .td_cell .search_group,
 .table_grid .table_row.form_type .td_cell .select_group {
-    position: relative
+    position: relative;
+    top: 0
 }
 
 .table_grid .table_row.form_type .td_cell input[type=text],
@@ -2346,6 +2348,10 @@ display: table-column
 }
 
 .table_grid .table_row .td_cell input[type=text] {
+    width: 80%
+}
+
+.table_grid.extend-1 .table_row .td_cell:nth-child(5) input[type=text] {
     width: 96%
 }
 
