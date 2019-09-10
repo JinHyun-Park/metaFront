@@ -1078,9 +1078,8 @@ flex-direction: column
 /* FORM */
 
 .contents .form_area {
-    margin-bottom: 46px;
+    margin-bottom: 50px;
     padding: 13px 17px 21px;
-    /* margin-bottom: 54px; */
     /* padding: 13px 17px 30px; */
     width: 100%;
     _border: 1px solid #dfdfdf;
@@ -2187,6 +2186,7 @@ display: table-column
 
 .table_grid .table_row .td_cell {
     display: table-cell;
+    position: relative;
     /* padding: 12px 10px; */
     padding: 7px 10px 6px;
     width: 12.5%;
@@ -2207,6 +2207,13 @@ display: table-column
     margin-bottom: -1px
 }
 
+.table_grid .table_row .td_cell input[type=text],
+.table_grid .table_row .td_cell .select_group {
+    position: absolute;
+    top: 5px;
+    left: 0
+}
+
 .table_grid .table_row.form_type .td_cell {
     padding: 14px 10px 13px;
     height: 41px;
@@ -2224,6 +2231,11 @@ display: table-column
 
 .table_grid .table_row.form_type .td_cell:last-child {
     padding-right: 5px
+}
+
+.table_grid .table_row.form_type .td_cell input[type=text],
+.table_grid .table_row.form_type .td_cell .select_group {
+    position: relative
 }
 
 .table_grid .table_row.form_type .td_cell input[type=text],
