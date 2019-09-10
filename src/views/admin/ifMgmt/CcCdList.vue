@@ -49,7 +49,7 @@
             <button
               type="button"
               class="default_button on"
-              @click="searchList()"
+              @click="pageNo=1;searchList()"
             >
               검색
             </button>
@@ -138,6 +138,19 @@
           </div>
         </div>
       </div>
+      <div class="pagination_space">
+        <paginate
+          v-model="pageNo"
+          :page-count="pageCount"
+          :page-range="3"
+          :margin-pages="1"
+          :click-handler="searchList"
+          :prev-text="'이전'"
+          :next-text="'다음'"
+          :container-class="'pagination'"
+          :page-class="'page-item'"
+        />
+      </div>
     </section>
   </div>
 </template>
@@ -154,8 +167,9 @@ export default {
       opClCd: '',
       cdId: '',
       cdDtlId: '',
-      pageNo: '',
-      size: '',
+      pageNo: 1,
+      pageCount:'',
+      size: 10,
     };
   },
   computed: {
@@ -177,6 +191,7 @@ export default {
         params: {
           pageNo: this.pageNo,
           size: this.size,
+          pageCount: this.pageCount,
           opClCd: this.opClCd,
           cdId: this.cdId,
           cdDtlId: this.cdDtlId,
@@ -185,7 +200,8 @@ export default {
         .then((res) => {
           console.log(res);
           if (res.data.rstCd === 'S') {
-            this.ccCdLst = res.data.rstData.ccCdLst;
+            //this.ccCdLst = res.data.rstData.ccCdLst;
+            this.ccCdLst = this.parseRtnData(res.data.rstData.ccCdLst, 'Y');
             if (this.ccCdLst.length === 0) {
               this.addList();
             }
@@ -197,6 +213,14 @@ export default {
         .catch((ex) => {
           console.log(`error occur!! : ${ex}`);
         });
+    },
+    parseRtnData(rstSet, pageYn) {
+      if (pageYn === 'Y') {
+        this.pageCount = rstSet.totalPages;
+        this.pageNo = rstSet.pageable.pageNumber+1;
+      }
+
+      return rstSet.content;
     },
     addList() {
       const a = {
