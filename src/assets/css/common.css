@@ -1079,8 +1079,8 @@ flex-direction: column
 
 .contents .form_area {
     margin-bottom: 54px;
-    /* padding: 13px 17px 30px; */
     padding: 13px 17px 21px;
+    /* padding: 13px 17px 30px; */
     width: 100%;
     _border: 1px solid #dfdfdf;
     border-radius: 6px;
@@ -2190,7 +2190,7 @@ display: table-column
     padding: 7px 10px 6px;
     width: 12.5%;
     min-width: 115px;
-    height: 36px;
+    height: 34px;
     font-size: 15px;
     color: #888;
     font-family: Moebius_Regular_kor, Moebius_Regular_eng;
@@ -2260,7 +2260,10 @@ display: table-column
 
 .table_grid .table_row .td_cell input[type=text],
 .table_grid .table_row .td_cell .select_group select {
-    height: 30px;
+    padding: 4px 0 5px 11px;
+    /* height: 30px; */
+    height: 25px;
+    width: 71.6%;
     font-size: 13px;
     color: #888;
     font-family: Moebius_Regular_kor, Moebius_Regular_eng;
@@ -2276,10 +2279,11 @@ display: table-column
 .table_grid .table_row .td_cell:hover input[type=text],
 .table_grid .table_row .td_cell.on .select_group select,
 .table_grid .table_row .td_cell:hover .select_group select {
-    padding: 6px 0 5px 17px;
-    height: 30px;
+    padding: 5px 0 4px 11px;
+    /* height: 30px; */
+    height: 25px;
     color: #555;
-    font-size: 14px;
+    font-size: 13px;
     font-family: Moebius_Regular_kor, Moebius_Regular_eng;
     border-color: #82BEA3;
     border-style: none none solid;
