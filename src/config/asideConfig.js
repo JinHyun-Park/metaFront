@@ -10,11 +10,9 @@ export default {
     { index: 1, menuNm: '신청목록', url: 'regList' },
   ],
   META: [
-    { index: 1, menuNm: 'meta1', url: 'aaa' },
-    { index: 2, menuNm: 'meta2', url: 'bbb' },
-    { index: 3, menuNm: 'meta3', url: 'ccc' },
-    { index: 4, menuNm: 'meta4', url: 'ddd' },
-    { index: 5, menuNm: 'meta5', url: 'eee' },
+    { index: 1, menuNm: 'EIGW 메타정보', url: 'aaa' },
+    { index: 2, menuNm: 'MCG 메타정보', url: 'bbb' },
+    { index: 3, menuNm: 'EAI 메타정보', url: 'ccc' },
   ],
   MGMT: [
     { index: 1, menuNm: 'mgmt1', url: 'aaa' },

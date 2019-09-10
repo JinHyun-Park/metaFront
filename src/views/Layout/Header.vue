@@ -44,9 +44,9 @@
                 <li @click="movePage('allList')">
                   전체 조회
                 </li>
-                <li>EiGW</li>
-                <li>MCG</li>
-                <li>EAI</li>
+                <li>EiGW 메타정보</li>
+                <li>MCG 메타정보</li>
+                <li>EAI 메타정보</li>
                 <li
                   :class="{ov: isActive('eaiReg')}"
                   @click="movePage('eaiReg')"

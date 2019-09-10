@@ -40,7 +40,18 @@ const router = new Router({
       path: '/notice/noticeMain',
       name: 'noticeMain',
       component: () => import('@/views/notice/NoticeMain.vue'),
-    }],
+    },
+    {
+      path: '/notice/noticeView',
+      name: 'noticeView',
+      component: () => import('@/views/notice/NoticeView.vue'),
+    },
+    {
+      path: '/notice/noticeWrite',
+      name: 'noticeWrite',
+      component: () => import('@/views/notice/NoticeWrite.vue'),
+    },
+    ],
   },
   //  2. 인터페이스 신청
   {
