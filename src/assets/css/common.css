@@ -2167,6 +2167,12 @@ display: table-column
     min-width: 575px
 }
 
+.contents .right_space .table_colgroup .table_grid.extend-1 .table_head ul .th_cell:last-child(2),
+.contents .right_space .table_colgroup .table_grid.extend-1 .table_body .table_row .td_cell:last-child(2) {
+    width: 375px;
+    min-width: 375px
+}
+
 .table_grid.tb_layout .table_head ul .th_cell:nth-child(2),
 .table_grid.tb_layout .table_body .table_row .td_cell:nth-child(2),
 .table_grid.tb_layout .table_body .fold_colgroup>.table_row.colspan .td_cell:nth-child(2),

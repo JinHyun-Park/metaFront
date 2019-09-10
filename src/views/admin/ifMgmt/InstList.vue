@@ -35,7 +35,7 @@
       </div>
 
       <div class="table_colgroup">
-        <div class="table_grid radio_group extend">
+        <div class="table_grid radio_group extend-1">
           <div class="table_head w-auto">
             <ul>
               <li class="th_cell" />
@@ -48,6 +48,7 @@
               <li class="th_cell">
                 기관설명
               </li>
+              <li class="th_cell" />
               <li class="th_cell" />
             </ul>
           </div>
