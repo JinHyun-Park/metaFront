@@ -2044,14 +2044,14 @@ display: table-column
     width: 12.5%;
     min-width: 115px;
     height: 35px;
-    border-top: 1px solid #565656;
     font-size: 14px;
     font-family: Moebius_Regular_kor, Moebius_Regular_eng;
     color: #555;
     vertical-align: middle;
     letter-spacing: -.4px;
-    background: #fff;
+    border-top: 1px solid #565656;
     border-bottom: 1px solid #dfdfdf;
+    background: #fff;
     box-sizing: border-box
 }
 
