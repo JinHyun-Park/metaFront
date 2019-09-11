@@ -17,6 +17,7 @@
           <button
             type="button"
             class="default_button"
+            @click="searchList"
           >
             검색
           </button>
@@ -29,10 +30,21 @@
         </div>
       </h5>
       <div class="row_contain type-3">
+        <div class="column w-2">
+          <label class="column_label">검색어</label>
+            <div class="search_group">
+              <input 
+                v-model='reqTitle' 
+                type="text" 
+                value='Searching'
+              >
+            </div>
+        </div>
         <div class="column on w-2">
           <label class="column_label">조회기간</label>
           <div class="calander_group first_cal">
             <input
+              v-model="startReqDtm"
               type="text"
               value="2019-07-08"
             >
@@ -45,6 +57,7 @@
           <label class="column_label">&nbsp;</label>
           <div class="calander_group">
             <input
+              v-model="endReqDtm"
               type="text"
               value="2019-08-07"
             >
@@ -53,180 +66,130 @@
             </span>
           </div>
         </div>
-        <div class="column w-4" />
-        <!--
-                        <div class="column w-4">
-                            <label class="column_label">검색어</label>
-                            <div class="search_group">
-                                <input type="text" value="Searching">
-                                <span class="search">
-                                    <i class="ico-search"></i>
-                                </span>
-                            </div>
-                        </div>
--->
       </div>
       <div class="table_grid">
         <div class="table_head w-auto">
           <ul>
             <li class="th_cell">
-              업무코드<i class="ico-sort-down" />
+              신청번호
             </li>
             <li class="th_cell">
-              채널ID<i class="ico-sort-up" />
+              신청제목
             </li>
             <li class="th_cell">
-              등록일<i class="ico-sort-up" />
+              진행상태
             </li>
             <li class="th_cell">
-              신청자<i class="ico-sort-down" />
+              등록일
+            </li>
+            <li class="th_cell">
+              신청자
             </li>
           </ul>
         </div>
         <div class="table_body">
-          <ul class="table_row w-auto">
-            <li class="td_cell">
-              1011
+          <ul 
+            v-for="(row, i) in ifReqList"
+            class="table_row w-auto"
+            :key="row.reqMgmtNum"
+          >
+            <li 
+              class="td_cell"
+            >
+              {{row.reqMgmtNum}}
             </li>
-            <li class="td_cell">
-              2 documents2 documents2 documents2 documents2 documents2 documents2 documents
+            <li 
+              class="td_cell"
+            >
+              {{row.reqTitle}}
             </li>
-            <li class="td_cell">
-              2019-08-07
+            <li 
+              class="td_cell"
+            >
+              {{row.procSt}}
             </li>
-            <li class="td_cell">
-              Mywolrd
+            <li 
+              class="td_cell"
+            >
+              {{row.reqDtm}}
             </li>
-          </ul>
-          <ul class="table_row w-auto">
-            <li class="td_cell">
-              1012
-            </li>
-            <li class="td_cell">
-              q sign
-            </li>
-            <li class="td_cell">
-              2019-08-07
-            </li>
-            <li class="td_cell">
-              Yourworld
-            </li>
-          </ul>
-          <ul class="table_row w-auto">
-            <li class="td_cell">
-              1013
-            </li>
-            <li class="td_cell">
-              Ch to Ch
-            </li>
-            <li class="td_cell">
-              2019-08-07
-            </li>
-            <li class="td_cell">
-              Tworld
-            </li>
-          </ul>
-          <ul class="table_row w-auto">
-            <li class="td_cell">
-              1011
-            </li>
-            <li class="td_cell">
-              2 documents2 documents2 documents2 documents2 documents2 documents2 documents
-            </li>
-            <li class="td_cell">
-              2019-08-07
-            </li>
-            <li class="td_cell">
-              Mywolrd
-            </li>
-          </ul>
-          <ul class="table_row w-auto">
-            <li class="td_cell">
-              1012
-            </li>
-            <li class="td_cell">
-              q sign
-            </li>
-            <li class="td_cell">
-              2019-08-07
-            </li>
-            <li class="td_cell">
-              Yourworld
-            </li>
-          </ul>
-          <ul class="table_row w-auto">
-            <li class="td_cell">
-              1013
-            </li>
-            <li class="td_cell">
-              Ch to Ch
-            </li>
-            <li class="td_cell">
-              2019-08-07
-            </li>
-            <li class="td_cell">
-              Tworld
-            </li>
-          </ul>
-          <ul class="table_row w-auto">
-            <li class="td_cell">
-              1011
-            </li>
-            <li class="td_cell">
-              2 documents2 documents2 documents2 documents2 documents2 documents2 documents
-            </li>
-            <li class="td_cell">
-              2019-08-07
-            </li>
-            <li class="td_cell">
-              Mywolrd
-            </li>
-          </ul>
-          <ul class="table_row w-auto">
-            <li class="td_cell">
-              1012
-            </li>
-            <li class="td_cell">
-              q sign
-            </li>
-            <li class="td_cell">
-              2019-08-07
-            </li>
-            <li class="td_cell">
-              Yourworld
-            </li>
-          </ul>
-          <ul class="table_row w-auto">
-            <li class="td_cell">
-              1013
-            </li>
-            <li class="td_cell">
-              Ch to Ch
-            </li>
-            <li class="td_cell">
-              2019-08-07
-            </li>
-            <li class="td_cell">
-              Tworld
+            <li 
+              class="td_cell"
+            >
+              {{row.reqrChrgr.hanNm}}({{row.reqrChrgr.userId}})
             </li>
           </ul>
         </div>
       </div>
-    </section>
-
-    <section class="btm_button_area">
-      <button
-        type="button"
-        class="default_button"
-      >
-        수정
-      </button>
-      <button
-        type="button"
-        class="default_button on"
-      >
-        등록
-      </button>
+      <div class="pagination_space">
+        <paginate
+          v-model="pageSet.pageNo"
+          :page-count="pageSet.pageCount"
+          :page-range="3"
+          :margin-pages="1"
+          :click-handler="pageChanged"
+          :prev-text="'이전'"
+          :next-text="'다음'"
+          :container-class="'pagination'"
+          :page-class="'page-item'"
+        />
+      </div>
     </section>
   </div>
 </template>
+
+<script>
+import { mapState, mapActions } from 'vuex';
+
+export default {
+  /* eslint-disable */
+  data() {
+    return {
+      ifReqList: [],
+      tgtUrl: '',
+      startReqDtm: '',
+      endReqDtm: '',
+      reqTitle: '',
+      pageSet: {pageNo: 1, pageCount:0, size:10},
+    };
+  },
+  computed: {
+    ...mapState('frameSet', ['resetPopOn']),
+    
+  },
+  mounted() {
+    this.startReqDtm = new Date().toDateString('YYYYMMDD');
+  },
+  methods: {
+    ...mapActions('frameSet', ['setResetPopOn']),
+    searchList() {
+      this.tgtUrl = '/api/ifreq/list';
+      this.$axios.get(this.tgtUrl, {
+        params: {
+          pageNo: this.pageSet.pageNo,
+          size: this.pageSet.size,
+          reqTitle: this.reqTitle,
+          startReqDtm: this.startReqDtm,
+          endReqDtm: this.endReqDtm,
+        },
+      })
+        .then((res) => {
+          console.log(res);
+          if (res.data.rstCd === 'S') {
+            this.ifReqList = this.parseRtnData(this.pageSet, res.data.rstData.ifReqMstList, 'Y');
+          } else {
+            // eslint-disable-next-line no-alert
+            alert('failed');
+          }
+        })
+        .catch((ex) => {
+          console.log(`error occur!! : ${ex}`);
+        });
+    },
+    pageChanged(pageNum) { 
+      console.log(pageNum);
+    },
+  },
+}
+
+</script>

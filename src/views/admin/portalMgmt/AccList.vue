@@ -138,8 +138,8 @@
       </div>
       <div class="pagination_space">
         <paginate
-          v-model="pageNo"
-          :page-count="pageCount"
+          v-model="pageSet.pageNo"
+          :page-count="pageSet.pageCount"
           :page-range="3"
           :margin-pages="1"
           :click-handler="pageChanged"
@@ -164,9 +164,7 @@ export default {
       tgtUrl: '',
       userId: '',
       hanNm: '',
-      pageNo: 1,   // 페이지 번호
-      pageCount: '',  // 총 페이지 수
-      size: 10,
+      pageSet: {pageNo: 1, pageCount:0, size:10},
     };
   },
   computed: {
@@ -178,8 +176,8 @@ export default {
       this.tgtUrl = '/api/user';
       this.$axios.get(this.tgtUrl, {
         params: {
-          pageNo: this.pageNo,
-          size: this.size,
+          pageNo: this.pageSet.pageNo,
+          size: this.pageSet.size,
           userId: this.userId,
           hanNm: this.hanNm,
         },
@@ -187,7 +185,7 @@ export default {
         .then((res) => {
           console.log(res);
           if (res.data.rstCd === 'S') {
-            this.userList = res.data.rstData.userList;
+            this.userList = this.parseRtnData(this.pageSet, res.data.rstData.userList, 'Y');
           } else {
             // eslint-disable-next-line no-alert
             alert('failed');

@@ -140,8 +140,8 @@
       </div>
       <div class="pagination_space">
         <paginate
-          v-model="pageNo"
-          :page-count="pageCount"
+          v-model="pageSet.pageNo"
+          :page-count="pageSet.pageCount"
           :page-range="3"
           :margin-pages="1"
           :click-handler="searchList"
@@ -167,9 +167,7 @@ export default {
       opClCd: '',
       cdId: '',
       cdDtlId: '',
-      pageNo: 1,
-      pageCount:'',
-      size: 10,
+      pageSet: {pageNo: 1, pageCount:0, size:10},
     };
   },
   computed: {
@@ -189,9 +187,9 @@ export default {
 
       this.$axios.get(this.tgtUrl, {
         params: {
-          pageNo: this.pageNo,
+          pageNo: this.pageSet.pageNo,
           size: this.size,
-          pageCount: this.pageCount,
+          pageCount: this.pageSet.pageCount,
           opClCd: this.opClCd,
           cdId: this.cdId,
           cdDtlId: this.cdDtlId,
@@ -200,8 +198,7 @@ export default {
         .then((res) => {
           console.log(res);
           if (res.data.rstCd === 'S') {
-            //this.ccCdLst = res.data.rstData.ccCdLst;
-            this.ccCdLst = this.parseRtnData(res.data.rstData.ccCdLst, 'Y');
+            this.ccCdLst = this.parseRtnData(this.pageSet, res.data.rstData.ccCdLst, 'Y');
             if (this.ccCdLst.length === 0) {
               this.addList();
             }
@@ -213,14 +210,6 @@ export default {
         .catch((ex) => {
           console.log(`error occur!! : ${ex}`);
         });
-    },
-    parseRtnData(rstSet, pageYn) {
-      if (pageYn === 'Y') {
-        this.pageCount = rstSet.totalPages;
-        this.pageNo = rstSet.pageable.pageNumber+1;
-      }
-
-      return rstSet.content;
     },
     addList() {
       const a = {
