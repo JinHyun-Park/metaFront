@@ -15,7 +15,7 @@ export default {
             return;
         }
 
-        axios.get('/api/bizcomm/cccd', {
+        axios.get('/api/bizcomm/cccd/selectbox', {
                 params: {
                     opClCd: payload.opClCd,
                     cdId: payload.cdId,

@@ -165,6 +165,21 @@
       </div>
     </section>
 
+    <section class="btm_button_area double">
+      <button
+        type="button"
+        class="default_button"
+      >
+        수정
+      </button>
+      <button
+        type="button"
+        class="default_button on"
+      >
+        추가
+      </button>
+    </section>
+
     <section class="form_area border_group">
       <h5 class="s_tit type-2">
         SWING 송신 인터페이스 DB
@@ -294,3 +309,9 @@
     </section>
   </div>
 </template>
+
+<script>
+export default {
+  name: 'SwingDbInfo',
+};
+</script>

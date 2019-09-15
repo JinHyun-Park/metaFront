@@ -44,9 +44,9 @@
                 <li @click="movePage('allList')">
                   전체 조회
                 </li>
-                <li>EiGW</li>
-                <li>MCG</li>
-                <li>EAI</li>
+                <li>EiGW 메타정보</li>
+                <li>MCG 메타정보</li>
+                <li>EAI 메타정보</li>
                 <li
                   :class="{ov: isActive('eaiReg')}"
                   @click="movePage('eaiReg')"
@@ -94,12 +94,6 @@
                 <li>EiGW</li>
                 <li>MCG</li>
                 <li>EAI</li>
-                <li @click="movePage('accList')">
-                  사용자 계정 관리
-                </li>
-                <li @click="movePage('opsAccList')">
-                  OPS계정 정보 조회
-                </li>
                 <li @click="movePage('accListEigw')">
                   EiGW 담당자 관리
                 </li>
@@ -123,6 +117,17 @@
                 </li>
                 <li @click="movePage('onlineListAdmin')">
                   onlineListAdmin
+                </li>
+              </ul>
+            </li>
+            <li class="n">
+              <span>포탈 관리</span>
+              <ul class="sub_menu">
+                <li @click="movePage('accList')">
+                  사용자 계정 관리
+                </li>
+                <li @click="movePage('opsAccList')">
+                  OPS계정 정보 조회
                 </li>
               </ul>
             </li>

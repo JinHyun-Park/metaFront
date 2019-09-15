@@ -50,6 +50,13 @@
             <span class="search"><i class="ico-search" /></span>
           </div>
         </div>
+        <div class="column on w-3">
+          <label class="column_label">Port</label>
+          <input
+            type="text"
+            value=""
+          >
+        </div>
         <div class="column w-2">
           <label class="column_label">사용</label>
           <div class="select_group">
@@ -169,3 +176,9 @@
     </section>
   </div>
 </template>
+
+<script>
+export default {
+  name: 'QueueMgrList',
+};
+</script>

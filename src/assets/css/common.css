@@ -680,7 +680,7 @@ aside .lnb li:hover {
 }
 
 .contents.index .login.form_area .column .column_label {
-    font-size: 13px
+    font-size: 14px
 }
 
 .contents.index .login_contn .btm_button_area.log {
@@ -1078,9 +1078,9 @@ flex-direction: column
 /* FORM */
 
 .contents .form_area {
-    margin-bottom: 54px;
-    /* padding: 13px 17px 30px; */
+    margin-bottom: 50px;
     padding: 13px 17px 21px;
+    /* padding: 13px 17px 30px; */
     width: 100%;
     _border: 1px solid #dfdfdf;
     border-radius: 6px;
@@ -1096,6 +1096,18 @@ flex-direction: column
 
 .contents .form_area.style-3 {
     background: #fcfcfc
+}
+
+.contents .form_area.style-3 .row_contain {
+    border-bottom: 2px dashed #cfcfcf
+}
+
+.contents .form_area.style-3 .row_contain:last-child {
+    border-bottom: none
+}
+
+.contents .form_area.style-3.first {
+    margin-bottom: 30px
 }
 
 .contents .form_area.several_table .table_grid {
@@ -1454,35 +1466,58 @@ input[type=radio]+label.border-brickpink {
     align-self: center
 }
 
-.contents .form_area .row_contain .column .view_text,
-.contents .form_area .row_contain .column .view_text input[type=text],
-.contents .form_area .row_contain .column.on .view_text input[type=text],
-.contents .form_area .row_contain .column:hover .view_text input[type=text],
-.contents .form_area .row_contain .column .view_text input[type=password],
-.contents .form_area .row_contain .column.on .view_text input[type=password],
-.contents .form_area .row_contain .column:hover .view_text input[type=password],
-.contents .form_area .row_contain .column .view_text .textarea,
-.contents .form_area .row_contain .column.on .view_text .textarea,
-.contents .form_area .row_contain .column:hover .view_text .textarea {
+.contents .form_area.style-3 .row_contain .column .view_text,
+.contents .form_area.style-3 .row_contain .column .view_text input[type=text],
+.contents .form_area.style-3 .row_contain .column.on .view_text input[type=text],
+.contents .form_area.style-3 .row_contain .column:hover .view_text input[type=text],
+.contents .form_area.style-3 .row_contain .column .view_text input[type=password],
+.contents .form_area.style-3 .row_contain .column.on .view_text input[type=password],
+.contents .form_area.style-3 .row_contain .column:hover .view_text input[type=password],
+.contents .form_area.style-3 .row_contain .column .view_text .textarea,
+.contents .form_area.style-3 .row_contain .column.on .view_text .textarea,
+.contents .form_area.style-3 .row_contain .column:hover .view_text .textarea {
     padding: 5px 7px 6px 17px;
-    height: 30px;
-    width: 100%;
-    height: 100%;
-    font-family: Moebius_Regular_kor, Moebius_Regular_eng;
-    color: #888;
-    font-size: 15px;
-    line-height: 22px;
+    font-size: 13px;
+    color: #666;
     border: none;
     background: transparent;
     box-sizing: border-box
 }
 
-.contents .form_area .row_contain .column .view_text .textarea {
-    min-height: 200px;
-    max-height: 290px;
+.contents .form_area.style-3 .row_contain.subject .column .view_text input[type=text] {
+    font-size: 14px
+}
+
+
+/*
+.contents .form_area.style-3 .row_contain .column .view_text input[type=text],
+.contents .form_area.style-3 .row_contain .column .view_text input[type=password],
+.contents .form_area.style-3 .row_contain .column .view_text .textarea {
+    border:none;
+    border-bottom:2px dotted #dfdfdf
+}
+*/
+
+.contents .form_area.style-2 .row_contain .column textarea,
+.contents .form_area.style-2 .row_contain .column.on textarea,
+.contents .form_area.style-2 .row_contain .column:hover textarea,
+.contents .form_area.style-3 .row_contain .column .view_text .textarea {
+    padding: 5px 7px 6px 17px;
+    min-height: 400px;
+    max-height: 490px;
     line-height: 22px;
+    font-size: 14px;
+    font-family: Moebius_Regular_kor, Moebius_Regular_eng;
     white-space: pre-line;
     overflow-y: auto
+}
+
+.contents .form_area.style-2 .row_contain .column textarea {
+    font-size: 13px
+}
+
+.contents .form_area.style-3 .row_contain .column .view_text .textarea {
+    font-size: 13px
 }
 
 .contents .form_area .row_contain .column input[type=text],
@@ -1502,7 +1537,7 @@ select,
     padding: 5px 0 6px 17px;
     height: 30px;
     width: 100%;
-    font-size: 14px;
+    font-size: 13px;
     color: #888;
     font-family: Moebius_Regular_kor, Moebius_Regular_eng;
     letter-spacing: .2px;
@@ -1532,7 +1567,7 @@ select {
 .contents .form_area .row_contain .column textarea {
     padding: 7px 9px 8px 17px;
     font-family: Moebius_Regular_kor, Moebius_Regular_eng;
-    font-size: 14px;
+    font-size: 13px;
     color: #888;
     letter-spacing: -.2px;
     line-height: 22px;
@@ -1554,7 +1589,7 @@ select {
     padding: 6px 0 5px 17px;
     height: 30px;
     color: #555;
-    font-size: 15px;
+    font-size: 14px;
     font-family: Moebius_Regular_kor, Moebius_Regular_eng;
     /* line-height: 23px; */
     border-color: #82BEA3;
@@ -2025,14 +2060,14 @@ display: table-column
     width: 12.5%;
     min-width: 115px;
     height: 35px;
-    border-top: 1px solid #565656;
     font-size: 14px;
     font-family: Moebius_Regular_kor, Moebius_Regular_eng;
     color: #555;
     vertical-align: middle;
     letter-spacing: -.4px;
-    background: #fff;
+    border-top: 1px solid #565656;
     border-bottom: 1px solid #dfdfdf;
+    background: #fff;
     box-sizing: border-box
 }
 
@@ -2168,6 +2203,12 @@ display: table-column
     min-width: 575px
 }
 
+.contents .right_space .table_colgroup .table_grid.extend-1 .table_head.w-auto ul .th_cell:nth-child(5),
+.contents .right_space .table_colgroup .table_grid.extend-1 .table_body .table_row.w-auto .td_cell:nth-child(5) {
+    width: 315px;
+    min-width: 315px
+}
+
 .table_grid.tb_layout .table_head ul .th_cell:nth-child(2),
 .table_grid.tb_layout .table_body .table_row .td_cell:nth-child(2),
 .table_grid.tb_layout .table_body .fold_colgroup>.table_row.colspan .td_cell:nth-child(2),
@@ -2187,12 +2228,14 @@ display: table-column
 
 .table_grid .table_row .td_cell {
     display: table-cell;
+    position: relative;
     /* padding: 12px 10px; */
     padding: 7px 10px 6px;
     width: 12.5%;
     min-width: 115px;
-    height: 36px;
-    font-size: 15px;
+    height: 34px;
+    /* font-size: 15px; */
+    font-size: 13px;
     color: #888;
     font-family: Moebius_Regular_kor, Moebius_Regular_eng;
     border-bottom: 1px solid #dfdfdf;
@@ -2207,13 +2250,58 @@ display: table-column
     margin-bottom: -1px
 }
 
+.table_grid .table_row .td_cell input[type=text],
+.table_grid .table_row .td_cell .select_group {
+    position: absolute;
+    top: 5px;
+    left: 0
+}
+
 .table_grid .table_row.form_type .td_cell {
-    padding: 14px 10px 6px;
-    box-sizing: content-box
+    padding: 14px 10px 13px;
+    height: 41px;
+    box-sizing: border-box
+}
+
+.table_grid .table_row.form_type .td_cell.on,
+.table_grid .table_row.form_type .td_cell:hover {
+    padding: 13px 10px 12px
+}
+
+.table_grid .table_row.form_type .td_cell:first-child {
+    padding-left: 18px
 }
 
 .table_grid .table_row.form_type .td_cell:last-child {
     padding-right: 5px
+}
+
+.table_grid .table_row.form_type .td_cell input[type=text],
+.table_grid .table_row.form_type .td_cell .search_group,
+.table_grid .table_row.form_type .td_cell .select_group {
+    position: relative;
+    top: 0
+}
+
+.table_grid .table_row.form_type .td_cell input[type=text],
+.table_grid .table_row.form_type .td_cell .select_group select {
+    padding: 5px 0 6px 17px;
+    width: 100%;
+    height: 30px
+}
+
+.table_grid .table_row.form_type .td_cell.on input[type=text],
+.table_grid .table_row.form_type .td_cell:hover input[type=text],
+.table_grid .table_row.form_type .td_cell.on .select_group select,
+.table_grid .table_row.form_type .td_cell:hover .select_group select {
+    padding: 4px 2px 3px 17px;
+    width: 100%;
+    height: 30px
+}
+
+.table_grid .table_row.form_type .td_cell.on .select_group select,
+.table_grid .table_row.form_type .td_cell:hover .select_group select {
+    padding-left: 18px
 }
 
 .table_grid .table_body .table_row.w-auto .td_cell {
@@ -2261,7 +2349,10 @@ display: table-column
 
 .table_grid .table_row .td_cell input[type=text],
 .table_grid .table_row .td_cell .select_group select {
-    height: 30px;
+    padding: 3px 0 4px 9px;
+    /* height: 30px; */
+    height: 25px;
+    width: 76.8%;
     font-size: 13px;
     color: #888;
     font-family: Moebius_Regular_kor, Moebius_Regular_eng;
@@ -2273,14 +2364,23 @@ display: table-column
     outline-color: #f9f9f9
 }
 
+.table_grid .table_row .td_cell input[type=text] {
+    width: 80%
+}
+
+.table_grid.extend-1 .table_row .td_cell:nth-child(5) input[type=text] {
+    width: 96%
+}
+
 .table_grid .table_row .td_cell.on input[type=text],
 .table_grid .table_row .td_cell:hover input[type=text],
 .table_grid .table_row .td_cell.on .select_group select,
 .table_grid .table_row .td_cell:hover .select_group select {
-    padding: 6px 0 5px 17px;
-    height: 30px;
+    padding: 4px 0 3px 9px;
+    /* height: 30px; */
+    height: 25px;
     color: #555;
-    font-size: 14px;
+    font-size: 13px;
     font-family: Moebius_Regular_kor, Moebius_Regular_eng;
     border-color: #82BEA3;
     border-style: none none solid;
@@ -2538,6 +2638,10 @@ display: table-column
     width: 100%
 }
 
+.btm_button_area.double {
+    padding-bottom: 86px
+}
+
 .right_button_area {
     width: 100%;
     padding-bottom: 0;
@@ -2549,7 +2653,7 @@ display: table-column
     width: 135px;
     height: 40px;
     color: #404040;
-    font-size: 14px;
+    font-size: 13px;
     font-family: Moebius_Regular_kor, Moebius_Regular_eng;
     line-height: 30px;
     letter-spacing: 1px;
@@ -2858,10 +2962,10 @@ footer em {
     .contents.index .login_contn.layer_popup {
         left: 30.2%
     }
-    .contents .form_area .row_contain .column .column_label,
+    /* .contents .form_area .row_contain .column .column_label,
     .select_group>.column_label {
         letter-spacing: .4px
-    }
+    } */
     .table_grid.tb_layout .table_head ul .th_cell,
     .table_grid.tb_layout .table_body .table_row .td_cell {
         width: 176px
