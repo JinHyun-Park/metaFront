@@ -431,7 +431,3 @@
 
 <script>
 </script>
-
-<style scoped>
-#app, #app>div {overflow:auto}
-</style>
