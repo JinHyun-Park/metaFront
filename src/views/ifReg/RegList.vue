@@ -32,13 +32,13 @@
       <div class="row_contain type-3">
         <div class="column w-2">
           <label class="column_label">검색어</label>
-            <div class="search_group">
-              <input 
-                v-model='reqTitle' 
-                type="text" 
-                value='Searching'
-              >
-            </div>
+          <div class="search_group">
+            <input
+              v-model="reqTitle"
+              type="text"
+              value="Searching"
+            >
+          </div>
         </div>
         <div class="column on w-2">
           <label class="column_label">조회기간</label>
@@ -88,35 +88,35 @@
           </ul>
         </div>
         <div class="table_body">
-          <ul 
-            v-for="(row, i) in ifReqList"
-            class="table_row w-auto"
+          <ul
+            v-for="(row) in ifReqList"
             :key="row.reqMgmtNum"
+            class="table_row w-auto"
           >
-            <li 
+            <li
               class="td_cell"
             >
-              {{row.reqMgmtNum}}
+              {{ row.reqMgmtNum }}
             </li>
-            <li 
+            <li
               class="td_cell"
             >
-              {{row.reqTitle}}
+              {{ row.reqTitle }}
             </li>
-            <li 
+            <li
               class="td_cell"
             >
-              {{row.procSt}}
+              {{ row.procSt }}
             </li>
-            <li 
+            <li
               class="td_cell"
             >
-              {{row.reqDtm}}
+              {{ row.reqDtm }}
             </li>
-            <li 
+            <li
               class="td_cell"
             >
-              {{row.reqrChrgr.hanNm}}({{row.reqrChrgr.userId}})
+              {{ row.reqrChrgr.hanNm }}({{ row.reqrChrgr.userId }})
             </li>
           </ul>
         </div>
