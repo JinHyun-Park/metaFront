@@ -212,9 +212,21 @@
       <button
         type="button"
         class="default_button on"
+        @click="moveToWrite()"
       >
         등록
       </button>
     </section>
   </div>
 </template>
+
+<script>
+export default {
+  name: 'NoticeMain',
+  methods: {
+    moveToWrite() {
+      this.$router.push({ name: 'noticeWrite' });
+    },
+  },
+};
+</script>

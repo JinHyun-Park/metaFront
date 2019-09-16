@@ -89,12 +89,14 @@
       <button
         type="button"
         class="default_button"
+        @click="moveToNotiMain()"
       >
         목록
       </button>
       <button
         type="button"
         class="default_button"
+        @click="moveToNotiMain()"
       >
         취소
       </button>
@@ -111,5 +113,10 @@
 <script>
 export default {
   name: 'NoticeWrite',
+  methods: {
+    moveToNotiMain() {
+      this.$router.push({ name: 'noticeMain' });
+    },
+  },
 };
 </script>
