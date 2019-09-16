@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div
-      v-if="true"
+      v-if="false"
       class="confirm"
     >
       <comm-alert />
