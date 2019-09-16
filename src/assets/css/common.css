@@ -442,10 +442,10 @@ nav .menu li .sub_menu li:hover {
     justify-content: flex-start;
     /* align-self: center; */
     margin: 0 56px 0 57px;
-    padding: 14px 17px 14px 16px;
+    padding: 0;
     /* width: 270px; */
     /* width: 17%; */
-    width: 16%;
+    width: 15%;
     /* height: 100%; */
     /* height: auto; */
     min-height: 0;
@@ -455,7 +455,7 @@ nav .menu li .sub_menu li:hover {
     /* position: relative; */
     position: absolute;
     top: 0;
-    left: 79.5%;
+    left: 80.3%;
     transition: 0.7s
 }
 
@@ -464,10 +464,12 @@ nav .menu li .sub_menu li:hover {
     display: -ms-flexbox;
     position: relative;
     top: 0;
+    padding: 14px 17px 14px 16px;
     width: 100%;
     height: auto;
     min-height: 0;
-    box-shadow: 1px 1px 4px 0 rgba(0, 0, 0, .14)
+    box-shadow: 1px 1px 4px 0 rgba(0, 0, 0, .14);
+    box-sizing: border-box
 }
 
 .contents .move_form .form_area {
@@ -2953,8 +2955,9 @@ footer em {
         width: 74px
     }
     .contents .move_form {
-        left: 80%;
-        margin: 0 0 0 70px
+        left: 80.8%;
+        width: 15.7%;
+        margin: 0 0 0 60px
     }
 }
 
@@ -2972,7 +2975,7 @@ footer em {
         /* margin-right: 26px; */
         /* width: 18% */
         width: 16%;
-        left: 79.1%
+        left: 80%
     }
 }
 
@@ -2982,7 +2985,7 @@ footer em {
         min-width: 1369px
     } */
     aside {
-        width: 16%;
+        width: 15%;
         margin-right: 40px
     }
     aside>h3 {
@@ -3056,9 +3059,8 @@ footer em {
         margin-left: 40px;
         /* width: 207px; */
         /* width: 17%; */
-        width: 14.3%;
-        left: 79.8%;
-        box-sizing: content-box
+        width: 17.5%;
+        left: 79.7%
     }
 }
 
