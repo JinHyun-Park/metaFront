@@ -28,7 +28,7 @@ body {
     display: block;
     flex-direction: column;
     width: 100%;
-    height: 100%;
+    /* height: 100%; */
     min-height: 100%;
     overflow: auto
 }
@@ -110,7 +110,7 @@ aside {
     padding-left: 20px;
     /* width: 260px; */
     width: 15%;
-    /* width:16%; */
+    /* width: 16%; */
     /* height: 100%; */
     min-height: 100%;
     background: #fefefe;
@@ -426,21 +426,35 @@ nav .menu li .sub_menu li:hover {
     display: flex;
     display: -ms-flexbox;
     flex-direction: column;
-    justify-content: flex-end;
+    justify-content: flex-start;
     /* align-self: center; */
     margin: 0 56px 0 57px;
     padding: 14px 17px 14px 16px;
     /* width: 270px; */
-    width: 15%;
-    height: auto;
+    /* width: 17%; */
+    width: 16%;
+    /* height: 100%; */
+    /* height: auto; */
     min-height: 0;
     border-radius: 6px;
+    box-shadow: none;
     box-sizing: border-box;
-    /* position: relative;
-    height:100%; */
+    /* position: relative; */
     position: absolute;
+    top: 0;
     left: 79.5%;
     transition: 0.7s
+}
+
+.contents .move_form .move_contn {
+    display: flex;
+    display: -ms-flexbox;
+    position: relative;
+    top: 0;
+    width: 100%;
+    height: auto;
+    /* min-height: 0; */
+    box-shadow: 1px 1px 4px 0 rgba(0, 0, 0, .14);
 }
 
 .contents .move_form .form_area {
@@ -2918,10 +2932,10 @@ footer em {
     .contents .grid_form .search_group input[type=text] {
         width: 74px
     }
-    .contents .move_form {
+    /* .contents .move_form {
         left: 80%;
         margin: 0 0 0 70px
-    }
+    } */
 }
 
 @media (min-width:1537px) and (max-width:1690px) {
@@ -2934,11 +2948,11 @@ footer em {
     }
     .contents .move_form {
         margin-left: 60px;
-        margin-right: 0;
-        /* margin-right: 26px; */
-        /* width: 18% */
-        width: 16%;
-        left: 79.1%
+        /* margin-right: 0; */
+        margin-right: 26px;
+        width: 18%
+        /* width: 16%;
+        left: 79.1% */
     }
 }
 
@@ -3021,9 +3035,9 @@ footer em {
         margin: 0;
         margin-left: 40px;
         /* width: 207px; */
-        /* width: 17%; */
-        width: 14.3%;
-        left: 79.8%;
+        width: 17%;
+        /* width: 14.3%;
+        left: 79.8%; */
         box-sizing: content-box
     }
 }
@@ -3035,7 +3049,7 @@ footer em {
         overflow: hidden
     } */
     .contents .move_form {
-        /* width: 17% */
-        width: 15%
+        width: 17%
+        /* width: 15% */
     }
 }
