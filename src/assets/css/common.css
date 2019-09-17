@@ -2177,6 +2177,27 @@ display: table-column
     display: table-row
 }
 
+.table_grid .table_body .table_row .td_cell.reply .ico-replying,
+.table_grid .table_body .table_row .td_cell.reply .ico-replyed {
+    display: inline-flex;
+    display: -ms-inline-flexbox;
+    position: relative;
+    top: 4px;
+    margin-right: 3px;
+    width: 16px;
+    height: 16px;
+    background: url(../images/ico-replying.png) center center no-repeat;
+    background-size: 100%;
+    cursor: pointer
+}
+
+.table_grid .table_body .table_row .td_cell.reply .ico-replyed {
+    width: 16px;
+    height: 16px;
+    background: url(../images/ico-replyed.png) center center no-repeat;
+    background-size: 100%
+}
+
 .table_grid.tb_layout {
     table-layout: fixed
 }
@@ -2388,6 +2409,28 @@ display: table-column
     background: #fff
 }
 
+.table_grid .table_row .td_cell label.label-default.color-green {
+    border-color: #82BEA3
+}
+
+.table_grid .table_row .td_cell.reply label.label-default {
+    padding: 3px 6px 4px 8px;
+    font-size: 12px;
+    color: #595959;
+    border-color: rgba(196, 105, 121, .4) #bd6776 #bd6776 rgba(196, 105, 121, .4);
+    border-width: 1px 1px 1px 1px;
+    border-style: solid;
+    border-radius: 3px;
+    background: #fff
+}
+
+.table_grid .table_row .td_cell.reply label.label-default.color-green {
+    color: #757575;
+    border-color: #82BEA3 rgba(130, 190, 163, .5) rgba(130, 190, 163, .5) #82BEA3;
+    border-width: 1px 1px 1px 1px;
+    /*    background:#f9f9f9*/
+}
+
 .table_grid .table_row .td_cell>a {
     padding-left: 11px;
     font-size: 14px;
@@ -2398,10 +2441,6 @@ display: table-column
 .table_grid .table_row .td_cell>a.on,
 .table_grid .table_row .td_cell>a:hover {
     text-decoration: underline
-}
-
-.table_grid .table_row .td_cell label.label-default.color-green {
-    border-color: #82BEA3
 }
 
 .table_grid .table_row .td_cell input[type=text],
