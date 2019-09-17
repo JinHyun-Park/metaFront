@@ -11,8 +11,12 @@ import store from './store';
 import './assets/css/common.css';
 
 import globalMixin from '@/mixins/globalMixin';
+import gfFunc from '@/utils/gfFunc';
 
 Vue.config.productionTip = false;
+
+// Vue.myGlobalMethod = gfFunc;
+Vue.prototype.$myMethod = gfFunc; // 함수를 전역에서 사용할 수 있도록.
 
 require('es6-promise').polyfill();
 

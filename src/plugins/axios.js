@@ -21,7 +21,10 @@ const _axios = axios.create(config);
 _axios.interceptors.request.use(
     config =>
     // Do something before request is sent
-    config,
+    {
+        // console.log('axios 시작'); // 이런식으로 넣으면 됨.
+        return config
+    },
     error =>
     // Do something with request error
     Promise.reject(error),
@@ -31,7 +34,11 @@ _axios.interceptors.request.use(
 _axios.interceptors.response.use(
     response =>
     // Do something with response data
-    response,
+    {
+        // console.log('리스폰스 : ');
+        // console.log(response);
+        return response
+    },
     error =>
     // Do something with response error
     Promise.reject(error),

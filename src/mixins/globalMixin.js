@@ -41,6 +41,7 @@ const common = {
           case 'y':
             offRtnDate.setYear(format.getFullYear() + parseInt(offsetValue, 10));
             break;
+          default:
         }
       }
 
