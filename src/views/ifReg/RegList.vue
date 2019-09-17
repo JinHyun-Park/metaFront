@@ -158,7 +158,8 @@ export default {
     
   },
   mounted() {
-    this.startReqDtm = new Date().toDateString('YYYYMMDD');
+    this.startReqDtm = this.dateToString(new Date(), '-7d');
+    this.endReqDtm = this.dateToString(new Date());
   },
   methods: {
     ...mapActions('frameSet', ['setResetPopOn']),
