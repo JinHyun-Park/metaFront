@@ -21,6 +21,14 @@ body {
     letter-spacing: -.2px
 }
 
+
+/* #app::-webkit-scrollbar,
+#app>div {
+    width: 0;
+    height: 100%;
+    overflow: hidden
+} */
+
 #app,
 #app>div {
     /* display: flex; */
@@ -28,9 +36,33 @@ body {
     display: block;
     flex-direction: column;
     width: 100%;
+    /* height: auto; */
     height: 100%;
-    min-height: 100%
+    min-height: 100%;
+    /* position: relative;
+    overflow: auto */
 }
+
+
+/* html::-webkit-scrollbar,
+body::-webkit-scrollbar, */
+
+#app::-webkit-scrollbar,
+#app>div::-webkit-scrollbar,
+#app>.confirm>.contents.popup::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    position: fixed;
+    overflow: hidden
+}
+
+
+/* #app,
+#app>div {
+    display: flex;
+    width: 100%;
+    height: auto
+} */
 
 #app>.confirm {
     display: flex;
@@ -45,15 +77,6 @@ body {
     min-height: 100%;
     z-index: 9
 }
-
-
-/* #app,
-#app>.confirm>.contents.popup::-webkit-scrollbar {
-    width: 0;
-    height: 0;
-    position: absolute;
-    overflow: hidden
-} */
 
 .contents.center {
     justify-content: center;
