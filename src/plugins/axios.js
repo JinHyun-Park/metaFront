@@ -22,12 +22,14 @@ _axios.interceptors.request.use(
     config =>
     // Do something before request is sent
     {
-        // console.log('axios 시작'); // 이런식으로 넣으면 됨.
+        console.log('axios 시작'); // 이런식으로 넣으면 됨.
         return config
     },
-    error =>
-    // Do something with request error
-    Promise.reject(error),
+    error => {
+        // Do something with request error
+        console.log('axios 실패!'); // 이런식으로 넣으면 됨.
+        return Promise.reject(error)
+    },
 );
 
 // Add a response interceptor
@@ -35,7 +37,7 @@ _axios.interceptors.response.use(
     response =>
     // Do something with response data
     {
-        // console.log('리스폰스 : ');
+        console.log('리스폰스 : ');
         // console.log(response);
         return response
     },

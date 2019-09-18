@@ -221,10 +221,16 @@
 </template>
 
 <script>
+import gm from '@/mixins/globalMixin';
+
 export default {
   name: 'NoticeMain',
   methods: {
     moveToWrite() {
+      // this.$gf.isEmpty('진입한다123');
+      // this.helpers.isEmpty('1212');
+      // gm.gf_isEmpty('1212');
+      console.log(`moveToWrite : ${this.$helpers.exFunc1()}`);
       this.$router.push({ name: 'noticeWrite' });
     },
   },

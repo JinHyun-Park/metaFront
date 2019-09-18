@@ -4,7 +4,6 @@ const common = {
   },
   methods: {
     gf_isEmpty(value) {
-      console.log('isEmpty 진입!');
       if (value === '' || value === null || value === undefined
                 || (value != null && typeof value === 'object' && !Object.keys(value).length)) {
         return true;
@@ -63,19 +62,20 @@ const common = {
       return year + month + date;
     },
     stringToDate(str, ylen) {
+      let inLen;
       // default value setting : 4 length
       if (ylen == null || ylen === 0) {
-        ylen = 4;
+        inLen = 4;
       }
       if (ylen !== 2 && ylen !== 4) {
         return new Date();
       }
 
-      str = str.replace(/\-/g, '');
+      const inStr = str.replace(/\-/g, '');
 
-      const year = str.substr(0, ylen);
-      const month = str.substr(ylen, 2);
-      const date = str.substr(ylen + 2, 2);
+      const year = inStr.substr(0, inLen);
+      const month = inStr.substr(inLen, 2);
+      const date = inStr.substr(inLen + 2, 2);
 
       return new Date(year, month, date);
     },
