@@ -88,7 +88,7 @@ header {
     justify-content: center;
     /* position: absolute; */
     /* margin-bottom: 37px; */
-    margin-bottom: 29px;
+    /*    margin-bottom: 29px;*/
     width: 100%;
     border-bottom: 1px solid #cdcdcd;
     box-shadow: 1px 1px 4px 0 rgba(0, 0, 0, .12);
@@ -119,6 +119,7 @@ article {
     justify-content: flex-start;
     align-content: flex-start;
     flex-direction: row;
+    position: relative;
     padding: 0;
     width: 100%;
     min-height: 100%;
@@ -511,6 +512,9 @@ nav .menu li .sub_menu li:hover {
     content: none
 }
 
+
+/* RIGHT SPACE */
+
 .contents .right_space {
     display: flex;
     display: -ms-flexbox;
@@ -524,6 +528,10 @@ nav .menu li .sub_menu li:hover {
     height: 100%;
     min-height: 100%;
     /* height: calc(100% - 135px); */
+}
+
+.contents.index .right_space.main {
+    width: 83.3333%
 }
 
 .contents .title {
@@ -664,6 +672,16 @@ aside .lnb li:hover {
     width: 100%;
     height: 100%;
     min-height: 100%
+}
+
+.contents,
+.contents.index.except {
+    padding-top: 29px
+}
+
+.contents.index.except {
+    height: auto;
+    background: #fbfbfb
 }
 
 .contents.index .login_contn {
@@ -1144,6 +1162,155 @@ flex-direction: column
     background: #fff;
     _box-shadow: 1px 1px 4px 2px rgba(0, 0, 0, .14);
     box-sizing: border-box
+}
+
+
+/* Dashboard Chart Board */
+
+
+/*
+.contents .form_area.dashboard,
+.contents .board_area .form_area {
+    background:#fcfcfc
+}
+*/
+
+.contents .right_space.main .board_area .form_area.dashboard {
+    margin-right: 1.3333%;
+    width: 33%;
+}
+
+.contents .form_area.dashboard .row_contain.chart_area {
+    min-height: 220px
+}
+
+.contents .form_area.dashboard .row_contain.chart_area img {
+    width: 100%;
+    height: auto
+}
+
+.contents .board_area .form_area .row_contain.chart_area img {
+    width: 100%;
+    height: 100%
+}
+
+.contents .form_area.dashboard .chart_title>div {
+    flex-direction: column;
+    /*    flex:0 0 33.3333%;*/
+    width: 33.3333%;
+    padding-right: 23px;
+    box-sizing: border-box
+}
+
+.contents .form_area.dashboard .chart_title>div:last-child {
+    padding-right: 0
+}
+
+.contents .form_area.dashboard h4.l_tit {
+    width: 100%;
+    font-family: Moebius_Regular_kor, Moebius_Regular_eng;
+    font-size: 12px;
+    color: #777
+}
+
+.contents .right_space.main .board_area {
+    display: flex;
+    width: 100%
+}
+
+.contents .right_space.main .board_area .form_area {
+    margin-right: .3333%;
+    width: 33.3333%;
+    max-height: 433px;
+}
+
+.contents .right_space.main .board_area .form_area:last-child {
+    margin-right: 0
+}
+
+.contents .right_space.main .board_area .table_grid .table_row .td_cell .subject_tit {
+    padding-bottom: 4px;
+    font-size: 13px;
+    color: #444;
+    letter-spacing: .2px
+}
+
+.contents .right_space.main .board_area .table_grid.radio_group .table_row .td_cell {
+    font-size: 12px;
+    letter-spacing: .2px;
+    vertical-align: middle
+}
+
+.text-right {
+    text-align: right
+}
+
+.table_grid .table_row .td_cell.text-right .ico-edit {
+    margin-right: 0
+}
+
+.ico-set {
+    display: flex;
+    display: -ms-flexbox;
+    position: relative;
+    top: -1px;
+    margin-left: 2px;
+    width: 16px;
+    height: 16px;
+    background: url(../images/ico-set.png) center center no-repeat;
+    background-size: 100%;
+    cursor: pointer
+}
+
+.contents .form_area.dashboard .label_space {
+    display: flex;
+    display: -ms-flexbox;
+    width: auto
+}
+
+.contents .form_area.dashboard .label_space label.label-default {
+    padding: 5px 13px;
+    font-size: 13px;
+    color: #666;
+    font-weight: normal;
+    border-style: solid;
+    border-color: rgba(196, 105, 121, .4) #c46979 #c46979 rgba(196, 105, 121, .4);
+    border-width: 1px 1px 1px 0px;
+    border-radius: 0px;
+    background: #fff;
+    cursor: pointer
+}
+
+.contents .form_area.dashboard .label_space label.label-default:first-child {
+    border-radius: 3px 0 0 3px;
+    border-width: 1px 1px 1px 1px
+}
+
+.contents .form_area.dashboard .label_space label.label-default:last-child {
+    border-radius: 0 3px 3px 0;
+    border-width: 1px 1px 1px 0
+}
+
+.contents .form_area.dashboard .label_space label.label-default.on,
+.contents .form_area.dashboard .label_space label.label-default:hover {
+    padding: 5px 12px 4px 13px;
+    color: #46576b;
+    border-color: #bd6776;
+    border-width: 1px 2px 2px 0px
+}
+
+.contents .form_area.dashboard .label_space label.label-default.on:first-child,
+.contents .form_area.dashboard .label_space label.label-default:first-child:hover {
+    border-width: 1px 2px 2px 1px
+}
+
+.contents .form_area.dashboard .label_space label.label-default.on:last-child,
+.contents .form_area.dashboard .label_space label.label-default:last-child:hover {
+    border-width: 1px 2px 2px 0px
+}
+
+.contents .form_area.dashboard .label_space label.label-default.color-green {
+    border-color: #82BEA3
 }
 
 .contents .form_area.style-2,
@@ -1798,6 +1965,10 @@ width: 24px
     background: #dfdfdf url(../images/ico-droparrow-dis.png) right 6px center no-repeat
 }
 
+.contents .form_area .row_contain .column.disabled input[type=text],
+.contents .form_area .row_contain .column input[type=text]:read-only,
+.contents .form_area .row_contain .column input[type=text]:disabled,
+.contents .form_area .row_contain .column.disabled:hover input[type=text]:disabled,
 .contents .form_area .row_contain .column .calander_group.disabled input[type=text],
 .contents .form_area .row_contain .column:hover .calander_group.disabled input[type=text]:disabled {
     color: #898989;
@@ -1806,6 +1977,9 @@ width: 24px
     background: #dfdfdf
 }
 
+.contents .form_area .row_contain .column:hover input[type=text]:read-only,
+.contents .form_area .row_contain .column:hover input[type=text]:disabled,
+.contents .form_area .row_contain .column.disabled:hover input[type=text],
 .contents .form_area .row_contain .column:hover .calander_group.disabled input[type=text]:disabled {
     border-style: none none solid;
     background: #fff
@@ -2247,6 +2421,12 @@ display: table-column
 .contents .right_space .table_colgroup .table_grid .table_body .table_row.w-auto .td_cell:last-child {
     width: 125px;
     min-width: 125px
+}
+
+.contents .right_space.main .board_area .table_colgroup .table_grid .table_head.w-auto ul .th_cell:last-child,
+.contents .right_space.main .board_area .table_colgroup .table_grid .table_body .table_row.w-auto .td_cell:last-child {
+    min-width: 35px;
+    width: 35px
 }
 
 .contents .layer_popup.small .table_colgroup .table_grid .table_head ul .th_cell,
