@@ -1949,10 +1949,15 @@ width: 24px
 .contents .form_area .row_contain .column .calander_group .calander .datepicker,
 .contents .form_area .row_contain .column .calander_group .calander .datepicker .picker,
 .contents .form_area .row_contain .column .calander_group .calander .timepicker,
+.contents .form_area .row_contain .column .calander_group .calander .timepicker .picker,
 .contents .form_area .row_contain .column .calander_group .calander .datetime-picker,
+.contents .form_area .row_contain .column .calander_group .calander .datetime-picker .picker,
 .calander_group .calander .datepicker,
+.calander_group .calander .datepicker .picker,
 .calander_group .calander .timepicker,
-.calander_group .calander .datetime-picker {
+.calander_group .calander .timepicker .picker,
+.calander_group .calander .datetime-picker,
+.calander_group .calander .datetime-picker .picker {
     display: block
 }
 
