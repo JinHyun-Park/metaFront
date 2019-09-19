@@ -1,5 +1,14 @@
 <template>
   <div class="right_space">
+    <datepicker
+      :value="startReqDtm"
+      min="2018-6-1"
+      max="2020-01-01"
+      :day-str="dayStr"
+      :scrollbar-props="{isMobile: isM}"
+      :popper-props="popperProps"
+      @input="log"
+    />
     <section class="title style-1">
       <h2>
         <div>
@@ -23,14 +32,24 @@
         </div>
       </h5>
       <div class="row_contain type-3">
-        <div class="column on w-2">
+        <div class="column w-2">
           <label class="column_label">조회기간</label>
           <div class="calander_group first_cal">
             <input
+              v-model="startReqDtm"
               type="text"
-              value="2019-07-08"
+              value=""
             >
             <span class="calander">
+              <datepicker
+                :value="startReqDtm"
+                min="2018-6-1"
+                max="2020-01-01"
+                :day-str="dayStr"
+                :scrollbar-props="{isMobile: isM}"
+                :popper-props="popperProps"
+                @input="log"
+              />
               <i class="ico-cal" />
             </span>
           </div>
@@ -39,8 +58,9 @@
           <label class="column_label">&nbsp;</label>
           <div class="calander_group">
             <input
+              v-model="endReqDtm"
               type="text"
-              value="2019-08-07"
+              value=""
             >
             <span class="calander">
               <i class="ico-cal" />
@@ -221,17 +241,33 @@
 </template>
 
 <script>
-import gm from '@/mixins/globalMixin';
-
 export default {
   name: 'NoticeMain',
+  data() {
+    return {
+      startReqDtm: '',
+      endReqDtm: '',
+
+      dayStr: ['7', '1', '2', '3', '4', '5', '6'],
+      date: '2018-06-01',
+      isM: '',
+      popperProps: {
+        type: Object,
+      },
+    };
+  },
+  mounted() {
+    this.startReqDtm = this.$gf.dateToString(new Date(), '-7d');
+    this.endReqDtm = this.$gf.dateToString(new Date());
+    this.date = this.$gf.dateToString(new Date());
+  },
   methods: {
     moveToWrite() {
-      // this.$gf.isEmpty('진입한다123');
-      // this.helpers.isEmpty('1212');
-      // gm.gf_isEmpty('1212');
-      console.log(`moveToWrite : ${this.$helpers.exFunc1()}`);
       this.$router.push({ name: 'noticeWrite' });
+    },
+    log(val) {
+      this.startReqDtm = val;
+      console.log(val);
     },
   },
 };

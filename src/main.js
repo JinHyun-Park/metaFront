@@ -1,3 +1,4 @@
+import { Datepicker } from '@livelybone/vue-datepicker'; // vue datePicker
 import Vue from 'vue';
 import 'babel-polyfill';
 import vuescroll from 'vue-scroll';
@@ -6,23 +7,21 @@ import Paginate from 'vuejs-paginate';
 import App from './App.vue';
 import router from './router';
 import store from './store';
-
-// import '../node_modules/bootstrap/dist/css/bootstrap.css';
 import './assets/css/common.css';
-
 import globalMixin from '@/mixins/globalMixin';
-// import helpers from '@/utils/helpers';
 import '@/plugins/gfPlugin';
 
-Vue.config.productionTip = false;
+import '@livelybone/vue-datepicker/lib/css/index.css'; // dataPicker css import
 
-// Vue.prototype.$gf = helpers; // 함수를 전역에서 사용할 수 있도록.
+Vue.config.productionTip = false;
 
 require('es6-promise').polyfill();
 
 Vue.mixin(globalMixin); // 공통 함수 사용을 위한 믹스인 주입
 Vue.use(vuescroll);
 Vue.component('paginate', Paginate);
+
+Vue.component('datepicker', Datepicker); // Global register
 
 new Vue({
   router,
