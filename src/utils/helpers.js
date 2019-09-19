@@ -102,6 +102,7 @@ const helpers = {
       return new Date();
     }
 
+    // eslint-disable-next-line no-useless-escape
     const inStr = str.replace(/\-/g, '');
 
     const year = inStr.substr(0, inLen);
@@ -116,6 +117,7 @@ const helpers = {
      */
   exFunc1() {
     console.log('exFunc1 진입');
+    // eslint-disable-next-line no-undef
     axios.get(this.tgtUrl, {
       params: {},
     })

@@ -126,3 +126,6 @@ https://velog.io/@skyepodium/VS-code%EC%97%90%EC%84%9C-vue%ED%94%84%EB%A1%9C%EC%
 
   뷰 페이징 처리 설치 vuejs-paginate
   npm install --save vuejs-paginate bootstrap@3.3.x
+
+  vue-datepicker
+  npm install -save @livelybone/vue-datepicker
