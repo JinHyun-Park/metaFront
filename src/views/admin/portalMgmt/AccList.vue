@@ -185,7 +185,7 @@ export default {
         .then((res) => {
           console.log(res);
           if (res.data.rstCd === 'S') {
-            this.userList = this.parseRtnData(this.pageSet, res.data.rstData.userList, 'Y');
+            this.userList = this.$gf.parseRtnData(this.pageSet, res.data.rstData.userList, 'Y');
           } else {
             // eslint-disable-next-line no-alert
             alert('failed');

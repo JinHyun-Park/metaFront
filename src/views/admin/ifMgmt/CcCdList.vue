@@ -198,7 +198,7 @@ export default {
         .then((res) => {
           console.log(res);
           if (res.data.rstCd === 'S') {
-            this.ccCdLst = this.parseRtnData(this.pageSet, res.data.rstData.ccCdLst, 'Y');
+            this.ccCdLst = this.$gf.parseRtnData(this.pageSet, res.data.rstData.ccCdLst, 'Y');
             if (this.ccCdLst.length === 0) {
               this.addList();
             }

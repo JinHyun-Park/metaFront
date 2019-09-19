@@ -1,7 +1,6 @@
 /**
  * 공통 method를 담은 js
  */
-// import Axios from 'axios';
 import store from '@/store';
 
 const helpers = {
@@ -94,7 +93,7 @@ const helpers = {
     return year + month + date;
   },
   stringToDate(str, ylen) {
-    let inLen;
+    let inLen = ylen;
     // default value setting : 4 length
     if (ylen == null || ylen === 0) {
       inLen = 4;

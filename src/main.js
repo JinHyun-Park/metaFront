@@ -11,12 +11,12 @@ import store from './store';
 import './assets/css/common.css';
 
 import globalMixin from '@/mixins/globalMixin';
-import helpers from '@/utils/helpers';
+// import helpers from '@/utils/helpers';
 import '@/plugins/gfPlugin';
 
 Vue.config.productionTip = false;
 
-Vue.prototype.$gf = helpers; // 함수를 전역에서 사용할 수 있도록.
+// Vue.prototype.$gf = helpers; // 함수를 전역에서 사용할 수 있도록.
 
 require('es6-promise').polyfill();
 

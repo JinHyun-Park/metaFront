@@ -158,8 +158,8 @@ export default {
     
   },
   mounted() {
-    this.startReqDtm = this.dateToString(new Date(), '-7d');
-    this.endReqDtm = this.dateToString(new Date());
+    this.startReqDtm = this.$gf.dateToString(new Date(), '-7d');
+    this.endReqDtm = this.$gf.dateToString(new Date());
   },
   methods: {
     ...mapActions('frameSet', ['setResetPopOn']),
@@ -177,7 +177,7 @@ export default {
         .then((res) => {
           console.log(res);
           if (res.data.rstCd === 'S') {
-            this.ifReqList = this.parseRtnData(this.pageSet, res.data.rstData.ifReqMstList, 'Y');
+            this.ifReqList = this.$gf.parseRtnData(this.pageSet, res.data.rstData.ifReqMstList, 'Y');
           } else {
             // eslint-disable-next-line no-alert
             alert('failed');

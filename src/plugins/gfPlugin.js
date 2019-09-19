@@ -3,8 +3,8 @@ import helpers from '@/utils/helpers';
 
 const plugin = {
   install() {
-    Vue.helpers = helpers;
-    Vue.prototype.$helpers = helpers;
+    Vue.gf = helpers;
+    Vue.prototype.$gf = helpers;
   },
 };
 
