@@ -25,14 +25,14 @@
       </section>
       <section class="form_area border_group dashboard">
         <h4 class="l_tit">
-          Total Shipments
+          모니터링
         </h4>
         <h5 class="s_tit type-2">
-          Performance
+          거래량
           <div class="label_space">
-            <label class="label-default on">Accounts</label>
-            <label class="label-default">Purchases</label>
-            <label class="label-default">Sessions</label>
+            <label class="label-default on">EAI</label>
+            <label class="label-default">EiGW</label>
+            <label class="label-default">MCG</label>
           </div>
         </h5>
         <div class="row_contain chart_area">
@@ -46,14 +46,14 @@
       <div class="board_area">
         <section class="form_area border_group dashboard">
           <h4 class="l_tit">
-            Total Shipments
+            모니터링
           </h4>
           <h5 class="s_tit type-2">
-            Performance
+            거래량
             <div class="label_space">
-              <label class="label-default on">Accounts</label>
-              <label class="label-default">Purchases</label>
-              <label class="label-default">Sessions</label>
+              <label class="label-default on">EAI</label>
+              <label class="label-default">EiGW</label>
+              <label class="label-default">MCG</label>
             </div>
           </h5>
           <div class="row_contain type-2 chart_area">
@@ -65,14 +65,14 @@
         </section>
         <section class="form_area border_group dashboard">
           <h4 class="l_tit">
-            Total Shipments
+            모니터링
           </h4>
           <h5 class="s_tit type-2">
-            Performance
+            거래량
             <div class="label_space">
-              <label class="label-default">Accounts</label>
-              <label class="label-default on">Purchases</label>
-              <label class="label-default">Sessions</label>
+              <label class="label-default">EAI</label>
+              <label class="label-default on">EiGW</label>
+              <label class="label-default">MCG</label>
             </div>
           </h5>
           <div class="row_contain type-2 chart_area">
@@ -84,14 +84,14 @@
         </section>
         <section class="form_area border_group dashboard">
           <h4 class="l_tit">
-            Total Shipments
+            모니터링
           </h4>
           <h5 class="s_tit type-2">
-            Performance
+            거래량
             <div class="label_space">
-              <label class="label-default">Accounts</label>
-              <label class="label-default">Purchases</label>
-              <label class="label-default on">Sessions</label>
+              <label class="label-default">EAI</label>
+              <label class="label-default">EiGW</label>
+              <label class="label-default on">MCG</label>
             </div>
           </h5>
           <div class="row_contain type-2 chart_area">
@@ -104,7 +104,7 @@
       </div>
 
       <div class="board_area">
-        <section class="form_area border_group">
+        <section class="form_area border_group dashboard">
           <h5 class="s_tit type-2">
             공지사항
             <i class="ico-set" />
@@ -245,7 +245,7 @@
             </div>
           </div>
         </section>
-        <section class="form_area border_group">
+        <section class="form_area border_group dashboard">
           <h5 class="s_tit type-2">
             Q&amp;A
             <i class="ico-set" />
@@ -357,7 +357,7 @@
             </div>
           </div>
         </section>
-        <section class="form_area border_group">
+        <section class="form_area border_group dashboard">
           <h5 class="s_tit type-2">
             가이드
             <i class="ico-set" />
