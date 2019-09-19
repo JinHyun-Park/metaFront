@@ -162,8 +162,8 @@ section {
 }
 
 section div {
-    display: flex;
-    display: -ms-flexbox;
+    /* display: flex;
+    display: -ms-flexbox; */
     width: 100%
 }
 
@@ -542,6 +542,11 @@ nav .menu li .sub_menu li:hover {
     margin-bottom: 31px;
     padding-bottom: 24px;
     width: 100%
+}
+
+.contents .title div {
+    display: flex;
+    display: -ms-flexbox
 }
 
 .contents .title>h2 {
@@ -1846,6 +1851,8 @@ select {
 .search_group,
 .calander_group,
 .select_group {
+    display: flex;
+    display: -ms-flexbox;
     position: relative
 }
 
@@ -1916,6 +1923,16 @@ width: 24px
     height: 14px;
     background: url(../images/ico-cal.png) center center no-repeat;
     background-size: 100%
+}
+
+.contents .form_area .row_contain .column .calander_group .calander .datepicker,
+.contents .form_area .row_contain .column .calander_group .calander .datepicker .picker,
+.contents .form_area .row_contain .column .calander_group .calander .timepicker,
+.contents .form_area .row_contain .column .calander_group .calander .datetime-picker,
+.calander_group .calander .datepicker,
+.calander_group .calander .timepicker,
+.calander_group .calander .datetime-picker {
+    display: block
 }
 
 .contents .form_area .row_contain .column.on .search_group .search,
