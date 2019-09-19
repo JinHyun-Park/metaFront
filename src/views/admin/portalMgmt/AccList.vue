@@ -198,7 +198,7 @@ export default {
     editList(i) {
       if (confirm(`${this.userList[i].chrgrInfo.hanNm}님 권한을 ${this.userList[i].userAuth}로 변경할래요?`)) {
         // to-do userAuth값을 변경;
-        this.tgtUrl = `/api/user/${this.userList[i].userId}`;
+        this.tgtUrl = `/api/user/auth/${this.userList[i].userId}`;
         this.$axios.put(this.tgtUrl, this.userList[i])
           .then((res) => {
             console.log(res);
