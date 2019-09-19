@@ -1,14 +1,5 @@
 <template>
   <div class="right_space">
-    <datepicker
-      :value="startReqDtm"
-      min="2018-6-1"
-      max="2020-01-01"
-      :day-str="dayStr"
-      :scrollbar-props="{isMobile: isM}"
-      :popper-props="popperProps"
-      @input="log"
-    />
     <section class="title style-1">
       <h2>
         <div>
