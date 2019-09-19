@@ -1269,7 +1269,7 @@ flex-direction: column
 }
 
 .contents .form_area.dashboard .label_space label.label-default {
-    padding: 5px 13px;
+    padding: 5px 19px;
     font-size: 13px;
     color: #666;
     font-weight: normal;
@@ -1282,6 +1282,7 @@ flex-direction: column
 }
 
 .contents .form_area.dashboard .label_space label.label-default:first-child {
+    padding: 5px 24px;
     border-radius: 3px 0 0 3px;
     border-width: 1px 1px 1px 1px
 }
@@ -1291,9 +1292,14 @@ flex-direction: column
     border-width: 1px 1px 1px 0
 }
 
+.contents .form_area.dashboard .label_space label.label-default.on:first-child,
+.contents .form_area.dashboard .label_space label.label-default:first-child:hover {
+    padding: 5px 23px 4px 24px
+}
+
 .contents .form_area.dashboard .label_space label.label-default.on,
 .contents .form_area.dashboard .label_space label.label-default:hover {
-    padding: 5px 12px 4px 13px;
+    padding: 5px 18px 4px 19px;
     color: #46576b;
     border-color: #bd6776;
     border-width: 1px 2px 2px 0px
