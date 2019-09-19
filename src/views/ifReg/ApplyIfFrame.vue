@@ -1,8 +1,8 @@
 <template>
   <div class="right_space">
-    <reg-step1-apply-if v-if="true" />
+    <reg-step1-apply-if v-if="false" />
     <RegStep2eai v-if="false" />
-    <RegStep2eigw v-if="false" />
+    <RegStep2eigw v-if="true" />
     <RegStep2ChMcg v-if="false" />
     <RegStep2DealMcg v-if="false" />
     <RegStep3Applicant v-if="false" />
