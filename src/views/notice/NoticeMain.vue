@@ -1,14 +1,5 @@
 <template>
   <div class="right_space">
-    <datepicker
-      :value="startReqDtm"
-      min="2018-6-1"
-      max="2020-01-01"
-      :day-str="dayStr"
-      :scrollbar-props="{isMobile: isM}"
-      :popper-props="popperProps"
-      @input="log"
-    />
     <section class="title style-1">
       <h2>
         <div>
@@ -41,6 +32,7 @@
               value=""
             >
             <span class="calander">
+              <i class="ico-cal" />
               <datepicker
                 :value="startReqDtm"
                 min="2018-6-1"
@@ -50,7 +42,6 @@
                 :popper-props="popperProps"
                 @input="log"
               />
-              <i class="ico-cal" />
             </span>
           </div>
         </div>
