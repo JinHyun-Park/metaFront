@@ -679,6 +679,11 @@ aside .lnb li:hover {
     padding-top: 29px
 }
 
+.contents .contents.index.except {
+    position: relative;
+    top: -29px
+}
+
 .contents.index.except {
     height: auto;
     background: #fbfbfb
