@@ -535,6 +535,8 @@ nav .menu li .sub_menu li:hover {
 }
 
 .contents .title {
+    display: flex;
+    display: -ms-flexbox;
     justify-content: space-between;
     align-items: center;
     flex-direction: row;
@@ -1108,6 +1110,8 @@ flex-direction: column
 /* ADD INFO TEXT */
 
 .add_info {
+    display: flex;
+    display: -ms-flexbox;
     flex-direction: row;
     margin-bottom: 15px;
     padding: 0 9px;
@@ -1448,6 +1452,8 @@ flex-direction: column
 }
 
 .contents .form_area .row_contain {
+    display: flex;
+    display: -ms-flexbox;
     width: 100%;
     margin-bottom: 36px;
     box-sizing: border-box
@@ -1553,9 +1559,11 @@ flex-direction: column
 }
 
 
-/*RADIO BUTTON*/
+/* RADIO BUTTON */
 
 .contents .form_area .row_contain .column .radio_group {
+    display: flex;
+    display: -ms-flexbox;
     flex-direction: row;
     align-items: center;
     position: relative
@@ -1919,10 +1927,23 @@ width: 24px
 
 .contents .form_area .row_contain .column .calander_group .calander .ico-cal,
 .calander_group .calander .ico-cal {
+    position: absolute;
     width: 14px;
     height: 14px;
     background: url(../images/ico-cal.png) center center no-repeat;
     background-size: 100%
+}
+
+.contents .form_area .row_contain .column .calander_group .calander .datepicker .vue-input,
+.contents .form_area .row_contain .column .calander_group .calander .timepicker .vue-input,
+.contents .form_area .row_contain .column .calander_group .calander .datetime-picker .vue-input,
+.calander_group .calander .datepicker .vue-input,
+.calander_group .calander .timepicker .vue-input,
+.calander_group .calander .datetime-picker .vue-input {
+    border: none;
+    background: transparent;
+    text-indent: -9999px;
+    cursor: pointer
 }
 
 .contents .form_area .row_contain .column .calander_group .calander .datepicker,
@@ -2043,12 +2064,19 @@ width: 24px
 /* GRID FORM */
 
 .contents .grid_form {
+    display: flex;
+    display: -ms-flexbox;
     justify-content: space-between;
     flex-direction: column;
     margin-bottom: 54px;
     padding: 13px 10px 26px 15px;
     width: 100%;
     box-sizing: border-box
+}
+
+.contents .grid_form div {
+    display: flex;
+    display: -ms-flexbox
 }
 
 .contents .grid_form .division_row {
@@ -2943,6 +2971,8 @@ display: table-column
 
 .btm_button_area,
 .right_button_area {
+    display: flex;
+    display: -ms-flexbox;
     justify-content: flex-end;
     flex-direction: row;
     padding-bottom: 60px;
