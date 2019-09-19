@@ -46,9 +46,10 @@
           >
             추가
           </button>
-          <!-- <button type="button" class="default_button on">수정</button>-->
+          <!--<button type="button" class="default_button on">수정</button>-->
         </div>
       </h5>
+
       <!-- ONLINE -->
       <div class="table_colgroup first">
         <div class="table_grid">
@@ -82,6 +83,7 @@
                 연결유형<i class="ico-sort-up" />
               </li>
               <li class="th_cell" />
+              <li class="th_cell" />
             </ul>
           </div>
           <div class="table_body">
@@ -114,6 +116,9 @@
                 2 documents
               </li>
               <li class="td_cell">
+                <label class="label-default color-green">진행</label>
+              </li>
+              <li class="td_cell">
                 <i class="ico-del" />
               </li>
             </ul>
@@ -146,6 +151,9 @@
                 q sign
               </li>
               <li class="td_cell">
+                <label class="label-default">완료</label>
+              </li>
+              <li class="td_cell">
                 <i class="ico-del" />
               </li>
             </ul>
@@ -153,10 +161,10 @@
         </div>
       </div>
       <!-- ONLINE //-->
+
       <!-- FILE -->
       <div class="table_colgroup first">
         <div class="table_grid">
-          <colgroup />
           <div class="table_head">
             <ul>
               <li class="th_cell">
@@ -285,6 +293,7 @@
         </div>
       </div>
       <!-- FILE //-->
+
       <div class="row_contain type-2">
         <div class="column on w-1">
           <label class="column_label">I/F ID(명)</label>
