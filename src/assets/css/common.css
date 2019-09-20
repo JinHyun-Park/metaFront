@@ -1927,23 +1927,37 @@ width: 24px
 
 .contents .form_area .row_contain .column .calander_group .calander .ico-cal,
 .calander_group .calander .ico-cal {
-    position: absolute;
+    /* position: absolute; */
     width: 14px;
     height: 14px;
     background: url(../images/ico-cal.png) center center no-repeat;
     background-size: 100%
 }
 
-.contents .form_area .row_contain .column .calander_group .calander .datepicker .vue-input,
-.contents .form_area .row_contain .column .calander_group .calander .timepicker .vue-input,
-.contents .form_area .row_contain .column .calander_group .calander .datetime-picker .vue-input,
-.calander_group .calander .datepicker .vue-input,
-.calander_group .calander .timepicker .vue-input,
-.calander_group .calander .datetime-picker .vue-input {
+.contents .form_area .row_contain .column .calander_group .datepicker .vue-input,
+.contents .form_area .row_contain .column .calander_group .timepicker .vue-input,
+.contents .form_area .row_contain .column .calander_group .datetime-picker .vue-input,
+.calander_group .datepicker .vue-input,
+.calander_group .timepicker .vue-input,
+.calander_group .datetime-picker .vue-input {
+    padding: 0;
     border: none;
     background: transparent;
     text-indent: -9999px;
     cursor: pointer
+}
+
+.contents .form_area .row_contain .column .calander_group .datepicker,
+.contents .form_area .row_contain .column .calander_group .timepicker,
+.contents .form_area .row_contain .column .calander_group .datetime-picker,
+.calander_group .datepicker,
+.calander_group .timepicker,
+.calander_group .datetime-picker {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 6
 }
 
 .contents .form_area .row_contain .column .calander_group .calander .datepicker,
@@ -1961,25 +1975,36 @@ width: 24px
     display: block
 }
 
-.contents .form_area .row_contain .column .calander_group .calander .datepicker .picker,
+
+/* .contents .form_area .row_contain .column .calander_group .calander .datepicker .picker,
 .contents .form_area .row_contain .column .calander_group .calander .timepicker .picker,
 .contents .form_area .row_contain .column .calander_group .calander .datetime-picker .picker,
 .calander_group .calander .datepicker .picker,
 .calander_group .calander .timepicker .picker,
 .calander_group .calander .datetime-picker .picker {
     left: unset !important;
-    right: calc(100% - 543%)
+    right: calc(100% - 276%)
+} */
+
+.contents .form_area .row_contain .column .calander_group .datepicker .vue-popper,
+.contents .form_area .row_contain .column .calander_group .timepicker .vue-popper,
+.contents .form_area .row_contain .column .calander_group .datetime-picker .vue-popper,
+.calander_group .datepicker .vue-popper,
+.calander_group .timepicker .vue-popper,
+.calander_group .datetime-picker .vue-popper {
+    margin-top: .35em
 }
 
-.contents .form_area .row_contain .column .calander_group .calander .datepicker .picker .arrow,
-.contents .form_area .row_contain .column .calander_group .calander .timepicker .picker .arrow,
-.contents .form_area .row_contain .column .calander_group .calander .datetime-picker .picker .arrow,
-.calander_group .calander .datepicker .picker .arrow,
-.calander_group .calander .timepicker .picker .arrow,
-.calander_group .calander .datetime-picker .picker .arrow {
+
+/* .contents .form_area .row_contain .column .calander_group .datepicker .picker .arrow,
+.contents .form_area .row_contain .column .calander_group .timepicker .picker .arrow,
+.contents .form_area .row_contain .column .calander_group .datetime-picker .picker .arrow,
+.calander_group .datepicker .picker .arrow,
+.calander_group .timepicker .picker .arrow,
+.calander_group .datetime-picker .picker .arrow {
     left: unset !important;
-    right: 37.5%
-}
+    right: 15.9%
+} */
 
 .contents .form_area .row_contain .column.on .search_group .search,
 .contents .form_area .row_contain .column.on .calander_group .calander,
@@ -3268,6 +3293,15 @@ footer em {
     .table_grid .table_row .td_cell:hover .select_group select {
         padding: 5px 0 6px 17px
     }
+    /* .contents .form_area .row_contain .column .calander_group .datepicker .picker .arrow,
+    .contents .form_area .row_contain .column .calander_group .timepicker .picker .arrow,
+    .contents .form_area .row_contain .column .calander_group .datetime-picker .picker .arrow,
+    .calander_group .datepicker .picker .arrow,
+    .calander_group .timepicker .picker .arrow,
+    .calander_group .datetime-picker .picker .arrow {
+        left: unset !important;
+        right: 24.7%
+    } */
     .contents .grid_form .division_row>div {
         grid-template-columns: 86px 84px 64%;
         -ms-grid-columns: 86px 84px 64%
@@ -3365,6 +3399,15 @@ footer em {
     .table_grid .table_row .td_cell .ico-edit {
         margin-right: 11px
     }
+    /* .contents .form_area .row_contain .column .calander_group .datepicker .picker .arrow,
+    .contents .form_area .row_contain .column .calander_group .timepicker .picker .arrow,
+    .contents .form_area .row_contain .column .calander_group .datetime-picker .picker .arrow,
+    .calander_group .datepicker .picker .arrow,
+    .calander_group .timepicker .picker .arrow,
+    .calander_group .datetime-picker .picker .arrow {
+        left: unset !important;
+        right: 34.3%
+    } */
     .contents .grid_form .division_row>div {
         grid-template-columns: 86px 84px 61%;
         -ms-grid-columns: 86px 84px 61%
