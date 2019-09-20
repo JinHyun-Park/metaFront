@@ -44,11 +44,27 @@
                 <li @click="movePage('allList')">
                   전체 조회
                 </li>
-                <li>EiGW 메타정보</li>
-                <li>MCG 메타정보</li>
-                <li>EAI 메타정보</li>
                 <li
-                  :class="{ov: isActive('eaiReg')}"
+                  :class="{ov: isActive('eigwOnlineList')}"
+                  @click="movePage('eigwOnlineList')"
+                >
+                  EiGW
+                </li>
+                <li
+                  :class="{ov: isActive('mcgDtlList')}"
+                  @click="movePage('mcgDtlList')"
+                >
+                  MCG
+                </li>
+                <li
+                  :class="{ov: isActive('queueList')}"
+                  @click="movePage('queueList')"
+                >
+                  EAI
+                </li>
+
+
+                <!-- <li
                   @click="movePage('eaiReg')"
                 >
                   EAI
@@ -84,7 +100,7 @@
                 </li>
                 <li @click="movePage('queueMgrList')">
                   큐매니저
-                </li>
+                </li> -->
               </ul>
             </li>
             <li class="n">
