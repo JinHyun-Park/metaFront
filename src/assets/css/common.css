@@ -1961,6 +1961,26 @@ width: 24px
     display: block
 }
 
+.contents .form_area .row_contain .column .calander_group .calander .datepicker .picker,
+.contents .form_area .row_contain .column .calander_group .calander .timepicker .picker,
+.contents .form_area .row_contain .column .calander_group .calander .datetime-picker .picker,
+.calander_group .calander .datepicker .picker,
+.calander_group .calander .timepicker .picker,
+.calander_group .calander .datetime-picker .picker {
+    left: unset !important;
+    right: calc(100% - 543%)
+}
+
+.contents .form_area .row_contain .column .calander_group .calander .datepicker .picker .arrow,
+.contents .form_area .row_contain .column .calander_group .calander .timepicker .picker .arrow,
+.contents .form_area .row_contain .column .calander_group .calander .datetime-picker .picker .arrow,
+.calander_group .calander .datepicker .picker .arrow,
+.calander_group .calander .timepicker .picker .arrow,
+.calander_group .calander .datetime-picker .picker .arrow {
+    left: unset !important;
+    right: 37.5%
+}
+
 .contents .form_area .row_contain .column.on .search_group .search,
 .contents .form_area .row_contain .column.on .calander_group .calander,
 .contents .form_area .row_contain .column.on .select_group .select,
