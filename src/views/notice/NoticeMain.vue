@@ -31,6 +31,9 @@
               type="text"
               value=""
             >
+            <span class="calander">
+              <i class="ico-cal" />
+            </span>
             <datepicker
               :value="startReqDtm"
               min="2018-6-1"
@@ -40,9 +43,6 @@
               :popper-props="popperProps"
               @input="log"
             />
-            <span class="calander">
-              <i class="ico-cal" />
-            </span>
           </div>
         </div>
         <div class="column w-2">
