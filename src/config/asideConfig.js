@@ -9,10 +9,15 @@ export default {
   IFREGLIST: [
     { index: 1, menuNm: '신청목록', url: 'regList' },
   ],
+  META_ALL: [
+    { index: 1, menuNm: 'EIGW', url: 'eigwOnlineList' },
+    { index: 2, menuNm: 'MCG', url: 'mcgDtlList' },
+    { index: 3, menuNm: 'EAI', url: 'queueList' },
+  ],
   META: [
-    { index: 1, menuNm: 'EIGW 메타정보', url: 'aaa' },
-    { index: 2, menuNm: 'MCG 메타정보', url: 'bbb' },
-    { index: 3, menuNm: 'EAI 메타정보', url: 'ccc' },
+    { index: 1, menuNm: 'EIGW', url: 'aeigwOnlineListaa' },
+    { index: 2, menuNm: 'MCG', url: 'mcgDtlList' },
+    { index: 3, menuNm: 'EAI', url: 'queueList' },
   ],
   MGMT: [
     { index: 1, menuNm: 'mgmt1', url: 'aaa' },

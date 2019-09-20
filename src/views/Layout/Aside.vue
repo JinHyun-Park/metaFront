@@ -59,6 +59,9 @@ export default {
       } else if (path.indexOf('/ifReg/') > -1) {
         this.subNm = '인터페이스 신청';
         this.menuLists = asConfig.IFREG;
+      } else if (path.indexOf('/meta/allList') > -1) { // 메타정보 전체 조회
+        this.subNm = '메타정보 조회';
+        this.menuLists = asConfig.META_ALL;
       } else if (path.indexOf('/meta/') > -1) {
         this.subNm = 'META';
         this.menuLists = asConfig.META;
