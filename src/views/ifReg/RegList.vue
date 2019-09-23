@@ -40,15 +40,15 @@
             >
             <span class="calander">
               <i class="ico-cal" />
-              <datepicker
-                :value="startReqDtm"
-                min="2019-6-1"
-                :max="endReqDtm"
-                :day-str="datePickerSet.dayStr"
-                :popper-props="datePickerSet.popperProps"
-                @input="log"
-              />
             </span>
+            <datepicker
+              :value="startReqDtm"
+              min="2019-6-1"
+              :max="endReqDtm"
+              :day-str="datePickerSet.dayStr"
+              :popper-props="datePickerSet.popperProps"
+              @input="log"
+            />
           </div>
         </div>
         <div class="column w-2">
@@ -61,15 +61,15 @@
             >
             <span class="calander">
               <i class="ico-cal" />
-              <datepicker
-                :value="endReqDtm"
-                :min="startReqDtm"
-                max="2022-01-01"
-                :day-str="datePickerSet.dayStr"
-                :popper-props="datePickerSet.popperProps"
-                @input="log2"
-              />
             </span>
+            <datepicker
+              :value="endReqDtm"
+              :min="startReqDtm"
+              max="2022-01-01"
+              :day-str="datePickerSet.dayStr"
+              :popper-props="datePickerSet.popperProps"
+              @input="log2"
+            />
           </div>
         </div>
         <div class="column w-4">
