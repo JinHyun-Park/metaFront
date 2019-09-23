@@ -1698,6 +1698,152 @@ input[type=radio]+label.border-brickpink {
     background: #82BEA3
 }
 
+
+/*CHECK BOX BUTTON*/
+
+.contents .form_area .row_contain .column .checkbox_group {
+    flex-direction: row;
+    align-items: center;
+    position: relative
+}
+
+.contents .form_area .row_contain .column .checkbox_group .default_checkbox,
+.default_checkbox {
+    display: flex;
+    display: -ms-flexbox;
+    align-items: center;
+    position: relative;
+    margin-left: 104px;
+    padding-left: 24px;
+    font-size: 14px;
+    color: #555
+}
+
+.default_checkbox {
+    margin: 0;
+    padding: 0
+}
+
+.contents .form_area .row_contain .column .checkbox_group .default_checkbox:first-child {
+    margin-left: 14px
+}
+
+.contents .form_area .row_contain .column .checkbox_group .default_checkbox input[type=checkbox],
+.default_checkbox input[type=checkbox] {
+    display: flex;
+    display: -ms-flexbox;
+    margin: 0;
+    padding: 0;
+}
+
+.contents .form_area .row_contain .column .checkbox_group .default_checkbox input[type=checkbox]:not(old),
+.default_checkbox input[type=checkbox]:not(old) {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 13px;
+    height: 13px
+}
+
+.contents .right_space .border_group .table_colgroup .table_grid.checkbox_group .default_checkbox input[type=checkbox]:not(old),
+.contents.popup .layer_popup .form_area .table_colgroup .table_grid.checkbox_group .default_checkbox input[type=checkbox]:not(old),
+.contents.popup .layer_popup .border_group .table_colgroup .table_grid.checkbox_group .default_checkbox input[type=checkbox]:not(old) {
+    position: relative
+}
+
+.default_checkbox input[type=checkbox]:not(old) {
+    width: 11px;
+    height: 11px
+}
+
+.contents .form_area .row_contain .column .checkbox_group .default_checkbox input[type=checkbox]+label,
+.contents .form_area .row_contain .column .checkbox_group .default_checkbox input[type=checkbox]+label.border-brickpink,
+.default_checkbox input[type=checkbox]+label {
+    display: flex;
+    display: -ms-flexbox;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 14px;
+    height: 14px;
+    border: 1px solid #d9eae0;
+    border-radius: 3px;
+    background: #f9f9f9;
+    cursor: pointer;
+    z-index: 9
+}
+
+.default_checkbox input[type=checkbox]+label {
+    width: 12px;
+    height: 12px
+}
+
+.contents .form_area .row_contain .column .checkbox_group .default_checkbox input[type=checkbox]:checked+label,
+.default_checkbox input[type=checkbox]:checked+label,
+.contents .form_area .row_contain .column .checkbox_group .default_checkbox.on input[type=checkbox]+label,
+.default_checkbox.on input[type=checkbox]+label {
+    border-width: 2px;
+    border-color: #82BEA3;
+    background: #fff
+}
+
+.default_checkbox input[type=checkbox]:checked+label,
+.default_checkbox.on input[type=checkbox]+label {
+    border-width: 1px
+}
+
+.contents .form_area .row_contain .column .checkbox_group .default_checkbox input[type=checkbox]+label.border-brickpink,
+input[type=radio]+label.border-brickpink {
+    border-color: rgba(196, 105, 121, .24) !important;
+}
+
+.contents .form_area .row_contain .column .checkbox_group .default_checkbox input[type=checkbox]:checked+label.border-brickpink,
+.default_checkbox input[type=checkbox]:checked+label.border-brickpink,
+.contents .form_area .row_contain .column .checkbox_group .default_checkbox.on input[type=checkbox]+label.border-brickpink,
+.default_checkbox.on input[type=checkbox]+label.border-brickpink {
+    border-color: #c46979 !important;
+}
+
+.contents .form_area .row_contain .column .checkbox_group.checktype-1 .default_checkbox input[type=checkbox]+label span,
+.contents .form_area .row_contain .column .checkbox_group.checktype-1 .default_checkbox.on input[type=checkbox]+label span,
+.contents .form_area .row_contain .column .checkbox_group.checktype-1 .default_checkbox input[type=checkbox]:checked+label span {
+    width: 12px;
+    height: 8px;
+}
+
+.contents .form_area .row_contain .column .checkbox_group .default_checkbox input[type=checkbox]:checked+label.border-brickpink span,
+.default_checkbox input[type=checkbox]:checked+label.border-brickpink span,
+.contents .form_area .row_contain .column .checkbox_group .default_checkbox.on input[type=checkbox]+label.border-brickpink span,
+.default_checkbox.on input[type=checkbox]+label.border-brickpink span {
+    width: 12px;
+    height: 8px;
+    background: url(../images/ico-checked-pink.png)center center no-repeat;
+    background-size: 100%
+}
+
+.contents .form_area .row_contain .column .checkbox_group .default_checkbox input[type=checkbox]+label span,
+.default_checkbox input[type=checkbox]+label span {
+    display: flex;
+    display: -ms-flexbox;
+    justify-content: center;
+    width: 10px;
+    height: 7px;
+    background: url(../images/ico-check.png)center center no-repeat;
+    background-size: 100%
+}
+
+.contents .form_area .row_contain .column .checkbox_group .default_checkbox input[type=checkbox]:checked+label span,
+.default_checkbox input[type=checkbox]:checked+label span,
+.contents .form_area .row_contain .column .checkbox_group .default_checkbox.on input[type=checkbox]+label span,
+.default_checkbox.on input[type=checkbox]+label span {
+    width: 10px;
+    height: 7px;
+    background: url(../images/ico-checked.png) center center no-repeat;
+    background-size: 100%
+}
+
 .contents .form_area .row_contain .column .column_label,
 .select_group>.column_label {
     padding: 0;
@@ -2550,7 +2696,11 @@ display: table-column
 .contents .layer_popup .table_colgroup .table_grid.radio_group .table_head ul .th_cell:first-child,
 .contents .right_space .table_colgroup .table_grid.radio_group .table_head ul .th_cell:first-child,
 .contents .layer_popup .table_colgroup .table_grid.radio_group .table_body .table_row .td_cell:first-child,
-.contents .right_space .table_colgroup .table_grid.radio_group .table_body .table_row .td_cell:first-child {
+.contents .right_space .table_colgroup .table_grid.radio_group .table_body .table_row .td_cell:first-child,
+.contents .layer_popup .table_colgroup .table_grid.checkbox_group .table_head ul .th_cell:first-child,
+.contents .right_space .table_colgroup .table_grid.checkbox_group .table_head ul .th_cell:first-child,
+.contents .layer_popup .table_colgroup .table_grid.checkbox_group .table_body .table_row .td_cell:first-child,
+.contents .right_space .table_colgroup .table_grid.checkbox_group .table_body .table_row .td_cell:first-child {
     width: 45px;
     min-width: 45px
 }
