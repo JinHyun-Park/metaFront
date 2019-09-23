@@ -18,7 +18,7 @@ Vue.config.productionTip = false;
 require('es6-promise').polyfill();
 
 Vue.mixin(globalMixin); // 공통 함수 사용을 위한 믹스인 주입
-Vue.use(vuescroll);
+Vue.use(vuescroll, { debounce: 600 });
 Vue.component('paginate', Paginate);
 
 Vue.component('datepicker', Datepicker); // Global register

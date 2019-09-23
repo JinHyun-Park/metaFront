@@ -14,7 +14,7 @@
       </h1>
       <div>
         <div class="util_space">
-          <em><i class="ico-user" />유영준님 환영합니다!</em>
+          <em @click="modalOn"><i class="ico-user" />유영준님 환영합니다!</em>
           <button
             class="log"
             @click="logout()"
@@ -155,6 +155,8 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
 export default {
 //   mixins: [common],
   name: 'Header',
@@ -167,6 +169,7 @@ export default {
     this.setActiveItem();
   },
   methods: {
+    ...mapActions('frameSet', ['setModalSet']),
     isActive(page) {
       return this.activeItem === page;
     },
@@ -190,6 +193,9 @@ export default {
           console.log(`error occur!! : ${ex}`);
         });
       this.movePage('login');
+    },
+    modalOn() {
+      this.setModalSet({ modalOn: true, modalMsg: '멍청이세요??' });
     },
   },
 };

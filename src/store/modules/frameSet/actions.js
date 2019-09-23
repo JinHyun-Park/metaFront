@@ -1,3 +1,5 @@
+import helpers from '@/utils/helpers';
+
 export default {
   setHeaderOn: (store, payload) => {
     store.commit('setHeaderOn', payload);
@@ -19,5 +21,9 @@ export default {
   },
   setMenuLists: (store, payload) => {
     store.commit('setMenuLists', payload);
+  },
+  setModalSet: (store, payload) => {
+    helpers.scrollPrevent(payload.modalOn);
+    store.commit('setModalSet', payload);
   },
 };
