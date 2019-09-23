@@ -26,7 +26,6 @@ const helpers = {
      * @return {Boolean} true/false
      */
   isEmpty(value) {
-    console.log('isEmpty 진입!');
     if (value === '' || value === null || value === undefined
             || (value != null && typeof value === 'object' && !Object.keys(value).length)) {
       return true;
@@ -132,6 +131,18 @@ const helpers = {
     const date = inStr.substr(inLen + 2, 2);
 
     return new Date(year, month, date);
+  },
+
+  /**
+     * 모달, 팝업 등을 띄울 시 스크롤 stop
+     * @param {*} val Boolean
+     */
+  scrollPrevent(val) {
+    if (val) {
+      document.documentElement.style.overflow = 'hidden';
+    } else {
+      document.documentElement.style.overflow = 'auto';
+    }
   },
 
   /**

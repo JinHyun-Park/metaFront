@@ -3,13 +3,14 @@
     <i class="dim" />
     <article class="layer_popup ssmall">
       <section class="confirm_area">
-        <label class="">정말 저장 하시겠습니까?</label>
+        <label class="">{{ modalSet.modalMsg }}</label>
       </section>
 
       <section class="btm_button_area confirm_btn">
         <button
           type="button"
           class="default_button"
+          @click="closeModal"
         >
           취소
         </button>
@@ -25,7 +26,25 @@
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex';
+
 export default {
   name: 'CommAlert',
+  data() {
+    return {
+    };
+  },
+  computed: {
+    ...mapState('frameSet', ['modalSet']),
+  },
+  watch: {
+
+  },
+  methods: {
+    ...mapActions('frameSet', ['setModalSet']),
+    closeModal() {
+      this.setModalSet({ modalOn: false });
+    },
+  },
 };
 </script>
