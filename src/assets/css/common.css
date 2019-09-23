@@ -2844,7 +2844,7 @@ display: table-column
     height: 100%;
     background: rgba(0, 0, 0, .6);
     overflow: hidden;
-    z-index: 12
+    z-index: 10
 }
 
 #app>div>.contents.popup,
@@ -2880,7 +2880,7 @@ display: table-column
     max-height: 674px;
     overflow-y: auto;
     box-sizing: border-box;
-    z-index: 13
+    z-index: 12
 }
 
 
