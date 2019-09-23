@@ -8,8 +8,8 @@
                 </section>
 -->
       <section class="confirm_area">
-        <i class="ico-cancel" />
-        <label class="">정말 삭제 하시겠습니까?</label>
+        <i class="ico-warning" />
+        <label class="">정말 저장 하시겠습니까?</label>
       </section>
 
       <section class="btm_button_area confirm_btn">
