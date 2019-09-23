@@ -30,26 +30,24 @@
         </div>
       </h5>
       <div class="row_contain type-3">
-        <div class="column w-2">
-          <label class="column_label">검색어</label>
-          <div class="search_group">
-            <input
-              v-model="reqTitle"
-              type="text"
-              value="Searching"
-            >
-          </div>
-        </div>
         <div class="column on w-2">
           <label class="column_label">조회기간</label>
           <div class="calander_group first_cal">
             <input
               v-model="startReqDtm"
               type="text"
-              value="2019-07-08"
+              value=""
             >
             <span class="calander">
               <i class="ico-cal" />
+              <datepicker
+                :value="startReqDtm"
+                min="2019-6-1"
+                :max="endReqDtm"
+                :day-str="datePickerSet.dayStr"
+                :popper-props="datePickerSet.popperProps"
+                @input="log"
+              />
             </span>
           </div>
         </div>
@@ -59,11 +57,29 @@
             <input
               v-model="endReqDtm"
               type="text"
-              value="2019-08-07"
+              value=""
             >
             <span class="calander">
               <i class="ico-cal" />
+              <datepicker
+                :value="endReqDtm"
+                :min="startReqDtm"
+                max="2022-01-01"
+                :day-str="datePickerSet.dayStr"
+                :popper-props="datePickerSet.popperProps"
+                @input="log2"
+              />
             </span>
+          </div>
+        </div>
+        <div class="column w-4">
+          <label class="column_label">검색어</label>
+          <div class="search_group">
+            <input
+              v-model="reqTitle"
+              type="text"
+              value="Searching"
+            >
           </div>
         </div>
       </div>
@@ -151,6 +167,13 @@ export default {
       endReqDtm: '',
       reqTitle: '',
       pageSet: {pageNo: 1, pageCount:0, size:10},
+
+      datePickerSet: {
+        dayStr: this.$gf.getCalDaySet(),
+        popperProps: {
+          type: Object,
+        },
+      },
     };
   },
   computed: {
@@ -158,8 +181,8 @@ export default {
     
   },
   mounted() {
-    this.startReqDtm = this.$gf.dateToString(new Date(), '-7d');
-    this.endReqDtm = this.$gf.dateToString(new Date());
+    this.startReqDtm = this.$gf.dateToString(new Date(), '-7d', 'Y');
+    this.endReqDtm = this.$gf.dateToString(new Date(), '', 'Y');
   },
   methods: {
     ...mapActions('frameSet', ['setResetPopOn']),
@@ -170,8 +193,8 @@ export default {
           pageNo: this.pageSet.pageNo,
           size: this.pageSet.size,
           reqTitle: this.reqTitle,
-          startReqDtm: this.startReqDtm,
-          endReqDtm: this.endReqDtm,
+          startReqDtm: this.startReqDtm.replace(/\-/g, ''),
+          endReqDtm: this.endReqDtm.replace(/\-/g, ''),
         },
       })
         .then((res) => {
@@ -189,6 +212,14 @@ export default {
     },
     pageChanged(pageNum) { 
       console.log(pageNum);
+    },
+    log(val) {
+      this.startReqDtm = val;
+      console.log(val);
+    },
+    log2(val) {
+      this.endReqDtm = val;
+      console.log(val);
     },
   },
 }
