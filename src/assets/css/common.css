@@ -2847,7 +2847,8 @@ display: table-column
     z-index: 12
 }
 
-#app>div>.contents.popup {
+#app>div>.contents.popup,
+.contents.popup {
     display: flex;
     display: -ms-flexbox;
     justify-content: center;
