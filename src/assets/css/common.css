@@ -1699,9 +1699,11 @@ input[type=radio]+label.border-brickpink {
 }
 
 
-/*CHECK BOX BUTTON*/
+/* CHECK BOX BUTTON */
 
 .contents .form_area .row_contain .column .checkbox_group {
+    display: flex;
+    display: -ms-flexbox;
     flex-direction: row;
     align-items: center;
     position: relative
