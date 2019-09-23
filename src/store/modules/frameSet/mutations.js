@@ -1,5 +1,3 @@
-import helpers from '@/utils/helpers';
-
 export default {
   setHeaderOn: (state, payload) => {
     state.headerOn = payload.headerOn;
@@ -23,11 +21,8 @@ export default {
     state.menuLists = payload.menuLists;
   },
   setModalSet: (state, payload) => {
-    if (helpers.isEmpty(payload.modalMsg)) {
-      state.modalSet.modalOn = payload.modalOn;
-    } else {
-      state.modalSet.modalOn = payload.modalOn;
-      state.modalSet.modalMsg = payload.modalMsg;
-    }
+    state.modalSet.modalOn = payload.modalOn;
+    state.modalSet.modalMsg = payload.modalMsg;
+    state.modalSet.parentFunc = payload.parentFunc;
   },
 };

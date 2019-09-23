@@ -145,6 +145,35 @@ const helpers = {
     }
   },
 
+
+  /* Modal 관련 method */
+  /**
+     * modal 팝업, fnc는 확인 이후 실행시킬 method
+     * @param {Object(function)} fnc
+     * @param {String} msg
+     */
+  modalOn(fnc, msg) {
+    let lvMsg = '계속 진행하시겠습니까?';
+
+    if (!this.isEmpty(msg)) {
+      lvMsg = msg;
+    }
+    if (this.isEmpty(fnc)) {
+      console.log('callback 함수가 정의되지 않았습니다.');
+    } else {
+      store.dispatch('frameSet/setModalSet', { modalOn: true, modalMsg: lvMsg, parentFunc: fnc });
+    }
+  },
+
+  /**
+     * modal 종료, fnc는 확인 이후 실행시킬 method
+     * @param {Object(function)} fnc
+     */
+  modalOff(fnc) {
+    store.dispatch('frameSet/setModalSet', { modalOn: false, modalMsg: '', parentFunc: '' });
+    fnc();
+  },
+
   /**
      * 예시 함수 - 이 함수를 변형/삭제해서 사용해주세요.
      */

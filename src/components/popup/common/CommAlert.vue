@@ -17,6 +17,7 @@
         <button
           type="button"
           class="default_button on"
+          @click="excuteParentFunc"
         >
           확인
         </button>
@@ -44,6 +45,9 @@ export default {
     ...mapActions('frameSet', ['setModalSet']),
     closeModal() {
       this.setModalSet({ modalOn: false });
+    },
+    excuteParentFunc() {
+      this.$gf.modalOff(this.modalSet.parentFunc);
     },
   },
 };

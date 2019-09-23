@@ -21,5 +21,6 @@ export default {
   modalSet: {
     modalOn: false,
     modalMsg: '',
+    parentFunc: '',
   },
 };

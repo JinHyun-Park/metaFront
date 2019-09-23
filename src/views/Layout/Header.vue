@@ -155,21 +155,19 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
-
 export default {
 //   mixins: [common],
   name: 'Header',
   data() {
     return {
       activeItem: '',
+      alertMsgText: '123333',
     };
   },
   created() {
     this.setActiveItem();
   },
   methods: {
-    ...mapActions('frameSet', ['setModalSet']),
     isActive(page) {
       return this.activeItem === page;
     },
@@ -195,7 +193,12 @@ export default {
       this.movePage('login');
     },
     modalOn() {
-      this.setModalSet({ modalOn: true, modalMsg: '멍청이세요??' });
+      this.$gf.modalOn(this.alertMsg, '괜찮으세요??');
+    },
+    alertMsg() {
+      // eslint-disable-next-line no-alert
+      alert(this.alertMsgText);
+      // this.$router.push({ name: 'swingDbInfo' });
     },
   },
 };
