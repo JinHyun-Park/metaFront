@@ -73,6 +73,7 @@ https://velog.io/@skyepodium/VS-code%EC%97%90%EC%84%9C-vue%ED%94%84%EB%A1%9C%EC%
 6.8. VS Code + Git 연동
   https://evols-atirev.tistory.com/14
   git remote add origin https://github.com/JinHyun-Park/new-meta.git
+  git remote add origin2 https://github.com/JinHyun-Park/new-meta.git
 
 6.9. SPA로 개발하여 빌드해서 상용에 올리고 사용자가 직접 url을 쳐서 들어갈 경우 없는 파일에 접근하는 것이기 때문에 Spring에서는 다음과 같은 설정을 해야함
   https://handcoding.tistory.com/196
