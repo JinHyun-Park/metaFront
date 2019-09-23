@@ -2969,7 +2969,8 @@ display: table-column
 }
 
 .contents.popup .layer_popup .confirm_area i.ico-warning,
-.contents.popup .layer_popup .confirm_area i.ico-confirm {
+.contents.popup .layer_popup .confirm_area i.ico-confirm,
+.contents.popup .layer_popup .confirm_area i.ico-cancel {
     display: flex;
     display: -ms-flexbox;
     justify-content: center;
@@ -2983,6 +2984,11 @@ display: table-column
 
 .contents.popup .layer_popup .confirm_area i.ico-confirm {
     background: url(../images/ico-confirm.png) center center no-repeat;
+    background-size: 100%
+}
+
+.contents.popup .layer_popup .confirm_area i.ico-cancel {
+    background: url(../images/ico-cancel.png) center center no-repeat;
     background-size: 100%
 }
 
