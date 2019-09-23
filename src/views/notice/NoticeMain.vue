@@ -33,16 +33,16 @@
             >
             <span class="calander">
               <i class="ico-cal" />
-              <datepicker
-                :value="startReqDtm"
-                min="2018-6-1"
-                max="2020-01-01"
-                :day-str="dayStr"
-                :scrollbar-props="{isMobile: isM}"
-                :popper-props="popperProps"
-                @input="log"
-              />
             </span>
+            <datepicker
+              :value="startReqDtm"
+              min="2018-6-1"
+              max="2020-01-01"
+              :day-str="dayStr"
+              :scrollbar-props="{isMobile: isM}"
+              :popper-props="popperProps"
+              @input="log"
+            />
           </div>
         </div>
         <div class="column w-2">
