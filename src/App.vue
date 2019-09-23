@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div
-      v-if="false"
+      v-if="true"
       class="confirm"
     >
       <comm-alert />
@@ -28,7 +28,7 @@ import Footer from '@/views/Layout/Footer.vue';
 import Aside from '@/views/Layout/Aside.vue';
 import RightSide from '@/views/Layout/RightSide.vue';
 
-import CommAlert from '@/components/popup/common/CommAlert.vue';
+import CommAlert from '@/components/popup/common/CommConfirm.vue';
 
 export default {
   name: 'App',

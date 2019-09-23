@@ -8,7 +8,7 @@
                 </section>
 -->
       <section class="confirm_area">
-        <i class="ico-warning" />
+        <i class="ico-confirm" />
         <label class="">정말 저장 하시겠습니까?</label>
       </section>
 
