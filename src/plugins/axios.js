@@ -1,6 +1,7 @@
 /* eslint-disable */
 import Vue from 'vue';
 import axios from 'axios';
+import router from '@/router';
 
 // Full config:  https://github.com/axios/axios#request-config
 // axios.defaults.baseURL = process.env.baseURL || process.env.apiUrl || '';
@@ -37,8 +38,25 @@ _axios.interceptors.response.use(
     response =>
     // Do something with response data
     {
-        console.log('리스폰스 : ');
-        // console.log(response);
+        //console.log('리스폰스 : ');
+        console.log(response);
+        let rstMsg = '';
+        //rstCd 분기처리
+        if (response.data.rstCd === 'D') {
+            console.log('세션 정보 획득 실패, 로그인 화면으로 이동합니다.');
+            rstMsg = `로그인 정보가 만료되어, 로그인화면으로 이동합니다.`;
+            if (response.data.rstMsg !== null) {
+                rstMsg = response.data.rstMsg;
+            }
+            alert(rstMsg);
+            router.push({ name: "login" });
+        } else if (response.data.rstCd === 'E') {
+            console.log('에러발생');
+            if (response.data.rstMsg !== null) {
+                rstMsg = response.data.rstMsg;
+            }
+            alert(rstMsg);
+        }
         return response
     },
     error =>
