@@ -22,8 +22,8 @@ export default {
   setMenuLists: (store, payload) => {
     store.commit('setMenuLists', payload);
   },
-  setModalSet: (store, payload) => {
-    helpers.scrollPrevent(payload.modalOn);
-    store.commit('setModalSet', payload);
+  setConfirmSet: (store, payload) => {
+    helpers.scrollPrevent(payload.confirmOn);
+    store.commit('setConfirmSet', payload);
   },
 };

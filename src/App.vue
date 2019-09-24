@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div
-      v-if="modalSet.modalOn"
+      v-if="confirmSet.confirmOn"
       class="confirm"
     >
       <comm-alert />
@@ -40,7 +40,7 @@ export default {
     };
   },
   computed: {
-    ...mapState('frameSet', ['headerOn', 'asideOn', 'footerOn', 'loginPageOn', 'modalSet']),
+    ...mapState('frameSet', ['headerOn', 'asideOn', 'footerOn', 'loginPageOn', 'confirmSet']),
   },
 };
 </script>

@@ -18,9 +18,9 @@ export default {
   resetPopOn: 'none',
   subNm: '',
   menuLists: [],
-  modalSet: {
-    modalOn: false,
-    modalMsg: '',
+  confirmSet: {
+    confirmOn: false,
+    confirmMsg: '',
     parentFunc: '',
   },
 };

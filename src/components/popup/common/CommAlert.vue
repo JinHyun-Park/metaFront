@@ -3,14 +3,14 @@
     <i class="dim" />
     <article class="layer_popup ssmall">
       <section class="confirm_area">
-        <label class="">{{ modalSet.modalMsg }}</label>
+        <label class="">{{ confirmSet.confirmMsg }}</label>
       </section>
 
       <section class="btm_button_area confirm_btn">
         <button
           type="button"
           class="default_button"
-          @click="closeModal"
+          @click="closeConfirm"
         >
           취소
         </button>
@@ -36,18 +36,18 @@ export default {
     };
   },
   computed: {
-    ...mapState('frameSet', ['modalSet']),
+    ...mapState('frameSet', ['confirmSet']),
   },
   watch: {
 
   },
   methods: {
-    ...mapActions('frameSet', ['setModalSet']),
-    closeModal() {
-      this.setModalSet({ modalOn: false });
+    ...mapActions('frameSet', ['setConfirmSet']),
+    closeConfirm() {
+      this.setConfirmSet({ confirmOn: false });
     },
     excuteParentFunc() {
-      this.$gf.modalOff(this.modalSet.parentFunc);
+      this.$gf.confirmOff(this.confirmSet.parentFunc);
     },
   },
 };

@@ -14,7 +14,7 @@
       </h1>
       <div>
         <div class="util_space">
-          <em @click="modalOn"><i class="ico-user" />유영준님 환영합니다!</em>
+          <em @click="confirmOn"><i class="ico-user" />유영준님 환영합니다!</em>
           <button
             class="log"
             @click="logout()"
@@ -192,8 +192,8 @@ export default {
         });
       this.movePage('login');
     },
-    modalOn() {
-      this.$gf.modalOn(this.alertMsg, '괜찮으세요??');
+    confirmOn() {
+      this.$gf.confirmOn(this.alertMsg, '괜찮으세요??');
     },
     alertMsg() {
       // eslint-disable-next-line no-alert

@@ -20,9 +20,9 @@ export default {
   setMenuLists: (state, payload) => {
     state.menuLists = payload.menuLists;
   },
-  setModalSet: (state, payload) => {
-    state.modalSet.modalOn = payload.modalOn;
-    state.modalSet.modalMsg = payload.modalMsg;
-    state.modalSet.parentFunc = payload.parentFunc;
+  setConfirmSet: (state, payload) => {
+    state.confirmSet.confirmOn = payload.confirmOn;
+    state.confirmSet.confirmMsg = payload.confirmMsg;
+    state.confirmSet.parentFunc = payload.parentFunc;
   },
 };

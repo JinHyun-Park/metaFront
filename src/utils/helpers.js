@@ -146,13 +146,13 @@ const helpers = {
   },
 
 
-  /* Modal 관련 method */
+  /* confirm 관련 method */
   /**
-     * modal 팝업, fnc는 확인 이후 실행시킬 method
+     * confirm 팝업, fnc는 확인 이후 실행시킬 method
      * @param {Object(function)} fnc
      * @param {String} msg
      */
-  modalOn(fnc, msg) {
+  confirmOn(fnc, msg) {
     let lvMsg = '계속 진행하시겠습니까?';
 
     if (!this.isEmpty(msg)) {
@@ -161,16 +161,16 @@ const helpers = {
     if (this.isEmpty(fnc)) {
       console.log('callback 함수가 정의되지 않았습니다.');
     } else {
-      store.dispatch('frameSet/setModalSet', { modalOn: true, modalMsg: lvMsg, parentFunc: fnc });
+      store.dispatch('frameSet/setConfirmSet', { confirmOn: true, confirmMsg: lvMsg, parentFunc: fnc });
     }
   },
 
   /**
-     * modal 종료, fnc는 확인 이후 실행시킬 method
+     * confirm 종료, fnc는 확인 이후 실행시킬 method
      * @param {Object(function)} fnc
      */
-  modalOff(fnc) {
-    store.dispatch('frameSet/setModalSet', { modalOn: false, modalMsg: '', parentFunc: '' });
+  confirmOff(fnc) {
+    store.dispatch('frameSet/setConfirmSet', { confirmOn: false, confirmMsg: '', parentFunc: '' });
     fnc();
   },
 
