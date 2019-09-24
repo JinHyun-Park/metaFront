@@ -1249,7 +1249,8 @@ flex-direction: column
     letter-spacing: .2px
 }
 
-.contents .right_space.main .board_area .table_grid.radio_group .table_row .td_cell {
+.contents .right_space.main .board_area .table_grid.radio_group .table_row .td_cell,
+.contents .right_space.main .board_area .table_grid.checkbox_group .table_row .td_cell {
     font-size: 12px;
     letter-spacing: .2px;
     vertical-align: middle
