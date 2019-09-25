@@ -3122,7 +3122,7 @@ display: table-column
 
 .contents .form_area.reply_space .table_grid .table_row .td_cell .reply_btn.write {
     /*    display:table;*/
-    padding-top: 8px;
+    /* padding-top: 8px; */
     padding-left: 17px;
     color: #777
 }
@@ -3154,6 +3154,12 @@ display: table-column
 .contents .form_area.reply_space .table_grid .table_row .td_cell .reply_btn.del {
     padding-left: 13px
 }
+
+
+/* .contents .form_area.reply_space .table_grid .table_row .td_cell .reply_btn.del.on,
+.contents .form_area.reply_space .table_grid .table_row .td_cell .reply_btn.del:hover {
+    color: inherit
+} */
 
 .contents .form_area.reply_space .table_grid .table_row .td_cell .reply_btn.on,
 .contents .form_area.reply_space .table_grid .table_row .td_cell .reply_btn:hover {
