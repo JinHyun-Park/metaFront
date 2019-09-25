@@ -29,5 +29,6 @@ export default {
   setAlertSet: (state, payload) => {
     state.alertSet.alertOn = payload.alertOn;
     state.alertSet.alertMsg = payload.alertMsg;
+    state.alertSet.parentFunc = payload.parentFunc;
   },
 };

@@ -17,14 +17,14 @@
         <button
           type="button"
           class="default_button"
-          @click="closeConfirm"
+          @click="closeConfirm('N')"
         >
           취소
         </button>
         <button
           type="button"
           class="default_button on"
-          @click="excuteParentFunc"
+          @click="closeConfirm('Y')"
         >
           확인
         </button>
@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
+import { mapState } from 'vuex';
 
 export default {
   name: 'CommConfirm',
@@ -53,12 +53,12 @@ export default {
     this.checkIcon(this.confirmSet.iconNum);
   },
   methods: {
-    ...mapActions('frameSet', ['setConfirmSet']),
-    closeConfirm() {
-      this.setConfirmSet({ confirmOn: false });
-    },
-    excuteParentFunc() {
-      this.$gf.confirmOff(this.confirmSet.parentFunc);
+    closeConfirm(flag) {
+      if (flag === 'Y') {
+        this.$gf.confirmOff(this.confirmSet.parentFunc);
+      } else {
+        this.$gf.confirmOff();
+      }
     },
     checkIcon(val) { // 입력한 아이콘 값에 따라 confirm modal에 뜨는 아이콘 달라짐
       if (val === '1') {

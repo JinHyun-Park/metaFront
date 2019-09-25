@@ -14,20 +14,13 @@
         >
           확인
         </button>
-        <!-- <button
-          type="button"
-          class="default_button on"
-          @click="excuteParentFunc"
-        >
-          확인
-        </button> -->
       </section>
     </article>
   </div>
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
+import { mapState } from 'vuex';
 
 export default {
   name: 'CommAlert',
@@ -39,9 +32,8 @@ export default {
     ...mapState('frameSet', ['alertSet']),
   },
   methods: {
-    ...mapActions('frameSet', ['setAlertSet']),
     closeAlert() {
-      this.setAlertSet({ alertOn: false });
+      this.$gf.alertOff(this.alertSet.parentFunc);
     },
   },
 };

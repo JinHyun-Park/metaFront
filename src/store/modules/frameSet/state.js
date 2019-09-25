@@ -27,5 +27,6 @@ export default {
   alertSet: {
     alertOn: false,
     alertMsg: '',
+    parentFunc: '',
   },
 };

@@ -176,8 +176,16 @@ const helpers = {
      * @param {Object(function)} fnc
      */
   confirmOff(fnc) {
-    store.dispatch('frameSet/setConfirmSet', { confirmOn: false, confirmMsg: '', parentFunc: '' });
-    fnc();
+    store.dispatch('frameSet/setConfirmSet', {
+      confirmOn: false,
+      confirmMsg: '',
+      parentFunc: '',
+      iconNum: '',
+    });
+
+    if (!this.isEmpty(fnc)) {
+      fnc();
+    }
   },
   /* confirm 관련 method */
 
@@ -185,26 +193,35 @@ const helpers = {
   /* alert 관련 method */
   /**
      * alert 팝업, fnc는 확인 이후 실행시킬 method
-     * @param {Object(function)} fnc
+     * function을 optional하게 넣을 것 같아서 후 parameter에 위치시킴
      * @param {String} msg
+     * @param {Object(function)} fnc
      */
-  alertOn(msg) {
+  alertOn(msg, fnc) {
     let lvMsg = '"-"';
+    let lvFnc = '';
 
     if (!this.isEmpty(msg)) {
       lvMsg = msg;
     }
+    if (!this.isEmpty(fnc)) {
+      lvFnc = fnc;
+    }
 
-    store.dispatch('frameSet/setAlertSet', { alertOn: true, alertMsg: lvMsg });
+    store.dispatch('frameSet/setAlertSet', { alertOn: true, alertMsg: lvMsg, parentFunc: lvFnc });
   },
 
   /**
      * alert 종료, fnc는 확인 이후 실행시킬 method
      * @param {Object(function)} fnc
      */
-  // alertOff() {
-  //   store.dispatch('frameSet/setAlertSet', { alertOn: false, alertMsg: '' });
-  // },
+  alertOff(fnc) {
+    store.dispatch('frameSet/setAlertSet', { alertOn: false, alertMsg: '', parentFunc: '' });
+
+    if (!this.isEmpty(fnc)) {
+      fnc();
+    }
+  },
   /* alert 관련 method */
 
   /**
