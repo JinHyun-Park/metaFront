@@ -6,73 +6,114 @@
           <i class="ico-bar" />MCG 채널 조회
         </div>
         <div class="breadcrumb">
-          <span>EGIW</span><em class="on">EAI</em>
+          <span>MCG</span><em class="on">채널 조회</em>
         </div>
       </h2>
     </section>
 
-    <section class="border_group">
+    <section class="form_area border_group">
       <h5 class="s_tit type-2">
         기본 정보
         <div class="right_button_area">
           <button
             type="button"
             class="default_button"
+            @click="save()"
           >
             추가
           </button>
           <button
             type="button"
             class="default_button on"
+            @click="listing()"
           >
-            검색
+            조회
           </button>
         </div>
       </h5>
-      <div class="add_info">
-        <input
-          type="text"
-          class="add_text on"
-          value="채널 업무 담당조회추가"
-        >
-        <input
-          type="text"
-          class="add_text"
-          value="채널양식 업무 담당추가"
-        >
-        <input
-          type="text"
-          class="add_text"
-          value="채널양식 업무 담당코드"
-        >
-        <input
-          type="text"
-          class="add_text"
-          value="채널 업무 담당 조회추가"
-        >
-        <input
-          type="text"
-          class="add_text"
-          value="채널 연동 담당 ID추가"
-        >
-        <input
-          type="text"
-          class="add_text"
-          value="채널 ID 조회 담당추가"
-        >
-        <input
-          type="text"
-          class="add_text"
-          value="채널 대표 업무 담당추가"
-        >
-        <input
-          type="text"
-          class="add_text"
-          value="채널 대표 업무 조회추가"
-        >
+      <div class="row_contain type-3">
+        <div class="column w-6">
+          <label class="column_label">업무코드</label>
+          <input
+            v-model="opCd"
+            type="text"
+            value=""
+          >
+        </div>
+        <div class="column w-6">
+          <label class="column_label">기관코드</label>
+          <input
+            v-model="mcgInstCd"
+            type="text"
+            value=""
+          >
+        </div>
+        <div class="column w-6">
+          <label class="column_label">채널그룹</label>
+          <input
+            v-model="chnlGrp"
+            type="text"
+            value=""
+          >
+        </div>
+        <div class="column w-6">
+          <label class="column_label">채널타입</label>
+          <input
+            v-model="chnlTyp"
+            type="text"
+            value=""
+          >
+        </div>
+        <div class="column w-6">
+          <label class="column_label">연동방식</label>
+          <input
+            v-model="lnkgMthd"
+            type="text"
+            value=""
+          >
+        </div>
+        <div class="column w-6">
+          <label class="column_label">채널ID</label>
+          <input
+            v-model="chnlId"
+            type="text"
+            value=""
+          >
+        </div>
+        <div class="column w-6">
+          <label class="column_label">채널명</label>
+          <input
+            v-model="chnlNm"
+            type="text"
+            value=""
+          >
+        </div>
+        <div class="column w-6">
+          <label class="column_label">대표담당자</label>
+          <input
+            v-model="chrgrnm"
+            type="text"
+            value=""
+          >
+        </div>
+        <div class="column w-2">
+          <label class="column_label">사용</label>
+          <div class="select_group">
+            <select v-model="useYn">
+              <option value="Y">
+                Y
+              </option>
+              <option value="N">
+                N
+              </option>
+            </select>
+            <span class="select" />
+          </div>
+        </div>
+        <div class="column w-1" />
       </div>
       <div class="table_grid">
-        <div class="table_head">
+        <div class="table_head w-auto">
           <ul>
             <li class="th_cell">
               업무코드<i class="ico-sort-down" />
@@ -84,7 +125,7 @@
               채널그룹<i class="ico-sort-down" />
             </li>
             <li class="th_cell">
-              채널양식<i class="ico-sort-down" />
+              채널타입<i class="ico-sort-down" />
             </li>
             <li class="th_cell">
               연동방식<i class="ico-sort-down" />
@@ -98,142 +139,49 @@
             <li class="th_cell">
               대표담당자<i class="ico-sort-down" />
             </li>
+            <li class="th_cell">
+              사용여부<i class="ico-sort-down" />
+            </li>
           </ul>
         </div>
         <div class="table_body">
-          <ul class="table_row">
+          <ul
+            v-for="chn in chnList"
+            :key="chn.index"
+            class="table_row w-auto"
+          >
             <li class="td_cell">
-              2 documents
+              {{ chn.opCd }}
             </li>
             <li class="td_cell">
-              2 documents
+              {{ chn.mcgInstCd }}
             </li>
             <li class="td_cell">
-              2 documents
+              {{ chn.chnlGrp }}
             </li>
             <li class="td_cell">
-              2 documents
+              {{ chn.chnlTyp }}
             </li>
             <li class="td_cell">
-              2 documents
+              {{ chn.lnkgMthd }}
             </li>
             <li class="td_cell">
-              2 documents
+              {{ chn.chnlId }}
             </li>
             <li class="td_cell">
-              2 documents
+              {{ chn.chnlNm }}
             </li>
             <li class="td_cell">
-              2 documents
-            </li>
-          </ul>
-          <ul class="table_row">
-            <li class="td_cell">
-              q sign
+              {{ chn.chrgrnm }}
             </li>
             <li class="td_cell">
-              q sign
-            </li>
-            <li class="td_cell">
-              q sign
-            </li>
-            <li class="td_cell">
-              q sign
-            </li>
-            <li class="td_cell">
-              q sign
-            </li>
-            <li class="td_cell">
-              q sign
-            </li>
-            <li class="td_cell">
-              q sign
-            </li>
-            <li class="td_cell">
-              q sign
-            </li>
-          </ul>
-          <ul class="table_row">
-            <li class="td_cell">
-              q sign
-            </li>
-            <li class="td_cell">
-              q sign
-            </li>
-            <li class="td_cell">
-              q sign
-            </li>
-            <li class="td_cell">
-              q sign
-            </li>
-            <li class="td_cell">
-              q sign
-            </li>
-            <li class="td_cell">
-              q sign
-            </li>
-            <li class="td_cell">
-              q sign
-            </li>
-            <li class="td_cell">
-              q sign
-            </li>
-          </ul>
-          <ul class="table_row">
-            <li class="td_cell">
-              2 documents
-            </li>
-            <li class="td_cell">
-              2 documents
-            </li>
-            <li class="td_cell">
-              2 documents
-            </li>
-            <li class="td_cell">
-              2 documents
-            </li>
-            <li class="td_cell">
-              2 documents
-            </li>
-            <li class="td_cell">
-              2 documents
-            </li>
-            <li class="td_cell">
-              2 documents
-            </li>
-            <li class="td_cell">
-              2 documents
-            </li>
-          </ul>
-          <ul class="table_row">
-            <li class="td_cell">
-              2 documents
-            </li>
-            <li class="td_cell">
-              2 documents
-            </li>
-            <li class="td_cell">
-              2 documents
-            </li>
-            <li class="td_cell">
-              2 documents
-            </li>
-            <li class="td_cell">
-              2 documents
-            </li>
-            <li class="td_cell">
-              2 documents
-            </li>
-            <li class="td_cell">
-              2 documents
-            </li>
-            <li class="td_cell">
-              2 documents
+              {{ chn.useYn }}
             </li>
           </ul>
         </div>
       </div>
     </section>
+
 
     <section class="info_title">
       <em class="sub_tit">채널명: T-world      채널ID: EST</em>
@@ -447,4 +395,74 @@
 </template>
 
 <script>
+export default {
+  data() {
+    return {
+      index: 0,
+      chnList: [],
+      chrgrnm: '',
+      pageNo: 1,
+      size: 10,
+      opCd: '',
+      instCd: '',
+      mcgInstCd: '',
+      chnlTyp: '',
+      chnlGrp: '',
+      lnkgMthd: '',
+      chnlId: '',
+      chnlNm: '',
+      containerNum: '',
+      tcpgwNm: '',
+      dvlpLang: '',
+      chnlRmk: '',
+      useYn: 'Y',
+    };
+  },
+  methods: {
+    listing() {
+      console.log('채널 목록 조회!');
+      this.$axios.get('/api/mcg/chnl', {
+        params: {
+          pageNo: this.pageNo,
+          size: this.size,
+          opCd: this.opCd,
+          instCd: this.instCd,
+          mcgInstCd: this.mcgInstCd,
+          chnlTyp: this.chnlTyp,
+          chnlGrp: this.chnlGrp,
+          lnkgMthd: this.lnkgMthd,
+          chnlId: this.chnlId,
+          chnlNm: this.chnlNm,
+          containerNum: this.containerNum,
+          tcpgwNm: this.tcpgwNm,
+          dvlpLang: this.dvlpLang,
+          chnlRmk: this.chnlRmk,
+          useYn: this.useYn,
+        },
+      })
+
+        .then((res) => {
+          this.chnList = res.data.rstData.searchList;
+          console.log(res.data.rstData.searchList);
+          console.log(this.chnList);
+          console.log('대표 담당자 조회!');
+        })
+        .catch((ex) => {
+          console.log(`error occur!! : ${ex}`);
+        });
+    },
+    save() {
+      console.log('채널 정보 등록!');
+      console.log(this.chnlNm);
+      this.$axios.post('/api/mcg/chnl/post', { chnlNm: this.chnlNm, eaiIfId: this.eaiIfId, useYn: this.useYn })
+        .then((res) => {
+          console.log(res);
+          this.listing();
+        })
+        .catch((ex) => {
+          console.log(`error occur!! : ${ex}`);
+        });
+    },
+  },
+};
 </script>
