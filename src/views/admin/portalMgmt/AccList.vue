@@ -47,92 +47,104 @@
       <div class="table_colgroup">
         <div class="table_grid radio_group">
           <div class="table_head w-auto">
-            <ul>
-              <li class="th_cell" />
-              <li class="th_cell">
+            <tr>
+              <td class="th_cell" />
+              <td class="th_cell">
                 사용자ID
-              </li>
-              <li class="th_cell">
+              </td>
+              <td class="th_cell">
                 사용자명
-              </li>
-              <li class="th_cell">
+              </td>
+              <td class="th_cell">
                 직급
-              </li>
-              <li class="th_cell">
+              </td>
+              <td class="th_cell">
                 생년월일
-              </li>
-              <li class="th_cell">
+              </td>
+              <td class="th_cell">
                 권한
-              </li>
-              <li class="th_cell">
+              </td>
+              <td class="th_cell">
                 연락처
-              </li>
-              <li class="th_cell">
+              </td>
+              <td class="th_cell">
                 핸드폰
-              </li>
-              <li class="th_cell">
+              </td>
+              <td class="th_cell">
                 이메일
-              </li>
-              <li class="th_cell" />
-            </ul>
+              </td>
+              <td class="th_cell" />
+            </tr>
           </div>
           <div class="table_body">
-            <ul
-              v-for="(user, i) in userList"
-              :key="user.userId"
-              class="table_row w-auto"
-            >
-              <li class="td_cell">
-                {{ i+1 }}
-              </li>
-              <li class="td_cell">
-                {{ user.userId }}
-              </li>
-              <li class="td_cell">
-                {{ user.chrgrInfo.hanNm }}
-              </li>
-              <li class="td_cell">
-                {{ user.chrgrInfo.ofcLvlNm }}
-              </li>
-              <li class="td_cell">
-                {{ user.chrgrInfo.juminNo }}
-              </li>
-              <li class="td_cell">
-                <div class="select_group">
-                  <select v-model="user.userAuth">
-                    <option
-                      value="USER"
-                    >
-                      사용자
-                    </option>
-                    <option
-                      value="ADMIN"
-                    >
-                      관리자
-                    </option>
-                  </select>
-                </div>
-              </li>
-              <li class="td_cell">
-                {{ user.chrgrInfo.offcPhonNum }}
-              </li>
-              <li class="td_cell">
-                {{ user.chrgrInfo.mblPhonNum }}
-              </li>
-              <li class="td_cell">
-                {{ user.chrgrInfo.emailAddr }}
-              </li>
-              <li class="td_cell">
-                <i
-                  class="ico-edit"
-                  @click="editList(i)"
-                />
-                <i
-                  class="ico-del"
-                  @click="delList(i)"
-                />
-              </li>
-            </ul>
+            <template v-if="userList === [] ||userList.length === 0">
+              <tr class="table_row w-auto">
+                <td
+                  colspan="10"
+                  class="td_cell justify-content: center;"
+                >
+                  데이터가 없습니다.
+                </td>
+              </tr>
+            </template>
+            <template v-else>
+              <tr
+                v-for="(user, i) in userList"
+                :key="user.userId"
+                class="table_row w-auto"
+              >
+                <td class="td_cell">
+                  {{ i+1 }}
+                </td>
+                <td class="td_cell">
+                  {{ user.userId }}
+                </td>
+                <td class="td_cell">
+                  {{ user.chrgrInfo.hanNm }}
+                </td>
+                <td class="td_cell">
+                  {{ user.chrgrInfo.ofcLvlNm }}
+                </td>
+                <td class="td_cell">
+                  {{ user.chrgrInfo.juminNo }}
+                </td>
+                <td class="td_cell">
+                  <div class="select_group">
+                    <select v-model="user.userAuth">
+                      <option
+                        value="USER"
+                      >
+                        사용자
+                      </option>
+                      <option
+                        value="ADMIN"
+                      >
+                        관리자
+                      </option>
+                    </select>
+                  </div>
+                </td>
+                <td class="td_cell">
+                  {{ user.chrgrInfo.offcPhonNum }}
+                </td>
+                <td class="td_cell">
+                  {{ user.chrgrInfo.mblPhonNum }}
+                </td>
+                <td class="td_cell">
+                  {{ user.chrgrInfo.emailAddr }}
+                </td>
+                <td class="td_cell">
+                  <i
+                    class="ico-edit"
+                    @click="editList(i)"
+                  />
+                  <i
+                    class="ico-del"
+                    @click="delList(i)"
+                  />
+                </td>
+              </tr>
+            </template>
           </div>
         </div>
       </div>
