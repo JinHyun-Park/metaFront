@@ -3,7 +3,11 @@
     <i class="dim" />
     <article class="layer_popup ssmall">
       <section class="confirm_area">
-        <label class="">{{ alertSet.alertMsg }}</label>
+        <label class="">
+          <!-- <div v-html="alertSet.alertMsg" /> -->
+          {{ alertSet.alertMsg }}
+          <!-- <div><pre>{{ alertSet.alertMsg }}</pre></div> -->
+        </label>
       </section>
 
       <section class="btm_button_area confirm_btn">

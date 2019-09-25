@@ -95,7 +95,7 @@ export default {
         .catch((ex) => {
           console.log(`error occur!! : ${ex}`);
           // eslint-disable-next-line no-alert
-          alert('로그인을 실패했습니다. ID나 비밀번호가 일치하지 않습니다.');
+          this.$gf.alertOn('로그인에 실패했습니다.\n ID나 비밀번호가 일치하지 않습니다.');
         });
     },
     getUserInfo() {
@@ -104,7 +104,7 @@ export default {
           if (res.status === 200) {
             this.hanNm = res.data.rstData.userList[0].chrgrInfo.hanNm;
             // eslint-disable-next-line no-alert
-            alert(`${this.hanNm}님 환영합니다.`);
+            this.$gf.alertOn(`${this.hanNm}님 환영합니다.`);
           }
         })
         .catch((ex) => {

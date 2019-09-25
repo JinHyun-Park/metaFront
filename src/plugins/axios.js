@@ -48,14 +48,19 @@ _axios.interceptors.response.use(
             if (response.data.rstMsg !== null) {
                 rstMsg = response.data.rstMsg;
             }
-            alert(rstMsg);
-            router.push({ name: "login" });
+
+            let aFunc = function() { // 함수 전달 방식으로 파라미터에 전달
+                router.push({ name: "login" });
+            };
+            Vue.gf.alertOn(rstMsg, aFunc);
+
         } else if (response.data.rstCd === 'E') {
             console.log('에러발생');
             if (response.data.rstMsg !== null) {
                 rstMsg = response.data.rstMsg;
             }
-            alert(rstMsg);
+            // alert(rstMsg);
+            Vue.gf.alertOn(rstMsg);
         }
         return response
     },
