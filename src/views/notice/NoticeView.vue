@@ -62,18 +62,18 @@
         <div class="column w-4">
           <label class="column_label">내용</label>
           <span class="view_text">
-            <div class="textarea">
-              내용을 이렇습니다.내용을 이렇습니다.내용을 이렇습니다.내용을 이렇습니다.내용을 이렇습니다.내용을 이렇습니다.
-              내용
-              내용
-              내용
-              내용
-              내용
-              내용
-              내용
-              내용
-              내용
-            </div>
+            <textarea
+              cols="5"
+              row="10"
+              placeholder=""
+            >내용을 이렇습니다.내용을 이렇습니다.내용을 이렇습니다.내용을 이렇습니다.내용을 이렇습니다.내용을 이렇습니다.
+내용
+내용
+내용
+내용
+내용
+내용
+내용</textarea>
           </span>
         </div>
       </div>

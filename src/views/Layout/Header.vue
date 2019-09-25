@@ -193,7 +193,9 @@ export default {
       this.movePage('login');
     },
     confirmOn() {
+      // this.$gf.moveSite();
       this.$gf.confirmOn(this.alertMsg, '괜찮으세요??');
+      // this.$gf.alertOn('', this.alertMsg);
     },
     alertMsg() {
       // eslint-disable-next-line no-alert

@@ -21,6 +21,12 @@ export default {
   confirmSet: {
     confirmOn: false,
     confirmMsg: '',
+    iconNum: '3', // (1-느낌표, 2-X, 3-체크(기본))
+    parentFunc: '',
+  },
+  alertSet: {
+    alertOn: false,
+    alertMsg: '',
     parentFunc: '',
   },
 };

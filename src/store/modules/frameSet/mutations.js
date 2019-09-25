@@ -23,6 +23,12 @@ export default {
   setConfirmSet: (state, payload) => {
     state.confirmSet.confirmOn = payload.confirmOn;
     state.confirmSet.confirmMsg = payload.confirmMsg;
+    state.confirmSet.iconNum = payload.iconNum;
     state.confirmSet.parentFunc = payload.parentFunc;
+  },
+  setAlertSet: (state, payload) => {
+    state.alertSet.alertOn = payload.alertOn;
+    state.alertSet.alertMsg = payload.alertMsg;
+    state.alertSet.parentFunc = payload.parentFunc;
   },
 };

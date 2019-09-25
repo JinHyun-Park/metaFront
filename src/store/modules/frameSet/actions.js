@@ -26,4 +26,8 @@ export default {
     helpers.scrollPrevent(payload.confirmOn);
     store.commit('setConfirmSet', payload);
   },
+  setAlertSet: (store, payload) => {
+    helpers.scrollPrevent(payload.alertOn);
+    store.commit('setAlertSet', payload);
+  },
 };
