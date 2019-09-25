@@ -149,10 +149,11 @@ const helpers = {
   /* confirm 관련 method */
   /**
      * confirm 팝업, fnc는 확인 이후 실행시킬 method
-     * @param {Object(function)} fnc
-     * @param {String} msg
+     * @param {Object(function)} fnc : callback 함수
+     * @param {String} msg : confirm modal에 띄울 메시지
+     * @param {Number} iconNo : 아이콘 모양 번호(1-느낌표, 2-X, 3-체크(기본))
      */
-  confirmOn(fnc, msg) {
+  confirmOn(fnc, msg, iconNo) {
     let lvMsg = '계속 진행하시겠습니까?';
 
     if (!this.isEmpty(msg)) {
@@ -161,7 +162,12 @@ const helpers = {
     if (this.isEmpty(fnc)) {
       console.log('callback 함수가 정의되지 않았습니다.');
     } else {
-      store.dispatch('frameSet/setConfirmSet', { confirmOn: true, confirmMsg: lvMsg, parentFunc: fnc });
+      store.dispatch('frameSet/setConfirmSet', {
+        confirmOn: true,
+        confirmMsg: lvMsg,
+        parentFunc: fnc,
+        iconNum: iconNo,
+      });
     }
   },
 
@@ -173,6 +179,33 @@ const helpers = {
     store.dispatch('frameSet/setConfirmSet', { confirmOn: false, confirmMsg: '', parentFunc: '' });
     fnc();
   },
+  /* confirm 관련 method */
+
+
+  /* alert 관련 method */
+  /**
+     * alert 팝업, fnc는 확인 이후 실행시킬 method
+     * @param {Object(function)} fnc
+     * @param {String} msg
+     */
+  alertOn(msg) {
+    let lvMsg = '"-"';
+
+    if (!this.isEmpty(msg)) {
+      lvMsg = msg;
+    }
+
+    store.dispatch('frameSet/setAlertSet', { alertOn: true, alertMsg: lvMsg });
+  },
+
+  /**
+     * alert 종료, fnc는 확인 이후 실행시킬 method
+     * @param {Object(function)} fnc
+     */
+  // alertOff() {
+  //   store.dispatch('frameSet/setAlertSet', { alertOn: false, alertMsg: '' });
+  // },
+  /* alert 관련 method */
 
   /**
      * 예시 함수 - 이 함수를 변형/삭제해서 사용해주세요.

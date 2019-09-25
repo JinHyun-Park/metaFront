@@ -3,24 +3,24 @@
     <i class="dim" />
     <article class="layer_popup ssmall">
       <section class="confirm_area">
-        <label class="">{{ confirmSet.confirmMsg }}</label>
+        <label class="">{{ alertSet.alertMsg }}</label>
       </section>
 
       <section class="btm_button_area confirm_btn">
         <button
           type="button"
-          class="default_button"
-          @click="closeConfirm"
+          class="default_button on"
+          @click="closeAlert"
         >
-          취소
+          확인
         </button>
-        <button
+        <!-- <button
           type="button"
           class="default_button on"
           @click="excuteParentFunc"
         >
           확인
-        </button>
+        </button> -->
       </section>
     </article>
   </div>
@@ -36,18 +36,12 @@ export default {
     };
   },
   computed: {
-    ...mapState('frameSet', ['confirmSet']),
-  },
-  watch: {
-
+    ...mapState('frameSet', ['alertSet']),
   },
   methods: {
-    ...mapActions('frameSet', ['setConfirmSet']),
-    closeConfirm() {
-      this.setConfirmSet({ confirmOn: false });
-    },
-    excuteParentFunc() {
-      this.$gf.confirmOff(this.confirmSet.parentFunc);
+    ...mapActions('frameSet', ['setAlertSet']),
+    closeAlert() {
+      this.setAlertSet({ alertOn: false });
     },
   },
 };
