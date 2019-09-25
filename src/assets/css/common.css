@@ -1220,11 +1220,19 @@ flex-direction: column
     padding-right: 0
 }
 
+.contents .form_area h4.l_tit,
 .contents .form_area.dashboard h4.l_tit {
+    margin-bottom: 11px;
     width: 100%;
     font-family: Moebius_Regular_kor, Moebius_Regular_eng;
     font-size: 12px;
-    color: #777
+    color: #777;
+    font-weight: normal
+}
+
+.contents .form_area.dashboard h4.l_tit {
+    margin-bottom: 0;
+    font-weight: bold
 }
 
 .contents .right_space.main .board_area {
@@ -1249,7 +1257,8 @@ flex-direction: column
     letter-spacing: .2px
 }
 
-.contents .right_space.main .board_area .table_grid.radio_group .table_row .td_cell {
+.contents .right_space.main .board_area .table_grid.radio_group .table_row .td_cell,
+.contents .right_space.main .board_area .table_grid.checkbox_group .table_row .td_cell {
     font-size: 12px;
     letter-spacing: .2px;
     vertical-align: middle
@@ -1334,17 +1343,19 @@ flex-direction: column
 }
 
 .contents .form_area.style-2,
-.contents .form_area.style-3 {
+.contents .form_area.style-3,
+.contents .form_area.reply_space {
     padding-top: 24px
 }
 
 .contents .form_area.style-3 {
-    background: #fcfcfc
+    background: #fff
 }
 
-.contents .form_area.style-3 .row_contain {
-    border-bottom: 2px dashed #cfcfcf
-}
+
+/* .contents .form_area.style-3 .row_contain {
+    border-bottom: 1px solid #d9eae0
+} */
 
 .contents .form_area.style-3 .row_contain:last-child {
     border-bottom: none
@@ -1862,6 +1873,10 @@ input[type=radio]+label.border-brickpink {
     align-self: center
 }
 
+.contents .form_area.style-3 .row_contain .column .column_label {
+    font-size: 13px
+}
+
 .contents .form_area.style-3 .row_contain .column .view_text,
 .contents .form_area.style-3 .row_contain .column .view_text input[type=text],
 .contents .form_area.style-3 .row_contain .column.on .view_text input[type=text],
@@ -1869,15 +1884,23 @@ input[type=radio]+label.border-brickpink {
 .contents .form_area.style-3 .row_contain .column .view_text input[type=password],
 .contents .form_area.style-3 .row_contain .column.on .view_text input[type=password],
 .contents .form_area.style-3 .row_contain .column:hover .view_text input[type=password],
-.contents .form_area.style-3 .row_contain .column .view_text .textarea,
-.contents .form_area.style-3 .row_contain .column.on .view_text .textarea,
-.contents .form_area.style-3 .row_contain .column:hover .view_text .textarea {
-    padding: 5px 7px 6px 17px;
-    font-size: 13px;
-    color: #666;
-    border: none;
-    background: transparent;
+.contents .form_area.style-3 .row_contain .column .view_text textarea,
+.contents .form_area.style-3 .row_contain .column.on .view_text textarea,
+.contents .form_area.style-3 .row_contain .column:hover .view_text textarea {
+    padding: 6px 7px 7px 17px;
+    font-size: 14px;
+    color: #555;
+    height: auto;
+    border-width: 2px;
+    border-style: none none solid;
+    border-color: #d9eae0;
+    background: #fafafa;
     box-sizing: border-box
+}
+
+.contents .form_area.style-3 .row_contain .column .view_text {
+    padding: 0;
+    border-bottom: none
 }
 
 .contents .form_area.style-3 .row_contain.subject .column .view_text input[type=text] {
@@ -1897,23 +1920,36 @@ input[type=radio]+label.border-brickpink {
 .contents .form_area.style-2 .row_contain .column textarea,
 .contents .form_area.style-2 .row_contain .column.on textarea,
 .contents .form_area.style-2 .row_contain .column:hover textarea,
-.contents .form_area.style-3 .row_contain .column .view_text .textarea {
+.contents .form_area.style-3 .row_contain .column .view_text textarea,
+.contents .form_area.style-3 .row_contain .column.on .view_text textarea,
+.contents .form_area.style-3 .row_contain .column:hover .view_text textarea {
     padding: 5px 7px 6px 17px;
     min-height: 400px;
     max-height: 490px;
     line-height: 22px;
     font-size: 14px;
     font-family: Moebius_Regular_kor, Moebius_Regular_eng;
+    border-color: #d9eae0;
+    background: #fafafa;
     white-space: pre-line;
     overflow-y: auto
+}
+
+.contents .form_area.style-2 .row_contain .column.on textarea,
+.contents .form_area.style-2 .row_contain .column:hover textarea {
+    border-color: #82BEA3;
+    background: #fff
 }
 
 .contents .form_area.style-2 .row_contain .column textarea {
     font-size: 13px
 }
 
-.contents .form_area.style-3 .row_contain .column .view_text .textarea {
-    font-size: 13px
+.contents .form_area.style-3 .row_contain .column .view_text textarea,
+.contents .form_area.style-3 .row_contain .column.on .view_text textarea,
+.contents .form_area.style-3 .row_contain .column:hover .view_text textarea {
+    padding: 6px 7px 7px 17px;
+    font-size: 14px
 }
 
 .contents .form_area .row_contain .column input[type=text],
@@ -2650,26 +2686,26 @@ display: table-column
     background: #f9f9f9
 }
 
-.table_grid.tb_layout .table_head ul .th_cell,
+.table_grid.tb_layout .table_head .th_cell,
 .table_grid.tb_layout .table_body .table_row .td_cell {
     width: 176px;
     min-width: 176px
 }
 
-.table_grid.tb_layout .table_head ul .th_cell:first-child,
+.table_grid.tb_layout .table_head .th_cell:first-child,
 .table_grid.tb_layout .table_body .table_row .td_cell:first-child,
 .table_grid.tb_layout .table_body .fold_colgroup>.table_row.colspan .td_cell:first-child {
     width: 125px;
     min-width: 125px
 }
 
-.contents .layer_popup .table_colgroup .table_grid .table_head ul .th_cell:first-child,
+.contents .layer_popup .table_colgroup .table_grid .table_head .th_cell:first-child,
 .contents .layer_popup .table_colgroup .table_grid .table_body .table_row .td_cell:first-child {
     width: 125px;
     min-width: 125px
 }
 
-.contents .layer_popup .table_colgroup .table_grid .table_head ul .th_cell:last-child,
+.contents .layer_popup .table_colgroup .table_grid .table_head .th_cell:last-child,
 .contents .right_space .table_colgroup .table_grid .table_head.w-auto ul .th_cell:last-child,
 .contents .layer_popup .table_colgroup .table_grid .table_body .table_row .td_cell:last-child,
 .contents .right_space .table_colgroup .table_grid .table_body .table_row.w-auto .td_cell:last-child {
@@ -2683,7 +2719,7 @@ display: table-column
     width: 35px
 }
 
-.contents .layer_popup.small .table_colgroup .table_grid .table_head ul .th_cell,
+.contents .layer_popup.small .table_colgroup .table_grid .table_head .th_cell,
 .contents .layer_popup.small .table_colgroup .table_grid .table_body .table_row .td_cell {
     width: 95px;
     min-width: 95px
@@ -2695,25 +2731,25 @@ display: table-column
     min-width: 140px
 }
 
-.contents .layer_popup .table_colgroup .table_grid.radio_group .table_head ul .th_cell:first-child,
-.contents .right_space .table_colgroup .table_grid.radio_group .table_head ul .th_cell:first-child,
+.contents .layer_popup .table_colgroup .table_grid.radio_group .table_head .th_cell:first-child,
+.contents .right_space .table_colgroup .table_grid.radio_group .table_head .th_cell:first-child,
 .contents .layer_popup .table_colgroup .table_grid.radio_group .table_body .table_row .td_cell:first-child,
 .contents .right_space .table_colgroup .table_grid.radio_group .table_body .table_row .td_cell:first-child,
-.contents .layer_popup .table_colgroup .table_grid.checkbox_group .table_head ul .th_cell:first-child,
-.contents .right_space .table_colgroup .table_grid.checkbox_group .table_head ul .th_cell:first-child,
+.contents .layer_popup .table_colgroup .table_grid.checkbox_group .table_head .th_cell:first-child,
+.contents .right_space .table_colgroup .table_grid.checkbox_group .table_head .th_cell:first-child,
 .contents .layer_popup .table_colgroup .table_grid.checkbox_group .table_body .table_row .td_cell:first-child,
 .contents .right_space .table_colgroup .table_grid.checkbox_group .table_body .table_row .td_cell:first-child {
     width: 45px;
     min-width: 45px
 }
 
-.contents .layer_popup.small .table_colgroup .table_grid .table_head ul .th_cell:last-child,
+.contents .layer_popup.small .table_colgroup .table_grid .table_head .th_cell:last-child,
 .contents .layer_popup.small .table_colgroup .table_grid .table_body .table_row .td_cell:last-child {
     width: 175px;
     min-width: 175px
 }
 
-.contents .right_space .table_colgroup .table_grid.extend .table_head ul .th_cell:last-child,
+.contents .right_space .table_colgroup .table_grid.extend .table_head .th_cell:last-child,
 .contents .right_space .table_colgroup .table_grid.extend .table_body .table_row .td_cell:last-child {
     width: 575px;
     min-width: 575px
@@ -2725,10 +2761,10 @@ display: table-column
     min-width: 315px
 }
 
-.table_grid.tb_layout .table_head ul .th_cell:nth-child(2),
+.table_grid.tb_layout .table_head .th_cell:nth-child(2),
 .table_grid.tb_layout .table_body .table_row .td_cell:nth-child(2),
 .table_grid.tb_layout .table_body .fold_colgroup>.table_row.colspan .td_cell:nth-child(2),
-.table_grid.tb_layout .table_head ul .th_cell:nth-child(3),
+.table_grid.tb_layout .table_head .th_cell:nth-child(3),
 .table_grid.tb_layout .table_body .table_row .td_cell:nth-child(3),
 .table_grid.tb_layout .table_body .fold_colgroup>.table_row.colspan .td_cell:nth-child(3) {
     width: 285px;
@@ -2736,7 +2772,7 @@ display: table-column
 }
 
 .contents .right_space .table_colgroup .table_grid.tb_layout .table_body .fold_colgroup>.table_row.colspan .td_cell:last-child,
-.contents .right_space .table_colgroup .table_grid.tb_layout .table_head ul .th_cell:last-child,
+.contents .right_space .table_colgroup .table_grid.tb_layout .table_head .th_cell:last-child,
 .contents .right_space .table_colgroup .table_grid.tb_layout .table_body .table_row .td_cell:last-child {
     width: 60px;
     min-width: 60px
@@ -2979,6 +3015,75 @@ display: table-column
     height: 18px;
     background: url(../images/ico-add.png) center center no-repeat;
     background-size: 100%
+}
+
+
+/* TABLE REPLY SPACE */
+
+.contents .form_area.reply_space .reply_no {
+    color: #82BEA3;
+    font-size: 13px;
+    padding: 0 1px 0 4px
+}
+
+
+/*
+.contents .form_area.reply_space .table_grid .table_head .th_cell em,
+.contents .form_area.reply_space .table_grid .table_row .td_cell em {
+    display:inline-table
+}
+*/
+
+.contents .form_area.reply_space .table_grid .table_head .th_cell .reply_no,
+.contents .form_area.reply_space .table_grid .table_row .td_cell .reply_no {
+    display: inline-table;
+    color: #c46979
+}
+
+.contents .form_area.reply_space .table_grid .table_head .th_cell .sort_txt.on,
+.contents .form_area.reply_space .table_grid .table_head .th_cell .sort_txt:hover {
+    color: #222;
+    cursor: pointer
+}
+
+.contents .form_area.reply_space .table_grid .table_head .th_cell .sort_txt:after,
+.contents .form_area.reply_space .table_grid .table_row .td_cell .reply_name:after {
+    content: '';
+    position: relative;
+    display: inline-block;
+    margin: 0 6px 0 7px;
+    width: 1px;
+    height: 10px;
+    background: #999
+}
+
+.contents .form_area.reply_space .table_grid .table_head .th_cell .sort_txt:last-child:after {
+    content: none
+}
+
+.contents .form_area.reply_space .table_grid .table_row .td_cell {
+    height: 100px
+}
+
+.contents .form_area.reply_space .table_grid .table_row .td_cell .reply_name {
+    color: #666
+}
+
+.contents .form_area.reply_space .table_grid .table_row .td_cell .reply_date {
+    font-size: 12px;
+    color: #888
+}
+
+.contents .form_area.reply_space .table_grid .table_row .td_cell .reply_btn.write {
+    display: table;
+    padding-top: 8px;
+    padding-left: 47px
+}
+
+.contents .form_area.reply_space .table_grid .table_row .td_cell .reply_btn.on,
+.contents .form_area.reply_space .table_grid .table_row .td_cell .reply_btn:hover {
+    color: #444;
+    cursor: pointer
 }
 
 
@@ -3437,7 +3542,7 @@ footer em {
 }
 
 @media (min-width:1537px) and (max-width:1919px) {
-    .table_grid.tb_layout .table_head ul .th_cell,
+    .table_grid.tb_layout .table_head .th_cell,
     .table_grid.tb_layout .table_body .table_row .td_cell {
         width: 123px;
         min-width: 123px
@@ -3540,14 +3645,14 @@ footer em {
     .select_group>.column_label {
         letter-spacing: .4px
     } */
-    .table_grid.tb_layout .table_head ul .th_cell,
+    .table_grid.tb_layout .table_head .th_cell,
     .table_grid.tb_layout .table_body .table_row .td_cell {
         width: 176px
     }
     .table_grid.tb_layout .table_body .fold_colgroup>.table_row.colspan .td_cell {
         min-width: 176px
     }
-    .table_grid.tb_layout .table_head ul .th_cell:first-child,
+    .table_grid.tb_layout .table_head .th_cell:first-child,
     .table_grid.tb_layout .table_body .table_row .td_cell:first-child,
     .table_grid.tb_layout .table_body .fold_colgroup>.table_row.colspan .td_cell:first-child {
         min-width: 125px
