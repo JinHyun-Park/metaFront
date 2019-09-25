@@ -360,10 +360,16 @@ header .gnb>div .util_space .log .ico-logout {
     background-size: 100%
 }
 
-h1>.bi {
-    width: 60px;
-    height: 48px;
+h1>.bi,
+h2>.bi_login {
+    width: 79px;
+    height: 23px;
     cursor: pointer
+}
+
+h2>.bi_login {
+    width: 84px;
+    height: 24px
 }
 
 nav .menu {

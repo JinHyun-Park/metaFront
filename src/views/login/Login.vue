@@ -2,7 +2,14 @@
   <div class="contents index">
     <article class="login_contn">
       <section class="title login style-2">
-        <h2><i class="ico-bar" />NARU</h2>
+        <!-- <h2><i class="ico-bar" />NARU</h2> -->
+        <h2>
+          <img
+            class="bi_login"
+            src="@/assets/images/naru-bi-dark.png"
+            alt="나루 로고"
+          >
+        </h2>
       </section>
       <section class="login form_area border_group">
         <div class="row_contain type-1">

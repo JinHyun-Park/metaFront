@@ -32,7 +32,7 @@
         </div>
       </h5>
       <div class="row_contain type-3">
-        <div class="column w-6">
+        <div class="column w-1">
           <label class="column_label">업무코드</label>
           <input
             v-model="opCd"
@@ -40,7 +40,7 @@
             value=""
           >
         </div>
-        <div class="column w-6">
+        <div class="column w-1">
           <label class="column_label">기관코드</label>
           <input
             v-model="mcgInstCd"
@@ -48,7 +48,7 @@
             value=""
           >
         </div>
-        <div class="column w-6">
+        <div class="column w-1">
           <label class="column_label">채널그룹</label>
           <input
             v-model="chnlGrp"
@@ -56,7 +56,7 @@
             value=""
           >
         </div>
-        <div class="column w-6">
+        <div class="column w-1">
           <label class="column_label">채널타입</label>
           <input
             v-model="chnlTyp"
@@ -64,7 +64,7 @@
             value=""
           >
         </div>
-        <div class="column w-6">
+        <div class="column w-1">
           <label class="column_label">연동방식</label>
           <input
             v-model="lnkgMthd"
@@ -72,7 +72,7 @@
             value=""
           >
         </div>
-        <div class="column w-6">
+        <div class="column w-1">
           <label class="column_label">채널ID</label>
           <input
             v-model="chnlId"
@@ -80,7 +80,7 @@
             value=""
           >
         </div>
-        <div class="column w-6">
+        <div class="column w-1">
           <label class="column_label">채널명</label>
           <input
             v-model="chnlNm"
@@ -88,7 +88,7 @@
             value=""
           >
         </div>
-        <div class="column w-6">
+        <div class="column w-1">
           <label class="column_label">대표담당자</label>
           <input
             v-model="chrgrnm"
@@ -96,7 +96,7 @@
             value=""
           >
         </div>
-        <div class="column w-2">
+        <div class="column w-1">
           <label class="column_label">사용</label>
           <div class="select_group">
             <select v-model="useYn">
@@ -110,7 +110,6 @@
             <span class="select" />
           </div>
         </div>
-        <div class="column w-1" />
       </div>
       <div class="table_grid">
         <div class="table_head w-auto">
