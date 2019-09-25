@@ -1,11 +1,18 @@
 <template>
   <div id="app">
     <div
-      v-if="confirmSet.confirmOn"
+      v-if="alertSet.alertOn"
       class="confirm"
     >
       <comm-alert />
     </div>
+    <div
+      v-if="confirmSet.confirmOn"
+      class="confirm"
+    >
+      <CommConfirm />
+    </div>
+
     <div v-if="loginPageOn">
       <router-view />
     </div>
@@ -29,18 +36,19 @@ import Aside from '@/views/Layout/Aside.vue';
 import RightSide from '@/views/Layout/RightSide.vue';
 
 import CommAlert from '@/components/popup/common/CommAlert.vue';
+import CommConfirm from '@/components/popup/common/CommConfirm.vue';
 
 export default {
   name: 'App',
   components: {
-    Header, Footer, Aside, RightSide, CommAlert,
+    Header, Footer, Aside, RightSide, CommAlert, CommConfirm,
   },
   data() {
     return {
     };
   },
   computed: {
-    ...mapState('frameSet', ['headerOn', 'asideOn', 'footerOn', 'loginPageOn', 'confirmSet']),
+    ...mapState('frameSet', ['headerOn', 'asideOn', 'footerOn', 'loginPageOn', 'confirmSet', 'alertSet']),
   },
 };
 </script>
