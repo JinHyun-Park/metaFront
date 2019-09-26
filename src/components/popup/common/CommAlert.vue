@@ -1,12 +1,21 @@
 <template>
   <div class="contents popup">
     <i class="dim" />
-    <article class="layer_popup ssmall">
+    <article
+      ref="commAlert"
+      class="layer_popup ssmall"
+      tabindex="0"
+      @keydown.esc.enter="closeAlert"
+    >
       <section class="confirm_area">
-        <label class="">
-          <!-- <div v-html="alertSet.alertMsg" /> -->
-          {{ alertSet.alertMsg }}
-          <!-- <div><pre>{{ alertSet.alertMsg }}</pre></div> -->
+        <label
+          v-for="(item, i) in innerMsgs"
+          :key="i"
+          class=""
+        >
+          <span>
+            {{ item }}
+          </span>
         </label>
       </section>
 
@@ -30,10 +39,15 @@ export default {
   name: 'CommAlert',
   data() {
     return {
+      innerMsgs: [],
     };
   },
   computed: {
     ...mapState('frameSet', ['alertSet']),
+  },
+  mounted() {
+    this.innerMsgs = this.$gf.transEnterExp(this.alertSet.alertMsg);
+    this.$refs.commAlert.focus(); // keyup 이벤트가 바로 적용될 수 있도록 focusing
   },
   methods: {
     closeAlert() {
