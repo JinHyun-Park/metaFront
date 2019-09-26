@@ -181,6 +181,10 @@ export default {
       this.$router.push({ name: page });
     },
     logout() {
+      const confirmText = '로그아웃 하시겠습니다??';
+      this.$gf.confirmOn(confirmText, this.logoutCall);
+    },
+    logoutCall() {
       this.$axios.get('/api/logout')
         .then((res) => {
           if (res.status === 200) {
