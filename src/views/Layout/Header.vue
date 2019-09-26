@@ -5,12 +5,12 @@
         class="inH1"
         @click="movePage('home')"
       >
-        <!-- <img
+        <img
           class="bi"
-          src="@/assets/images/bi.png"
-          alt="SK C&C 로고"
-        > -->
-        NARU
+          src="@/assets/images/naru-bi-white.png"
+          alt="나루 로고"
+        >
+        <!-- NARU -->
       </h1>
       <div>
         <div class="util_space">

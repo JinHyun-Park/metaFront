@@ -631,7 +631,7 @@
     </section>
 
     <!-- ONLINE -->
-    <section class="form_area border_group">
+    <section class="form_area border_group style-1">
       <h5 class="s_tit">
         비고
       </h5>
