@@ -202,9 +202,6 @@ export default {
             if (this.ccCdLst.length === 0) {
               this.addList();
             }
-          } else {
-            // eslint-disable-next-line no-alert
-            alert('failed');
           }
         })
         .catch((ex) => {
@@ -219,19 +216,16 @@ export default {
     },
     editList(i) {
       const confirmText = `${this.ccCdLst[i].cdId} > ${this.ccCdLst[i].cdDtlId} 를 저장하십니까?`;
-      // eslint-disable-next-line no-restricted-globals
-      if (confirm(confirmText)) {
-        this.tgtUrl = '/api/bizcomm/cccd';
+      this.$gf.confirmOn(confirmText, this.editCall, i);
+    },
+    editCall(i) {
+      this.tgtUrl = '/api/bizcomm/cccd';
         if (this.ccCdLst[i].flag != null && this.ccCdLst[i].flag === 'I') {
           this.$axios.post(this.tgtUrl, this.ccCdLst[i])
             .then((res) => {
               console.log(res);
               if (res.data.rstCd === 'S') {
-                // eslint-disable-next-line no-alert
-                alert('success');
-              } else {
-                // eslint-disable-next-line no-alert
-                alert('failed');
+                this.$gf.alertOn(`반영되었습니다.`);
               }
             })
             .catch((ex) => {
@@ -242,18 +236,13 @@ export default {
             .then((res) => {
               console.log(res);
               if (res.data.rstCd === 'S') {
-                // eslint-disable-next-line no-alert
-                alert('success');
-              } else {
-                // eslint-disable-next-line no-alert
-                alert('failed');
+                this.$gf.alertOn(`반영되었습니다.`);
               }
             })
             .catch((ex) => {
               console.log(`error occur!! : ${ex}`);
             });
         }
-      }
     },
   },
 };

@@ -205,9 +205,11 @@ export default {
         });
     },
     editList(i) {
-      if (confirm(`${this.userList[i].chrgrInfo.hanNm}님 권한을 ${this.userList[i].userAuth}로 변경할래요?`)) {
-        // to-do userAuth값을 변경;
-        this.tgtUrl = `/api/user/auth/${this.userList[i].userId}`;
+      let confirmText = `[${this.userList[i].chrgrInfo.hanNm}]님 권한을 [${this.userList[i].userAuth}]로 변경할래요?`;
+      this.$gf.confirmOn(confirmText, this.editCall, i);
+    },
+    editCall(i) {
+      this.tgtUrl = `/api/user/auth/${this.userList[i].userId}`;
         this.$axios.put(this.tgtUrl, this.userList[i])
           .then((res) => {
             console.log(res);
@@ -218,7 +220,6 @@ export default {
           .catch((ex) => {
             console.log(`error occur!! : ${ex}`);
           });
-      }
     },
     delList(i) {
       if (confirm(`${this.userList[i].chrgrInfo.hanNm}님 계정을 정말 삭제할래요?`)) {
