@@ -1566,6 +1566,7 @@ flex-direction: column
     display: flex;
     display: -ms-flexbox;
     flex-direction: column;
+    position: relative;
     margin: 0;
     padding-right: 23px;
     box-sizing: border-box
@@ -1865,6 +1866,7 @@ input[type=radio]+label.border-brickpink {
 
 .contents .form_area .row_contain .column .column_label,
 .select_group>.column_label {
+    position: relative;
     padding: 0;
     padding-left: 7px;
     padding-right: 7px;
@@ -3099,6 +3101,7 @@ display: table-column
 }
 
 .contents .form_area.reply_space .table_grid .table_row .td_cell {
+    width: 100%;
     height: 100px
 }
 
@@ -3171,6 +3174,155 @@ display: table-column
 .contents .form_area.reply_space .table_grid .table_row .td_cell .reply_writing {
     padding-top: 13px;
     padding-left: 11px
+}
+
+.contents .form_area.reply_space .table_grid .table_row .td_cell .reply_writing .td_cell {
+    width: 100%;
+    border-bottom: none
+}
+
+.contents .form_area.reply_space .table_grid .table_row .td_cell.right_button_area {
+    text-align: left;
+    vertical-align: middle
+}
+
+.contents .form_area.reply_space .table_grid .table_row .td_cell.right_button_area .default_button {
+    display: inline-table;
+    /*    margin-left:0;*/
+    margin-top: 7px;
+    width: 106px;
+    height: 34px;
+    font-size: 12px
+}
+
+.contents .form_area.reply_space .table_grid .table_row .td_cell.right_button_area .default_button:first-child {
+    margin-top: 15px
+}
+
+
+/* TOOLTIP */
+
+.tooltips {
+    position: relative;
+    display: inline
+}
+
+.tooltips .tip_contn {
+    font-style: normal
+}
+
+.tooltips.top .tip_contn,
+.tooltips.bottom+.tip_contn,
+.tooltips.left .tip_contn,
+.tooltips.right .tip_contn {
+    position: absolute;
+    padding: 4px 3px 5px 9px;
+    min-width: 140px;
+    max-width: 247px;
+    font-size: 12px;
+    color: #fff;
+    height: auto;
+    min-height: 31px;
+    line-height: 20px;
+    max-height: 66px;
+    text-align: center;
+    white-space: pre-wrap;
+    visibility: hidden;
+    border-radius: 5px;
+    background: #222;
+    box-sizing: border-box
+}
+
+.tooltips.top .tip_contn:after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -4px;
+    width: 0;
+    height: 0;
+    border-top: 5px solid #222;
+    border-right: 4px solid transparent;
+    border-left: 4px solid transparent;
+}
+
+.tooltips.bottom+.tip_contn:after {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -4px;
+    width: 0;
+    height: 0;
+    border-bottom: 5px solid #222;
+    border-right: 4px solid transparent;
+    border-left: 4px solid transparent;
+}
+
+.tooltips.left .tip_contn:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    margin-top: -4px;
+    width: 0;
+    height: 0;
+    border-left: 5px solid #222;
+    border-top: 4px solid transparent;
+    border-bottom: 4px solid transparent;
+}
+
+.tooltips.right .tip_contn:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 100%;
+    margin-top: -4px;
+    width: 0;
+    height: 0;
+    border-right: 5px solid #222;
+    border-top: 4px solid transparent;
+    border-bottom: 4px solid transparent;
+}
+
+label.ov.tooltips.top .tip_contn,
+label:hover.tooltips.top .tip_contn {
+    visibility: visible;
+    opacity: 0.8;
+    bottom: 32px;
+    left: 0;
+    /*
+    left: 50%;
+    margin-left: -76px;
+*/
+    z-index: 9
+}
+
+input[type=text].ov.tooltips.bottom+.tip_contn,
+input[type=text]:hover.tooltips.bottom+.tip_contn {
+    visibility: visible;
+    opacity: 0.8;
+    bottom: -41px;
+    left: 0;
+    z-index: 9
+}
+
+span.ov.tooltips.left .tip_contn,
+span:hover.tooltips.left .tip_contn {
+    visibility: visible;
+    opacity: 0.8;
+    right: 100%;
+    margin-right: 8px;
+    z-index: 9
+}
+
+span.ov.tooltips.right .tip_contn,
+span:hover.tooltips.right .tip_contn {
+    visibility: visible;
+    opacity: 0.8;
+    left: 100%;
+    margin-left: 8px;
+    z-index: 9
 }
 
 

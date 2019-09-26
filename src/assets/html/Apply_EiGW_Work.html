@@ -311,10 +311,12 @@
                             <span class="default_radio on">
                                     <input type="radio" id="radio_1" name="radio_1">(S)FTP<label for="radio_1"><span></span></label>
                             </span>
-                            <span class="default_radio">
+                            <span class="default_radio tooltips ov left">
+                                    <i class="tip_contn">TooltipTooltipTooltip<br>tooltips</i>
                                     <input type="radio" id="radio_2" name="radio_1">TCP<label for="radio_2"><span></span></label>
                             </span>
-                            <span class="default_radio">
+                            <span class="default_radio tooltips right ov">
+                                    <i class="tip_contn">Tooltip Tooltip</i>
                                     <input type="radio" id="radio_3" name="radio_1">기타<label for="radio_3"><span></span></label>
                             </span>
                         </div>
@@ -331,12 +333,15 @@
                         <input type="text" value="">
                     </div>
                     <div class="column w-1">
-                        <label class="column_label">운영 REAL IP</label>
+                        <label class="column_label tooltips ov top">운영 REAL IP
+                                <span class="tip_contn">Tooltip Tooltip Tooltip<br>Tooltip Tooltip Tooltip</span>
+                            </label>
                         <input type="text" value="OPGROUP">
                     </div>
                     <div class="column w-1">
                         <label class="column_label">운영 Port</label>
-                        <input type="text" value="">
+                        <input type="text" value="" class="tooltips ov bottom">
+                        <span class="tip_contn">Tooltip</span>
                     </div>
                 </div>
 
@@ -429,7 +434,7 @@
             </section>
 
             <!-- ONLINE -->
-            <section class="form_area border_group">
+            <section class="form_area border_group style-1">
                 <h5 class="s_tit">비고</h5>
                 <div class="row_contain">
                     <div class="column w-6">
@@ -448,47 +453,49 @@
         </div>
 
         <aside class="move_form">
-            <section class="form_area">
-                <h5 class="s_tit">기본 설정</h5>
-                <div class="row_contain type-2">
-                    <div class="column w-6">
-                        <label class="column_label">인터페이스 ID</label>
-                        <input type="text" value="myidisyoungjunyu">
-                    </div>
-                </div>
-                <div class="row_contain type-2">
-                    <div class="column w-6">
-                        <label class="column_label">인터페이스명</label>
-                        <input type="text" value="Interface12">
-                    </div>
-                </div>
-                <div class="row_contain type-2">
-                    <div class="column w-6">
-                        <label class="column_label">유형</label>
-                        <div class="select_group">
-                            <select>
-                                    <option value="" selected>MQ</option>
-                                    <option value="">FILE</option>
-                                </select>
-                            <span class="select"></span>
+            <div class="move_contn">
+                <section class="form_area">
+                    <h5 class="s_tit">기본 설정</h5>
+                    <div class="row_contain type-2">
+                        <div class="column w-6">
+                            <label class="column_label">인터페이스 ID</label>
+                            <input type="text" value="myidisyoungjunyu">
                         </div>
                     </div>
-                </div>
-                <div class="row_contain type-2">
-                    <div class="column w-6">
-                        <label class="column_label">HUB</label>
-                        <div class="select_group">
-                            <select>
-                                    <option value="" selected>1</option>
-                                    <option value="">2</option>
-                                    <option value="">3</option>
-                                    <option value="">4</option>
-                                </select>
-                            <span class="select"></span>
+                    <div class="row_contain type-2">
+                        <div class="column w-6">
+                            <label class="column_label">인터페이스명</label>
+                            <input type="text" value="Interface12">
                         </div>
                     </div>
-                </div>
-            </section>
+                    <div class="row_contain type-2">
+                        <div class="column w-6">
+                            <label class="column_label">유형</label>
+                            <div class="select_group">
+                                <select>
+                                        <option value="" selected>MQ</option>
+                                        <option value="">FILE</option>
+                                    </select>
+                                <span class="select"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row_contain type-2">
+                        <div class="column w-6">
+                            <label class="column_label">HUB</label>
+                            <div class="select_group">
+                                <select>
+                                        <option value="" selected>1</option>
+                                        <option value="">2</option>
+                                        <option value="">3</option>
+                                        <option value="">4</option>
+                                    </select>
+                                <span class="select"></span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
         </aside>
     </article>
 
