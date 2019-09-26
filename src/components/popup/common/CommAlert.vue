@@ -37,7 +37,7 @@ export default {
   },
   methods: {
     closeAlert() {
-      this.$gf.alertOff(this.alertSet.parentFunc);
+      this.$gf.alertOff(this.alertSet.parentFunc, this.alertSet.param);
     },
   },
 };

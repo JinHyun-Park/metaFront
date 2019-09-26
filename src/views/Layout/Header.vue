@@ -194,12 +194,13 @@ export default {
     },
     confirmOn() {
       // this.$gf.moveSite();
-      this.$gf.confirmOn(this.alertMsg, '괜찮으세요??');
+      const text1 = '11222';
+      this.$gf.confirmOn('괜찮으세요??', this.alertMsg, text1);
       // this.$gf.alertOn('', this.alertMsg);
     },
-    alertMsg() {
+    alertMsg(text) {
       // eslint-disable-next-line no-alert
-      alert(this.alertMsgText);
+      alert(text);
       // this.$router.push({ name: 'swingDbInfo' });
     },
   },
