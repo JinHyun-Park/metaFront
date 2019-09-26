@@ -190,9 +190,6 @@ export default {
           console.log(res);
           if (res.data.rstCd === 'S') {
             this.chrgrList = res.data.rstData.chrgrInfo;
-          } else {
-          // eslint-disable-next-line no-alert
-            alert('failed');
           }
         })
         .catch((ex) => {
