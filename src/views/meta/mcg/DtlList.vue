@@ -111,72 +111,74 @@
           </div>
         </div>
       </div>
-      <div class="table_grid">
-        <div class="table_head w-auto">
-          <ul>
-            <li class="th_cell">
-              업무코드<i class="ico-sort-down" />
-            </li>
-            <li class="th_cell">
-              기관코드<i class="ico-sort-up" />
-            </li>
-            <li class="th_cell">
-              채널그룹<i class="ico-sort-down" />
-            </li>
-            <li class="th_cell">
-              채널타입<i class="ico-sort-down" />
-            </li>
-            <li class="th_cell">
-              연동방식<i class="ico-sort-down" />
-            </li>
-            <li class="th_cell">
-              채널ID<i class="ico-sort-up" />
-            </li>
-            <li class="th_cell">
-              채널명<i class="ico-sort-up" />
-            </li>
-            <li class="th_cell">
-              대표담당자<i class="ico-sort-down" />
-            </li>
-            <li class="th_cell">
-              사용여부<i class="ico-sort-down" />
-            </li>
-          </ul>
-        </div>
-        <div class="table_body">
-          <ul
-            v-for="chn in chnList"
-            :key="chn.index"
-            class="table_row w-auto"
-          >
-            <li class="td_cell">
-              {{ chn.opCd }}
-            </li>
-            <li class="td_cell">
-              {{ chn.mcgInstCd }}
-            </li>
-            <li class="td_cell">
-              {{ chn.chnlGrp }}
-            </li>
-            <li class="td_cell">
-              {{ chn.chnlTyp }}
-            </li>
-            <li class="td_cell">
-              {{ chn.lnkgMthd }}
-            </li>
-            <li class="td_cell">
-              {{ chn.chnlId }}
-            </li>
-            <li class="td_cell">
-              {{ chn.chnlNm }}
-            </li>
-            <li class="td_cell">
-              {{ chn.chrgrnm }}
-            </li>
-            <li class="td_cell">
-              {{ chn.useYn }}
-            </li>
-          </ul>
+      <div class="table_colgroup">
+        <div class="table_grid">
+          <div class="table_head w-auto">
+            <ul>
+              <li class="th_cell">
+                업무코드<i class="ico-sort-down" />
+              </li>
+              <li class="th_cell">
+                기관코드<i class="ico-sort-up" />
+              </li>
+              <li class="th_cell">
+                채널그룹<i class="ico-sort-down" />
+              </li>
+              <li class="th_cell">
+                채널타입<i class="ico-sort-down" />
+              </li>
+              <li class="th_cell">
+                연동방식<i class="ico-sort-down" />
+              </li>
+              <li class="th_cell">
+                채널ID<i class="ico-sort-up" />
+              </li>
+              <li class="th_cell">
+                채널명<i class="ico-sort-up" />
+              </li>
+              <li class="th_cell">
+                대표담당자<i class="ico-sort-down" />
+              </li>
+              <li class="th_cell">
+                사용여부<i class="ico-sort-down" />
+              </li>
+            </ul>
+          </div>
+          <div class="table_body">
+            <ul
+              v-for="chn in chnList"
+              :key="chn.index"
+              class="table_row w-auto"
+            >
+              <li class="td_cell">
+                {{ chn.opCd }}
+              </li>
+              <li class="td_cell">
+                {{ chn.mcgInstCd }}
+              </li>
+              <li class="td_cell">
+                {{ chn.chnlGrp }}
+              </li>
+              <li class="td_cell">
+                {{ chn.chnlTyp }}
+              </li>
+              <li class="td_cell">
+                {{ chn.lnkgMthd }}
+              </li>
+              <li class="td_cell">
+                {{ chn.chnlId }}
+              </li>
+              <li class="td_cell">
+                {{ chn.chnlNm }}
+              </li>
+              <li class="td_cell">
+                {{ chn.chrgrnm }}
+              </li>
+              <li class="td_cell">
+                {{ chn.useYn }}
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </section>

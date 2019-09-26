@@ -240,6 +240,11 @@ const helpers = {
   },
   /* alert 관련 method */
 
+  transEnterExp(val) {
+    const regExp = '\n';
+    return val.split(regExp);
+  },
+
   /**
      * 예시 함수 - 이 함수를 변형/삭제해서 사용해주세요.
      */

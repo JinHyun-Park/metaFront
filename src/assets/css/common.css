@@ -554,7 +554,8 @@ nav .menu li .sub_menu li:hover {
 
 .contents .title div {
     display: flex;
-    display: -ms-flexbox
+    display: -ms-flexbox;
+    width: auto
 }
 
 .contents .title>h2 {

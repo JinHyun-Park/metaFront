@@ -1,7 +1,12 @@
 <template>
   <div class="contents popup">
     <i class="dim" />
-    <article class="layer_popup Ssmall">
+    <article
+      ref="commConfirm"
+      class="layer_popup ssmall"
+      tabindex="0"
+      @keydown.esc="closeConfirm('N')"
+    >
       <!--
                 <section class="title style-2">
                     <h2><i class="ico-bar"></i>Confirm Popup</h2>
@@ -10,7 +15,15 @@
       <section class="confirm_area">
         <!-- <i class="ico-confirm" /> -->
         <i :class="{'ico-confirm': isConfirm, 'ico-warning': isWarning, 'ico-cancel': isCancel}" />
-        <label class=""> {{ confirmSet.confirmMsg }}</label>
+        <label
+          v-for="(item, i) in innerMsgs"
+          :key="i"
+          class=""
+        >
+          <span>
+            {{ item }}
+          </span>
+        </label>
       </section>
 
       <section class="btm_button_area confirm_btn">
@@ -44,6 +57,7 @@ export default {
       isWarning: false, // 1
       isCancel: false, // 2
       isConfirm: true, // 3 or others
+      innerMsgs: [],
     };
   },
   computed: {
@@ -51,6 +65,8 @@ export default {
   },
   mounted() {
     this.checkIcon(this.confirmSet.iconNum);
+    this.innerMsgs = this.$gf.transEnterExp(this.confirmSet.confirmMsg);
+    this.$refs.commConfirm.focus(); // keyup 이벤트가 바로 적용될 수 있도록 focusing
   },
   methods: {
     closeConfirm(flag) {
