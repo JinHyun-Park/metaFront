@@ -149,11 +149,13 @@ const helpers = {
   /* confirm 관련 method */
   /**
      * confirm 팝업, fnc는 확인 이후 실행시킬 method
-     * @param {Object(function)} fnc : callback 함수
-     * @param {String} msg : confirm modal에 띄울 메시지
-     * @param {Number} iconNo : 아이콘 모양 번호(1-느낌표, 2-X, 3-체크(기본))
+     * function은 function object를 전달해야함.
+     * @param {String} msg : confirm modal에 띄울 메시지, optional
+     * @param {Object(function)} fnc : callback 함수, 필수
+     * @param {Object} callParam : callback 함수를 위한 파라미터, optional
+     * @param {Number} iconNo : 아이콘 모양 번호(1-느낌표, 2-X, 3-체크(기본)), optional
      */
-  confirmOn(fnc, msg, iconNo) {
+  confirmOn(msg, fnc, callParam, iconNo) {
     let lvMsg = '계속 진행하시겠습니까?';
 
     if (!this.isEmpty(msg)) {
@@ -167,6 +169,7 @@ const helpers = {
         confirmMsg: lvMsg,
         parentFunc: fnc,
         iconNum: iconNo,
+        param: callParam,
       });
     }
   },
@@ -174,17 +177,19 @@ const helpers = {
   /**
      * confirm 종료, fnc는 확인 이후 실행시킬 method
      * @param {Object(function)} fnc
+     * @param {Object} callParam
      */
-  confirmOff(fnc) {
+  confirmOff(fnc, callParam) {
     store.dispatch('frameSet/setConfirmSet', {
       confirmOn: false,
       confirmMsg: '',
       parentFunc: '',
       iconNum: '',
+      param: '',
     });
 
     if (!this.isEmpty(fnc)) {
-      fnc();
+      fnc(callParam);
     }
   },
   /* confirm 관련 method */
@@ -193,11 +198,11 @@ const helpers = {
   /* alert 관련 method */
   /**
      * alert 팝업, fnc는 확인 이후 실행시킬 method
-     * function을 optional하게 넣을 것 같아서 후 parameter에 위치시킴
-     * @param {String} msg
-     * @param {Object(function)} fnc
+     * function은 function object를 전달해야함.
+     * @param {String} msg, 메시지 값 필수
+     * @param {Object(function)} fnc, optional
      */
-  alertOn(msg, fnc) {
+  alertOn(msg, fnc, callParam) {
     let lvMsg = '"-"';
     let lvFnc = '';
 
@@ -208,18 +213,29 @@ const helpers = {
       lvFnc = fnc;
     }
 
-    store.dispatch('frameSet/setAlertSet', { alertOn: true, alertMsg: lvMsg, parentFunc: lvFnc });
+    store.dispatch('frameSet/setAlertSet', {
+      alertOn: true,
+      alertMsg: lvMsg,
+      parentFunc: lvFnc,
+      param: callParam,
+    });
   },
 
   /**
      * alert 종료, fnc는 확인 이후 실행시킬 method
      * @param {Object(function)} fnc
+     * @param {Object} callParam
      */
-  alertOff(fnc) {
-    store.dispatch('frameSet/setAlertSet', { alertOn: false, alertMsg: '', parentFunc: '' });
+  alertOff(fnc, callParam) {
+    store.dispatch('frameSet/setAlertSet', {
+      alertOn: false,
+      alertMsg: '',
+      parentFunc: '',
+      param: '',
+    });
 
     if (!this.isEmpty(fnc)) {
-      fnc();
+      fnc(callParam);
     }
   },
   /* alert 관련 method */

@@ -81,7 +81,7 @@
               <tr class="table_row w-auto">
                 <td
                   colspan="10"
-                  class="td_cell justify-content: center;"
+                  class="td_cell"
                 >
                   데이터가 없습니다.
                 </td>
@@ -212,11 +212,7 @@ export default {
           .then((res) => {
             console.log(res);
             if (res.data.rstCd === 'S') {
-            // eslint-disable-next-line no-alert
-              alert('success');
-            } else {
-            // eslint-disable-next-line no-alert
-              alert('failed');
+              this.$gf.alertOn(`반영되었습니다.`);
             }
           })
           .catch((ex) => {

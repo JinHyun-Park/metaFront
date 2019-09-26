@@ -55,7 +55,7 @@ export default {
   methods: {
     closeConfirm(flag) {
       if (flag === 'Y') {
-        this.$gf.confirmOff(this.confirmSet.parentFunc);
+        this.$gf.confirmOff(this.confirmSet.parentFunc, this.confirmSet.param);
       } else {
         this.$gf.confirmOff();
       }
