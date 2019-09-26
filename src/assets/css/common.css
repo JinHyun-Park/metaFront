@@ -2905,6 +2905,9 @@ display: table-column
     border-bottom-color: #bbb
 }
 
+
+/* LABEL COLORS */
+
 .table_grid .table_row .td_cell label.label-default {
     padding: 2px 16px;
     border: 1px solid #c46979;
@@ -2914,6 +2917,22 @@ display: table-column
 
 .table_grid .table_row .td_cell label.label-default.color-green {
     border-color: #82BEA3
+}
+
+.table_grid .table_row .td_cell label.label-default.color-blue {
+    border-color: #4075b8
+}
+
+.table_grid .table_row .td_cell label.label-default.color-gray {
+    border-color: #9d9d9d
+}
+
+.table_grid .table_row .td_cell label.label-default.color-black {
+    border-color: #5c5c5c
+}
+
+.table_grid .table_row .td_cell label.label-default.color-yellow {
+    border-color: #ffc529
 }
 
 .table_grid .table_row .td_cell.reply label.label-default {
