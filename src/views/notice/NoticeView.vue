@@ -10,6 +10,7 @@
         </div>
       </h2>
     </section>
+
     <section class="form_area border_group style-3">
       <!--
                     <h5 class="s_tit type-2">글쓰기
@@ -64,16 +65,21 @@
           <span class="view_text">
             <textarea
               cols="5"
-              row="10"
+              rows="10"
               placeholder=""
-            >내용을 이렇습니다.내용을 이렇습니다.내용을 이렇습니다.내용을 이렇습니다.내용을 이렇습니다.내용을 이렇습니다.
+            >
+내용을 이렇습니다.내용을 이렇습니다.내용을 이렇습니다.내용을 이렇습니다.내용을 이렇습니다.내용을 이렇습니다.
 내용
 내용
 내용
 내용
 내용
 내용
-내용</textarea>
+내용
+내용
+내용
+내용
+                                </textarea>
           </span>
         </div>
       </div>
@@ -104,6 +110,86 @@
       </div>
     </section>
 
+    <section class="form_area border_group reply_space">
+      <h4 class="l_tit">
+        관련글 <em class="reply_no">0</em>개, 댓글 <em class="reply_no">2</em>개가 있습니다.
+      </h4>
+      <div class="table_colgroup">
+        <div class="table_grid">
+          <div class="table_head w-auto">
+            <ul>
+              <li class="th_cell">
+                전체댓글 <em class="reply_no">1</em>
+              </li>
+              <li class="th_cell">
+                <span class="sort_txt on">최신순</span><span class="sort_txt">공감순</span>
+              </li>
+            </ul>
+          </div>
+          <div class="table_body">
+            <ul class="table_row w-auto">
+              <li class="td_cell w-auto">
+                <span class="reply_name">유영준</span><span class="reply_date">
+                  2019-09-25 14:51:07
+                </span>
+                <div class="reply_writing">
+                  개발 테스트0
+                  <em class="reply_btn write"><i class="ico-reply" />댓글달기</em>
+                </div>
+              </li>
+              <li class="td_cell w-auto">
+                공감<em class="reply_no">0</em>
+                <span class="reply_btn del">
+                  <i class="ico-del" />삭제
+                </span>
+              </li>
+            </ul>
+            <ul class="table_row w-auto">
+              <li class="td_cell w-auto">
+                <textarea
+                  cols="10"
+                  placeholder="댓글을 입력하세요."
+                />
+              </li>
+              <li class="td_cell w-auto">
+                <em class="reply_no total">123 / 5000자</em>
+                <button class="default_button on">
+                  등록
+                </button>
+              </li>
+            </ul>
+            <ul class="table_row w-auto">
+              <li class="td_cell w-auto">
+                <span class="reply_name">박진현</span>
+                <span class="reply_date">2019-09-25 14:51:07</span>
+                <em class="reply_btn">EDIT</em>
+                <em class="reply_btn last">REPLY</em>
+                <div class="reply_writing">
+                  개발 테스트1
+                </div>
+              </li>
+              <li class="td_cell w-auto">
+&nbsp;
+              </li>
+            </ul>
+            <ul class="table_row w-auto">
+              <li class="td_cell w-auto">
+                <span class="reply_name">장호은</span>
+                <span class="reply_date">2019-09-25 16:41:08</span>
+                <em class="reply_btn">EDIT</em><em class="reply_btn last">REPLY</em>
+                <div class="reply_writing">
+                  개발 테스트2
+                </div>
+              </li>
+              <li class="td_cell w-auto">
+&nbsp;
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="btm_button_area">
       <button
         type="button"
@@ -115,13 +201,13 @@
         type="button"
         class="default_button"
       >
-        취소
+        수정
       </button>
       <button
         type="button"
         class="default_button on"
       >
-        등록
+        확인
       </button>
     </section>
   </div>
