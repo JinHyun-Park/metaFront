@@ -3195,9 +3195,20 @@ display: table-column
     padding-left: 11px
 }
 
-.contents .form_area.reply_space .table_grid .table_row .td_cell .reply_writing .td_cell {
+.contents .right_space .form_area.reply_space .table_grid .table_row .td_cell:first-child {
+    padding-right: 0
+}
+
+.contents .right_space .form_area.reply_space .table_grid .table_row .td_cell .reply_writing .td_cell {
     width: 100%;
     border-bottom: none
+}
+
+.contents .right_space .form_area.reply_space .table_grid .table_row .td_cell .reply_writing .td_cell:last-child {
+    padding: 0;
+    min-width: 0;
+    width: 1%;
+    font-size: 0
 }
 
 .contents .form_area.reply_space .table_grid .table_row .td_cell.right_button_area {
