@@ -55,10 +55,18 @@
       <div class="row_contain type-2">
         <div class="column w-4">
           <label class="column_label">내용</label>
-          <textarea
+          <!-- <textarea
             cols="5"
             row="10"
             placeholder="내용을 입력해 주세요."
+          /> -->
+          <quill-editor
+            ref="myQuillEditor"
+            v-model="content"
+            :options="editorOption"
+            @blur="onEditorBlur($event)"
+            @focus="onEditorFocus($event)"
+            @ready="onEditorReady($event)"
           />
         </div>
       </div>
