@@ -3241,6 +3241,16 @@ display: table-column
     font-style: normal
 }
 
+
+/*
+.tooltips .tip_contn {
+    font-style: normal;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow:hidden    
+}
+*/
+
 .tooltips.top .tip_contn,
 .tooltips.bottom+.tip_contn,
 .tooltips.left .tip_contn,
@@ -3254,7 +3264,7 @@ display: table-column
     height: auto;
     min-height: 31px;
     line-height: 20px;
-    max-height: 66px;
+    max-height: 68px;
     text-align: center;
     white-space: pre-wrap;
     visibility: hidden;
@@ -3273,7 +3283,7 @@ display: table-column
     height: 0;
     border-top: 5px solid #222;
     border-right: 4px solid transparent;
-    border-left: 4px solid transparent;
+    border-left: 4px solid transparent
 }
 
 .tooltips.bottom+.tip_contn:after {
@@ -3286,7 +3296,7 @@ display: table-column
     height: 0;
     border-bottom: 5px solid #222;
     border-right: 4px solid transparent;
-    border-left: 4px solid transparent;
+    border-left: 4px solid transparent
 }
 
 .tooltips.left .tip_contn:after {
@@ -3299,7 +3309,7 @@ display: table-column
     height: 0;
     border-left: 5px solid #222;
     border-top: 4px solid transparent;
-    border-bottom: 4px solid transparent;
+    border-bottom: 4px solid transparent
 }
 
 .tooltips.right .tip_contn:after {
@@ -3312,7 +3322,7 @@ display: table-column
     height: 0;
     border-right: 5px solid #222;
     border-top: 4px solid transparent;
-    border-bottom: 4px solid transparent;
+    border-bottom: 4px solid transparent
 }
 
 label.ov.tooltips.top .tip_contn,
