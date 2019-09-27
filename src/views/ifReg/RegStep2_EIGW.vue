@@ -571,7 +571,7 @@
                 name="radio_1"
               >(S)FTP<label for="radio_1"><span /></label>
             </span>
-            <span class="default_radio tooltips ov left">
+            <span class="default_radio tooltips left">
               <i class="tip_contn"><em class="tip_text">TooltipTooltipTooltip<br>tooltips</em></i>
               <input
                 id="radio_2"
