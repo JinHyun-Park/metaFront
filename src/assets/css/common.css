@@ -3237,20 +3237,6 @@ display: table-column
     display: inline
 }
 
-.tooltips .tip_contn {
-    font-style: normal
-}
-
-
-/*
-.tooltips .tip_contn {
-    font-style: normal;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow:hidden    
-}
-*/
-
 .tooltips.top .tip_contn,
 .tooltips.bottom+.tip_contn,
 .tooltips.left .tip_contn,
@@ -3271,6 +3257,19 @@ display: table-column
     border-radius: 5px;
     background: #222;
     box-sizing: border-box
+}
+
+.tooltips .tip_contn .tip_text {
+    float: left;
+    position: relative;
+    display: inline;
+    width: 100%;
+    height: 100%;
+    font-style: normal;
+    text-align: left;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden
 }
 
 .tooltips.top .tip_contn:after {
