@@ -107,6 +107,22 @@
         등록
       </button>
     </section>
+    <!-- bidirectional data binding（双向数据绑定） -->
+    <quill-editor
+      ref="myQuillEditor"
+      v-model="content"
+      :options="editorOption"
+      @blur="onEditorBlur($event)"
+      @focus="onEditorFocus($event)"
+      @ready="onEditorReady($event)"
+    />
+
+    <!-- Or manually control the data synchronization（或手动控制数据流） -->
+    <quill-editor
+      :content="content"
+      :options="editorOption"
+      @change="onEditorChange($event)"
+    />
   </div>
 </template>
 
