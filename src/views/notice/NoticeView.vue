@@ -129,9 +129,8 @@
           <div class="table_body">
             <ul class="table_row w-auto">
               <li class="td_cell w-auto">
-                <span class="reply_name">유영준</span><span class="reply_date">
-                  2019-09-25 14:51:07
-                </span>
+                <span class="reply_name">유영준</span>
+                <span class="reply_date">2019-09-25 14:51:07</span>
                 <div class="reply_writing">
                   개발 테스트0
                   <em class="reply_btn write"><i class="ico-reply" />댓글달기</em>
@@ -139,9 +138,7 @@
               </li>
               <li class="td_cell w-auto">
                 공감<em class="reply_no">0</em>
-                <span class="reply_btn del">
-                  <i class="ico-del" />삭제
-                </span>
+                <span class="reply_btn del"><i class="ico-del" />삭제</span>
               </li>
             </ul>
             <ul class="table_row w-auto">
@@ -162,8 +159,7 @@
               <li class="td_cell w-auto">
                 <span class="reply_name">박진현</span>
                 <span class="reply_date">2019-09-25 14:51:07</span>
-                <em class="reply_btn">EDIT</em>
-                <em class="reply_btn last">REPLY</em>
+                <em class="reply_btn">EDIT</em><em class="reply_btn last">REPLY</em>
                 <div class="reply_writing">
                   개발 테스트1
                 </div>
@@ -177,12 +173,25 @@
                 <span class="reply_name">장호은</span>
                 <span class="reply_date">2019-09-25 16:41:08</span>
                 <em class="reply_btn">EDIT</em><em class="reply_btn last">REPLY</em>
-                <div class="reply_writing">
-                  개발 테스트2
-                </div>
-              </li>
-              <li class="td_cell w-auto">
+                <ul class="table_row w-auto reply_writing">
+                  <li class="td_cell w-auto">
+                    <textarea
+                      cols="10"
+                      placeholder="댓글을 입력하세요."
+                    />
+                  </li>
+                  <li class="td_cell w-auto">
 &nbsp;
+                  </li>
+                </ul>
+              </li>
+              <li class="td_cell w-auto right_button_area">
+                <button class="default_button">
+                  취소
+                </button>
+                <button class="default_button on">
+                  등록
+                </button>
               </li>
             </ul>
           </div>

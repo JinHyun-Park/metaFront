@@ -157,6 +157,146 @@
                 <i class="ico-del" />
               </li>
             </ul>
+            <ul class="table_row">
+              <li class="td_cell">
+                2 documents
+              </li>
+              <li class="td_cell">
+                2 documents
+              </li>
+              <li class="td_cell">
+                2 documents
+              </li>
+              <li class="td_cell">
+                2 documents
+              </li>
+              <li class="td_cell">
+                2 documents
+              </li>
+              <li class="td_cell">
+                2 documents
+              </li>
+              <li class="td_cell">
+                2 documents
+              </li>
+              <li class="td_cell">
+                2 documents
+              </li>
+              <li class="td_cell">
+                2 documents
+              </li>
+              <li class="td_cell">
+                <label class="label-default color-blue">보류</label>
+              </li>
+              <li class="td_cell">
+                <i class="ico-del" />
+              </li>
+            </ul>
+            <ul class="table_row">
+              <li class="td_cell">
+                q sign
+              </li>
+              <li class="td_cell">
+                q sign
+              </li>
+              <li class="td_cell">
+                q sign
+              </li>
+              <li class="td_cell">
+                q sign
+              </li>
+              <li class="td_cell">
+                q sign
+              </li>
+              <li class="td_cell">
+                q sign
+              </li>
+              <li class="td_cell">
+                q sign
+              </li>
+              <li class="td_cell">
+                q sign
+              </li>
+              <li class="td_cell">
+                q sign
+              </li>
+              <li class="td_cell">
+                <label class="label-default color-gray">대기</label>
+              </li>
+              <li class="td_cell">
+                <i class="ico-del" />
+              </li>
+            </ul>
+            <ul class="table_row">
+              <li class="td_cell">
+                2 documents
+              </li>
+              <li class="td_cell">
+                2 documents
+              </li>
+              <li class="td_cell">
+                2 documents
+              </li>
+              <li class="td_cell">
+                2 documents
+              </li>
+              <li class="td_cell">
+                2 documents
+              </li>
+              <li class="td_cell">
+                2 documents
+              </li>
+              <li class="td_cell">
+                2 documents
+              </li>
+              <li class="td_cell">
+                2 documents
+              </li>
+              <li class="td_cell">
+                2 documents
+              </li>
+              <li class="td_cell">
+                <label class="label-default color-black">반려</label>
+              </li>
+              <li class="td_cell">
+                <i class="ico-del" />
+              </li>
+            </ul>
+            <ul class="table_row">
+              <li class="td_cell">
+                q sign
+              </li>
+              <li class="td_cell">
+                q sign
+              </li>
+              <li class="td_cell">
+                q sign
+              </li>
+              <li class="td_cell">
+                q sign
+              </li>
+              <li class="td_cell">
+                q sign
+              </li>
+              <li class="td_cell">
+                q sign
+              </li>
+              <li class="td_cell">
+                q sign
+              </li>
+              <li class="td_cell">
+                q sign
+              </li>
+              <li class="td_cell">
+                q sign
+              </li>
+              <li class="td_cell">
+                <label class="label-default color-yellow">승인</label>
+              </li>
+              <li class="td_cell">
+                <i class="ico-del" />
+              </li>
+            </ul>
           </div>
         </div>
       </div>
@@ -431,14 +571,16 @@
                 name="radio_1"
               >(S)FTP<label for="radio_1"><span /></label>
             </span>
-            <span class="default_radio">
+            <span class="default_radio tooltips ov left">
+              <i class="tip_contn"><em class="tip_text">TooltipTooltipTooltip<br>tooltips</em></i>
               <input
                 id="radio_2"
                 type="radio"
                 name="radio_1"
               >TCP<label for="radio_2"><span /></label>
             </span>
-            <span class="default_radio">
+            <span class="default_radio tooltips right ov">
+              <i class="tip_contn"><em class="tip_text">Tooltip Tooltip</em></i>
               <input
                 id="radio_3"
                 type="radio"
@@ -465,7 +607,15 @@
           >
         </div>
         <div class="column w-1">
-          <label class="column_label">운영 REAL IP</label>
+          <label class="column_label tooltips ov top">운영 REAL IP
+            <span class="tip_contn">
+              <em class="tip_text">Tooltip Tooltip Tooltip
+                <br>Tooltip Tooltip Tooltip
+                <br>Tooltip Tooltip TooltipTooltip Tooltip Tooltip
+                <br>Tooltip Tooltip TooltipTooltip Tooltip Tooltip
+                <br>Tooltip Tooltip TooltipTooltip Tooltip Tooltip
+              </em></span>
+          </label>
           <input
             type="text"
             value="OPGROUP"
@@ -476,7 +626,9 @@
           <input
             type="text"
             value=""
+            class="tooltips ov bottom"
           >
+          <span class="tip_contn"><em class="tip_text">Tooltip</em></span>
         </div>
       </div>
 
