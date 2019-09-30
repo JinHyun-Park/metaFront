@@ -5,7 +5,7 @@
       ref="commAlert"
       class="layer_popup ssmall"
       tabindex="0"
-      @keydown.esc.enter="closeAlert"
+      @keydown.prevent.esc.enter.space="closeAlert"
     >
       <section class="confirm_area">
         <label

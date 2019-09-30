@@ -55,10 +55,18 @@
       <div class="row_contain type-2">
         <div class="column w-4">
           <label class="column_label">내용</label>
-          <textarea
+          <!-- <textarea
             cols="5"
             row="10"
             placeholder="내용을 입력해 주세요."
+          /> -->
+          <quill-editor
+            ref="myQuillEditor"
+            v-model="content"
+            :options="editorOption"
+            @blur="onEditorBlur($event)"
+            @focus="onEditorFocus($event)"
+            @ready="onEditorReady($event)"
           />
         </div>
       </div>
@@ -107,31 +115,41 @@
         등록
       </button>
     </section>
-    <!-- bidirectional data binding（双向数据绑定） -->
-    <quill-editor
-      ref="myQuillEditor"
-      v-model="content"
-      :options="editorOption"
-      @blur="onEditorBlur($event)"
-      @focus="onEditorFocus($event)"
-      @ready="onEditorReady($event)"
-    />
-
-    <!-- Or manually control the data synchronization（或手动控制数据流） -->
-    <quill-editor
-      :content="content"
-      :options="editorOption"
-      @change="onEditorChange($event)"
-    />
   </div>
 </template>
 
 <script>
 export default {
   name: 'NoticeWrite',
+  data() {
+    return {
+      content: '<h2>I am Example</h2>',
+      editorOption: {
+        // some quill options
+      },
+    };
+  },
+  computed: {
+    editor() {
+      return this.$refs.myQuillEditor.quill;
+    },
+  },
   methods: {
     moveToNotiMain() {
       this.$router.push({ name: 'noticeMain' });
+    },
+    onEditorBlur(quill) {
+      console.log('editor blur!', quill);
+    },
+    onEditorFocus(quill) {
+      console.log('editor focus!', quill);
+    },
+    onEditorReady(quill) {
+      console.log('editor ready!', quill);
+    },
+    onEditorChange({ quill, html, text }) {
+      console.log('editor change!', quill, html, text);
+      this.content = html;
     },
   },
 };

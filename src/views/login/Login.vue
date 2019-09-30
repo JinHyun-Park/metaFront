@@ -34,6 +34,25 @@
           </div>
         </div>
       </section>
+      <section class="form_area">
+        <div class="row_contain">
+          <div class="column w-6">
+            <div class="checkbox_group checktype-1">
+              <span class="default_checkbox">
+                <input
+                  id="checkbox_1"
+                  v-model="idMem"
+                  type="checkbox"
+                  name="checkbox_1"
+                >ID 기억<label
+                  class="border-brickpink"
+                  for="checkbox_1"
+                ><span /></label>
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
       <section class="btm_button_area log">
         <button
           type="button"
@@ -77,14 +96,25 @@ export default {
       user_id: '',
       user_pw: '',
       hanNm: '',
+      idMem: '',
     };
   },
   computed: {
     ...mapState('frameSet', ['resetPopOn']),
   },
+  mounted() {
+    if (!this.$gf.isEmpty(this.$cookie.get('idMem'))) {
+      this.user_id = this.$cookie.get('idMem');
+      this.idMem = true;
+    }
+  },
   methods: {
     ...mapActions('frameSet', ['setResetPopOn']),
     login() {
+      if (this.idMem) {
+        this.$cookie.set('idMem', this.user_id);
+      }
+
       console.log('로그인 시도!');
       const form = new FormData();
       form.append('userId', this.user_id);

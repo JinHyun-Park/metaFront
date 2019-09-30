@@ -1,5 +1,13 @@
 <template>
   <div class="right_space">
+    <!-- 서버리스트 팝업 호출 -->
+    <SvrListPopup
+      v-if="svrOn"
+      v-bind="props"
+      @closePop="turOffSvrPop"
+      @addData="addData"
+    />
+
     <section class="title style-1">
       <h2>
         <div>
@@ -30,7 +38,10 @@
             value="QMGR"
           >
         </div>
-        <div class="column w-3">
+        <div
+          class="column w-3"
+          @click="turnOnSvrPop"
+        >
           <label class="column_label">호스트</label>
           <div class="search_group">
             <input
@@ -178,7 +189,33 @@
 </template>
 
 <script>
+import SvrListPopup from '@/components/popup/meta/mcg/SvrListPopup.vue';
+
 export default {
   name: 'QueueMgrList',
+  components: {
+    SvrListPopup,
+  },
+  data() {
+    return {
+      svrOn: false,
+      props: {
+        message: 'Hi',
+      },
+    };
+  },
+  methods: {
+    turnOnSvrPop() {
+      this.svrOn = true;
+    },
+    turOffSvrPop(val) {
+      console.log(`가져온 데이터 : ${val}`);
+      this.svrOn = false;
+    },
+    addData(val) {
+      console.log(`가져온 데이터2 : ${val}`);
+      this.svrOn = false;
+    },
+  },
 };
 </script>
