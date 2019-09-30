@@ -256,12 +256,14 @@
         <button
           type="button"
           class="default_button"
+          @click="closePop"
         >
-          닫기
+          닫기 {{ message }}
         </button>
         <button
           type="button"
           class="default_button on"
+          @click="addData"
         >
           추가
         </button>
@@ -269,3 +271,27 @@
     </article>
   </div>
 </template>
+
+<script>
+export default {
+  name: 'SvrListPopup',
+  props: {
+    message: {
+      type: String,
+      default: '',
+    },
+  },
+  data() {
+    return {
+    };
+  },
+  methods: {
+    closePop() {
+      this.$emit('closePop', 'Hellos');
+    },
+    addData() {
+      this.$emit('addData', '2222OOOOaaaa');
+    },
+  },
+};
+</script>

@@ -135,3 +135,6 @@ https://velog.io/@skyepodium/VS-code%EC%97%90%EC%84%9C-vue%ED%94%84%EB%A1%9C%EC%
   npm install vue-quill-editor --save
   npm i -S quill
   https://github.com/surmon-china/vue-quill-editor
+
+  vue-cookie
+  npm install vue-cookie --save
