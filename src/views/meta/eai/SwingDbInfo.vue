@@ -6,7 +6,7 @@
           <i class="ico-bar" />SWING 인터페이스 DB 관리
         </div>
         <div class="breadcrumb">
-          <span>EGIW</span><em class="on">EAI</em>
+          <span>EAI</span><em class="on">SWING 인터페이스 DB</em>
         </div>
       </h2>
     </section>
@@ -17,7 +17,20 @@
         <div class="right_button_area">
           <button
             type="button"
+            class="default_button"
+          >
+            수정
+          </button>
+          <button
+            type="button"
             class="default_button on"
+          >
+            추가
+          </button>
+          <button
+            type="button"
+            class="default_button on"
+            @click="listingRcv()"
           >
             조회
           </button>
@@ -27,13 +40,15 @@
         <div class="column on w-3">
           <label class="column_label">인터페이스ID</label>
           <input
+            v-model="rEaiIfId"
             type="text"
-            value="QMGR"
+            value=""
           >
         </div>
         <div class="column w-2">
           <label class="column_label">테이블</label>
           <input
+            v-model="rcvTbl"
             type="text"
             value=""
           >
@@ -41,6 +56,7 @@
         <div class="column w-2">
           <label class="column_label">수신TR</label>
           <input
+            v-model="tr"
             type="text"
             value=""
           >
@@ -48,15 +64,25 @@
       </div>
       <div class="row_contain">
         <div class="column w-2">
-          <label class="column_label">SWGMQ</label>
+          <label class="column_label">MQ UCS</label>
           <input
+            v-model="swgMq"
             type="text"
             value=""
           >
         </div>
         <div class="column w-2">
-          <label class="column_label">SWGTP</label>
+          <label class="column_label">TP UCS</label>
           <input
+            v-model="swgTp"
+            type="text"
+            value=""
+          >
+        </div>
+        <div class="column w-2">
+          <label class="column_label">수신큐</label>
+          <input
+            v-model="rcvQ"
             type="text"
             value=""
           >
@@ -64,11 +90,11 @@
         <div class="column w-1">
           <label class="column_label">사용</label>
           <div class="select_group">
-            <select>
-              <option value="">
+            <select v-model="useYn">
+              <option value="Y">
                 Y
               </option>
-              <option value="">
+              <option value="N">
                 N
               </option>
             </select>
@@ -90,10 +116,13 @@
               수신TR<i class="ico-sort-up" />
             </li>
             <li class="th_cell">
-              SWGMQ<i class="ico-sort-up" />
+              MQ UCS<i class="ico-sort-up" />
             </li>
             <li class="th_cell">
-              SWGTP<i class="ico-sort-up" />
+              TP UCS<i class="ico-sort-up" />
+            </li>
+            <li class="th_cell">
+              수신큐 <i class="ico-sort-up" />
             </li>
             <li class="th_cell">
               사용<i class="ico-sort-down" />
@@ -101,83 +130,48 @@
           </ul>
         </div>
         <div class="table_body">
-          <ul class="table_row w-auto">
+          <ul
+            v-for="rcv in rcvList"
+            :key="rcv.index"
+            class="table_row w-auto"
+          >
             <li class="td_cell">
-              ABC.SND_SMS_MFF
+              {{ rcv.eaiIfId }}
             </li>
             <li class="td_cell">
-              ZEAI_CCA
+              {{ rcv.rcvTbl }}
             </li>
             <li class="td_cell">
-              127.0.0.1
+              {{ rcv.tr }}
             </li>
             <li class="td_cell">
-              150.1.1.1
+              {{ rcv.swgMq }}
             </li>
             <li class="td_cell">
-              1414
+              {{ rcv.swgTp }}
             </li>
             <li class="td_cell">
-              Y
-            </li><li />
-          </ul>
-          <ul class="table_row w-auto">
-            <li class="td_cell">
-              ABC.SND_SMS_MFF
+              {{ rcv.rcvQ }}
             </li>
             <li class="td_cell">
-              ZEAI_CCA
-            </li>
-            <li class="td_cell">
-              127.0.0.1
-            </li>
-            <li class="td_cell">
-              150.1.1.1
-            </li>
-            <li class="td_cell">
-              1414
-            </li>
-            <li class="td_cell">
-              Y
-            </li><li />
-          </ul>
-          <ul class="table_row w-auto">
-            <li class="td_cell">
-              ABC.SND_SMS_MFF
-            </li>
-            <li class="td_cell">
-              ZEAI_CCA
-            </li>
-            <li class="td_cell">
-              127.0.0.1
-            </li>
-            <li class="td_cell">
-              150.1.1.1
-            </li>
-            <li class="td_cell">
-              1414
-            </li>
-            <li class="td_cell">
-              N
+              {{ rcv.useYn }}
             </li><li />
           </ul>
         </div>
       </div>
-    </section>
-
-    <section class="btm_button_area double">
-      <button
-        type="button"
-        class="default_button"
-      >
-        수정
-      </button>
-      <button
-        type="button"
-        class="default_button on"
-      >
-        추가
-      </button>
+      <div class="pagination_space">
+        <paginate
+          v-model="rPageSet.pageNo"
+          :page-count="rPageSet.pageCount"
+          :page-range="3"
+          :margin-pages="1"
+          :click-handler="listingRcv"
+          :prev-text="'이전'"
+          :next-text="'다음'"
+          :container-class="'pagination'"
+          :page-class="'page-item'"
+        />
+      </div>
     </section>
 
     <section class="form_area border_group">
@@ -186,7 +180,20 @@
         <div class="right_button_area">
           <button
             type="button"
+            class="default_button"
+          >
+            수정
+          </button>
+          <button
+            type="button"
             class="default_button on"
+          >
+            추가
+          </button>
+          <button
+            type="button"
+            class="default_button on"
+            @click="listingSnd()"
           >
             조회
           </button>
@@ -196,6 +203,7 @@
         <div class="column w-3">
           <label class="column_label">인터페이스ID</label>
           <input
+            v-model="eaiIfId"
             type="text"
             value=""
           >
@@ -203,6 +211,7 @@
         <div class="column w-2">
           <label class="column_label">테이블</label>
           <input
+            v-model="sndTbl"
             type="text"
             value=""
           >
@@ -210,6 +219,7 @@
         <div class="column w-2">
           <label class="column_label">송신ADT</label>
           <input
+            v-model="sndAdt"
             type="text"
             value=""
           >
@@ -217,11 +227,11 @@
         <div class="column w-1">
           <label class="column_label">사용</label>
           <div class="select_group">
-            <select>
-              <option value="">
+            <select v-model="useYn">
+              <option value="Y">
                 Y
               </option>
-              <option value="">
+              <option value="N">
                 N
               </option>
             </select>
@@ -247,71 +257,130 @@
           </ul>
         </div>
         <div class="table_body">
-          <ul class="table_row w-auto">
+          <ul
+            v-for="snd in sndList"
+            :key="snd.index"
+            class="table_row w-auto"
+          >
             <li class="td_cell">
-              ABC.SND_SMS_MFF
+              {{ snd.eaiIfId }}
             </li>
             <li class="td_cell">
-              ZEAI_CCA
+              {{ snd.sndTbl }}
             </li>
             <li class="td_cell">
-              1414
+              {{ snd.sndAdt }}
             </li>
             <li class="td_cell">
-              Y
-            </li><li />
-          </ul>
-          <ul class="table_row w-auto">
-            <li class="td_cell">
-              ABC.SND_SMS_MFF
-            </li>
-            <li class="td_cell">
-              ZEAI_CCA
-            </li>
-            <li class="td_cell">
-              1414
-            </li>
-            <li class="td_cell">
-              Y
-            </li><li />
-          </ul>
-          <ul class="table_row w-auto">
-            <li class="td_cell">
-              ABC.SND_SMS_MFF
-            </li>
-            <li class="td_cell">
-              ZEAI_CCA
-            </li>
-            <li class="td_cell">
-              1414
-            </li>
-            <li class="td_cell">
-              N
+              {{ snd.useYn }}
             </li><li />
           </ul>
         </div>
       </div>
-    </section>
-
-    <section class="btm_button_area">
-      <button
-        type="button"
-        class="default_button"
-      >
-        수정
-      </button>
-      <button
-        type="button"
-        class="default_button on"
-      >
-        추가
-      </button>
+      <div class="pagination_space">
+        <paginate
+          v-model="pageSet.pageNo"
+          :page-count="pageSet.pageCount"
+          :page-range="3"
+          :margin-pages="1"
+          :click-handler="listingSnd"
+          :prev-text="'이전'"
+          :next-text="'다음'"
+          :container-class="'pagination'"
+          :page-class="'page-item'"
+        />
+      </div>
     </section>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'SwingDbInfo',
+  data() {
+    return {
+      index: 0,
+      sndList: [],
+      saveSndTbl: {},
+      sndTbl: '',
+      eaiIfId: '',
+      sndAdt: '',
+      useYn: 'Y',
+      pageSet: { pageNo: 1, pageCount: 0, size: 10 },
+      rPageSet: { pageNo: 1, pageCount: 0, size: 10 },
+      totalPages: 0,
+      totalRows: 0,
+      rcvList: [],
+      saveRcvTbl: {},
+      rcvTbl: '',
+      rEaiIfId: '',
+      tr: '',
+      swgMq: '',
+      swgTp: '',
+      rcvQ: '',
+      rUseYn: 'Y',
+    };
+  },
+  methods: {
+    listingSnd() {
+      console.log('SWING 송신 정보 조회!');
+      this.$axios.get('/api/eai/swg/snd', {
+        params: {
+          pageNo: this.pageSet.pageNo,
+          pageCount: this.pageSet.pageCount,
+          sndTbl: this.sndTbl,
+          eaiIfId: this.eaiIfId,
+          sndAdt: this.sndAdt,
+          useYn: this.useYn,
+        },
+      })
+        .then((res) => {
+          this.sndList = this.$gf.parseRtnData(this.pageSet, res.data.rstData.searchList, 'Y');
+          console.log(this.sndList);
+        })
+        .catch((ex) => {
+          console.log(`error occur!! : ${ex}`);
+        });
+    },
+    listingRcv() {
+      console.log('SWING 수신 정보 조회!');
+      this.$axios.get('/api/eai/swg/rcv', {
+        params: {
+          pageNo: this.rPageSet.pageNo,
+          pageCount: this.rPageSet.pageCount,
+          rcvTbl: this.rcvTbl,
+          eaiIfId: this.rEaiIfId,
+          tr: this.tr,
+          swgMq: this.swgMq,
+          swgTp: this.swgTp,
+          rcvQ: this.rcvQ,
+          useYn: this.useYn,
+        },
+      })
+        .then((res) => {
+          this.rcvList = this.$gf.parseRtnData(this.rPageSet, res.data.rstData.searchList, 'Y');
+          console.log(this.rcvList);
+        })
+        .catch((ex) => {
+          console.log(`error occur!! : ${ex}`);
+        });
+    },
+    save() {
+      console.log('송신 정보 등록!');
+      this.saveSndTbl = {
+        sndTbl: this.sndTbl,
+        eaiIfId: this.eaiIfId,
+        sndAdt: this.sndAdt,
+        useYn: this.useYn,
+      };
+      this.$axios.post('/api/eai/swg/snd/post', this.saveSndTbl)
+        .then((res) => {
+          console.log(res);
+          this.listing();
+        })
+        .catch((ex) => {
+          console.log(`error occur!! : ${ex}`);
+        });
+    },
+  },
 };
 </script>
