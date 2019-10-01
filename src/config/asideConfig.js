@@ -14,6 +14,16 @@ export default {
     { index: 2, menuNm: 'MCG', url: 'mcgDtlList' },
     { index: 3, menuNm: 'EAI', url: 'queueList' },
   ],
+  META_EIGW: [
+    { index: 1, menuNm: '온라인 리스트', url: 'eigwOnlineList' },
+  ],
+  META_EAI: [
+    { index: 1, menuNm: '큐 목록', url: 'queueList' },
+    { index: 2, menuNm: '큐 매니저 목록', url: 'queueMgrList' },
+    { index: 3, menuNm: '채널 목록', url: 'chnList' },
+    { index: 4, menuNm: '노드 매니저 목록', url: 'nodeList' },
+    { index: 5, menuNm: 'SWING DB 정보', url: 'swingDbInfo' },
+  ],
   META: [
     { index: 1, menuNm: 'EIGW', url: 'aeigwOnlineListaa' },
     { index: 2, menuNm: 'MCG', url: 'mcgDtlList' },

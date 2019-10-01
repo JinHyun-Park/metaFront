@@ -62,6 +62,15 @@ export default {
       } else if (path.indexOf('/meta/allList') > -1) { // 메타정보 전체 조회
         this.subNm = '메타정보 조회';
         this.menuLists = asConfig.META_ALL;
+      } else if (path.indexOf('/meta/mcg') > -1) { // 메타정보 전체 조회
+        this.subNm = 'MCG';
+        this.menuLists = asConfig.META_ALL;
+      } else if (path.indexOf('/meta/eigw/') > -1) { // 메타정보 조회 > EiGW
+        this.subNm = 'EIGW';
+        this.menuLists = asConfig.META_EIGW;
+      } else if (path.indexOf('/meta/eai/') > -1) { // 메타정보 조회 > EAI
+        this.subNm = 'EAI';
+        this.menuLists = asConfig.META_EAI;
       } else if (path.indexOf('/meta/') > -1) {
         this.subNm = 'META';
         this.menuLists = asConfig.META;
