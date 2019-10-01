@@ -1,7 +1,12 @@
 <template>
   <div class="contents popup">
     <i class="dim" />
-    <article class="layer_popup medium">
+    <article
+      ref="svrListPop"
+      class="layer_popup medium"
+      tabindex="0"
+      @keydown.prevent.esc="closePop"
+    >
       <section class="title style-2">
         <h2><i class="ico-bar" />서버 정보 조회</h2>
       </section>
@@ -284,6 +289,9 @@ export default {
   data() {
     return {
     };
+  },
+  mounted() {
+    this.$refs.svrListPop.focus(); // keyup 이벤트가 바로 적용될 수 있도록 focusing
   },
   methods: {
     closePop() {
