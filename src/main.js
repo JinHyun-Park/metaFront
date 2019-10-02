@@ -6,6 +6,7 @@ import vuescroll from 'vue-scroll';
 import VueCookie from 'vue-cookie';
 import './plugins/axios';
 import Paginate from 'vuejs-paginate';
+import Loading from 'vue-loading-overlay';
 import App from './App.vue';
 import router from './router';
 import store from './store';
@@ -18,6 +19,7 @@ import '@livelybone/vue-datepicker/lib/css/index.css'; // dataPicker css import
 import 'quill/dist/quill.core.css';
 import 'quill/dist/quill.snow.css';
 import 'quill/dist/quill.bubble.css';
+import 'vue-loading-overlay/dist/vue-loading.css';
 
 Vue.config.productionTip = false;
 
@@ -28,6 +30,7 @@ Vue.mixin(globalMixin); // 공통 함수 사용을 위한 믹스인 주입
 Vue.use(vuescroll, { debounce: 600 });
 Vue.use(VueQuillEditor /* { default global options } */);
 Vue.use(VueCookie);
+Vue.use(Loading);
 
 Vue.component('paginate', Paginate);
 

@@ -138,3 +138,6 @@ https://velog.io/@skyepodium/VS-code%EC%97%90%EC%84%9C-vue%ED%94%84%EB%A1%9C%EC%
 
   vue-cookie
   npm install vue-cookie --save
+
+  Vue Loading Overlay Component
+  npm install vue-loading-overlay --save
