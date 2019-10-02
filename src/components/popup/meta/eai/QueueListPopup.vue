@@ -1,7 +1,12 @@
 <template>
   <div class="contents popup">
     <i class="dim" />
-    <article class="layer_popup medium">
+    <article
+      ref="queueListPop"
+      class="layer_popup medium"
+      tabindex="0"
+      @keydown.prevent.esc="closePop"
+    >
       <section class="title style-2">
         <h2><i class="ico-bar" />큐 조회</h2>
       </section>
@@ -135,12 +140,14 @@
         <button
           type="button"
           class="default_button"
+          @click="closePop"
         >
           닫기
         </button>
         <button
           type="button"
           class="default_button on"
+          @click="addData"
         >
           확인
         </button>
@@ -148,3 +155,31 @@
     </article>
   </div>
 </template>
+
+
+<script>
+export default {
+  name: 'QueueListPopup',
+  props: {
+    message: {
+      type: String,
+      default: '',
+    },
+  },
+  data() {
+    return {
+    };
+  },
+  mounted() {
+    this.$refs.queueListPop.focus(); // keyup 이벤트가 바로 적용될 수 있도록 focusing
+  },
+  methods: {
+    closePop() {
+      this.$emit('closePop', 'Hellos');
+    },
+    addData() {
+      this.$emit('addData', '2222OOOOaaaa');
+    },
+  },
+};
+</script>
