@@ -245,6 +245,7 @@ export default {
       popperProps: {
         type: Object,
       },
+      fullPage: false,
     };
   },
   mounted() {
@@ -254,11 +255,24 @@ export default {
   },
   methods: {
     moveToWrite() {
-      this.$router.push({ name: 'noticeWrite' });
+      // this.$router.push({ name: 'noticeWrite' });
+      const loader = this.$loading.show({
+        // Optional parameters
+        container: this.fullPage ? null : this.$refs.formContainer,
+        canCancel: false,
+        // onCancel: this.onCancel,
+      });
+
+      setTimeout(() => {
+        loader.hide();
+      }, 1000);
     },
     log(val) {
       this.startReqDtm = val;
       console.log(val);
+    },
+    onCancel() {
+      console.log('User cancelled the loader.');
     },
   },
 };
