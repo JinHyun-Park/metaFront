@@ -10,76 +10,60 @@
       <section class="title style-2">
         <h2><i class="ico-bar" />서버 정보 조회</h2>
       </section>
-      <section class="border_group">
-        <h5 class="s_tit type-2">
-          기본 정보
-          <div class="right_button_area">
-            <div class="select_group">
-              <label class="column_label">Role</label>
-              <select>
-                <option
-                  value=""
-                  selected
-                >
-                  수신서버
-                </option>
-                <option value="">
-                  송신서버
-                </option>
-                <option value="">
-                  개발
-                </option>
-                <option value="">
-                  운영
-                </option>
-              </select>
-              <span class="select" />
-            </div>
-            <button
-              type="button"
-              class="default_button"
-            >
-              임시추가
-            </button>
-            <button
-              type="button"
-              class="default_button on"
-            >
-              조회
-            </button>
+      <section class="form_area border_group">
+        <div class="row_contain type-3">
+          <div class="column on w-1">
+            <label class="column_label">서버타입</label>
+            <select v-model="svrTypCd">
+              <option
+                v-for="(code, i) in ccCdList.syrTypCd"
+                :key="i"
+                :value="code.cdDtlId"
+              >
+                {{ code.cdNm }}
+              </option>
+            </select>
           </div>
-        </h5>
-        <div class="add_info">
-          <input
-            type="text"
-            class="add_text on"
-            value="채널 업무 담당조회추가 채널업무"
-          >
-          <input
-            type="text"
-            class="add_text"
-            value="채널양식 업무 담당추가 채널업무"
-          >
-          <input
-            type="text"
-            class="add_text"
-            value="채널양식 업무 거래코드 채널업무"
-          >
-          <input
-            type="text"
-            class="add_text"
-            value="거래 업무 담당 조회추가채널업무"
-          >
-          <input
-            type="text"
-            class="add_text"
-            value="거래 연동 담당 ID추가 채널 업무"
-          >
-          <input
-            type="text"
-            class="add_text"
-            value="채널 ID 조회 담당추가 채널 업무"
-          >
+          <div class="column on w-1">
+            <label class="column_label">IP타입</label>
+            <select v-model="ipTyp">
+              <option
+                v-for="(code, i) in ccCdList.ipTyp"
+                :key="i"
+                :value="code.cdDtlId"
+              >
+                {{ code.cdNm }}
+              </option>
+            </select>
+          </div>
+          <div class="column on w-1">
+            <label class="column_label">호스트명</label>
+            <input
+              v-model="hostNm"
+              type="text"
+              value=""
+            >
+          </div>
+          <div class="column on w-1">
+            <label class="column_label">IP</label>
+            <input
+              v-model="svrIp"
+              type="text"
+              value=""
+            >
+          </div>
+          <div class="column w-1">
+            <label class="column_label">&nbsp;</label>
+            <div class="right_button_area">
+              <button
+                type="button"
+                class="default_button on"
+                @click="searchList()"
+              >
+                검색
+              </button>
+            </div>
+          </div>
         </div>
         <div class="table_colgroup">
           <div class="table_grid radio_group">
@@ -87,27 +71,34 @@
               <ul>
                 <li class="th_cell" />
                 <li class="th_cell">
-                  시스템명<i class="ico-sort-down" />
+                  서버타입
                 </li>
                 <li class="th_cell">
-                  호스트명<i class="ico-sort-up" />
+                  IP타입
                 </li>
                 <li class="th_cell">
-                  IP(VIP)<i class="ico-sort-down" />
+                  호스트명
                 </li>
                 <li class="th_cell">
-                  IP(NAT)<i class="ico-sort-up" />
+                  IP
                 </li>
                 <li class="th_cell">
-                  OS<i class="ico-sort-up" />
+                  PORT
                 </li>
                 <li class="th_cell">
-                  고객사<i class="ico-sort-down" />
+                  담당자
+                </li>
+                <li class="th_cell">
+                  사용여부
                 </li>
               </ul>
             </div>
             <div class="table_body">
-              <ul class="table_row">
+              <ul
+                v-for="server in serverList"
+                :key="server.svrNum"
+                class="table_row w-auto"
+              >
                 <li class="td_cell w-auto">
                   <span class="default_radio on">
                     <input
@@ -118,142 +109,42 @@
                   </span>
                 </li>
                 <li class="td_cell">
-                  2 documents
+                  {{ server.svrTypCd }}
                 </li>
                 <li class="td_cell">
-                  2 documents
+                  {{ server.ipTyp }}
                 </li>
                 <li class="td_cell">
-                  2 documents
+                  {{ server.hostNm }}
                 </li>
                 <li class="td_cell">
-                  2 documents
+                  {{ server.svrIp }}
                 </li>
                 <li class="td_cell">
-                  2 documents
+                  {{ server.svrPort }}
                 </li>
                 <li class="td_cell">
-                  2 documents
-                </li>
-              </ul>
-              <ul class="table_row w-auto">
-                <li class="td_cell">
-                  <span class="default_radio">
-                    <input
-                      id="radio_chk_2"
-                      type="radio"
-                      name="radio_chk_2"
-                    ><label for="radio_chk_2"><span /></label>
-                  </span>
+                  {{ server.userId }}
                 </li>
                 <li class="td_cell">
-                  q sign
-                </li>
-                <li class="td_cell">
-                  q sign
-                </li>
-                <li class="td_cell">
-                  q sign
-                </li>
-                <li class="td_cell">
-                  q sign
-                </li>
-                <li class="td_cell">
-                  q sign
-                </li>
-                <li class="td_cell">
-                  q sign
-                </li>
-              </ul>
-              <ul class="table_row w-auto">
-                <li class="td_cell">
-                  <span class="default_radio">
-                    <input
-                      id="radio_chk_3"
-                      type="radio"
-                      name="radio_chk_3"
-                    ><label for="radio_chk_3"><span /></label>
-                  </span>
-                </li>
-                <li class="td_cell">
-                  q sign
-                </li>
-                <li class="td_cell">
-                  q sign
-                </li>
-                <li class="td_cell">
-                  q sign
-                </li>
-                <li class="td_cell">
-                  q sign
-                </li>
-                <li class="td_cell">
-                  q sign
-                </li>
-                <li class="td_cell">
-                  q sign
-                </li>
-              </ul>
-              <ul class="table_row w-auto">
-                <li class="td_cell">
-                  <span class="default_radio">
-                    <input
-                      id="radio_chk_4"
-                      type="radio"
-                      name="radio_chk_4"
-                    ><label for="radio_chk_4"><span /></label>
-                  </span>
-                </li>
-                <li class="td_cell">
-                  2 documents
-                </li>
-                <li class="td_cell">
-                  2 documents
-                </li>
-                <li class="td_cell">
-                  2 documents
-                </li>
-                <li class="td_cell">
-                  2 documents
-                </li>
-                <li class="td_cell">
-                  2 documents
-                </li>
-                <li class="td_cell">
-                  2 documents
-                </li>
-              </ul>
-              <ul class="table_row w-auto">
-                <li class="td_cell">
-                  <span class="default_radio">
-                    <input
-                      id="radio_chk_5"
-                      type="radio"
-                      name="radio_chk_5"
-                    ><label for="radio_chk_5"><span /></label>
-                  </span>
-                </li>
-                <li class="td_cell">
-                  2 documents
-                </li>
-                <li class="td_cell">
-                  2 documents
-                </li>
-                <li class="td_cell">
-                  2 documents
-                </li>
-                <li class="td_cell">
-                  2 documents
-                </li>
-                <li class="td_cell">
-                  2 documents
-                </li>
-                <li class="td_cell">
-                  2 documents
+                  {{ server.useYn }}
                 </li>
               </ul>
             </div>
           </div>
+        </div>
+        <div class="pagination_space">
+          <paginate
+            v-model="pageSet.pageNo"
+            :page-count="pageSet.pageCount"
+            :page-range="3"
+            :margin-pages="1"
+            :click-handler="pageChanged"
+            :prev-text="'이전'"
+            :next-text="'다음'"
+            :container-class="'pagination'"
+            :page-class="'page-item'"
+          />
         </div>
       </section>
 
@@ -278,6 +169,8 @@
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex';
+
 export default {
   name: 'SvrListPopup',
   props: {
@@ -288,12 +181,59 @@ export default {
   },
   data() {
     return {
+      serverList: '',
+      svrTypCdList: [],
+      pageSet: { pageNo: 1, pageCount: 0, size: 5 },
+      tgtUrl: '',
+      svrIp: '',
+      svrTypCd: '',
+      ipTyp: '',
+      hostNm: '',
+      userId: '',
     };
   },
+  computed: {
+    ...mapState('ccCdLst', ['ccCdList']),
+  },
   mounted() {
+    this.setCcCdList({
+      opClCd: 'COMM', cdId: 'SVR_TYP_CD', allYn: 'Y', listNm: 'syrTypCd',
+    });
+    this.setCcCdList({
+      opClCd: 'COMM', cdId: 'IP_TYP', allYn: 'Y', listNm: 'ipTyp',
+    });
     this.$refs.svrListPop.focus(); // keyup 이벤트가 바로 적용될 수 있도록 focusing
   },
   methods: {
+    ...mapActions('ccCdLst', ['setCcCdList']),
+    searchList() {
+      this.tgtUrl = '/api/bizcomm/server';
+      this.$axios.get(this.tgtUrl, {
+        params: {
+          pageNo: this.pageSet.pageNo,
+          size: this.pageSet.size,
+          svrIp: this.svrIp,
+          svrTypCd: this.svrTypCd,
+          ipTyp: this.ipTyp,
+          hostNm: this.hostNm,
+          userId: this.userId,
+        },
+      })
+        .then((res) => {
+          console.log(res);
+          if (res.data.rstCd === 'S') {
+            // this.serverList = res.data.rstData.serverList;
+            this.serverList = this.$gf.parseRtnData(this.pageSet, res.data.rstData.serverList, 'Y');
+          }
+        })
+        .catch((ex) => {
+          console.log(`error occur!! : ${ex}`);
+        });
+    },
+    pageChanged() {
+      console.log();
+      this.searchList();
+    },
     closePop() {
       this.$emit('closePop', 'Hellos');
     },
