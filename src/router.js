@@ -207,7 +207,16 @@ const router = new Router({
 
 });
 
+// let loader;
+
 router.beforeEach((to, from, next) => {
+  //   loader = Vue.$loading.show({
+  //     // Optional parameters
+  //     // container: this.fullPage ? null : this.$refs.formContainer,
+  //     canCancel: false,
+  //     // onCancel: this.onCancel,
+  //   });
+  helpers.showLoading(100);
   next();
 });
 
@@ -215,6 +224,7 @@ router.afterEach((to) => {
   localStorage.setItem('LS_ROUTE_KEY', to.name);
 
   helpers.setFrame(to);
+  //   loader.hide();
 });
 
 export default router;

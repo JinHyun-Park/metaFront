@@ -17,48 +17,39 @@
           <button
             type="button"
             class="default_button on"
+            @click="listing()"
           >
             조회
           </button>
         </div>
       </h5>
       <div class="row_contain type-3">
-        <div class="column on w-4">
-          <label class="column_label">인터페이스ID</label>
-          <input
-            type="text"
-            value="SWG"
-          >
-        </div>
-        <div class="column w-3">
+        <div class="column w-2">
           <label class="column_label">큐매니저</label>
           <input
+            v-model="mqMngrNm"
             type="text"
-            value="QMGR"
+            value=""
           >
         </div>
-        <div class="column w-3">
+        <div class="column w-4">
           <label class="column_label">큐</label>
           <input
+            v-model="queueNm"
             type="text"
-            value="SVC_MFF.IN"
+            value=""
           >
         </div>
         <div class="column w-2">
           <label class="column_label">유형</label>
           <div class="select_group">
-            <select>
-              <option value="">
-                IN
-              </option>
-              <option value="">
-                OUT
-              </option>
-              <option value="">
-                XQ
-              </option>
-              <option value="">
-                DQ
+            <select v-model="qTypeCd">
+              <option
+                v-for="(code, i) in ccCdList.qTypeCd"
+                :key="i"
+                :value="code.cdDtlId"
+              >
+                {{ code.cdNm }}
               </option>
             </select>
             <span class="select" />
@@ -67,11 +58,11 @@
         <div class="column w-2">
           <label class="column_label">사용</label>
           <div class="select_group">
-            <select>
-              <option value="">
+            <select v-model="useYn">
+              <option value="Y">
                 Y
               </option>
-              <option value="">
+              <option value="N">
                 N
               </option>
             </select>
@@ -83,9 +74,6 @@
         <div class="table_head w-auto">
           <ul>
             <li class="th_cell">
-              인터페이스ID<i class="ico-sort-up" />
-            </li>
-            <li class="th_cell">
               큐매니저<i class="ico-sort-down" />
             </li>
             <li class="th_cell">
@@ -95,63 +83,58 @@
               유형<i class="ico-sort-down" />
             </li>
             <li class="th_cell">
+              담당자<i class="ico-sort-down" />
+            </li>
+            <li class="th_cell">
+              최대 적체<i class="ico-sort-down" />
+            </li>
+            <li class="th_cell">
               사용<i class="ico-sort-down" />
             </li>
           </ul>
         </div>
         <div class="table_body">
-          <ul class="table_row w-auto">
+          <ul
+            v-for="queue in qList"
+            :key="queue.index"
+            class="table_row w-auto"
+          >
             <li class="td_cell">
-              SWG.SVC_MFF
+              {{ queue.mqMngrNm }}
             </li>
             <li class="td_cell">
-              QMGR
+              {{ queue.queueNm }}
             </li>
             <li class="td_cell">
-              SWG.SVC_MFF.IN
+              {{ queue.queueType }}
+            </li>
+            <li
+              v-if="queue.chrgr != null"
+              class="td_cell"
+            >
+              {{ queue.chrgr.hanNm }}
             </li>
             <li class="td_cell">
-              LQ
+              {{ queue.crtcVal }}
             </li>
             <li class="td_cell">
-              Y
-            </li><li />
-          </ul>
-          <ul class="table_row w-auto">
-            <li class="td_cell">
-              SWG.SVC_MFF
-            </li>
-            <li class="td_cell">
-              QMGR
-            </li>
-            <li class="td_cell">
-              SWG.SVC_MFF.IN
-            </li>
-            <li class="td_cell">
-              LQ
-            </li>
-            <li class="td_cell">
-              Y
-            </li><li />
-          </ul>
-          <ul class="table_row w-auto">
-            <li class="td_cell">
-              SWG.SVC_MFF
-            </li>
-            <li class="td_cell">
-              QMGR
-            </li>
-            <li class="td_cell">
-              SWG.SVC_MFF.IN
-            </li>
-            <li class="td_cell">
-              LQ
-            </li>
-            <li class="td_cell">
-              N
+              {{ queue.useYn }}
             </li><li />
           </ul>
         </div>
+      </div>
+      <div class="pagination_space">
+        <paginate
+          v-model="pageSet.pageNo"
+          :page-count="pageSet.pageCount"
+          :page-range="3"
+          :margin-pages="1"
+          :click-handler="listing"
+          :prev-text="'이전'"
+          :next-text="'다음'"
+          :container-class="'pagination'"
+          :page-class="'page-item'"
+        />
       </div>
     </section>
 
@@ -173,7 +156,54 @@
 </template>
 
 <script>
-export default {
+import { mapState, mapActions } from 'vuex';
 
+export default {
+  data() {
+    return {
+      index: 0,
+      qList: [],
+      queueNm: '',
+      mqMngrNm: '',
+      queueType: '',
+      crtcVal: '',
+      useYn: 'Y',
+      qTypeCd: '',
+      pageSet: { pageNo: 1, pageCount: 0, size: 10 },
+    };
+  },
+  computed: {
+    // ...mapState('frameSet', ['resetPopOn']),
+    ...mapState('ccCdLst', ['ccCdList']),
+  },
+  mounted() {
+    this.setCcCdList({
+      opClCd: 'EAI', cdId: 'Q_TYP_CD', allYn: 'Y', listNm: 'qTypeCd',
+    });
+  },
+  methods: {
+    // ...mapActions('frameSet', ['resetPopOn']),
+    ...mapActions('ccCdLst', ['setCcCdList']),
+    listing() {
+      console.log('큐 목록 조회!');
+      this.$axios.get('/api/eai/queue', {
+        params: {
+          pageNo: this.pageSet.pageNo,
+          pageCount: this.pageSet.pageCount,
+          queueNm: this.queueNm,
+          mqMngrNm: this.mqMngrNm,
+          queueType: this.qTypeCd,
+          useYn: this.useYn,
+        },
+      })
+        .then((res) => {
+          this.qList = this.$gf.parseRtnData(this.pageSet, res.data.rstData.searchList, 'Y');
+          console.log(this.qList[0].chrgr.hanNm);
+        })
+        .catch((ex) => {
+          console.log(`error occur!! : ${ex}`);
+        });
+    },
+  },
 };
 </script>

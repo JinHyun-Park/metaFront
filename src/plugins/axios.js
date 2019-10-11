@@ -2,6 +2,7 @@
 import Vue from 'vue';
 import axios from 'axios';
 import router from '@/router';
+import helpers from '@/utils/helpers';
 
 // Full config:  https://github.com/axios/axios#request-config
 // axios.defaults.baseURL = process.env.baseURL || process.env.apiUrl || '';
@@ -19,14 +20,18 @@ const config = {
 
 const _axios = axios.create(config);
 
+let loader;
+
 _axios.interceptors.request.use(
     config =>
     // Do something before request is sent
     {
-        console.log('axios 시작'); // 이런식으로 넣으면 됨.
+        helpers.showLoading(5000); // 로딩 화면 노출
+
         return config
     },
     error => {
+        helpers.showLoading(1000); // 로딩 화면 노출
         // Do something with request error
         console.log('axios 실패!'); // 이런식으로 넣으면 됨.
         return Promise.reject(error)
@@ -62,6 +67,8 @@ _axios.interceptors.response.use(
             // alert(rstMsg);
             Vue.gf.alertOn(rstMsg);
         }
+        helpers.hideLoading(); // 로딩화면 멈춤
+
         return response
     },
     error =>

@@ -1,7 +1,10 @@
 /**
  * 공통 method를 담은 js
  */
+import Vue from 'vue';
 import store from '@/store';
+
+let loader;
 
 const helpers = {
 
@@ -238,11 +241,37 @@ const helpers = {
       fnc(callParam);
     }
   },
-  /* alert 관련 method */
 
+  /* alert 관련 method */
   transEnterExp(val) {
     const regExp = '\n';
     return val.split(regExp);
+  },
+
+  /**
+     * 로딩 화면을 보여준다.
+     * @param {String} sec 이고 msec이 있으면 msec초 이후 로딩 화면 없어짐
+     */
+  showLoading(msec) {
+    loader = Vue.$loading.show({
+      // Optional parameters
+      // container: this.fullPage ? null : this.$refs.formContainer,
+      canCancel: false,
+      // onCancel: this.onCancel,
+    });
+
+    if (!this.isEmpty(msec)) {
+      setTimeout(() => {
+        loader.hide();
+      }, msec);
+    }
+  },
+
+  /**
+     * 로딩 화면을 멈춘다.
+     */
+  hideLoading() {
+    loader.hide();
   },
 
   /**
