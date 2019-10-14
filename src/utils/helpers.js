@@ -257,6 +257,9 @@ const helpers = {
       // Optional parameters
       // container: this.fullPage ? null : this.$refs.formContainer,
       canCancel: false,
+      loader: 'bars',
+      width: '130',
+      height: '130',
       // onCancel: this.onCancel,
     });
 
