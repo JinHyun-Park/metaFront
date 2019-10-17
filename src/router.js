@@ -224,7 +224,7 @@ router.afterEach((to) => {
   localStorage.setItem('LS_ROUTE_KEY', to.name);
 
   helpers.setFrame(to);
-  //   loader.hide();
+  //   helpers.hideLoading();
 });
 
 export default router;

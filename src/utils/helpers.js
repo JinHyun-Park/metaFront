@@ -5,6 +5,7 @@ import Vue from 'vue';
 import store from '@/store';
 
 let loader;
+let loaderOn = false;
 
 const helpers = {
 
@@ -253,20 +254,24 @@ const helpers = {
      * @param {String} sec 이고 msec이 있으면 msec초 이후 로딩 화면 없어짐
      */
   showLoading(msec) {
-    loader = Vue.$loading.show({
-      // Optional parameters
-      // container: this.fullPage ? null : this.$refs.formContainer,
-      canCancel: false,
-      loader: 'bars',
-      width: '130',
-      height: '130',
-      // onCancel: this.onCancel,
-    });
+    if (!loaderOn) { // 중복 로더 발생 방지
+      loader = Vue.$loading.show({
+        // Optional parameters
+        // container: this.fullPage ? null : this.$refs.formContainer,
+        canCancel: false,
+        loader: 'spinner',
+        width: 90,
+        height: 90,
+        // onCancel: this.onCancel,
+      });
+      loaderOn = true;
 
-    if (!this.isEmpty(msec)) {
-      setTimeout(() => {
-        loader.hide();
-      }, msec);
+      if (!this.isEmpty(msec)) {
+        setTimeout(() => {
+          loader.hide();
+          loaderOn = false;
+        }, msec);
+      }
     }
   },
 
@@ -275,6 +280,7 @@ const helpers = {
      */
   hideLoading() {
     loader.hide();
+    loaderOn = false;
   },
 
   /**

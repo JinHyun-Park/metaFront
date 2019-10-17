@@ -71,9 +71,11 @@ _axios.interceptors.response.use(
 
         return response
     },
-    error =>
-    // Do something with response error
-    Promise.reject(error),
+    error => {
+        // Do something with response error
+        helpers.hideLoading(); // 로딩화면 멈춤
+        return Promise.reject(error)
+    },
 );
 
 Plugin.install = function(Vue, options) {
