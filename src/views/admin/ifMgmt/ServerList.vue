@@ -132,6 +132,19 @@
           </div>
         </div>
       </div>
+      <div class="pagination_space">
+        <paginate
+          v-model="pageSet.pageNo"
+          :page-count="pageSet.pageCount"
+          :page-range="3"
+          :margin-pages="1"
+          :click-handler="pageChanged"
+          :prev-text="'이전'"
+          :next-text="'다음'"
+          :container-class="'pagination'"
+          :page-class="'page-item'"
+        />
+      </div>
     </section>
 
     <section class="btm_button_area">
@@ -165,8 +178,7 @@ export default {
     return {
       serverList: '',
       svrTypCdList: [],
-      pageNo: '',
-      size: '',
+      pageSet: { pageNo: 1, pageCount: 0, size: 10 },
       tgtUrl: '',
       svrIp: '',
       svrTypCd: '',
@@ -194,8 +206,8 @@ export default {
       this.tgtUrl = '/api/bizcomm/server';
       this.$axios.get(this.tgtUrl, {
         params: {
-          pageNo: this.pageNo,
-          size: this.size,
+          pageNo: this.pageSet.pageNo,
+          size: this.pageSet.size,
           svrIp: this.svrIp,
           svrTypCd: this.svrTypCd,
           ipTyp: this.ipTyp,
@@ -206,7 +218,8 @@ export default {
         .then((res) => {
           console.log(res);
           if (res.data.rstCd === 'S') {
-            this.serverList = res.data.rstData.serverList;
+            this.serverList = this.$gf.parseRtnData(this.pageSet, res.data.rstData.serverList, 'Y');
+            // this.serverList = res.data.rstData.serverList;
           } else {
             // eslint-disable-next-line no-alert
             alert('failed');
