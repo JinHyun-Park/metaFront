@@ -1896,8 +1896,8 @@ flex-direction: column
     .contents .form_area.style-3 .row_contain .column.on .view_text textarea,
     .contents .form_area.style-3 .row_contain .column:hover .view_text textarea {
         padding: 9px 7px 6px 17px;
-        min-height: 400px;
-        max-height: 490px;
+        min-height: 480px;
+        max-height: 480px;
         height: auto;
         line-height: 22px;
         color: #888;
@@ -1914,7 +1914,8 @@ flex-direction: column
         padding: 0;
         color: #888;
         font-family: Moebius_Regular_kor, Moebius_Regular_eng;
-        line-height: 22px
+        line-height: 22px;
+        min-height: 460px;
     }
     
     .contents .form_area.style-2 .row_contain .column .quill-editor .ql-container.ql-snow .ql-editor.ql-blank::before {
