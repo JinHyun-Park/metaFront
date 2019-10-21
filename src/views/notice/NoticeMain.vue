@@ -255,17 +255,7 @@ export default {
   },
   methods: {
     moveToWrite() {
-      // this.$router.push({ name: 'noticeWrite' });
-      const loader = this.$loading.show({
-        // Optional parameters
-        container: this.fullPage ? null : this.$refs.formContainer,
-        canCancel: false,
-        // onCancel: this.onCancel,
-      });
-
-      setTimeout(() => {
-        loader.hide();
-      }, 1000);
+      this.$router.push({ name: 'noticeWrite' });
     },
     log(val) {
       this.startReqDtm = val;
