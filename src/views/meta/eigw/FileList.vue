@@ -1,5 +1,8 @@
 <template>
-  <div class="right_space">
+  <div
+    class="
+  right_space"
+  >
     <section class="title style-1">
       <h2>
         <div>
@@ -23,66 +26,44 @@
           <button
             type="button"
             class="default_button on"
+            @click="searchList()"
           >
             검색
           </button>
         </div>
       </h5>
+
+
       <div class="row_contain type-2">
-        <div class="column on w-1">
-          <label class="column_label">EIGW구분</label>
-          <input
-            type="text"
-            value="OPGROUP"
-          >
-        </div>
         <div class="column w-1">
           <label class="column_label">대외기관</label>
           <input
+            v-model="instCd"
             type="text"
-            value=""
-          >
-        </div>
-        <div class="column w-1">
-          <label class="column_label">I/F ID(명)</label>
-          <input
-            type="text"
-            value="OPGROUP"
+            class="add_text on"
+            @keyup.13="searchList()"
           >
         </div>
         <div class="column w-1">
           <label class="column_label">파일명</label>
           <input
+            v-model="fileNm"
             type="text"
-            value="channeltype_01"
-          >
-        </div>
-      </div>
-      <div class="row_contain type-2">
-        <div class="column w-1">
-          <label class="column_label">송수신구분</label>
-          <input
-            type="text"
-            value=""
-          >
-        </div>
-        <div class="column w-1">
-          <label class="column_label">전송주기</label>
-          <input
-            type="text"
-            value=""
+            class="add_text on"
+            @keyup.13="searchList()"
           >
         </div>
         <div class="column w-1">
           <label class="column_label">IP</label>
           <input
+            v-model="svrIp"
             type="text"
-            value=""
+            class="add_text on"
+            @keyup.13="searchList()"
           >
         </div>
         <div class="column w-1" />
       </div>
-
       <div class="table_grid">
         <div class="table_head">
           <ul>
@@ -99,61 +80,34 @@
               송수신<i class="ico-sort-down" />
             </li>
             <li class="th_cell">
-              전송방식<i class="ico-sort-down" />
+              REAL IP<i class="ico-sort-down" />
             </li>
             <li class="th_cell">
-              IP/PORT<i class="ico-sort-down" />
+              NAT IP<i class="ico-sort-down" />
             </li>
             <li class="th_cell">
-              변경자(ID)<i class="ico-sort-up" />
+              PORT<i class="ico-sort-up" />
+            </li>
+            <li
+              class="th_cell"
+            >
+              MST-FILE-NUM<i class="ico-sort-up" />
             </li>
           </ul>
         </div>
         <div class="table_body">
-          <ul class="table_row">
-            <li class="td_cell">
-              2 documents
-            </li>
-            <li class="td_cell">
-              2 documents
-            </li>
-            <li class="td_cell">
-              2 documents
-            </li>
-            <li class="td_cell">
-              2 documents
-            </li>
-            <li class="td_cell">
-              2 documents
-            </li>
-            <li class="td_cell">
-              2 documents
-            </li>
-            <li class="td_cell">
-              2 documents
-            </li>
-          </ul>
-          <ul class="table_row">
-            <li class="td_cell">
-              q sign
-            </li>
-            <li class="td_cell">
-              q sign
-            </li>
-            <li class="td_cell">
-              q sign
-            </li>
-            <li class="td_cell">
-              q sign
-            </li>
-            <li class="td_cell">
-              q sign
-            </li>
-            <li class="td_cell">
-              q sign
-            </li>
-            <li class="td_cell">
-              q sign
+          <ul
+            v-for="fileRow in this.fileList"
+            :key="fileRow.mstFileNum"
+            class="table_row w-auto"
+          >
+            <li
+              v-for="(fileCol, i) in fileRow"
+              :key="i"
+              class="td_cell"
+              @click="detailInfo(i, fileRow[7])"
+            >
+              {{ fileCol }}
             </li>
           </ul>
         </div>
@@ -165,646 +119,168 @@
         상세정보
       </h5>
       <div class="row_contain type-2">
-        <div class="column w-2">
-          <label class="column_label">전송방식</label>
-          <div class="radio_group">
-            <span class="default_radio on">
-              <input
-                id="radio_1"
-                type="radio"
-                name="radio_1"
-              >(S)FTP<label for="radio_1"><span /></label>
-            </span>
-            <span class="default_radio">
-              <input
-                id="radio_2"
-                type="radio"
-                name="radio_1"
-              >TCP<label for="radio_2"><span /></label>
-            </span>
-            <span class="default_radio">
-              <input
-                id="radio_3"
-                type="radio"
-                name="radio_1"
-              >기타<label for="radio_3"><span /></label>
-            </span>
-          </div>
-        </div>
-        <div class="column w-1" />
-      </div>
-      <div class="row_contain type-2">
         <div class="column w-1">
           <label class="column_label">파일명</label>
           <input
+            v-model="fileHead"
             type="text"
-            value="OPGROUP"
+            class="add_text on"
           >
         </div>
         <div class="column w-1">
           <label class="column_label">&nbsp;</label>
           <input
+            v-model="fileTail"
             type="text"
-            value=""
+            class="add_text on"
           >
         </div>
         <div class="column w-1">
           <label class="column_label">&nbsp;</label>
           <input
+            v-model="fileDate"
             type="text"
-            value=""
+            class="add_text on"
           >
         </div>
         <div class="column w-1">
           <label class="column_label">대외기관</label>
           <input
+            v-model="instNm"
             type="text"
-            value=""
+            class="add_text on"
           >
         </div>
       </div>
       <div class="row_contain type-2">
-        <div class="column on w-1">
-          <label class="column_label">EIGW구분</label>
-          <input
-            type="text"
-            value="OPGROUP"
-          >
-        </div>
-        <div class="column w-1">
-          <label class="column_label">송수신구분</label>
-          <input
-            type="text"
-            value="송신"
-          >
-        </div>
-        <div class="column w-1">
-          <label class="column_label">파일설명</label>
-          <input
-            type="text"
-            value=""
-          >
-        </div>
-        <div class="column w-1">
-          <label class="column_label">사용유무</label>
-          <input
-            type="text"
-            value="Y/N"
-          >
+        <div class="row_contain type-2">
+          <div class="column w-1">
+            <label class="column_label">I/F ID</label>
+            <input
+              v-model="eaiIfId"
+              type="text"
+              class="add_text"
+            >
+          </div>
+          <div class="column w-1">
+            <label class="column_label">파일설명</label>
+            <input
+              v-model="fileDesc"
+              type="text"
+              class="add_text"
+            >
+          </div>
+          <div class="column w-1">
+            <label class="column_label">송수신구분</label>
+            <input
+              v-model="srFlag"
+              type="text"
+              class="add_text  on"
+            >
+          </div>
         </div>
       </div>
     </section>
 
     <section class="form_area border_group">
       <h5 class="s_tit">
-        SKT_EIGW 정보
+        서버 정보
       </h5>
-      <div class="row_contain type-2">
-        <div class="column on w-1">
-          <label class="column_label">I/F ID &amp; 명</label>
-          <input
-            type="text"
-            value="OPGROUP"
-          >
+      <div class="table_grid">
+        <div class="table_head w-auto except">
+          <ul class="table_row form_type except w-auto">
+            <li class="th_cell">
+              구분
+            </li>
+            <li class="th_cell">
+              REAL IP
+            </li>
+            <li class="th_cell">
+              NAT IP
+            </li>
+            <li class="th_cell">
+              PORT
+            </li>
+          </ul>
         </div>
-        <div class="column w-1">
-          <label class="column_label">&nbsp;</label>
-          <input
-            type="text"
-            value=""
+        <div class="table_body">
+          <ul
+            v-for="serve in this.serveList"
+            :key="serve.svrNum"
+            class="table_row form_type except w-auto"
           >
-        </div>
-        <div class="column w-1">
-          <label class="column_label">프로세스ID</label>
-          <input
-            type="text"
-            value=""
-          >
-        </div>
-        <div class="column w-1">
-          <label class="column_label">실행프로그램</label>
-          <input
-            type="text"
-            value="OPGROUP"
-          >
+            <li class="td_cell">
+              {{ serve.svrTypCd }}
+            </li>
+            <li class="td_cell on">
+              {{ serve.svrRealIp }}
+            </li>
+            <li class="td_cell">
+              {{ serve.svrNatIp }}
+            </li>
+            <li class="td_cell">
+              {{ serve.svrPort }}
+            </li>
+          </ul>
         </div>
       </div>
+    </section>
+    <section class="form_area border_group">
+      <h5 class="s_tit">
+        접속 정보
+      </h5>
       <div class="row_contain">
+        <div
+          class="column w-2"
+        >
+          <label class="column_label">송신 시작경로</label>
+          <input
+            v-model="sendStaPath"
+            type="text"
+          >
+        </div>
+
+        <div
+          class="column w-2"
+        >
+          <label class="column_label">송신 최종경로</label>
+          <input
+            v-model="sendEndPath"
+            type="text"
+          >
+        </div>
         <div class="column w-2">
           <label class="column_label">OPCODE</label>
           <input
+            v-model="opCode"
             type="text"
-            value="channeltype_01"
-          >
-        </div>
-        <div class="column w-2">
-          <label class="column_label">시작경로</label>
-          <input
-            type="text"
-            value="channeltype_01"
-          >
-        </div>
-        <div class="column w-2">
-          <label class="column_label">최종경로</label>
-          <input
-            type="text"
-            value="channeltype_01"
           >
         </div>
       </div>
       <div class="row_contain">
-        <div class="column w-2">
-          <label class="column_label">성공경로</label>
+        <div
+          class="column w-2"
+        >
+          <label class="column_label">수신 시작경로</label>
           <input
+            v-model="reStaPath"
             type="text"
-            value=""
-          >
-        </div>
-        <div class="column w-2">
-          <label class="column_label">실패경로</label>
-          <input
-            type="text"
-            value=""
           >
         </div>
 
         <div class="column w-2">
-          <label class="column_label">History경로</label>
+          <label class="column_label">수신 최종경로</label>
           <input
+            v-model="reEndPath"
             type="text"
-            value="channeltype_01"
-          >
-        </div>
-      </div>
-      <div class="row_contain">
-        <div class="column w-2">
-          <label class="column_label">재시도건수</label>
-          <input
-            type="text"
-            value=""
-          >
-        </div>
-        <div class="column w-2">
-          <label class="column_label">재시도주기</label>
-          <input
-            type="text"
-            value=""
-          >
-        </div>
-        <div class="column w-2">
-          <label class="column_label">분류제목</label>
-          <input
-            type="text"
-            value="ORD"
           >
         </div>
       </div>
     </section>
-
-    <section class="form_area border_group">
-      <h5 class="s_tit">
-        EIGW_EIGW 정보
-      </h5>
-      <div class="row_contain">
-        <div class="column on w-2">
-          <label class="column_label">프로세스ID</label>
-          <input
-            type="text"
-            value="OPGROUP"
-          >
-        </div>
-        <div class="column w-2">
-          <label class="column_label">실행프로그램</label>
-          <input
-            type="text"
-            value="OPGROUP"
-          >
-        </div>
-        <div class="column w-2" />
-      </div>
-      <div class="row_contain">
-        <div class="column w-2">
-          <label class="column_label">성공경로</label>
-          <input
-            type="text"
-            value="channeltype_01"
-          >
-        </div>
-        <div class="column w-2">
-          <label class="column_label">최종경로</label>
-          <input
-            type="text"
-            value="channeltype_01"
-          >
-        </div>
-        <div class="column w-2">
-          <label class="column_label">분류제목</label>
-          <input
-            type="text"
-            value="MOVIS"
-          >
-        </div>
-      </div>
-    </section>
-
-    <section class="form_area border_group">
-      <h5 class="s_tit">
-        EIGW_AGENCY 정보
-      </h5>
-      <div class="row_contain">
-        <div class="column on w-2">
-          <label class="column_label">실행프로그램</label>
-          <input
-            type="text"
-            value="OPGROUP"
-          >
-        </div>
-        <div class="column w-2">
-          <label class="column_label">프로세스ID</label>
-          <input
-            type="text"
-            value=""
-          >
-        </div>
-        <div class="column w-2">
-          <label class="column_label">AP유형</label>
-          <input
-            type="text"
-            value="OPGROUP"
-          >
-        </div>
-      </div>
-      <div class="row_contain">
-        <div class="column w-2">
-          <label class="column_label">User ID</label>
-          <input
-            type="text"
-            value="OPGROUP"
-          >
-        </div>
-        <div class="column w-2">
-          <label class="column_label">Password</label>
-          <input
-            type="text"
-            value=""
-          >
-        </div>
-        <div class="column w-2">
-          <label class="column_label">분류제목</label>
-          <input
-            type="text"
-            value="ORD"
-          >
-        </div>
-      </div>
-      <div class="row_contain">
-        <div class="column w-2">
-          <label class="column_label">REAL IP</label>
-          <input
-            type="text"
-            value="OPGROUP"
-          >
-        </div>
-        <div class="column w-2">
-          <label class="column_label">NAT IP</label>
-          <input
-            type="text"
-            value=""
-          >
-        </div>
-        <div class="column w-2">
-          <label class="column_label">Port</label>
-          <input
-            type="text"
-            value=""
-          >
-        </div>
-      </div>
-      <div class="row_contain">
-        <div class="column w-2">
-          <label class="column_label">시작경로</label>
-          <input
-            type="text"
-            value="channeltype_01"
-          >
-        </div>
-        <div class="column w-2">
-          <label class="column_label">최종경로</label>
-          <input
-            type="text"
-            value="channeltype_01"
-          >
-        </div>
-        <div class="column w-2">
-          <label class="column_label">성공경로</label>
-          <input
-            type="text"
-            value=""
-          >
-        </div>
-      </div>
-      <div class="row_contain">
-        <div class="column w-2">
-          <label class="column_label">실패경로</label>
-          <input
-            type="text"
-            value=""
-          >
-        </div>
-
-        <div class="column w-2">
-          <label class="column_label">History경로</label>
-          <input
-            type="text"
-            value="channeltype_01"
-          >
-        </div>
-        <div class="column w-2" />
-      </div>
-      <div class="row_contain">
-        <div class="column w-2">
-          <label class="column_label">재시도건수</label>
-          <input
-            type="text"
-            value=""
-          >
-        </div>
-        <div class="column w-2">
-          <label class="column_label">재시도주기</label>
-          <input
-            type="text"
-            value=""
-          >
-        </div>
-        <div class="column w-2" />
-      </div>
-    </section>
-
-    <section class="form_area border_group">
-      <h5 class="s_tit">
-        TCP정보
-      </h5>
-      <div class="row_contain type-2">
-        <div class="column w-2">
-          <label class="column_label">전송방식</label>
-          <div class="radio_group">
-            <span class="default_radio">
-              <input
-                id="radio_4"
-                type="radio"
-                name="radio_1"
-              >(S)FTP<label for="radio_4"><span /></label>
-            </span>
-            <span class="default_radio">
-              <input
-                id="radio_5"
-                type="radio"
-                name="radio_1"
-              >TCP<label for="radio_5"><span /></label>
-            </span>
-            <span class="default_radio">
-              <input
-                id="radio_6"
-                type="radio"
-                name="radio_1"
-              >기타<label for="radio_6"><span /></label>
-            </span>
-          </div>
-        </div>
-        <div class="column w-1" />
-      </div>
-      <div class="row_contain">
-        <div class="column on w-2">
-          <label class="column_label">프로그램명</label>
-          <input
-            type="text"
-            value="OPGROUP"
-          >
-        </div>
-        <div class="column w-2">
-          <label class="column_label">설정파일명</label>
-          <input
-            type="text"
-            value=""
-          >
-        </div>
-        <div class="column w-2">
-          <label class="column_label">내부파일명</label>
-          <input
-            type="text"
-            value="OPGROUP"
-          >
-        </div>
-      </div>
-      <div class="row_contain">
-        <div class="column w-2">
-          <label class="column_label">외부파일명</label>
-          <input
-            type="text"
-            value="OPGROUP"
-          >
-        </div>
-        <div class="column w-2">
-          <label class="column_label">전송주기</label>
-          <input
-            type="text"
-            value=""
-          >
-        </div>
-        <div class="column w-2">
-          <label class="column_label">전송시간</label>
-          <input
-            type="text"
-            value="ORD"
-          >
-        </div>
-      </div>
-      <div class="row_contain">
-        <div class="column w-2">
-          <label class="column_label">개발 REAL IP</label>
-          <input
-            type="text"
-            value="OPGROUP"
-          >
-        </div>
-        <div class="column w-2">
-          <label class="column_label">개발 NAT IP</label>
-          <input
-            type="text"
-            value=""
-          >
-        </div>
-        <div class="column w-2">
-          <label class="column_label">개발 Port</label>
-          <input
-            type="text"
-            value=""
-          >
-        </div>
-      </div>
-      <div class="row_contain">
-        <div class="column w-2">
-          <label class="column_label">운영 REAL IP</label>
-          <input
-            type="text"
-            value="OPGROUP"
-          >
-        </div>
-        <div class="column w-2">
-          <label class="column_label">운영 NAT IP</label>
-          <input
-            type="text"
-            value=""
-          >
-        </div>
-        <div class="column w-2">
-          <label class="column_label">운영 Port</label>
-          <input
-            type="text"
-            value=""
-          >
-        </div>
-      </div>
-    </section>
-
-    <section class="form_area border_group">
-      <h5 class="s_tit">
-        기타정보
-      </h5>
-      <div class="row_contain type-2">
-        <div class="column w-2">
-          <label class="column_label">전송방식</label>
-          <div class="radio_group">
-            <span class="default_radio">
-              <input
-                id="radio_7"
-                type="radio"
-                name="radio_1"
-              >(S)FTP<label for="radio_7"><span /></label>
-            </span>
-            <span class="default_radio">
-              <input
-                id="radio_8"
-                type="radio"
-                name="radio_1"
-              >TCP<label for="radio_8"><span /></label>
-            </span>
-            <span class="default_radio on">
-              <input
-                id="radio_9"
-                type="radio"
-                name="radio_1"
-              >기타<label for="radio_9"><span /></label>
-            </span>
-          </div>
-        </div>
-        <div class="column w-1" />
-      </div>
-      <div class="row_contain">
-        <div class="column on w-2">
-          <label class="column_label">프로그램명</label>
-          <input
-            type="text"
-            value="OPGROUP"
-          >
-        </div>
-        <div class="column w-2">
-          <label class="column_label">설정파일명</label>
-          <input
-            type="text"
-            value=""
-          >
-        </div>
-        <div class="column w-2">
-          <label class="column_label">내부파일명</label>
-          <input
-            type="text"
-            value="OPGROUP"
-          >
-        </div>
-      </div>
-      <div class="row_contain">
-        <div class="column w-2">
-          <label class="column_label">외부파일명</label>
-          <input
-            type="text"
-            value="OPGROUP"
-          >
-        </div>
-        <div class="column w-2">
-          <label class="column_label">전송주기</label>
-          <input
-            type="text"
-            value=""
-          >
-        </div>
-        <div class="column w-2">
-          <label class="column_label">전송시간</label>
-          <input
-            type="text"
-            value="ORD"
-          >
-        </div>
-      </div>
-      <div class="row_contain">
-        <div class="column w-2">
-          <label class="column_label">개발 REAL IP</label>
-          <input
-            type="text"
-            value="OPGROUP"
-          >
-        </div>
-        <div class="column w-2">
-          <label class="column_label">개발 NAT IP</label>
-          <input
-            type="text"
-            value=""
-          >
-        </div>
-        <div class="column w-2">
-          <label class="column_label">개발 Port</label>
-          <input
-            type="text"
-            value=""
-          >
-        </div>
-      </div>
-      <div class="row_contain">
-        <div class="column w-2">
-          <label class="column_label">운영 REAL IP</label>
-          <input
-            type="text"
-            value="OPGROUP"
-          >
-        </div>
-        <div class="column w-2">
-          <label class="column_label">운영 NAT IP</label>
-          <input
-            type="text"
-            value=""
-          >
-        </div>
-        <div class="column w-2">
-          <label class="column_label">운영 Port</label>
-          <input
-            type="text"
-            value=""
-          >
-        </div>
-      </div>
-    </section>
-
     <section class="border_group">
       <h5 class="s_tit type-2">
         담당자 정보
-        <div class="right_button_area">
-          <button
-            type="button"
-            class="default_button on"
-          >
-            추가
-          </button>
-        </div>
+        <div class="right_button_area" />
       </h5>
       <div class="table_grid">
         <div class="table_head w-auto except">
@@ -824,106 +300,150 @@
             <li class="th_cell">
               E-mail
             </li>
-            <li class="th_cell" />
           </ul>
         </div>
         <div class="table_body">
-          <ul class="table_row form_type except w-auto">
-            <li class="td_cell on">
-              <div class="select_group">
-                <select>
-                  <option
-                    value=""
-                    selected
-                  >
-                    대외기관
-                  </option>
-                  <option value="">
-                    유사관련기관
-                  </option>
-                </select>
-                <span class="select" />
-              </div>
-            </li>
-            <li class="td_cell">
-              2 documents
-            </li>
-            <li class="td_cell on">
-              <div class="search_group">
-                <input
-                  type="text"
-                  value="유영준"
-                >
-                <span class="search">
-                  <i class="ico-search" />
-                </span>
-              </div>
-            </li>
-            <li class="td_cell">
-              010-123-1234
-            </li>
-            <li class="td_cell on">
-              <input
-                type="text"
-                value="skcc@skcc.com"
-              >
-            </li>
-            <li class="td_cell">
-              <i class="ico-add" /><i class="ico-edit" /><i class="ico-del" />
-            </li>
-          </ul>
-          <ul class="table_row form_type except w-auto">
-            <li class="td_cell">
-              <div class="select_group">
-                <select>
-                  <option
-                    value=""
-                    selected
-                  >
-                    대외기관
-                  </option>
-                  <option value="">
-                    유사관련기관
-                  </option>
-                </select>
-                <span class="select" />
-              </div>
-            </li>
-            <li class="td_cell">
-              q sign
-            </li>
-            <li class="td_cell">
-              <div class="search_group">
-                <input
-                  type="text"
-                  value=""
-                >
-                <span class="search">
-                  <i class="ico-search" />
-                </span>
-              </div>
-            </li>
-            <li class="td_cell">
-              010-000-0000
-            </li>
-            <li class="td_cell">
-              gmail@gmail.com
-            </li>
-            <li class="td_cell">
-              <i class="ico-add" /><i class="ico-edit" /><i class="ico-del" />
+          <ul
+            v-for="inuser in this.inchrgrList"
+            :key="inuser.userId"
+            class="table_row form_type except w-auto"
+          >
+            <li
+              v-for="(inUserInfo, j) in inuser"
+              :key="j"
+              class="td_cell"
+            >
+              {{ inUserInfo }}
             </li>
           </ul>
         </div>
       </div>
     </section>
-
-    <section class="btm_button_area">
-      <button
-        type="button"
-        class="default_button on"
-      >
-        수정
-      </button>
+    <section class="border_group">
+      <h5 class="s_tit type-2">
+        대외기관 담당자 정보
+      </h5>
+      <div class="table_grid">
+        <div class="table_head w-auto except">
+          <ul>
+            <li class="th_cell">
+              기관
+            </li>
+            <li class="th_cell">
+              부서
+            </li>
+            <li class="th_cell">
+              이름
+            </li>
+            <li class="th_cell">
+              연락처
+            </li>
+            <li class="th_cell">
+              E-mail
+            </li>
+          </ul>
+        </div>
+        <div class="table_body">
+          <ul
+            v-for="outuser in this.outchrgrList"
+            :key="outuser.userId"
+            class="table_row form_type except w-auto"
+          >
+            <li
+              v-for="(outUserInfo,k) in outuser"
+              :key="k"
+              class="td_cell"
+            >
+              {{ outUserInfo }}
+            </li>
+          </ul>
+        </div>
+      </div>
     </section>
   </div>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      fileList: '',
+      fileNm: '',
+      svrIp: '',
+      instCd: '',
+      userInfo: '',
+      serveList: '',
+      inchrgrList: '',
+      outchrgrList: '',
+      fileHead: '',
+      fileTail: '',
+      fileDate: '',
+      instNm: '',
+      eaiIfId: '',
+      fileDesc: '',
+      srFlag: '',
+      sendStaPath: '',
+      sendEndPath: '',
+      opCode: '',
+      reStaPath: '',
+      reEndPath: '',
+    };
+  },
+  methods: {
+    searchList() {
+      this.$axios.get('/api/eigw/fileList', {
+        params: {
+          fileNm: this.fileNm,
+          svrIp: this.svrIp,
+          instCd: this.instCd,
+        },
+      })
+        .then((res) => {
+          console.log(res);
+          if (res.data.rstCd == 'S') {
+            this.fileList = res.data.rstData.fileList;
+          } else {
+            alert('failed');
+          }
+        })
+        .catch((ex) => {
+          console.log(`error occur!! : ${ex}`);
+        });
+    },
+    detailInfo(i, index) {
+      this.tgtUrl = '/api/eigw/fileDtlInfo/';
+      if (index != null && index !== '') {
+        this.tgtUrl = `${this.tgtUrl}/${index}`;
+      }
+      this.$axios.get(this.tgtUrl)
+        .then((res) => {
+          console.log(res);
+          if (res.data.rstCd == 'S') {
+            this.userInfo = res.data.rstData.fileDtlInfo[0].chrRelList;
+            this.fileHead = res.data.rstData.fileDtlInfo[0].fileHead;
+            this.fileTail = res.data.rstData.fileDtlInfo[0].fileTail;
+            this.fileDate = res.data.rstData.fileDtlInfo[0].fileDate;
+            this.instNm = res.data.rstData.fileDtlInfo[0].instCd;
+            this.srFlag = res.data.rstData.fileDtlInfo[0].srFlag;
+            this.fileDesc = res.data.rstData.fileDtlInfo[0].fileDesc;
+            this.eaiIfId = res.data.rstData.fileDtlInfo[0].sktInfo.eaiIfId;
+            this.sendStaPath = res.data.rstData.fileDtlInfo[0].sktInfo.staPath;
+            this.sendEndPath = res.data.rstData.fileDtlInfo[0].agencyInfo.endPath;
+            this.reStaPath = res.data.rstData.fileDtlInfo[0].agencyInfo.staPath;
+            this.reEndPath = res.data.rstData.fileDtlInfo[0].sktInfo.endPath;
+            this.opCode = res.data.rstData.fileDtlInfo[0].sktInfo.opCode;
+            this.serveList = res.data.rstData.severList;
+            this.inchrgrList = res.data.rstData.inchrgrList;
+            this.outchrgrList = res.data.rstData.outchrgrList;
+          } else {
+            alert('failed');
+          }
+        })
+        .catch((ex) => {
+          console.log(`error occur!! : ${ex}`);
+        });
+    },
+  },
+};
+
+</script>
