@@ -113,6 +113,8 @@ export default {
     login() {
       if (this.idMem) {
         this.$cookie.set('idMem', this.user_id);
+      } else {
+        this.$cookie.delete('idMem');
       }
 
       console.log('로그인 시도!');
