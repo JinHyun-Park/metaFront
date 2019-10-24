@@ -62,25 +62,6 @@
                 >
                   EAI
                 </li>
-                <li
-                  :class="{ov: isActive('swingDbInfo')}"
-                  @click="movePage('swingDbInfo')"
-                >
-                  swingDbInfo
-                </li>
-                <li
-                  :class="{ov: isActive('queueMgrList')}"
-                  @click="movePage('queueMgrList')"
-                >
-                  queueMgrList
-                </li>
-                <li
-                  :class="{ov: isActive('nodeList')}"
-                  @click="movePage('nodeList')"
-                >
-                  nodeList
-                </li>
-
 
                 <!-- <li
                   @click="movePage('eaiReg')"

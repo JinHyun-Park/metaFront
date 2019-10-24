@@ -138,7 +138,7 @@
           </div>
           <div class="table_body">
             <ul
-              v-for="onlineRow in this.onlineIfList"
+              v-for="onlineRow in onlineIfList"
               :key="onlineRow.onlineNum"
               class="table_row w-auto"
             >
@@ -146,7 +146,9 @@
                 v-for="(onlineCol, i) in onlineRow"
                 :key="i"
                 class="td_cell"
-                @click="detailInfo(i, onlineRow[0], onlineRow[1], onlineRow[2], onlineRow[6], onlineRow[10], onlineRow[11],onlineRow[12])"
+                @click="detailInfo(i, onlineRow[0],
+                                   onlineRow[1], onlineRow[2], onlineRow[6],
+                                   onlineRow[10], onlineRow[11],onlineRow[12])"
               >
                 {{ onlineCol }}
               </li>
@@ -271,7 +273,7 @@
         </div>
         <div class="table_body">
           <ul
-            v-for="server in this.serverList"
+            v-for="server in serverList"
             :key="server.svrNum"
             class="table_row form_type except w-auto"
           >
@@ -317,7 +319,7 @@
         </div>
         <div class="table_body">
           <ul
-            v-for="inuser in this.inchrgrList"
+            v-for="inuser in inchrgrList"
             :key="inuser.userId"
             class="table_row form_type except w-auto"
           >
@@ -361,7 +363,7 @@
         </div>
         <div class="table_body">
           <ul
-            v-for="outuser in this.outchrgrList"
+            v-for="outuser in outchrgrList"
             :key="outuser.userId"
             class="table_row form_type except w-auto"
           >
@@ -444,10 +446,10 @@ export default {
       })
         .then((res) => {
           console.log(res);
-          if (res.data.rstCd == 'S') {
+          if (res.data.rstCd === 'S') {
             this.onlineIfList = res.data.rstData.onlineIfList;
           } else {
-            alert('failed');
+            this.$gf.alertOn('failed');
           }
         })
         .catch((ex) => {
@@ -462,7 +464,7 @@ export default {
       this.$axios.get(this.tgtUrl)
         .then((res) => {
           console.log(res);
-          if (res.data.rstCd == 'S') {
+          if (res.data.rstCd === 'S') {
             this.serverList = res.data.rstData.serverList;
             this.eaiIfId = eaiIf;
             this.instNm = instNm;
@@ -479,7 +481,7 @@ export default {
             this.inchrgrList = res.data.rstData.inchrgrList;
             this.outchrgrList = res.data.rstData.outchrgrList;
           } else {
-            alert('failed');
+            this.$gf.alertOn('failed');
           }
         })
         .catch((ex) => {

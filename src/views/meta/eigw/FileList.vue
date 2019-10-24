@@ -97,7 +97,7 @@
         </div>
         <div class="table_body">
           <ul
-            v-for="fileRow in this.fileList"
+            v-for="fileRow in fileList"
             :key="fileRow.mstFileNum"
             class="table_row w-auto"
           >
@@ -205,7 +205,7 @@
         </div>
         <div class="table_body">
           <ul
-            v-for="serve in this.serveList"
+            v-for="serve in serveList"
             :key="serve.svrNum"
             class="table_row form_type except w-auto"
           >
@@ -304,7 +304,7 @@
         </div>
         <div class="table_body">
           <ul
-            v-for="inuser in this.inchrgrList"
+            v-for="inuser in inchrgrList"
             :key="inuser.userId"
             class="table_row form_type except w-auto"
           >
@@ -345,7 +345,7 @@
         </div>
         <div class="table_body">
           <ul
-            v-for="outuser in this.outchrgrList"
+            v-for="outuser in outchrgrList"
             :key="outuser.userId"
             class="table_row form_type except w-auto"
           >
@@ -400,10 +400,10 @@ export default {
       })
         .then((res) => {
           console.log(res);
-          if (res.data.rstCd == 'S') {
+          if (res.data.rstCd === 'S') {
             this.fileList = res.data.rstData.fileList;
           } else {
-            alert('failed');
+            this.$gf.alertOn('failed');
           }
         })
         .catch((ex) => {
@@ -418,7 +418,7 @@ export default {
       this.$axios.get(this.tgtUrl)
         .then((res) => {
           console.log(res);
-          if (res.data.rstCd == 'S') {
+          if (res.data.rstCd === 'S') {
             this.userInfo = res.data.rstData.fileDtlInfo[0].chrRelList;
             this.fileHead = res.data.rstData.fileDtlInfo[0].fileHead;
             this.fileTail = res.data.rstData.fileDtlInfo[0].fileTail;
@@ -436,7 +436,7 @@ export default {
             this.inchrgrList = res.data.rstData.inchrgrList;
             this.outchrgrList = res.data.rstData.outchrgrList;
           } else {
-            alert('failed');
+            this.$gf.alertOn('failed');
           }
         })
         .catch((ex) => {

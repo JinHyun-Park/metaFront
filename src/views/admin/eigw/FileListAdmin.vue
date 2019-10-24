@@ -131,7 +131,7 @@
         </div>
         <div class="table_body">
           <ul
-            v-for="fileRow in this.fileList"
+            v-for="fileRow in fileList"
             :key="fileRow.mstFileNum"
             class="table_row w-auto"
           >
@@ -560,7 +560,7 @@
         </div>
         <div class="table_body">
           <ul
-            v-for="(serve, i) in this.serveList"
+            v-for="(serve, i) in serveList"
             :key="serve.svrNum"
             class="table_row form_type except w-auto"
           >
@@ -627,7 +627,7 @@
         </div>
         <div class="table_body">
           <ul
-            v-for="(inuser,i) in this.inchrgrList"
+            v-for="(inuser,i) in inchrgrList"
             :key="inuser.UserId"
             class="table_row form_type except w-auto"
           >
@@ -737,9 +737,10 @@
 
 <script>
 
-import SvrListPopup from '@/components/popup/meta/eigw/SvrListPopup.vue';
+// import SvrListPopup from '@/components/popup/meta/eigw/SvrListPopup.vue';
 
 export default {
+  /* eslint no-plusplus: ["error", { "allowForLoopAfterthoughts": true }] */
   data() {
     return {
       fileList: '',
@@ -804,10 +805,10 @@ export default {
       })
         .then((res) => {
           console.log(res);
-          if (res.data.rstCd == 'S') {
+          if (res.data.rstCd === 'S') {
             this.fileList = res.data.rstData.fileList;
           } else {
-            alert('failed');
+            this.$gf.alertOn('failed');
           }
         })
         .catch((ex) => {
@@ -822,7 +823,7 @@ export default {
       this.$axios.get(this.tgtUrl)
         .then((res) => {
           console.log(res);
-          if (res.data.rstCd == 'S') {
+          if (res.data.rstCd === 'S') {
             this.mstFileNum = res.data.rstData.fileDtlInfo[0].mstFileNum;
             this.fileHead = res.data.rstData.fileDtlInfo[0].fileHead;
             this.fileTail = res.data.rstData.fileDtlInfo[0].fileTail;
@@ -867,7 +868,7 @@ export default {
             this.svrNatIp = res.data.rstData.severList[0].svrNatIp;
             this.svrPort = res.data.rstData.severList[0].svrPort;
           } else {
-            alert('failed');
+            this.$gf.alertOn('failed');
           }
         })
         .catch((ex) => {
@@ -939,11 +940,11 @@ export default {
           console.log(`metainfo save error occur!! : ${ex}`);
         });
 
-      if (this.inchrgrList != null || this.inchrgrList != '') {
+      if (this.inchrgrList != null || this.inchrgrList !== '') {
         this.parseInUserId();
       }
 
-      if (this.outchrgrList != null || this.outchrgrList != '') {
+      if (this.outchrgrList != null || this.outchrgrList !== '') {
         this.parseOutUserId();
       }
     },
@@ -959,12 +960,12 @@ export default {
       this.svrOn = false;
     },
     delList(i) {
-      if (confirm(`${this.serveList[i].svrRealIp} 서버 정보를 삭제하시겠습니까?`)) {
+      if (this.$gf.confirmOn(`${this.serveList[i].svrRealIp} 서버 정보를 삭제하시겠습니까?`)) {
         // i 번째 행 리스트에서 제거
       }
     },
     editInchrgrList(i) {
-      alert(this.inchrgrList[i]);
+      this.$gf.alertOn(this.inchrgrList[i]);
       const info = {
         0: '', 1: '', 2: '', 3: '', 4: '',
       };
@@ -973,6 +974,7 @@ export default {
     addInchrgrList() {
     },
     editOutchrgrList(i, index) {
+      console.log(`i : ${i}, index : ${index}`);
       // for (let i = 1; i < this.outchrgrList.length; i++) {
       this.parseUserId();
       // this.saveChrgrInfo = {
@@ -1007,7 +1009,7 @@ export default {
       }
     },
     parseOutUserId() {
-      alert('시작222');
+      this.$gf.alertOn('시작222');
       this.outuserIdList = [];
       for (let i = 0; i < this.outchrgrList.length; i++) {
         this.outuserIdList.push({
