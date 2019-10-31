@@ -28,6 +28,7 @@ module.exports = {
                 ]
             }
         ],
+        "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
         "import/no-extraneous-dependencies": ["error", { "devDependencies": true, "optionalDependencies": false, "peerDependencies": false }]
     },
     parserOptions: {

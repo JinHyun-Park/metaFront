@@ -62,77 +62,21 @@
                 >
                   EAI
                 </li>
-
-                <!-- <li
-                  @click="movePage('eaiReg')"
-                >
-                  EAI
-                </li>
-                <li
-                  :class="{ov: isActive('eigwOnlineList')}"
-                  @click="movePage('eigwOnlineList')"
-                >
-                  EiGW
-                </li>
-                <li
-                  :class="{ov: isActive('eigwFileList')}"
-                  @click="movePage('eigwFileList')"
-                >
-                  EiGW FILE
-                </li>
-                <li
-                  :class="{ov: isActive('mcgDtlList')}"
-                  @click="movePage('mcgDtlList')"
-                >
-                  MCG
-                </li>
-                <li
-                  :class="{ov: isActive('mcgTransInfo')}"
-                  @click="movePage('mcgTransInfo')"
-                >
-                  MCG TRANS
-                </li>
-                <li
-                  @click="movePage('chnList')"
-                >
-                  EAI 채널 정보
-                </li>
-                <li @click="movePage('queueMgrList')">
-                  큐매니저
-                </li> -->
               </ul>
             </li>
             <li class="n">
               <span>메타정보 관리</span>
               <ul class="sub_menu">
-                <li>공통</li>
-                <li>EiGW</li>
-                <li>MCG</li>
-                <li>EAI</li>
-                <li @click="movePage('accListEigw')">
-                  EiGW 담당자 관리
-                </li>
                 <li @click="movePage('ccCdList')">
-                  공통 코드 관리
-                </li>
-                <li @click="movePage('instList')">
-                  기관 코드 관리
-                </li>
-                <li @click="movePage('serverList')">
-                  서버 정보 관리
+                  공통
                 </li>
                 <li @click="movePage('programInfo')">
-                  EiGW 프로그램 관리
+                  EiGW
                 </li>
                 <li @click="movePage('virtualUserList_MCG')">
-                  MCG 가상 사용자 관리
+                  MCG
                 </li>
-                <li @click="movePage('fileListAdmin')">
-                  fileListAdmin
-                </li>
-                <li @click="movePage('onlineListAdmin')">
-                  onlineListAdmin
-                </li>
+                <li>EAI</li>
               </ul>
             </li>
             <li class="n">

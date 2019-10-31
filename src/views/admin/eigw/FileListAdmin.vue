@@ -740,7 +740,6 @@
 // import SvrListPopup from '@/components/popup/meta/eigw/SvrListPopup.vue';
 
 export default {
-  /* eslint no-plusplus: ["error", { "allowForLoopAfterthoughts": true }] */
   data() {
     return {
       fileList: '',

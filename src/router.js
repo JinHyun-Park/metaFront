@@ -73,6 +73,11 @@ const router = new Router({
       name: 'chgIfinfo',
       component: () => import('@/views/ifReg/ChangeIfInfoFrame.vue'),
     },
+    {
+      path: '/ifReg/eaiReg',
+      name: 'eaiReg',
+      component: () => import('@/views/ifReg/EaiReg.vue'),
+    },
     ],
   },
   // 3. 메타정보 조회
@@ -115,6 +120,26 @@ const router = new Router({
       name: 'swingDbInfo',
       component: () => import('@/views/meta/eai/SwingDbInfo.vue'),
     }, // EAI 끝
+    {
+      path: '/meta/eigw/onlineList',
+      name: 'eigwOnlineList',
+      component: () => import('@/views/meta/eigw/OnlineList.vue'),
+    },
+    {
+      path: '/meta/eigw/eigwFileList',
+      name: 'eigwFileList',
+      component: () => import('@/views/meta/eigw/FileList.vue'),
+    },
+    {
+      path: '/meta/mcg/mcgDtlList',
+      name: 'mcgDtlList',
+      component: () => import('@/views/meta/mcg/DtlList.vue'),
+    },
+    {
+      path: '/meta/mcg/mcgTransInfo',
+      name: 'mcgTransInfo',
+      component: () => import('@/views/meta/mcg/TransInfo.vue'),
+    },
     ],
   },
   // 4. 메타정보 관리
@@ -123,29 +148,44 @@ const router = new Router({
     name: 'adminForm',
     component: () => import('@/views/admin/AdminForm.vue'),
     children: [{
-      path: '/admin/ifMgmt/instList',
+      path: '/admin/ifMgmt/comm/instList',
       name: 'instList',
       component: () => import('@/views/admin/ifMgmt/InstList.vue'),
     },
     {
-      path: '/admin/ifMgmt/serverList',
+      path: '/admin/ifMgmt/comm/serverList',
       name: 'serverList',
       component: () => import('@/views/admin/ifMgmt/ServerList.vue'),
     },
     {
-      path: '/admin/ifMgmt/accListEigw',
+      path: '/admin/ifMgmt/comm/ccCdList',
+      name: 'ccCdList',
+      component: () => import('@/views/admin/ifMgmt/CcCdList.vue'),
+    },
+    {
+      path: '/admin/ifMgmt/eigw/programInfo',
+      name: 'programInfo',
+      component: () => import('@/views/admin/eigw/ProgramInfo.vue'),
+    },
+    {
+      path: '/admin/ifMgmt/eigw/accListEigw',
       name: 'accListEigw',
       component: () => import('@/views/admin/ifMgmt/AccListEigw.vue'),
     },
     {
-      path: '/admin/ifMgmt/virtualUserList-MCG',
-      name: 'virtualUserList_MCG',
-      component: () => import('@/views/admin/ifMgmt/VirtualUserList_MCG.vue'),
+      path: '/admin/ifMgmt/eigw/fileListAdmin',
+      name: 'fileListAdmin',
+      component: () => import('@/views/admin/eigw/FileListAdmin.vue'),
     },
     {
-      path: '/admin/ifMgmt/ccCdList',
-      name: 'ccCdList',
-      component: () => import('@/views/admin/ifMgmt/CcCdList.vue'),
+      path: '/admin/ifMgmt/eigw/onlineListAdmin',
+      name: 'onlineListAdmin',
+      component: () => import('@/views/admin/eigw/OnlineListAdmin.vue'),
+    },
+    {
+      path: '/admin/ifMgmt/mcg/virtualUserList_MCG',
+      name: 'virtualUserList_MCG',
+      component: () => import('@/views/admin/ifMgmt/VirtualUserList_MCG.vue'),
     },
     {
       path: '/admin/portalMgmt/opsAccList',
@@ -157,47 +197,7 @@ const router = new Router({
       name: 'accList',
       component: () => import('@/views/admin/portalMgmt/AccList.vue'),
     },
-    {
-      path: '/admin/eigw/programInfo',
-      name: 'programInfo',
-      component: () => import('@/views/admin/eigw/ProgramInfo.vue'),
-    },
-    {
-      path: '/admin/eigw/fileListAdmin',
-      name: 'fileListAdmin',
-      component: () => import('@/views/admin/eigw/FileListAdmin.vue'),
-    },
-    {
-      path: '/admin/eigw/onlineListAdmin',
-      name: 'onlineListAdmin',
-      component: () => import('@/views/admin/eigw/OnlineListAdmin.vue'),
-    },
     ],
-  },
-  {
-    path: '/meta/eigw/onlineList',
-    name: 'eigwOnlineList',
-    component: () => import('@/views/meta/eigw/OnlineList.vue'),
-  },
-  {
-    path: '/meta/eigw/fileList',
-    name: 'eigwFileList',
-    component: () => import('@/views/meta/eigw/FileList.vue'),
-  },
-  {
-    path: '/meta/mcg/dtlList',
-    name: 'mcgDtlList',
-    component: () => import('@/views/meta/mcg/DtlList.vue'),
-  },
-  {
-    path: '/meta/mcg/transInfo',
-    name: 'mcgTransInfo',
-    component: () => import('@/views/meta/mcg/TransInfo.vue'),
-  },
-  {
-    path: '/ifReg/eaiReg',
-    name: 'eaiReg',
-    component: () => import('@/views/ifReg/EaiReg.vue'),
   },
   {
     path: '*',

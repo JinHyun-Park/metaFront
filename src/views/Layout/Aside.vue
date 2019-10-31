@@ -62,9 +62,9 @@ export default {
       } else if (path.indexOf('/meta/allList') > -1) { // 메타정보 전체 조회
         this.subNm = '메타정보 조회';
         this.menuLists = asConfig.META_ALL;
-      } else if (path.indexOf('/meta/mcg') > -1) { // 메타정보 전체 조회
+      } else if (path.indexOf('/meta/mcg/') > -1) { // 메타정보 전체 조회
         this.subNm = 'MCG';
-        this.menuLists = asConfig.META_ALL;
+        this.menuLists = asConfig.META_MCG;
       } else if (path.indexOf('/meta/eigw/') > -1) { // 메타정보 조회 > EiGW
         this.subNm = 'EIGW';
         this.menuLists = asConfig.META_EIGW;
@@ -74,9 +74,18 @@ export default {
       } else if (path.indexOf('/meta/') > -1) {
         this.subNm = 'META';
         this.menuLists = asConfig.META;
-      } else if (path.indexOf('/admin/') > -1) {
-        this.subNm = 'ADMIN';
-        this.menuLists = asConfig.MGMT;
+      } else if (path.indexOf('/admin/ifMgmt/comm/') > -1) {
+        this.subNm = '공통';
+        this.menuLists = asConfig.MGMT_COMM;
+      } else if (path.indexOf('/admin/ifMgmt/eigw/') > -1) {
+        this.subNm = 'EIGW 관리';
+        this.menuLists = asConfig.MGMT_EIGW;
+      } else if (path.indexOf('/admin/ifMgmt/mcg/') > -1) {
+        this.subNm = 'MCG 관리';
+        this.menuLists = asConfig.MGMT_MCG;
+      } else if (path.indexOf('/admin/ifMgmt/eai/') > -1) {
+        this.subNm = 'EAI 관리';
+        this.menuLists = asConfig.MGMT_EAI;
       }
     },
   },
