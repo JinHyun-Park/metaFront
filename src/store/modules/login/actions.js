@@ -8,4 +8,7 @@ export default {
   loginCheck: (store) => {
     store.commit('loginCheck');
   },
+  setLoginInfo: (store, payload) => {
+    store.commit('setLoginInfo', payload);
+  },
 };

@@ -14,7 +14,7 @@
       </h1>
       <div>
         <div class="util_space">
-          <em @click="confirmOn"><i class="ico-user" />유영준님 환영합니다!</em>
+          <em @click="confirmOn"><i class="ico-user" />[{{ loginHanNm }}] 님 환영합니다!</em>
           <button
             class="log"
             @click="logout()"
@@ -98,6 +98,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
 //   mixins: [common],
   name: 'Header',
@@ -106,6 +108,9 @@ export default {
       activeItem: '',
       alertMsgText: '123333',
     };
+  },
+  computed: {
+    ...mapState('login', ['loginHanNm']),
   },
   created() {
     this.setActiveItem();

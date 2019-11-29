@@ -6,7 +6,7 @@
           <i class="ico-bar" />공지사항
         </div>
         <div class="breadcrumb">
-          <span>EGIW</span><em class="on">EAI</em>
+          <span>커뮤니티</span><em class="on">공지사항</em>
         </div>
       </h2>
     </section>
@@ -17,6 +17,7 @@
           <button
             type="button"
             class="default_button on"
+            @click="searchList()"
           >
             검색
           </button>
@@ -36,11 +37,10 @@
             </span>
             <datepicker
               :value="startReqDtm"
-              min="2018-6-1"
-              max="2020-01-01"
-              :day-str="dayStr"
-              :scrollbar-props="{isMobile: isM}"
-              :popper-props="popperProps"
+              min="2019-6-1"
+              :max="endReqDtm"
+              :day-str="datePickerSet.dayStr"
+              :popper-props="datePickerSet.popperProps"
               @input="log"
             />
           </div>
@@ -56,6 +56,14 @@
             <span class="calander">
               <i class="ico-cal" />
             </span>
+            <datepicker
+              :value="endReqDtm"
+              :min="startReqDtm"
+              max="2022-01-01"
+              :day-str="datePickerSet.dayStr"
+              :popper-props="datePickerSet.popperProps"
+              @input="log2"
+            />
           </div>
         </div>
         <div class="column w-4">
@@ -71,151 +79,64 @@
           </div>
         </div>
       </div>
-      <div class="table_grid">
-        <div class="table_head w-auto">
-          <ul>
-            <li class="th_cell">
-              업무코드<i class="ico-sort-down" />
-            </li>
-            <li class="th_cell">
-              채널ID<i class="ico-sort-up" />
-            </li>
-            <li class="th_cell">
-              등록일<i class="ico-sort-up" />
-            </li>
-            <li class="th_cell">
-              신청자<i class="ico-sort-down" />
-            </li>
-          </ul>
+      <div class="table_colgroup">
+        <div class="table_grid radio_group">
+          <div class="table_head w-auto">
+            <ul>
+              <li class="th_cell">
+                Num
+              </li>
+              <li class="th_cell">
+                제목
+              </li>
+              <li class="th_cell">
+                게시상태
+              </li>
+              <li class="th_cell">
+                작성자
+              </li>
+              <li class="th_cell">
+                작성일자
+              </li>
+            </ul>
+          </div>
+          <div class="table_body">
+            <ul
+              v-for="board in boardList"
+              :key="board.boardNum"
+              class="table_row w-auto"
+            >
+              <li class="td_cell">
+                {{ board.boardNum }}
+              </li>
+              <li class="td_cell">
+                {{ board.title }}
+              </li>
+              <li class="td_cell">
+                {{ board.boardSt }}
+              </li>
+              <li class="td_cell">
+                {{ board.chgChrgrInfo.hanNm }}({{ board.chgId }})
+              </li>
+              <li class="td_cell">
+                {{ board.chgDt }}
+              </li>
+            </ul>
+          </div>
         </div>
-        <div class="table_body">
-          <ul class="table_row w-auto">
-            <li class="td_cell">
-              1011
-            </li>
-            <li class="td_cell">
-              2 documents2 documents2 documents2 documents2 documents2 documents2 documents
-            </li>
-            <li class="td_cell">
-              2019-08-07
-            </li>
-            <li class="td_cell">
-              Mywolrd
-            </li>
-          </ul>
-          <ul class="table_row w-auto">
-            <li class="td_cell">
-              1012
-            </li>
-            <li class="td_cell">
-              q sign
-            </li>
-            <li class="td_cell">
-              2019-08-07
-            </li>
-            <li class="td_cell">
-              Yourworld
-            </li>
-          </ul>
-          <ul class="table_row w-auto">
-            <li class="td_cell">
-              1013
-            </li>
-            <li class="td_cell">
-              Ch to Ch
-            </li>
-            <li class="td_cell">
-              2019-08-07
-            </li>
-            <li class="td_cell">
-              Tworld
-            </li>
-          </ul>
-          <ul class="table_row w-auto">
-            <li class="td_cell">
-              1011
-            </li>
-            <li class="td_cell">
-              2 documents2 documents2 documents2 documents2 documents2 documents2 documents
-            </li>
-            <li class="td_cell">
-              2019-08-07
-            </li>
-            <li class="td_cell">
-              Mywolrd
-            </li>
-          </ul>
-          <ul class="table_row w-auto">
-            <li class="td_cell">
-              1012
-            </li>
-            <li class="td_cell">
-              q sign
-            </li>
-            <li class="td_cell">
-              2019-08-07
-            </li>
-            <li class="td_cell">
-              Yourworld
-            </li>
-          </ul>
-          <ul class="table_row w-auto">
-            <li class="td_cell">
-              1013
-            </li>
-            <li class="td_cell">
-              Ch to Ch
-            </li>
-            <li class="td_cell">
-              2019-08-07
-            </li>
-            <li class="td_cell">
-              Tworld
-            </li>
-          </ul>
-          <ul class="table_row w-auto">
-            <li class="td_cell">
-              1011
-            </li>
-            <li class="td_cell">
-              2 documents2 documents2 documents2 documents2 documents2 documents2 documents
-            </li>
-            <li class="td_cell">
-              2019-08-07
-            </li>
-            <li class="td_cell">
-              Mywolrd
-            </li>
-          </ul>
-          <ul class="table_row w-auto">
-            <li class="td_cell">
-              1012
-            </li>
-            <li class="td_cell">
-              q sign
-            </li>
-            <li class="td_cell">
-              2019-08-07
-            </li>
-            <li class="td_cell">
-              Yourworld
-            </li>
-          </ul>
-          <ul class="table_row w-auto">
-            <li class="td_cell">
-              1013
-            </li>
-            <li class="td_cell">
-              Ch to Ch
-            </li>
-            <li class="td_cell">
-              2019-08-07
-            </li>
-            <li class="td_cell">
-              Tworld
-            </li>
-          </ul>
-        </div>
+      </div>
+      <div class="pagination_space">
+        <paginate
+          v-model="pageSet.pageNo"
+          :page-count="pageSet.pageCount"
+          :page-range="3"
+          :margin-pages="1"
+          :click-handler="searchList"
+          :prev-text="'이전'"
+          :next-text="'다음'"
+          :container-class="'pagination'"
+          :page-class="'page-item'"
+        />
       </div>
     </section>
 
@@ -238,14 +159,14 @@ export default {
     return {
       startReqDtm: '',
       endReqDtm: '',
-
-      dayStr: ['7', '1', '2', '3', '4', '5', '6'],
-      date: '2018-06-01',
-      isM: '',
-      popperProps: {
-        type: Object,
+      datePickerSet: {
+        dayStr: this.$gf.getCalDaySet(),
+        popperProps: {
+          type: Object,
+        },
       },
-      fullPage: false,
+      pageSet: { pageNo: 1, pageCount: 0, size: 10 },
+      boardList: [],
     };
   },
   mounted() {
@@ -259,10 +180,34 @@ export default {
     },
     log(val) {
       this.startReqDtm = val;
-      console.log(val);
     },
-    onCancel() {
-      console.log('User cancelled the loader.');
+
+    searchList() {
+      this.tgtUrl = '/api/bizcomm/board';
+      this.$axios.get(this.tgtUrl, {
+        params: {
+          pageNo: this.pageSet.pageNo,
+          size: this.pageSet.size,
+          boardSt: '', // 0:정상
+          boardTyp: 'NOTI',
+          title: '',
+          content: '',
+          boardNum: '',
+        },
+      })
+        .then((res) => {
+          console.log(res);
+          if (res.data.rstCd === 'S') {
+            this.boardList = this.$gf.parseRtnData(this.pageSet, res.data.rstData.boardLst, 'Y');
+            // this.serverList = res.data.rstData.serverList;
+          } else {
+            // eslint-disable-next-line no-alert
+            alert('failed');
+          }
+        })
+        .catch((ex) => {
+          console.log(`error occur!! : ${ex}`);
+        });
     },
   },
 };

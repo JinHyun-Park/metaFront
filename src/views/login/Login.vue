@@ -110,6 +110,7 @@ export default {
   },
   methods: {
     ...mapActions('frameSet', ['setResetPopOn']),
+    ...mapActions('login', ['setLoginInfo']),
     login() {
       if (this.idMem) {
         this.$cookie.set('idMem', this.user_id);
@@ -144,6 +145,7 @@ export default {
             this.hanNm = res.data.rstData.userList[0].chrgrInfo.hanNm;
             // eslint-disable-next-line no-alert
             this.$gf.alertOn(`${this.hanNm}님 환영합니다.`);
+            this.setLoginInfo({ loginHanNm: this.hanNm });
           }
         })
         .catch((ex) => {
