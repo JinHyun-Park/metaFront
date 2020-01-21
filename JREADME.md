@@ -17,6 +17,10 @@
 2.6. Vue-beautify : Vue.js 코드에 대한 정리, 배치 기능 제공
 2.7. ESLint : 자바스크립트 코드 스타일, 문법 체크 기능을 제공
 2.8. vscode-icons : vscode 디렉터리 구조 예쁘게 변경
+2.9. TSLint : Type script
+2.10. Auto Close Tag : html 태그 넣었을 때 닫아주는 태그
+2.11. Material Icon theme : 파일 아이콘 테마
+2.12. Night Owl : code syntax highlight
 
 
 3. git으로 프로젝트 받아오기 (유용한 사이트에 있는 링크 참고)
