@@ -44,6 +44,9 @@
           <label class="column_label">사용</label>
           <div class="select_group">
             <select v-model="useYn">
+              <option value="">
+                전체
+              </option>
               <option value="Y">
                 Y
               </option>
@@ -88,6 +91,19 @@
           </ul>
         </div>
       </div>
+      <div class="pagination_space">
+        <paginate
+          v-model="pageSet.pageNo"
+          :page-count="pageSet.pageCount"
+          :page-range="3"
+          :margin-pages="1"
+          :click-handler="listing"
+          :prev-text="'이전'"
+          :next-text="'다음'"
+          :container-class="'pagination'"
+          :page-class="'page-item'"
+        />
+      </div>
     </section>
 
     <section class="btm_button_area">
@@ -120,6 +136,7 @@ export default {
       chnlNm: '',
       eaiIfId: '',
       useYn: 'Y',
+      pageSet: { pageNo: 1, pageCount: 0, size: 10 },
     };
   },
   methods: {
@@ -127,7 +144,7 @@ export default {
       console.log('채널 목록 조회!');
       this.$axios.get('/api/eai/channel', {
         params: {
-          pageNo: this.pageNo,
+          pageNo: this.pageSet.pageNo,
           size: this.size,
           chnlNm: this.chnlNm,
           eaiIfId: this.eaiIfId,
@@ -136,6 +153,7 @@ export default {
       })
         .then((res) => {
           this.chnList = res.data.rstData.searchList;
+          this.pageSet = res.data.rstData.pageSet;
           console.log(this.chnList);
         })
         .catch((ex) => {

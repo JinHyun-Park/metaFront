@@ -154,6 +154,19 @@
           </div>
         </div>
       </div>
+      <div class="pagination_space">
+        <paginate
+          v-model="pageSet.pageNo"
+          :page-count="pageSet.pageCount"
+          :page-range="3"
+          :margin-pages="1"
+          :click-handler="pageChanged"
+          :prev-text="'이전'"
+          :next-text="'다음'"
+          :container-class="'pagination'"
+          :page-class="'page-item'"
+        />
+      </div>
     </section>
   </div>
 </template>
@@ -168,6 +181,7 @@ export default {
       tgtUrl: '',
       userId: '',
       hanNm: '',
+      pageSet: { pageNo: 1, pageCount: 0, size: 10 },
     };
   },
   computed: {
@@ -183,13 +197,19 @@ export default {
       // if (this.chrgrList != null && this.userId == null) {
       //   this.tgtUrl = `${this.tgtUrl}//${this.hanNm}`;
       // }
-      const param = { userId: this.userId, hanNm: this.hanNm };
+      const param = {
+        userId: this.userId,
+        hanNm: this.hanNm,
+        pageNo: this.pageSet.pageNo,
+        size: this.pageSet.size,
+      };
 
       this.$axios.get(this.tgtUrl, { params: param })
         .then((res) => {
           console.log(res);
           if (res.data.rstCd === 'S') {
             this.chrgrList = res.data.rstData.chrgrInfo;
+            this.pageSet = res.data.rstData.pageSet;
           }
         })
         .catch((ex) => {

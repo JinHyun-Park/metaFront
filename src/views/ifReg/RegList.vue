@@ -132,7 +132,7 @@
             <li
               class="td_cell"
             >
-              {{ row.reqrChrgr.hanNm }}({{ row.reqrChrgr.userId }})
+              {{ row.reqrNm }}({{ row.reqrId }})
             </li>
           </ul>
         </div>
@@ -200,7 +200,9 @@ export default {
         .then((res) => {
           console.log(res);
           if (res.data.rstCd === 'S') {
-            this.ifReqList = this.$gf.parseRtnData(this.pageSet, res.data.rstData.ifReqMstList, 'Y');
+            //this.ifReqList = this.$gf.parseRtnData(this.pageSet, res.data.rstData.ifReqMstList, 'Y');
+            this.ifReqList = res.data.rstData.ifReqMstList;
+            this.pageSet = res.data.rstData.pageSet;
           } else {
             // eslint-disable-next-line no-alert
             alert('failed');

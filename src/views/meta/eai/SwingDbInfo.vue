@@ -334,7 +334,9 @@ export default {
         },
       })
         .then((res) => {
-          this.sndList = this.$gf.parseRtnData(this.pageSet, res.data.rstData.searchList, 'Y');
+          // this.sndList = this.$gf.parseRtnData(this.pageSet, res.data.rstData.searchList, 'Y');
+          this.sndList = res.data.rstData.searchList;
+          this.pageSet = res.data.rstData.pageSet;
           console.log(this.sndList);
         })
         .catch((ex) => {
@@ -357,7 +359,9 @@ export default {
         },
       })
         .then((res) => {
-          this.rcvList = this.$gf.parseRtnData(this.rPageSet, res.data.rstData.searchList, 'Y');
+          // this.rcvList = this.$gf.parseRtnData(this.rPageSet, res.data.rstData.searchList, 'Y');
+          this.rcvList = res.data.rstData.searchList;
+          this.rPageSet = res.data.rstData.pageSet;
           console.log(this.rcvList);
         })
         .catch((ex) => {
@@ -372,7 +376,7 @@ export default {
         sndAdt: this.sndAdt,
         useYn: this.useYn,
       };
-      this.$axios.post('/api/eai/swg/snd/post', this.saveSndTbl)
+      this.$axios.post('/api/eai/swg/snd', this.saveSndTbl)
         .then((res) => {
           console.log(res);
           this.listing();
