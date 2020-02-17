@@ -100,13 +100,13 @@
                   {{ user.userId }}
                 </td>
                 <td class="td_cell">
-                  {{ user.chrgrInfo.hanNm }}
+                  {{ user.hanNm }}
                 </td>
                 <td class="td_cell">
-                  {{ user.chrgrInfo.ofcLvlNm }}
+                  {{ user.ofcLvlNm }}
                 </td>
                 <td class="td_cell">
-                  {{ user.chrgrInfo.juminNo }}
+                  {{ user.juminNo }}
                 </td>
                 <td class="td_cell">
                   <div class="select_group">
@@ -125,13 +125,13 @@
                   </div>
                 </td>
                 <td class="td_cell">
-                  {{ user.chrgrInfo.offcPhonNum }}
+                  {{ user.offcPhonNum }}
                 </td>
                 <td class="td_cell">
-                  {{ user.chrgrInfo.mblPhonNum }}
+                  {{ user.mblPhonNum }}
                 </td>
                 <td class="td_cell">
-                  {{ user.chrgrInfo.emailAddr }}
+                  {{ user.emailAddr }}
                 </td>
                 <td class="td_cell">
                   <i
@@ -197,7 +197,9 @@ export default {
         .then((res) => {
           console.log(res);
           if (res.data.rstCd === 'S') {
-            this.userList = this.$gf.parseRtnData(this.pageSet, res.data.rstData.userList, 'Y');
+            //this.userList = this.$gf.parseRtnData(this.pageSet, res.data.rstData.userList, 'Y');
+            this.userList = res.data.rstData.userList;
+            this.pageSet = res.data.rstData.pageSet;
           }
         })
         .catch((ex) => {
@@ -205,7 +207,7 @@ export default {
         });
     },
     editList(i) {
-      let confirmText = `[${this.userList[i].chrgrInfo.hanNm}]님 권한을 [${this.userList[i].userAuth}]로 변경할래요?`;
+      let confirmText = `[${this.userList[i].hanNm}]님 권한을 [${this.userList[i].userAuth}]로 변경할래요?`;
       this.$gf.confirmOn(confirmText, this.editCall, i);
     },
     editCall(i) {
@@ -222,7 +224,7 @@ export default {
           });
     },
     delList(i) {
-      if (confirm(`${this.userList[i].chrgrInfo.hanNm}님 계정을 정말 삭제할래요?`)) {
+      if (confirm(`${this.userList[i].hanNm}님 계정을 정말 삭제할래요?`)) {
         // to-do use_yn을 n으로 변경;
       }
     },

@@ -86,6 +86,19 @@
           </div>
         </div>
       </div>
+      <div class="pagination_space">
+        <paginate
+          v-model="pageSet.pageNo"
+          :page-count="pageSet.pageCount"
+          :page-range="3"
+          :margin-pages="1"
+          :click-handler="searchList"
+          :prev-text="'이전'"
+          :next-text="'다음'"
+          :container-class="'pagination'"
+          :page-class="'page-item'"
+        />
+      </div>
     </section>
 
     <section class="btm_button_area">
@@ -118,6 +131,7 @@ export default {
   name: 'InstList',
   data() {
     return {
+      pageSet: { pageNo: 1, pageCount: 0, size: 10 },
       instList: [],
       instCd: '',
     };
@@ -129,14 +143,19 @@ export default {
     ...mapActions('frameSet', ['setResetPopOn']),
     searchList() {
       this.tgtUrl = '/api/bizcomm/inst_cd';
-      if (this.instCd != null && this.instCd !== '') {
-        this.tgtUrl = `${this.tgtUrl}/${this.instCd}`;
-      }
-      this.$axios.get(this.tgtUrl)
+      this.$axios.get(this.tgtUrl, {
+        params: {
+          pageNo: this.pageSet.pageNo,
+          size: this.pageSet.size,
+          pageCount: this.pageSet.pageCount,
+          instCd: this.instCd,
+        },
+      })
         .then((res) => {
           console.log(res);
           if (res.data.rstCd === 'S') {
             this.instList = res.data.rstData.instCdLst;
+            this.pageSet = res.data.rstData.pageSet;
           } else {
             // eslint-disable-next-line no-alert
             alert('failed');
@@ -147,8 +166,22 @@ export default {
         });
     },
     delList(i) {
-      // eslint-disable-next-line
-      alert(this.instList[i].instCd);
+      this.tgtUrl = '/api/bizcomm/inst_cd';
+      this.$axios.delete(this.tgtUrl, {
+        params: this.instList[i],
+      })
+        .then((res) => {
+          console.log(res);
+          if (res.data.rstCd === 'S') {
+            this.$gf.alertOn('처리되었습니다.');
+            this.searchList();
+          } else {
+            this.$gf.alertOn(res.data.rstMsg);
+          }
+        })
+        .catch((ex) => {
+          console.log(`error occur!! : ${ex}`);
+        });
     },
   },
 };

@@ -108,11 +108,8 @@
             <li class="td_cell">
               {{ queue.queueType }}
             </li>
-            <li
-              v-if="queue.chrgr != null"
-              class="td_cell"
-            >
-              {{ queue.chrgr.hanNm }}
+            <li class="td_cell">
+              {{ queue.chrgrNm }}
             </li>
             <li class="td_cell">
               {{ queue.crtcVal }}
@@ -197,7 +194,9 @@ export default {
         },
       })
         .then((res) => {
-          this.qList = this.$gf.parseRtnData(this.pageSet, res.data.rstData.searchList, 'Y');
+          // this.qList = this.$gf.parseRtnData(this.pageSet, res.data.rstData.searchList, 'Y');
+          this.qList = res.data.rstData.searchList;
+          this.pageSet = res.data.rstData.pageSet;
           console.log(this.qList[0].chrgr.hanNm);
         })
         .catch((ex) => {

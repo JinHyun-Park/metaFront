@@ -206,6 +206,7 @@ export default {
       this.tgtUrl = '/api/bizcomm/server';
       this.$axios.get(this.tgtUrl, {
         params: {
+          // pageSet: this.pageSet,
           pageNo: this.pageSet.pageNo,
           size: this.pageSet.size,
           svrIp: this.svrIp,
@@ -218,8 +219,8 @@ export default {
         .then((res) => {
           console.log(res);
           if (res.data.rstCd === 'S') {
-            this.serverList = this.$gf.parseRtnData(this.pageSet, res.data.rstData.serverList, 'Y');
-            // this.serverList = res.data.rstData.serverList;
+            this.serverList = res.data.rstData.serverList;
+            this.pageSet = res.data.rstData.pageSet;
           } else {
             // eslint-disable-next-line no-alert
             alert('failed');

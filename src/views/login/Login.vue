@@ -139,10 +139,14 @@ export default {
         });
     },
     getUserInfo() {
-      this.$axios.get(`/api/user/${this.user_id}`)
+      this.$axios.get('/api/user', {
+        param: {
+          userId: this.user_id,
+        },
+      })
         .then((res) => {
           if (res.status === 200) {
-            this.hanNm = res.data.rstData.userList[0].chrgrInfo.hanNm;
+            this.hanNm = res.data.rstData.userList[0].hanNm;
             // eslint-disable-next-line no-alert
             this.$gf.alertOn(`${this.hanNm}님 환영합니다.`);
             this.setLoginInfo({ loginHanNm: this.hanNm });

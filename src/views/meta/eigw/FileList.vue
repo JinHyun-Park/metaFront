@@ -1,15 +1,12 @@
 <template>
-  <div
-    class="
-  right_space"
-  >
+  <div class="right_space">
     <section class="title style-1">
       <h2>
         <div>
           <i class="ico-bar" />EiGW 메타 정보
         </div>
         <div class="breadcrumb">
-          <span>EGIW</span><em class="on">EAI</em>
+          <span>EIGW</span><em class="on">EAI</em>
         </div>
       </h2>
     </section>
@@ -32,8 +29,6 @@
           </button>
         </div>
       </h5>
-
-
       <div class="row_contain type-2">
         <div class="column w-1">
           <label class="column_label">대외기관</label>
@@ -56,89 +51,108 @@
         <div class="column w-1">
           <label class="column_label">IP</label>
           <input
-            v-model="svrIp"
+            v-model="reqIp"
             type="text"
             class="add_text on"
             @keyup.13="searchList()"
           >
         </div>
-        <div class="column w-1" />
       </div>
-      <div class="table_grid">
-        <div class="table_head">
-          <ul>
-            <li class="th_cell">
-              파일명<i class="ico-sort-down" />
-            </li>
-            <li class="th_cell">
-              대외기관<i class="ico-sort-down" />
-            </li>
-            <li class="th_cell">
-              I/F ID<i class="ico-sort-up" />
-            </li>
-            <li class="th_cell">
-              송수신<i class="ico-sort-down" />
-            </li>
-            <li class="th_cell">
-              REAL IP<i class="ico-sort-down" />
-            </li>
-            <li class="th_cell">
-              NAT IP<i class="ico-sort-down" />
-            </li>
-            <li class="th_cell">
-              PORT<i class="ico-sort-up" />
-            </li>
-            <li
-              class="th_cell"
+      <div class="table_colgroup">
+        <div class="table_grid">
+          <div class="table_head">
+            <ul>
+              <li class="th_cell">
+                서버
+              </li>
+              <li class="th_cell">
+                대외기관
+              </li>
+              <li class="th_cell">
+                송수신
+              </li>
+              <li class="th_cell">
+                파일명
+              </li>
+              <li class="th_cell">
+                I/F ID
+              </li>
+              <li class="th_cell">
+                개발IP(NAT)
+              </li>
+              <li class="th_cell">
+                개발 PORT
+              </li>
+              <li class="th_cell">
+                운영IP(NAT)
+              </li>
+              <li class="th_cell">
+                운영 PORT
+              </li>
+            </ul>
+          </div>
+          <div class="table_body">
+            <ul
+              v-for="(row, index) in fileList"
+              :key="row.mstFileNum"
+              class="table_row w-auto"
+              @click="detailInfo(index)"
             >
-              MST-FILE-NUM<i class="ico-sort-up" />
-            </li>
-          </ul>
+              <li class="td_cell">
+                {{ row.mqMngrNm }}
+              </li>
+              <li class="td_cell">
+                {{ row.instNm }}
+              </li>
+              <li class="td_cell">
+                {{ row.srFlag }}
+              </li>
+              <li class="td_cell">
+                {{ row.fileNm }}
+              </li>
+              <li class="td_cell">
+                {{ row.eaiIfId }}
+              </li>
+              <li class="td_cell">
+                {{ row.dvpSvrRealIp }}<br/>({{ row.dvpSvrNatIp }})
+              </li>
+              <li class="td_cell">
+                {{ row.dvpSvrPort }}
+              </li>
+              <li class="td_cell">
+                {{ row.prodSvrRealIp }}<br/>({{row.prodSvrNatIp }})
+              </li>
+              <li class="td_cell">
+                {{ row.prodSvrPort }}
+              </li>
+            </ul>
+          </div>
         </div>
-        <div class="table_body">
-          <ul
-            v-for="fileRow in fileList"
-            :key="fileRow.mstFileNum"
-            class="table_row w-auto"
-          >
-            <li
-              v-for="(fileCol, i) in fileRow"
-              :key="i"
-              class="td_cell"
-              @click="detailInfo(i, fileRow[7])"
-            >
-              {{ fileCol }}
-            </li>
-          </ul>
-        </div>
+      </div>
+      <div class="pagination_space">
+        <paginate
+          v-model="pageSet.pageNo"
+          :page-count="pageSet.pageCount"
+          :page-range="3"
+          :margin-pages="1"
+          :click-handler="searchList"
+          :prev-text="'이전'"
+          :next-text="'다음'"
+          :container-class="'pagination'"
+          :page-class="'page-item'"
+        />
       </div>
     </section>
 
     <section class="form_area border_group">
       <h5 class="s_tit">
-        상세정보
+        기본 정보
       </h5>
-      <div class="row_contain type-2">
-        <div class="column w-1">
+      <div class="row_contain">
+        <div class="column w-3">
           <label class="column_label">파일명</label>
           <input
-            v-model="fileHead"
-            type="text"
-            class="add_text on"
-          >
-        </div>
-        <div class="column w-1">
-          <label class="column_label">&nbsp;</label>
-          <input
-            v-model="fileTail"
-            type="text"
-            class="add_text on"
-          >
-        </div>
-        <div class="column w-1">
-          <label class="column_label">&nbsp;</label>
-          <input
-            v-model="fileDate"
+            v-model="fileMst.fileNm"
             type="text"
             class="add_text on"
           >
@@ -146,38 +160,36 @@
         <div class="column w-1">
           <label class="column_label">대외기관</label>
           <input
-            v-model="instNm"
+            v-model="fileMst.instNm"
             type="text"
             class="add_text on"
           >
         </div>
+        <div class="column w-1">
+          <label class="column_label">송수신구분</label>
+          <input
+            v-model="fileMst.srFlag"
+            type="text"
+            class="add_text  on"
+          >
+        </div>
       </div>
-      <div class="row_contain type-2">
-        <div class="row_contain type-2">
-          <div class="column w-1">
-            <label class="column_label">I/F ID</label>
-            <input
-              v-model="eaiIfId"
-              type="text"
-              class="add_text"
-            >
-          </div>
-          <div class="column w-1">
-            <label class="column_label">파일설명</label>
-            <input
-              v-model="fileDesc"
-              type="text"
-              class="add_text"
-            >
-          </div>
-          <div class="column w-1">
-            <label class="column_label">송수신구분</label>
-            <input
-              v-model="srFlag"
-              type="text"
-              class="add_text  on"
-            >
-          </div>
+      <div class="row_contain">
+        <div class="column w-3">
+          <label class="column_label">I/F ID</label>
+          <input
+            v-model="fileSktConf.eaiIfId"
+            type="text"
+            class="add_text"
+          >
+        </div>
+        <div class="column w-3">
+          <label class="column_label">파일설명</label>
+          <input
+            v-model="fileMst.fileDesc"
+            type="text"
+            class="add_text"
+          >
         </div>
       </div>
     </section>
@@ -186,42 +198,56 @@
       <h5 class="s_tit">
         서버 정보
       </h5>
-      <div class="table_grid">
-        <div class="table_head w-auto except">
-          <ul class="table_row form_type except w-auto">
-            <li class="th_cell">
-              구분
-            </li>
-            <li class="th_cell">
-              REAL IP
-            </li>
-            <li class="th_cell">
-              NAT IP
-            </li>
-            <li class="th_cell">
-              PORT
-            </li>
-          </ul>
-        </div>
-        <div class="table_body">
-          <ul
-            v-for="serve in serveList"
-            :key="serve.svrNum"
-            class="table_row form_type except w-auto"
+      <div class="row_contain type-2">
+        <div class="column w-1">
+          <label class="column_label">개발기_REAL IP</label>
+          <input
+            v-model="fileAgencyConf.dvpSvrRealIp"
+            type="text"
+            class="add_text on"
           >
-            <li class="td_cell">
-              {{ serve.svrTypCd }}
-            </li>
-            <li class="td_cell on">
-              {{ serve.svrRealIp }}
-            </li>
-            <li class="td_cell">
-              {{ serve.svrNatIp }}
-            </li>
-            <li class="td_cell">
-              {{ serve.svrPort }}
-            </li>
-          </ul>
+        </div>
+        <div class="column w-1">
+          <label class="column_label">개발기_NAT IP</label>
+          <input
+            v-model="fileAgencyConf.dvpSvrNatIp"
+            type="text"
+            class="add_text on"
+          >
+        </div>
+        <div class="column w-1">
+          <label class="column_label">개발기_PORT</label>
+          <input
+            v-model="fileAgencyConf.dvpSvrPort"
+            type="text"
+            class="add_text on"
+          >
+        </div>
+      </div>
+      <div class="row_contain type-2">
+        <div class="column w-1">
+          <label class="column_label">운영기_REAL IP</label>
+          <input
+            v-model="fileAgencyConf.prodSvrRealIp"
+            type="text"
+            class="add_text on"
+          >
+        </div>
+        <div class="column w-1">
+          <label class="column_label">운영기_NAT IP</label>
+          <input
+            v-model="fileAgencyConf.prodSvrNatIp"
+            type="text"
+            class="add_text on"
+          >
+        </div>
+        <div class="column w-1">
+          <label class="column_label">운영기_PORT</label>
+          <input
+            v-model="fileAgencyConf.prodSvrPort"
+            type="text"
+            class="add_text on"
+          >
         </div>
       </div>
     </section>
@@ -235,7 +261,7 @@
         >
           <label class="column_label">송신 시작경로</label>
           <input
-            v-model="sendStaPath"
+            v-model="fileSktConf.staPath"
             type="text"
           >
         </div>
@@ -245,14 +271,14 @@
         >
           <label class="column_label">송신 최종경로</label>
           <input
-            v-model="sendEndPath"
+            v-model="fileAgencyConf.endPath"
             type="text"
           >
         </div>
         <div class="column w-2">
           <label class="column_label">OPCODE</label>
           <input
-            v-model="opCode"
+            v-model="fileSktConf.opCode"
             type="text"
           >
         </div>
@@ -263,7 +289,7 @@
         >
           <label class="column_label">수신 시작경로</label>
           <input
-            v-model="reStaPath"
+            v-model="fileAgencyConf.staPath"
             type="text"
           >
         </div>
@@ -271,7 +297,7 @@
         <div class="column w-2">
           <label class="column_label">수신 최종경로</label>
           <input
-            v-model="reEndPath"
+            v-model="fileSktConf.endPath"
             type="text"
           >
         </div>
@@ -369,24 +395,14 @@ export default {
     return {
       fileList: '',
       fileNm: '',
-      svrIp: '',
+      reqIp: '',
       instCd: '',
-      userInfo: '',
-      serveList: '',
-      inchrgrList: '',
-      outchrgrList: '',
-      fileHead: '',
-      fileTail: '',
-      fileDate: '',
-      instNm: '',
-      eaiIfId: '',
-      fileDesc: '',
-      srFlag: '',
-      sendStaPath: '',
-      sendEndPath: '',
-      opCode: '',
-      reStaPath: '',
-      reEndPath: '',
+      fileMst: {},
+      fileSktConf: {},
+      fileEigwConf: {},
+      fileAgencyConf: {},
+
+      pageSet: { pageNo: 1, pageCount: 0, size: 5 },
     };
   },
   methods: {
@@ -394,14 +410,17 @@ export default {
       this.$axios.get('/api/eigw/fileList', {
         params: {
           fileNm: this.fileNm,
-          svrIp: this.svrIp,
+          reqIp: this.reqIp,
           instCd: this.instCd,
+          pageNo: this.pageSet.pageNo,
+          size: this.pageSet.size,
         },
       })
         .then((res) => {
           console.log(res);
           if (res.data.rstCd === 'S') {
-            this.fileList = res.data.rstData.fileList;
+            this.fileList = res.data.rstData.searchList;
+            this.pageSet = res.data.rstData.pageSet;
           } else {
             this.$gf.alertOn('failed');
           }
@@ -410,22 +429,22 @@ export default {
           console.log(`error occur!! : ${ex}`);
         });
     },
-    detailInfo(i, index) {
-      this.tgtUrl = '/api/eigw/fileDtlInfo/';
-      if (index != null && index !== '') {
-        this.tgtUrl = `${this.tgtUrl}/${index}`;
-      }
-      this.$axios.get(this.tgtUrl)
+    detailInfo(i) {
+      this.tgtUrl = '/api/eigw/fileDetail';
+      this.$axios.get(this.tgtUrl, {
+        params: {
+          mstFileSeq: this.fileList[i].mstFileNum,
+        },
+      })
         .then((res) => {
           console.log(res);
           if (res.data.rstCd === 'S') {
-            this.userInfo = res.data.rstData.fileDtlInfo[0].chrRelList;
-            this.fileHead = res.data.rstData.fileDtlInfo[0].fileHead;
-            this.fileTail = res.data.rstData.fileDtlInfo[0].fileTail;
-            this.fileDate = res.data.rstData.fileDtlInfo[0].fileDate;
-            this.instNm = res.data.rstData.fileDtlInfo[0].instCd;
-            this.srFlag = res.data.rstData.fileDtlInfo[0].srFlag;
-            this.fileDesc = res.data.rstData.fileDtlInfo[0].fileDesc;
+            this.fileMst = res.data.rstData.rstData.fileMst;
+            this.fileSktConf = res.data.rstData.rstData.fileSktConf;
+            this.fileEigwConf = res.data.rstData.rstData.fileEigwConf;
+            this.fileAgencyConf = res.data.rstData.rstData.fileAgencyConf;
+
+            // 상세정보
             this.eaiIfId = res.data.rstData.fileDtlInfo[0].sktInfo.eaiIfId;
             this.sendStaPath = res.data.rstData.fileDtlInfo[0].sktInfo.staPath;
             this.sendEndPath = res.data.rstData.fileDtlInfo[0].agencyInfo.endPath;
