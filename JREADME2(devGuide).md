@@ -7,7 +7,7 @@
  vscode update하며 lint 버전업 되었음
  lint 규칙에 위배되어 red line 발생하는 것 해결하는 방법
 
- F1 > formatter config 에 아래 내용 복붙
+ F1 > formatter config 에 아래 내용 복붙 ---> !! vscode 재시작 필요
  
  {
   "onSave": true,
