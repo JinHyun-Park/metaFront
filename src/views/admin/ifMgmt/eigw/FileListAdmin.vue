@@ -1,5 +1,11 @@
 <template>
   <div class="right_space">
+    <EigwServerListPopup
+      v-if="svrOn"
+      v-bind="props"
+      @closePop="turOffSvrPop"
+      @addData="addData"
+    />
     <section class="title style-1">
       <h2>
         <div>
@@ -158,13 +164,13 @@
                 {{ row.eaiIfId }}
               </li>
               <li class="td_cell">
-                {{ row.dvpSvrRealIp }}<br/>({{ row.dvpSvrNatIp }})
+                {{ row.dvpSvrRealIp }}<br>({{ row.dvpSvrNatIp }})
               </li>
               <li class="td_cell">
                 {{ row.dvpSvrPort }}
               </li>
               <li class="td_cell">
-                {{ row.prodSvrRealIp }}<br/>({{row.prodSvrNatIp }})
+                {{ row.prodSvrRealIp }}<br>({{ row.prodSvrNatIp }})
               </li>
               <li class="td_cell">
                 {{ row.prodSvrPort }}
@@ -212,11 +218,21 @@
         <div class="column w-1">
           <label class="column_label">파일명_Date</label>
           <select v-model="fileIfMst.fileDate">
-            <option value="A">A</option>
-            <option value="today">당일</option>
-            <option value="yesterday">전송전날</option>
-            <option value="this_month">당월</option>
-            <option value="last_month">전월</option>
+            <option value="A">
+              A
+            </option>
+            <option value="today">
+              당일
+            </option>
+            <option value="yesterday">
+              전송전날
+            </option>
+            <option value="this_month">
+              당월
+            </option>
+            <option value="last_month">
+              전월
+            </option>
           </select>
         </div>
         <div class="column w-1">
@@ -272,8 +288,12 @@
         <div class="column w-1">
           <label class="column_label">사용유무</label>
           <select v-model="fileIfMst.useYn">
-            <option value="Y">Y</option>
-            <option value="N">N</option>
+            <option value="Y">
+              Y
+            </option>
+            <option value="N">
+              N
+            </option>
           </select>
         </div>
         <div class="column w-1">
@@ -529,11 +549,21 @@
       </div>
       <div class="row_contain">
         <div class="column w-2">
-          <label class="column_label">개발기 IP</label>
+          <label class="column_label">개발기 Real IP</label>
           <input
-            v-model="fileAgencyConf.dvpSvrNum"
+            v-model="fileAgencyConf.dvpSvrRealIp"
             type="text"
             class="add_text"
+            @click="turnOnSvrPop(1)"
+          >
+        </div>
+        <div class="column w-2">
+          <label class="column_label">개발기 NAT IP</label>
+          <input
+            v-model="fileAgencyConf.dvpSvrNatIp"
+            type="text"
+            class="add_text"
+            @click="turnOnSvrPop(1)"
           >
         </div>
         <div class="column w-1">
@@ -544,12 +574,23 @@
             class="add_text"
           >
         </div>
+        <div class="column w-1" />
         <div class="column w-2">
-          <label class="column_label">운영기 IP</label>
+          <label class="column_label">운영기 Real IP</label>
           <input
-            v-model="fileAgencyConf.prodSvrNum"
+            v-model="fileAgencyConf.prodSvrRealIp"
             type="text"
             class="add_text"
+            @click="turnOnSvrPop(2)"
+          >
+        </div>
+        <div class="column w-2">
+          <label class="column_label">운영기 NAT IP</label>
+          <input
+            v-model="fileAgencyConf.prodSvrNatIp"
+            type="text"
+            class="add_text"
+            @click="turnOnSvrPop(2)"
           >
         </div>
         <div class="column w-1">
@@ -560,7 +601,6 @@
             class="add_text"
           >
         </div>
-        <div class="column w-2" />
       </div>
     </section>
     <section class="border_group">
@@ -714,18 +754,27 @@
 
 <script>
 
-// import SvrListPopup from '@/components/popup/meta/eigw/SvrListPopup.vue';
+import EigwServerListPopup from '@/components/popup/meta/eigw/EigwServerListPopup.vue';
 
 export default {
+  components: {
+    EigwServerListPopup,
+  },
   data() {
     return {
+      svrOn: false,
+      props: { // 조회 시 parameter에 사용자 정보를 담아주려면 여기를 통해 넘겨주세요.
+        message: '', // 사용방법 예시 데이터
+      },
+      serverPopupCase: '',
+
       mqMngrNm: '',
       instCd: '',
       eaiIfId: '',
       fileNm: '',
       srFlag: '',
       reqIp: '',
-      
+
       fileList: '',
       pageSet: { pageNo: 1, pageCount: 0, size: 5 },
       fileIfMst: {
@@ -744,7 +793,7 @@ export default {
         mstFileSeq: '',
         eaiIfId: '',
         titile: '',
-        svcId:'',
+        svcId: '',
         execPgm: '',
         opCode: '',
         staPath: '',
@@ -781,7 +830,9 @@ export default {
         userId: '',
         pwd: '',
         dvpSvrNum: '',
+        dvpSvrIp: '',
         prodSvrNum: '',
+        prodSvrIp: '',
         dvpSvrPort: '',
         prodSvrPort: '',
       },
@@ -827,7 +878,7 @@ export default {
       this.$axios.get(this.tgtUrl, {
         params: {
           mstFileSeq: this.fileList[i].mstFileNum,
-        }
+        },
       })
         .then((res) => {
           console.log(res);
@@ -877,7 +928,8 @@ export default {
         this.parseOutUserId();
       }
     },
-    turnOnSvrPop() {
+    turnOnSvrPop(val) {
+      this.serverPopupCase = val;
       this.svrOn = true;
     },
     turOffSvrPop(val) {
@@ -886,6 +938,15 @@ export default {
     },
     addData(val) {
       console.log(`Popup에서 받아온 Data : ${val}`);
+      if (this.serverPopupCase === 1) {
+        this.fileAgencyConf.dvpSvrNum = val.svrNum;
+        this.fileAgencyConf.dvpSvrRealIp = val.svrRealIp;
+        this.fileAgencyConf.dvpSvrNatIp = val.svrNatIp;
+      } else {
+        this.fileAgencyConf.prodSvrNum = val.svrNum;
+        this.fileAgencyConf.prodSvrRealIp = val.svrRealIp;
+        this.fileAgencyConf.prodSvrNatIp = val.svrNatIp;
+      }
       this.svrOn = false;
     },
     delList(i) {

@@ -1,7 +1,7 @@
 <template>
   <div class="right_space">
     <!-- 서버리스트 팝업 호출 -->
-    <SvrListPopup
+    <ServerListPopup
       v-if="svrOn"
       v-bind="props"
       @closePop="turOffSvrPop"
@@ -189,12 +189,12 @@
 </template>
 
 <script>
-import SvrListPopup from '@/components/popup/meta/mcg/SvrListPopup.vue';
+import ServerListPopup from '@/components/popup/bizcomm/ServerListPopup.vue';
 
 export default {
   name: 'QueueMgrList',
   components: {
-    SvrListPopup,
+    ServerListPopup,
   },
   data() {
     return {
@@ -202,6 +202,8 @@ export default {
       props: { // 조회 시 parameter에 사용자 정보를 담아주려면 여기를 통해 넘겨주세요.
         message: 'Hi', // 사용방법 예시 데이터
       },
+      queueList: {},
+      serverData: {},
     };
   },
   methods: {
@@ -215,6 +217,8 @@ export default {
     addData(val) {
       console.log(`가져온 데이터2 : ${val}`);
       this.svrOn = false;
+      this.serverData = val;
+      this.$gf.alertOn(`${this.serverData.svrIp}(${this.serverData.hostNm})`);
     },
   },
 };

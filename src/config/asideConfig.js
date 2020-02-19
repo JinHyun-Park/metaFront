@@ -49,4 +49,8 @@ export default {
   MGMT_MCG: [
     { index: 1, menuNm: '가상사용자 관리', url: 'virtualUserList_MCG' },
   ],
+  MGMT_EAI: [
+    { index: 1, menuNm: 'EAI 인터페이스 등록', url: 'ifIdListAdmin' },
+  ],
+
 };
