@@ -3427,7 +3427,7 @@ display: table-column
     
     .contents.popup .layer_popup>section,
     .contents.popup .layer_popup.medium>section {
-        width: 800px
+        width: 1000px
     }
     
     .contents.popup .layer_popup.large>section {
