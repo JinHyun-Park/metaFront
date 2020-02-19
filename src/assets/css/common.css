@@ -1136,7 +1136,7 @@ flex-direction: column
     /* FORM */
     
     .contents .form_area {
-        margin-bottom: 50px;
+        margin-bottom: 30px;
         padding: 13px 17px 30px;
         /* padding: 13px 17px 21px; */
         width: 100%;
@@ -3377,7 +3377,7 @@ display: table-column
         display: flex;
         display: -ms-flexbox;
         position: relative;
-        padding: 27px 63px 51px;
+        padding: 27px 63px 30px;
         justify-content: flex-start;
         flex-direction: column;
         width: auto;
@@ -3386,7 +3386,7 @@ display: table-column
         border-radius: 3px;
         background: #fff;
         box-shadow: 2px 2px 8px 0 rgba(0, 0, 0, .18);
-        max-height: 674px;
+        max-height: 700px;
         overflow-y: auto;
         box-sizing: border-box;
         z-index: 12
@@ -3435,7 +3435,7 @@ display: table-column
     }
     
     .contents.popup .layer_popup>.form_area {
-        padding: 26px 17px 51px
+        padding: 26px 17px 30px
     }
     
     .contents.popup .layer_popup>.form_area .row_contain.last {
