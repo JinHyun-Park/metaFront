@@ -1,5 +1,11 @@
 <template>
   <div class="right_space">
+    <MqMngrListPopup
+      v-if="svrOn"
+      v-bind="props"
+      @closePop="turOffSvrPop"
+      @addData="addData"
+    />
     <section class="title style-1">
       <h2>
         <div>
@@ -26,11 +32,17 @@
       <div class="row_contain type-3">
         <div class="column w-2">
           <label class="column_label">큐매니저</label>
-          <input
-            v-model="mqMngrNm"
-            type="text"
-            value=""
-          >
+          <div class="search_group">
+            <input
+              v-model="mqMngrNm"
+              type="text"
+              value=""
+            >
+            <span
+              class="search"
+              @click="turnOnSvrPop"
+            ><i class="ico-search" /></span>
+          </div>
         </div>
         <div class="column w-4">
           <label class="column_label">큐</label>
@@ -154,10 +166,19 @@
 
 <script>
 import { mapState, mapActions } from 'vuex';
+import MqMngrListPopup from '@/components/popup/meta/eai/MqMngrListPopup.vue';
 
 export default {
+  components: {
+    MqMngrListPopup,
+  },
   data() {
     return {
+      svrOn: false,
+      props: { // 조회 시 parameter에 사용자 정보를 담아주려면 여기를 통해 넘겨주세요.
+        message: 'Hi', // 사용방법 예시 데이터
+      },
+
       index: 0,
       qList: [],
       queueNm: '',
@@ -202,6 +223,18 @@ export default {
         .catch((ex) => {
           console.log(`error occur!! : ${ex}`);
         });
+    },
+    turnOnSvrPop() {
+      this.svrOn = true;
+    },
+    turOffSvrPop(val) {
+      console.log(`가져온 데이터 : ${val}`);
+      this.svrOn = false;
+    },
+    addData(val) {
+      console.log(`가져온 데이터2 : ${val}`);
+      this.svrOn = false;
+      this.mqMngrNm = val.mqMngrNm;
     },
   },
 };

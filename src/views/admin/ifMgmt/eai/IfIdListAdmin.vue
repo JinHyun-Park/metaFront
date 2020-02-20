@@ -1,5 +1,11 @@
 <template>
   <div class="right_space">
+    <EaiQueueListPopup
+      v-if="svrOn"
+      v-bind="props"
+      @closePop="turOffSvrPop"
+      @addData="addData"
+    />
     <section class="title style-2">
       <h2>
         <div>
@@ -355,30 +361,36 @@
           <label class="column_label">요청 송신 Q</label>
           <div class="search_group">
             <input
+              v-model="qsign11"
               type="text"
-              value="qsign"
+              value=""
+              @click="turnOnSvrPop(11)"
             >
             <span class="search">
               <i class="ico-search" />
             </span>
           </div>
           <input
+            v-model="qsignNm11"
             type="text"
-            value="2documents2documents2documents2documents2document"
+            value=""
           >
           <label class="column_label">요청 송신 XQ</label>
           <div class="search_group">
             <input
+              v-model="qsign12"
               type="text"
-              value="qsign"
+              value=""
+              @click="turnOnSvrPop(12)"
             >
             <span class="search">
               <i class="ico-search" />
             </span>
           </div>
           <input
+            v-model="qsignNm12"
             type="text"
-            value="2documents2documents2documents2documents2document"
+            value=""
           >
           <label class="column_label">HUB 수신 Q</label>
           <div class="search_group">
@@ -561,3 +573,55 @@
     </section>
   </div>
 </template>
+
+
+<script>
+
+import EaiQueueListPopup from '@/components/popup/meta/eai/QueueListPopup.vue';
+
+export default {
+  components: {
+    EaiQueueListPopup,
+  },
+  data() {
+    return {
+      svrOn: false,
+      props: { // 조회 시 parameter에 사용자 정보를 담아주려면 여기를 통해 넘겨주세요.
+        message: '', // 사용방법 예시 데이터
+      },
+      serverPopupCase: '',
+
+      queueList: {},
+
+      qsign11: '',
+      qsign12: '',
+      qsignNm11: '',
+      qsignNm12: '',
+
+    };
+  },
+  methods: {
+
+    turnOnSvrPop(val) {
+      this.serverPopupCase = val;
+      this.svrOn = true;
+    },
+    turOffSvrPop(val) {
+      console.log(`Popup에서 받아온 Data : ${val}`);
+      this.svrOn = false;
+    },
+    addData(val) {
+      console.log(`Popup에서 받아온 Data : ${val}`);
+      if (this.serverPopupCase === 11) {
+        this.qsign11 = val.mqMngrNm;
+        this.qsignNm11 = val.queueNm;
+      } else if (this.serverPopupCase === 12) {
+        this.qsign12 = val.mqMngrNm;
+        this.qsignNm12 = val.queueNm;
+      }
+      this.svrOn = false;
+    },
+  },
+};
+
+</script>

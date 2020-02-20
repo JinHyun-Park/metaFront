@@ -8,7 +8,7 @@
       @keydown.prevent.esc="closePop"
     >
       <section class="title style-2">
-        <h2><i class="ico-bar" />큐 조회</h2>
+        <h2><i class="ico-bar" />큐매니저 조회</h2>
       </section>
       <section class="form_area border_group">
         <h5 class="s_tit type-2">
@@ -24,7 +24,7 @@
           </div>
         </h5>
         <div class="row_contain type-3">
-          <div class="column w-2">
+          <div class="column w-4">
             <label class="column_label">큐매니저</label>
             <input
               v-model="mqMngrNm"
@@ -32,38 +32,45 @@
               value=""
             >
           </div>
-          <div class="column w-4">
-            <label class="column_label">큐</label>
+          <div class="column w-3">
+            <label class="column_label">호스트</label>
+            <div class="search_group">
+              <input
+                v-mode="hostNm"
+                type="text"
+                value=""
+              >
+            </div>
+          </div>
+          <div class="column w-3">
+            <label class="column_label">IP</label>
+            <div class="search_group">
+              <input
+                type="text"
+                value=""
+              >
+              <span class="search"><i class="ico-search" /></span>
+            </div>
+          </div>
+          <div class="column on w-3">
+            <label class="column_label">Port</label>
             <input
-              v-model="queueNm"
               type="text"
               value=""
             >
           </div>
           <div class="column w-2">
-            <label class="column_label">유형</label>
-            <div class="select_group">
-              <select v-model="qTypeCd">
-                <option
-                  v-for="(code, i) in ccCdList.qTypeCd"
-                  :key="i"
-                  :value="code.cdDtlId"
-                >
-                  {{ code.cdNm }}
-                </option>
-              </select>
-              <span class="select" />
-            </div>
-          </div>
-          <div class="column w-2">
             <label class="column_label">사용</label>
             <div class="select_group">
-              <select v-model="useYn">
+              <select>
+                <option value="">
+                  전체
+                </option>
                 <option value="Y">
-                  Y
+                  사용
                 </option>
                 <option value="N">
-                  N
+                  미사용
                 </option>
               </select>
               <span class="select" />
@@ -74,52 +81,52 @@
           <div class="table_head w-auto">
             <ul>
               <li class="th_cell">
-                큐매니저<i class="ico-sort-down" />
+                큐매니저
               </li>
               <li class="th_cell">
-                큐<i class="ico-sort-up" />
+                호스트명
               </li>
               <li class="th_cell">
-                유형<i class="ico-sort-down" />
+                RIP
               </li>
               <li class="th_cell">
-                담당자<i class="ico-sort-down" />
+                VIP
               </li>
               <li class="th_cell">
-                최대 적체<i class="ico-sort-down" />
+                PORT
               </li>
               <li class="th_cell">
-                사용<i class="ico-sort-down" />
+                사용
               </li>
             </ul>
           </div>
           <div class="table_body">
             <ul
-              v-for="(queue, i) in qList"
-              :key="queue.index"
+              v-for="(row, index) in queueList"
+              :key="row.mqMngrNm"
               class="table_row w-auto"
             >
-              <li class="td_cell">
-                {{ queue.mqMngrNm }}
-              </li>
               <li
                 class="td_cell"
-                @click="addData(i)"
+                @click="addData(index)"
               >
-                {{ queue.queueNm }}
+                {{ row.mqMngrNm }}
               </li>
               <li class="td_cell">
-                {{ queue.queueType }}
+                {{ row.hostNm }}
               </li>
               <li class="td_cell">
-                {{ queue.chrgrNm }}
+                {{ row.svrIp }}
               </li>
               <li class="td_cell">
-                {{ queue.crtcVal }}
+                {{ row.vip }}
               </li>
               <li class="td_cell">
-                {{ queue.useYn }}
-              </li><li />
+                {{ row.qmPort }}
+              </li>
+              <li class="td_cell">
+                {{ row.useYn }}
+              </li>
             </ul>
           </div>
         </div>
@@ -171,15 +178,14 @@ export default {
   },
   data() {
     return {
-      index: 0,
-      qList: [],
-      queueNm: '',
       mqMngrNm: '',
-      queueType: '',
-      crtcVal: '',
-      useYn: 'Y',
-      qTypeCd: '',
+      hostNm: '',
+      qmPort: '',
+      useYn: '',
       pageSet: { pageNo: 1, pageCount: 0, size: 5 },
+
+      queueList: {},
+      serverData: {},
     };
   },
   computed: {
@@ -195,22 +201,24 @@ export default {
   methods: {
     ...mapActions('ccCdLst', ['setCcCdList']),
     listing() {
-      console.log('큐 목록 조회!');
-      this.$axios.get('/api/eai/queue', {
+      this.$axios.get('/api/eai/mqMngr', {
         params: {
-          pageNo: this.pageSet.pageNo,
-          pageCount: this.pageSet.pageCount,
-          queueNm: this.queueNm,
           mqMngrNm: this.mqMngrNm,
-          queueType: this.qTypeCd,
+          hostNm: this.hostNm,
           useYn: this.useYn,
+
+          pageNo: this.pageSet.pageNo,
+          size: this.pageSet.size,
         },
       })
         .then((res) => {
-          // this.qList = this.$gf.parseRtnData(this.pageSet, res.data.rstData.searchList, 'Y');
-          this.qList = res.data.rstData.searchList;
-          this.pageSet = res.data.rstData.pageSet;
-          console.log(this.qList[0].chrgr.hanNm);
+          console.log(res);
+          if (res.data.rstCd === 'S') {
+            this.queueList = res.data.rstData.searchList;
+            this.pageSet = res.data.rstData.pageSet;
+          } else {
+            this.$gf.alertOn('failed');
+          }
         })
         .catch((ex) => {
           console.log(`error occur!! : ${ex}`);
@@ -220,7 +228,7 @@ export default {
       this.$emit('closePop', 'Hellos');
     },
     addData(i) {
-      this.$emit('addData', this.qList[i]);
+      this.$emit('addData', this.queueList[i]);
     },
   },
 };
