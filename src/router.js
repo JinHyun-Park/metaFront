@@ -170,7 +170,7 @@ const router = new Router({
     {
       path: '/admin/ifMgmt/eigw/accListEigw',
       name: 'accListEigw',
-      component: () => import('@/views/admin/ifMgmt/AccListEigw.vue'),
+      component: () => import('@/views/admin/ifMgmt/eigw/AccListEigw.vue'),
     },
     {
       path: '/admin/ifMgmt/eigw/eigwServer',

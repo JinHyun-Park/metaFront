@@ -41,7 +41,7 @@ export default {
   ],
   MGMT_EIGW: [
     { index: 1, menuNm: '프로그램 관리', url: 'programInfo' },
-    { index: 2, menuNm: '담당자 관리', url: 'accListEigw' },
+    { index: 2, menuNm: '대외 담당자 관리', url: 'accListEigw' },
     { index: 3, menuNm: '대외기관서버 관리', url: 'eigwServer' },
     { index: 4, menuNm: '메타정보', url: 'fileListAdmin' },
     { index: 5, menuNm: '메타정보(실시간)', url: 'onlineListAdmin' },
