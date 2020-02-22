@@ -187,6 +187,7 @@ export default {
       svrTypCd: '',
       useYn: '',
       instCd: '',
+      reqIp: '',
     };
   },
   computed: {

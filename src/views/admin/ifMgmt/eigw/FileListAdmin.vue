@@ -1,18 +1,24 @@
 <template>
   <div class="right_space">
+    <EigwServerListPopup
+      v-if="svrOn"
+      v-bind="props"
+      @closePop="turOffSvrPop"
+      @addData="addData"
+    />
     <section class="title style-1">
       <h2>
         <div>
-          <i class="ico-bar" />EiGW 메타 정보
+          <i class="ico-bar" />EiGW 메타 정보(파일)
         </div>
         <div class="breadcrumb">
-          <span>EGIW</span><em class="on">EAI</em>
+          <span>EIGW</span><em class="on">EAI</em>
         </div>
       </h2>
     </section>
     <section class="form_area border_group">
       <h5 class="s_tit type-2">
-        기본 정보
+        조회 조건
         <div class="right_button_area">
           <button
             type="button"
@@ -35,10 +41,13 @@
           <label class="column_label">EIGW구분</label>
           <div class="select_group">
             <select v-model="mqMngrNm">
-              <option value="eigw1">
+              <option value="">
+                전체
+              </option>
+              <option value="EIGW1P">
                 1호기
               </option>
-              <option value="eigw2">
+              <option value="EIGW2P">
                 2호기
               </option>
             </select>
@@ -57,7 +66,7 @@
         <div class="column w-1">
           <label class="column_label">I/F ID(명)</label>
           <input
-            v-model="ifId"
+            v-model="eaiIfId"
             type="text"
             class="add_text on"
             @keyup.13="searchList()"
@@ -91,7 +100,7 @@
         <div class="column w-1">
           <label class="column_label">IP</label>
           <input
-            v-model="svrIp"
+            v-model="reqIp"
             type="text"
             class="add_text on"
             @keyup.13="searchList()"
@@ -99,80 +108,137 @@
         </div>
         <div class="column w-1" />
       </div>
-
-      <div class="table_grid">
-        <div class="table_head">
-          <ul>
-            <li class="th_cell">
-              파일명<i class="ico-sort-down" />
-            </li>
-            <li class="th_cell">
-              대외기관<i class="ico-sort-down" />
-            </li>
-            <li class="th_cell">
-              I/F ID<i class="ico-sort-up" />
-            </li>
-            <li class="th_cell">
-              송수신<i class="ico-sort-down" />
-            </li>
-            <li class="th_cell">
-              Real Ip<i class="ico-sort-down" />
-            </li>
-            <li class="th_cell">
-              Nat Ip<i class="ico-sort-down" />
-            </li>
-            <li class="th_cell">
-              Port<i class="ico-sort-up" />
-            </li>
-            <li class="th_cell">
-              mstFileNum<i class="ico-sort-up" />
-            </li>
-          </ul>
-        </div>
-        <div class="table_body">
-          <ul
-            v-for="fileRow in fileList"
-            :key="fileRow.mstFileNum"
-            class="table_row w-auto"
-          >
-            <li
-              v-for="(fileCol, i) in fileRow"
-              :key="i"
-              class="td_cell"
-              @click="detailInfo(i, fileRow[7])"
+      <div class="table_colgroup">
+        <div class="table_grid">
+          <div class="table_head">
+            <ul>
+              <li class="th_cell">
+                서버
+              </li>
+              <li class="th_cell">
+                대외기관
+              </li>
+              <li class="th_cell">
+                송수신
+              </li>
+              <li class="th_cell">
+                파일명
+              </li>
+              <li class="th_cell">
+                I/F ID
+              </li>
+              <li class="th_cell">
+                개발IP(NAT)
+              </li>
+              <li class="th_cell">
+                개발 PORT
+              </li>
+              <li class="th_cell">
+                운영IP(NAT)
+              </li>
+              <li class="th_cell">
+                운영 PORT
+              </li>
+            </ul>
+          </div>
+          <div class="table_body">
+            <ul
+              v-for="(row, index) in fileList"
+              :key="row.mstFileNum"
+              class="table_row w-auto"
+              @click="detailInfo(index)"
             >
-              {{ fileCol }}
-            </li>
-          </ul>
+              <li class="td_cell">
+                {{ row.mqMngrNm }}
+              </li>
+              <li class="td_cell">
+                {{ row.instNm }}
+              </li>
+              <li class="td_cell">
+                {{ row.srFlag }}
+              </li>
+              <li class="td_cell">
+                {{ row.fileNm }}
+              </li>
+              <li class="td_cell">
+                {{ row.eaiIfId }}
+              </li>
+              <li class="td_cell">
+                {{ row.dvpSvrRealIp }}<br>({{ row.dvpSvrNatIp }})
+              </li>
+              <li class="td_cell">
+                {{ row.dvpSvrPort }}
+              </li>
+              <li class="td_cell">
+                {{ row.prodSvrRealIp }}<br>({{ row.prodSvrNatIp }})
+              </li>
+              <li class="td_cell">
+                {{ row.prodSvrPort }}
+              </li>
+            </ul>
+          </div>
         </div>
+      </div>
+      <div class="pagination_space">
+        <paginate
+          v-model="pageSet.pageNo"
+          :page-count="pageSet.pageCount"
+          :page-range="3"
+          :margin-pages="1"
+          :click-handler="searchList"
+          :prev-text="'이전'"
+          :next-text="'다음'"
+          :container-class="'pagination'"
+          :page-class="'page-item'"
+        />
       </div>
     </section>
 
     <section class="form_area border_group">
       <h5 class="s_tit">
-        상세정보
+        기본정보
       </h5>
-      <div class="row_contain type-2">
-        <div class="column w-1">
+      <div class="row_contain">
+        <div class="column w-2">
           <label class="column_label">파일명</label>
           <input
-            v-model="fileHead"
+            v-model="fileIfMst.fileNm"
             type="text"
             class="add_text on"
           >
         </div>
         <div class="column w-1">
-          <label class="column_label">&nbsp;</label>
+          <label class="column_label">파일명_Head</label>
           <input
-            v-model="fileTail"
+            v-model="fileIfMst.fileHead"
             type="text"
             class="add_text on"
           >
         </div>
         <div class="column w-1">
-          <label class="column_label">&nbsp;</label>
+          <label class="column_label">파일명_Date</label>
+          <select v-model="fileIfMst.fileDate">
+            <option value="A">
+              A
+            </option>
+            <option value="today">
+              당일
+            </option>
+            <option value="yesterday">
+              전송전날
+            </option>
+            <option value="this_month">
+              당월
+            </option>
+            <option value="last_month">
+              전월
+            </option>
+          </select>
+        </div>
+        <div class="column w-1">
+          <label class="column_label">파일명_Tail</label>
           <input
-            v-model="fileDate"
+            v-model="fileIfMst.fileTail"
             type="text"
             class="add_text on"
           >
@@ -180,20 +246,20 @@
         <div class="column w-1">
           <label class="column_label">대외기관</label>
           <input
-            v-model="instNm"
+            v-model="fileIfMst.instCd"
             type="text"
             class="add_text on"
           >
         </div>
       </div>
-      <div class="row_contain type-2">
+      <div class="row_contain">
         <div class="column on w-1">
           <label class="column_label">EIGW구분</label>
-          <select v-model="mqMngrNm">
-            <option value="eigw1">
+          <select v-model="fileIfMst.mqMngrNm">
+            <option value="EIGW1P">
               1호기
             </option>
-            <option value="eigw2">
+            <option value="EIGW2P">
               2호기
             </option>
           </select>
@@ -201,7 +267,7 @@
         </div>
         <div class="column w-1">
           <label class="column_label">송수신구분</label>
-          <select v-model="srFlag">
+          <select v-model="fileIfMst.srFlag">
             <option value="S">
               송신
             </option>
@@ -211,24 +277,25 @@
           </select>
           <span class="select" />
         </div>
-        <div class="column w-1">
+        <div class="column w-2">
           <label class="column_label">파일설명</label>
           <input
-            v-model="fileDesc"
+            v-model="fileIfMst.fileDesc"
             type="text"
             class="add_text on"
           >
         </div>
         <div class="column w-1">
           <label class="column_label">사용유무</label>
-          <input
-            v-model="useYn"
-            type="text"
-            class="add_text on"
-          >
+          <select v-model="fileIfMst.useYn">
+            <option value="Y">
+              Y
+            </option>
+            <option value="N">
+              N
+            </option>
+          </select>
         </div>
-      </div>
-      <div class="row_contain type-2">
         <div class="column w-1">
           <label class="column_label">mstFileNum</label>
           <input
@@ -244,27 +311,35 @@
       <h5 class="s_tit">
         SKT_EIGW 정보
       </h5>
-      <div class="row_contain type-2">
-        <div class="column on w-1">
-          <label class="column_label">I/F ID &amp; 명</label>
-          <input
-            v-model="eaiIfId"
-            type="text"
-            class="add_text"
-          >
-        </div>
+      <div class="row_contain">
         <div class="column w-1">
           <label class="column_label">프로세스ID</label>
           <input
-            v-model="skt_svcId"
+            v-model="fileSktConf.svcId"
+            type="text"
+            class="add_text"
+          >
+        </div>
+        <div class="column on w-2">
+          <label class="column_label">I/F ID &amp; 명</label>
+          <input
+            v-model="fileSktConf.eaiIfId"
+            type="text"
+            class="add_text"
+          >
+        </div>
+        <div class="column w-2">
+          <label class="column_label">실행프로그램</label>
+          <input
+            v-model="fileSktConf.execPgm"
             type="text"
             class="add_text"
           >
         </div>
         <div class="column w-1">
-          <label class="column_label">실행프로그램</label>
+          <label class="column_label">OPCODE</label>
           <input
-            v-model="skt_execPgm"
+            v-model="fileSktConf.opCode"
             type="text"
             class="add_text"
           >
@@ -272,17 +347,9 @@
       </div>
       <div class="row_contain">
         <div class="column w-2">
-          <label class="column_label">OPCODE</label>
-          <input
-            v-model="opCode"
-            type="text"
-            class="add_text"
-          >
-        </div>
-        <div class="column w-2">
           <label class="column_label">시작경로</label>
           <input
-            v-model="skt_staPath"
+            v-model="fileSktConf.staPath"
             type="text"
             class="add_text"
           >
@@ -290,7 +357,15 @@
         <div class="column w-2">
           <label class="column_label">최종경로</label>
           <input
-            v-model="skt_endPath"
+            v-model="fileSktConf.endPath"
+            type="text"
+            class="add_text"
+          >
+        </div>
+        <div class="column w-2">
+          <label class="column_label">History경로</label>
+          <input
+            v-model="fileSktConf.hstPath"
             type="text"
             class="add_text"
           >
@@ -300,7 +375,7 @@
         <div class="column w-2">
           <label class="column_label">성공경로</label>
           <input
-            v-model="skt_sussPath"
+            v-model="fileSktConf.sussPath"
             type="text"
             class="add_text"
           >
@@ -308,34 +383,23 @@
         <div class="column w-2">
           <label class="column_label">실패경로</label>
           <input
-            v-model="skt_failPath"
+            v-model="fileSktConf.failPath"
             type="text"
             class="add_text"
           >
         </div>
-
-        <div class="column w-2">
-          <label class="column_label">History경로</label>
-          <input
-            v-model="skt_hstPath"
-            type="text"
-            class="add_text"
-          >
-        </div>
-      </div>
-      <div class="row_contain">
-        <div class="column w-2">
+        <div class="column w-1">
           <label class="column_label">재시도건수</label>
           <input
-            v-model="skt_retrmsCnt"
+            v-model="fileSktConf.retrmsCnt"
             type="text"
             class="add_text"
           >
         </div>
-        <div class="column w-2">
+        <div class="column w-1">
           <label class="column_label">재시도주기</label>
           <input
-            v-model="skt_retrmsGap"
+            v-model="fileSktConf.retrmsGap"
             type="text"
             class="add_text"
           >
@@ -348,29 +412,26 @@
         EIGW_EIGW 정보
       </h5>
       <div class="row_contain">
-        <div class="column on w-2">
+        <div class="column on w-1">
           <label class="column_label">프로세스ID</label>
           <input
-            v-model="eigw_svcId"
+            v-model="fileEigwConf.svcId"
             type="text"
             class="add_text"
           >
         </div>
-        <div class="column w-2">
+        <div class="column w-1">
           <label class="column_label">실행프로그램</label>
           <input
-            v-model="eigw_execPgm"
+            v-model="fileEigwConf.execPgm"
             type="text"
             class="add_text"
           >
         </div>
-        <div class="column w-2" />
-      </div>
-      <div class="row_contain">
         <div class="column w-2">
           <label class="column_label">시작경로</label>
           <input
-            v-model="eigw_staPath"
+            v-model="fileEigwConf.staPath"
             type="text"
             class="add_text"
           >
@@ -378,7 +439,7 @@
         <div class="column w-2">
           <label class="column_label">최종경로</label>
           <input
-            v-model="eigw_endPath"
+            v-model="fileEigwConf.endPath"
             type="text"
             class="add_text"
           >
@@ -392,35 +453,17 @@
       </h5>
       <div class="row_contain">
         <div class="column on w-2">
-          <label class="column_label">실행프로그램</label>
-          <input
-            v-model="agency_svcId"
-            type="text"
-            class="add_text"
-          >
-        </div>
-        <div class="column w-2">
           <label class="column_label">프로세스ID</label>
           <input
-            v-model="agency_execPgm"
-            type="text"
-            class="add_text"
-          >
-        </div>
-      </div>
-      <div class="row_contain">
-        <div class="column w-2">
-          <label class="column_label">User ID</label>
-          <input
-            v-model="usrId"
+            v-model="fileAgencyConf.svcId"
             type="text"
             class="add_text"
           >
         </div>
         <div class="column w-2">
-          <label class="column_label">Password</label>
+          <label class="column_label">실행프로그램</label>
           <input
-            v-model="pwd"
+            v-model="fileAgencyConf.execPgm"
             type="text"
             class="add_text"
           >
@@ -430,7 +473,7 @@
         <div class="column w-2">
           <label class="column_label">시작경로</label>
           <input
-            v-model="agency_staPath"
+            v-model="fileAgencyConf.staPath"
             type="text"
             class="add_text"
           >
@@ -438,7 +481,7 @@
         <div class="column w-2">
           <label class="column_label">최종경로</label>
           <input
-            v-model="agency_endPath"
+            v-model="fileAgencyConf.endPath"
             type="text"
             class="add_text"
           >
@@ -446,7 +489,7 @@
         <div class="column w-2">
           <label class="column_label">성공경로</label>
           <input
-            v-model="agency_sussPath"
+            v-model="fileAgencyConf.sussPath"
             type="text"
             class="add_text"
           >
@@ -456,133 +499,107 @@
         <div class="column w-2">
           <label class="column_label">실패경로</label>
           <input
-            v-model="agency_failPath"
+            v-model="fileAgencyConf.failPath"
             type="text"
             class="add_text"
           >
         </div>
-
         <div class="column w-2">
           <label class="column_label">History경로</label>
           <input
-            v-model="agency_hstPath"
+            v-model="fileAgencyConf.hstPath"
             type="text"
             class="add_text"
           >
         </div>
-        <div class="column w-2" />
-      </div>
-      <div class="row_contain">
-        <div class="column w-2">
+        <div class="column w-1">
           <label class="column_label">재시도건수</label>
           <input
-            v-model="agency_retrmsCnt"
+            v-model="fileAgencyConf.retrmsCnt"
             type="text"
             class="add_text"
           >
         </div>
-        <div class="column w-2">
+        <div class="column w-1">
           <label class="column_label">재시도주기</label>
           <input
-            v-model="agency_retrmsGap"
+            v-model="fileAgencyConf.retrmsGap"
             type="text"
             class="add_text"
           >
         </div>
-        <div class="column w-2">
-          <label class="column_label">서버정보</label>
-          <input
-            v-model="svrNum"
-            type="text"
-            class="add_text"
-          >
-        </div>
-        <div class="column w-2" />
       </div>
       <div class="row_contain">
         <div class="column w-2">
-          <label class="column_label">Real Ip</label>
+          <label class="column_label">User ID</label>
           <input
-            v-model="svrRealIp"
+            v-model="fileAgencyConf.userId"
             type="text"
             class="add_text"
           >
         </div>
         <div class="column w-2">
-          <label class="column_label">Nat Ip</label>
+          <label class="column_label">Password</label>
           <input
-            v-model="svrNatIp"
+            v-model="fileAgencyConf.pwd"
             type="text"
             class="add_text"
           >
         </div>
-        <div class="column w-2">
-          <label class="column_label">Port</label>
-          <input
-            v-model="svrPort"
-            type="text"
-            class="add_text"
-          >
-        </div>
-        <div class="column w-2" />
       </div>
-    </section>
-    <section class="form_area border_group">
-      <h5 class="s_tit type-2">
-        서버 정보
-        <div class="right_button_area">
-          <button
-            type="button"
-            class="default_button on"
-            @click="turnOnSvrPop()"
+      <div class="row_contain">
+        <div class="column w-2">
+          <label class="column_label">개발기 Real IP</label>
+          <input
+            v-model="fileAgencyConf.dvpSvrRealIp"
+            type="text"
+            class="add_text"
+            @click="turnOnSvrPop(1)"
           >
-            추가
-          </button>
         </div>
-      </h5>
-      <div class="table_grid">
-        <div class="table_head w-auto except">
-          <ul class="table_row form_type except w-auto">
-            <li class="th_cell">
-              구분
-            </li>
-            <li class="th_cell">
-              REAL IP
-            </li>
-            <li class="th_cell">
-              NAT IP
-            </li>
-            <li class="th_cell">
-              PORT
-            </li>
-            <li class="th_cell" />
-          </ul>
-        </div>
-        <div class="table_body">
-          <ul
-            v-for="(serve, i) in serveList"
-            :key="serve.svrNum"
-            class="table_row form_type except w-auto"
+        <div class="column w-2">
+          <label class="column_label">개발기 NAT IP</label>
+          <input
+            v-model="fileAgencyConf.dvpSvrNatIp"
+            type="text"
+            class="add_text"
+            @click="turnOnSvrPop(1)"
           >
-            <li class="td_cell">
-              {{ serve.svrTypCd }}
-            </li>
-            <li class="td_cell on">
-              {{ serve.svrRealIp }}
-            </li>
-            <li class="td_cell">
-              {{ serve.svrNatIp }}
-            </li>
-            <li class="td_cell">
-              {{ serve.svrPort }}
-            </li>
-            <li class="td_cell">
-              <i
-                class="ico-del"
-                @click="delList(i)"
-              />
-            </li>
-          </ul>
+        </div>
+        <div class="column w-1">
+          <label class="column_label">개발기 Port</label>
+          <input
+            v-model="fileAgencyConf.dvpSvrPort"
+            type="text"
+            class="add_text"
+          >
+        </div>
+        <div class="column w-1" />
+        <div class="column w-2">
+          <label class="column_label">운영기 Real IP</label>
+          <input
+            v-model="fileAgencyConf.prodSvrRealIp"
+            type="text"
+            class="add_text"
+            @click="turnOnSvrPop(2)"
+          >
+        </div>
+        <div class="column w-2">
+          <label class="column_label">운영기 NAT IP</label>
+          <input
+            v-model="fileAgencyConf.prodSvrNatIp"
+            type="text"
+            class="add_text"
+            @click="turnOnSvrPop(2)"
+          >
+        </div>
+        <div class="column w-1">
+          <label class="column_label">운영기 Port</label>
+          <input
+            v-model="fileAgencyConf.prodSvrPort"
+            type="text"
+            class="add_text"
+          >
         </div>
       </div>
     </section>
@@ -737,55 +754,98 @@
 
 <script>
 
+<<<<<<< HEAD:src/views/admin/eigw/FileListAdmin.vue
 // import SvrListPopup from '@/components/popup/meta/eigw/SvrListPopup.vue';
 // import { fetchEigwAdFileList, fetchEigwFileDtlInfo } from '@/api/eigwApi';
 import * as eigwApi from '@/api/eigwApi';
+=======
+import EigwServerListPopup from '@/components/popup/meta/eigw/EigwServerListPopup.vue';
+>>>>>>> 6a1d81f73030999c617317ea8052c81e0cc906ae:src/views/admin/ifMgmt/eigw/FileListAdmin.vue
 
 export default {
+  components: {
+    EigwServerListPopup,
+  },
   data() {
     return {
-      fileList: '',
+      svrOn: false,
+      props: { // 조회 시 parameter에 사용자 정보를 담아주려면 여기를 통해 넘겨주세요.
+        message: '', // 사용방법 예시 데이터
+      },
+      serverPopupCase: '',
+
       mqMngrNm: '',
-      ifId: '',
-      fileNm: '',
-      svrIp: '',
       instCd: '',
+      eaiIfId: '',
+      fileNm: '',
       srFlag: '',
+      reqIp: '',
+
+      fileList: '',
+      pageSet: { pageNo: 1, pageCount: 0, size: 5 },
+      fileIfMst: {
+        mstFileNum: '',
+        mqMngrNm: '',
+        fileNm: '',
+        fileDesc: '',
+        fileHead: '',
+        fileDate: '',
+        fileTail: '',
+        srFlag: '',
+        useYn: '',
+        instCd: '',
+      },
+      fileSktConf: {
+        mstFileSeq: '',
+        eaiIfId: '',
+        titile: '',
+        svcId: '',
+        execPgm: '',
+        opCode: '',
+        staPath: '',
+        endPath: '',
+        sussPath: '',
+        failPath: '',
+        hstPath: '',
+        retrmsCnt: '',
+        retrmsGap: '',
+        chgYn: '',
+      },
+      fileEigwConf: {
+        mstFileSeq: '',
+        svcId: '',
+        execPgm: '',
+        title: '',
+        staPath: '',
+        endPath: '',
+        chgYn: '',
+      },
+      fileAgencyConf: {
+        mstFileSeq: '',
+        svcId: '',
+        agencyRmk: '',
+        execPgm: '',
+        fileTail: '',
+        staPath: '',
+        endPath: '',
+        sussPath: '',
+        failPath: '',
+        hstPath: '',
+        retrmsCnt: '',
+        retrmsGap: '',
+        userId: '',
+        pwd: '',
+        dvpSvrNum: '',
+        dvpSvrIp: '',
+        prodSvrNum: '',
+        prodSvrIp: '',
+        dvpSvrPort: '',
+        prodSvrPort: '',
+      },
+
       serveList: '',
       inchrgrList: '',
       outchrgrList: '',
-      fileHead: '',
-      fileTail: '',
-      fileDate: '',
-      instNm: '',
-      useYn: '',
-      fileDesc: '',
-      eaiIfId: '',
-      skt_svcId: '',
-      skt_execPgm: '',
-      opCode: '',
-      skt_staPath: '',
-      skt_endPath: '',
-      skt_sussPath: '',
-      skt_failPath: '',
-      skt_hstPath: '',
-      skt_retrmsCnt: '',
-      skt_retrmsGap: '',
-      eigw_svcId: '',
-      eigw_execPgm: '',
-      eigw_staPath: '',
-      eigw_endPath: '',
-      agency_svcId: '',
-      agency_execPgm: '',
-      usrId: '',
-      pwd: '',
-      agency_staPath: '',
-      agency_endPath: '',
-      agency_sussPath: '',
-      agency_failPath: '',
-      agency_hstPath: '',
-      agency_retrmsCnt: '',
-      agency_retrmsGap: '',
       inuserIdList: '',
       outuserIdList: '',
       userIdList: '',
@@ -794,8 +854,12 @@ export default {
   },
   methods: {
     searchList() {
+<<<<<<< HEAD:src/views/admin/eigw/FileListAdmin.vue
       // this.$axios.get('/api/eigw/admin/fileList', {
       eigwApi.fetchEigwAdFileList({
+=======
+      this.$axios.get('/api/eigw/fileList', {
+>>>>>>> 6a1d81f73030999c617317ea8052c81e0cc906ae:src/views/admin/ifMgmt/eigw/FileListAdmin.vue
         params: {
           mqMngrNm: this.mqMngrNm,
           ifId: this.ifId,
@@ -803,12 +867,15 @@ export default {
           svrIp: this.svrIp,
           instCd: this.instCd,
           srFlag: this.srFlag,
+          pageNo: this.pageSet.pageNo,
+          size: this.pageSet.size,
         },
       })
         .then((res) => {
           console.log(res);
           if (res.data.rstCd === 'S') {
-            this.fileList = res.data.rstData.fileList;
+            this.fileList = res.data.rstData.searchList;
+            this.pageSet = res.data.rstData.pageSet;
           } else {
             this.$gf.alertOn('failed');
           }
@@ -817,6 +884,7 @@ export default {
           console.log(`error occur!! : ${ex}`);
         });
     },
+<<<<<<< HEAD:src/views/admin/eigw/FileListAdmin.vue
     detailInfo(i, index) {
       // this.tgtUrl = '/api/eigw/fileDtlInfo/';
       if (index != null && index !== '') {
@@ -824,52 +892,22 @@ export default {
       }
       // this.$axios.get(this.tgtUrl)
       eigwApi.fetchEigwFileDtlInfo()
+=======
+    detailInfo(i) {
+      this.tgtUrl = '/api/eigw/fileDetail';
+      this.$axios.get(this.tgtUrl, {
+        params: {
+          mstFileSeq: this.fileList[i].mstFileNum,
+        },
+      })
+>>>>>>> 6a1d81f73030999c617317ea8052c81e0cc906ae:src/views/admin/ifMgmt/eigw/FileListAdmin.vue
         .then((res) => {
           console.log(res);
           if (res.data.rstCd === 'S') {
-            this.mstFileNum = res.data.rstData.fileDtlInfo[0].mstFileNum;
-            this.fileHead = res.data.rstData.fileDtlInfo[0].fileHead;
-            this.fileTail = res.data.rstData.fileDtlInfo[0].fileTail;
-            this.fileDate = res.data.rstData.fileDtlInfo[0].fileDate;
-            this.mqMngrNm = res.data.rstData.fileDtlInfo[0].mqMngrNm;
-            this.instNm = res.data.rstData.fileDtlInfo[0].instCd;
-            this.srFlag = res.data.rstData.fileDtlInfo[0].srFlag;
-            this.useYn = res.data.rstData.fileDtlInfo[0].useYn;
-            this.fileDesc = res.data.rstData.fileDtlInfo[0].fileDesc;
-
-            this.eaiIfId = res.data.rstData.fileDtlInfo[0].sktInfo.eaiIfId;
-            this.skt_svcId = res.data.rstData.fileDtlInfo[0].sktInfo.svcId;
-            this.skt_execPgm = res.data.rstData.fileDtlInfo[0].sktInfo.execPgm;
-            this.opCode = res.data.rstData.fileDtlInfo[0].sktInfo.opCode;
-            this.skt_staPath = res.data.rstData.fileDtlInfo[0].sktInfo.staPath;
-            this.skt_endPath = res.data.rstData.fileDtlInfo[0].sktInfo.endPath;
-            this.skt_sussPath = res.data.rstData.fileDtlInfo[0].sktInfo.sussPath;
-            this.skt_failPath = res.data.rstData.fileDtlInfo[0].sktInfo.failPath;
-            this.skt_hstPath = res.data.rstData.fileDtlInfo[0].sktInfo.hstPath;
-            this.skt_retrmsCnt = res.data.rstData.fileDtlInfo[0].sktInfo.retrmsCnt;
-            this.skt_retrmsGap = res.data.rstData.fileDtlInfo[0].sktInfo.retrmsGap;
-            this.eigw_svcId = res.data.rstData.fileDtlInfo[0].eigwInfo.svcId;
-            this.eigw_execPgm = res.data.rstData.fileDtlInfo[0].eigwInfo.execPgm;
-            this.eigw_staPath = res.data.rstData.fileDtlInfo[0].eigwInfo.staPath;
-            this.eigw_endPath = res.data.rstData.fileDtlInfo[0].eigwInfo.endPath;
-            this.agency_svcId = res.data.rstData.fileDtlInfo[0].agencyInfo.svcId;
-            this.agency_execPgm = res.data.rstData.fileDtlInfo[0].agencyInfo.execPgm;
-            this.usrId = res.data.rstData.fileDtlInfo[0].agencyInfo.userId;
-            this.pwd = res.data.rstData.fileDtlInfo[0].agencyInfo.pwd;
-            this.agency_staPath = res.data.rstData.fileDtlInfo[0].agencyInfo.staPath;
-            this.agency_endPath = res.data.rstData.fileDtlInfo[0].agencyInfo.endPath;
-            this.agency_sussPath = res.data.rstData.fileDtlInfo[0].agencyInfo.sussPath;
-            this.agency_failPath = res.data.rstData.fileDtlInfo[0].agencyInfo.failPath;
-            this.agency_hstPath = res.data.rstData.fileDtlInfo[0].agencyInfo.hstPath;
-            this.agency_retrmsCnt = res.data.rstData.fileDtlInfo[0].agencyInfo.retrmsCnt;
-            this.agency_retrmsGap = res.data.rstData.fileDtlInfo[0].agencyInfo.retrmsGap;
-            this.inchrgrList = res.data.rstData.inchrgrList;
-            this.outchrgrList = res.data.rstData.outchrgrList;
-            this.serveList = res.data.rstData.severList;
-            this.svrNum = res.data.rstData.severList[0].svrNum;
-            this.svrRealIp = res.data.rstData.severList[0].svrRealIp;
-            this.svrNatIp = res.data.rstData.severList[0].svrNatIp;
-            this.svrPort = res.data.rstData.severList[0].svrPort;
+            this.fileIfMst = res.data.rstData.rstData.fileMst;
+            this.fileSktConf = res.data.rstData.rstData.fileSktConf;
+            this.fileEigwConf = res.data.rstData.rstData.fileEigwConf;
+            this.fileAgencyConf = res.data.rstData.rstData.fileAgencyConf;
           } else {
             this.$gf.alertOn('failed');
           }
@@ -881,50 +919,10 @@ export default {
     save() {
       this.saveInfo = {
         mstFileNum: this.mstFileNum,
-        mqMngrNm: this.mqMngrNm,
-        fileNm: this.fileHead + this.fileDate + this.fileTail,
-        fileHead: this.fileHead,
-        fileTail: this.fileTail,
-        fileDesc: this.fileDesc,
-        instCd: this.instCd,
-        fileDate: this.fileDate,
-        srFlag: this.srFlag,
-        svrNum: this.svrNum,
-        sktInfo: {
-          mstFileSeq: this.mstFileNum,
-          eaiIfId: this.eaiIfId,
-          svcId: this.skt_svcId,
-          execPgm: this.skt_execPgm,
-          opCode: this.opCode,
-          staPath: this.skt_staPath,
-          endPath: this.skt_endPath,
-          sussPath: this.skt_sussPath,
-          failPath: this.skt_failPath,
-          hstPath: this.skt_hstPath,
-          retrmsCnt: this.skt_retrmsCnt,
-          retrmsGap: this.skt_retrmsGap,
-        },
-        eigwInfo: {
-          mstFileSeq: this.mstFileNum,
-          svcId: this.eigw_svcId,
-          execPgm: this.eigw_execPgm,
-          staPath: this.eigw_staPath,
-          endPath: this.eigw_endPath,
-        },
-        agencyInfo: {
-          mstFileSeq: this.mstFileNum,
-          svcId: this.agency_svcId,
-          execPgm: this.agency_execPgm,
-          userId: this.userId,
-          pwd: this.pwd,
-          staPath: this.agency_staPath,
-          endPath: this.agency_endPath,
-          sussPath: this.agency_sussPath,
-          failPath: this.agency_failPath,
-          hstPath: this.agency_hstPath,
-          retrmsCnt: this.agency_retrmsCnt,
-          retrmsGap: this.agency_retrmsGap,
-        },
+        fileIfMst: this.fileIfMst,
+        fileSktConf: this.fileSktConf,
+        fileEigwConf: this.fileEigwConf,
+        fileAgencyConf: this.fileAgencyConf,
       };
       // this.$axios.post('/api/eigw/file/MetaInfo/save', this.saveInfo)
       eigwApi.fetchEigwMetaSaveInfo(this.saveInfo)
@@ -953,7 +951,8 @@ export default {
         this.parseOutUserId();
       }
     },
-    turnOnSvrPop() {
+    turnOnSvrPop(val) {
+      this.serverPopupCase = val;
       this.svrOn = true;
     },
     turOffSvrPop(val) {
@@ -962,6 +961,15 @@ export default {
     },
     addData(val) {
       console.log(`Popup에서 받아온 Data : ${val}`);
+      if (this.serverPopupCase === 1) {
+        this.fileAgencyConf.dvpSvrNum = val.svrNum;
+        this.fileAgencyConf.dvpSvrRealIp = val.svrRealIp;
+        this.fileAgencyConf.dvpSvrNatIp = val.svrNatIp;
+      } else {
+        this.fileAgencyConf.prodSvrNum = val.svrNum;
+        this.fileAgencyConf.prodSvrRealIp = val.svrRealIp;
+        this.fileAgencyConf.prodSvrNatIp = val.svrNatIp;
+      }
       this.svrOn = false;
     },
     delList(i) {

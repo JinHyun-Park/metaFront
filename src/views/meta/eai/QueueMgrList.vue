@@ -1,7 +1,7 @@
 <template>
   <div class="right_space">
     <!-- 서버리스트 팝업 호출 -->
-    <SvrListPopup
+    <ServerListPopup
       v-if="svrOn"
       v-bind="props"
       @closePop="turOffSvrPop"
@@ -25,30 +25,33 @@
           <button
             type="button"
             class="default_button on"
+            @click="searchList"
           >
             조회
           </button>
         </div>
       </h5>
       <div class="row_contain type-3">
-        <div class="column on w-4">
+        <div class="column w-4">
           <label class="column_label">큐매니저</label>
           <input
+            v-model="mqMngrNm"
             type="text"
-            value="QMGR"
+            value=""
           >
         </div>
-        <div
-          class="column w-3"
-          @click="turnOnSvrPop"
-        >
+        <div class="column w-3">
           <label class="column_label">호스트</label>
           <div class="search_group">
             <input
+              v-mode="hostNm"
               type="text"
               value=""
             >
-            <span class="search"><i class="ico-search" /></span>
+            <span
+              class="search"
+              @click="turnOnSvrPop('server')"
+            ><i class="ico-search" /></span>
           </div>
         </div>
         <div class="column w-3">
@@ -73,10 +76,13 @@
           <div class="select_group">
             <select>
               <option value="">
-                Y
+                전체
               </option>
-              <option value="">
-                N
+              <option value="Y">
+                사용
+              </option>
+              <option value="N">
+                미사용
               </option>
             </select>
             <span class="select" />
@@ -87,87 +93,64 @@
         <div class="table_head w-auto">
           <ul>
             <li class="th_cell">
-              큐매니저<i class="ico-sort-up" />
+              큐매니저
             </li>
             <li class="th_cell">
-              호스트<i class="ico-sort-down" />
+              호스트명
             </li>
             <li class="th_cell">
-              RIP<i class="ico-sort-up" />
+              RIP
             </li>
             <li class="th_cell">
-              VIP<i class="ico-sort-up" />
+              VIP
             </li>
             <li class="th_cell">
-              PORT<i class="ico-sort-up" />
+              PORT
             </li>
             <li class="th_cell">
-              사용<i class="ico-sort-down" />
+              사용
             </li>
           </ul>
         </div>
         <div class="table_body">
-          <ul class="table_row w-auto">
+          <ul
+            v-for="(row, index) in queueList"
+            :key="row.mqMngrNm"
+            class="table_row w-auto"
+          >
             <li class="td_cell">
-              QMGR
+              {{ row.mqMngrNm }}
             </li>
             <li class="td_cell">
-              EAI01
+              {{ row.hostNm }}
             </li>
             <li class="td_cell">
-              127.0.0.1
+              {{ row.svrIp }}
             </li>
             <li class="td_cell">
-              150.1.1.1
+              {{ row.vip }}
             </li>
             <li class="td_cell">
-              1414
+              {{ row.qmPort }}
             </li>
             <li class="td_cell">
-              Y
-            </li><li />
-          </ul>
-          <ul class="table_row w-auto">
-            <li class="td_cell">
-              QMGR
+              {{ row.useYn }}
             </li>
-            <li class="td_cell">
-              EAI01
-            </li>
-            <li class="td_cell">
-              127.0.0.1
-            </li>
-            <li class="td_cell">
-              150.1.1.1
-            </li>
-            <li class="td_cell">
-              1414
-            </li>
-            <li class="td_cell">
-              Y
-            </li><li />
-          </ul>
-          <ul class="table_row w-auto">
-            <li class="td_cell">
-              QMGR
-            </li>
-            <li class="td_cell">
-              EAI01
-            </li>
-            <li class="td_cell">
-              127.0.0.1
-            </li>
-            <li class="td_cell">
-              150.1.1.1
-            </li>
-            <li class="td_cell">
-              1414
-            </li>
-            <li class="td_cell">
-              N
-            </li><li />
           </ul>
         </div>
+      </div>
+      <div class="pagination_space">
+        <paginate
+          v-model="pageSet.pageNo"
+          :page-count="pageSet.pageCount"
+          :page-range="3"
+          :margin-pages="1"
+          :click-handler="searchList"
+          :prev-text="'이전'"
+          :next-text="'다음'"
+          :container-class="'pagination'"
+          :page-class="'page-item'"
+        />
       </div>
     </section>
 
@@ -189,12 +172,12 @@
 </template>
 
 <script>
-import SvrListPopup from '@/components/popup/meta/mcg/SvrListPopup.vue';
+import ServerListPopup from '@/components/popup/bizcomm/ServerListPopup.vue';
 
 export default {
   name: 'QueueMgrList',
   components: {
-    SvrListPopup,
+    ServerListPopup,
   },
   data() {
     return {
@@ -202,9 +185,42 @@ export default {
       props: { // 조회 시 parameter에 사용자 정보를 담아주려면 여기를 통해 넘겨주세요.
         message: 'Hi', // 사용방법 예시 데이터
       },
+
+      mqMngrNm: '',
+      hostNm: '',
+      qmPort: '',
+      useYn: '',
+      pageSet: { pageNo: 1, pageCount: 0, size: 10 },
+
+      queueList: {},
+      serverData: {},
     };
   },
   methods: {
+    searchList() {
+      this.$axios.get('/api/eai/mqMngr', {
+        params: {
+          mqMngrNm: this.mqMngrNm,
+          hostNm: this.hostNm,
+          useYn: this.useYn,
+
+          pageNo: this.pageSet.pageNo,
+          size: this.pageSet.size,
+        },
+      })
+        .then((res) => {
+          console.log(res);
+          if (res.data.rstCd === 'S') {
+            this.queueList = res.data.rstData.searchList;
+            this.pageSet = res.data.rstData.pageSet;
+          } else {
+            this.$gf.alertOn('failed');
+          }
+        })
+        .catch((ex) => {
+          console.log(`error occur!! : ${ex}`);
+        });
+    },
     turnOnSvrPop() {
       this.svrOn = true;
     },
@@ -215,7 +231,10 @@ export default {
     addData(val) {
       console.log(`가져온 데이터2 : ${val}`);
       this.svrOn = false;
+      this.serverData = val;
+      this.$gf.alertOn(`${this.serverData.svrIp}(${this.serverData.hostNm})`);
     },
+
   },
 };
 </script>

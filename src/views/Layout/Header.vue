@@ -76,7 +76,9 @@
                 <li @click="movePage('virtualUserList_MCG')">
                   MCG
                 </li>
-                <li>EAI</li>
+                <li @click="movePage('ifIdListAdmin')">
+                  EAI
+                </li>
               </ul>
             </li>
             <li class="n">

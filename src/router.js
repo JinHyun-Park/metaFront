@@ -165,32 +165,37 @@ const router = new Router({
     {
       path: '/admin/ifMgmt/eigw/programInfo',
       name: 'programInfo',
-      component: () => import('@/views/admin/eigw/ProgramInfo.vue'),
+      component: () => import('@/views/admin/ifMgmt/eigw/ProgramInfo.vue'),
     },
     {
       path: '/admin/ifMgmt/eigw/accListEigw',
       name: 'accListEigw',
-      component: () => import('@/views/admin/ifMgmt/AccListEigw.vue'),
+      component: () => import('@/views/admin/ifMgmt/eigw/AccListEigw.vue'),
     },
     {
       path: '/admin/ifMgmt/eigw/eigwServer',
       name: 'eigwServer',
-      component: () => import('@/views/admin/eigw/EigwServer.vue'),
+      component: () => import('@/views/admin/ifMgmt/eigw/EigwServer.vue'),
     },
     {
       path: '/admin/ifMgmt/eigw/fileListAdmin',
       name: 'fileListAdmin',
-      component: () => import('@/views/admin/eigw/FileListAdmin.vue'),
+      component: () => import('@/views/admin/ifMgmt/eigw/FileListAdmin.vue'),
     },
     {
       path: '/admin/ifMgmt/eigw/onlineListAdmin',
       name: 'onlineListAdmin',
-      component: () => import('@/views/admin/eigw/OnlineListAdmin.vue'),
+      component: () => import('@/views/admin/ifMgmt/eigw/OnlineListAdmin.vue'),
     },
     {
       path: '/admin/ifMgmt/mcg/virtualUserList_MCG',
       name: 'virtualUserList_MCG',
-      component: () => import('@/views/admin/ifMgmt/VirtualUserList_MCG.vue'),
+      component: () => import('@/views/admin/ifMgmt/mcg/VirtualUserList_MCG.vue'),
+    },
+    {
+      path: '/admin/ifMgmt/eai/ifIdListAdmin',
+      name: 'ifIdListAdmin',
+      component: () => import('@/views/admin/ifMgmt/eai/IfIdListAdmin.vue'),
     },
     {
       path: '/admin/portalMgmt/opsAccList',
@@ -202,6 +207,7 @@ const router = new Router({
       name: 'accList',
       component: () => import('@/views/admin/portalMgmt/AccList.vue'),
     },
+
     ],
   },
   {

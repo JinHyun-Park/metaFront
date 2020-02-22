@@ -252,5 +252,6 @@
           </button>
         </section>
       </article>
-  </article></div>
+    </article>
+  </div>
 </template>
