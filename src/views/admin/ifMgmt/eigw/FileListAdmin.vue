@@ -754,13 +754,10 @@
 
 <script>
 
-<<<<<<< HEAD:src/views/admin/eigw/FileListAdmin.vue
 // import SvrListPopup from '@/components/popup/meta/eigw/SvrListPopup.vue';
 // import { fetchEigwAdFileList, fetchEigwFileDtlInfo } from '@/api/eigwApi';
 import * as eigwApi from '@/api/eigwApi';
-=======
 import EigwServerListPopup from '@/components/popup/meta/eigw/EigwServerListPopup.vue';
->>>>>>> 6a1d81f73030999c617317ea8052c81e0cc906ae:src/views/admin/ifMgmt/eigw/FileListAdmin.vue
 
 export default {
   components: {
@@ -854,12 +851,8 @@ export default {
   },
   methods: {
     searchList() {
-<<<<<<< HEAD:src/views/admin/eigw/FileListAdmin.vue
-      // this.$axios.get('/api/eigw/admin/fileList', {
+      // this.$axios.get('/api/eigw/fileList', {
       eigwApi.fetchEigwAdFileList({
-=======
-      this.$axios.get('/api/eigw/fileList', {
->>>>>>> 6a1d81f73030999c617317ea8052c81e0cc906ae:src/views/admin/ifMgmt/eigw/FileListAdmin.vue
         params: {
           mqMngrNm: this.mqMngrNm,
           ifId: this.ifId,
@@ -884,23 +877,14 @@ export default {
           console.log(`error occur!! : ${ex}`);
         });
     },
-<<<<<<< HEAD:src/views/admin/eigw/FileListAdmin.vue
-    detailInfo(i, index) {
-      // this.tgtUrl = '/api/eigw/fileDtlInfo/';
-      if (index != null && index !== '') {
-        this.tgtUrl = `${this.tgtUrl}/${index}`;
-      }
-      // this.$axios.get(this.tgtUrl)
-      eigwApi.fetchEigwFileDtlInfo()
-=======
     detailInfo(i) {
-      this.tgtUrl = '/api/eigw/fileDetail';
-      this.$axios.get(this.tgtUrl, {
+      // this.tgtUrl = '/api/eigw/fileDetail';
+      // this.$axios.get(this.tgtUrl, {
+      eigwApi.fetchEigwFileDetail({
         params: {
           mstFileSeq: this.fileList[i].mstFileNum,
         },
       })
->>>>>>> 6a1d81f73030999c617317ea8052c81e0cc906ae:src/views/admin/ifMgmt/eigw/FileListAdmin.vue
         .then((res) => {
           console.log(res);
           if (res.data.rstCd === 'S') {

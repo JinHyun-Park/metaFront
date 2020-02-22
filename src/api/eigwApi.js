@@ -8,11 +8,11 @@ function fetchEigwServerList(param) {
 }
 
 function fetchEigwAdFileList(param) {
-  return axios.get(`${preUrl}admin/fileList`, param);
+  return axios.get(`${preUrl}fileList`, param);
 }
 
-function fetchEigwFileDtlInfo() {
-  return axios.get(`${preUrl}fileDtlInfo`);
+function fetchEigwFileDetail(param) {
+  return axios.get(`${preUrl}fileDetail`, param);
 }
 
 function fetchEigwMetaSaveInfo(saveInfo) {
@@ -30,7 +30,7 @@ function fetchEigwMetaSaveChrgr(idList) {
 export {
   fetchEigwServerList,
   fetchEigwAdFileList,
-  fetchEigwFileDtlInfo,
+  fetchEigwFileDetail,
   fetchEigwMetaSaveInfo,
   fetchEigwMetaSaveServe,
   fetchEigwMetaSaveChrgr,
