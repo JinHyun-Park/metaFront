@@ -65,6 +65,7 @@
 
 <script>
 import { mapActions } from 'vuex';
+import { fetchResetPasswd } from '@/api/loginApi';
 
 export default {
   name: 'ResetPwdPopup',
@@ -88,14 +89,14 @@ export default {
         juminNo: this.juminNo,
         mblPhonNum: this.mblPhonNum,
       };
-      this.$axios.post('/api/user/reqresetpasswd', reqData)
+      fetchResetPasswd(reqData)
         .then((res) => {
           if (res.data.rstCd === 'S') {
             console.log(res.headers);
             this.popResetPage();
           } else {
             // eslint-disable-next-line no-alert
-            alert(res.data.rstMsg);
+            // alert(res.data.rstMsg);
           }
         })
         .catch((ex) => {

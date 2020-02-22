@@ -738,6 +738,8 @@
 <script>
 
 // import SvrListPopup from '@/components/popup/meta/eigw/SvrListPopup.vue';
+// import { fetchEigwAdFileList, fetchEigwFileDtlInfo } from '@/api/eigwApi';
+import * as eigwApi from '@/api/eigwApi';
 
 export default {
   data() {
@@ -792,7 +794,8 @@ export default {
   },
   methods: {
     searchList() {
-      this.$axios.get('/api/eigw/admin/fileList', {
+      // this.$axios.get('/api/eigw/admin/fileList', {
+      eigwApi.fetchEigwAdFileList({
         params: {
           mqMngrNm: this.mqMngrNm,
           ifId: this.ifId,
@@ -815,11 +818,12 @@ export default {
         });
     },
     detailInfo(i, index) {
-      this.tgtUrl = '/api/eigw/fileDtlInfo/';
+      // this.tgtUrl = '/api/eigw/fileDtlInfo/';
       if (index != null && index !== '') {
         this.tgtUrl = `${this.tgtUrl}/${index}`;
       }
-      this.$axios.get(this.tgtUrl)
+      // this.$axios.get(this.tgtUrl)
+      eigwApi.fetchEigwFileDtlInfo()
         .then((res) => {
           console.log(res);
           if (res.data.rstCd === 'S') {
@@ -922,7 +926,8 @@ export default {
           retrmsGap: this.agency_retrmsGap,
         },
       };
-      this.$axios.post('/api/eigw/file/MetaInfo/save', this.saveInfo)
+      // this.$axios.post('/api/eigw/file/MetaInfo/save', this.saveInfo)
+      eigwApi.fetchEigwMetaSaveInfo(this.saveInfo)
         .then((res) => {
           console.log('meta data save!');
           console.log(res);
@@ -930,7 +935,8 @@ export default {
         .catch((ex) => {
           console.log(`metainfo save error occur!! : ${ex}`);
         });
-      this.$axios.post('/api/eigw/file/MetaInfo/servesave', this.serveList)
+      // this.$axios.post('/api/eigw/file/MetaInfo/servesave', this.serveList)
+      eigwApi.fetchEigwMetaSaveServe(this.serveList)
         .then((res) => {
           console.log('meta data save!');
           console.log(res);
@@ -983,7 +989,8 @@ export default {
       //   chrgrTyp: 'out',
       // };
       // alert(this.saveChrgrInfo);
-      this.$axios.post('/api/eigw/file/MetaInfo/chrgrsave', this.userIdList)
+      // this.$axios.post('/api/eigw/file/MetaInfo/chrgrsave', this.userIdList)
+      eigwApi.fetchEigwMetaSaveChrgr(this.userId)
         .then((res) => {
           console.log('meta data save');
           console.log(res);
@@ -1018,7 +1025,8 @@ export default {
           chrgrTyp: 'out',
         });
       }
-      this.$axios.post('/api/eigw/file/MetaInfo/chrgrsave', this.outuserIdList)
+      // this.$axios.post('/api/eigw/file/MetaInfo/chrgrsave', this.outuserIdList)
+      eigwApi.fetchEigwMetaSaveChrgr(this.outuserIdList)
         .then((res) => {
           console.log('meta data save');
           console.log(res);
@@ -1038,7 +1046,8 @@ export default {
           chrgrTyp: 'in',
         });
       }
-      this.$axios.post('/api/eigw/file/MetaInfo/chrgrsave', this.inuserIdList)
+      // this.$axios.post('/api/eigw/file/MetaInfo/chrgrsave', this.inuserIdList)
+      eigwApi.fetchEigwMetaSaveChrgr(this.inuserIdList)
         .then((res) => {
           console.log('meta data save');
           console.log(res);
@@ -1061,7 +1070,8 @@ export default {
           // instCd : '',
         });
       }
-      this.$axios.post('/api/eigw/file/MetaInfo/servesave', this.serveSaveInfo)
+      // this.$axios.post('/api/eigw/file/MetaInfo/servesave', this.serveSaveInfo)
+      eigwApi.fetchEigwMetaSaveServe(this.serveSaveInfo)
         .then((res) => {
           console.log('meta data save');
           console.log(res);

@@ -153,6 +153,8 @@
 </template>
 
 <script>
+import { fetchSearchBoard } from '@/api/bizCommApi';
+
 export default {
   name: 'NoticeMain',
   data() {
@@ -183,8 +185,9 @@ export default {
     },
 
     searchList() {
-      this.tgtUrl = '/api/bizcomm/board';
-      this.$axios.get(this.tgtUrl, {
+      // this.tgtUrl = '/api/bizcomm/board';
+      // this.$axios.get(this.tgtUrl, {
+      fetchSearchBoard({
         params: {
           pageNo: this.pageSet.pageNo,
           size: this.pageSet.size,

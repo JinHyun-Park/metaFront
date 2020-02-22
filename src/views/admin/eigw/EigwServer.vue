@@ -46,9 +46,15 @@
         <div class="column on w-1">
           <label class="column_label">사용여부</label>
           <select v-model="useYn">
-            <option value="">전체</option>
-            <option value="Y">사용</option>
-            <option value="N">미사용</option>
+            <option value="">
+              전체
+            </option>
+            <option value="Y">
+              사용
+            </option>
+            <option value="N">
+              미사용
+            </option>
           </select>
         </div>
         <div class="column w-1">
@@ -168,6 +174,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex';
+import { fetchEigwServerList } from '@/api/eigwApi';
 
 export default {
   data() {
@@ -198,8 +205,9 @@ export default {
     ...mapActions('frameSet', ['setResetPopOn']),
     ...mapActions('ccCdLst', ['setCcCdList']),
     searchList() {
-      this.tgtUrl = '/api/eigw/serverList';
-      this.$axios.get(this.tgtUrl, {
+      // this.tgtUrl = '/api/eigw/serverList';
+      // this.$axios.get(this.tgtUrl, {
+      fetchEigwServerList({
         params: {
           // pageSet: this.pageSet,
           pageNo: this.pageSet.pageNo,

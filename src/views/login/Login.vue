@@ -86,6 +86,7 @@
 <script>
 import { mapState, mapActions } from 'vuex';
 import ResetPwdPopup from '@/components/popup/login/ResetPwdPopup.vue';
+import { fetchLoginProc, fetchGetUserInfo } from '@/api/loginApi';
 
 export default {
   components: {
@@ -123,7 +124,7 @@ export default {
       form.append('userId', this.user_id);
       form.append('userPw', this.user_pw);
 
-      this.$axios.post('/api/loginProc', form)
+      fetchLoginProc(form)
         .then((res) => {
           if (res.status === 200) {
             console.log(res.headers);
@@ -139,11 +140,7 @@ export default {
         });
     },
     getUserInfo() {
-      this.$axios.get('/api/user', {
-        param: {
-          userId: this.user_id,
-        },
-      })
+      fetchGetUserInfo(this.user_id)
         .then((res) => {
           if (res.status === 200) {
             this.hanNm = res.data.rstData.userList[0].hanNm;
