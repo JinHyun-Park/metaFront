@@ -187,6 +187,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex';
+import { fetchServerList } from '@/api/bizCommApi';
 
 export default {
   name: 'SvrListPopup',
@@ -225,8 +226,9 @@ export default {
   methods: {
     ...mapActions('ccCdLst', ['setCcCdList']),
     searchList() {
-      this.tgtUrl = '/api/bizcomm/server';
-      this.$axios.get(this.tgtUrl, {
+      // this.tgtUrl = '/api/bizcomm/server';
+      // this.$axios.get(this.tgtUrl, {
+      fetchServerList({
         params: {
           pageNo: this.pageSet.pageNo,
           size: this.pageSet.size,

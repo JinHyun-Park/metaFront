@@ -126,6 +126,8 @@
 </template>
 
 <script>
+import { fetchGetEaiChannelList, fetchPostEaiChannelList } from '@/api/eaiApi';
+
 export default {
   data() {
     return {
@@ -142,7 +144,8 @@ export default {
   methods: {
     listing() {
       console.log('채널 목록 조회!');
-      this.$axios.get('/api/eai/channel', {
+      // this.$axios.get('/api/eai/channel', {
+      fetchGetEaiChannelList({
         params: {
           pageNo: this.pageSet.pageNo,
           size: this.size,
@@ -163,7 +166,14 @@ export default {
     save() {
       console.log('채널 정보 등록!');
       console.log(this.chnlNm);
-      this.$axios.post('/api/eai/channel/post', { chnlNm: this.chnlNm, eaiIfId: this.eaiIfId, useYn: this.useYn })
+      // this.$axios.post('/api/eai/channel/post', {  })
+      fetchPostEaiChannelList({
+        params: {
+          chnlNm: this.chnlNm,
+          eaiIfId: this.eaiIfId,
+          useYn: this.useYn,
+        },
+      })
         .then((res) => {
           console.log(res);
           this.listing();

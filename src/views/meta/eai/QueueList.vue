@@ -166,6 +166,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex';
+import { fetchGetEaiQueueList } from '@/api/eaiApi';
 import MqMngrListPopup from '@/components/popup/meta/eai/MqMngrListPopup.vue';
 
 export default {
@@ -204,7 +205,8 @@ export default {
     ...mapActions('ccCdLst', ['setCcCdList']),
     listing() {
       console.log('큐 목록 조회!');
-      this.$axios.get('/api/eai/queue', {
+      // this.$axios.get('/api/eai/queue', {
+      fetchGetEaiQueueList({
         params: {
           pageNo: this.pageSet.pageNo,
           pageCount: this.pageSet.pageCount,

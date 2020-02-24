@@ -169,6 +169,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex';
+import { fetchGetEigwServerList } from '@/api/eigwApi';
 
 export default {
   name: 'EigwServerListPopup',
@@ -208,8 +209,9 @@ export default {
     ...mapActions('frameSet', ['setResetPopOn']),
     ...mapActions('ccCdLst', ['setCcCdList']),
     searchList() {
-      this.tgtUrl = '/api/eigw/serverList';
-      this.$axios.get(this.tgtUrl, {
+      // this.tgtUrl = '/api/eigw/serverList';
+      // this.$axios.get(this.tgtUrl, {
+      fetchGetEigwServerList({
         params: {
           // pageSet: this.pageSet,
           pageNo: this.pageSet.pageNo,

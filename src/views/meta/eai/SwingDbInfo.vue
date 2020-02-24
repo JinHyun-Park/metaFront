@@ -295,6 +295,8 @@
 </template>
 
 <script>
+import { fetchGetEaiSwgSndList, fetchGetEaiSwgRcvList, fetchPostEaiSwgSnd } from '@/api/eaiApi';
+
 export default {
   data() {
     return {
@@ -323,7 +325,8 @@ export default {
   methods: {
     listingSnd() {
       console.log('SWING 송신 정보 조회!');
-      this.$axios.get('/api/eai/swg/snd', {
+      // this.$axios.get('/api/eai/swg/snd', {
+      fetchGetEaiSwgSndList({
         params: {
           pageNo: this.pageSet.pageNo,
           pageCount: this.pageSet.pageCount,
@@ -345,7 +348,8 @@ export default {
     },
     listingRcv() {
       console.log('SWING 수신 정보 조회!');
-      this.$axios.get('/api/eai/swg/rcv', {
+      // /this.$axios.get('/api/eai/swg/rcv', {
+      fetchGetEaiSwgRcvList({
         params: {
           pageNo: this.rPageSet.pageNo,
           pageCount: this.rPageSet.pageCount,
@@ -376,7 +380,8 @@ export default {
         sndAdt: this.sndAdt,
         useYn: this.useYn,
       };
-      this.$axios.post('/api/eai/swg/snd', this.saveSndTbl)
+      // this.$axios.post('/api/eai/swg/snd', this.saveSndTbl)
+      fetchPostEaiSwgSnd(this.saveSndTbl)
         .then((res) => {
           console.log(res);
           this.listing();

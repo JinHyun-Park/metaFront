@@ -173,6 +173,7 @@
 
 <script>
 import ServerListPopup from '@/components/popup/bizcomm/ServerListPopup.vue';
+import { fetchGetEaiMqMngrList } from '@/api/eaiApi';
 
 export default {
   name: 'QueueMgrList',
@@ -198,7 +199,8 @@ export default {
   },
   methods: {
     searchList() {
-      this.$axios.get('/api/eai/mqMngr', {
+      // this.$axios.get('/api/eai/mqMngr', {
+      fetchGetEaiMqMngrList({
         params: {
           mqMngrNm: this.mqMngrNm,
           hostNm: this.hostNm,
