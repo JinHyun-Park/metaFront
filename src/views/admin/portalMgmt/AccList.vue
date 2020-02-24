@@ -167,6 +167,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex';
+import { fetchGetUserInfoList } from '@/api/loginApi';
 
 export default {
   /* eslint-disable */
@@ -185,8 +186,9 @@ export default {
   methods: {
     ...mapActions('frameSet', ['setResetPopOn']),
     searchList() {
-      this.tgtUrl = '/api/user';
-      this.$axios.get(this.tgtUrl, {
+      //this.tgtUrl = '/api/user';
+      //this.$axios.get(this.tgtUrl, {
+      fetchGetUserInfoList({  
         params: {
           pageNo: this.pageSet.pageNo,
           size: this.pageSet.size,

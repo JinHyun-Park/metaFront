@@ -167,6 +167,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex';
+import { fetchGetEaiMqMngrList } from '@/api/eaiApi';
 
 export default {
   name: 'QueueListPopup',
@@ -201,7 +202,8 @@ export default {
   methods: {
     ...mapActions('ccCdLst', ['setCcCdList']),
     listing() {
-      this.$axios.get('/api/eai/mqMngr', {
+      // this.$axios.get('/api/eai/mqMngr', {
+      fetchGetEaiMqMngrList({
         params: {
           mqMngrNm: this.mqMngrNm,
           hostNm: this.hostNm,

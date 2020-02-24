@@ -126,6 +126,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex';
+import { fetchGetInstCdList, fetchDeleteInstCdList } from '@/api/bizCommApi';
 
 export default {
   name: 'InstList',
@@ -142,8 +143,9 @@ export default {
   methods: {
     ...mapActions('frameSet', ['setResetPopOn']),
     searchList() {
-      this.tgtUrl = '/api/bizcomm/inst_cd';
-      this.$axios.get(this.tgtUrl, {
+      // this.tgtUrl = '/api/bizcomm/inst_cd';
+      // this.$axios.get(this.tgtUrl, {
+      fetchGetInstCdList({
         params: {
           pageNo: this.pageSet.pageNo,
           size: this.pageSet.size,
@@ -166,8 +168,9 @@ export default {
         });
     },
     delList(i) {
-      this.tgtUrl = '/api/bizcomm/inst_cd';
-      this.$axios.delete(this.tgtUrl, {
+      // this.tgtUrl = '/api/bizcomm/inst_cd';
+      // this.$axios.delete(this.tgtUrl, {
+      fetchDeleteInstCdList({
         params: this.instList[i],
       })
         .then((res) => {

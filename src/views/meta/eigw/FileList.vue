@@ -114,13 +114,13 @@
                 {{ row.eaiIfId }}
               </li>
               <li class="td_cell">
-                {{ row.dvpSvrRealIp }}<br/>({{ row.dvpSvrNatIp }})
+                {{ row.dvpSvrRealIp }}<br>({{ row.dvpSvrNatIp }})
               </li>
               <li class="td_cell">
                 {{ row.dvpSvrPort }}
               </li>
               <li class="td_cell">
-                {{ row.prodSvrRealIp }}<br/>({{row.prodSvrNatIp }})
+                {{ row.prodSvrRealIp }}<br>({{ row.prodSvrNatIp }})
               </li>
               <li class="td_cell">
                 {{ row.prodSvrPort }}
@@ -390,6 +390,8 @@
 </template>
 
 <script>
+import { fetchEigwAdFileList, fetchEigwFileDetail } from '@/api/eigwApi';
+
 export default {
   data() {
     return {
@@ -407,7 +409,8 @@ export default {
   },
   methods: {
     searchList() {
-      this.$axios.get('/api/eigw/fileList', {
+      // this.$axios.get('/api/eigw/fileList', {
+      fetchEigwAdFileList({
         params: {
           fileNm: this.fileNm,
           reqIp: this.reqIp,
@@ -430,8 +433,9 @@ export default {
         });
     },
     detailInfo(i) {
-      this.tgtUrl = '/api/eigw/fileDetail';
-      this.$axios.get(this.tgtUrl, {
+      // this.tgtUrl = '/api/eigw/fileDetail';
+      // this.$axios.get(this.tgtUrl, {
+      fetchEigwFileDetail({
         params: {
           mstFileSeq: this.fileList[i].mstFileNum,
         },

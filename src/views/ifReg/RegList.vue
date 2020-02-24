@@ -156,6 +156,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex';
+import { fetchGetIfRegList } from '@/api/ifRegApi';
 
 export default {
   /* eslint-disable */
@@ -187,8 +188,9 @@ export default {
   methods: {
     ...mapActions('frameSet', ['setResetPopOn']),
     searchList() {
-      this.tgtUrl = '/api/ifreq/list';
-      this.$axios.get(this.tgtUrl, {
+      //this.tgtUrl = '/api/ifreq/list';
+      //this.$axios.get(this.tgtUrl, {
+      fetchGetIfRegList({
         params: {
           pageNo: this.pageSet.pageNo,
           size: this.pageSet.size,
