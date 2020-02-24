@@ -132,7 +132,7 @@
                   {{ server.hostNm }}
                 </li>
                 <li
-                  class="td_cell"
+                  class="td_cell click_btn"
                   @click="addData(index)"
                 >
                   {{ server.svrIp }}
