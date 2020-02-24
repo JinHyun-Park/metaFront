@@ -351,6 +351,12 @@ body::-webkit-scrollbar, */
         background: url(../images/ico-unlock.png) center center no-repeat;
         background-size: 100%
     }
+
+    /* click event */
+    .click_btn.on,
+    .click_btn:hover {
+        cursor: pointer;
+    }
     
     h1>.bi,
     h2>.bi_login {
