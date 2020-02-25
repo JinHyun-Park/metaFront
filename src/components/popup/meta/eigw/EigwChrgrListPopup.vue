@@ -3,22 +3,22 @@
     <i class="dim" />
     <article class="layer_popup medium">
       <section class="title style-2">
-        <h2><i class="ico-bar" />담당자 정보 조회</h2>
+        <h2><i class="ico-bar" />대외 담당자 조회</h2>
       </section>
       <section class="form_area border_group">
-        <div class="row_contain type-3 last">
-          <div class="column on w-2">
-            <label class="column_label">사용자ID</label>
+        <div class="row_contain last">
+          <div class="column on w-3">
+            <label class="column_label">이름</label>
             <input
-              v-model="userId"
+              v-model="hanNm"
               type="text"
               value=""
             >
           </div>
-          <div class="column on w-2">
-            <label class="column_label">사용자명</label>
+          <div class="column w-3">
+            <label class="column_label">대외기관</label>
             <input
-              v-model="hanNm"
+              v-model="instCd"
               type="text"
               value=""
             >
@@ -29,23 +29,20 @@
               <button
                 type="button"
                 class="default_button on"
-                @click="searchList()"
+                @click="searchList"
               >
                 검색
               </button>
             </div>
           </div>
         </div>
+
         <div class="table_colgroup">
           <div class="table_grid radio_group">
             <div class="table_head w-auto">
               <ul>
-                <li class="th_cell" />
                 <li class="th_cell">
-                  사용자ID
-                </li>
-                <li class="th_cell">
-                  사용자구분
+                  ID
                 </li>
                 <li class="th_cell">
                   기관코드
@@ -54,96 +51,54 @@
                   한글명
                 </li>
                 <li class="th_cell">
-                  생년월일
-                </li>
-                <li class="th_cell">
-                  기관코드
-                </li>
-                <li class="th_cell">
                   직급
                 </li>
                 <li class="th_cell">
-                  연락처
+                  유선번호
                 </li>
                 <li class="th_cell">
-                  핸드폰
+                  휴대번호
                 </li>
                 <li class="th_cell">
                   이메일
                 </li>
                 <li class="th_cell">
-                  OPSID
-                </li>
-                <li class="th_cell">
-                  고객구분
-                </li>
-                <li class="th_cell">
-                  삭제여부
-                </li>
-                <li class="th_cell">
-                  생성일자
-                </li>
-                <li class="th_cell">
-                  수정일자
+                  비고
                 </li>
               </ul>
             </div>
             <div class="table_body">
               <ul
-                v-for="(chrgr, i) in chrgrList"
-                :key="chrgr.userId"
+                v-for="(row, i) in eigwChrgrInfoList"
+                :key="row.userId"
                 class="table_row w-auto"
               >
                 <li class="td_cell">
-                  {{ i+1 }}
+                  {{ row.userId }}
                 </li>
                 <li class="td_cell">
-                  {{ chrgr.userId }}
-                </li>
-                <li class="td_cell">
-                  {{ chrgr.userGb }}
-                </li>
-                <li class="td_cell">
-                  {{ chrgr.instCd }}
+                  {{ row.instCd }}
                 </li>
                 <li
                   class="td_cell"
                   @click="addData(i)"
                 >
-                  {{ chrgr.hanNm }}
+                  {{ row.hanNm }}
                 </li>
                 <li class="td_cell">
-                  {{ chrgr.juminNo }}
+                  {{ row.ofcLvlNm }}
                 </li>
                 <li class="td_cell">
-                  {{ chrgr.orgCd }}
+                  {{ row.offcPhonNum }}
                 </li>
                 <li class="td_cell">
-                  {{ chrgr.ofcLvlNm }}
+                  {{ row.mblPhonNum }}
                 </li>
                 <li class="td_cell">
-                  {{ chrgr.offcPhonNum }}
+                  {{ row.emailAddr }}
                 </li>
                 <li class="td_cell">
-                  {{ chrgr.mblPhonNum }}
-                </li>
-                <li class="td_cell">
-                  {{ chrgr.emailAddr }}
-                </li>
-                <li class="td_cell">
-                  {{ chrgr.opsId }}
-                </li>
-                <li class="td_cell">
-                  {{ chrgr.customerGb }}
-                </li>
-                <li class="td_cell">
-                  {{ chrgr.delYn }}
-                </li>
-                <li class="td_cell">
-                  {{ chrgr.creDt }}
-                </li>
-                <li class="td_cell">
-                  {{ chrgr.chgDt }}
+                  {{ row.opDtl }}
                 </li>
               </ul>
             </div>
@@ -155,7 +110,7 @@
             :page-count="pageSet.pageCount"
             :page-range="3"
             :margin-pages="1"
-            :click-handler="pageChanged"
+            :click-handler="searchList"
             :prev-text="'이전'"
             :next-text="'다음'"
             :container-class="'pagination'"
@@ -176,47 +131,61 @@
           type="button"
           class="default_button on"
         >
-          추가
+          선택
         </button>
       </section>
     </article>
   </div>
 </template>
 
-
 <script>
 import { mapState, mapActions } from 'vuex';
-import { fetchGetChrgrInfo } from '@/api/bizCommApi';
+import { fetchGetEigwChrgrInfo } from '@/api/eigwApi';
 
 export default {
   data() {
     return {
-      chrgrList: [],
-      tgtUrl: '',
-      userId: '',
-      hanNm: '',
+      eigwChrgrInfoList: [],
       pageSet: { pageNo: 1, pageCount: 0, size: 5 },
+
+      tgtUrl: '',
+      instCd: '',
+      hanNm: '',
     };
   },
   computed: {
     ...mapState('frameSet', ['resetPopOn']),
+    ...mapState('ccCdLst', ['ccCdList']),
+  },
+  mounted() {
+    this.setCcCdList({
+      opClCd: 'COMM', cdId: 'SVR_TYP_CD', allYn: 'Y', listNm: 'syrTypCd',
+    });
+    this.setCcCdList({
+      opClCd: 'COMM', cdId: 'IP_TYP', allYn: 'Y', listNm: 'ipTyp',
+    });
   },
   methods: {
     ...mapActions('frameSet', ['setResetPopOn']),
+    ...mapActions('ccCdLst', ['setCcCdList']),
     searchList() {
-      const param = {
-        userId: this.userId,
-        hanNm: this.hanNm,
-        pageNo: this.pageSet.pageNo,
-        size: this.pageSet.size,
-      };
-
-      fetchGetChrgrInfo({ params: param })
+      fetchGetEigwChrgrInfo({
+        params: {
+          // pageSet: this.pageSet,
+          pageNo: this.pageSet.pageNo,
+          size: this.pageSet.size,
+          hanNm: this.hanNm,
+          instCd: this.instCd,
+        },
+      })
         .then((res) => {
           console.log(res);
           if (res.data.rstCd === 'S') {
-            this.chrgrList = res.data.rstData.chrgrInfo;
+            this.eigwChrgrInfoList = res.data.rstData.searchList;
             this.pageSet = res.data.rstData.pageSet;
+          } else {
+            // eslint-disable-next-line no-alert
+            alert('failed');
           }
         })
         .catch((ex) => {
@@ -231,7 +200,7 @@ export default {
       this.$emit('closePop', 'Hellos');
     },
     addData(i) {
-      this.$emit('addData', this.chrgrList[i]);
+      this.$emit('addData', this.eigwChrgrInfoList[i]);
     },
   },
 };

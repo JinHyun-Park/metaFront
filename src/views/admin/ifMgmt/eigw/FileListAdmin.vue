@@ -6,6 +6,18 @@
       @closePop="turOffSvrPop"
       @addData="addData"
     />
+    <ChrgrListPopup
+      v-if="svrOnChrgr"
+      v-bind="propsChrgr"
+      @closePop="turOffSvrPopChrgr"
+      @addData="addDataChrgr"
+    />
+    <EigwChrgrListPopup
+      v-if="svrOnEigwChrgr"
+      v-bind="propsEigwChrgr"
+      @closePop="turOffSvrPopChrgr"
+      @addData="addDataChrgr"
+    />
     <section class="title style-1">
       <h2>
         <div>
@@ -610,7 +622,7 @@
           <button
             type="button"
             class="default_button on"
-            @click="addInchrgrList()"
+            @click="addchrgrList(1)"
           >
             추가
           </button>
@@ -627,13 +639,16 @@
               기관
             </li>
             <li class="th_cell">
-              부서
-            </li>
-            <li class="th_cell">
               이름
             </li>
             <li class="th_cell">
+              직급
+            </li>
+            <li class="th_cell">
               연락처
+            </li>
+            <li class="th_cell">
+              핸드폰
             </li>
             <li class="th_cell">
               E-mail
@@ -644,28 +659,38 @@
         </div>
         <div class="table_body">
           <ul
-            v-for="(inuser,i) in inchrgrList"
+            v-for="(inuser, i) in inchrgrList"
             :key="inuser.UserId"
             class="table_row form_type except w-auto"
           >
             <li class="td_cell">
               {{ i+1 }}
             </li>
-            <li
-              v-for="(inUserInfo, j) in inuser"
-              :key="j"
-              class="td_cell"
-            >
-              {{ inUserInfo }}
+            <li class="td_cell">
+              {{ inuser.userId }}
+            </li>
+            <li class="td_cell">
+              {{ inuser.instCd }}
+            </li>
+            <li class="td_cell">
+              {{ inuser.hanNm }}
+            </li>
+            <li class="td_cell">
+              {{ inuser.ofcLvlNm }}
+            </li>
+            <li class="td_cell">
+              {{ inuser.offcPhonNum }}
+            </li>
+            <li class="td_cell">
+              {{ inuser.mblPhonNum }}
+            </li>
+            <li class="td_cell">
+              {{ inuser.emailAddr }}
             </li>
             <li class="td_cell">
               <i
-                class="ico-edit"
-                @click="editInchrgrList(i)"
-              />
-              <i
                 class="ico-del"
-                @click="inuserdelList(i)"
+                @click="delInuserList(i)"
               />
             </li>
           </ul>
@@ -679,7 +704,7 @@
           <button
             type="button"
             class="default_button on"
-            @click="addOutchrgrList()"
+            @click="addchrgrList(2)"
           >
             추가
           </button>
@@ -696,16 +721,22 @@
               기관
             </li>
             <li class="th_cell">
-              부서
-            </li>
-            <li class="th_cell">
               이름
             </li>
             <li class="th_cell">
-              연락처
+              직급
+            </li>
+            <li class="th_cell">
+              유선전화
+            </li>
+            <li class="th_cell">
+              휴대전화
             </li>
             <li class="th_cell">
               E-mail
+            </li>
+            <li class="th_cell">
+              비고
             </li>
             <li class="th_cell" />
           </ul>
@@ -719,21 +750,34 @@
             <li class="td_cell">
               {{ i+1 }}
             </li>
-            <li
-              v-for="(outUserInfo,k) in outuser"
-              :key="k"
-              class="td_cell"
-            >
-              {{ outUserInfo }}
+            <li class="td_cell">
+              {{ outuser.userId }}
+            </li>
+            <li class="td_cell">
+              {{ outuser.instCd }}
+            </li>
+            <li class="td_cell">
+              {{ outuser.hanNm }}
+            </li>
+            <li class="td_cell">
+              {{ outuser.ofcLvlNm }}
+            </li>
+            <li class="td_cell">
+              {{ outuser.offcPhonNum }}
+            </li>
+            <li class="td_cell">
+              {{ outuser.mblPhonNum }}
+            </li>
+            <li class="td_cell">
+              {{ outuser.emailAddr }}
+            </li>
+            <li class="td_cell">
+              {{ outuser.opDtl }}
             </li>
             <li class="td_cell">
               <i
-                class="ico-edit"
-                @click="editOutchrgrList(i)"
-              />
-              <i
                 class="ico-del"
-                @click="outuserdelList(i)"
+                @click="delOutuserList(i)"
               />
             </li>
           </ul>
@@ -754,19 +798,30 @@
 
 <script>
 
-// import SvrListPopup from '@/components/popup/meta/eigw/SvrListPopup.vue';
 // import { fetchEigwAdFileList, fetchEigwFileDtlInfo } from '@/api/eigwApi';
 import * as eigwApi from '@/api/eigwApi';
 import EigwServerListPopup from '@/components/popup/meta/eigw/EigwServerListPopup.vue';
+import ChrgrListPopup from '@/components/popup/bizcomm/ChrgrListPopup.vue';
+import EigwChrgrListPopup from '@/components/popup/meta/eigw/EigwChrgrListPopup.vue';
 
 export default {
   components: {
     EigwServerListPopup,
+    ChrgrListPopup,
+    EigwChrgrListPopup,
   },
   data() {
     return {
       svrOn: false,
       props: { // 조회 시 parameter에 사용자 정보를 담아주려면 여기를 통해 넘겨주세요.
+        message: '', // 사용방법 예시 데이터
+      },
+      svrOnChrgr: false,
+      svrOnEigwChrgr: false,
+      propsChrgr: { // 조회 시 parameter에 사용자 정보를 담아주려면 여기를 통해 넘겨주세요.
+        message: '', // 사용방법 예시 데이터
+      },
+      propsEigwChrgr: { // 조회 시 parameter에 사용자 정보를 담아주려면 여기를 통해 넘겨주세요.
         message: '', // 사용방법 예시 데이터
       },
       serverPopupCase: '',
@@ -840,9 +895,8 @@ export default {
         prodSvrPort: '',
       },
 
-      serveList: '',
-      inchrgrList: '',
-      outchrgrList: '',
+      inchrgrList: [],
+      outchrgrList: [],
       inuserIdList: '',
       outuserIdList: '',
       userIdList: '',
@@ -900,6 +954,7 @@ export default {
           console.log(`error occur!! : ${ex}`);
         });
     },
+    // TO-DO
     save() {
       this.saveInfo = {
         mstFileNum: this.mstFileNum,
@@ -935,6 +990,7 @@ export default {
         this.parseOutUserId();
       }
     },
+
     turnOnSvrPop(val) {
       this.serverPopupCase = val;
       this.svrOn = true;
@@ -956,10 +1012,34 @@ export default {
       }
       this.svrOn = false;
     },
-    delList(i) {
-      if (this.$gf.confirmOn(`${this.serveList[i].svrRealIp} 서버 정보를 삭제하시겠습니까?`)) {
-        // i 번째 행 리스트에서 제거
+    addchrgrList(val) {
+      this.serverPopupCase = val;
+      if (val === 1) {
+        this.svrOnChrgr = true;
+      } else if (val === 2) {
+        this.svrOnEigwChrgr = true;
       }
+    },
+    turOffSvrPopChrgr(val) {
+      console.log(`Popup에서 받아온 Data : ${val}`);
+      this.svrOnChrgr = false;
+      this.svrOnEigwChrgr = false;
+    },
+    addDataChrgr(val) {
+      console.log(`Popup에서 받아온 Data : ${val}`);
+      if (this.serverPopupCase === 1) {
+        this.inchrgrList.push(val);
+      } else {
+        this.outchrgrList.push(val);
+      }
+      this.svrOnChrgr = false;
+      this.svrOnEigwChrgr = false;
+    },
+    delInuserList(i) {
+      this.inchrgrList.splice(i, 1);
+    },
+    delOutuserList(i) {
+      this.outchrgrList.splice(i, 1);
     },
     editInchrgrList(i) {
       this.$gf.alertOn(this.inchrgrList[i]);
@@ -967,8 +1047,6 @@ export default {
         0: '', 1: '', 2: '', 3: '', 4: '',
       };
       this.inchrgrList.push(info);
-    },
-    addInchrgrList() {
     },
     editOutchrgrList(i, index) {
       console.log(`i : ${i}, index : ${index}`);
@@ -992,8 +1070,6 @@ export default {
           console.log(`chrgr save error occur!! : ${ex}`);
         });
     //  }
-    },
-    addOutchrgrList() {
     },
     parseUserId() {
       this.userIdList = [];
