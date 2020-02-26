@@ -6,7 +6,8 @@ module.exports = {
   extends: [
     'plugin:vue/recommended', // essential에서 recommended로 변경
     '@vue/airbnb',
-    "@vue/prettier"
+    '@vue/prettier',
+    'prettier',
   ],
   rules: {
     "prettier/prettier": ['error', {
