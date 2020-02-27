@@ -10,7 +10,6 @@
     "dependencies": {
         "@livelybone/vue-datepicker": "^3.1.0",
         "@vue/cli": "^3.9.2",
-        "@vue/eslint-config-prettier": "^6.0.0",
         "babel-cli": "^6.26.0",
         "babel-polyfill": "^6.26.0",
         "bootstrap": "^3.4.1",
@@ -42,7 +41,6 @@
         "eslint": "^5.16.0",
         "eslint-import-resolver-webpack": "^0.11.1",
         "eslint-plugin-vue": "^5.0.0",
-        "prettier": "^1.19.1",
         "vue-cli-plugin-axios": "^0.0.4",
         "vue-template-compiler": "^2.6.10",
         "webpack": "^4.35.3",
