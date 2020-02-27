@@ -3,10 +3,7 @@
     <section class="title style-1">
       <h2>
         <div>
-          <i class="ico-bar" />MCG 채널 신청
-        </div>
-        <div class="breadcrumb">
-          <span>EGIW</span><em class="on">EAI</em>
+          <i class="ico-bar" />인터페이스 신청
         </div>
       </h2>
     </section>
@@ -14,13 +11,13 @@
     <section class="progress">
       <ul>
         <li
-          class="step"
+          class="step on"
           @click="tabChange(1)"
         >
           1. 기본정보 입력
         </li>
         <li
-          class="step on"
+          class="step"
           @click="tabChange(2)"
         >
           2. 인터페이스 상세정보 입력
