@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-const preUrl = '/api/ifReg';
+const preUrl = '/api/ifreg';
 
 function fetchGetIfRegList(param) {
   return axios.get(`${preUrl}/list`, param);

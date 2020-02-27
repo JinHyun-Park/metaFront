@@ -3,7 +3,7 @@
     <section class="title style-1">
       <h2>
         <div>
-          <i class="ico-bar" />인터페이스 신청 목록
+          <i class="ico-bar" />?씤?꽣?럹?씠?뒪 ?떊泥? 紐⑸줉
         </div>
         <div class="breadcrumb">
           <span>EGIW</span><em class="on">EAI</em>
@@ -12,26 +12,27 @@
     </section>
     <section class="form_area border_group">
       <h5 class="s_tit type-2">
-        기본 정보
+        湲곕낯 ?젙蹂?
         <div class="right_button_area">
           <button
             type="button"
             class="default_button"
             @click="searchList"
           >
-            검색
+            寃??깋
           </button>
           <button
             type="button"
             class="default_button on"
+            @click="newApply"
           >
-            신규신청
+            ?떊洹쒖떊泥?
           </button>
         </div>
       </h5>
       <div class="row_contain type-3">
         <div class="column on w-2">
-          <label class="column_label">조회기간</label>
+          <label class="column_label">議고쉶湲곌컙</label>
           <div class="calander_group first_cal">
             <input
               v-model="startReqDtm"
@@ -73,7 +74,7 @@
           </div>
         </div>
         <div class="column w-4">
-          <label class="column_label">검색어</label>
+          <label class="column_label">寃??깋?뼱</label>
           <div class="search_group">
             <input
               v-model="reqTitle"
@@ -87,19 +88,19 @@
         <div class="table_head w-auto">
           <ul>
             <li class="th_cell">
-              신청번호
+              ?떊泥?踰덊샇
             </li>
             <li class="th_cell">
-              신청제목
+              ?떊泥??젣紐?
             </li>
             <li class="th_cell">
-              진행상태
+              吏꾪뻾?긽?깭
             </li>
             <li class="th_cell">
-              등록일
+              ?벑濡앹씪
             </li>
             <li class="th_cell">
-              신청자
+              ?떊泥??옄
             </li>
           </ul>
         </div>
@@ -144,8 +145,8 @@
           :page-range="3"
           :margin-pages="1"
           :click-handler="pageChanged"
-          :prev-text="'이전'"
-          :next-text="'다음'"
+          :prev-text="'?씠?쟾'"
+          :next-text="'?떎?쓬'"
           :container-class="'pagination'"
           :page-class="'page-item'"
         />
@@ -225,6 +226,10 @@ export default {
       this.endReqDtm = val;
       console.log(val);
     },
+    newApply() {
+      //ifReg/applyIf
+      this.$router.push({ name: 'applyIf' });
+    }
   },
 }
 
