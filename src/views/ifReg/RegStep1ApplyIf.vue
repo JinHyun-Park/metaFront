@@ -10,7 +10,6 @@
         </div>
       </h2>
     </section>
-    <Progress />
     <!--
                 <section class="big_tabs">
                     <ul>
@@ -194,12 +193,10 @@
 </template>
 
 <script>
-import Progress from '@/components/ifReg/Progress.vue'; // 프로그레스
 
 export default {
   name: 'RegStep1ApplyIf',
   components: {
-    Progress,
   },
 };
 </script>
