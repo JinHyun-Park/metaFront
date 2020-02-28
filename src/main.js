@@ -7,14 +7,14 @@ import VueCookie from 'vue-cookie';
 import './plugins/axios';
 import Paginate from 'vuejs-paginate';
 import Loading from 'vue-loading-overlay';
+import globalMixin from '@/mixins/globalMixin';
 import App from './App.vue';
 import router from './router';
 import store from './store';
 
-import globalMixin from '@/mixins/globalMixin';
 import '@/plugins/gfPlugin';
 
-import './assets/css/common.css';
+import '@/assets/css/common.css';
 import '@livelybone/vue-datepicker/lib/css/index.css'; // dataPicker css import
 import 'quill/dist/quill.core.css';
 import 'quill/dist/quill.snow.css';

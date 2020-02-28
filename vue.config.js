@@ -1,5 +1,6 @@
 module.exports = {
   transpileDependencies: ['vuex-persist'],
+
   devServer: {
     proxy: {
       '/api': {
@@ -11,5 +12,8 @@ module.exports = {
         },
       },
     },
+  },
+  css: {
+    sourceMap: true,
   },
 };
