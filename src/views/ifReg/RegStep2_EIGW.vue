@@ -11,16 +11,6 @@
       </h2>
     </section>
 
-    <section class="big_tabs">
-      <ul>
-        <li class="on">
-          EIGW
-        </li>
-        <li>EAI</li>
-        <li>MCG</li>
-      </ul>
-    </section>
-
     <section class="small_tabs">
       <ul>
         <li class="ov">

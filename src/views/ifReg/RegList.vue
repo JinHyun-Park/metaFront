@@ -24,6 +24,7 @@
           <button
             type="button"
             class="default_button on"
+            @click="newApply"
           >
             신규신청
           </button>
@@ -225,6 +226,10 @@ export default {
       this.endReqDtm = val;
       console.log(val);
     },
+    newApply() {
+      //ifReg/applyIf
+      this.$router.push({ name: 'applyIf' });
+    }
   },
 }
 
