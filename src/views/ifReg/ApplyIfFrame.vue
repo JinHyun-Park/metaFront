@@ -11,35 +11,39 @@
     <section class="progress">
       <ul>
         <li
-          class="step on"
+          class="step"
+          :class="{on: isActive(1)}"
           @click="tabChange(1)"
         >
           1. 기본정보 입력
         </li>
         <li
           class="step"
+          :class="{on: isActive(2)}"
           @click="tabChange(2)"
         >
           2. 인터페이스 상세정보 입력
         </li>
         <li
           class="step"
+          :class="{on: isActive(3)}"
           @click="tabChange(3)"
         >
           3. 신청 내용 확인 및 승인요청
         </li>
         <li
           class="step"
+          :class="{on: isActive(4)}"
           @click="tabChange(4)"
         >
           4. 승인화면(추후삭제)
         </li>
       </ul>
     </section>
-    <RegStep1ApplyIf v-if="step1" />
-    <RegStep2Frame v-if="step2" />
-    <RegStep3Applicant v-if="step3apply" />
-    <RegStep3Approver v-if="step3approve" />
+    <reg-step1-apply-if v-if="tabNum === 1" />
+    <reg-step2-frame v-if="tabNum === 2" />
+    <reg-step3-applicant v-if="tabNum === 3" />
+    <reg-step3-approver v-if="tabNum === 4" />
   </div>
 </template>
 
@@ -59,36 +63,24 @@ export default {
   },
   data() {
     return {
-      step1: true,
-      step2: false,
-      step3apply: false,
-      step3approve: false,
+      tabNum: '',
     };
+  },
+  created() {
+    this.tabNum = 1;
   },
   methods: {
     tabChange(val) {
-      if (val === 1) {
-        this.step1 = true;
-        this.step2 = false;
-        this.step3apply = false;
-        this.step3approve = false;
-      } else if (val === 2) {
-        this.step1 = false;
-        this.step2 = true;
-        this.step3apply = false;
-        this.step3approve = false;
-      } else if (val === 3) {
-        this.step1 = false;
-        this.step2 = false;
-        this.step3apply = true;
-        this.step3approve = false;
-      } else if (val === 4) {
-        this.step1 = false;
-        this.step2 = false;
-        this.step3apply = false;
-        this.step3approve = true;
-      }
+      this.tabNum = val;
+    },
+    isActive(val) {
+      return this.tabNum === val;
     },
   },
 };
 </script>
+<style scoped>
+  .step {
+    cursor: pointer;
+  }
+</style>

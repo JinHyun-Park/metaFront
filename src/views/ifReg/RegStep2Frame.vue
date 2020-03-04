@@ -3,26 +3,28 @@
     <section class="big_tabs">
       <ul>
         <li
-          class="on"
-          @click="tabChange('eigw')"
+          :class="{on: isActive(1)}"
+          @click="tabChange(1)"
         >
           EIGW
         </li>
         <li
-          @click="tabChange('eai')"
+          :class="{on: isActive(2)}"
+          @click="tabChange(2)"
         >
           EAI
         </li>
         <li
-          @click="tabChange('mcg')"
+          :class="{on: isActive(3)}"
+          @click="tabChange(3)"
         >
           MCG
         </li>
       </ul>
     </section>
-    <RegStep2eai v-if="step2Eai" />
-    <RegStep2eigw v-if="step2Eigw" />
-    <RegStep2ChMcg v-if="step2Mcg" />
+    <reg-step2eai v-if="subTabNum === 1" />
+    <reg-step2eigw v-if="subTabNum === 2" />
+    <reg-step2-ch-mcg v-if="subTabNum === 3" />
   </div>
 </template>
 
@@ -43,23 +45,18 @@ export default {
       step2Eai: false,
       step2Eigw: true,
       step2Mcg: false,
+      subTabNum: '',
     };
+  },
+  created() {
+    this.subTabNum = 1;
   },
   methods: {
     tabChange(val) {
-      if (val === 'eigw') {
-        this.step2Eigw = true;
-        this.step2Eai = false;
-        this.step2Mcg = false;
-      } else if (val === 'eai') {
-        this.step2Eigw = false;
-        this.step2Eai = true;
-        this.step2Mcg = false;
-      } else if (val === 'mcg') {
-        this.step2Eigw = false;
-        this.step2Eai = false;
-        this.step2Mcg = true;
-      }
+      this.subTabNum = val;
+    },
+    isActive(val) {
+      return this.subTabNum === val;
     },
   },
 };

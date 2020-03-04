@@ -279,12 +279,6 @@
       </button>
       <button
         type="button"
-        class="default_button btn_next"
-      >
-        다음
-      </button>
-      <button
-        type="button"
         class="default_button on"
       >
         승인
