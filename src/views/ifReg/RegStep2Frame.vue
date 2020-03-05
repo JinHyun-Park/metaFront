@@ -58,6 +58,12 @@ export default {
     isActive(val) {
       return this.subTabNum === val;
     },
+    nextTab() {
+      this.$emit('nextTab');
+    },
+    beforeTab() {
+      this.$emit('beforeTab');
+    },
   },
 };
 </script>

@@ -313,12 +313,14 @@
       <button
         type="button"
         class="default_button btn_prev disabled"
+        @click="beforeTab"
       >
         이전
       </button>
       <button
         type="button"
         class="default_button btn_next"
+        @click="nextTab"
       >
         다음
       </button>
@@ -335,5 +337,13 @@
 <script>
 export default {
   name: 'RegStep3Applicant',
+  methods: {
+    beforeTab() {
+      this.$emit('beforeTab');
+    },
+    nextTab() {
+      this.$emit('nextTab');
+    },
+  },
 };
 </script>

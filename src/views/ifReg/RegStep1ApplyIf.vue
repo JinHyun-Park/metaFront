@@ -163,6 +163,7 @@
       <button
         type="button"
         class="default_button btn_next"
+        @click="nextTab"
       >
         다음
       </button>
@@ -180,7 +181,10 @@
 
 export default {
   name: 'RegStep1ApplyIf',
-  components: {
+  methods: {
+    nextTab() {
+      this.$emit('nextTab');
+    },
   },
 };
 </script>

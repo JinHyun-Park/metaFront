@@ -40,10 +40,24 @@
         </li>
       </ul>
     </section>
-    <reg-step1-apply-if v-if="tabNum === 1" />
-    <reg-step2-frame v-if="tabNum === 2" />
-    <reg-step3-applicant v-if="tabNum === 3" />
-    <reg-step3-approver v-if="tabNum === 4" />
+    <reg-step1-apply-if
+      v-if="tabNum === 1"
+      @nextTab="toNextTab"
+    />
+    <reg-step2-frame
+      v-if="tabNum === 2"
+      @beforeTab="toBeforeTab"
+      @nextTab="toNextTab"
+    />
+    <reg-step3-applicant
+      v-if="tabNum === 3"
+      @beforeTab="toBeforeTab"
+      @nextTab="toNextTab"
+    />
+    <reg-step3-approver
+      v-if="tabNum === 4"
+      @beforeTab="toBeforeTab"
+    />
   </div>
 </template>
 
@@ -69,12 +83,21 @@ export default {
   created() {
     this.tabNum = 1;
   },
+  destroyed() {
+    console.log('나간다');
+  },
   methods: {
     tabChange(val) {
       this.tabNum = val;
     },
     isActive(val) {
       return this.tabNum === val;
+    },
+    toNextTab() {
+      this.tabNum = this.tabNum + 1;
+    },
+    toBeforeTab() {
+      this.tabNum = this.tabNum - 1;
     },
   },
 };

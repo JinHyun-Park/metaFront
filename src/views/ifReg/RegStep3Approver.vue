@@ -274,6 +274,7 @@
       <button
         type="button"
         class="default_button btn_prev disabled"
+        @click="beforeTab"
       >
         이전
       </button>
@@ -291,5 +292,10 @@
 <script>
 export default {
   name: 'RegStep3Approver',
+  methods: {
+    beforeTab() {
+      this.$emit('beforeTab');
+    },
+  },
 };
 </script>
