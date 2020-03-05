@@ -81,10 +81,13 @@ export default {
     };
   },
   created() {
+    if (this.$gf.isEmpty(localStorage.getItem('tabNum'))) {
+      console.log('null');
+    }
     this.tabNum = 1;
   },
   destroyed() {
-    console.log('나간다');
+    localStorage.setItem('tabNum', '');
   },
   methods: {
     tabChange(val) {
@@ -95,9 +98,11 @@ export default {
     },
     toNextTab() {
       this.tabNum = this.tabNum + 1;
+      localStorage.setItem('tabNum', this.tabNum);
     },
     toBeforeTab() {
       this.tabNum = this.tabNum - 1;
+      localStorage.setItem('tabNum', this.tabNum);
     },
   },
 };

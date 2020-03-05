@@ -25,6 +25,29 @@
     <reg-step2eai v-if="subTabNum === 1" />
     <reg-step2eigw v-if="subTabNum === 2" />
     <reg-step2-ch-mcg v-if="subTabNum === 3" />
+
+    <section class="btm_button_area">
+      <button
+        type="button"
+        class="default_button btn_prev disabled"
+        @click="beforeTab"
+      >
+        이전
+      </button>
+      <button
+        type="button"
+        class="default_button btn_next"
+        @click="nextTab"
+      >
+        다음
+      </button>
+      <button
+        type="button"
+        class="default_button on"
+      >
+        임시저장
+      </button>
+    </section>
   </div>
 </template>
 

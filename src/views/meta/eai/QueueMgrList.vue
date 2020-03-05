@@ -114,7 +114,7 @@
         </div>
         <div class="table_body">
           <ul
-            v-for="(row, index) in queueList"
+            v-for="(row) in queueList"
             :key="row.mqMngrNm"
             class="table_row w-auto"
           >

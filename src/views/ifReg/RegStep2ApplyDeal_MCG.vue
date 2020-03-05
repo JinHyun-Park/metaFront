@@ -453,26 +453,6 @@
         </div>
       </div>
     </section>
-    <section class="btm_button_area">
-      <button
-        type="button"
-        class="default_button btn_prev disabled"
-      >
-        이전
-      </button>
-      <button
-        type="button"
-        class="default_button btn_next"
-      >
-        다음
-      </button>
-      <button
-        type="button"
-        class="default_button on"
-      >
-        임시저장
-      </button>
-    </section>
   </div>
 </template>
 

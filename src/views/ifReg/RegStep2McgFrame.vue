@@ -15,8 +15,8 @@
         </li>
       </ul>
     </section>
-    <RegStep2ChMcg v-if="step2Mcg1" />
-    <RegStep2DealMcg v-if="step2Mcg2" />
+    <reg-step2-ch-mcg v-if="step2Mcg1" />
+    <reg-step2-deal-mcg v-if="step2Mcg2" />
   </div>
 </template>
 
