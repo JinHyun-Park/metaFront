@@ -81,28 +81,30 @@ export default {
     };
   },
   created() {
-    if (this.$gf.isEmpty(localStorage.getItem('tabNum'))) {
-      console.log('null');
+    if (this.$gf.isEmpty(localStorage.getItem('APPLY_TABNUM'))) {
+      this.tabNum = 1;
+    } else {
+      this.tabNum = Number(localStorage.getItem('APPLY_TABNUM'));
     }
-    this.tabNum = 1;
   },
   destroyed() {
-    localStorage.setItem('tabNum', '');
+    localStorage.setItem('APPLY_TABNUM', '');
   },
   methods: {
     tabChange(val) {
       this.tabNum = val;
+      localStorage.setItem('APPLY_TABNUM', this.tabNum);
     },
     isActive(val) {
       return this.tabNum === val;
     },
     toNextTab() {
       this.tabNum = this.tabNum + 1;
-      localStorage.setItem('tabNum', this.tabNum);
+      localStorage.setItem('APPLY_TABNUM', this.tabNum);
     },
     toBeforeTab() {
       this.tabNum = this.tabNum - 1;
-      localStorage.setItem('tabNum', this.tabNum);
+      localStorage.setItem('APPLY_TABNUM', this.tabNum);
     },
   },
 };
