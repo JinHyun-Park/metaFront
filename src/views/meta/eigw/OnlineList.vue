@@ -23,7 +23,7 @@
           </button>
         </div>
       </h5>
-      <div class="row_contain except">
+      <div class="row_contain type-2">
         <div class="column w-1">
           <label class="column_label">대외기관</label>
           <input
@@ -36,7 +36,7 @@
         <div class="column w-1">
           <label class="column_label">I/F ID</label>
           <input
-            v-model="ifId"
+            v-model="eaiIfId"
             type="text"
             class="add_text on"
             @keyup.13="searchList()"
@@ -57,20 +57,10 @@
           <div class="table_head">
             <ul>
               <li class="th_cell">
-                I/F ID<i class="ico-sort-down" />
-              </li>
-              <li class="th_cell">
                 대외기관<i class="ico-sort-up" />
               </li>
               <li class="th_cell">
-                REAL IP<i class="ico-sort-down" />
-              </li>
-              <li class="th_cell">
-                NAT IP<i class="ico-sort-down" />
-              </li>
-
-              <li class="th_cell">
-                PORT<i class="ico-sort-down" />
+                I/F ID<i class="ico-sort-down" />
               </li>
               <li class="th_cell">
                 거래명<i class="ico-sort-up" />
@@ -79,10 +69,16 @@
                 프로그램 유형<i class="ico-sort-down" />
               </li>
               <li class="th_cell">
-                프로그램<i class="ico-sort-down" />
+                개발IP(NAT)
               </li>
               <li class="th_cell">
-                설정파일<i class="ico-sort-up" />
+                개발 PORT
+              </li>
+              <li class="th_cell">
+                운영IP(NAT)
+              </li>
+              <li class="th_cell">
+                운영 PORT
               </li>
               <li class="th_cell">
                 Online meta Num<i class="ico-sort-up" />
@@ -91,24 +87,52 @@
                 Process Num<i class="ico-sort-up" />
               </li>
               <li class="th_cell">
-                Server num<i class="ico-sort-up" />
+                Dvp Server num<i class="ico-sort-up" />
+              </li>
+              <li class="th_cell">
+                Prod Server num<i class="ico-sort-up" />
               </li>
             </ul>
           </div>
           <div class="table_body">
             <ul
-              v-for="onlineRow in onlineIfList"
-              :key="onlineRow.onlineNum"
+              v-for="(row, index) in onlineIfList"
+              :key="row.onlineMetaNum"
               class="table_row w-auto"
+              @click="detailInfo(index)"
             >
-              <li
-                v-for="(onlineCol, i) in onlineRow"
-                :key="i"
-                class="td_cell"
-                @click="detailInfo(i, onlineRow[0], onlineRow[1]
-                                   , onlineRow[9], onlineRow[10],onlineRow[11])"
-              >
-                {{ onlineCol }}
+              <li class="td_cell">
+                {{ row.instNm }}
+              </li>
+              <li class="td_cell">
+                {{ row.eaiIfId }}
+              </li>
+              <li class="td_cell">
+                {{ row.pgmTyp }}
+              </li>
+              <li class="td_cell">
+                {{ row.dvpSvrRealIp }}<br>({{ row.dvpSvrNatIp }})
+              </li>
+              <li class="td_cell">
+                {{ row.dvpSvrPort }}
+              </li>
+              <li class="td_cell">
+                {{ row.prodSvrRealIp }}<br>({{ row.prodSvrNatIp }})
+              </li>
+              <li class="td_cell">
+                {{ row.prodSvrPort }}
+              </li>
+              <li class="td_cell">
+                {{ row.onlineMetaNum }}
+              </li>
+              <li class="td_cell">
+                {{ row.procNum }}
+              </li>
+              <li class="td_cell">
+                {{ row.dvpSvrNum }}
+              </li>
+              <li class="td_cell">
+                {{ row.prodSvrNum }}
               </li>
             </ul>
           </div>
@@ -124,14 +148,14 @@
         <div class="column on w-1">
           <label class="column_label">I/F ID</label>
           <input
-            v-model="eaiIfId"
+            v-model="onlineMst.eaiIfId"
             type="text"
           >
         </div>
         <div class="column w-1">
           <label class="column_label">대외기관</label>
           <input
-            v-model="instNm"
+            v-model="onlineMst.instNm"
             type="text"
           >
         </div>
@@ -140,14 +164,14 @@
         <div class="column on w-1">
           <label class="column_label">프로그램 타입</label>
           <input
-            v-model="pgmTyp"
+            v-model="procInfo.pgmTyp"
             type="text"
           >
         </div>
         <div class="column w-1">
           <label class="column_label">연결유형</label>
           <input
-            v-model="linkTyp"
+            v-model="procInfo.linkTyp"
             type="text"
           >
         </div>
@@ -155,54 +179,66 @@
     </section>
     <section class="form_area border_group">
       <h5 class="s_tit">
-        서버 정보
+        서버정보
       </h5>
-      <div class="table_grid">
-        <div class="table_head w-auto except">
-          <ul class="table_row form_type except w-auto">
-            <li class="th_cell">
-              구분
-            </li>
-            <li class="th_cell">
-              REAL IP
-            </li>
-            <li class="th_cell">
-              NAT IP
-            </li>
-            <li class="th_cell">
-              PORT
-            </li>
-          </ul>
-        </div>
-        <div class="table_body">
-          <ul
-            v-for="server in serverList"
-            :key="server.svrNum"
-            class="table_row form_type except w-auto"
+      <div class="row_contain type-2">
+        <div class="column w-1">
+          <label class="column_label">개발기_REAL IP</label>
+          <input
+            v-model="procInfo.dvpSvrRealIp"
+            type="text"
           >
-            <li class="td_cell">
-              {{ server.svrTypCd }}
-            </li>
-            <li class="td_cell on">
-              {{ server.svrRealIp }}
-            </li>
-            <li class="td_cell">
-              {{ server.svrNatIp }}
-            </li>
-            <li class="td_cell">
-              {{ server.svrPort }}
-            </li>
-          </ul>
+        </div>
+        <div class="column w-1">
+          <label class="column_label">개발기_NAT IP</label>
+          <input
+            v-model="procInfo.dvpSvrNatIp"
+            type="text"
+          >
+        </div>
+        <div class="column w-1">
+          <label class="column_label">개발기_PORT</label>
+          <input
+            v-model="procInfo.dvpSvrPort"
+            type="text"
+          >
+        </div>
+      </div>
+      <div class="row_contain type-2">
+        <div class="column w-1">
+          <label class="column_label">운영기_REAL IP</label>
+          <input
+            v-model="procInfo.prodSvrRealIp"
+            type="text"
+          >
+        </div>
+        <div class="column w-1">
+          <label class="column_label">운영기_NAT IP</label>
+          <input
+            v-model="procInfo.prodSvrNatIp"
+            type="text"
+          >
+        </div>
+        <div class="column w-1">
+          <label class="column_label">운영기_PORT</label>
+          <input
+            v-model="procInfo.prodSvrPort"
+            type="text"
+          >
         </div>
       </div>
     </section>
     <section class="border_group">
-      <h5 class="s_tit">
+      <h5 class="s_tit type-2">
         담당자 정보
+        <div class="right_button_area" />
       </h5>
       <div class="table_grid">
         <div class="table_head w-auto except">
-          <ul class="table_row form_type except w-auto">
+          <ul>
+            <li class="th_cell">
+              userId
+            </li>
             <li class="th_cell">
               기관
             </li>
@@ -222,16 +258,27 @@
         </div>
         <div class="table_body">
           <ul
-            v-for="inuser in inchrgrList"
-            :key="inuser.userId"
-            class="table_row form_type except w-auto"
+            v-for="inchrgr in inChrgrList"
+            :key="inchrgr.userId"
+            class="table_row w-auto"
           >
-            <li
-              v-for="(inUserInfo, i) in inuser"
-              :key="i"
-              class="td_cell"
-            >
-              {{ inUserInfo }}
+            <li class="td_cell">
+              {{ inchrgr.userId }}
+            </li>
+            <li class="td_cell">
+              {{ inchrgr.instNm }}
+            </li>
+            <li class="td_cell">
+              {{ inchrgr.orgCd }}
+            </li>
+            <li class="td_cell">
+              {{ inchrgr.hanNm }}
+            </li>
+            <li class="td_cell">
+              {{ inchrgr.mblPhonNum }}
+            </li>
+            <li class="td_cell">
+              {{ inchrgr.emailAddr }}
             </li>
           </ul>
         </div>
@@ -243,7 +290,10 @@
       </h5>
       <div class="table_grid">
         <div class="table_head w-auto except">
-          <ul class="table_row form_type except w-auto">
+          <ul>
+            <li class="th_cell">
+              userId
+            </li>
             <li class="th_cell">
               기관
             </li>
@@ -263,16 +313,27 @@
         </div>
         <div class="table_body">
           <ul
-            v-for="outuser in outchrgrList"
-            :key="outuser.userId"
+            v-for="outchrgr in outChrgrList"
+            :key="outchrgr.userId"
             class="table_row form_type except w-auto"
           >
-            <li
-              v-for="(outUserInfo, i) in outuser"
-              :key="i"
-              class="td_cell"
-            >
-              {{ outUserInfo }}
+            <li class="td_cell">
+              {{ outchrgr.userId }}
+            </li>
+            <li class="td_cell">
+              {{ outchrgr.instNm }}
+            </li>
+            <li class="td_cell">
+              {{ outchrgr.orgCd }}
+            </li>
+            <li class="td_cell">
+              {{ outchrgr.hanNm }}
+            </li>
+            <li class="td_cell">
+              {{ outchrgr.mblPhonNum }}
+            </li>
+            <li class="td_cell">
+              {{ outchrgr.emailAddr }}
             </li>
           </ul>
         </div>
@@ -282,28 +343,26 @@
 </template>
 
 <script>
+import { fetchEigwAdOnlineList, fetchEigwOnlineDetail } from '@/api/eigwApi';
 export default {
   data() {
     return {
       onlineIfList: '',
-      ifId: '',
+      eaiIfId: '',
       svrIp: '',
       instCd: '',
-      userInfo: '',
-      serverList: '',
-      inchrgrList: '',
-      outchrgrList: '',
-      linkTyp: '',
-      pgmTyp: '',
-      instNm: '',
-      eaiIfId: '',
+      inChrgrList: '',
+      outChrgrList: '',
+      onlineMst: {},
+      procInfo: {},
     };
   },
   methods: {
     searchList() {
-      this.$axios.get('/api/eigw/online/mstlist', {
+      //this.$axios.get('/api/eigw/online/mstlist', {
+      fetchEigwAdOnlineList({
         params: {
-          ifId: this.ifId,
+          eaiIfId: this.eaiIfId,
           svrIp: this.svrIp,
           instCd: this.instCd,
         },
@@ -311,7 +370,7 @@ export default {
         .then((res) => {
           console.log(res);
           if (res.data.rstCd === 'S') {
-            this.onlineIfList = res.data.rstData.onlineIfList;
+            this.onlineIfList = res.data.rstData.searchList;
           } else {
             this.$gf.alertOn('failed');
           }
@@ -320,23 +379,21 @@ export default {
           console.log(`error occur!! : ${ex}`);
         });
     },
-    detailInfo(i, eaiIf, instNm, index1, index2, index3) {
-      this.tgtUrl = '/api/eigw/online/mstDtlInfo/';
-      if (index1 != null && index1 !== '') {
-        this.tgtUrl = `${this.tgtUrl}/${index1}/${index2}/${index3}`;
-      }
-      this.$axios.get(this.tgtUrl)
+    detailInfo(i) {
+      //this.tgtUrl = '/api/eigw/online/mstDtlInfo/';
+      fetchEigwOnlineDetail({
+        params: {
+          onlineMetaNum: this.onlineIfList[i].onlineMetaNum,
+          procNum: this.onlineIfList[i].procNum,
+         },
+      })
         .then((res) => {
           console.log(res);
           if (res.data.rstCd === 'S') {
-            this.userInfo = res.data.rstData.chrgrList;
-            this.serverList = res.data.rstData.serverList;
-            this.eaiIfId = eaiIf;
-            this.instNm = instNm;
-            this.pgmTyp = res.data.rstData.processList[0].pgmTyp;
-            this.linkTyp = res.data.rstData.processList[0].linkTyp;
-            this.inchrgrList = res.data.rstData.inchrgrList;
-            this.outchrgrList = res.data.rstData.outchrgrList;
+            this.onlineMst = res.data.rstData.rstData.onlineMst;
+            this.procInfo = res.data.rstData.rstData.procInfo;
+            this.inChrgrList = res.data.rstData.rstData.inChrgrList;
+            this.outChrgrList = res.data.rstData.rstData.outChrgrList;
           } else {
             this.$gf.alertOn('failed');
           }

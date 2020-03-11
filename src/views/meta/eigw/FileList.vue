@@ -16,12 +16,6 @@
         <div class="right_button_area">
           <button
             type="button"
-            class="default_button"
-          >
-            신규신청
-          </button>
-          <button
-            type="button"
             class="default_button on"
             @click="searchList()"
           >
@@ -63,9 +57,6 @@
           <div class="table_head">
             <ul>
               <li class="th_cell">
-                서버
-              </li>
-              <li class="th_cell">
                 대외기관
               </li>
               <li class="th_cell">
@@ -98,9 +89,6 @@
               class="table_row w-auto"
               @click="detailInfo(index)"
             >
-              <li class="td_cell">
-                {{ row.mqMngrNm }}
-              </li>
               <li class="td_cell">
                 {{ row.instNm }}
               </li>
@@ -312,6 +300,9 @@
         <div class="table_head w-auto except">
           <ul>
             <li class="th_cell">
+              userId
+            </li>
+            <li class="th_cell">
               기관
             </li>
             <li class="th_cell">
@@ -330,16 +321,27 @@
         </div>
         <div class="table_body">
           <ul
-            v-for="inuser in inchrgrList"
-            :key="inuser.userId"
-            class="table_row form_type except w-auto"
+            v-for="inchrgr in inChrgrList"
+            :key="inchrgr.userId"
+            class="table_row w-auto"
           >
-            <li
-              v-for="(inUserInfo, j) in inuser"
-              :key="j"
-              class="td_cell"
-            >
-              {{ inUserInfo }}
+            <li class="td_cell">
+              {{ inchrgr.userId }}
+            </li>
+            <li class="td_cell">
+              {{ inchrgr.instNm }}
+            </li>
+            <li class="td_cell">
+              {{ inchrgr.orgCd }}
+            </li>
+            <li class="td_cell">
+              {{ inchrgr.hanNm }}
+            </li>
+            <li class="td_cell">
+              {{ inchrgr.mblPhonNum }}
+            </li>
+            <li class="td_cell">
+              {{ inchrgr.emailAddr }}
             </li>
           </ul>
         </div>
@@ -353,6 +355,9 @@
         <div class="table_head w-auto except">
           <ul>
             <li class="th_cell">
+              userId
+            </li>
+            <li class="th_cell">
               기관
             </li>
             <li class="th_cell">
@@ -371,16 +376,27 @@
         </div>
         <div class="table_body">
           <ul
-            v-for="outuser in outchrgrList"
-            :key="outuser.userId"
+            v-for="outchrgr in outChrgrList"
+            :key="outchrgr.userId"
             class="table_row form_type except w-auto"
           >
-            <li
-              v-for="(outUserInfo,k) in outuser"
-              :key="k"
-              class="td_cell"
-            >
-              {{ outUserInfo }}
+            <li class="td_cell">
+              {{ outchrgr.userId }}
+            </li>
+            <li class="td_cell">
+              {{ outchrgr.instNm }}
+            </li>
+            <li class="td_cell">
+              {{ outchrgr.orgCd }}
+            </li>
+            <li class="td_cell">
+              {{ outchrgr.hanNm }}
+            </li>
+            <li class="td_cell">
+              {{ outchrgr.mblPhonNum }}
+            </li>
+            <li class="td_cell">
+              {{ outchrgr.emailAddr }}
             </li>
           </ul>
         </div>
@@ -403,7 +419,8 @@ export default {
       fileSktConf: {},
       fileEigwConf: {},
       fileAgencyConf: {},
-
+      inChrgrList: '',
+      outChrgrList: '',
       pageSet: { pageNo: 1, pageCount: 0, size: 5 },
     };
   },
@@ -447,17 +464,8 @@ export default {
             this.fileSktConf = res.data.rstData.rstData.fileSktConf;
             this.fileEigwConf = res.data.rstData.rstData.fileEigwConf;
             this.fileAgencyConf = res.data.rstData.rstData.fileAgencyConf;
-
-            // 상세정보
-            this.eaiIfId = res.data.rstData.fileDtlInfo[0].sktInfo.eaiIfId;
-            this.sendStaPath = res.data.rstData.fileDtlInfo[0].sktInfo.staPath;
-            this.sendEndPath = res.data.rstData.fileDtlInfo[0].agencyInfo.endPath;
-            this.reStaPath = res.data.rstData.fileDtlInfo[0].agencyInfo.staPath;
-            this.reEndPath = res.data.rstData.fileDtlInfo[0].sktInfo.endPath;
-            this.opCode = res.data.rstData.fileDtlInfo[0].sktInfo.opCode;
-            this.serveList = res.data.rstData.severList;
-            this.inchrgrList = res.data.rstData.inchrgrList;
-            this.outchrgrList = res.data.rstData.outchrgrList;
+            this.inChrgrList = res.data.rstData.rstData.inChrgrList;
+            this.outChrgrList = res.data.rstData.rstData.outChrgrList;
           } else {
             this.$gf.alertOn('failed');
           }
