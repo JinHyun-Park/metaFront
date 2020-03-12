@@ -37,6 +37,10 @@ function fetchGetChrgrInfo(param) {
   return axios.get(`${preUrl}/chrgr`, param);
 }
 
+function fetchGetMenuList(param) {
+  return axios.get(`${preUrl}/menu`, param);
+}
+
 export {
   fetchSearchBoard,
   fetchGetCccdSelbox,
@@ -47,4 +51,5 @@ export {
   fetchGetInstCdList,
   fetchDeleteInstCdList,
   fetchGetChrgrInfo,
+  fetchGetMenuList,
 };
