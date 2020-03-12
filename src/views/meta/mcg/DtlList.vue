@@ -149,6 +149,7 @@
               v-for="chn in chnList"
               :key="chn.index"
               class="table_row w-auto"
+              @click="dtlChnl(chn)"
             >
               <li class="td_cell">
                 {{ chn.opCd }}
@@ -185,7 +186,7 @@
 
 
     <section class="info_title">
-      <em class="sub_tit">채널명: T-world      채널ID: EST</em>
+      <em class="sub_tit">채널명: {{ chnldtl.chnlNm }}    채널ID: {{ chnldtl.chnlId }}</em>
       <i class="ico-remove" />
     </section>
 
@@ -194,35 +195,38 @@
         <div class="column on w-1">
           <label class="column_label">업무코드</label>
           <input
+            :value="chnldtl.opCd"
             type="text"
-            value="FILE_0945OIK2S"
           >
         </div>
         <div class="column w-1">
           <label class="column_label">기관코드</label>
           <input
+            :value="chnldtl.mcgInstCd"
             type="text"
-            value="JOP369"
           >
         </div>
         <div class="column w-1">
           <label class="column_label">채널그룹</label>
           <input
+            :value="chnldtl.chnlGrp"
             type="text"
-            value="OPGROUP"
           >
         </div>
         <div class="column w-1">
           <label class="column_label">채널유형</label>
           <input
+            :value="chnldtl.chnlTyp"
             type="text"
-            value="channeltype_01"
           >
         </div>
         <div class="column w-1">
           <label class="column_label">연동방식</label>
           <div class="select_group disabled">
-            <select disabled>
+            <select
+              :value="chnldtl.lnkgMthd"
+              disabled
+            >
               <option value="">
                 Y
               </option>
@@ -266,21 +270,21 @@
         <div class="column w-1">
           <label class="column_label">TCP Gateway 명</label>
           <input
+            :value="chnldtl.tcpgwNm"
             type="text"
-            value="OPGROUP"
           >
         </div>
         <div class="column w-1">
           <label class="column_label">개발언어</label>
           <input
+            :value="chnldtl.dvlpLang"
             type="text"
-            value="channeltype_01"
           >
         </div>
         <div class="column w-1">
           <label class="column_label">Java Container</label>
           <div class="select_group">
-            <select>
+            <select :value="chnldtl.containerNum">
               <option
                 value=""
                 selected
@@ -360,14 +364,14 @@
         <div class="column w-6">
           <label class="column_label">비고</label>
           <input
+            :value="chnldtl.chnlRmk"
             type="text"
-            value=""
           >
         </div>
         <div class="column w-1">
           <label class="column_label">삭제여부</label>
           <div class="select_group">
-            <select>
+            <select :value="chnldtl.useYn">
               <option
                 value=""
                 selected
@@ -401,6 +405,7 @@ export default {
     return {
       index: 0,
       chnList: [],
+      chnldtl: [],
       chrgrnm: '',
       pageNo: 1,
       size: 10,
@@ -452,6 +457,14 @@ export default {
           console.log(`error occur!! : ${ex}`);
         });
     },
+
+    dtlChnl(chn) {
+      console.log('상세채널조회!');
+      this.chnldtl = chn;
+      console.log(this.chnldtl);
+    },
+
+
     save() {
       console.log('채널 정보 등록!');
       console.log(this.chnlNm);
