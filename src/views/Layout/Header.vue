@@ -14,7 +14,7 @@
       </h1>
       <div>
         <div class="util_space">
-          <em @click="confirmOn"><i class="ico-user" />[{{ loginHanNm }}] 님 환영합니다!</em>
+          <em @click="confirmOn"><i class="ico-user" />[{{ hanNm }}] 님 환영합니다!</em>
           <button
             class="log"
             @click="logout()"
@@ -102,6 +102,7 @@
 <script>
 import { mapState } from 'vuex';
 import { fetchGetLogout } from '@/api/loginApi';
+import { fetchGetMyChrgrInfo } from '@/api/bizCommApi';
 
 export default {
 //   mixins: [common],
@@ -110,6 +111,8 @@ export default {
     return {
       activeItem: '',
       alertMsgText: '123333',
+      userHanNm: '',
+      hanNm: '',
     };
   },
   computed: {
@@ -117,10 +120,24 @@ export default {
   },
   created() {
     this.setActiveItem();
+    this.getMyInfo();
   },
   methods: {
     isActive(page) {
       return this.activeItem === page;
+    },
+    getMyInfo() {
+      fetchGetMyChrgrInfo()
+        .then((res) => {
+          if (res.status === 200) {
+            this.hanNm = res.data.rstData.myInfo.hanNm;
+            // eslint-disable-next-line no-alert
+            // this.$gf.alertOn(`${this.hanNm}님 환영합니다.`);
+          }
+        })
+        .catch((ex) => {
+          console.log(`error occur!! : ${ex}`);
+        });
     },
     setActiveItem() {
       if (this.activeItem === '' || this.activeItem === null || this.activeItem === undefined) {
