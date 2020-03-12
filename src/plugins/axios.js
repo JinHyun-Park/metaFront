@@ -2,7 +2,7 @@
 import Vue from 'vue';
 import axios from 'axios';
 import router from '@/router';
-// import helpers from '@/utils/helpers';
+import helpers from '@/utils/helpers';
 
 // Full config:  https://github.com/axios/axios#request-config
 // axios.defaults.baseURL = process.env.baseURL || process.env.apiUrl || '';
@@ -26,12 +26,12 @@ _axios.interceptors.request.use(
     config =>
     // Do something before request is sent
     {
-        this.$gf.showLoading(5000); // 로딩 화면 노출
+        helpers.showLoading(5000); // 로딩 화면 노출
 
         return config
     },
     error => {
-        this.$gf.showLoading(1000); // 로딩 화면 노출
+        helpers.showLoading(1000); // 로딩 화면 노출
         // Do something with request error
         console.log('axios 실패!'); // 이런식으로 넣으면 됨.
         return Promise.reject(error)
