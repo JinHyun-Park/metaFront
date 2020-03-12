@@ -400,6 +400,8 @@
 </template>
 
 <script>
+import { fetchGetMcgChnlList } from '@/api/mcgApi';
+
 export default {
   data() {
     return {
@@ -427,7 +429,8 @@ export default {
   methods: {
     listing() {
       console.log('채널 목록 조회!');
-      this.$axios.get('/api/mcg/chnl', {
+      // this.$axios.get('/api/mcg/chnl', {
+      fetchGetMcgChnlList({
         params: {
           pageNo: this.pageNo,
           size: this.size,

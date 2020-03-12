@@ -172,6 +172,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex';
+import { fetchServerList } from '@/api/bizCommApi';
 
 export default {
   data() {
@@ -203,8 +204,9 @@ export default {
     ...mapActions('frameSet', ['setResetPopOn']),
     ...mapActions('ccCdLst', ['setCcCdList']),
     searchList() {
-      this.tgtUrl = '/api/bizcomm/server';
-      this.$axios.get(this.tgtUrl, {
+      // this.tgtUrl = '/api/bizcomm/server';
+      // this.$axios.get(this.tgtUrl, {
+      fetchServerList({
         params: {
           // pageSet: this.pageSet,
           pageNo: this.pageSet.pageNo,

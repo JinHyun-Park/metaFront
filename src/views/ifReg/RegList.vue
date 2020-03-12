@@ -24,6 +24,7 @@
           <button
             type="button"
             class="default_button on"
+            @click="newApply"
           >
             신규신청
           </button>
@@ -156,6 +157,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex';
+import { fetchGetIfRegList } from '@/api/ifRegApi';
 
 export default {
   /* eslint-disable */
@@ -187,8 +189,9 @@ export default {
   methods: {
     ...mapActions('frameSet', ['setResetPopOn']),
     searchList() {
-      this.tgtUrl = '/api/ifreq/list';
-      this.$axios.get(this.tgtUrl, {
+      //this.tgtUrl = '/api/ifreq/list';
+      //this.$axios.get(this.tgtUrl, {
+      fetchGetIfRegList({
         params: {
           pageNo: this.pageSet.pageNo,
           size: this.pageSet.size,
@@ -223,6 +226,10 @@ export default {
       this.endReqDtm = val;
       console.log(val);
     },
+    newApply() {
+      //ifReg/applyIf
+      this.$router.push({ name: 'applyIf' });
+    }
   },
 }
 

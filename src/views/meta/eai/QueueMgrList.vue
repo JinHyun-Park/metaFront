@@ -114,7 +114,7 @@
         </div>
         <div class="table_body">
           <ul
-            v-for="(row, index) in queueList"
+            v-for="(row) in queueList"
             :key="row.mqMngrNm"
             class="table_row w-auto"
           >
@@ -173,6 +173,7 @@
 
 <script>
 import ServerListPopup from '@/components/popup/bizcomm/ServerListPopup.vue';
+import { fetchGetEaiMqMngrList } from '@/api/eaiApi';
 
 export default {
   name: 'QueueMgrList',
@@ -198,7 +199,8 @@ export default {
   },
   methods: {
     searchList() {
-      this.$axios.get('/api/eai/mqMngr', {
+      // this.$axios.get('/api/eai/mqMngr', {
+      fetchGetEaiMqMngrList({
         params: {
           mqMngrNm: this.mqMngrNm,
           hostNm: this.hostNm,

@@ -146,6 +146,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex';
+import { fetchGetEigwChrgrInfo } from '@/api/eigwApi';
 
 export default {
   data() {
@@ -174,8 +175,9 @@ export default {
     ...mapActions('frameSet', ['setResetPopOn']),
     ...mapActions('ccCdLst', ['setCcCdList']),
     searchList() {
-      this.tgtUrl = '/api/eigw/chrgrInfo';
-      this.$axios.get(this.tgtUrl, {
+      // this.tgtUrl = '/api/eigw/chrgrInfo';
+      // this.$axios.get(this.tgtUrl, {
+      fetchGetEigwChrgrInfo({
         params: {
           // pageSet: this.pageSet,
           pageNo: this.pageSet.pageNo,

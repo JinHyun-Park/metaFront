@@ -101,6 +101,7 @@
 
 <script>
 import { mapState } from 'vuex';
+import { fetchGetLogout } from '@/api/loginApi';
 
 export default {
 //   mixins: [common],
@@ -135,7 +136,8 @@ export default {
       this.$gf.confirmOn(confirmText, this.logoutCall);
     },
     logoutCall() {
-      this.$axios.get('/api/logout')
+      // this.$axios.get('/api/logout')
+      fetchGetLogout()
         .then((res) => {
           if (res.status === 200) {
             console.log('로그아웃!');

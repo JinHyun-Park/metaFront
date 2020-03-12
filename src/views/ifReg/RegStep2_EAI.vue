@@ -11,16 +11,6 @@
       </h2>
     </section>
 
-    <section class="big_tabs">
-      <ul>
-        <li class="on">
-          EIGW
-        </li>
-        <li>EAI</li>
-        <li>MCG</li>
-      </ul>
-    </section>
-
     <!--
                 <section class="small_tabs">
                     <ul>
@@ -30,7 +20,7 @@
                 </section>
 -->
 
-    <section class="form_area border_group">
+    <section class="border_group border-none">
       <h5 class="s_tit type-2">
         신청목록
       </h5>
@@ -608,26 +598,6 @@
           >
         </div>
       </div>
-    </section>
-    <section class="btm_button_area">
-      <button
-        type="button"
-        class="default_button btn_prev disabled"
-      >
-        이전
-      </button>
-      <button
-        type="button"
-        class="default_button btn_next"
-      >
-        다음
-      </button>
-      <button
-        type="button"
-        class="default_button on"
-      >
-        임시저장
-      </button>
     </section>
   </div>
 </template>

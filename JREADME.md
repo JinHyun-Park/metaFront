@@ -150,3 +150,7 @@ https://velog.io/@skyepodium/VS-code%EC%97%90%EC%84%9C-vue%ED%94%84%EB%A1%9C%EC%
   **2020.02.15
   자동 저장 시 js 4탭 lint 뜨는 것 잡는 방법
    : F1 > formatter config 에서 javascript tab 2로 변경 -> restart
+
+   lint에서 prettier 설정 추가
+   npm install --save prettier
+   npm install --save @vue/eslint-config-prettier

@@ -173,6 +173,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex';
+import { fetchGetChrgrInfo } from '@/api/bizCommApi';
 
 export default {
   data() {
@@ -190,7 +191,7 @@ export default {
   methods: {
     ...mapActions('frameSet', ['setResetPopOn']),
     searchList() {
-      this.tgtUrl = '/api/bizcomm/chrgr';
+      // this.tgtUrl = '/api/bizcomm/chrgr';
       // if (this.userId != null) {
       //   this.tgtUrl = `${this.tgtUrl}/${this.userId}/${this.hanNm}`;
       // }
@@ -204,7 +205,8 @@ export default {
         size: this.pageSet.size,
       };
 
-      this.$axios.get(this.tgtUrl, { params: param })
+      // this.$axios.get(this.tgtUrl, { params: param })
+      fetchGetChrgrInfo({ params: param })
         .then((res) => {
           console.log(res);
           if (res.data.rstCd === 'S') {

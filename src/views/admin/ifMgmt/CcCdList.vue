@@ -157,6 +157,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex';
+import { fetchGetCcCdList, fetchPostCcCdList, fetchPutCcCdList } from '@/api/bizCommApi';
 
 export default {
   /* eslint-disable */
@@ -183,9 +184,9 @@ export default {
     ...mapActions('frameSet', ['setResetPopOn']),
     ...mapActions('ccCdLst', ['setCcCdList']),
     searchList() {
-      this.tgtUrl = '/api/bizcomm/cccd';
-
-      this.$axios.get(this.tgtUrl, {
+      //this.tgtUrl = '/api/bizcomm/cccd';
+      //this.$axios.get(this.tgtUrl, {
+      fetchGetCcCdList({
         params: {
           pageNo: this.pageSet.pageNo,
           size: this.size,
@@ -223,7 +224,8 @@ export default {
     editCall(i) {
       this.tgtUrl = '/api/bizcomm/cccd';
         if (this.ccCdLst[i].flag != null && this.ccCdLst[i].flag === 'I') {
-          this.$axios.post(this.tgtUrl, this.ccCdLst[i])
+          //this.$axios.post(this.tgtUrl, this.ccCdLst[i])
+          fetchPostCcCdList(this.ccCdLst[i])
             .then((res) => {
               console.log(res);
               if (res.data.rstCd === 'S') {
@@ -234,7 +236,8 @@ export default {
               console.log(`error occur!! : ${ex}`);
             });
         } else {
-          this.$axios.put(this.tgtUrl, this.ccCdLst[i])
+          //this.$axios.put(this.tgtUrl, this.ccCdLst[i])
+          fetchPutCcCdList(this.ccCdLst[i])
             .then((res) => {
               console.log(res);
               if (res.data.rstCd === 'S') {
