@@ -185,12 +185,21 @@
     </section>
 
 
-    <section class="info_title">
+    <section
+      v-if="isStatusOn"
+      class="info_title"
+    >
       <em class="sub_tit">채널명: {{ chnldtl.chnlNm }}    채널ID: {{ chnldtl.chnlId }}</em>
-      <i class="ico-remove" />
+      <button
+        class="ico-remove"
+        @click="noshow()"
+      />
     </section>
 
-    <section class="form_area border_group">
+    <section
+      v-if="isStatusOn"
+      class="form_area border_group"
+    >
       <div class="row_contain">
         <div class="column on w-1">
           <label class="column_label">업무코드</label>
@@ -424,6 +433,7 @@ export default {
       dvlpLang: '',
       chnlRmk: '',
       useYn: 'Y',
+      isStatusOn: false,
     };
   },
   methods: {
@@ -465,8 +475,14 @@ export default {
       console.log('상세채널조회!');
       this.chnldtl = chn;
       console.log(this.chnldtl);
+      this.isStatusOn = true;
+      console.log(this.isStatusOn);
     },
 
+    noshow() {
+      this.isStatusOn = false;
+      console.log(this.isStatusOn);
+    },
 
     save() {
       console.log('채널 정보 등록!');

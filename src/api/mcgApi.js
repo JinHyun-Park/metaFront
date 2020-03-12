@@ -1,11 +1,12 @@
 /* eslint-disable no-undef */
-const preUrl = '/api/eai';
+const preUrl = '/api/mcg';
 
 function fetchGetMcgChnlList(param) {
-  return axios.get(`${preUrl}/mcg/chnl`, param);
+    return axios.get(`${preUrl}/chnl`, param);
 }
 
 
 export {
-  fetchGetMcgChnlList,
+    // eslint-disable-next-line import/prefer-default-export
+    fetchGetMcgChnlList,
 };
