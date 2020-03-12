@@ -27,6 +27,13 @@
           >
             조회
           </button>
+          <button
+            type="button"
+            class="default_button on"
+            @click="save()"
+          >
+            추가
+          </button>
         </div>
       </h5>
       <div class="row_contain type-3">
@@ -72,10 +79,10 @@
           <div class="select_group">
             <select v-model="useYn">
               <option value="Y">
-                Y
+                사용
               </option>
               <option value="N">
-                N
+                미사용
               </option>
             </select>
             <span class="select" />
@@ -103,12 +110,15 @@
             <li class="th_cell">
               사용<i class="ico-sort-down" />
             </li>
+            <li class="th_cell">
+              EDIT
+            </li>
           </ul>
         </div>
         <div class="table_body">
           <ul
-            v-for="queue in qList"
-            :key="queue.index"
+            v-for="(queue, i) in qList"
+            :key="i"
             class="table_row w-auto"
           >
             <li class="td_cell">
@@ -118,17 +128,50 @@
               {{ queue.queueNm }}
             </li>
             <li class="td_cell">
-              {{ queue.queueType }}
+              <div class="select_group">
+                <select v-model="qTypeCd">
+                  <option
+                    v-for="(code, n) in ccCdList.qTypeCd"
+                    :key="n"
+                    :value="code.cdDtlId"
+                  >
+                    {{ code.cdNm }}
+                  </option>
+                </select>
+                <span class="select" />
+              </div>
             </li>
             <li class="td_cell">
               {{ queue.chrgrNm }}
             </li>
-            <li class="td_cell">
-              {{ queue.crtcVal }}
+            <li class="td_cell on">
+              <input
+                v-model="queue.crtcVal"
+                type="text"
+              >
             </li>
             <li class="td_cell">
-              {{ queue.useYn }}
-            </li><li />
+              <div class="select_group">
+                <select v-model="queue.useYn">
+                  <option
+                    value="Y"
+                  >
+                    사용
+                  </option>
+                  <option
+                    value="N"
+                  >
+                    미사용
+                  </option>
+                </select>
+              </div>
+            </li>
+            <li class="td_cell">
+              <i
+                class="ico-edit"
+                @click="editList(i)"
+              />
+            </li>
           </ul>
         </div>
       </div>
@@ -145,21 +188,6 @@
           :page-class="'page-item'"
         />
       </div>
-    </section>
-
-    <section class="btm_button_area">
-      <button
-        type="button"
-        class="default_button"
-      >
-        수정
-      </button>
-      <button
-        type="button"
-        class="default_button on"
-      >
-        추가
-      </button>
     </section>
   </div>
 </template>
@@ -221,6 +249,42 @@ export default {
           this.qList = res.data.rstData.searchList;
           this.pageSet = res.data.rstData.pageSet;
           console.log(this.qList[0].chrgr.hanNm);
+        })
+        .catch((ex) => {
+          console.log(`error occur!! : ${ex}`);
+        });
+    },
+    save() {
+      console.log('큐 정보 등록!');
+      this.saveQueue = {
+        queueNm: this.queueNm,
+        mqMngrNm: this.mqMngrNm,
+        queueType: this.qTypeCd,
+        useYn: this.useYn,
+      };
+      this.$axios.post('/api/eai/queue', this.saveQueue)
+        .then((res) => {
+          console.log(res);
+          this.listing();
+        })
+        .catch((ex) => {
+          console.log(`error occur!! : ${ex}`);
+        });
+    },
+    editList(i) {
+      console.log(`i값 : ${i}`);
+      const confirmText = `${this.qList[i].queueNm} 를 저장하십니까?`;
+      this.$gf.confirmOn(confirmText, this.editCall, i);
+    },
+    editCall(i) {
+      console.log('채널 정보 갱신!');
+      console.log(i);
+      this.$axios.put('/api/eai/queue', this.qList[i])
+        .then((res) => {
+          console.log(res);
+          if (res.data.rstCd === 'S') {
+            this.$gf.alertOn('반영되었습니다.');
+          }
         })
         .catch((ex) => {
           console.log(`error occur!! : ${ex}`);

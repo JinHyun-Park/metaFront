@@ -29,6 +29,12 @@
           >
             조회
           </button>
+          <button
+            type="button"
+            class="default_button on"
+          >
+            추가
+          </button>
         </div>
       </h5>
       <div class="row_contain type-3">
@@ -44,24 +50,14 @@
           <label class="column_label">호스트</label>
           <div class="search_group">
             <input
-              v-mode="hostNm"
+              v-model="hostNm"
               type="text"
               value=""
             >
             <span
               class="search"
-              @click="turnOnSvrPop('server')"
+              @click="turnOnSvrPop"
             ><i class="ico-search" /></span>
-          </div>
-        </div>
-        <div class="column w-3">
-          <label class="column_label">IP</label>
-          <div class="search_group">
-            <input
-              type="text"
-              value=""
-            >
-            <span class="search"><i class="ico-search" /></span>
           </div>
         </div>
         <div class="column on w-3">
@@ -74,7 +70,7 @@
         <div class="column w-2">
           <label class="column_label">사용</label>
           <div class="select_group">
-            <select>
+            <select v-model="useYn">
               <option value="">
                 전체
               </option>
@@ -96,7 +92,7 @@
               큐매니저
             </li>
             <li class="th_cell">
-              호스트명
+              호스트
             </li>
             <li class="th_cell">
               RIP
@@ -110,19 +106,31 @@
             <li class="th_cell">
               사용
             </li>
+            <li class="th_cell">
+              EDIT
+            </li>
           </ul>
         </div>
         <div class="table_body">
           <ul
-            v-for="(row) in queueList"
-            :key="row.mqMngrNm"
+            v-for="(row, index) in mqMngrList"
+            :key="index"
             class="table_row w-auto"
           >
             <li class="td_cell">
               {{ row.mqMngrNm }}
             </li>
             <li class="td_cell">
-              {{ row.hostNm }}
+              <input
+                v-model="row.hostNm"
+                type="text"
+                value=""
+                readonly
+              >
+              <i
+                class="ico-search"
+                @click="turnOnSvrPop"
+              />
             </li>
             <li class="td_cell">
               {{ row.svrIp }}
@@ -134,7 +142,26 @@
               {{ row.qmPort }}
             </li>
             <li class="td_cell">
-              {{ row.useYn }}
+              <div class="select_group">
+                <select v-model="row.useYn">
+                  <option
+                    value="Y"
+                  >
+                    사용
+                  </option>
+                  <option
+                    value="N"
+                  >
+                    미사용
+                  </option>
+                </select>
+              </div>
+            </li>
+            <li class="td_cell">
+              <i
+                class="ico-edit"
+                @click="editList(i)"
+              />
             </li>
           </ul>
         </div>
@@ -152,21 +179,6 @@
           :page-class="'page-item'"
         />
       </div>
-    </section>
-
-    <section class="btm_button_area">
-      <button
-        type="button"
-        class="default_button"
-      >
-        수정
-      </button>
-      <button
-        type="button"
-        class="default_button on"
-      >
-        추가
-      </button>
     </section>
   </div>
 </template>
@@ -193,7 +205,7 @@ export default {
       useYn: '',
       pageSet: { pageNo: 1, pageCount: 0, size: 10 },
 
-      queueList: {},
+      mqMngrList: {},
       serverData: {},
     };
   },
@@ -213,7 +225,7 @@ export default {
         .then((res) => {
           console.log(res);
           if (res.data.rstCd === 'S') {
-            this.queueList = res.data.rstData.searchList;
+            this.mqMngrList = res.data.rstData.searchList;
             this.pageSet = res.data.rstData.pageSet;
           } else {
             this.$gf.alertOn('failed');
@@ -234,6 +246,7 @@ export default {
       console.log(`가져온 데이터2 : ${val}`);
       this.svrOn = false;
       this.serverData = val;
+      this.hostNm = val.hostNm;
       this.$gf.alertOn(`${this.serverData.svrIp}(${this.serverData.hostNm})`);
     },
 

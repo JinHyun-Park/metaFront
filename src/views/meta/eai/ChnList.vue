@@ -21,6 +21,13 @@
           >
             조회
           </button>
+          <button
+            type="button"
+            class="default_button on"
+            @click="save()"
+          >
+            추가
+          </button>
         </div>
       </h5>
       <div class="row_contain type-3">
@@ -32,7 +39,7 @@
             value=""
           >
         </div>
-        <div class="column w-6">
+        <div class="column on w-6">
           <label class="column_label">인터페이스ID</label>
           <input
             v-model="eaiIfId"
@@ -44,51 +51,77 @@
           <label class="column_label">사용</label>
           <div class="select_group">
             <select v-model="useYn">
-              <option value="">
-                전체
+              <option
+                value="Y"
+              >
+                사용
               </option>
-              <option value="Y">
-                Y
-              </option>
-              <option value="N">
-                N
+              <option
+                value="N"
+              >
+                미사용
               </option>
             </select>
-            <span class="select" />
           </div>
         </div>
-        <div class="column w-1" />
       </div>
-      <div class="table_grid">
-        <div class="table_head w-auto">
-          <ul>
-            <li class="th_cell">
-              채널<i class="ico-sort-up" />
-            </li>
-            <li class="th_cell">
-              인터페이스ID<i class="ico-sort-down" />
-            </li>
-            <li class="th_cell">
-              사용<i class="ico-sort-down" />
-            </li>
-          </ul>
-        </div>
-        <div class="table_body">
-          <ul
-            v-for="chn in chnList"
-            :key="chn.index"
-            class="table_row w-auto"
-          >
-            <li class="td_cell">
-              {{ chn.chnlNm }}
-            </li>
-            <li class="td_cell">
-              {{ chn.eaiIfId }}
-            </li>
-            <li class="td_cell">
-              {{ chn.useYn }}
-            </li><li />
-          </ul>
+      <div class="table_colgroup">
+        <div class="table_grid">
+          <div class="table_head w-auto">
+            <ul>
+              <li class="th_cell">
+                채널<i class="ico-sort-up" />
+              </li>
+              <li class="th_cell">
+                인터페이스ID<i class="ico-sort-down" />
+              </li>
+              <li class="th_cell">
+                사용<i class="ico-sort-down" />
+              </li>
+              <li class="th_cell">
+                EDIT
+              </li>
+            </ul>
+          </div>
+          <div class="table_body">
+            <ul
+              v-for="(chn, i) in chnList"
+              :key="i"
+              class="table_row w-auto"
+            >
+              <li class="td_cell">
+                {{ chn.chnlNm }}
+              </li>
+              <li class="td_cell on">
+                <input
+                  v-model="chn.eaiIfId"
+                  type="text"
+                >
+              </li>
+              <li class="td_cell">
+                <div class="select_group">
+                  <select v-model="chn.useYn">
+                    <option
+                      value="Y"
+                    >
+                      사용
+                    </option>
+                    <option
+                      value="N"
+                    >
+                      미사용
+                    </option>
+                  </select>
+                </div>
+              </li>
+              <li class="td_cell">
+                <i
+                  class="ico-edit"
+                  @click="editList(i)"
+                />
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
       <div class="pagination_space">
@@ -104,23 +137,6 @@
           :page-class="'page-item'"
         />
       </div>
-    </section>
-
-    <section class="btm_button_area">
-      <button
-        type="button"
-        class="default_button"
-        @click="save()"
-      >
-        수정
-      </button>
-      <button
-        type="button"
-        class="default_button on"
-        @click="save()"
-      >
-        추가
-      </button>
     </section>
   </div>
 </template>
@@ -142,6 +158,7 @@ export default {
     };
   },
   methods: {
+
     listing() {
       console.log('채널 목록 조회!');
       // this.$axios.get('/api/eai/channel', {
@@ -177,6 +194,25 @@ export default {
         .then((res) => {
           console.log(res);
           this.listing();
+        })
+        .catch((ex) => {
+          console.log(`error occur!! : ${ex}`);
+        });
+    },
+    editList(i) {
+      console.log(`i값 : ${i}`);
+      const confirmText = `${this.chnList[i].chnlNm} 를 저장하십니까?`;
+      this.$gf.confirmOn(confirmText, this.editCall, i);
+    },
+    editCall(i) {
+      console.log('채널 정보 갱신!');
+      console.log(i);
+      this.$axios.put('/api/eai/channel', this.chnList[i])
+        .then((res) => {
+          console.log(res);
+          if (res.data.rstCd === 'S') {
+            this.$gf.alertOn('반영되었습니다.');
+          }
         })
         .catch((ex) => {
           console.log(`error occur!! : ${ex}`);

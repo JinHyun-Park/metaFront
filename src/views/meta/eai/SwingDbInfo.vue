@@ -17,22 +17,17 @@
         <div class="right_button_area">
           <button
             type="button"
-            class="default_button"
-          >
-            수정
-          </button>
-          <button
-            type="button"
-            class="default_button on"
-          >
-            추가
-          </button>
-          <button
-            type="button"
             class="default_button on"
             @click="listingRcv()"
           >
             조회
+          </button>
+          <button
+            type="button"
+            class="default_button on"
+            @click="saveRcv()"
+          >
+            추가
           </button>
         </div>
       </h5>
@@ -92,10 +87,10 @@
           <div class="select_group">
             <select v-model="useYn">
               <option value="Y">
-                Y
+                사용
               </option>
               <option value="N">
-                N
+                미사용
               </option>
             </select>
             <span class="select" />
@@ -127,35 +122,72 @@
             <li class="th_cell">
               사용<i class="ico-sort-down" />
             </li>
+            <li class="th_cell">
+              EDIT
+            </li>
           </ul>
         </div>
         <div class="table_body">
           <ul
-            v-for="rcv in rcvList"
-            :key="rcv.index"
+            v-for="(rcv, i) in rcvList"
+            :key="i"
             class="table_row w-auto"
           >
             <li class="td_cell">
               {{ rcv.eaiIfId }}
             </li>
-            <li class="td_cell">
-              {{ rcv.rcvTbl }}
+            <li class="td_cell on">
+              <input
+                v-model="rcv.rcvTbl"
+                type="text"
+              >
+            </li>
+            <li class="td_cell on">
+              <input
+                v-model="rcv.tr"
+                type="text"
+              >
+            </li>
+            <li class="td_cell on">
+              <input
+                v-model="rcv.swgmq"
+                type="text"
+              >
+            </li>
+            <li class="td_cell on">
+              <input
+                v-model="rcv.swgtp"
+                type="text"
+              >
+            </li>
+            <li class="td_cell on">
+              <input
+                v-model="rcv.rcvQueue"
+                type="text"
+              >
             </li>
             <li class="td_cell">
-              {{ rcv.tr }}
+              <div class="select_group">
+                <select v-model="rcv.useYn">
+                  <option
+                    value="Y"
+                  >
+                    사용
+                  </option>
+                  <option
+                    value="N"
+                  >
+                    미사용
+                  </option>
+                </select>
+              </div>
             </li>
             <li class="td_cell">
-              {{ rcv.swgMq }}
+              <i
+                class="ico-edit"
+                @click="editList(i, 'r')"
+              />
             </li>
-            <li class="td_cell">
-              {{ rcv.swgTp }}
-            </li>
-            <li class="td_cell">
-              {{ rcv.rcvQ }}
-            </li>
-            <li class="td_cell">
-              {{ rcv.useYn }}
-            </li><li />
           </ul>
         </div>
       </div>
@@ -180,22 +212,17 @@
         <div class="right_button_area">
           <button
             type="button"
-            class="default_button"
-          >
-            수정
-          </button>
-          <button
-            type="button"
-            class="default_button on"
-          >
-            추가
-          </button>
-          <button
-            type="button"
             class="default_button on"
             @click="listingSnd()"
           >
             조회
+          </button>
+          <button
+            type="button"
+            class="default_button on"
+            @click="saveSnd()"
+          >
+            추가
           </button>
         </div>
       </h5>
@@ -229,10 +256,10 @@
           <div class="select_group">
             <select v-model="useYn">
               <option value="Y">
-                Y
+                사용
               </option>
               <option value="N">
-                N
+                미사용
               </option>
             </select>
             <span class="select" />
@@ -254,26 +281,54 @@
             <li class="th_cell">
               사용<i class="ico-sort-down" />
             </li>
+            <li class="th_cell">
+              EDIT
+            </li>
           </ul>
         </div>
         <div class="table_body">
           <ul
-            v-for="snd in sndList"
-            :key="snd.index"
+            v-for="(snd, i) in sndList"
+            :key="i"
             class="table_row w-auto"
           >
             <li class="td_cell">
               {{ snd.eaiIfId }}
             </li>
-            <li class="td_cell">
-              {{ snd.sndTbl }}
+            <li class="td_cell on">
+              <input
+                v-model="snd.sndTbl"
+                type="text"
+              >
+            </li>
+            <li class="td_cell on">
+              <input
+                v-model="snd.sndAdt"
+                type="text"
+              >
+            </li>
+            <li class="td_cell on">
+              <div class="select_group">
+                <select v-model="snd.useYn">
+                  <option
+                    value="Y"
+                  >
+                    사용
+                  </option>
+                  <option
+                    value="N"
+                  >
+                    미사용
+                  </option>
+                </select>
+              </div>
             </li>
             <li class="td_cell">
-              {{ snd.sndAdt }}
+              <i
+                class="ico-edit"
+                @click="editList(i, 's')"
+              />
             </li>
-            <li class="td_cell">
-              {{ snd.useYn }}
-            </li><li />
           </ul>
         </div>
       </div>
@@ -372,7 +427,7 @@ export default {
           console.log(`error occur!! : ${ex}`);
         });
     },
-    save() {
+    saveSnd() {
       console.log('송신 정보 등록!');
       this.saveSndTbl = {
         sndTbl: this.sndTbl,
@@ -385,6 +440,63 @@ export default {
         .then((res) => {
           console.log(res);
           this.listing();
+        })
+        .catch((ex) => {
+          console.log(`error occur!! : ${ex}`);
+        });
+    },
+    saveRcv() {
+      console.log('수신 정보 등록!');
+      this.saveRcvTbl = {
+        rcvTbl: this.rcvTbl,
+        eaiIfId: this.rEaiIfId,
+        tr: this.tr,
+        swgmq: this.swgMq,
+        swgtp: this.swgTp,
+        rcvQueue: this.rcvQ,
+        useYn: this.useYn,
+      };
+      this.$axios.post('/api/eai/swg/rcv', this.saveRcvTbl)
+        .then((res) => {
+          console.log(res);
+          this.listing();
+        })
+        .catch((ex) => {
+          console.log(`error occur!! : ${ex}`);
+        });
+    },
+    editList(i, n) {
+      if (n === 'r') {
+        const confirmText = `${this.rcvList[i].eaiIfId} 를 저장하십니까?`;
+        this.$gf.confirmOn(confirmText, this.editRcvCall, i);
+      } else {
+        const confirmText = `${this.sndList[i].eaiIfId} 를 저장하십니까?`;
+        this.$gf.confirmOn(confirmText, this.editSndCall, i);
+      }
+    },
+    editRcvCall(i) {
+      console.log('SWING 수신 인터페이스 정보 갱신!');
+
+      this.$axios.put('/api/eai/swg/rcv', this.rcvList[i])
+        .then((res) => {
+          console.log(res);
+          if (res.data.rstCd === 'S') {
+            this.$gf.alertOn('반영되었습니다.');
+          }
+        })
+        .catch((ex) => {
+          console.log(`error occur!! : ${ex}`);
+        });
+    },
+    editSndCall(i) {
+      console.log('SWING 송신 인터페이스 정보 갱신!');
+
+      this.$axios.put('/api/eai/swg/snd', this.sndList[i])
+        .then((res) => {
+          console.log(res);
+          if (res.data.rstCd === 'S') {
+            this.$gf.alertOn('반영되었습니다.');
+          }
         })
         .catch((ex) => {
           console.log(`error occur!! : ${ex}`);

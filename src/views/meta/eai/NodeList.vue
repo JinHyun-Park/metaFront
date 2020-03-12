@@ -24,8 +24,15 @@
           <button
             type="button"
             class="default_button on"
+            @click="listing()"
           >
             조회
+          </button>
+          <button
+            type="button"
+            class="default_button on"
+          >
+            추가
           </button>
         </div>
       </h5>
@@ -34,18 +41,19 @@
           <label class="column_label">노드</label>
           <input
             type="text"
-            value="QMGR"
+            value=""
           >
         </div>
         <div class="column w-2">
           <label class="column_label">유형</label>
           <div class="select_group">
-            <select>
-              <option value="">
-                C
-              </option>
-              <option value="">
-                S
+            <select v-model="nodeTypeCd">
+              <option
+                v-for="(code, i) in ccCdList.nodeTypeCd"
+                :key="i"
+                :value="code.cdDtlId"
+              >
+                {{ code.cdNm }}
               </option>
             </select>
             <span class="select" />
@@ -64,25 +72,18 @@
             <span class="search"><i class="ico-search" /></span>
           </div>
         </div>
-        <div class="column w-3">
-          <label class="column_label">IP</label>
-          <div class="search_group">
-            <input
-              type="text"
-              value=""
-            >
-            <span class="search"><i class="ico-search" /></span>
-          </div>
-        </div>
         <div class="column w-2">
           <label class="column_label">사용</label>
           <div class="select_group">
-            <select>
+            <select v-model="useYn">
               <option value="">
-                Y
+                전체
               </option>
-              <option value="">
-                N
+              <option value="Y">
+                사용
+              </option>
+              <option value="N">
+                미사용
               </option>
             </select>
             <span class="select" />
@@ -107,98 +108,121 @@
             <li class="th_cell">
               사용<i class="ico-sort-down" />
             </li>
+            <li class="th_cell">
+              EDIT
+            </li>
           </ul>
         </div>
         <div class="table_body">
-          <ul class="table_row w-auto">
+          <ul
+            v-for="(node, i) in nodeList"
+            :key="i"
+            class="table_row w-auto"
+          >
             <li class="td_cell">
-              SWG.SVC_MFF
+              {{ node.nodeNm }}
             </li>
             <li class="td_cell">
-              C
+              <div class="select_group">
+                <select v-model="node.nodeType">
+                  <option
+                    v-for="(code, n) in ccCdList.nodeTypeCd"
+                    :key="n"
+                    :value="code.cdDtlId"
+                  >
+                    {{ code.cdNm }}
+                  </option>
+                </select>
+                <span class="select" />
+              </div>
             </li>
             <li class="td_cell">
-              EAI01
-            </li>
-            <li class="td_cell">
-              127.0.0.1
-            </li>
-            <li class="td_cell">
-              Y
-            </li><li />
-          </ul>
-          <ul class="table_row w-auto">
-            <li class="td_cell">
-              SWG.SVC_MFF
-            </li>
-            <li class="td_cell">
-              C
-            </li>
-            <li class="td_cell">
-              EAI01
-            </li>
-            <li class="td_cell">
-              127.0.0.1
-            </li>
-            <li class="td_cell">
-              Y
-            </li><li />
-          </ul>
-          <ul class="table_row w-auto">
-            <li class="td_cell">
-              SWG.SVC_MFF
-            </li>
-            <li class="td_cell">
-              S
-            </li>
-            <li class="td_cell">
-              EAI01
+              {{ node.mqMngrNm }}
             </li>
             <li class="td_cell">
               127.0.0.1
             </li>
             <li class="td_cell">
-              N
+              <select v-model="node.useYn">
+                <option
+                  value="Y"
+                >
+                  사용
+                </option>
+                <option
+                  value="N"
+                >
+                  미사용
+                </option>
+              </select>
             </li><li />
           </ul>
         </div>
       </div>
     </section>
-
-    <section class="btm_button_area">
-      <button
-        type="button"
-        class="default_button"
-      >
-        수정
-      </button>
-      <button
-        type="button"
-        class="default_button on"
-      >
-        추가
-      </button>
-    </section>
   </div>
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex';
 import SvrListPopup from '@/components/popup/meta/mcg/SvrListPopup.vue';
 
 export default {
-  name: 'QueueMgrList',
   components: {
     SvrListPopup,
   },
   data() {
     return {
+      index: 0,
+      nodeList: [],
+      size: 10,
+      nodeNm: '',
+      svrNum: '',
+      hostNm: '',
+      svrIp: '',
+      nodeType: '',
+      useYn: '',
+      saveNode: {},
+      nodeTypeCd: '',
+      pageSet: { pageNo: 1, pageCount: 0, size: 10 },
       svrOn: false,
       props: {
         message: 'Hiww',
       },
     };
   },
+  computed: {
+    // ...mapState('frameSet', ['resetPopOn']),
+    ...mapState('ccCdLst', ['ccCdList']),
+  },
+  mounted() {
+    this.setCcCdList({
+      opClCd: 'EAI', cdId: 'QMGR_TYP_CD', allYn: 'Y', listNm: 'nodeTypeCd',
+    });
+  },
   methods: {
+    ...mapActions('ccCdLst', ['setCcCdList']),
+    listing() {
+      console.log('노드 목록 조회!');
+      this.$axios.get('/api/eai/node', {
+        params: {
+          pageNo: this.pageSet.pageNo,
+          pageCount: this.pageSet.pageCount,
+          nodeNm: this.nodeNm,
+          mqMngrNm: this.mqMngrNm,
+          nodeType: this.nodeTypeCd,
+          useYn: this.useYn,
+        },
+      })
+        .then((res) => {
+          this.nodeList = res.data.rstData.searchList;
+          this.pageSet = res.data.rstData.pageSet;
+          console.log(this.nodeList[0].Nm);
+        })
+        .catch((ex) => {
+          console.log(`error occur!! : ${ex}`);
+        });
+    },
     turnOnSvrPop() {
       this.svrOn = true;
     },
