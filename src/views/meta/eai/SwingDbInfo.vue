@@ -439,7 +439,7 @@ export default {
       fetchPostEaiSwgSnd(this.saveSndTbl)
         .then((res) => {
           console.log(res);
-          this.listing();
+          this.listingRcv();
         })
         .catch((ex) => {
           console.log(`error occur!! : ${ex}`);
@@ -459,7 +459,7 @@ export default {
       this.$axios.post('/api/eai/swg/rcv', this.saveRcvTbl)
         .then((res) => {
           console.log(res);
-          this.listing();
+          this.listingSnd();
         })
         .catch((ex) => {
           console.log(`error occur!! : ${ex}`);
