@@ -100,7 +100,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 import { fetchGetLogout } from '@/api/loginApi';
 import { fetchGetMyChrgrInfo } from '@/api/bizCommApi';
 
@@ -121,8 +121,10 @@ export default {
   created() {
     this.setActiveItem();
     this.getMyInfo();
+    this.setMenuAllList(); // 서버로부터 menu 내 left list 수신
   },
   methods: {
+    ...mapActions('frameSet', ['setMenuAllList']),
     isActive(page) {
       return this.activeItem === page;
     },
