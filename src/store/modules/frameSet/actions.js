@@ -1,4 +1,5 @@
 import helpers from '@/utils/helpers';
+import { fetchGetMenuList } from '@/api/bizCommApi';
 
 export default {
   setHeaderOn: (store, payload) => {
@@ -29,5 +30,16 @@ export default {
   setAlertSet: (store, payload) => {
     helpers.scrollPrevent(payload.alertOn);
     store.commit('setAlertSet', payload);
+  },
+  setMenuAllList: (store) => {
+    fetchGetMenuList()
+      .then((res) => {
+        if (res.data.rstCd === 'S') {
+          store.commit('setMenuAllList', res.data.rstData.menuList);
+        }
+      })
+      .catch((ex) => {
+        console.log(`error occur!! : ${ex}`);
+      });
   },
 };

@@ -33,4 +33,7 @@ export default {
     state.alertSet.parentFunc = payload.parentFunc;
     state.alertSet.param = payload.param;
   },
+  setMenuAllList: (state, payload) => {
+    state.menuAllList = payload;
+  },
 };

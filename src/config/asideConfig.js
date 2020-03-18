@@ -4,10 +4,10 @@ export default {
       menuLcl: 'NOTICE', index: 1, menuNm: '공지사항 조회', url: 'noticeMain',
     },
     {
-      menuLcl: 'NOTICE', index: 1, menuNm: 'I/F 신청서', url: 'applyIf',
+      menuLcl: 'IFREG', index: 1, menuNm: 'I/F 신청서', url: 'applyIf',
     },
     {
-      menuLcl: 'NOTICE', index: 2, menuNm: 'I/F 정보 변경 요청서', url: 'chgIfinfo',
+      menuLcl: 'IFREG', index: 2, menuNm: 'I/F 정보 변경 요청서', url: 'chgIfinfo',
     },
     {
       menuLcl: 'IFREGLIST', index: 1, menuNm: '신청목록', url: 'regList',
