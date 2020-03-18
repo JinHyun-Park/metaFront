@@ -401,6 +401,10 @@ export default {
         });
     },
     editList(i) {
+      if (this.mqMngrList[i].svrNum === '') {
+        this.$gf.alertOn('서버를 선택하세요');
+        return;
+      }
       const confirmText = `${this.mqMngrList[i].mqMngrNm} 를 수정하십니까?`;
       this.$gf.confirmOn(confirmText, this.editCall, i);
     },

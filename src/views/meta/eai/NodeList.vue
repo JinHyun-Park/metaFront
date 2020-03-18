@@ -387,6 +387,13 @@ export default {
       }
     },
     editList(i) {
+      if (this.nodeList[i].nodeType === '') {
+        this.$gf.alertOn('노드 유형을 선택하세요');
+        return;
+      } if (this.nodeList[i].svrNum === '') {
+        this.$gf.alertOn('서버를 선택하세요');
+        return;
+      }
       const confirmText = `${this.nodeList[i].nodeNm} 를 수정하십니까?`;
       this.$gf.confirmOn(confirmText, this.editCall, i);
     },

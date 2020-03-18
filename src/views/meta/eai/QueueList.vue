@@ -394,12 +394,15 @@ export default {
         });
     },
     editList(i) {
-      console.log(`i값 : ${i}`);
+      if (this.qList[i].qTypeCd === '') {
+        this.$gf.alertOn('큐 유형을 선택하세요');
+        return;
+      }
       const confirmText = `${this.qList[i].queueNm} 를 저장하십니까?`;
       this.$gf.confirmOn(confirmText, this.editCall, i);
     },
     editCall(i) {
-      console.log('채널 정보 갱신!');
+      console.log('큐 정보 갱신!');
       console.log(i);
       this.$axios.put('/api/eai/queue', this.qList[i])
         .then((res) => {
