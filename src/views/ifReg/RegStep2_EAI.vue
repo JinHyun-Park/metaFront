@@ -20,150 +20,210 @@
                 </section>
 -->
 
-    <section class="border_group border-none">
+    <section class="form_area border_group">
       <h5 class="s_tit type-2">
-        신청목록
+        송신 시스템 정보
       </h5>
       <div class="table_colgroup">
         <div class="table_grid tb_layout">
           <div class="table_head w-auto">
             <ul>
               <li class="th_cell">
-                방식<i class="ico-sort-down" />
+                서버 유형
               </li>
               <li class="th_cell">
-                인터페이스명(영문)<i class="ico-sort-up" />
+                시스템명
               </li>
               <li class="th_cell">
-                인터페이스명(한글)<i class="ico-sort-down" />
+                Hostname
               </li>
               <li class="th_cell">
-                방향<i class="ico-sort-down" />
+                IP (VIP)
               </li>
               <li class="th_cell">
-                비동기<i class="ico-sort-down" />
+                IP (NAT)
               </li>
               <li class="th_cell">
-&nbsp;
+                IP (추가)
+              </li>
+              <li class="th_cell">
+                OS
+              </li>
+              <li class="th_cell">
+                담당 회사
+              </li>
+              <li class="th_cell">
+                Edit
               </li>
             </ul>
           </div>
           <div class="table_body">
-            <ul class="table_row w-auto">
+            <ul
+              v-for="(sndRow, n) in sndRows"
+              :key="n"
+              class="table_row w-auto"
+            >
               <li class="td_cell">
-                MQ
+                <input
+                  v-model="sndRow.svrType"
+                  type="text"
+                >
               </li>
               <li class="td_cell">
-                SEND1P
+                <input
+                  v-model="sndRow.sysNm"
+                  type="text"
+                >
               </li>
               <li class="td_cell">
-                서비스 연동
+                <input
+                  v-model="sndRow.hostNm"
+                  type="text"
+                >
               </li>
               <li class="td_cell">
-                단방향
+                <input
+                  v-model="sndRow.vIp"
+                  type="text"
+                >
               </li>
               <li class="td_cell">
-                Y
+                <input
+                  v-model="sndRow.natIp"
+                  type="text"
+                >
               </li>
               <li class="td_cell">
-                <i class="ico-del" />
-              </li>
-            </ul>
-            <div class="fold_colgroup">
-              <ul class="table_row colspan w-auto">
-                <li class="td_cell">
-                  <label class="label-default">운영</label>
-                </li>
-                <li class="td_cell">
-                  송신 <a
-                    href="#n"
-                    title=""
-                    class="on"
-                  >HostP1</a> <a
-                    href="#n"
-                    title=""
-                  >HostP2</a> <a
-                    href="#n"
-                    title=""
-                  >HostP3</a>
-                </li>
-                <li class="td_cell">
-                  상세 내용
-                </li>
-                <li class="td_cell">
-                  수신 <a
-                    href="#n"
-                    title=""
-                  >Host-PA</a>
-                </li>
-                <li class="td_cell" />
-                <li class="td_cell" />
-              </ul>
-              <ul class="table_row colspan w-auto">
-                <li class="td_cell">
-                  <label class="label-default color-green">개발</label>
-                </li>
-                <li class="td_cell">
-                  송신 <a
-                    href="#n"
-                    title=""
-                  >HostD1</a> <a
-                    href="#n"
-                    title=""
-                  >HostD2</a>
-                </li>
-                <li class="td_cell">
-                  상세 내용
-                </li>
-                <li class="td_cell">
-                  수신 <a
-                    href="#n"
-                    title=""
-                    class="on"
-                  >Host-DA</a>
-                </li>
-                <li class="td_cell" />
-                <li class="td_cell" />
-              </ul>
-            </div>
-            <ul class="table_row w-auto">
-              <li class="td_cell">
-                MQ
+                <input
+                  v-model="sndRow.addIp"
+                  type="text"
+                >
               </li>
               <li class="td_cell">
-                SMS_RSLT
+                <input
+                  v-model="sndRow.os"
+                  type="text"
+                >
               </li>
               <li class="td_cell">
-                SMS 결과
+                <input
+                  v-model="sndRow.company"
+                  type="text"
+                >
               </li>
               <li class="td_cell">
-                단방향
-              </li>
-              <li class="td_cell">
-                Y
-              </li>
-              <li class="td_cell">
-                <i class="ico-del" />
+                <i
+                  class="ico-add"
+                  @click="addSndRow(n)"
+                />
+                <i
+                  class="ico-del"
+                  @click="removeSndRow(sndRow)"
+                />
               </li>
             </ul>
-            <ul class="table_row w-auto">
+          </div>
+        </div>
+      </div>
+      <h5 class="s_tit type-2">
+        수신 시스템 정보
+      </h5>
+      <div class="table_colgroup">
+        <div class="table_grid tb_layout">
+          <div class="table_head w-auto">
+            <ul>
+              <li class="th_cell">
+                서버 유형
+              </li>
+              <li class="th_cell">
+                시스템명
+              </li>
+              <li class="th_cell">
+                Hostname
+              </li>
+              <li class="th_cell">
+                IP (VIP)
+              </li>
+              <li class="th_cell">
+                IP (NAT)
+              </li>
+              <li class="th_cell">
+                IP (추가)
+              </li>
+              <li class="th_cell">
+                OS
+              </li>
+              <li class="th_cell">
+                담당 회사
+              </li>
+              <li class="th_cell">
+                Edit
+              </li>
+            </ul>
+          </div>
+          <div class="table_body">
+            <ul
+              v-for="(rcvRow, i) in rcvRows"
+              :key="i"
+              class="table_row w-auto"
+            >
               <li class="td_cell">
-                FILE
+                <input
+                  v-model="rcvRow.svrType"
+                  type="text"
+                >
               </li>
               <li class="td_cell">
-                WEEK_DATA
+                <input
+                  v-model="rcvRow.sysNm"
+                  type="text"
+                >
               </li>
               <li class="td_cell">
-                주간 데이터
+                <input
+                  v-model="rcvRow.hostNm"
+                  type="text"
+                >
               </li>
               <li class="td_cell">
-                단방향
+                <input
+                  v-model="rcvRow.vIp"
+                  type="text"
+                >
               </li>
               <li class="td_cell">
-                Y
+                <input
+                  v-model="rcvRow.natIp"
+                  type="text"
+                >
               </li>
               <li class="td_cell">
-                <i class="ico-del" />
+                <input
+                  v-model="rcvRow.addIp"
+                  type="text"
+                >
+              </li>
+              <li class="td_cell">
+                <input
+                  v-model="rcvRow.os"
+                  type="text"
+                >
+              </li>
+              <li class="td_cell">
+                <input
+                  v-model="rcvRow.company"
+                  type="text"
+                >
+              </li>
+              <li class="td_cell">
+                <i
+                  class="ico-add"
+                  @click="addRcvRow(i)"
+                />
+                <i
+                  class="ico-del"
+                  @click="removeRcvRow(rcvRow)"
+                />
               </li>
             </ul>
           </div>
@@ -604,6 +664,69 @@
 
 <script>
 export default {
+
   name: 'RegStep2EAI',
+  data() {
+    return {
+      svrType: '',
+      sysNm: '',
+      hostNm: '',
+      vIp: '',
+      natIp: '',
+      addIp: '',
+      os: '',
+      company: '',
+      sndRows: [
+        {
+          svrType: '',
+          sysNm: '',
+          hostNm: '',
+          vIp: '',
+          natIp: '',
+          addIp: '',
+          os: '',
+          company: '',
+        },
+      ],
+      rcvRows: [
+        {
+          svrType: '',
+          sysNm: '',
+          hostNm: '',
+          vIp: '',
+          natIp: '',
+          addIp: '',
+          os: '',
+          company: '',
+        },
+      ],
+    };
+  },
+  methods: {
+    addSndRow(n) {
+      console.log('행 추가!');
+      this.sndRows.splice(n + 1, 0, {});
+    },
+    removeSndRow(sndRow) {
+      if (this.sndRows.length > 1) {
+        console.log('행 삭제!');
+        console.log(sndRow);
+        const idx = this.sndRows.indexOf(sndRow);
+        this.sndRows.splice(idx, 1);
+      }
+    },
+    addRcvRow(i) {
+      console.log('행 추가!');
+      this.rcvRows.splice(i + 1, 0, {});
+    },
+    removeRcvRow(rcvRow) {
+      if (this.rcvRows.length > 1) {
+        console.log('행 삭제!');
+        console.log(rcvRow);
+        const idx = this.rcvRows.indexOf(rcvRow);
+        this.rcvRows.splice(idx, 1);
+      }
+    },
+  },
 };
 </script>

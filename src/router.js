@@ -119,6 +119,11 @@ const router = new Router({
       path: '/meta/eai/swingDbInfo',
       name: 'swingDbInfo',
       component: () => import('@/views/meta/eai/SwingDbInfo.vue'),
+    },
+    {
+      path: '/meta/eai/eaiServer',
+      name: 'eaiServer',
+      component: () => import('@/views/meta/eai/EaiServer.vue'),
     }, // EAI 끝
     {
       path: '/meta/eigw/onlineList',

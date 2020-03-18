@@ -17,19 +17,13 @@
           <button
             type="button"
             class="default_button on"
-            @click="listing()"
+            @click="searchList()"
           >
             조회
           </button>
-          <button
-            type="button"
-            class="default_button on"
-            @click="save()"
-          >
-            추가
-          </button>
         </div>
       </h5>
+      <!--
       <div class="row_contain type-3">
         <div class="column on w-3">
           <label class="column_label">채널</label>
@@ -65,18 +59,19 @@
           </div>
         </div>
       </div>
+      -->
       <div class="table_colgroup">
         <div class="table_grid">
           <div class="table_head w-auto">
             <ul>
               <li class="th_cell">
-                채널<i class="ico-sort-up" />
+                채널
               </li>
               <li class="th_cell">
-                인터페이스ID<i class="ico-sort-down" />
+                인터페이스ID
               </li>
               <li class="th_cell">
-                사용<i class="ico-sort-down" />
+                사용 여부
               </li>
               <li class="th_cell">
                 EDIT
@@ -85,6 +80,55 @@
           </div>
           <div class="table_body">
             <ul
+              class="table_row w-auto"
+            >
+              <li class="td_cell">
+                <input
+                  v-model="chnlNm"
+                  type="text"
+                  oninput="this.value = this.value.toUpperCase()"
+                >
+              </li>
+              <li class="td_cell">
+                <input
+                  v-model="eaiIfId"
+                  type="text"
+                  oninput="this.value = this.value.toUpperCase()"
+                >
+              </li>
+              <li class="td_cell">
+                <div class="select_group">
+                  <select v-model="useYn">
+                    <option
+                      value=""
+                    >
+                      전체
+                    </option>
+                    <option
+                      value="Y"
+                    >
+                      사용
+                    </option>
+                    <option
+                      value="N"
+                    >
+                      미사용
+                    </option>
+                  </select>
+                </div>
+              </li>
+              <li class="td_cell">
+                <i
+                  class="ico-add"
+                  @click="saveChannel()"
+                />
+                <i
+                  class="ico-del"
+                  @click="resetField()"
+                />
+              </li>
+            </ul>
+            <ul
               v-for="(chn, i) in chnList"
               :key="i"
               class="table_row w-auto"
@@ -92,10 +136,11 @@
               <li class="td_cell">
                 {{ chn.chnlNm }}
               </li>
-              <li class="td_cell on">
+              <li class="td_cell">
                 <input
                   v-model="chn.eaiIfId"
                   type="text"
+                  oninput="this.value = this.value.toUpperCase()"
                 >
               </li>
               <li class="td_cell">
@@ -130,7 +175,7 @@
           :page-count="pageSet.pageCount"
           :page-range="3"
           :margin-pages="1"
-          :click-handler="listing"
+          :click-handler="searchList"
           :prev-text="'이전'"
           :next-text="'다음'"
           :container-class="'pagination'"
@@ -142,7 +187,7 @@
 </template>
 
 <script>
-import { fetchGetEaiChannelList, fetchPostEaiChannelList } from '@/api/eaiApi';
+import { fetchGetEaiChannelList } from '@/api/eaiApi';
 
 export default {
   data() {
@@ -153,13 +198,13 @@ export default {
       size: 10,
       chnlNm: '',
       eaiIfId: '',
-      useYn: 'Y',
+      useYn: '',
       pageSet: { pageNo: 1, pageCount: 0, size: 10 },
     };
   },
   methods: {
 
-    listing() {
+    searchList() {
       console.log('채널 목록 조회!');
       // this.$axios.get('/api/eai/channel', {
       fetchGetEaiChannelList({
@@ -180,20 +225,32 @@ export default {
           console.log(`error occur!! : ${ex}`);
         });
     },
-    save() {
+    saveChannel() {
+      if (this.chnlNm === '') {
+        this.$gf.alertOn('채널명을 입력하세요');
+        return;
+      } if (this.eaiIfId === '') {
+        this.$gf.alertOn('인터페이스ID를 입력 하세요');
+        return;
+      } if (this.useYn === '') {
+        this.$gf.alertOn('사용 여부를 선택하세요');
+        return;
+      }
+      const confirmText = `${this.chnlNm} 를 저장하십니까?`;
+      this.$gf.confirmOn(confirmText, this.insertData);
+    },
+    insertData() {
       console.log('채널 정보 등록!');
       console.log(this.chnlNm);
-      // this.$axios.post('/api/eai/channel/post', {  })
-      fetchPostEaiChannelList({
-        params: {
-          chnlNm: this.chnlNm,
-          eaiIfId: this.eaiIfId,
-          useYn: this.useYn,
-        },
-      })
+      this.chnList = {
+        chnlNm: this.chnlNm,
+        eaiIfId: this.eaiIfId,
+        useYn: this.useYn,
+      };
+      this.$axios.post('/api/eai/channel', this.chnList)
         .then((res) => {
           console.log(res);
-          this.listing();
+          this.searchList();
         })
         .catch((ex) => {
           console.log(`error occur!! : ${ex}`);
@@ -201,7 +258,7 @@ export default {
     },
     editList(i) {
       console.log(`i값 : ${i}`);
-      const confirmText = `${this.chnList[i].chnlNm} 를 저장하십니까?`;
+      const confirmText = `${this.chnList[i].chnlNm} 를 수정하십니까?`;
       this.$gf.confirmOn(confirmText, this.editCall, i);
     },
     editCall(i) {
@@ -217,6 +274,11 @@ export default {
         .catch((ex) => {
           console.log(`error occur!! : ${ex}`);
         });
+    },
+    resetField() {
+      this.chnlNm = '';
+      this.eaiIfId = '';
+      this.useYn = '';
     },
   },
 };

@@ -18,19 +18,13 @@
           <button
             type="button"
             class="default_button on"
-            @click="listingRcv()"
+            @click="searchRcvList()"
           >
             조회
           </button>
-          <button
-            type="button"
-            class="default_button on"
-            @click="saveRcv()"
-          >
-            추가
-          </button>
         </div>
       </h5>
+      <!--
       <div class="row_contain type-3">
         <div class="column on w-3">
           <label class="column_label">인터페이스ID</label>
@@ -61,7 +55,7 @@
         <div class="column w-2">
           <label class="column_label">MQ UCS</label>
           <input
-            v-model="swgMq"
+            v-model="swgmq"
             type="text"
             value=""
           >
@@ -69,7 +63,7 @@
         <div class="column w-2">
           <label class="column_label">TP UCS</label>
           <input
-            v-model="swgTp"
+            v-model="swgtp"
             type="text"
             value=""
           >
@@ -98,29 +92,30 @@
         </div>
         <div class="column w-1" />
       </div>
+      -->
       <div class="table_grid">
         <div class="table_head w-auto">
           <ul>
             <li class="th_cell">
-              인터페이스ID<i class="ico-sort-up" />
+              인터페이스ID
             </li>
             <li class="th_cell">
-              테이블<i class="ico-sort-down" />
+              테이블
             </li>
             <li class="th_cell">
-              수신TR<i class="ico-sort-up" />
+              수신TR
             </li>
             <li class="th_cell">
-              MQ UCS<i class="ico-sort-up" />
+              MQ UCS
             </li>
             <li class="th_cell">
-              TP UCS<i class="ico-sort-up" />
+              TP UCS
             </li>
             <li class="th_cell">
-              수신큐 <i class="ico-sort-up" />
+              수신큐
             </li>
             <li class="th_cell">
-              사용<i class="ico-sort-down" />
+              사용 여부
             </li>
             <li class="th_cell">
               EDIT
@@ -128,6 +123,99 @@
           </ul>
         </div>
         <div class="table_body">
+          <ul class="table_row w-auto">
+            <li
+              style="width:25%; "
+              class="td_cell"
+            >
+              <input
+                v-model="rEaiIfId"
+                type="text"
+                oninput="this.value = this.value.toUpperCase()"
+              >
+            </li>
+            <li
+              style="width:10%; "
+              class="td_cell"
+            >
+              <input
+                v-model="rcvTbl"
+                type="text"
+                oninput="this.value = this.value.toUpperCase()"
+              >
+            </li>
+            <li
+              style="width:10%; "
+              class="td_cell"
+            >
+              <input
+                v-model="tr"
+                type="text"
+                oninput="this.value = this.value.toUpperCase()"
+              >
+            </li>
+            <li
+              style="width:10%; "
+              class="td_cell"
+            >
+              <input
+                v-model="swgmq"
+                type="text"
+                oninput="this.value = this.value.toUpperCase()"
+              >
+            </li>
+            <li
+              style="width:10%; "
+              class="td_cell"
+            >
+              <input
+                v-model="swgtp"
+                type="text"
+                oninput="this.value = this.value.toUpperCase()"
+              >
+            </li>
+            <li
+              style="width:25%; "
+              class="td_cell"
+            >
+              <input
+                v-model="rcvQueue"
+                type="text"
+                oninput="this.value = this.value.toUpperCase()"
+              >
+            </li>
+            <li class="td_cell">
+              <div class="select_group">
+                <select v-model="rUseYn">
+                  <option
+                    value=""
+                  >
+                    전체
+                  </option>
+                  <option
+                    value="Y"
+                  >
+                    사용
+                  </option>
+                  <option
+                    value="N"
+                  >
+                    미사용
+                  </option>
+                </select>
+              </div>
+            </li>
+            <li class="td_cell">
+              <i
+                class="ico-add"
+                @click="saveRcv()"
+              />
+              <i
+                class="ico-del"
+                @click="resetRcvField()"
+              />
+            </li>
+          </ul>
           <ul
             v-for="(rcv, i) in rcvList"
             :key="i"
@@ -136,34 +224,39 @@
             <li class="td_cell">
               {{ rcv.eaiIfId }}
             </li>
-            <li class="td_cell on">
+            <li class="td_cell">
               <input
                 v-model="rcv.rcvTbl"
                 type="text"
+                oninput="this.value = this.value.toUpperCase()"
               >
             </li>
-            <li class="td_cell on">
+            <li class="td_cell">
               <input
                 v-model="rcv.tr"
                 type="text"
+                oninput="this.value = this.value.toUpperCase()"
               >
             </li>
-            <li class="td_cell on">
+            <li class="td_cell">
               <input
                 v-model="rcv.swgmq"
                 type="text"
+                oninput="this.value = this.value.toUpperCase()"
               >
             </li>
-            <li class="td_cell on">
+            <li class="td_cell">
               <input
                 v-model="rcv.swgtp"
                 type="text"
+                oninput="this.value = this.value.toUpperCase()"
               >
             </li>
-            <li class="td_cell on">
+            <li class="td_cell">
               <input
                 v-model="rcv.rcvQueue"
                 type="text"
+                oninput="this.value = this.value.toUpperCase()"
               >
             </li>
             <li class="td_cell">
@@ -197,7 +290,7 @@
           :page-count="rPageSet.pageCount"
           :page-range="3"
           :margin-pages="1"
-          :click-handler="listingRcv"
+          :click-handler="searchRcvList"
           :prev-text="'이전'"
           :next-text="'다음'"
           :container-class="'pagination'"
@@ -213,19 +306,13 @@
           <button
             type="button"
             class="default_button on"
-            @click="listingSnd()"
+            @click="searchSndList()"
           >
             조회
           </button>
-          <button
-            type="button"
-            class="default_button on"
-            @click="saveSnd()"
-          >
-            추가
-          </button>
         </div>
       </h5>
+      <!--
       <div class="row_contain">
         <div class="column w-3">
           <label class="column_label">인터페이스ID</label>
@@ -266,20 +353,21 @@
           </div>
         </div>
       </div>
+      -->
       <div class="table_grid">
         <div class="table_head w-auto">
           <ul>
             <li class="th_cell">
-              인터페이스ID<i class="ico-sort-up" />
+              인터페이스ID
             </li>
             <li class="th_cell">
-              테이블<i class="ico-sort-down" />
+              테이블
             </li>
             <li class="th_cell">
-              송신ADT<i class="ico-sort-up" />
+              송신ADT
             </li>
             <li class="th_cell">
-              사용<i class="ico-sort-down" />
+              사용 여부
             </li>
             <li class="th_cell">
               EDIT
@@ -287,6 +375,60 @@
           </ul>
         </div>
         <div class="table_body">
+          <ul class="table_row w-auto">
+            <li class="td_cell">
+              <input
+                v-model="eaiIfId"
+                type="text"
+                oninput="this.value = this.value.toUpperCase()"
+              >
+            </li>
+            <li class="td_cell">
+              <input
+                v-model="sndTbl"
+                type="text"
+                oninput="this.value = this.value.toUpperCase()"
+              >
+            </li>
+            <li class="td_cell">
+              <input
+                v-model="sndAdt"
+                type="text"
+                oninput="this.value = this.value.toUpperCase()"
+              >
+            </li>
+            <li class="td_cell">
+              <div class="select_group">
+                <select v-model="useYn">
+                  <option
+                    value=""
+                  >
+                    전체
+                  </option>
+                  <option
+                    value="Y"
+                  >
+                    사용
+                  </option>
+                  <option
+                    value="N"
+                  >
+                    미사용
+                  </option>
+                </select>
+              </div>
+            </li>
+            <li class="td_cell">
+              <i
+                class="ico-add"
+                @click="saveSnd()"
+              />
+              <i
+                class="ico-del"
+                @click="resetSndField()"
+              />
+            </li>
+          </ul>
           <ul
             v-for="(snd, i) in sndList"
             :key="i"
@@ -295,19 +437,21 @@
             <li class="td_cell">
               {{ snd.eaiIfId }}
             </li>
-            <li class="td_cell on">
+            <li class="td_cell">
               <input
                 v-model="snd.sndTbl"
                 type="text"
+                oninput="this.value = this.value.toUpperCase()"
               >
             </li>
-            <li class="td_cell on">
+            <li class="td_cell">
               <input
                 v-model="snd.sndAdt"
                 type="text"
+                oninput="this.value = this.value.toUpperCase()"
               >
             </li>
-            <li class="td_cell on">
+            <li class="td_cell">
               <div class="select_group">
                 <select v-model="snd.useYn">
                   <option
@@ -338,7 +482,7 @@
           :page-count="pageSet.pageCount"
           :page-range="3"
           :margin-pages="1"
-          :click-handler="listingSnd"
+          :click-handler="searchSndList"
           :prev-text="'이전'"
           :next-text="'다음'"
           :container-class="'pagination'"
@@ -350,7 +494,7 @@
 </template>
 
 <script>
-import { fetchGetEaiSwgSndList, fetchGetEaiSwgRcvList, fetchPostEaiSwgSnd } from '@/api/eaiApi';
+import { fetchGetEaiSwgSndList, fetchGetEaiSwgRcvList } from '@/api/eaiApi';
 
 export default {
   data() {
@@ -361,7 +505,7 @@ export default {
       sndTbl: '',
       eaiIfId: '',
       sndAdt: '',
-      useYn: 'Y',
+      useYn: '',
       pageSet: { pageNo: 1, pageCount: 0, size: 10 },
       rPageSet: { pageNo: 1, pageCount: 0, size: 10 },
       totalPages: 0,
@@ -371,14 +515,14 @@ export default {
       rcvTbl: '',
       rEaiIfId: '',
       tr: '',
-      swgMq: '',
-      swgTp: '',
-      rcvQ: '',
-      rUseYn: 'Y',
+      swgmq: '',
+      swgtp: '',
+      rcvQueue: '',
+      rUseYn: '',
     };
   },
   methods: {
-    listingSnd() {
+    searchSndList() {
       console.log('SWING 송신 정보 조회!');
       // this.$axios.get('/api/eai/swg/snd', {
       fetchGetEaiSwgSndList({
@@ -401,7 +545,7 @@ export default {
           console.log(`error occur!! : ${ex}`);
         });
     },
-    listingRcv() {
+    searchRcvList() {
       console.log('SWING 수신 정보 조회!');
       // /this.$axios.get('/api/eai/swg/rcv', {
       fetchGetEaiSwgRcvList({
@@ -411,10 +555,10 @@ export default {
           rcvTbl: this.rcvTbl,
           eaiIfId: this.rEaiIfId,
           tr: this.tr,
-          swgMq: this.swgMq,
-          swgTp: this.swgTp,
-          rcvQ: this.rcvQ,
-          useYn: this.useYn,
+          swgmq: this.swgmq,
+          swgtp: this.swgtp,
+          rcvQueue: this.rcvQueue,
+          useYn: this.rUseYn,
         },
       })
         .then((res) => {
@@ -428,6 +572,14 @@ export default {
         });
     },
     saveSnd() {
+      if (this.useYn === '') {
+        this.$gf.alertOn('사용 여부를 선택하세요');
+        return;
+      }
+      const confirmText = `${this.eaiIfId} 를 저장하십니까?`;
+      this.$gf.confirmOn(confirmText, this.insertSnd);
+    },
+    insertSnd() {
       console.log('송신 정보 등록!');
       this.saveSndTbl = {
         sndTbl: this.sndTbl,
@@ -435,31 +587,38 @@ export default {
         sndAdt: this.sndAdt,
         useYn: this.useYn,
       };
-      // this.$axios.post('/api/eai/swg/snd', this.saveSndTbl)
-      fetchPostEaiSwgSnd(this.saveSndTbl)
+      this.$axios.post('/api/eai/swg/snd', this.saveSndTbl)
         .then((res) => {
           console.log(res);
-          this.listingRcv();
+          this.searchSndList();
         })
         .catch((ex) => {
           console.log(`error occur!! : ${ex}`);
         });
     },
     saveRcv() {
+      if (this.rUseYn === '') {
+        this.$gf.alertOn('사용 여부를 선택하세요');
+        return;
+      }
+      const confirmText = `${this.rEaiIfId} 를 저장하십니까?`;
+      this.$gf.confirmOn(confirmText, this.insertRcv);
+    },
+    insertRcv() {
       console.log('수신 정보 등록!');
       this.saveRcvTbl = {
         rcvTbl: this.rcvTbl,
         eaiIfId: this.rEaiIfId,
         tr: this.tr,
-        swgmq: this.swgMq,
-        swgtp: this.swgTp,
-        rcvQueue: this.rcvQ,
-        useYn: this.useYn,
+        swgmq: this.swgmq,
+        swgtp: this.swgtp,
+        rcvQueue: this.rcvQueue,
+        useYn: this.rUseYn,
       };
       this.$axios.post('/api/eai/swg/rcv', this.saveRcvTbl)
         .then((res) => {
           console.log(res);
-          this.listingSnd();
+          this.searchRcvList();
         })
         .catch((ex) => {
           console.log(`error occur!! : ${ex}`);
@@ -501,6 +660,21 @@ export default {
         .catch((ex) => {
           console.log(`error occur!! : ${ex}`);
         });
+    },
+    resetRcvField() {
+      this.rEaiIfId = '';
+      this.rcvTbl = '';
+      this.tr = '';
+      this.swgmq = '';
+      this.swgtp = '';
+      this.rcvQueue = '';
+      this.rUseYn = '';
+    },
+    resetSndField() {
+      this.eaiIfId = '';
+      this.sndTbl = '';
+      this.sndAdt = '';
+      this.useYn = '';
     },
   },
 };
