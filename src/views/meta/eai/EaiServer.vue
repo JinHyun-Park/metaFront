@@ -325,27 +325,6 @@
         />
       </div>
     </section>
-
-    <section class="btm_button_area">
-      <button
-        type="button"
-        class="default_button"
-      >
-        수정
-      </button>
-      <button
-        type="button"
-        class="default_button"
-      >
-        추가
-      </button>
-      <button
-        type="button"
-        class="default_button on"
-      >
-        등록
-      </button>
-    </section>
   </div>
 </template>
 
