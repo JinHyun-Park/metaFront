@@ -86,7 +86,7 @@
 <script>
 import { mapState, mapActions } from 'vuex';
 import ResetPwdPopup from '@/components/popup/login/ResetPwdPopup.vue';
-import { fetchLoginProc, fetchGetUserDetailInfo } from '@/api/loginApi';
+import { fetchLoginProc } from '@/api/loginApi';
 
 export default {
   components: {
