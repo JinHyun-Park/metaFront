@@ -38,7 +38,6 @@ function fetchPutMcgChrgrList(param) {
 }
 
 export {
-<<<<<<< HEAD
   fetchGetMcgChnlList,
   fetchGetMcgServerList,
   fetchGetMcgChrgrList,
@@ -48,8 +47,5 @@ export {
   fetchPutMcgChnlList,
   fetchPutMcgServerList,
   fetchPutMcgChrgrList,
-=======
-  // eslint-disable-next-line import/prefer-default-export
-  fetchGetMcgChnlList,
->>>>>>> b5949ca0ae789b315f5fa1b1d96a36b16fa4c7d6
+
 };
