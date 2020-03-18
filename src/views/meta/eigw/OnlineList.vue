@@ -344,6 +344,7 @@
 
 <script>
 import { fetchEigwAdOnlineList, fetchEigwOnlineDetail } from '@/api/eigwApi';
+
 export default {
   data() {
     return {
@@ -359,7 +360,7 @@ export default {
   },
   methods: {
     searchList() {
-      //this.$axios.get('/api/eigw/online/mstlist', {
+      // this.$axios.get('/api/eigw/online/mstlist', {
       fetchEigwAdOnlineList({
         params: {
           eaiIfId: this.eaiIfId,
@@ -380,12 +381,12 @@ export default {
         });
     },
     detailInfo(i) {
-      //this.tgtUrl = '/api/eigw/online/mstDtlInfo/';
+      // this.tgtUrl = '/api/eigw/online/mstDtlInfo/';
       fetchEigwOnlineDetail({
         params: {
           onlineMetaNum: this.onlineIfList[i].onlineMetaNum,
           procNum: this.onlineIfList[i].procNum,
-         },
+        },
       })
         .then((res) => {
           console.log(res);

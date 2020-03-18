@@ -16,9 +16,10 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 // 서버가 안붙으면 수행(1/2)
 // import asConfig from '@/config/asideConfig';
-import { fetchGetMenuList } from '@/api/bizCommApi';
+// import { fetchGetMenuList } from '@/api/bizCommApi';
 
 export default {
   name: 'Aside',
@@ -28,8 +29,11 @@ export default {
       subNm: '',
       menuLists: [],
       asConfig: {},
-      menuAllList: [],
+      // menuAllList: [],
     };
+  },
+  computed: {
+    ...mapState('frameSet', ['menuAllList']),
   },
   watch: { // 라우트 변화 감시
     $route(to) {
@@ -37,11 +41,14 @@ export default {
       this.nowPage = this.$router.currentRoute.name;
       this.setLeftItem(path);
     },
+    menuAllList() { // axios의 response가 route의 변화보다 느려서 menuAllList 변수도 watch에 추가
+      this.setLeftItem(this.$router.currentRoute.path);
+    },
   },
   created() {
     // 만일 서버가 안 붙으면 수행(2/2)
     // this.menuAllList = asConfig.menuList;
-    this.getMenuList();
+    // this.getMenuList();
   },
   mounted() {
     this.nowPage = this.$router.currentRoute.name;
@@ -56,26 +63,6 @@ export default {
     isActive(url) {
       const ret = (this.nowPage === url);
       return ret;
-    },
-
-    getMenuList() {
-      const param = {
-        userId: this.userId,
-        // hanNm: this.hanNm,
-        // pageNo: this.pageSet.pageNo,
-        // size: this.pageSet.size,
-      };
-
-      fetchGetMenuList({ params: param })
-        .then((res) => {
-          console.log(res);
-          if (res.data.rstCd === 'S') {
-            this.menuAllList = res.data.rstData.menuList;
-          }
-        })
-        .catch((ex) => {
-          console.log(`error occur!! : ${ex}`);
-        });
     },
 
     setLeftItem(path) { // store를 이용하지 않는 방법

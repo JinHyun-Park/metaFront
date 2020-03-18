@@ -16,6 +16,7 @@ const config = {
     // baseURL: process.env.baseURL || process.env.apiUrl || ""
     // timeout: 60 * 1000, // 해당 ms 이내에 응답이 오지 않으면 에러로 간주
     // withCredentials: true, // Check cross-site Access-Control
+    // baseURL: process.env.VUE_APP_BASE_URL
 };
 
 const _axios = axios.create(config);
@@ -26,6 +27,9 @@ _axios.interceptors.request.use(
     config =>
     // Do something before request is sent
     {
+        if( process.env.NODE_ENV === 'production') {
+            config.url = config.url.replace('/api', '')
+        }
         helpers.showLoading(5000); // 로딩 화면 노출
 
         return config

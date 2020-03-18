@@ -92,6 +92,7 @@ export default {
   },
   methods: {
     tabChange(val) {
+      window.scrollTo(0, 0);
       this.tabNum = val;
       localStorage.setItem('APPLY_TABNUM', this.tabNum);
     },
@@ -99,10 +100,12 @@ export default {
       return this.tabNum === val;
     },
     toNextTab() {
+      window.scrollTo(0, 0);
       this.tabNum = this.tabNum + 1;
       localStorage.setItem('APPLY_TABNUM', this.tabNum);
     },
     toBeforeTab() {
+      window.scrollTo(0, 0);
       this.tabNum = this.tabNum - 1;
       localStorage.setItem('APPLY_TABNUM', this.tabNum);
     },

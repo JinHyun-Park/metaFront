@@ -18,6 +18,12 @@
       @closePop="turOffSvrPopChrgr"
       @addData="addDataChrgr"
     />
+    <InstListPopup
+      v-if="svrOnInstList"
+      v-bind="propsInstList"
+      @closePop="turOffSvrPopInstList"
+      @addData="addDataInstList"
+    />
     <section class="title style-1">
       <h2>
         <div>
@@ -73,6 +79,7 @@
             type="text"
             class="add_text on"
             @keyup.13="searchList()"
+            @click="turnOnSvrPopInstList"
           >
         </div>
         <div class="column w-1">
@@ -803,12 +810,14 @@ import * as eigwApi from '@/api/eigwApi';
 import EigwServerListPopup from '@/components/popup/meta/eigw/EigwServerListPopup.vue';
 import ChrgrListPopup from '@/components/popup/bizcomm/ChrgrListPopup.vue';
 import EigwChrgrListPopup from '@/components/popup/meta/eigw/EigwChrgrListPopup.vue';
+import InstListPopup from '@/components/popup/bizcomm/InstListPopup.vue';
 
 export default {
   components: {
     EigwServerListPopup,
     ChrgrListPopup,
     EigwChrgrListPopup,
+    InstListPopup,
   },
   data() {
     return {
@@ -822,6 +831,10 @@ export default {
         message: '', // 사용방법 예시 데이터
       },
       propsEigwChrgr: { // 조회 시 parameter에 사용자 정보를 담아주려면 여기를 통해 넘겨주세요.
+        message: '', // 사용방법 예시 데이터
+      },
+      svrOnInstList: false,
+      propsInstList: { // 조회 시 parameter에 사용자 정보를 담아주려면 여기를 통해 넘겨주세요.
         message: '', // 사용방법 예시 데이터
       },
       serverPopupCase: '',
@@ -1034,6 +1047,18 @@ export default {
       }
       this.svrOnChrgr = false;
       this.svrOnEigwChrgr = false;
+    },
+    turnOnSvrPopInstList() {
+      this.svrOnInstList = true;
+    },
+    turOffSvrPopInstList(val) {
+      console.log(`Popup에서 받아온 Data : ${val}`);
+      this.svrOnInstList = false;
+    },
+    addDataInstList(val) {
+      console.log(`Popup에서 받아온 Data : ${val}`);
+      this.instCd = val.instCd;
+      this.svrOnInstList = false;
     },
     delInuserList(i) {
       this.inchrgrList.splice(i, 1);
