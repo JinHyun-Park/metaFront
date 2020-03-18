@@ -129,7 +129,7 @@ export default {
           if (res.status === 200) {
             console.log(res.headers);
             // this.getUserInfo();
-            // this.$router.push({ name: 'home', hanNm: this.hanNm });
+            this.$router.push({ name: 'home' });
           }
           console.log(res);
         })
