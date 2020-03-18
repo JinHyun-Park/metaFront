@@ -86,7 +86,7 @@
 <script>
 import { mapState, mapActions } from 'vuex';
 import ResetPwdPopup from '@/components/popup/login/ResetPwdPopup.vue';
-import { fetchLoginProc, fetchGetUserInfo } from '@/api/loginApi';
+import { fetchLoginProc, fetchGetUserDetailInfo } from '@/api/loginApi';
 
 export default {
   components: {
@@ -128,8 +128,8 @@ export default {
         .then((res) => {
           if (res.status === 200) {
             console.log(res.headers);
-            this.getUserInfo();
-            this.$router.push({ name: 'home', hanNm: this.hanNm });
+            // this.getUserInfo();
+            // this.$router.push({ name: 'home', hanNm: this.hanNm });
           }
           console.log(res);
         })
@@ -139,21 +139,25 @@ export default {
           this.$gf.alertOn('로그인에 실패했습니다.\n ID나 비밀번호가 일치하지 않습니다.');
         });
     },
-    getUserInfo() {
-      fetchGetUserInfo(this.user_id)
-        .then((res) => {
-          if (res.status === 200) {
-            this.hanNm = res.data.rstData.userList[0].hanNm;
-            // eslint-disable-next-line no-alert
-            this.$gf.alertOn(`${this.hanNm}님 환영합니다.`);
-            this.setLoginInfo({ loginHanNm: this.hanNm });
-          }
-        })
-        .catch((ex) => {
-          console.log(`error occur!! : ${ex}`);
-        });
-      // this.$router.push({ name: 'home', hanNm: this.hanNm });
-    },
+    // getUserInfo() {
+    //   fetchGetUserDetailInfo({
+    //     params: {
+    //       userId: this.userId,
+    //     },
+    //   })
+    //     .then((res) => {
+    //       if (res.status === 200) {
+    //         this.hanNm = res.data.rstData.userList[0].hanNm;
+    //         // eslint-disable-next-line no-alert
+    //         this.$gf.alertOn(`${this.hanNm}님 환영합니다.`);
+    //         this.setLoginInfo({ loginHanNm: this.hanNm });
+    //       }
+    //     })
+    //     .catch((ex) => {
+    //       console.log(`error occur!! : ${ex}`);
+    //     });
+    // this.$router.push({ name: 'home', hanNm: this.hanNm });
+    // },
     movePage(page) {
       this.$router.push({ name: page });
     },

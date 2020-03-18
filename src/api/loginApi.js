@@ -11,10 +11,8 @@ function fetchLoginProc(form) {
   return axios.post(`${preUrl}/loginProc`, form);
 }
 
-function fetchGetUserInfo(userId) {
-  return axios.get(`${preUrl}/user`, {
-    param: { userId },
-  });
+function fetchGetUserDetailInfo(params) {
+  return axios.get(`${preUrl}/user/detail`, params);
 }
 
 function fetchGetUserInfoList(param) {
@@ -28,7 +26,7 @@ function fetchGetLogout(param) {
 export {
   fetchResetPasswd,
   fetchLoginProc,
-  fetchGetUserInfo,
+  fetchGetUserDetailInfo,
   fetchGetUserInfoList,
   fetchGetLogout,
 };
