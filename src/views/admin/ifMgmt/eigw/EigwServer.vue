@@ -13,13 +13,29 @@
     <section class="form_area border_group">
       <h5 class="s_tit type-2">
         기본 정보
+        <div class="right_button_area">
+          <button
+            type="button"
+            class="default_button on"
+            @click="searchList()"
+          >
+            조회
+          </button>
+          <button
+            type="button"
+            class="default_button on"
+            @click="save()"
+          >
+            추가
+          </button>
+        </div>
       </h5>
       <div class="row_contain type-3 last">
         <div class="column on w-1">
           <label class="column_label">서버타입</label>
           <select v-model="svrTypCd">
             <option
-              v-for="(code, i) in ccCdList.syrTypCd"
+              v-for="(code, i) in ccCdList.svrTypCd"
               :key="i"
               :value="code.cdDtlId"
             >
@@ -36,37 +52,36 @@
           >
         </div>
         <div class="column on w-1">
-          <label class="column_label">IP</label>
+          <label class="column_label">Real IP</label>
           <input
-            v-model="reqIp"
+            v-model="svrRealIp"
             type="text"
             value=""
           >
         </div>
         <div class="column on w-1">
-          <label class="column_label">사용여부</label>
-          <select v-model="useYn">
-            <option value="">
-              전체
-            </option>
-            <option value="Y">
-              사용
-            </option>
-            <option value="N">
-              미사용
-            </option>
-          </select>
+          <label class="column_label">Nat IP</label>
+          <input
+            v-model="svrNatIp"
+            type="text"
+            value=""
+          >
         </div>
         <div class="column w-1">
-          <label class="column_label">&nbsp;</label>
-          <div class="right_button_area">
-            <button
-              type="button"
-              class="default_button on"
-              @click="searchList()"
-            >
-              검색
-            </button>
+          <label class="column_label">사용</label>
+          <div class="select_group">
+            <select v-model="useYn">
+              <option value="">
+                전체
+              </option>
+              <option value="Y">
+                사용
+              </option>
+              <option value="N">
+                미사용
+              </option>
+            </select>
+            <span class="select" />
           </div>
         </div>
       </div>
@@ -78,10 +93,10 @@
                 Num
               </li>
               <li class="th_cell">
-                기관코드
+                서버타입
               </li>
               <li class="th_cell">
-                서버타입
+                대외기관
               </li>
               <li class="th_cell">
                 REAL IP
@@ -90,19 +105,16 @@
                 NAT IP
               </li>
               <li class="th_cell">
-                생성일자
-              </li>
-              <li class="th_cell">
-                변경일자
-              </li>
-              <li class="th_cell">
                 사용여부
+              </li>
+              <li class="th_cell">
+                수정
               </li>
             </ul>
           </div>
           <div class="table_body">
             <ul
-              v-for="server in serverList"
+              v-for="(server, i) in serverList"
               :key="server.svrNum"
               class="table_row w-auto"
             >
@@ -110,25 +122,53 @@
                 {{ server.svrNum }}
               </li>
               <li class="td_cell">
-                {{ server.instCd }}
+                <div class="select_group">
+                  <select v-model="server.svrTypCd">
+                    <option
+                      v-for="(code, n) in ccCdList.svrTypCd"
+                      :key="n"
+                      :value="code.cdDtlId"
+                    >
+                      {{ code.cdNm }}
+                    </option>
+                  </select>
+                  <span class="select" />
+                </div>
               </li>
               <li class="td_cell">
-                {{ server.svrTypCd }}
+                {{ server.instNm }}
               </li>
               <li class="td_cell">
-                {{ server.svrRealIp }}
+                <input
+                  v-model="server.svrRealIp"
+                  type="text"
+                >
               </li>
               <li class="td_cell">
-                {{ server.svrNatIp }}
+                <input
+                  v-model="server.svrNatIp"
+                  type="text"
+                >
               </li>
               <li class="td_cell">
-                {{ server.creDt }}
+                <select v-model="server.useYn">
+                  <option
+                    value="Y"
+                  >
+                    사용
+                  </option>
+                  <option
+                    value="N"
+                  >
+                    미사용
+                  </option>
+                </select>
               </li>
               <li class="td_cell">
-                {{ server.chgDt }}
-              </li>
-              <li class="td_cell">
-                {{ server.useYn }}
+                <i
+                  class="ico-edit"
+                  @click="editList(i)"
+                />
               </li>
             </ul>
           </div>
@@ -148,33 +188,12 @@
         />
       </div>
     </section>
-
-    <section class="btm_button_area">
-      <button
-        type="button"
-        class="default_button"
-      >
-        수정
-      </button>
-      <button
-        type="button"
-        class="default_button"
-      >
-        추가
-      </button>
-      <button
-        type="button"
-        class="default_button on"
-      >
-        등록
-      </button>
-    </section>
   </div>
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex';
-import { fetchEigwServerList } from '@/api/eigwApi';
+import { fetchEigwServerList, fetchSaveEigwServerInfo, fetchPutEigwServerInfo } from '@/api/eigwApi';
 
 export default {
   data() {
@@ -183,11 +202,11 @@ export default {
       svrTypCdList: [],
       pageSet: { pageNo: 1, pageCount: 0, size: 10 },
       tgtUrl: '',
-      svrIp: '',
       svrTypCd: '',
       useYn: '',
       instCd: '',
-      reqIp: '',
+      svrRealIp: '',
+      svrNatIp: '',
     };
   },
   computed: {
@@ -196,7 +215,7 @@ export default {
   },
   mounted() {
     this.setCcCdList({
-      opClCd: 'COMM', cdId: 'SVR_TYP_CD', allYn: 'Y', listNm: 'syrTypCd',
+      opClCd: 'COMM', cdId: 'SVR_TYP_CD', allYn: 'Y', listNm: 'svrTypCd',
     });
     this.setCcCdList({
       opClCd: 'COMM', cdId: 'IP_TYP', allYn: 'Y', listNm: 'ipTyp',
@@ -214,8 +233,9 @@ export default {
           pageNo: this.pageSet.pageNo,
           size: this.pageSet.size,
           svrTypCd: this.svrTypCd,
-          reqIp: this.reqIp,
           useYn: this.useYn,
+          svrRealIp: this.svrRealIp,
+          svrNatIp: this.svrNatIp,
           instCd: this.instCd,
         },
       })
@@ -227,6 +247,47 @@ export default {
           } else {
             // eslint-disable-next-line no-alert
             alert('failed');
+          }
+        })
+        .catch((ex) => {
+          console.log(`error occur!! : ${ex}`);
+        });
+    },
+    save() {
+      if (this.instCd === '') {
+        this.$gf.alertOn('대외기관을 입력해주세요.');
+      }
+      console.log('서버 정보 등록');
+      this.saveServerInfo = {
+        svrTypCd: this.svrTypCd,
+        instCd: this.instCd,
+        svrRealIp: this.svrRealIp,
+        svrNatIp: this.svrNatIp,
+        useYn: this.useYn,
+      };
+      fetchSaveEigwServerInfo(this.saveServerInfo)
+        .then((res) => {
+          console.log(res);
+          this.$gf.alertOn('등록되었습니다.');
+          this.searchList();
+        })
+        .catch((ex) => {
+          console.log(`error occur!! : ${ex}`);
+        });
+    },
+    editList(i) {
+      console.log(`i값 : ${i}`);
+      const confirmText = `${this.serverList[i].svrNum} 를 저장하십니까?`;
+      this.$gf.confirmOn(confirmText, this.editCall, i);
+    },
+    editCall(i) {
+      console.log('서버 정보 수정!');
+      console.log(i);
+      fetchPutEigwServerInfo(this.serverList[i])
+        .then((res) => {
+          console.log(res);
+          if (res.data.rstCd === 'S') {
+            this.$gf.alertOn('반영되었습니다.');
           }
         })
         .catch((ex) => {
