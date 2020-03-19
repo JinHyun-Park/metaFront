@@ -5,6 +5,10 @@ function fetchGetMcgChnlList(param) {
   return axios.get(`${preUrl}/chnl`, param);
 }
 
+function fetchGetMcgDealList(param) {
+  return axios.get(`${preUrl}/deal`, param);
+}
+
 function fetchGetMcgServerList(param) {
   return axios.get(`${preUrl}/chnl/server`, param);
 }
@@ -17,6 +21,10 @@ function fetchPostMcgChnlList(param) {
   return axios.post(`${preUrl}/chnl/post`, param);
 }
 
+function fetchPostMcgDealList(param) {
+  return axios.post(`${preUrl}/deal/post`, param);
+}
+
 function fetchPostMcgServerList(param) {
   return axios.post(`${preUrl}/chnl/server/post`, param);
 }
@@ -27,6 +35,10 @@ function fetchPostMcgChrgrList(param) {
 
 function fetchPutMcgChnlList(param) {
   return axios.put(`${preUrl}/chnl/put`, param);
+}
+
+function fetchPutMcgDealList(param) {
+  return axios.put(`${preUrl}/deal/put`, param);
 }
 
 function fetchPutMcgServerList(param) {
@@ -47,5 +59,8 @@ export {
   fetchPutMcgChnlList,
   fetchPutMcgServerList,
   fetchPutMcgChrgrList,
+  fetchPutMcgDealList,
+  fetchPostMcgDealList,
+  fetchGetMcgDealList,
 
 };

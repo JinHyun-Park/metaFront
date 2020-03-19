@@ -8,7 +8,7 @@
       @keydown.prevent.esc="closePop"
     >
       <section class="title style-2">
-        <h2><i class="ico-bar" />서버 정보 조회</h2>
+        <h2><i class="ico-bar" />MCG 서버 정보 조회</h2>
       </section>
       <section class="form_area border_group">
         <div class="row_contain type-3">
