@@ -1,5 +1,11 @@
 <template>
   <div class="right_space">
+    <InstListPopup
+      v-if="svrOnInstList"
+      v-bind="propsInstList"
+      @closePop="turOffSvrPopInstList"
+      @addData="addDataInstList"
+    />
     <section class="title style-1">
       <h2>
         <div>
@@ -37,10 +43,19 @@
             <input
               v-model="instCd"
               type="text"
-              value=""
+              class="add_text on"
+              @keyup.13="searchList()"
+              @click="turnOnSvrPopInstList"
             >
-            <span class="search"><i class="ico-search" /></span>
           </div>
+        </div>
+        <div class="column w-1">
+          <label class="column_label">대외기관명</label>
+          <input
+            v-model="instNm"
+            type="text"
+            value=""
+          >
         </div>
         <div class="column on w-1">
           <label class="column_label">이름</label>
@@ -203,15 +218,24 @@
 <script>
 import { mapState, mapActions } from 'vuex';
 import { fetchGetEigwChrgrInfo, fetchSaveEigwChrgrInfo, fetchPutEigwChrgrInfo } from '@/api/eigwApi';
+import InstListPopup from '@/components/popup/bizcomm/InstListPopup.vue';
 
 export default {
+  components: {
+    InstListPopup,
+  },
   data() {
     return {
+      svrOnInstList: false,
+      propsInstList: { // 조회 시 parameter에 사용자 정보를 담아주려면 여기를 통해 넘겨주세요.
+        message: '', // 사용방법 예시 데이터
+      },
       eigwChrgrInfoList: [],
       pageSet: { pageNo: 1, pageCount: 0, size: 10 },
 
       tgtUrl: '',
       instCd: '',
+      instNm: '',
       hanNm: '',
       ofcLvlCd: '',
       offcPhonNum: '',
@@ -295,6 +319,19 @@ export default {
         .catch((ex) => {
           console.log(`error occur!! : ${ex}`);
         });
+    },
+    turnOnSvrPopInstList() {
+      this.svrOnInstList = true;
+    },
+    turOffSvrPopInstList(val) {
+      console.log(`Popup에서 받아온 Data : ${val}`);
+      this.svrOnInstList = false;
+    },
+    addDataInstList(val) {
+      console.log(`Popup에서 받아온 Data : ${val}`);
+      this.instCd = val.instCd;
+      this.instNm = val.instNm;
+      this.svrOnInstList = false;
     },
   },
 };
