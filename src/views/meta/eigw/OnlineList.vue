@@ -108,6 +108,9 @@
                 {{ row.eaiIfId }}
               </li>
               <li class="td_cell">
+                {{ row.onlineDealNm }}
+              </li>
+              <li class="td_cell">
                 {{ row.pgmTyp }}
               </li>
               <li class="td_cell">

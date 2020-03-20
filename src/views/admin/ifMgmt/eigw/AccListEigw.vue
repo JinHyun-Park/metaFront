@@ -1,5 +1,11 @@
 <template>
   <div class="right_space">
+    <InstListPopup
+      v-if="svrOnInstList"
+      v-bind="propsInstList"
+      @closePop="turOffSvrPopInstList"
+      @addData="addDataInstList"
+    />
     <section class="title style-1">
       <h2>
         <div>
@@ -11,8 +17,47 @@
       </h2>
     </section>
     <section class="form_area border_group">
-      <div class="row_contain last">
-        <div class="column on w-3">
+      <h5 class="s_tit type-2">
+        기본 정보
+        <div class="right_button_area">
+          <button
+            type="button"
+            class="default_button on"
+            @click="searchList()"
+          >
+            조회
+          </button>
+          <button
+            type="button"
+            class="default_button on"
+            @click="save()"
+          >
+            추가
+          </button>
+        </div>
+      </h5>
+      <div class="row_contain type-2">
+        <div class="column on w-1">
+          <label class="column_label">대외기관</label>
+          <div class="search_group">
+            <input
+              v-model="instCd"
+              type="text"
+              class="add_text on"
+              @keyup.13="searchList()"
+              @click="turnOnSvrPopInstList"
+            >
+          </div>
+        </div>
+        <div class="column w-1">
+          <label class="column_label">대외기관명</label>
+          <input
+            v-model="instNm"
+            type="text"
+            value=""
+          >
+        </div>
+        <div class="column on w-1">
           <label class="column_label">이름</label>
           <input
             v-model="hanNm"
@@ -20,25 +65,46 @@
             value=""
           >
         </div>
-        <div class="column w-3">
-          <label class="column_label">대외기관</label>
+        <div class="column on w-1">
+          <label class="column_label">직급</label>
+          <div class="select_group">
+            <select v-model="ofcLvlCd">
+              <option
+                v-for="(code, i) in ccCdList.ofcLvlCd"
+                :key="i"
+                :value="code.cdDtlId"
+              >
+                {{ code.cdNm }}
+              </option>
+            </select>
+            <span class="select" />
+          </div>
+        </div>
+      </div>
+      <div class="row_contain type-2">
+        <div class="column on w-1">
+          <label class="column_label">유선번호</label>
           <input
-            v-model="instCd"
+            v-model="offcPhonNum"
             type="text"
             value=""
           >
         </div>
-        <div class="column w-1">
-          <label class="column_label">&nbsp;</label>
-          <div class="right_button_area">
-            <button
-              type="button"
-              class="default_button on"
-              @click="searchList"
-            >
-              검색
-            </button>
-          </div>
+        <div class="column on w-1">
+          <label class="column_label">휴대폰번호</label>
+          <input
+            v-model="mblPhonNum"
+            type="text"
+            value=""
+          >
+        </div>
+        <div class="column on w-1">
+          <label class="column_label">이메일</label>
+          <input
+            v-model="emailAddr"
+            type="text"
+            value=""
+          >
         </div>
       </div>
 
@@ -50,7 +116,7 @@
                 ID
               </li>
               <li class="th_cell">
-                기관코드
+                기관명
               </li>
               <li class="th_cell">
                 한글명
@@ -68,13 +134,13 @@
                 이메일
               </li>
               <li class="th_cell">
-                비고
+                수정
               </li>
             </ul>
           </div>
           <div class="table_body">
             <ul
-              v-for="row in eigwChrgrInfoList"
+              v-for="(row, i) in eigwChrgrInfoList"
               :key="row.userId"
               class="table_row w-auto"
             >
@@ -82,25 +148,51 @@
                 {{ row.userId }}
               </li>
               <li class="td_cell">
-                {{ row.instCd }}
+                {{ row.instNm }}
               </li>
               <li class="td_cell">
-                {{ row.hanNm }}
+                <input
+                  v-model="row.hanNm"
+                  type="text"
+                >
               </li>
               <li class="td_cell">
-                {{ row.ofcLvlNm }}
+                <div class="select_group">
+                  <select v-model="row.ofcLvlCd">
+                    <option
+                      v-for="(code, n) in ccCdList.ofcLvlCd"
+                      :key="n"
+                      :value="code.cdDtlId"
+                    >
+                      {{ code.cdNm }}
+                    </option>
+                  </select>
+                  <span class="select" />
+                </div>
               </li>
               <li class="td_cell">
-                {{ row.offcPhonNum }}
+                <input
+                  v-model="row.offcPhonNum"
+                  type="text"
+                >
               </li>
               <li class="td_cell">
-                {{ row.mblPhonNum }}
+                <input
+                  v-model="row.mblPhonNum"
+                  type="text"
+                >
               </li>
               <li class="td_cell">
-                {{ row.emailAddr }}
+                <input
+                  v-model="row.emailAddr"
+                  type="text"
+                >
               </li>
               <li class="td_cell">
-                {{ row.opDtl }}
+                <i
+                  class="ico-edit"
+                  @click="editList(i)"
+                />
               </li>
             </ul>
           </div>
@@ -120,43 +212,35 @@
         />
       </div>
     </section>
-
-    <section class="btm_button_area">
-      <button
-        type="button"
-        class="default_button"
-      >
-        수정
-      </button>
-      <button
-        type="button"
-        class="default_button"
-      >
-        선택
-      </button>
-      <button
-        type="button"
-        class="default_button on"
-      >
-        등록
-      </button>
-    </section>
   </div>
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex';
-import { fetchGetEigwChrgrInfo } from '@/api/eigwApi';
+import { fetchGetEigwChrgrInfo, fetchSaveEigwChrgrInfo, fetchPutEigwChrgrInfo } from '@/api/eigwApi';
+import InstListPopup from '@/components/popup/bizcomm/InstListPopup.vue';
 
 export default {
+  components: {
+    InstListPopup,
+  },
   data() {
     return {
+      svrOnInstList: false,
+      propsInstList: { // 조회 시 parameter에 사용자 정보를 담아주려면 여기를 통해 넘겨주세요.
+        message: '', // 사용방법 예시 데이터
+      },
       eigwChrgrInfoList: [],
       pageSet: { pageNo: 1, pageCount: 0, size: 10 },
 
       tgtUrl: '',
       instCd: '',
+      instNm: '',
       hanNm: '',
+      ofcLvlCd: '',
+      offcPhonNum: '',
+      mblPhonNum: '',
+      emailAddr: '',
     };
   },
   computed: {
@@ -165,10 +249,7 @@ export default {
   },
   mounted() {
     this.setCcCdList({
-      opClCd: 'COMM', cdId: 'SVR_TYP_CD', allYn: 'Y', listNm: 'syrTypCd',
-    });
-    this.setCcCdList({
-      opClCd: 'COMM', cdId: 'IP_TYP', allYn: 'Y', listNm: 'ipTyp',
+      opClCd: 'EIGW', cdId: 'OFC_LVL_CD', allYn: 'Y', listNm: 'ofcLvlCd',
     });
   },
   methods: {
@@ -199,6 +280,58 @@ export default {
         .catch((ex) => {
           console.log(`error occur!! : ${ex}`);
         });
+    },
+    save() {
+      console.log('대외기관 담당자 등록');
+      this.saveChrgrInfo = {
+        instCd: this.instCd,
+        hanNm: this.hanNm,
+        ofcLvlCd: this.ofcLvlCd,
+        offcPhonNum: this.offcPhonNum,
+        mblPhonNum: this.mblPhonNum,
+        emailAddr: this.emailAddr,
+      };
+      fetchSaveEigwChrgrInfo(this.saveChrgrInfo)
+        .then((res) => {
+          console.log(res);
+          this.$gf.alertOn('등록되었습니다.');
+          this.searchList();
+        })
+        .catch((ex) => {
+          console.log(`error occur!! : ${ex}`);
+        });
+    },
+    editList(i) {
+      console.log(`i값 : ${i}`);
+      const confirmText = `${this.eigwChrgrInfoList[i].userId} 를 저장하십니까?`;
+      this.$gf.confirmOn(confirmText, this.editCall, i);
+    },
+    editCall(i) {
+      console.log('대외기관 담당자 정보 수정!');
+      console.log(i);
+      fetchPutEigwChrgrInfo(this.eigwChrgrInfoList[i])
+        .then((res) => {
+          console.log(res);
+          if (res.data.rstCd === 'S') {
+            this.$gf.alertOn('반영되었습니다.');
+          }
+        })
+        .catch((ex) => {
+          console.log(`error occur!! : ${ex}`);
+        });
+    },
+    turnOnSvrPopInstList() {
+      this.svrOnInstList = true;
+    },
+    turOffSvrPopInstList(val) {
+      console.log(`Popup에서 받아온 Data : ${val}`);
+      this.svrOnInstList = false;
+    },
+    addDataInstList(val) {
+      console.log(`Popup에서 받아온 Data : ${val}`);
+      this.instCd = val.instCd;
+      this.instNm = val.instNm;
+      this.svrOnInstList = false;
     },
   },
 };

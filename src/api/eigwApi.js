@@ -7,6 +7,14 @@ function fetchEigwServerList(param) {
   return axios.get(`${preUrl}/serverList`, param);
 }
 
+function fetchSaveEigwServerInfo(param) {
+  return axios.post(`${preUrl}/serverInfo`, param);
+}
+
+function fetchPutEigwServerInfo(param) {
+  return axios.put(`${preUrl}/serverInfo`, param);
+}
+
 function fetchEigwAdFileList(param) {
   return axios.get(`${preUrl}/fileList`, param);
 }
@@ -35,6 +43,14 @@ function fetchGetEigwChrgrInfo(param) {
   return axios.get(`${preUrl}/chrgrInfo`, param);
 }
 
+function fetchSaveEigwChrgrInfo(param) {
+  return axios.post(`${preUrl}/chrgrInfo`, param);
+}
+
+function fetchPutEigwChrgrInfo(param) {
+  return axios.put(`${preUrl}/chrgrInfo`, param);
+}
+
 function fetchDeleteChrgrInfo(param) {
   return axios.delete(`${preUrl}/fileChrgrInfoDelete`, param);
 }
@@ -61,4 +77,8 @@ export {
   fetchEigwAdOnlineList,
   fetchEigwOnlineDetail,
   fetchDeleteChrgrInfo,
+  fetchSaveEigwChrgrInfo,
+  fetchPutEigwChrgrInfo,
+  fetchSaveEigwServerInfo,
+  fetchPutEigwServerInfo,
 };

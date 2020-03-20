@@ -1,6 +1,11 @@
 
 <template>
   <div class="right_space">
+    <ChrgrListPopup
+      v-if="chrgrpopupstate"
+      @closePop="turOffPopChrgr"
+      @addData="addDataChrgr"
+    />
     <section class="title style-1">
       <h2>
         <div>
@@ -51,27 +56,41 @@
         </div>
         <div class="column w-1">
           <label class="column_label">채널그룹</label>
-          <input
-            v-model="chnlGrp"
-            type="text"
-            value=""
-          >
+          <div class="select_group">
+            <select v-model="chnlGrp">
+              <option
+                v-for="(code, m) in ccCdList.mcgChnlGrp"
+                :key="m"
+                :value="code.cdDtlId"
+              >
+                {{ code.cdNm }}
+              </option>
+            </select>
+          </div>
         </div>
         <div class="column w-1">
           <label class="column_label">채널타입</label>
-          <input
-            v-model="chnlTyp"
-            type="text"
-            value=""
-          >
+          <select v-model="chnlTyp">
+            <option
+              v-for="(code, m) in ccCdList.mcgChnlTyp"
+              :key="m"
+              :value="code.cdDtlId"
+            >
+              {{ code.cdNm }}
+            </option>
+          </select>
         </div>
         <div class="column w-1">
           <label class="column_label">연동방식</label>
-          <input
-            v-model="lnkgMthd"
-            type="text"
-            value=""
-          >
+          <select v-model="lnkgMthd">
+            <option
+              v-for="(code, m) in ccCdList.mcgChnlLnkgMthd"
+              :key="m"
+              :value="code.cdDtlId"
+            >
+              {{ code.cdNm }}
+            </option>
+          </select>
         </div>
         <div class="column w-1">
           <label class="column_label">채널ID</label>
@@ -85,14 +104,6 @@
           <label class="column_label">채널명</label>
           <input
             v-model="chnlNm"
-            type="text"
-            value=""
-          >
-        </div>
-        <div class="column w-1">
-          <label class="column_label">대표담당자</label>
-          <input
-            v-model="chrgrnm"
             type="text"
             value=""
           >
@@ -138,9 +149,6 @@
                 채널명<i class="ico-sort-up" />
               </li>
               <li class="th_cell">
-                대표담당자<i class="ico-sort-down" />
-              </li>
-              <li class="th_cell">
                 사용여부<i class="ico-sort-down" />
               </li>
             </ul>
@@ -150,7 +158,7 @@
               v-for="chn in chnList"
               :key="chn.index"
               class="table_row w-auto"
-              @click="dtlChnl(chn, chn.opCd)"
+              @click="dtlChnl(chn), Serverinfodtl(chn.opCd), Chrgrinfodtl(chn.opCd)"
             >
               <li class="td_cell">
                 {{ chn.opCd }}
@@ -172,9 +180,6 @@
               </li>
               <li class="td_cell">
                 {{ chn.chnlNm }}
-              </li>
-              <li class="td_cell">
-                {{ chn.chrgrnm }}
               </li>
               <li class="td_cell">
                 {{ chn.useYn }}
@@ -230,33 +235,41 @@
         </div>
         <div class="column w-1">
           <label class="column_label">채널그룹</label>
-          <input
-            v-model="chnldtl.chnlGrp"
-            type="text"
-          >
+          <select v-model="chnldtl.chnlGrp">
+            <option
+              v-for="(code, m) in ccCdList.mcgChnlGrpR"
+              :key="m"
+              :value="code.cdDtlId"
+            >
+              {{ code.cdNm }}
+            </option>
+          </select>
         </div>
         <div class="column w-1">
           <label class="column_label">채널유형</label>
-          <input
-            v-model="chnldtl.chnlTyp"
-            type="text"
-          >
+          <div class="select_group disabled">
+            <select v-model="chnldtl.chnlTyp">
+              <option
+                v-for="(code, m) in ccCdList.mcgChnlTypR"
+                :key="m"
+                :value="code.cdDtlId"
+              >
+                {{ code.cdNm }}
+              </option>
+            </select>
+            <span class="select" />
+          </div>
         </div>
         <div class="column w-1">
           <label class="column_label">연동방식</label>
           <div class="select_group disabled">
-            <select
-              v-model="chnldtl.lnkgMthd"
-              disabled
-            >
-              <option value="">
-                Y
-              </option>
+            <select v-model="chnldtl.lnkgMthd">
               <option
-                value=""
-                selected
+                v-for="(code, m) in ccCdList.mcgChnlLnkgMthdR"
+                :key="m"
+                :value="code.cdDtlId"
               >
-                N
+                {{ code.cdNm }}
               </option>
             </select>
             <span class="select" />
@@ -269,11 +282,14 @@
           <label class="column_label">채널담당자1</label>
           <div class="search_group">
             <input
+              v-model="chrgrm.hanNm"
               type="text"
-              value="유영준"
             >
             <span class="search">
-              <i class="ico-search" />
+              <i
+                class="ico-search"
+                @click="chrgrpopon(1, chnldtl.opCd)"
+              />
             </span>
           </div>
         </div>
@@ -281,11 +297,14 @@
           <label class="column_label">채널담당자2</label>
           <div class="search_group">
             <input
+              v-model="chrgrs.hanNm"
               type="text"
-              value=""
             >
             <span class="search">
-              <i class="ico-search" />
+              <i
+                class="ico-search"
+                @click="chrgrpopon(2, chnldtl.opCd)"
+              />
             </span>
           </div>
         </div>
@@ -306,15 +325,13 @@
         <div class="column w-1">
           <label class="column_label">Java Container</label>
           <div class="select_group">
-            <select :value="chnldtl.containerNum">
+            <select v-model="chnldtl.containerNum">
               <option
-                value=""
-                selected
+                v-for="(code, m) in ccCdList.mcgContainerNumR"
+                :key="m"
+                :value="code.cdDtlId"
               >
-                Y
-              </option>
-              <option value="">
-                N
+                {{ code.cdNm }}
               </option>
             </select>
             <span class="select" />
@@ -329,6 +346,7 @@
         >
           <label class="column_label"> 개발기 IP</label>
           <input
+
             v-model="svrinfo0.svrIp"
             type="text"
           >
@@ -336,6 +354,7 @@
         <div class="column w-1">
           <label class="column_label">개발기 Port</label>
           <input
+
             v-model="svrinfo0.svrPort"
             type="text"
           >
@@ -343,6 +362,7 @@
         <div class="column w-1">
           <label class="column_label">Backup 개발기 IP</label>
           <input
+
             v-model="svrinfo1.svrIp"
             type="text"
           >
@@ -350,6 +370,7 @@
         <div class="column w-1">
           <label class="column_label">Backup 개발기 Port</label>
           <input
+
             v-model="svrinfo1.svrPort"
             type="text"
           >
@@ -359,6 +380,7 @@
         <div class="column w-1">
           <label class="column_label">운영기 IP</label>
           <input
+
             v-model="svrinfo2.svrIp"
             type="text"
           >
@@ -366,6 +388,7 @@
         <div class="column w-1">
           <label class="column_label">운영기 Port</label>
           <input
+
             v-model="svrinfo2.svrPort"
             type="text"
           >
@@ -373,6 +396,7 @@
         <div class="column w-1">
           <label class="column_label">Backup 운영기 IP</label>
           <input
+
             v-model="svrinfo3.svrIp"
             type="text"
           >
@@ -380,6 +404,7 @@
         <div class="column w-1">
           <label class="column_label">Backup 운영기 Port</label>
           <input
+
             v-model="svrinfo3.svrPort"
             type="text"
           >
@@ -426,10 +451,11 @@
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex';
 import {
   fetchGetMcgChnlList,
   fetchGetMcgServerList,
-  // fetchGetMcgChrgrList,
+  fetchGetMcgChrgrList,
   fetchPostMcgChnlList,
   // fetchPostMcgServerList,
   // fetchPostMcgChrgrList,
@@ -437,18 +463,33 @@ import {
 // fetchPutMcgServerList,
 // fetchPutMcgChrgrList,
 } from '@/api/mcgApi';
+import ChrgrListPopup from '@/components/popup/bizcomm/ChrgrListPopup.vue';
 
 export default {
+  components: {
+    ChrgrListPopup,
+  },
   data() {
     return {
       index: 0,
       chnList: [],
       chnldtl: [],
-      svrinfo: [],
+      svrinfo: {
+        svrIp: '',
+        svrPort: '',
+      },
       svrinfo0: [],
       svrinfo1: [],
       svrinfo2: [],
       svrinfo3: [],
+      chrgrinfo: {
+        chrgrTyp: '',
+        hanNm: '',
+        chrgrId: '',
+        mblPhonNum: '',
+      },
+      chrgrm: [],
+      chrgrs: [],
       chrgrnm: '',
       pageSet: { pageNo: 1, pageCount: 0, size: 10 },
       opCd: null,
@@ -475,11 +516,43 @@ export default {
       dealCd: '',
       chrgrTyp: '',
       hanNm: '',
-      chrgrNum: '',
+      chrgrId: '',
+      mblPhonNum: '',
       isStatusOn: '',
+      chrgrpopupstate: '',
+      chrgrn: '',
+      chrgropCd: '',
     };
   },
+  computed: {
+    // ...mapState('frameSet', ['resetPopOn']),
+    ...mapState('ccCdLst', ['ccCdList']),
+  },
+  mounted() {
+    this.setCcCdList({
+      opClCd: 'MCG', cdId: 'CHNL_GRP', allYn: 'Y', listNm: 'mcgChnlGrp',
+    });
+    this.setCcCdList({
+      opClCd: 'MCG', cdId: 'CHNL_TYP', allYn: 'Y', listNm: 'mcgChnlTyp',
+    });
+    this.setCcCdList({
+      opClCd: 'MCG', cdId: 'LNKG_MTHD', allYn: 'Y', listNm: 'mcgChnlLnkgMthd',
+    });
+    this.setCcCdList({
+      opClCd: 'MCG', cdId: 'LNKG_MTHD', allYn: 'N', listNm: 'mcgChnlLnkgMthdR',
+    });
+    this.setCcCdList({
+      opClCd: 'MCG', cdId: 'CHNL_GRP', allYn: 'N', listNm: 'mcgChnlGrpR',
+    });
+    this.setCcCdList({
+      opClCd: 'MCG', cdId: 'CHNL_TYP', allYn: 'N', listNm: 'mcgChnlTypR',
+    });
+    this.setCcCdList({
+      opClCd: 'MCG', cdId: 'CONTAINER_NUM', allYn: 'N', listNm: 'mcgContainerNumR',
+    });
+  },
   methods: {
+    ...mapActions('ccCdLst', ['setCcCdList']),
     listing() {
       console.log('채널 목록 조회!');
       // this.$axios.get('/api/mcg/chnl', {
@@ -509,28 +582,18 @@ export default {
           this.pageSet = res.data.rstData.pageSet;
           console.log(res.data.rstData.searchList);
           console.log(this.chnList);
-          console.log('대표 담당자 조회!');
         })
         .catch((ex) => {
           console.log(`error occur!! : ${ex}`);
         });
     },
 
-    async Serverinfo(opCdr) {
-      console.log('서버조회시작');
-
-      this.svrinfo0 = await this.Serverinfodtl(opCdr, '0');
-      this.svrinfo1 = await this.Serverinfodtl(opCdr, '1');
-      this.svrinfo2 = await this.Serverinfodtl(opCdr, '2');
-      this.svrinfo3 = await this.Serverinfodtl(opCdr, '3');
-    },
-
-    Serverinfodtl(opCdr, svrTypr) {
+    Serverinfodtl(opCdr) {
       console.log('채널 서버 조회!');
       // this.$axios.get('/api/mcg/chnl', {
       fetchGetMcgServerList({
         params: {
-          svrTyp: svrTypr,
+          svrTyp: this.svrTyp,
           svrIp: this.svrIp,
           svrPort: this.svrPort,
           mcgServerNum: this.mcgServerNum,
@@ -542,15 +605,48 @@ export default {
 
         .then((res) => {
           console.log('서버 조회!');
-          this.svrinfo = res.data.rstData.searchList;
+          this.svrinfo0 = res.data.rstData.searchList.svrdev1;
+          this.svrinfo1 = res.data.rstData.searchList.svrdev2;
+          this.svrinfo2 = res.data.rstData.searchList.svrprd1;
+          this.svrinfo3 = res.data.rstData.searchList.svrprd2;
+
           console.log('서버 조회 완료!');
-          console.log(this.svrinfo);
+          console.log(this.svrinfo0, this.svrinfo1, this.svrinfo2, this.svrinfo3);
+          if (this.svrinfo0 === null) { this.svrinfo0 = this.svrinfo; }
+          if (this.svrinfo1 === null) { this.svrinfo1 = this.svrinfo; }
+          if (this.svrinfo2 === null) { this.svrinfo2 = this.svrinfo; }
+          if (this.svrinfo3 === null) { this.svrinfo3 = this.svrinfo; }
           // console.log(res.data.rstData.searchList);
         })
         .catch((ex) => {
           console.log(`error occur!! : ${ex}`);
         });
-      return this.svrinfo;
+    },
+
+    Chrgrinfodtl(opCdr) {
+      console.log('채널 담당자 조회!');
+      fetchGetMcgChrgrList({
+        params: {
+          chrgrTyp: this.chrgrTyp,
+          hanNm: this.hanNm,
+          chrgrId: this.chrgrId,
+          mblPhonNum: this.mblPhonNum,
+          opCd: opCdr,
+
+        },
+      })
+
+        .then((res) => {
+          this.chrgrm = res.data.rstData.searchList.chrgr1;
+          this.chrgrs = res.data.rstData.searchList.chrgr2;
+          if (this.chrgrm === null) { this.chrgrm = this.chrgrinfo; }
+          if (this.chrgrs === null) { this.chrgrs = this.chrgrinfo; }
+          console.log(this.chrgrm, this.chrgrs);
+          console.log('대표 담당자 조회!');
+        })
+        .catch((ex) => {
+          console.log(`error occur!! : ${ex}`);
+        });
     },
 
 
@@ -559,14 +655,33 @@ export default {
       console.log(this.isStatusOn);
     },
 
-    dtlChnl(chn, opCdr) {
+    chrgrpopon(n, opCdr) {
+      this.chrgrn = n;
+      this.chrgropCd = opCdr;
+      this.chrgrpopupstate = true;
+    },
+
+    turOffPopChrgr(val) {
+      console.log(`Popup에서 받아온 Data : ${val}`);
+      this.chrgrpopupstate = false;
+    },
+
+    addDataChrgr(val) {
+      console.log(`Popup에서 받아온 Data : ${val}`);
+      this.chrgrpopupstate = false;
+      if (this.chrgrn === 1) { this.chrgrm.chrgrId = val.userId; this.chrgrm.hanNm = val.hanNm; }
+      if (this.chrgrn === 2) { this.chrgrs.chrgrId = val.userId; this.chrgrs.hanNm = val.hanNm; }
+
+      console.log(val.userId, this.chrgrm.chrgrId, this.chrgrs.chrgrId);
+    },
+
+    dtlChnl(chn) {
       // let svrinfotemp = [];
       console.log('상세채널조회!');
       this.chnldtl = chn;
       console.log(this.chnldtl);
       this.isStatusOn = true;
       console.log(this.isStatusOn);
-      this.Serverinfo(opCdr);
       // setTimeout(function sleep() {
       // 1초 후 작동해야할 코드
       // console.log(this.svrinfo0);
