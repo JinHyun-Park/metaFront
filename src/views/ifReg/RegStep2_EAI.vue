@@ -10,16 +10,6 @@
         </div>
       </h2>
     </section>
-
-    <!--
-                <section class="small_tabs">
-                    <ul>
-                        <li class="ov">온라인</li>
-                        <li>파일</li>
-                    </ul>
-                </section>
--->
-
     <section class="form_area border_group">
       <h5 class="s_tit type-2">
         송신 시스템 정보
@@ -64,10 +54,17 @@
               class="table_row w-auto"
             >
               <li class="td_cell">
-                <input
-                  v-model="sndRow.svrType"
-                  type="text"
-                >
+                <div class="select_group">
+                  <select v-model="sndRow.svrTypCd">
+                    <option
+                      v-for="(code, i) in ccCdList.svrTypCd"
+                      :key="i"
+                      :value="code.cdDtlId"
+                    >
+                      {{ code.cdNm }}
+                    </option>
+                  </select>
+                </div>
               </li>
               <li class="td_cell">
                 <input
@@ -168,10 +165,17 @@
               class="table_row w-auto"
             >
               <li class="td_cell">
-                <input
-                  v-model="rcvRow.svrType"
-                  type="text"
-                >
+                <div class="select_group">
+                  <select v-model="rcvRow.svrTypCd">
+                    <option
+                      v-for="(code, j) in ccCdList.svrTypCd"
+                      :key="j"
+                      :value="code.cdDtlId"
+                    >
+                      {{ code.cdNm }}
+                    </option>
+                  </select>
+                </div>
               </li>
               <li class="td_cell">
                 <input
@@ -251,34 +255,43 @@
         </div>
       </h5>
       <div class="row_contain">
-        <div class="column on w-3">
+        <div class="column w-2">
           <label class="column_label">인터페이스명</label>
           <input
+            v-model="ifNmHan"
             type="text"
-            value="인터페이스명인터페이스명인터페이스명"
+          >
+        </div>
+        <div class="column w-2">
+          <label class="column_label">인터페이스명 (영문 약자)</label>
+          <input
+            v-model="ifNmEng"
+            type="text"
+            placeholder="CUST_ADDR_INFO  (예시)"
           >
         </div>
         <div class="column w-3">
-          <label class="column_label">&nbsp;</label>
+          <label class="column_label">연동 목적</label>
           <input
+            v-model="ifDesc"
             type="text"
-            value="Interface1Interface1Interface1Interface1Interface1"
           >
         </div>
       </div>
       <div class="row_contain">
         <div class="column w-2">
-          <label class="column_label">유형</label>
+          <label class="column_label">인터페이스 방식</label>
           <div class="select_group">
-            <select>
+            <select
+              v-model="ifTypCd"
+              @change="setOtherField()"
+            >
               <option
-                value=""
-                selected
+                v-for="(code, i) in ccCdList.ifTypCd"
+                :key="i"
+                :value="code.cdDtlId"
               >
-                Y
-              </option>
-              <option value="">
-                N
+                {{ code.cdNm }}
               </option>
             </select>
             <span class="select" />
@@ -287,83 +300,77 @@
         <div class="column w-2">
           <label class="column_label">방향</label>
           <div class="select_group">
-            <select>
+            <select
+              ref="selectDrctn"
+              v-model="drctnTypCd"
+              @click="checkIfTyp()"
+              @change="setSync()"
+            >
               <option
-                value=""
-                selected
+                v-for="(code, i) in ccCdList.drctnTypCd"
+                :key="i"
+                :value="code.cdDtlId"
               >
-                단방향
-              </option>
-              <option value="">
-                양방향
+                {{ code.cdNm }}
               </option>
             </select>
             <span class="select" />
           </div>
         </div>
         <div class="column w-2">
-          <label class="column_label">연동방식</label>
-          <div class="select_group disabled">
-            <select disabled>
-              <option value="">
-                동기
-              </option>
-              <option
-                value=""
-                selected
-              >
-                비동기
-              </option>
-            </select>
-            <span class="select" />
-          </div>
-        </div>
-        <div class="column w-2" />
-        <div class="column w-2" />
-      </div>
-      <div class="row_contain">
-        <div class="column w-2">
-          <label class="column_label">수신전문처리</label>
+          <label class="column_label">Async/Sync</label>
           <div class="select_group">
-            <select>
+            <select
+              ref="selectSync"
+              v-model="syncTypCd"
+              @click="checkDrctnTyp()"
+            >
               <option
-                value=""
-                selected
+                v-for="(code, i) in ccCdList.syncTypCd"
+                :key="i"
+                :value="code.cdDtlId"
               >
-                실시간/배치
+                {{ code.cdNm }}
               </option>
-              <option value="">
-                실시간
-              </option>
-              <option value="">
-                배치
+            </select>
+            <span class="select" />
+          </div>
+        </div>
+        <div class="column w-2">
+          <label class="column_label">수신 전문 처리 방식</label>
+          <div class="select_group">
+            <select v-model="rcvOpCd">
+              <option
+                v-for="(code, i) in ccCdList.rcvOpCd"
+                :key="i"
+                :value="code.cdDtlId"
+              >
+                {{ code.cdNm }}
               </option>
             </select>
             <span class="select" />
           </div>
         </div>
         <div class="column w-3">
-          <label class="column_label">수신 프로그램</label>
+          <label class="column_label">수신TR (SWING만 해당)</label>
           <input
+            ref="rcvTrInput"
+            v-model="rcvTr"
             type="text"
-            value="myidisyoungjunyumyidisyoungjunyu12myidisyo"
           >
         </div>
-        <div class="column w-3" />
       </div>
       <div class="row_contain">
         <div class="column w-2">
           <label class="column_label">파일 전송 유형</label>
           <div class="select_group">
-            <select>
+            <select v-model="fileIfTypCd">
               <option
-                value=""
-                selected
+                v-for="(code, i) in ccCdList.fileIfTypCd"
+                :key="i"
+                :value="code.cdDtlId"
               >
-                file_put
-              </option>
-              <option value="">
-                file_get
+                {{ code.cdNm }}
               </option>
             </select>
             <span class="select" />
@@ -663,12 +670,24 @@
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex';
+
 export default {
 
   name: 'RegStep2EAI',
   data() {
     return {
-      svrType: '',
+      svrTypCd: '',
+      ifTypCd: '',
+      drctnTypCd: '',
+      syncTypCd: '',
+      rcvOpCd: '',
+      fileIfTypCd: '',
+      sysTypCd: '',
+      ifNmEng: '',
+      ifNmHan: '',
+      ifDesc: '',
+      rcvTr: '',
       sysNm: '',
       hostNm: '',
       vIp: '',
@@ -678,7 +697,7 @@ export default {
       company: '',
       sndRows: [
         {
-          svrType: '',
+          svrTypCd: '',
           sysNm: '',
           hostNm: '',
           vIp: '',
@@ -690,7 +709,7 @@ export default {
       ],
       rcvRows: [
         {
-          svrType: '',
+          svrTypCd: '',
           sysNm: '',
           hostNm: '',
           vIp: '',
@@ -702,7 +721,35 @@ export default {
       ],
     };
   },
+  computed: {
+    ...mapState('frameSet', ['resetPopOn']),
+    ...mapState('ccCdLst', ['ccCdList']),
+  },
+  mounted() {
+    this.setCcCdList({
+      opClCd: 'COMM', cdId: 'SVR_TYP_CD', allYn: 'N', listNm: 'svrTypCd',
+    });
+    this.setCcCdList({
+      opClCd: 'EAI', cdId: 'IF_TYP_CD', allYn: 'N', listNm: 'ifTypCd',
+    });
+    this.setCcCdList({
+      opClCd: 'EAI', cdId: 'DRCTN_CD', allYn: 'N', listNm: 'drctnTypCd',
+    });
+    this.setCcCdList({
+      opClCd: 'EAI', cdId: 'SYNC_CD', allYn: 'N', listNm: 'syncTypCd',
+    });
+    this.setCcCdList({
+      opClCd: 'EAI', cdId: 'RCV_OP_CD', allYn: 'N', listNm: 'rcvOpCd',
+    });
+    this.setCcCdList({
+      opClCd: 'EAI', cdId: 'FILE_IF_TYP_CD', allYn: 'N', listNm: 'fileIfTypCd',
+    });
+    this.setCcCdList({
+      opClCd: 'EAI', cdId: 'SYS_TYP_CD', allYn: 'N', listNm: 'sysTypCd',
+    });
+  },
   methods: {
+    ...mapActions('ccCdLst', ['setCcCdList']),
     addSndRow(n) {
       console.log('행 추가!');
       this.sndRows.splice(n + 1, 0, {});
@@ -725,6 +772,48 @@ export default {
         console.log(rcvRow);
         const idx = this.rcvRows.indexOf(rcvRow);
         this.rcvRows.splice(idx, 1);
+      }
+    },
+    resetField() {
+    },
+    setOtherField() {
+      if (this.ifTypCd === '1') {
+        this.drctnTypCd = '';
+        this.$refs.selectDrctn.disabled = false;
+        this.syncTypCd = '';
+        this.$refs.selectSync.disabled = false;
+        this.rcvTr = '';
+        this.$refs.rcvTrInput.disabled = false;
+      } if (this.ifTypCd === '2') {
+        this.drctnTypCd = '';
+        this.$refs.selectDrctn.disabled = true;
+        this.syncTypCd = '';
+        this.$refs.selectSync.disabled = true;
+        this.rcvTr = '';
+        this.$refs.rcvTrInput.disabled = true;
+      }
+    },
+    setSync() {
+      if (this.drctnTypCd === '1') {
+        this.syncTypCd = '';
+        this.$refs.selectSync.disabled = true;
+      } if (this.drctnTypCd === '2') {
+        this.syncTypCd = '';
+        this.$refs.selectSync.disabled = false;
+      }
+    },
+    checkIfTyp() {
+      if (this.ifTypCd === '') {
+        this.$gf.alertOn('인터페이스 방식을 먼저 선택하세요');
+      }
+    },
+    checkDrctnTyp() {
+      if (this.ifTypCd === '') {
+        this.$gf.alertOn('인터페이스 방식을 먼저 선택하세요');
+        return;
+      }
+      if (this.drctnTypCd === '') {
+        this.$gf.alertOn('방향을 먼저 선택하세요');
       }
     },
   },

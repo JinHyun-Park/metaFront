@@ -145,7 +145,7 @@
                 <div class="select_group">
                   <select v-model="svrTypCd">
                     <option
-                      v-for="(code, n) in ccCdList.syrTypCd"
+                      v-for="(code, n) in ccCdList.svrTypCd"
                       :key="n"
                       :value="code.cdDtlId"
                     >
@@ -240,7 +240,7 @@
                 <div class="select_group">
                   <select v-model="svr.svrTypCd">
                     <option
-                      v-for="(code, n) in ccCdList.syrTypCd"
+                      v-for="(code, n) in ccCdList.svrTypCd"
                       :key="n"
                       :value="code.cdDtlId"
                     >
@@ -358,7 +358,7 @@ export default {
   },
   mounted() {
     this.setCcCdList({
-      opClCd: 'COMM', cdId: 'SVR_TYP_CD', allYn: 'Y', listNm: 'syrTypCd',
+      opClCd: 'COMM', cdId: 'SVR_TYP_CD', allYn: 'Y', listNm: 'svrTypCd',
     });
   },
   methods: {
