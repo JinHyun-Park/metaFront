@@ -147,7 +147,7 @@
               <input
                 v-model="mqMngrNm"
                 type="text"
-                value=""
+                oninput="this.value = this.value.toUpperCase()"
               >
             </li>
             <li class="td_cell">

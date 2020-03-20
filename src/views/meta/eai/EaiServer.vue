@@ -83,46 +83,55 @@
                 #
               </li>
               <li
-                style="width:300px; "
+                style="width:15%; "
                 class="th_cell"
               >
                 시스템명
               </li>
               <li
-                style="width:50px; "
+                style="width:10%; "
                 class="th_cell"
               >
-                서버유형
+                서버 유형
               </li>
               <li
-                style="width:200px; "
+                style="width:15%; "
                 class="th_cell"
               >
                 Hostname
               </li>
-              <li class="th_cell">
-                VIP
-              </li>
-              <li class="th_cell">
-                NAT IP
-              </li>
-              <li class="th_cell">
-                IP(기타)
-              </li>
               <li
-                style="width:50px; "
+                style="width:10%; "
                 class="th_cell"
               >
-                OS
+                VIP (대표 IP)
               </li>
               <li
-                style="width:50px; "
+                style="width:10%; "
+                class="th_cell"
+              >
+                NAT IP
+              </li>
+              <li
+                style="width:10%; "
+                class="th_cell"
+              >
+                IP (추가)
+              </li>
+              <li
+                style="width:8%; "
+                class="th_cell"
+              >
+                OS (운영체제)
+              </li>
+              <li
+                style="width:8%; "
                 class="th_cell"
               >
                 담당 회사
               </li>
               <li
-                style="width:50px; "
+                style="width:5%; "
                 class="th_cell"
               >
                 사용 여부
@@ -214,7 +223,7 @@
               <li class="td_cell">
                 <i
                   class="ico-add"
-                  @click="addData()"
+                  @click="saveEaiServer()"
                 />
                 <i
                   class="ico-del"
@@ -398,18 +407,31 @@ export default {
           console.log(`error occur!! : ${ex}`);
         });
     },
-    addData() {
-      console.log(`사용 여부 : ${this.useYn}`);
-      if (this.useYn === '') {
+    saveEaiServer() {
+      if (this.sysNm === '') {
+        this.$gf.alertOn('시스템명을 입력하세요');
+        return;
+      } if (this.svrTypCd === '') {
+        this.$gf.alertOn('서버 유형을 선택하세요');
+        return;
+      } if (this.hostNm === '') {
+        this.$gf.alertOn('Hostname을 입력하세요');
+        return;
+      } if (this.vIp === '') {
+        this.$gf.alertOn('VIP(대표 IP)를 입력하세요');
+        return;
+      } if (this.osNm === '') {
+        this.$gf.alertOn('OS(운영체제)를 입력하세요');
+        return;
+      } if (this.company === '') {
+        this.$gf.alertOn('담당회사를 입력하세요');
+        return;
+      } if (this.useYn === '') {
         this.$gf.alertOn('사용 여부를 선택하세요');
         return;
       }
-      if (this.svrTypCd === '') {
-        this.$gf.alertOn('서버 유형을 선택하세요');
-      } else {
-        const confirmText = `${this.sysNm} 를 저장하십니까?`;
-        this.$gf.confirmOn(confirmText, this.insertData);
-      }
+      const confirmText = `${this.sysNm} 를 저장하십니까?`;
+      this.$gf.confirmOn(confirmText, this.insertData);
     },
     insertData() {
       console.log('EAI 서버 정보 등록!');

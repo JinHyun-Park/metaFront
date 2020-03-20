@@ -100,10 +100,10 @@
               인터페이스ID
             </li>
             <li class="th_cell">
-              테이블
+              수신 테이블
             </li>
             <li class="th_cell">
-              수신TR
+              수신 TR
             </li>
             <li class="th_cell">
               MQ UCS
@@ -135,7 +135,7 @@
               >
             </li>
             <li
-              style="width:10%; "
+              style="width:12%; "
               class="td_cell"
             >
               <input
@@ -145,31 +145,31 @@
               >
             </li>
             <li
-              style="width:10%; "
+              style="width:12%; "
               class="td_cell"
             >
               <input
-                v-model="tr"
+                v-model="rcvTr"
                 type="text"
                 oninput="this.value = this.value.toUpperCase()"
               >
             </li>
             <li
-              style="width:10%; "
+              style="width:8%; "
               class="td_cell"
             >
               <input
-                v-model="swgmq"
+                v-model="mqUcs"
                 type="text"
                 oninput="this.value = this.value.toUpperCase()"
               >
             </li>
             <li
-              style="width:10%; "
+              style="width:8%; "
               class="td_cell"
             >
               <input
-                v-model="swgtp"
+                v-model="tpUcs"
                 type="text"
                 oninput="this.value = this.value.toUpperCase()"
               >
@@ -361,7 +361,7 @@
               인터페이스ID
             </li>
             <li class="th_cell">
-              테이블
+              송신 테이블
             </li>
             <li class="th_cell">
               송신ADT
@@ -514,9 +514,9 @@ export default {
       saveRcvTbl: {},
       rcvTbl: '',
       rEaiIfId: '',
-      tr: '',
-      swgmq: '',
-      swgtp: '',
+      rcvTr: '',
+      mqUcs: '',
+      tpUcs: '',
       rcvQueue: '',
       rUseYn: '',
     };
@@ -554,9 +554,9 @@ export default {
           pageCount: this.rPageSet.pageCount,
           rcvTbl: this.rcvTbl,
           eaiIfId: this.rEaiIfId,
-          tr: this.tr,
-          swgmq: this.swgmq,
-          swgtp: this.swgtp,
+          tr: this.rcvTr,
+          swgmq: this.mqUcs,
+          swgtp: this.tpUcs,
           rcvQueue: this.rcvQueue,
           useYn: this.rUseYn,
         },
@@ -572,7 +572,16 @@ export default {
         });
     },
     saveSnd() {
-      if (this.useYn === '') {
+      if (this.eaiIfId === '') {
+        this.$gf.alertOn('인터페이스ID를 입력하세요');
+        return;
+      } if (this.sndTbl === '') {
+        this.$gf.alertOn('송신 테이블명을 입력하세요');
+        return;
+      } if (this.sndAdt === '') {
+        this.$gf.alertOn('송신 ADT 정보를 입력하세요');
+        return;
+      } if (this.useYn === '') {
         this.$gf.alertOn('사용 여부를 선택하세요');
         return;
       }
@@ -597,7 +606,25 @@ export default {
         });
     },
     saveRcv() {
-      if (this.rUseYn === '') {
+      if (this.rEaiIfId === '') {
+        this.$gf.alertOn('인터페이스ID를 입력하세요');
+        return;
+      } if (this.rcvTbl === '') {
+        this.$gf.alertOn('수신 테이블명을 입력하세요');
+        return;
+      } if (this.rcvTr === '') {
+        this.$gf.alertOn('수신 TR 정보를 입력하세요');
+        return;
+      } if (this.mqUcs === '') {
+        this.$gf.alertOn('MQ UCS 정보를 입력하세요');
+        return;
+      } if (this.tpUcs === '') {
+        this.$gf.alertOn('TP UCS 정보를 입력하세요');
+        return;
+      } if (this.rcvQueue === '') {
+        this.$gf.alertOn('수신 큐를 입력하세요');
+        return;
+      } if (this.rUseYn === '') {
         this.$gf.alertOn('사용 여부를 선택하세요');
         return;
       }
@@ -609,9 +636,9 @@ export default {
       this.saveRcvTbl = {
         rcvTbl: this.rcvTbl,
         eaiIfId: this.rEaiIfId,
-        tr: this.tr,
-        swgmq: this.swgmq,
-        swgtp: this.swgtp,
+        tr: this.rcvTr,
+        swgmq: this.mqUcs,
+        swgtp: this.tpUcs,
         rcvQueue: this.rcvQueue,
         useYn: this.rUseYn,
       };
@@ -664,9 +691,9 @@ export default {
     resetRcvField() {
       this.rEaiIfId = '';
       this.rcvTbl = '';
-      this.tr = '';
-      this.swgmq = '';
-      this.swgtp = '';
+      this.rcvTr = '';
+      this.mqUcs = '';
+      this.tpUcs = '';
       this.rcvQueue = '';
       this.rUseYn = '';
     },

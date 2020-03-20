@@ -358,7 +358,10 @@ export default {
         });
     },
     saveQueue() {
-      if (this.queueNm === '') {
+      if (this.mqMngrNm === '') {
+        this.$gf.alertOn('큐 매니저를 선택하세요');
+        return;
+      } if (this.queueNm === '') {
         this.$gf.alertOn('큐명을 입력하세요');
         return;
       } if (this.qTypeCd === '') {
