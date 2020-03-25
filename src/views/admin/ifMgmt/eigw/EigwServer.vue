@@ -223,7 +223,7 @@ export default {
       svrOnInstList: false,
       propsInstList: { // 조회 시 parameter에 사용자 정보를 담아주려면 여기를 통해 넘겨주세요.
         message: '', // 사용방법 예시 데이터
-      },      
+      },
       serverList: '',
       svrTypCdList: [],
       pageSet: { pageNo: 1, pageCount: 0, size: 10 },
