@@ -15,7 +15,7 @@ axios.defaults.headers.common['X-CSRF-TOKEN'] = token;
 const config = {
     // baseURL: process.env.baseURL || process.env.apiUrl || ""
     // timeout: 60 * 1000, // 해당 ms 이내에 응답이 오지 않으면 에러로 간주
-    // withCredentials: true, // Check cross-site Access-Control
+    withCredentials: true, // Check cross-site Access-Control
     // baseURL: process.env.VUE_APP_BASE_URL
 };
 
@@ -28,6 +28,7 @@ _axios.interceptors.request.use(
     // Do something before request is sent
     {
         if( process.env.NODE_ENV === 'production') {
+            config.baseURL = process.env.VUE_APP_BASE_URL;
             config.url = config.url.replace('/api', '')
         }
         helpers.showLoading(5000); // 로딩 화면 노출
@@ -47,8 +48,8 @@ _axios.interceptors.response.use(
     response =>
     // Do something with response data
     {
-        //console.log('리스폰스 : ');
-        console.log(response);
+        console.log('리스폰스 : ');
+        console.log(response.headers);
         let rstMsg = '';
         //rstCd 분기처리
         if (response.data.rstCd === 'D') {

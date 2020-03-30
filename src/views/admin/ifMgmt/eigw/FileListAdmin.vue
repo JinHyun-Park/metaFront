@@ -41,7 +41,7 @@
           <button
             type="button"
             class="default_button"
-            @click="reset()"
+            @click="save()"
           >
             신규신청
           </button>
@@ -75,14 +75,13 @@
         <div class="column w-1">
           <label class="column_label">대외기관</label>
           <input
-            v-model="instCd"
+            v-model="instNm"
             type="text"
-            class="add_text on"
-            @keyup.13="searchList()"
-            @click="turnOnSvrPopInstList"
+            value=""
+            @click="turnOnSvrPopInstList(1)"
           >
         </div>
-        <div class="column w-1">
+        <div class="column on w-1">
           <label class="column_label">I/F ID(명)</label>
           <input
             v-model="eaiIfId"
@@ -91,7 +90,7 @@
             @keyup.13="searchList()"
           >
         </div>
-        <div class="column w-1">
+        <div class="column on w-1">
           <label class="column_label">파일명</label>
           <input
             v-model="fileNm"
@@ -102,7 +101,7 @@
         </div>
       </div>
       <div class="row_contain type-2">
-        <div class="column w-1">
+        <div class="column on w-1">
           <label class="column_label">송수신구분</label>
           <div class="select_group">
             <select v-model="srFlag">
@@ -116,13 +115,20 @@
             <span class="select" />
           </div>
         </div>
-        <div class="column w-1">
+        <div class="column on w-1">
           <label class="column_label">IP</label>
           <input
             v-model="reqIp"
             type="text"
             class="add_text on"
             @keyup.13="searchList()"
+          >
+        </div>
+        <div class="column on w-1">
+          <input
+            v-model="instCd"
+            type="hidden"
+            class="add_text on"
           >
         </div>
         <div class="column w-1" />
@@ -168,13 +174,35 @@
               @click="detailInfo(index)"
             >
               <li class="td_cell">
-                {{ row.mqMngrNm }}
+                <select v-model="row.mqMngrNm">
+                  <option
+                    value="EIGW1P"
+                  >
+                    1호기
+                  </option>
+                  <option
+                    value="EIGW2P"
+                  >
+                    2호기
+                  </option>
+                </select>
               </li>
               <li class="td_cell">
                 {{ row.instNm }}
               </li>
               <li class="td_cell">
-                {{ row.srFlag }}
+                <select v-model="row.srFlag">
+                  <option
+                    value="S"
+                  >
+                    송신
+                  </option>
+                  <option
+                    value="R"
+                  >
+                    수신
+                  </option>
+                </select>
               </li>
               <li class="td_cell">
                 {{ row.fileNm }}
@@ -262,14 +290,6 @@
             class="add_text on"
           >
         </div>
-        <div class="column w-1">
-          <label class="column_label">대외기관</label>
-          <input
-            v-model="fileIfMst.instCd"
-            type="text"
-            class="add_text on"
-          >
-        </div>
       </div>
       <div class="row_contain">
         <div class="column on w-1">
@@ -296,12 +316,13 @@
           </select>
           <span class="select" />
         </div>
-        <div class="column w-2">
-          <label class="column_label">파일설명</label>
+        <div class="column w-1">
+          <label class="column_label">대외기관&amp;명</label>
           <input
-            v-model="fileIfMst.fileDesc"
+            v-model="fileIfMst.instNm"
             type="text"
             class="add_text on"
+            @click="turnOnSvrPopInstList(2)"
           >
         </div>
         <div class="column w-1">
@@ -316,16 +337,21 @@
           </select>
         </div>
         <div class="column w-1">
-          <label class="column_label">mstFileNum</label>
           <input
-            v-model="mstFileNum"
-            type="text"
+            v-model="fileIfMst.instCd"
+            type="hidden"
+            class="add_text on"
+          >
+        </div>
+        <div class="column w-1">
+          <input
+            v-model="fileIfMst.mstFileNum"
+            type="hidden"
             class="add_text on"
           >
         </div>
       </div>
     </section>
-
     <section class="form_area border_group">
       <h5 class="s_tit">
         SKT_EIGW 정보
@@ -425,7 +451,6 @@
         </div>
       </div>
     </section>
-
     <section class="form_area border_group">
       <h5 class="s_tit">
         EIGW_EIGW 정보
@@ -593,7 +618,15 @@
             class="add_text"
           >
         </div>
-        <div class="column w-1" />
+        <div class="column w-1">
+          <input
+            v-model="fileAgencyConf.dvpSvrNum"
+            type="hidden"
+            class="add_text"
+          >
+        </div>
+      </div>
+      <div class="row_contain">
         <div class="column w-2">
           <label class="column_label">운영기 Real IP</label>
           <input
@@ -620,6 +653,13 @@
             class="add_text"
           >
         </div>
+        <div class="column w-1">
+          <input
+            v-model="fileAgencyConf.prodSvrNum"
+            type="hidden"
+            class="add_text"
+          >
+        </div>
       </div>
     </section>
     <section class="border_group">
@@ -628,79 +668,73 @@
         <div class="right_button_area">
           <button
             type="button"
-            class="default_button on"
+            class="default_button"
             @click="addchrgrList(1)"
           >
             추가
           </button>
+          <button
+            type="button"
+            class="default_button on"
+            @click="saveInChrgr()"
+          >
+            등록
+          </button>
         </div>
       </h5>
-      <div class="table_grid">
-        <div class="table_head w-auto except">
-          <ul>
-            <li class="th_cell" />
-            <li class="th_cell">
-              사용자 Id
-            </li>
-            <li class="th_cell">
-              기관
-            </li>
-            <li class="th_cell">
-              이름
-            </li>
-            <li class="th_cell">
-              직급
-            </li>
-            <li class="th_cell">
-              연락처
-            </li>
-            <li class="th_cell">
-              핸드폰
-            </li>
-            <li class="th_cell">
-              E-mail
-            </li>
-            <li class="th_cell" />
-            <li class="th_cell" />
-          </ul>
-        </div>
-        <div class="table_body">
-          <ul
-            v-for="(inuser, i) in inchrgrList"
-            :key="inuser.UserId"
-            class="table_row form_type except w-auto"
-          >
-            <li class="td_cell">
-              {{ i+1 }}
-            </li>
-            <li class="td_cell">
-              {{ inuser.userId }}
-            </li>
-            <li class="td_cell">
-              {{ inuser.instCd }}
-            </li>
-            <li class="td_cell">
-              {{ inuser.hanNm }}
-            </li>
-            <li class="td_cell">
-              {{ inuser.ofcLvlNm }}
-            </li>
-            <li class="td_cell">
-              {{ inuser.offcPhonNum }}
-            </li>
-            <li class="td_cell">
-              {{ inuser.mblPhonNum }}
-            </li>
-            <li class="td_cell">
-              {{ inuser.emailAddr }}
-            </li>
-            <li class="td_cell">
-              <i
-                class="ico-del"
-                @click="delInuserList(i)"
-              />
-            </li>
-          </ul>
+      <div class="table_colgroup">
+        <div class="table_grid">
+          <div class="table_head w-auto except">
+            <ul>
+              <li class="th_cell">
+                기관
+              </li>
+              <li class="th_cell">
+                이름
+              </li>
+              <li class="th_cell">
+                조직
+              </li>
+              <li class="th_cell">
+                핸드폰
+              </li>
+              <li class="th_cell">
+                E-mail
+              </li>
+              <li class="th_cell">
+                삭제
+              </li>
+            </ul>
+          </div>
+          <div class="table_body">
+            <ul
+              v-for="(inchrgr, i) in inChrgrList"
+              :key="inchrgr.userId"
+              class="table_row w-auto"
+            >
+              <li class="td_cell">
+                {{ inchrgr.instNm }}
+              </li>
+              <li class="td_cell">
+                {{ inchrgr.hanNm }}
+              </li>
+              <li class="td_cell">
+                {{ inchrgr.orgCd }}
+              </li>
+              <li class="td_cell">
+                {{ inchrgr.mblPhonNum }}
+              </li>
+              <li class="td_cell">
+                {{ inchrgr.emailAddr }}
+              </li>
+              <td class="td_cell">
+                <i
+                  class="ico-del"
+                  @click="delInList(i)"
+                />
+              </td>
+            </ul>
+          </div>
         </div>
       </div>
     </section>
@@ -710,84 +744,84 @@
         <div class="right_button_area">
           <button
             type="button"
-            class="default_button on"
+            class="default_button"
             @click="addchrgrList(2)"
           >
             추가
           </button>
+          <button
+            type="button"
+            class="default_button on"
+            @click="saveOutChrgr()"
+          >
+            등록
+          </button>
         </div>
       </h5>
-      <div class="table_grid">
-        <div class="table_head w-auto except">
-          <ul>
-            <li class="th_cell" />
-            <li class="th_cell">
-              사용자 Id
-            </li>
-            <li class="th_cell">
-              기관
-            </li>
-            <li class="th_cell">
-              이름
-            </li>
-            <li class="th_cell">
-              직급
-            </li>
-            <li class="th_cell">
-              유선전화
-            </li>
-            <li class="th_cell">
-              휴대전화
-            </li>
-            <li class="th_cell">
-              E-mail
-            </li>
-            <li class="th_cell">
-              비고
-            </li>
-            <li class="th_cell" />
-          </ul>
-        </div>
-        <div class="table_body">
-          <ul
-            v-for="(outuser, i) in outchrgrList"
-            :key="outuser.userId"
-            class="table_row form_type except w-auto"
-          >
-            <li class="td_cell">
-              {{ i+1 }}
-            </li>
-            <li class="td_cell">
-              {{ outuser.userId }}
-            </li>
-            <li class="td_cell">
-              {{ outuser.instCd }}
-            </li>
-            <li class="td_cell">
-              {{ outuser.hanNm }}
-            </li>
-            <li class="td_cell">
-              {{ outuser.ofcLvlNm }}
-            </li>
-            <li class="td_cell">
-              {{ outuser.offcPhonNum }}
-            </li>
-            <li class="td_cell">
-              {{ outuser.mblPhonNum }}
-            </li>
-            <li class="td_cell">
-              {{ outuser.emailAddr }}
-            </li>
-            <li class="td_cell">
-              {{ outuser.opDtl }}
-            </li>
-            <li class="td_cell">
-              <i
-                class="ico-del"
-                @click="delOutuserList(i)"
-              />
-            </li>
-          </ul>
+      <div class="table_colgroup">
+        <div class="table_grid">
+          <div class="table_head w-auto except">
+            <ul>
+              <li class="th_cell">
+                기관
+              </li>
+              <li class="th_cell">
+                이름
+              </li>
+              <li class="th_cell">
+                직급
+              </li>
+              <li class="th_cell">
+                핸드폰
+              </li>
+              <li class="th_cell">
+                E-mail
+              </li>
+              <li class="th_cell">
+                삭제
+              </li>
+            </ul>
+          </div>
+          <div class="table_body">
+            <ul
+              v-for="(outchrgr, i) in outChrgrList"
+              :key="outchrgr.userId"
+              class="table_row form_type except w-auto"
+            >
+              <li class="td_cell">
+                {{ outchrgr.instNm }}
+              </li>
+              <li class="td_cell">
+                {{ outchrgr.hanNm }}
+              </li>
+              <li class="td_cell">
+                <div class="select_group">
+                  <select v-model="outchrgr.ofcLvlCd">
+                    <option
+                      v-for="(code, n) in ccCdList.ofcLvlCd"
+                      :key="n"
+                      :value="code.cdDtlId"
+                    >
+                      {{ code.cdNm }}
+                    </option>
+                  </select>
+                  <span class="select" />
+                </div>
+              </li>
+              <li class="td_cell">
+                {{ outchrgr.mblPhonNum }}
+              </li>
+              <li class="td_cell">
+                {{ outchrgr.emailAddr }}
+              </li>
+              <td class="td_cell">
+                <i
+                  class="ico-del"
+                  @click="delOutList(i)"
+                />
+              </td>
+            </ul>
+          </div>
         </div>
       </div>
     </section>
@@ -795,17 +829,16 @@
       <button
         type="button"
         class="default_button on"
-        @click="save()"
+        @click="update()"
       >
-        등록
+        수정
       </button>
     </section>
   </div>
 </template>
 
 <script>
-
-// import { fetchEigwAdFileList, fetchEigwFileDtlInfo } from '@/api/eigwApi';
+import { mapState, mapActions } from 'vuex';
 import * as eigwApi from '@/api/eigwApi';
 import EigwServerListPopup from '@/components/popup/meta/eigw/EigwServerListPopup.vue';
 import ChrgrListPopup from '@/components/popup/bizcomm/ChrgrListPopup.vue';
@@ -833,14 +866,15 @@ export default {
       propsEigwChrgr: { // 조회 시 parameter에 사용자 정보를 담아주려면 여기를 통해 넘겨주세요.
         message: '', // 사용방법 예시 데이터
       },
+      serverPopupCase: '',
       svrOnInstList: false,
       propsInstList: { // 조회 시 parameter에 사용자 정보를 담아주려면 여기를 통해 넘겨주세요.
         message: '', // 사용방법 예시 데이터
       },
-      serverPopupCase: '',
 
       mqMngrNm: '',
       instCd: '',
+      instNm: '',
       eaiIfId: '',
       fileNm: '',
       srFlag: '',
@@ -859,6 +893,7 @@ export default {
         srFlag: '',
         useYn: '',
         instCd: '',
+        instNm: '',
       },
       fileSktConf: {
         mstFileSeq: '',
@@ -908,21 +943,28 @@ export default {
         prodSvrPort: '',
       },
 
-      inchrgrList: [],
-      outchrgrList: [],
-      inuserIdList: '',
-      outuserIdList: '',
-      userIdList: '',
-      saveChrgrInfo: '',
+      inChrgrList: [],
+      outChrgrList: [],
+      saveInfo: {},
     };
   },
+  computed: {
+    ...mapState('frameSet', ['resetPopOn']),
+    ...mapState('ccCdLst', ['ccCdList']),
+  },
+  mounted() {
+    this.setCcCdList({
+      opClCd: 'EIGW', cdId: 'OFC_LVL_CD', allYn: 'Y', listNm: 'ofcLvlCd',
+    });
+  },
   methods: {
+    ...mapActions('frameSet', ['setResetPopOn']),
+    ...mapActions('ccCdLst', ['setCcCdList']),
     searchList() {
-      // this.$axios.get('/api/eigw/fileList', {
       eigwApi.fetchEigwAdFileList({
         params: {
           mqMngrNm: this.mqMngrNm,
-          ifId: this.ifId,
+          eaiIfId: this.eaiIfId,
           fileNm: this.fileNm,
           svrIp: this.svrIp,
           instCd: this.instCd,
@@ -945,8 +987,6 @@ export default {
         });
     },
     detailInfo(i) {
-      // this.tgtUrl = '/api/eigw/fileDetail';
-      // this.$axios.get(this.tgtUrl, {
       eigwApi.fetchEigwFileDetail({
         params: {
           mstFileSeq: this.fileList[i].mstFileNum,
@@ -959,6 +999,8 @@ export default {
             this.fileSktConf = res.data.rstData.rstData.fileSktConf;
             this.fileEigwConf = res.data.rstData.rstData.fileEigwConf;
             this.fileAgencyConf = res.data.rstData.rstData.fileAgencyConf;
+            this.inChrgrList = res.data.rstData.rstData.inChrgrList;
+            this.outChrgrList = res.data.rstData.rstData.outChrgrList;
           } else {
             this.$gf.alertOn('failed');
           }
@@ -967,43 +1009,108 @@ export default {
           console.log(`error occur!! : ${ex}`);
         });
     },
-    // TO-DO
     save() {
+      if (this.fileIfMst.fileNm === '') {
+        this.$gf.alertOn('프로그램 정보를 입력해주세요.');
+      }
+      if (this.fileSktConf.eaiIfId === '') {
+        this.$gf.alertOn('I/F ID를 입력해주세요.');
+      }
+      if (this.fileIfMst.instCd === '') {
+        this.$gf.alertOn('대외기관을 입력해주세요.');
+      }
+      console.log('I/F 정보 등록');
       this.saveInfo = {
-        mstFileNum: this.mstFileNum,
         fileIfMst: this.fileIfMst,
         fileSktConf: this.fileSktConf,
         fileEigwConf: this.fileEigwConf,
         fileAgencyConf: this.fileAgencyConf,
       };
-      // this.$axios.post('/api/eigw/file/MetaInfo/save', this.saveInfo)
       eigwApi.fetchEigwMetaSaveInfo(this.saveInfo)
         .then((res) => {
           console.log('meta data save!');
           console.log(res);
+          this.$gf.alertOn('등록되었습니다.');
         })
         .catch((ex) => {
           console.log(`metainfo save error occur!! : ${ex}`);
         });
-      // this.$axios.post('/api/eigw/file/MetaInfo/servesave', this.serveList)
-      eigwApi.fetchEigwMetaSaveServe(this.serveList)
+    },
+    update() {
+      this.saveInfo = {
+        fileIfMst: this.fileIfMst,
+        fileSktConf: this.fileSktConf,
+        fileEigwConf: this.fileEigwConf,
+        fileAgencyConf: this.fileAgencyConf,
+      };
+      eigwApi.fetchEigwMetaPutInfo(this.saveInfo)
         .then((res) => {
           console.log('meta data save!');
           console.log(res);
+          this.$gf.alertOn('수정되었습니다.');
         })
         .catch((ex) => {
           console.log(`metainfo save error occur!! : ${ex}`);
         });
-
-      if (this.inchrgrList != null || this.inchrgrList !== '') {
-        this.parseInUserId();
-      }
-
-      if (this.outchrgrList != null || this.outchrgrList !== '') {
-        this.parseOutUserId();
-      }
     },
-
+    saveInChrgr() {
+      this.inuserList = {
+        inChrgrList: this.inChrgrList,
+        mstFileNum: this.fileIfMst.mstFileNum,
+        chrgrTyp: 'in',
+      };
+      eigwApi.fetchEigwMetaSaveChrgr(this.inuserList)
+        .then((res) => {
+          console.log('meta data save!');
+          console.log(res);
+          this.$gf.alertOn('등록되었습니다.');
+        })
+        .catch((ex) => {
+          console.log(`metainfo save error occur!! : ${ex}`);
+        });
+    },
+    saveOutChrgr() {
+      this.outuserList = {
+        outChrgrList: this.outChrgrList,
+        mstFileNum: this.fileIfMst.mstFileNum,
+        chrgrTyp: 'out',
+      };
+      eigwApi.fetchEigwMetaSaveChrgr(this.outuserList)
+        .then((res) => {
+          console.log('meta data save!');
+          console.log(res);
+          this.$gf.alertOn('등록되었습니다.');
+        })
+        .catch((ex) => {
+          console.log(`metainfo save error occur!! : ${ex}`);
+        });
+    },
+    delInList(i) {
+      eigwApi.fetchDeleteChrgrInfo({
+        params: this.inChrgrList[i],
+      })
+        .then((res) => {
+          console.log('meta data save!');
+          console.log(res);
+          this.$gf.alertOn('삭제되었습니다.');
+        })
+        .catch((ex) => {
+          console.log(`metainfo save error occur!! : ${ex}`);
+        });
+    },
+    delOutList(i) {
+      eigwApi.fetchDeleteChrgrInfo({
+        params: this.outChrgrList[i],
+      })
+        .then((res) => {
+          console.log('meta data save!');
+          console.log(res);
+          this.$gf.alertOn('삭제되었습니다.');
+        })
+        .catch((ex) => {
+          console.log(`metainfo save error occur!! : ${ex}`);
+        });
+    },
     turnOnSvrPop(val) {
       this.serverPopupCase = val;
       this.svrOn = true;
@@ -1041,14 +1148,15 @@ export default {
     addDataChrgr(val) {
       console.log(`Popup에서 받아온 Data : ${val}`);
       if (this.serverPopupCase === 1) {
-        this.inchrgrList.push(val);
+        this.inChrgrList.push(val);
       } else {
-        this.outchrgrList.push(val);
+        this.outChrgrList.push(val);
       }
       this.svrOnChrgr = false;
       this.svrOnEigwChrgr = false;
     },
-    turnOnSvrPopInstList() {
+    turnOnSvrPopInstList(val) {
+      this.instPopupCase = val;
       this.svrOnInstList = true;
     },
     turOffSvrPopInstList(val) {
@@ -1057,124 +1165,15 @@ export default {
     },
     addDataInstList(val) {
       console.log(`Popup에서 받아온 Data : ${val}`);
-      this.instCd = val.instCd;
+      if (this.instPopupCase === 1) {
+        this.instCd = val.instCd;
+        this.instNm = val.instNm;
+      } else {
+        this.fileIfMst.instCd = val.instCd;
+        this.fileIfMst.instNm = val.instNm;
+      }
       this.svrOnInstList = false;
-    },
-    delInuserList(i) {
-      this.inchrgrList.splice(i, 1);
-    },
-    delOutuserList(i) {
-      this.outchrgrList.splice(i, 1);
-    },
-    editInchrgrList(i) {
-      this.$gf.alertOn(this.inchrgrList[i]);
-      const info = {
-        0: '', 1: '', 2: '', 3: '', 4: '',
-      };
-      this.inchrgrList.push(info);
-    },
-    editOutchrgrList(i, index) {
-      console.log(`i : ${i}, index : ${index}`);
-      // for (let i = 1; i < this.outchrgrList.length; i++) {
-      this.parseUserId();
-      // this.saveChrgrInfo = {
-      //   mstFileNum: '1',
-      //   fileChrgrNum: '1',
-      //   userId: 'KTOA0102',
-      //   chrgrTyp: 'out',
-      // };
-      // alert(this.saveChrgrInfo);
-      // this.$axios.post('/api/eigw/file/MetaInfo/chrgrsave', this.userIdList)
-      eigwApi.fetchEigwMetaSaveChrgr(this.userId)
-        .then((res) => {
-          console.log('meta data save');
-          console.log(res);
-          this.listing();
-        })
-        .catch((ex) => {
-          console.log(`chrgr save error occur!! : ${ex}`);
-        });
-    //  }
-    },
-    parseUserId() {
-      this.userIdList = [];
-      for (let i = 0; i < this.outchrgrList.length; i++) {
-        this.userIdList.push({
-          mstFileNum: this.mstFileNum,
-          fileChrgrNum: this.outchrgrList[i][6],
-          userId: this.outchrgrList[i][0],
-          chrgrTyp: 'out',
-        });
-      }
-    },
-    parseOutUserId() {
-      this.$gf.alertOn('시작222');
-      this.outuserIdList = [];
-      for (let i = 0; i < this.outchrgrList.length; i++) {
-        this.outuserIdList.push({
-          mstFileNum: this.mstFileNum,
-          fileChrgrNum: this.outchrgrList[i][6],
-          userId: this.outchrgrList[i][0],
-          chrgrTyp: 'out',
-        });
-      }
-      // this.$axios.post('/api/eigw/file/MetaInfo/chrgrsave', this.outuserIdList)
-      eigwApi.fetchEigwMetaSaveChrgr(this.outuserIdList)
-        .then((res) => {
-          console.log('meta data save');
-          console.log(res);
-          this.listing();
-        })
-        .catch((ex) => {
-          console.log(`chrgr save error occur!! : ${ex}`);
-        });
-    },
-    parseInUserId() {
-      this.inuserIdList = [];
-      for (let i = 0; i < this.inchrgrList.length; i++) {
-        this.inuserIdList.push({
-          mstFileNum: this.mstFileNum,
-          fileChrgrNum: this.inchrgrList[i][6],
-          userId: this.inchrgrList[i][0],
-          chrgrTyp: 'in',
-        });
-      }
-      // this.$axios.post('/api/eigw/file/MetaInfo/chrgrsave', this.inuserIdList)
-      eigwApi.fetchEigwMetaSaveChrgr(this.inuserIdList)
-        .then((res) => {
-          console.log('meta data save');
-          console.log(res);
-          this.listing();
-        })
-        .catch((ex) => {
-          console.log(`chrgr save error occur!! : ${ex}`);
-        });
-    },
-    parseServe() {
-      this.serveSaveInfo = [];
-      for (let i = 0; i < this.serveList.length; i++) {
-        this.serveSaveInfo.push({
-          svrNum: this.mstFileNum,
-          svrTypCd: this.inchrgrList[i][6],
-          svrRealIp: this.inchrgrList[i][0],
-          svrNatIp: 'in',
-          svrPort: '',
-          // useYn : '',
-          // instCd : '',
-        });
-      }
-      // this.$axios.post('/api/eigw/file/MetaInfo/servesave', this.serveSaveInfo)
-      eigwApi.fetchEigwMetaSaveServe(this.serveSaveInfo)
-        .then((res) => {
-          console.log('meta data save');
-          console.log(res);
-          this.listing();
-        })
-        .catch((ex) => {
-          console.log(`chrgr save error occur!! : ${ex}`);
-        });
     },
   },
 };
-
 </script>

@@ -86,7 +86,18 @@
                   {{ row.hanNm }}
                 </li>
                 <li class="td_cell">
-                  {{ row.ofcLvlNm }}
+                  <div class="select_group">
+                    <select v-model="row.ofcLvlCd">
+                      <option
+                        v-for="(code, n) in ccCdList.ofcLvlCd"
+                        :key="n"
+                        :value="code.cdDtlId"
+                      >
+                        {{ code.cdNm }}
+                      </option>
+                    </select>
+                    <span class="select" />
+                  </div>
                 </li>
                 <li class="td_cell">
                   {{ row.offcPhonNum }}
@@ -163,6 +174,9 @@ export default {
     });
     this.setCcCdList({
       opClCd: 'COMM', cdId: 'IP_TYP', allYn: 'Y', listNm: 'ipTyp',
+    });
+    this.setCcCdList({
+      opClCd: 'EIGW', cdId: 'OFC_LVL_CD', allYn: 'Y', listNm: 'ofcLvlCd',
     });
   },
   methods: {

@@ -37,24 +37,13 @@
         </div>
       </h5>
       <div class="row_contain type-2">
-        <div class="column on w-1">
-          <label class="column_label">대외기관</label>
-          <div class="search_group">
-            <input
-              v-model="instCd"
-              type="text"
-              class="add_text on"
-              @keyup.13="searchList()"
-              @click="turnOnSvrPopInstList"
-            >
-          </div>
-        </div>
         <div class="column w-1">
-          <label class="column_label">대외기관명</label>
+          <label class="column_label">대외기관</label>
           <input
             v-model="instNm"
             type="text"
             value=""
+            @click="turnOnSvrPopInstList(-1)"
           >
         </div>
         <div class="column on w-1">
@@ -106,8 +95,16 @@
             value=""
           >
         </div>
+        <div class="column on w-1">
+          <div class="search_group">
+            <input
+              v-model="instCd"
+              type="hidden"
+              class="add_text on"
+            >
+          </div>
+        </div>
       </div>
-
       <div class="table_colgroup">
         <div class="table_grid radio_group">
           <div class="table_head w-auto">
@@ -148,7 +145,11 @@
                 {{ row.userId }}
               </li>
               <li class="td_cell">
-                {{ row.instNm }}
+                <input
+                  v-model="row.instNm"
+                  type="text"
+                  @click="turnOnSvrPopInstList(i)"
+                >
               </li>
               <li class="td_cell">
                 <input
@@ -256,8 +257,6 @@ export default {
     ...mapActions('frameSet', ['setResetPopOn']),
     ...mapActions('ccCdLst', ['setCcCdList']),
     searchList() {
-      // this.tgtUrl = '/api/eigw/chrgrInfo';
-      // this.$axios.get(this.tgtUrl, {
       fetchGetEigwChrgrInfo({
         params: {
           // pageSet: this.pageSet,
@@ -282,7 +281,13 @@ export default {
         });
     },
     save() {
-      console.log('대외기관 담당자 등록');
+      if (this.instCd === '') {
+        this.$gf.alertOn('대외기관을 입력해주세요.');
+      }
+      if (this.hanNm === '') {
+        this.$gf.alertOn('이름을 입력해주세요.');
+      }
+      console.log('담당자 정보 등록');
       this.saveChrgrInfo = {
         instCd: this.instCd,
         hanNm: this.hanNm,
@@ -295,7 +300,6 @@ export default {
         .then((res) => {
           console.log(res);
           this.$gf.alertOn('등록되었습니다.');
-          this.searchList();
         })
         .catch((ex) => {
           console.log(`error occur!! : ${ex}`);
@@ -320,7 +324,8 @@ export default {
           console.log(`error occur!! : ${ex}`);
         });
     },
-    turnOnSvrPopInstList() {
+    turnOnSvrPopInstList(val) {
+      this.instPopupCase = val;
       this.svrOnInstList = true;
     },
     turOffSvrPopInstList(val) {
@@ -329,8 +334,13 @@ export default {
     },
     addDataInstList(val) {
       console.log(`Popup에서 받아온 Data : ${val}`);
-      this.instCd = val.instCd;
-      this.instNm = val.instNm;
+      if (this.instPopupCase === -1) {
+        this.instCd = val.instCd;
+        this.instNm = val.instNm;
+      } else {
+        this.eigwChrgrInfoList[this.instPopupCase].instNm = val.instNm;
+        this.eigwChrgrInfoList[this.instPopupCase].instCd = val.instCd;
+      }
       this.svrOnInstList = false;
     },
   },

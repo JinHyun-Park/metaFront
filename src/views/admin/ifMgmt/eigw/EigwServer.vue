@@ -49,24 +49,13 @@
             </option>
           </select>
         </div>
-        <div class="column on w-1">
-          <label class="column_label">대외기관</label>
-          <div class="search_group">
-            <input
-              v-model="instCd"
-              type="text"
-              class="add_text on"
-              @keyup.13="searchList()"
-              @click="turnOnSvrPopInstList"
-            >
-          </div>
-        </div>
         <div class="column w-1">
-          <label class="column_label">대외기관명</label>
+          <label class="column_label">대외기관</label>
           <input
             v-model="instNm"
             type="text"
             value=""
+            @click="turnOnSvrPopInstList(-1)"
           >
         </div>
         <div class="column on w-1">
@@ -100,6 +89,16 @@
               </option>
             </select>
             <span class="select" />
+          </div>
+          <div class="column on w-1">
+            <div class="search_group">
+              <input
+                v-model="instCd"
+                type="hidden"
+                class="add_text on"
+                @keyup.13="searchList()"
+              >
+            </div>
           </div>
         </div>
       </div>
@@ -154,7 +153,11 @@
                 </div>
               </li>
               <li class="td_cell">
-                {{ server.instNm }}
+                <input
+                  v-model="server.instNm"
+                  type="text"
+                  @click="turnOnSvrPopInstList(i)"
+                >
               </li>
               <li class="td_cell">
                 <input
@@ -223,7 +226,7 @@ export default {
       svrOnInstList: false,
       propsInstList: { // 조회 시 parameter에 사용자 정보를 담아주려면 여기를 통해 넘겨주세요.
         message: '', // 사용방법 예시 데이터
-      },      
+      },
       serverList: '',
       svrTypCdList: [],
       pageSet: { pageNo: 1, pageCount: 0, size: 10 },
@@ -321,7 +324,8 @@ export default {
           console.log(`error occur!! : ${ex}`);
         });
     },
-    turnOnSvrPopInstList() {
+    turnOnSvrPopInstList(val) {
+      this.instPopupCase = val;
       this.svrOnInstList = true;
     },
     turOffSvrPopInstList(val) {
@@ -330,8 +334,13 @@ export default {
     },
     addDataInstList(val) {
       console.log(`Popup에서 받아온 Data : ${val}`);
-      this.instCd = val.instCd;
-      this.instNm = val.instNm;
+      if (this.instPopupCase === -1) {
+        this.instCd = val.instCd;
+        this.instNm = val.instNm;
+      } else {
+        this.serverList[this.instPopupCase].instNm = val.instNm;
+        this.serverList[this.instPopupCase].instCd = val.instCd;
+      }
       this.svrOnInstList = false;
     },
   },
