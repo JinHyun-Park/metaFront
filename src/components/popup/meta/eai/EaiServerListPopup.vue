@@ -75,35 +75,48 @@
           <div class="table_grid radio_group">
             <div class="table_head w-auto">
               <ul>
-                <li class="th_cell">
-                  #
-                </li>
-                <li class="th_cell">
+                <li
+                  class="th_cell"
+                  style="width:19%"
+                >
                   시스템명
                 </li>
                 <li
-                  style="width:50px; "
+
                   class="th_cell"
+                  style="width:3%"
                 >
-                  서버유형
+                  서버 유형
                 </li>
-                <li class="th_cell">
+                <li
+                  class="th_cell"
+                  style="width:19%"
+                >
                   Hostname
                 </li>
-                <li class="th_cell">
+                <li
+                  class="th_cell"
+                  style="width:19%"
+                >
                   VIP
                 </li>
-                <li class="th_cell">
+                <li
+                  class="th_cell"
+                  style="width:19%"
+                >
                   NAT IP
                 </li>
-                <li class="th_cell">
+                <li
+                  class="th_cell"
+                  style="width:19%"
+                >
                   IP(기타)
                 </li>
                 <li
-                  style="width:50px; "
                   class="th_cell"
+                  style="width:2%"
                 >
-                  담당회사
+                  회사
                 </li>
               </ul>
             </div>
@@ -112,13 +125,9 @@
                 v-for="(svr, i) in serverList"
                 :key="i"
                 class="table_row w-auto"
+                style="cursor:pointer"
+                @click="addData(i)"
               >
-                <li class="td_cell">
-                  <input
-                    type="radio"
-                    @click="addData(i)"
-                  >
-                </li>
                 <li class="td_cell">
                   {{ svr.sysNm }}
                 </li>
@@ -178,7 +187,9 @@
     </article>
   </div>
 </template>
-
+<style scoped>
+ul:hover { background-color: #F9F9F9}
+</style>
 <script>
 import { mapState, mapActions } from 'vuex';
 import { fetchEaiServerList } from '@/api/eaiApi';
