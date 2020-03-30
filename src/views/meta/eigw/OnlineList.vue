@@ -80,18 +80,6 @@
               <li class="th_cell">
                 운영 PORT
               </li>
-              <li class="th_cell">
-                Online meta Num<i class="ico-sort-up" />
-              </li>
-              <li class="th_cell">
-                Process Num<i class="ico-sort-up" />
-              </li>
-              <li class="th_cell">
-                Dvp Server num<i class="ico-sort-up" />
-              </li>
-              <li class="th_cell">
-                Prod Server num<i class="ico-sort-up" />
-              </li>
             </ul>
           </div>
           <div class="table_body">
@@ -124,18 +112,6 @@
               </li>
               <li class="td_cell">
                 {{ row.prodSvrPort }}
-              </li>
-              <li class="td_cell">
-                {{ row.onlineMetaNum }}
-              </li>
-              <li class="td_cell">
-                {{ row.procNum }}
-              </li>
-              <li class="td_cell">
-                {{ row.dvpSvrNum }}
-              </li>
-              <li class="td_cell">
-                {{ row.prodSvrNum }}
               </li>
             </ul>
           </div>
@@ -240,9 +216,6 @@
         <div class="table_head w-auto except">
           <ul>
             <li class="th_cell">
-              userId
-            </li>
-            <li class="th_cell">
               기관
             </li>
             <li class="th_cell">
@@ -265,9 +238,6 @@
             :key="inchrgr.userId"
             class="table_row w-auto"
           >
-            <li class="td_cell">
-              {{ inchrgr.userId }}
-            </li>
             <li class="td_cell">
               {{ inchrgr.instNm }}
             </li>
@@ -294,9 +264,6 @@
       <div class="table_grid">
         <div class="table_head w-auto except">
           <ul>
-            <li class="th_cell">
-              userId
-            </li>
             <li class="th_cell">
               기관
             </li>
@@ -363,7 +330,6 @@ export default {
   },
   methods: {
     searchList() {
-      // this.$axios.get('/api/eigw/online/mstlist', {
       fetchEigwAdOnlineList({
         params: {
           eaiIfId: this.eaiIfId,
@@ -384,7 +350,6 @@ export default {
         });
     },
     detailInfo(i) {
-      // this.tgtUrl = '/api/eigw/online/mstDtlInfo/';
       fetchEigwOnlineDetail({
         params: {
           onlineMetaNum: this.onlineIfList[i].onlineMetaNum,

@@ -72,22 +72,14 @@
             <span class="select" />
           </div>
         </div>
-        <div class="column on w-1">
+        <div class="column w-1">
           <label class="column_label">대외기관</label>
           <input
-            v-model="instCd"
+            v-model="instNm"
             type="text"
             class="add_text on"
             @keyup.13="searchList()"
             @click="turnOnSvrPopInstList(1)"
-          >
-        </div>
-        <div class="column w-1">
-          <label class="column_label">대외기관명</label>
-          <input
-            v-model="instNm"
-            type="text"
-            value=""
           >
         </div>
         <div class="column on w-1">
@@ -126,6 +118,13 @@
             type="text"
             class="add_text on"
             @keyup.13="searchList()"
+          >
+        </div>
+        <div class="column on w-1">
+          <input
+            v-model="instCd"
+            type="hidden"
+            class="add_text on"
           >
         </div>
       </div>
@@ -182,7 +181,18 @@
               @click="detailInfo(index)"
             >
               <li class="td_cell">
-                {{ row.mqMngrNm }}
+                <select v-model="row.mqMngrNm">
+                  <option
+                    value="EIGW1P"
+                  >
+                    1호기
+                  </option>
+                  <option
+                    value="EIGW2P"
+                  >
+                    2호기
+                  </option>
+                </select>
               </li>
               <li class="td_cell">
                 {{ row.eaiIfId }}
@@ -253,14 +263,6 @@
         <div class="column w-1">
           <label class="column_label">대외기관&amp;명</label>
           <input
-            v-model="onlineMst.instCd"
-            type="text"
-            @click="turnOnSvrPopInstList(2)"
-          >
-        </div>
-        <div class="column w-1">
-          <label class="column_label">&nbsp;</label>
-          <input
             v-model="onlineMst.instNm"
             type="text"
             @click="turnOnSvrPopInstList(2)"
@@ -294,6 +296,12 @@
             type="text"
           >
         </div>
+        <div class="column w-1">
+          <input
+            v-model="onlineMst.instCd"
+            type="hidden"
+          >
+        </div>
       </div>
       <div class="row_contain">
         <div class="column w-2">
@@ -321,10 +329,9 @@
           <span class="select" />
         </div>
         <div class="column w-1">
-          <label class="column_label">onlineMetaNum</label>
           <input
             v-model="onlineMst.onlineMetaNum"
-            type="text"
+            type="hidden"
           >
         </div>
       </div>
@@ -412,10 +419,9 @@
           >
         </div>
         <div class="column w-1">
-          <label class="column_label">processNum</label>
           <input
             v-model="procInfo.procNum"
-            type="text"
+            type="hidden"
           >
         </div>
         <div class="column w-4" />
@@ -448,10 +454,9 @@
           >
         </div>
         <div class="column w-2">
-          <label class="column_label">개발기 svrNum</label>
           <input
             v-model="procInfo.dvpSvrNum"
-            type="text"
+            type="hidden"
             class="add_text"
           >
         </div>
@@ -484,16 +489,14 @@
           >
         </div>
         <div class="column w-2">
-          <label class="column_label">운영기 svrNum</label>
           <input
             v-model="procInfo.prodSvrNum"
-            type="text"
+            type="hidden"
             class="add_text"
           >
         </div>
       </div>
     </section>
-
     <section class="border_group">
       <h5 class="s_tit type-2">
         담당자 정보
@@ -519,25 +522,19 @@
           <div class="table_head w-auto except">
             <ul>
               <li class="th_cell">
-                사용자 Id
-              </li>
-              <li class="th_cell">
                 기관
               </li>
               <li class="th_cell">
                 이름
               </li>
               <li class="th_cell">
-                직급
+                조직
               </li>
               <li class="th_cell">
                 핸드폰
               </li>
               <li class="th_cell">
                 E-mail
-              </li>
-              <li class="th_cell">
-                flag
               </li>
               <li class="th_cell">
                 삭제
@@ -550,9 +547,6 @@
               :key="inchrgr.userId"
               class="table_row w-auto"
             >
-              <li class="td_cell">
-                {{ inchrgr.userId }}
-              </li>
               <li class="td_cell">
                 {{ inchrgr.instNm }}
               </li>
@@ -567,9 +561,6 @@
               </li>
               <li class="td_cell">
                 {{ inchrgr.emailAddr }}
-              </li>
-              <li class="td_cell">
-                {{ inchrgr.flag }}
               </li>
               <td class="td_cell">
                 <i
@@ -607,9 +598,6 @@
           <div class="table_head w-auto except">
             <ul>
               <li class="th_cell">
-                사용자 Id
-              </li>
-              <li class="th_cell">
                 기관
               </li>
               <li class="th_cell">
@@ -625,9 +613,6 @@
                 E-mail
               </li>
               <li class="th_cell">
-                Flag
-              </li>
-              <li class="th_cell">
                 삭제
               </li>
             </ul>
@@ -639,25 +624,30 @@
               class="table_row form_type except w-auto"
             >
               <li class="td_cell">
-                {{ outchrgr.userId }}
-              </li>
-              <li class="td_cell">
                 {{ outchrgr.instNm }}
               </li>
               <li class="td_cell">
                 {{ outchrgr.hanNm }}
               </li>
               <li class="td_cell">
-                {{ outchrgr.orgCd }}
+                <div class="select_group">
+                  <select v-model="outchrgr.ofcLvlCd">
+                    <option
+                      v-for="(code, n) in ccCdList.ofcLvlCd"
+                      :key="n"
+                      :value="code.cdDtlId"
+                    >
+                      {{ code.cdNm }}
+                    </option>
+                  </select>
+                  <span class="select" />
+                </div>
               </li>
               <li class="td_cell">
                 {{ outchrgr.mblPhonNum }}
               </li>
               <li class="td_cell">
                 {{ outchrgr.emailAddr }}
-              </li>
-              <li class="td_cell">
-                {{ outchrgr.flag }}
               </li>
               <td class="td_cell">
                 <i
@@ -683,6 +673,7 @@
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex';
 import * as eigwApi from '@/api/eigwApi';
 import EigwServerListPopup from '@/components/popup/meta/eigw/EigwServerListPopup.vue';
 import ChrgrListPopup from '@/components/popup/bizcomm/ChrgrListPopup.vue';
@@ -764,9 +755,19 @@ export default {
       outChrgrList: [],
     };
   },
+  computed: {
+    ...mapState('frameSet', ['resetPopOn']),
+    ...mapState('ccCdLst', ['ccCdList']),
+  },
+  mounted() {
+    this.setCcCdList({
+      opClCd: 'EIGW', cdId: 'OFC_LVL_CD', allYn: 'Y', listNm: 'ofcLvlCd',
+    });
+  },
   methods: {
+    ...mapActions('frameSet', ['setResetPopOn']),
+    ...mapActions('ccCdLst', ['setCcCdList']),
     searchList() {
-      // this.$axios.get('/api/eigw/admin/online/mstlist', {
       eigwApi.fetchEigwAdOnlineList({
         params: {
           mqMngrNm: this.mqMngrNm,
@@ -791,10 +792,6 @@ export default {
         });
     },
     detailInfo(i) {
-      //this.tgtUrl = '/api/eigw/online/mstDtlInfo/';
-      //if (index1 != null && index1 !== '') {
-      //  this.tgtUrl = `${this.tgtUrl}/${index1}/${index2}/${index3}`;
-      //}
       eigwApi.fetchEigwOnlineDetail({
         params: {
           onlineMetaNum: this.onlineIfList[i].onlineMetaNum,
@@ -817,6 +814,16 @@ export default {
         });
     },
     save() {
+      if (this.onlineMst.eaiIfId === '') {
+        this.$gf.alertOn('I/F ID를 입력해주세요.');
+      }
+      if (this.onlineMst.instCd === '') {
+        this.$gf.alertOn('대외기관을 입력해주세요.');
+      }
+      if (this.procInfo.pgmId === '') {
+        this.$gf.alertOn('프로그램 정보를 입력해주세요.');
+      }
+      console.log('I/F 정보 등록');
       this.saveInfo = {
         onlineMst: this.onlineMst,
         procInfo: this.procInfo,

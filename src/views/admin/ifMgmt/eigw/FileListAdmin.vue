@@ -72,22 +72,13 @@
             <span class="select" />
           </div>
         </div>
-        <div class="column on w-1">
-          <label class="column_label">대외기관</label>
-          <input
-            v-model="instCd"
-            type="text"
-            class="add_text on"
-            @keyup.13="searchList()"
-            @click="turnOnSvrPopInstList(1)"
-          >
-        </div>
         <div class="column w-1">
-          <label class="column_label">대외기관명</label>
+          <label class="column_label">대외기관</label>
           <input
             v-model="instNm"
             type="text"
             value=""
+            @click="turnOnSvrPopInstList(1)"
           >
         </div>
         <div class="column on w-1">
@@ -133,6 +124,13 @@
             @keyup.13="searchList()"
           >
         </div>
+        <div class="column on w-1">
+          <input
+            v-model="instCd"
+            type="hidden"
+            class="add_text on"
+          >
+        </div>
         <div class="column w-1" />
       </div>
       <div class="table_colgroup">
@@ -176,13 +174,35 @@
               @click="detailInfo(index)"
             >
               <li class="td_cell">
-                {{ row.mqMngrNm }}
+                <select v-model="row.mqMngrNm">
+                  <option
+                    value="EIGW1P"
+                  >
+                    1호기
+                  </option>
+                  <option
+                    value="EIGW2P"
+                  >
+                    2호기
+                  </option>
+                </select>
               </li>
               <li class="td_cell">
                 {{ row.instNm }}
               </li>
               <li class="td_cell">
-                {{ row.srFlag }}
+                <select v-model="row.srFlag">
+                  <option
+                    value="S"
+                  >
+                    송신
+                  </option>
+                  <option
+                    value="R"
+                  >
+                    수신
+                  </option>
+                </select>
               </li>
               <li class="td_cell">
                 {{ row.fileNm }}
@@ -299,15 +319,6 @@
         <div class="column w-1">
           <label class="column_label">대외기관&amp;명</label>
           <input
-            v-model="fileIfMst.instCd"
-            type="text"
-            class="add_text on"
-            @click="turnOnSvrPopInstList(2)"
-          >
-        </div>
-        <div class="column w-1">
-          <label class="column_label">&nbsp;</label>
-          <input
             v-model="fileIfMst.instNm"
             type="text"
             class="add_text on"
@@ -326,16 +337,21 @@
           </select>
         </div>
         <div class="column w-1">
-          <label class="column_label">mstFileNum</label>
+          <input
+            v-model="fileIfMst.instCd"
+            type="hidden"
+            class="add_text on"
+          >
+        </div>
+        <div class="column w-1">
           <input
             v-model="fileIfMst.mstFileNum"
-            type="text"
+            type="hidden"
             class="add_text on"
           >
         </div>
       </div>
     </section>
-
     <section class="form_area border_group">
       <h5 class="s_tit">
         SKT_EIGW 정보
@@ -435,7 +451,6 @@
         </div>
       </div>
     </section>
-
     <section class="form_area border_group">
       <h5 class="s_tit">
         EIGW_EIGW 정보
@@ -604,10 +619,9 @@
           >
         </div>
         <div class="column w-1">
-          <label class="column_label">개발기 svrNum</label>
           <input
             v-model="fileAgencyConf.dvpSvrNum"
-            type="text"
+            type="hidden"
             class="add_text"
           >
         </div>
@@ -640,10 +654,9 @@
           >
         </div>
         <div class="column w-1">
-          <label class="column_label">운영기 svrNum</label>
           <input
             v-model="fileAgencyConf.prodSvrNum"
-            type="text"
+            type="hidden"
             class="add_text"
           >
         </div>
@@ -674,25 +687,19 @@
           <div class="table_head w-auto except">
             <ul>
               <li class="th_cell">
-                사용자 Id
-              </li>
-              <li class="th_cell">
                 기관
               </li>
               <li class="th_cell">
                 이름
               </li>
               <li class="th_cell">
-                직급
+                조직
               </li>
               <li class="th_cell">
                 핸드폰
               </li>
               <li class="th_cell">
                 E-mail
-              </li>
-              <li class="th_cell">
-                flag
               </li>
               <li class="th_cell">
                 삭제
@@ -705,9 +712,6 @@
               :key="inchrgr.userId"
               class="table_row w-auto"
             >
-              <li class="td_cell">
-                {{ inchrgr.userId }}
-              </li>
               <li class="td_cell">
                 {{ inchrgr.instNm }}
               </li>
@@ -722,9 +726,6 @@
               </li>
               <li class="td_cell">
                 {{ inchrgr.emailAddr }}
-              </li>
-              <li class="td_cell">
-                {{ inchrgr.flag }}
               </li>
               <td class="td_cell">
                 <i
@@ -762,9 +763,6 @@
           <div class="table_head w-auto except">
             <ul>
               <li class="th_cell">
-                사용자 Id
-              </li>
-              <li class="th_cell">
                 기관
               </li>
               <li class="th_cell">
@@ -780,9 +778,6 @@
                 E-mail
               </li>
               <li class="th_cell">
-                Flag
-              </li>
-              <li class="th_cell">
                 삭제
               </li>
             </ul>
@@ -794,25 +789,30 @@
               class="table_row form_type except w-auto"
             >
               <li class="td_cell">
-                {{ outchrgr.userId }}
-              </li>
-              <li class="td_cell">
                 {{ outchrgr.instNm }}
               </li>
               <li class="td_cell">
                 {{ outchrgr.hanNm }}
               </li>
               <li class="td_cell">
-                {{ outchrgr.orgCd }}
+                <div class="select_group">
+                  <select v-model="outchrgr.ofcLvlCd">
+                    <option
+                      v-for="(code, n) in ccCdList.ofcLvlCd"
+                      :key="n"
+                      :value="code.cdDtlId"
+                    >
+                      {{ code.cdNm }}
+                    </option>
+                  </select>
+                  <span class="select" />
+                </div>
               </li>
               <li class="td_cell">
                 {{ outchrgr.mblPhonNum }}
               </li>
               <li class="td_cell">
                 {{ outchrgr.emailAddr }}
-              </li>
-              <li class="td_cell">
-                {{ outchrgr.flag }}
               </li>
               <td class="td_cell">
                 <i
@@ -838,8 +838,7 @@
 </template>
 
 <script>
-
-// import { fetchEigwAdFileList, fetchEigwFileDtlInfo, fetchDeleteChrgrInfo } from '@/api/eigwApi';
+import { mapState, mapActions } from 'vuex';
 import * as eigwApi from '@/api/eigwApi';
 import EigwServerListPopup from '@/components/popup/meta/eigw/EigwServerListPopup.vue';
 import ChrgrListPopup from '@/components/popup/bizcomm/ChrgrListPopup.vue';
@@ -949,9 +948,19 @@ export default {
       saveInfo: {},
     };
   },
+  computed: {
+    ...mapState('frameSet', ['resetPopOn']),
+    ...mapState('ccCdLst', ['ccCdList']),
+  },
+  mounted() {
+    this.setCcCdList({
+      opClCd: 'EIGW', cdId: 'OFC_LVL_CD', allYn: 'Y', listNm: 'ofcLvlCd',
+    });
+  },
   methods: {
+    ...mapActions('frameSet', ['setResetPopOn']),
+    ...mapActions('ccCdLst', ['setCcCdList']),
     searchList() {
-      // this.$axios.get('/api/eigw/fileList', {
       eigwApi.fetchEigwAdFileList({
         params: {
           mqMngrNm: this.mqMngrNm,
@@ -978,8 +987,6 @@ export default {
         });
     },
     detailInfo(i) {
-      // this.tgtUrl = '/api/eigw/fileDetail';
-      // this.$axios.get(this.tgtUrl, {
       eigwApi.fetchEigwFileDetail({
         params: {
           mstFileSeq: this.fileList[i].mstFileNum,
@@ -1003,13 +1010,22 @@ export default {
         });
     },
     save() {
+      if (this.fileIfMst.fileNm === '') {
+        this.$gf.alertOn('프로그램 정보를 입력해주세요.');
+      }
+      if (this.fileSktConf.eaiIfId === '') {
+        this.$gf.alertOn('I/F ID를 입력해주세요.');
+      }
+      if (this.fileIfMst.instCd === '') {
+        this.$gf.alertOn('대외기관을 입력해주세요.');
+      }
+      console.log('I/F 정보 등록');
       this.saveInfo = {
         fileIfMst: this.fileIfMst,
         fileSktConf: this.fileSktConf,
         fileEigwConf: this.fileEigwConf,
         fileAgencyConf: this.fileAgencyConf,
       };
-      //this.$axios.post('/api/eigw/fileInfoSave', this.saveInfo)
       eigwApi.fetchEigwMetaSaveInfo(this.saveInfo)
         .then((res) => {
           console.log('meta data save!');
@@ -1027,7 +1043,6 @@ export default {
         fileEigwConf: this.fileEigwConf,
         fileAgencyConf: this.fileAgencyConf,
       };
-      //this.$axios.post('/api/eigw/fileInfoSave', this.saveInfo)
       eigwApi.fetchEigwMetaPutInfo(this.saveInfo)
         .then((res) => {
           console.log('meta data save!');

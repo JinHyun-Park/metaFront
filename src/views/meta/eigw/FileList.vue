@@ -93,7 +93,18 @@
                 {{ row.instNm }}
               </li>
               <li class="td_cell">
-                {{ row.srFlag }}
+                <select v-model="row.srFlag">
+                  <option
+                    value="S"
+                  >
+                    송신
+                  </option>
+                  <option
+                    value="R"
+                  >
+                    수신
+                  </option>
+                </select>
               </li>
               <li class="td_cell">
                 {{ row.fileNm }}
@@ -155,11 +166,17 @@
         </div>
         <div class="column w-1">
           <label class="column_label">송수신구분</label>
-          <input
-            v-model="fileMst.srFlag"
-            type="text"
-            class="add_text  on"
-          >
+          <div class="select_group">
+            <select v-model="fileMst.srFlag">
+              <option value="S">
+                송신
+              </option>
+              <option value="R">
+                수신
+              </option>
+            </select>
+            <span class="select" />
+          </div>
         </div>
       </div>
       <div class="row_contain">
@@ -300,9 +317,6 @@
         <div class="table_head w-auto except">
           <ul>
             <li class="th_cell">
-              userId
-            </li>
-            <li class="th_cell">
               기관
             </li>
             <li class="th_cell">
@@ -325,9 +339,6 @@
             :key="inchrgr.userId"
             class="table_row w-auto"
           >
-            <li class="td_cell">
-              {{ inchrgr.userId }}
-            </li>
             <li class="td_cell">
               {{ inchrgr.instNm }}
             </li>
@@ -355,9 +366,6 @@
         <div class="table_head w-auto except">
           <ul>
             <li class="th_cell">
-              userId
-            </li>
-            <li class="th_cell">
               기관
             </li>
             <li class="th_cell">
@@ -380,9 +388,6 @@
             :key="outchrgr.userId"
             class="table_row form_type except w-auto"
           >
-            <li class="td_cell">
-              {{ outchrgr.userId }}
-            </li>
             <li class="td_cell">
               {{ outchrgr.instNm }}
             </li>
@@ -426,7 +431,6 @@ export default {
   },
   methods: {
     searchList() {
-      // this.$axios.get('/api/eigw/fileList', {
       fetchEigwAdFileList({
         params: {
           fileNm: this.fileNm,
@@ -450,8 +454,6 @@ export default {
         });
     },
     detailInfo(i) {
-      // this.tgtUrl = '/api/eigw/fileDetail';
-      // this.$axios.get(this.tgtUrl, {
       fetchEigwFileDetail({
         params: {
           mstFileSeq: this.fileList[i].mstFileNum,
