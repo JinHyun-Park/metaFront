@@ -269,33 +269,26 @@
         </div>
       </div>
     </section>
-
-    <section class="btm_button_area">
-      <button
-        type="button"
-        class="default_button btn_prev disabled"
-        @click="beforeTab"
-      >
-        이전
-      </button>
-      <button
-        type="button"
-        class="default_button on"
-      >
-        승인
-      </button>
-      <!--                    <button type="button" class="default_button on">저장</button>-->
-    </section>
   </div>
 </template>
 
 <script>
+import eventBus from '@/utils/eventBus';
+
 export default {
   name: 'RegStep3Approver',
+  created() {
+    eventBus.$on('tempSave1', () => {
+      console.log('event Bus 통해 콜 발생');
+    });
+    eventBus.$on('tempSave2', (daa) => {
+      console.log(`이렇게 하면 데이터도 줄 수 있지롱~ ${daa.dat}`);
+    });
+    eventBus.$on('tempSave3', (daa) => {
+      console.log(`또 다르게 데이터를 주는 방법${daa}`);
+    });
+  },
   methods: {
-    beforeTab() {
-      this.$emit('beforeTab');
-    },
   },
 };
 </script>

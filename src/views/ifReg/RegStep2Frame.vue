@@ -25,30 +25,6 @@
     <reg-step2eigw v-show="subTabNum === 1" />
     <reg-step2eai v-show="subTabNum === 2" />
     <reg-step2-ch-mcg v-show="subTabNum === 3" />
-
-    <section class="btm_button_area">
-      <button
-        type="button"
-        class="default_button btn_prev disabled"
-        @click="beforeTab"
-      >
-        이전
-      </button>
-      <button
-        type="button"
-        class="default_button btn_next"
-        @click="nextTab"
-      >
-        다음
-      </button>
-      <button
-        type="button"
-        class="default_button on"
-        @click="saveTemp"
-      >
-        임시저장
-      </button>
-    </section>
   </div>
 </template>
 
@@ -88,12 +64,6 @@ export default {
     },
     isActive(val) {
       return this.subTabNum === val;
-    },
-    nextTab() {
-      this.$emit('nextTab');
-    },
-    beforeTab() {
-      this.$emit('beforeTab');
     },
     saveTemp() {
       this.regList = {

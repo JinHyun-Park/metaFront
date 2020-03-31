@@ -42,22 +42,49 @@
     </section>
     <reg-step1-apply-if
       v-show="tabNum === 1"
-      @nextTab="toNextTab"
     />
     <reg-step2-frame
       v-show="tabNum === 2"
-      @beforeTab="toBeforeTab"
-      @nextTab="toNextTab"
     />
     <reg-step3-applicant
       v-show="tabNum === 3"
-      @beforeTab="toBeforeTab"
-      @nextTab="toNextTab"
     />
     <reg-step3-approver
       v-show="tabNum === 4"
-      @beforeTab="toBeforeTab"
     />
+    <section class="btm_button_area">
+      <button
+        v-if="tabNum !== 1"
+        type="button"
+        class="default_button btn_prev disabled"
+        @click="toBeforeTab"
+      >
+        이전
+      </button>
+      <button
+        v-if="tabNum !== 4"
+        type="button"
+        class="default_button btn_next"
+        @click="toNextTab"
+      >
+        다음
+      </button>
+      <button
+        v-if="tabNum !== 4"
+        type="button"
+        class="default_button on"
+        @click="tempSave"
+      >
+        임시저장
+      </button>
+      <button
+        v-if="tabNum === 4"
+        type="button"
+        class="default_button on"
+      >
+        승인
+      </button>
+    </section>
   </div>
 </template>
 
@@ -66,6 +93,7 @@ import RegStep1ApplyIf from '@/views/ifReg/RegStep1ApplyIf.vue'; // 1단계
 import RegStep2Frame from '@/views/ifReg/RegStep2Frame.vue'; // 2단계 EAI
 import RegStep3Applicant from '@/views/ifReg/RegStep3Applicant.vue'; // 3단계 신청자
 import RegStep3Approver from '@/views/ifReg/RegStep3Approver.vue'; // 3단계 승인자
+import eventBus from '@/utils/eventBus';
 
 export default {
   name: 'ApplyFrame',
@@ -108,6 +136,12 @@ export default {
       window.scrollTo(0, 0);
       this.tabNum = this.tabNum - 1;
       localStorage.setItem('APPLY_TABNUM', this.tabNum);
+    },
+    tempSave() {
+      console.log('tempSave');
+      eventBus.$emit('tempSave1');
+      eventBus.$emit('tempSave2', { dat: 'data1111' });
+      eventBus.$emit('tempSave3', 'data222222');
     },
   },
 };
