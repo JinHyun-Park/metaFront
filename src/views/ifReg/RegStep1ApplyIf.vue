@@ -158,22 +158,6 @@
         </div>
       </div>
     </section>
-
-    <section class="btm_button_area">
-      <button
-        type="button"
-        class="default_button btn_next"
-        @click="nextTab"
-      >
-        다음
-      </button>
-      <button
-        type="button"
-        class="default_button on"
-      >
-        임시저장
-      </button>
-    </section>
   </div>
 </template>
 
@@ -182,9 +166,6 @@
 export default {
   name: 'RegStep1ApplyIf',
   methods: {
-    nextTab() {
-      this.$emit('nextTab');
-    },
   },
 };
 </script>
