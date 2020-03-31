@@ -723,14 +723,15 @@ export default {
       sndMid: '',
       rcvMid: '',
       svcImpt: '',
+      procSt: '',
       props: {},
       currRow: [],
       svrRows: [],
-      svrList: {},
+      regList: {},
       sndRows: [
         {
-          reqNum: '1',
-          sndRcvCl: 'S',
+          reqNum: '',
+          sndRcvCl: '',
           svrTypCd: '',
           sysNm: '',
           hostNm: '',
@@ -739,12 +740,13 @@ export default {
           addIp: '',
           osNm: '',
           company: '',
+          procSt: '',
         },
       ],
       rcvRows: [
         {
           reqNum: '',
-          sndRcvCl: 'R',
+          sndRcvCl: '',
           svrTypCd: '',
           sysNm: '',
           hostNm: '',
@@ -753,6 +755,7 @@ export default {
           addIp: '',
           osNm: '',
           company: '',
+          procSt: '',
         },
       ],
       eaiIfList: [
@@ -789,6 +792,7 @@ export default {
           rcvChrgrMngrId: '',
           rcvChrgrMngrNm: '',
           svcImpt: '',
+          procSt: '',
         },
       ],
     };
@@ -829,21 +833,30 @@ export default {
       console.log(this.sndRows);
       console.log(this.rcvRows);
 
+      this.svrRows.splice(0, this.svrRows.length);
+
       for (let i = 0; i < this.sndRows.length; i++) {
         this.sndRows[i].sndRcvCl = 'S';
         this.sndRows[i].reqNum = this.reqNum;
+        this.sndRows[i].procSt = 'T';
         this.svrRows.push(this.sndRows[i]);
       }
 
       for (let i = 0; i < this.rcvRows.length; i++) {
         this.rcvRows[i].sndRcvCl = 'R';
         this.rcvRows[i].reqNum = this.reqNum;
+        this.rcvRows[i].procSt = 'T';
         this.svrRows.push(this.rcvRows[i]);
       }
 
-      this.svrList = { svrList: this.svrRows };
+      for (let i = 0; i < this.eaiIfList.length; i++) {
+        this.eaiIfList[i].reqNum = this.reqNum;
+        this.eaiIfList[i].procSt = 'T';
+      }
 
-      this.$axios.post('/api/eai/regTemp', this.svrList)
+      this.regList = { svrList: this.svrRows, ifList: this.eaiIfList };
+
+      this.$axios.post('/api/eai/regTemp', this.regList)
         .then((res) => {
           console.log(res);
           this.$gf.alertOn('작성하신 내용이 임시저장 되었습니다');
@@ -862,6 +875,18 @@ export default {
         console.log(sndRow);
         const idx = this.sndRows.indexOf(sndRow);
         this.sndRows.splice(idx, 1);
+      } else {
+        this.sndRows[0].reqNum = '';
+        this.sndRows[0].sndRcvCl = '';
+        this.sndRows[0].svrTypCd = '';
+        this.sndRows[0].sysNm = '';
+        this.sndRows[0].hostNm = '';
+        this.sndRows[0].vIp = '';
+        this.sndRows[0].natIp = '';
+        this.sndRows[0].addIp = '';
+        this.sndRows[0].osNm = '';
+        this.sndRows[0].company = '';
+        this.sndRows[0].procSt = '';
       }
     },
     addRcvRow(i) {
@@ -874,6 +899,18 @@ export default {
         console.log(rcvRow);
         const idx = this.rcvRows.indexOf(rcvRow);
         this.rcvRows.splice(idx, 1);
+      } else {
+        this.rcvRows[0].reqNum = '';
+        this.rcvRows[0].sndRcvCl = '';
+        this.rcvRows[0].svrTypCd = '';
+        this.rcvRows[0].sysNm = '';
+        this.rcvRows[0].hostNm = '';
+        this.rcvRows[0].vIp = '';
+        this.rcvRows[0].natIp = '';
+        this.rcvRows[0].addIp = '';
+        this.rcvRows[0].osNm = '';
+        this.rcvRows[0].company = '';
+        this.rcvRows[0].procSt = '';
       }
     },
     resetFields() {
@@ -1026,7 +1063,7 @@ export default {
 
       // this.currRow = this.eaiIfList[this.eaiIfList.length - 1];
 
-      this.emptyFields();
+      this.emptyIfFields();
     },
     removeIf(eaiIf) {
       console.log('행 삭제!');
@@ -1034,7 +1071,7 @@ export default {
       const idx = this.eaiIfList.indexOf(eaiIf);
       this.eaiIfList.splice(idx, 1);
 
-      this.emptyFields();
+      this.emptyIfFields();
     },
     updateIf() {
       if (this.currRow.length === 0) {
@@ -1081,7 +1118,7 @@ export default {
       this.currRow.rcvChrgrMngrNm = this.rcvChrgrMngrNm;
       this.currRow.svcImpt = this.svcImpt;
 
-      this.emptyFields();
+      this.emptyIfFields();
     },
     getDetailInfo(eaiIf) {
       this.ifNmKor = eaiIf.ifNmKor;
@@ -1218,7 +1255,7 @@ export default {
         }
       }
     },
-    emptyFields() {
+    emptyIfFields() {
       this.ifNmKor = '';
       this.ifNmEng = '';
       this.ifDesc = '';
