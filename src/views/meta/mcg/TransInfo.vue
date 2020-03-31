@@ -62,6 +62,16 @@
           type="text"
           class="add_text"
         >
+
+        <select v-model="useYn">
+          <option value="Y">
+            Y
+          </option>
+          <option value="N">
+            N
+          </option>
+        </select>
+        <span class="select" />
       </div>
       <div class="table_grid">
         <div class="table_head">
@@ -80,6 +90,9 @@
             </li>
             <li class="th_cell">
               거래명<i class="ico-sort-up" />
+            </li>
+            <li class="th_cell">
+              사용여부<i class="ico-sort-up" />
             </li>
           </ul>
         </div>
@@ -105,8 +118,24 @@
             <li class="td_cell">
               {{ deal.dealNm }}
             </li>
+            <li class="td_cell">
+              {{ deal.useYn }}
+            </li>
           </ul>
         </div>
+      </div>
+      <div class="pagination_space">
+        <paginate
+          v-model="pageSet.pageNo"
+          :page-count="pageSet.pageCount"
+          :page-range="3"
+          :margin-pages="1"
+          :click-handler="listing"
+          :prev-text="'이전'"
+          :next-text="'다음'"
+          :container-class="'pagination'"
+          :page-class="'page-item'"
+        />
       </div>
     </section>
 
@@ -410,23 +439,25 @@ export default {
 
       // this.$axios.post('/api/mcg/chnl/post', {
       fetchPutMcgDealList({
+        opCd: this.opCd,
         dealCd: this.dealCd,
         realDealCd: this.realDealCd,
         dealModuleNm: this.dealModuleNm,
         dealNm: this.dealNm,
-        reqChrgr: this.reqChrgr,
-        rpsChrgr: this.rpsChrgr,
-        lnkgCycl: this.lnkgCycl,
-        ifSz: this.ifSz,
-        servletUrl: this.servletUrl,
-        tcpIp: this.tcpIp,
-        tcpPort: this.tcpPort,
-        dealTimeout: this.dealTimeout,
-        dealRmk: this.dealRmk,
+        //  reqChrgr: this.reqChrgr,
+        //   rpsChrgr: this.rpsChrgr,
+        //  lnkgCycl: this.lnkgCycl,
+        //   ifSz: this.ifSz,
+        //    servletUrl: this.servletUrl,
+        //     tcpIp: this.tcpIp,
+        //      tcpPort: this.tcpPort,
+        //    dealTimeout: this.dealTimeout,
+        //     dealRmk: this.dealRmk,
+        useYn: this.useYn,
       })
         .then((res) => {
           console.log(res);
-          this.$gf.alertOn('거래 수정 완료!');
+          this.$gf.alertOn('거래 추가 완료!');
           this.listing();
         })
         .catch((ex) => {

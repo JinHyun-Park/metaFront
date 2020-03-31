@@ -49,6 +49,19 @@ function fetchPutMcgChrgrList(param) {
   return axios.put(`${preUrl}/chnl/chrgr/put`, param);
 }
 
+function fetchGetMcgVirtualUserList(param) {
+  return axios.get(`${preUrl}/vuser`, param);
+}
+
+function fetchPostMcgVirtualUserList(param) {
+  return axios.post(`${preUrl}/vuser/post`, param);
+}
+
+function fetchPutVirtualUserList(param) {
+  return axios.put(`${preUrl}/vuser/put`, param);
+}
+
+
 export {
   fetchGetMcgChnlList,
   fetchGetMcgServerList,
@@ -62,5 +75,8 @@ export {
   fetchPutMcgDealList,
   fetchPostMcgDealList,
   fetchGetMcgDealList,
+  fetchGetMcgVirtualUserList,
+  fetchPostMcgVirtualUserList,
+  fetchPutVirtualUserList,
 
 };

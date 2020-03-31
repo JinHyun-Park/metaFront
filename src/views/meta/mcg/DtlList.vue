@@ -93,7 +93,10 @@
           </select>
         </div>
         <div class="column w-1">
-          <label class="column_label">채널ID</label>
+          <label class="column_label tooltips ov top">채널ID
+            <span class="tip_contn">
+              <em class="tip_text">채널ID, 채널명으로 검색해보세요.
+              </em></span></label>
           <input
             v-model="chnlId"
             type="text"
@@ -109,7 +112,7 @@
           >
         </div>
         <div class="column w-1">
-          <label class="column_label">사용</label>
+          <label class="column_label">사용여부</label>
           <div class="select_group">
             <select v-model="useYn">
               <option value="Y">
@@ -244,6 +247,7 @@
               {{ code.cdNm }}
             </option>
           </select>
+          <span class="select" />
         </div>
         <div class="column w-1">
           <label class="column_label">채널유형</label>
@@ -356,7 +360,8 @@
           <input
 
             v-model="svrinfo0.svrPort"
-            type="text"
+            type="number"
+            min="0"
           >
         </div>
         <div class="column w-1">
@@ -372,7 +377,8 @@
           <input
 
             v-model="svrinfo1.svrPort"
-            type="text"
+            type="number"
+            min="0"
           >
         </div>
       </div>
@@ -390,7 +396,8 @@
           <input
 
             v-model="svrinfo2.svrPort"
-            type="text"
+            type="number"
+            min="0"
           >
         </div>
         <div class="column w-1">
@@ -406,7 +413,8 @@
           <input
 
             v-model="svrinfo3.svrPort"
-            type="text"
+            type="number"
+            min="0"
           >
         </div>
       </div>
@@ -423,12 +431,12 @@
           <div class="select_group">
             <select v-model="chnldtl.useYn">
               <option
-                value=""
+                value="Y"
                 selected
               >
                 Y
               </option>
-              <option value="">
+              <option value="N">
                 N
               </option>
             </select>
@@ -440,7 +448,7 @@
           <button
             type="button"
             class="default_button on"
-            @click="modify(chnldtl)"
+            @click="modify(chnldtl, chrgrm)"
           >
             수정
           </button>
@@ -458,7 +466,7 @@ import {
   fetchGetMcgChrgrList,
   fetchPostMcgChnlList,
   // fetchPostMcgServerList,
-  // fetchPostMcgChrgrList,
+  fetchPostMcgChrgrList,
   fetchPutMcgChnlList,
 // fetchPutMcgServerList,
 // fetchPutMcgChrgrList,
@@ -475,6 +483,22 @@ export default {
       chnList: [],
       chnldtl: [],
       svrinfo: {
+        svrIp: '',
+        svrPort: '',
+      },
+      svrinfo00: {
+        svrIp: '',
+        svrPort: '',
+      },
+      svrinfo01: {
+        svrIp: '',
+        svrPort: '',
+      },
+      svrinfo02: {
+        svrIp: '',
+        svrPort: '',
+      },
+      svrinfo03: {
         svrIp: '',
         svrPort: '',
       },
@@ -590,6 +614,15 @@ export default {
 
     Serverinfodtl(opCdr) {
       console.log('채널 서버 조회!');
+      // 데이터 초기화!
+      this.svrinfo00.svrIp = ' ';
+      this.svrinfo00.svrPort = ' ';
+      this.svrinfo01.svrIp = ' ';
+      this.svrinfo01.svrPort = ' ';
+      this.svrinfo02.svrIp = ' ';
+      this.svrinfo02.svrPort = ' ';
+      this.svrinfo03.svrIp = ' ';
+      this.svrinfo03.svrPort = ' ';
       // this.$axios.get('/api/mcg/chnl', {
       fetchGetMcgServerList({
         params: {
@@ -612,10 +645,10 @@ export default {
 
           console.log('서버 조회 완료!');
           console.log(this.svrinfo0, this.svrinfo1, this.svrinfo2, this.svrinfo3);
-          if (this.svrinfo0 === null) { this.svrinfo0 = this.svrinfo; }
-          if (this.svrinfo1 === null) { this.svrinfo1 = this.svrinfo; }
-          if (this.svrinfo2 === null) { this.svrinfo2 = this.svrinfo; }
-          if (this.svrinfo3 === null) { this.svrinfo3 = this.svrinfo; }
+          if (this.svrinfo0 === null) { this.svrinfo0 = this.svrinfo00; }
+          if (this.svrinfo1 === null) { this.svrinfo1 = this.svrinfo01; }
+          if (this.svrinfo2 === null) { this.svrinfo2 = this.svrinfo02; }
+          if (this.svrinfo3 === null) { this.svrinfo3 = this.svrinfo03; }
           // console.log(res.data.rstData.searchList);
         })
         .catch((ex) => {
@@ -733,7 +766,7 @@ export default {
       })
         .then((res) => {
           console.log(res);
-          this.$gf.alertOn('채널 수정 완료!');
+          this.$gf.alertOn('채널 추가 완료!');
           this.listing();
         })
         .catch((ex) => {
@@ -741,7 +774,7 @@ export default {
         });
     },
 
-    modify(chn) {
+    modify(chn, chrgrm) {
       console.log('채널 정보 수정!');
       console.log(this.chnlNm, this.opCd);
       // this.$axios.post('/api/mcg/chnl/post', {
@@ -749,6 +782,16 @@ export default {
         .then((res) => {
           console.log(res);
           this.$gf.alertOn('채널 수정 완료!');
+          this.listing();
+        })
+        .catch((ex) => {
+          console.log(`error occur!! : ${ex}`);
+        });
+
+      fetchPostMcgChrgrList(chrgrm)
+        .then((res) => {
+          console.log(res);
+          this.$gf.alertOn('채널 담당자 수정 완료!');
           this.listing();
         })
         .catch((ex) => {
