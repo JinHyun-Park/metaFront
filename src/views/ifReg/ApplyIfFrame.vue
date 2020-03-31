@@ -41,21 +41,21 @@
       </ul>
     </section>
     <reg-step1-apply-if
-      v-if="tabNum === 1"
+      v-show="tabNum === 1"
       @nextTab="toNextTab"
     />
     <reg-step2-frame
-      v-if="tabNum === 2"
+      v-show="tabNum === 2"
       @beforeTab="toBeforeTab"
       @nextTab="toNextTab"
     />
     <reg-step3-applicant
-      v-if="tabNum === 3"
+      v-show="tabNum === 3"
       @beforeTab="toBeforeTab"
       @nextTab="toNextTab"
     />
     <reg-step3-approver
-      v-if="tabNum === 4"
+      v-show="tabNum === 4"
       @beforeTab="toBeforeTab"
     />
   </div>

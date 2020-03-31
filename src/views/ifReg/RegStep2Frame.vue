@@ -22,9 +22,9 @@
         </li>
       </ul>
     </section>
-    <reg-step2eigw v-if="subTabNum === 1" />
-    <reg-step2eai v-if="subTabNum === 2" />
-    <reg-step2-ch-mcg v-if="subTabNum === 3" />
+    <reg-step2eigw v-show="subTabNum === 1" />
+    <reg-step2eai v-show="subTabNum === 2" />
+    <reg-step2-ch-mcg v-show="subTabNum === 3" />
 
     <section class="btm_button_area">
       <button
