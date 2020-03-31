@@ -2,9 +2,14 @@
 const preUrl = '/api/ifreq';
 
 function fetchGetIfRegList(param) {
-  return axios.get(`${preUrl}/list`, param);
+    return axios.get(`${preUrl}/list`, param);
+}
+
+function fetchPostIfStep2Reg(param) {
+    return axios.post(`${preUrl}/reqInfo/step2`, param);
 }
 
 export {
-  fetchGetIfRegList,
+    fetchGetIfRegList,
+    fetchPostIfStep2Reg,
 };

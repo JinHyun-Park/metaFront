@@ -22,8 +22,8 @@
         </li>
       </ul>
     </section>
-    <reg-step2eai v-if="subTabNum === 1" />
-    <reg-step2eigw v-if="subTabNum === 2" />
+    <reg-step2eigw v-if="subTabNum === 1" />
+    <reg-step2eai v-if="subTabNum === 2" />
     <reg-step2-ch-mcg v-if="subTabNum === 3" />
 
     <section class="btm_button_area">
@@ -44,6 +44,7 @@
       <button
         type="button"
         class="default_button on"
+        @click="saveTemp"
       >
         임시저장
       </button>
@@ -55,6 +56,8 @@
 import RegStep2eai from '@/views/ifReg/RegStep2_EAI.vue'; // 2단계 EAI
 import RegStep2eigw from '@/views/ifReg/RegStep2_EIGW.vue'; // 2단계 EiGW
 import RegStep2ChMcg from '@/views/ifReg/RegStep2McgFrame.vue'; // 2단계 MCG 채널
+
+import { fetchPostIfStep2Reg } from '@/api/ifRegApi';
 
 export default {
   name: 'ApplyFrame',
@@ -69,6 +72,11 @@ export default {
       step2Eigw: true,
       step2Mcg: false,
       subTabNum: '',
+
+      eaiInfo: [],
+      eigwInfo: [],
+      mcgInfo: [],
+      regList: [],
     };
   },
   created() {
@@ -86,6 +94,23 @@ export default {
     },
     beforeTab() {
       this.$emit('beforeTab');
+    },
+    saveTemp() {
+      this.regList = {
+        eaiInfo: this.eaiInfo,
+        eigwInfo: this.eigwInfo,
+        mcgInfo: this.mcgInfo,
+      };
+
+      // this.$axios.post('/api/ifReq/', this.svrList)
+      fetchPostIfStep2Reg(this.regList)
+        .then((res) => {
+          console.log(res);
+          this.$gf.alertOn('작성하신 내용이 임시저장 되었습니다');
+        })
+        .catch((ex) => {
+          console.log(`오류가 발생하였습니다 : ${ex}`);
+        });
     },
   },
 };
