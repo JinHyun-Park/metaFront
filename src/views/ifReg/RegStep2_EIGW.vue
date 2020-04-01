@@ -468,7 +468,6 @@
         </div>
       </div>
     </section>
-    </section>
 
     <section class="form_area border_group">
       <h5 class="s_tit type-2">
@@ -927,7 +926,7 @@ export default {
         prodPort: this.onlineInfo.prodPort,
         inuserId1: this.onlineInfo.inuserId1,
         inuserId2: this.onlineInfo.inuserId2,
-        outUserInfo: this.onlineInfo.outuserNm + '/' + this.onlineInfo.outInstCd + '/' + this.onlineInfo.ofcLvlCd + '/' + this.onlineInfo.mblPhonNum+ '/' + this.onlineInfo.emailAddr,
+        outUserInfo: `${this.onlineInfo.outuserNm}/${this.onlineInfo.outInstCd}/${this.onlineInfo.ofcLvlCd}/${this.onlineInfo.mblPhonNum}/${this.onlineInfo.emailAddr}`,
       });
     },
     addFileInfo() {
