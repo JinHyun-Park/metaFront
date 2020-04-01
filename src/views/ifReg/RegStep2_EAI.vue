@@ -98,7 +98,7 @@
               </li>
               <li class="td_cell">
                 <input
-                  v-model="sndRow.addIp"
+                  v-model="sndRow.etcIp"
                   type="text"
                 >
               </li>
@@ -209,7 +209,7 @@
               </li>
               <li class="td_cell">
                 <input
-                  v-model="rcvRow.addIp"
+                  v-model="rcvRow.etcIp"
                   type="text"
                 >
               </li>
@@ -265,11 +265,17 @@
                 class="th_cell"
                 style="width:10%"
               >
+                연동 방향
+              </li>
+              <li
+                class="th_cell"
+                style="width:5%"
+              >
                 연동 방식
               </li>
               <li
                 class="th_cell"
-                style="width:10%"
+                style="width:5%"
               >
                 단/양방향
               </li>
@@ -295,10 +301,13 @@
               @click="getDetailInfo(eaiIf)"
             >
               <li class="td_cell on">
-                {{ eaiIf.ifNmKor }}
+                {{ eaiIf.eaiIfNmKor }}
               </li>
               <li class="td_cell on">
-                {{ eaiIf.ifNmEng }}
+                {{ eaiIf.eaiIfNmEng }}
+              </li>
+              <li class="td_cell">
+                {{ eaiIf.drctnNm }}
               </li>
               <li class="td_cell">
                 {{ eaiIf.ifTypNm }}
@@ -345,7 +354,7 @@
         <div class="column w-2">
           <label class="column_label">인터페이스명</label>
           <input
-            v-model="ifNmKor"
+            v-model="eaiIfNmKor"
             type="text"
             maxlength="80"
           >
@@ -353,7 +362,7 @@
         <div class="column w-2">
           <label class="column_label">인터페이스명 (영문 약자)</label>
           <input
-            v-model="ifNmEng"
+            v-model="eaiIfNmEng"
             type="text"
             maxlength="25"
             oninput="this.value = this.value.toUpperCase()"
@@ -531,124 +540,143 @@
         송신 업무/담당자 정보
       </h5>
       <div class="row_contain">
-        <div style="float:left;width:48%">
-          <div class="row_contain">
-            <div class="column w-2">
-              <label class="column_label">MID</label>
-              <input
-                v-model="sndMid"
-                type="text"
-                placeholder="MID 없는 경우 시스템명 약자 입력"
-                oninput="this.value = this.value.toUpperCase()"
-              >
-            </div>
-            <div class="column w-2">
-              <label class="column_label">운영 담당자1</label>
-              <div class="search_group">
-                <input
-                  v-model="sndChrgrNm1"
-                  type="text"
-                  @click="turnOnSvrPopChrgr(1)"
-                >
-                <span class="search">
-                  <i class="ico-search" />
-                </span>
-              </div>
-            </div>
-            <div class="column w-2">
-              <label class="column_label">운영 담당자2</label>
-              <div class="search_group">
-                <input
-                  v-model="sndChrgrNm2"
-                  type="text"
-                  @click="turnOnSvrPopChrgr(2)"
-                >
-                <span class="search">
-                  <i class="ico-search" />
-                </span>
-              </div>
-            </div>
-            <div class="column w-2">
-              <label class="column_label">업무 담당 매니저</label>
-              <div class="search_group">
-                <input
-                  v-model="sndChrgrMngrNm"
-                  type="text"
-                  @click="turnOnSvrPopChrgr(3)"
-                >
-                <span class="search">
-                  <i class="ico-search" />
-                </span>
-              </div>
-            </div>
-          </div>
-          <h5 class="s_tit type-3">
-            수신 업무/담당자 정보
-          </h5>
-          <div class="row_contain">
-            <div class="column w-2">
-              <label class="column_label">MID</label>
-              <input
-                v-model="rcvMid"
-                type="text"
-                placeholder="MID 없는 경우 시스템명 약자 입력"
-                oninput="this.value = this.value.toUpperCase()"
-              >
-            </div>
-            <div class="column w-2">
-              <label class="column_label">운영 담당자1</label>
-              <div class="search_group">
-                <input
-                  v-model="rcvChrgrNm1"
-                  type="text"
-                  @click="turnOnSvrPopChrgr(4)"
-                >
-                <span class="search">
-                  <i class="ico-search" />
-                </span>
-              </div>
-            </div>
-            <div class="column w-2">
-              <label class="column_label">운영 담당자2</label>
-              <div class="search_group">
-                <input
-                  v-model="rcvChrgrNm2"
-                  type="text"
-                  @click="turnOnSvrPopChrgr(5)"
-                >
-                <span class="search">
-                  <i class="ico-search" />
-                </span>
-              </div>
-            </div>
-            <div class="column w-2">
-              <label class="column_label">업무 담당 매니저</label>
-              <div class="search_group">
-                <input
-                  v-model="rcvChrgrMngrNm"
-                  type="text"
-                  @click="turnOnSvrPopChrgr(6)"
-                >
-                <span class="search">
-                  <i class="ico-search" />
-                </span>
-              </div>
-            </div>
+        <div class="column w-2">
+          <label class="column_label">MID</label>
+          <input
+            v-model="sndMid"
+            type="text"
+            placeholder="MID 없는 경우 시스템명 약자 입력"
+            oninput="this.value = this.value.toUpperCase()"
+          >
+        </div>
+        <div class="column w-2">
+          <label class="column_label">운영 담당자1</label>
+          <div class="search_group">
+            <input
+              v-model="sndChrgrNm1"
+              type="text"
+              @click="turnOnSvrPopChrgr(1)"
+            >
+            <span class="search">
+              <i
+                class="ico-search"
+                @click="turnOnSvrPopChrgr(1)"
+              />
+            </span>
           </div>
         </div>
-        <div style="float:right;width:4%" />
-        <div style="float:right;width:48%">
-          <div class="row_contain">
-            <div class="column w-6">
-              <label class="column_label">장애 영향도</label>
-              <textarea
-                v-model="svcImpt"
-                cols="20"
-                row="5"
-                placeholder="연동 장애가 발생하였을 경우 서비스 영향도에 대해 최대한 상세하게 기술 바랍니다."
+        <div class="column w-2">
+          <label class="column_label">운영 담당자2</label>
+          <div class="search_group">
+            <input
+              v-model="sndChrgrNm2"
+              type="text"
+              @click="turnOnSvrPopChrgr(2)"
+            >
+            <span class="search">
+              <i
+                class="ico-search"
+                @click="turnOnSvrPopChrgr(2)"
               />
-            </div>
+            </span>
           </div>
+        </div>
+        <div class="column w-2">
+          <label class="column_label">업무 담당 매니저</label>
+          <div class="search_group">
+            <input
+              v-model="sndChrgrMngrNm"
+              type="text"
+              @click="turnOnSvrPopChrgr(3)"
+            >
+            <span class="search">
+              <i
+                class="ico-search"
+                @click="turnOnSvrPopChrgr(3)"
+              />
+            </span>
+          </div>
+        </div>
+      </div>
+      <h5 class="s_tit type-3">
+        수신 업무/담당자 정보
+      </h5>
+      <div class="row_contain">
+        <div class="column w-2">
+          <label class="column_label">MID</label>
+          <input
+            v-model="rcvMid"
+            type="text"
+            placeholder="MID 없는 경우 시스템명 약자 입력"
+            oninput="this.value = this.value.toUpperCase()"
+          >
+        </div>
+        <div class="column w-2">
+          <label class="column_label">운영 담당자1</label>
+          <div class="search_group">
+            <input
+              v-model="rcvChrgrNm1"
+              type="text"
+              @click="turnOnSvrPopChrgr(4)"
+            >
+            <span class="search">
+              <i
+                class="ico-search"
+                @click="turnOnSvrPopChrgr(4)"
+              />
+            </span>
+          </div>
+        </div>
+        <div class="column w-2">
+          <label class="column_label">운영 담당자2</label>
+          <div class="search_group">
+            <input
+              v-model="rcvChrgrNm2"
+              type="text"
+              @click="turnOnSvrPopChrgr(5)"
+            >
+            <span class="search">
+              <i
+                class="ico-search"
+                @click="turnOnSvrPopChrgr(5)"
+              />
+            </span>
+          </div>
+        </div>
+        <div class="column w-2">
+          <label class="column_label">업무 담당 매니저</label>
+          <div class="search_group">
+            <input
+              v-model="rcvChrgrMngrNm"
+              type="text"
+              @click="turnOnSvrPopChrgr(6)"
+            >
+            <span class="search">
+              <i
+                class="ico-search"
+                @click="turnOnSvrPopChrgr(6)"
+              />
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="row_contain">
+        <div class="column w-4">
+          <label class="column_label">장애 영향도</label>
+          <textarea
+            v-model="svcImpt"
+            cols="20"
+            rows="3"
+            placeholder="연동 장애가 발생하였을 경우 서비스 영향도에 대해 최대한 상세하게 기술 바랍니다."
+          />
+        </div>
+        <div class="column w-4">
+          <label class="column_label">기타 요청사항</label>
+          <textarea
+            v-model="eaiRmk"
+            cols="20"
+            rows="3"
+          />
         </div>
       </div>
     </section>
@@ -659,6 +687,13 @@
     >
       EAI 임시저장 테스트
     </button>
+    <button
+      type="button"
+      class="default_button extend on"
+      @click="getEaiRegTempList()"
+    >
+      임시저장 불러오기
+    </button>
   </div>
 </template>
 <style scoped>
@@ -666,6 +701,8 @@ ul:hover { background-color: #F9F9F9}
 </style>
 <script>
 import { mapState, mapActions } from 'vuex';
+import { fetchGetEaiRegSvrList, fetchGetEaiRegIfList } from '@/api/eaiApi';
+
 import ChrgrListPopup from '@/components/popup/bizcomm/ChrgrListPopup.vue';
 
 export default {
@@ -692,18 +729,19 @@ export default {
       rcvDir: '',
       rcvShNm: '',
       fileOpCode: '',
+      drctnNm: '',
       ifTypNm: '',
       roundTypNm: '',
       syncTypNm: '',
-      ifNmEng: '',
-      ifNmKor: '',
+      eaiIfNmEng: '',
+      eaiIfNmKor: '',
       ifDesc: '',
       rcvTr: '',
       sysNm: '',
       hostNm: '',
       vIp: '',
       natIp: '',
-      addIp: '',
+      etcIp: '',
       osNm: '',
       company: '',
       chrgrId: '',
@@ -723,7 +761,11 @@ export default {
       sndMid: '',
       rcvMid: '',
       svcImpt: '',
+      eaiRmk: '',
       procSt: '',
+      bSndRows: [],
+      bRcvRows: [],
+      bEaiIfList: [],
       props: {},
       currRow: [],
       svrRows: [],
@@ -737,7 +779,7 @@ export default {
           hostNm: '',
           vIp: '',
           natIp: '',
-          addIp: '',
+          etcIp: '',
           osNm: '',
           company: '',
           procSt: '',
@@ -752,7 +794,7 @@ export default {
           hostNm: '',
           vIp: '',
           natIp: '',
-          addIp: '',
+          etcIp: '',
           osNm: '',
           company: '',
           procSt: '',
@@ -760,14 +802,16 @@ export default {
       ],
       eaiIfList: [
         {
-          ifNmKor: '',
-          ifNmEng: '',
+          reqNum: '',
+          eaiIfNmKor: '',
+          eaiIfNmEng: '',
           ifTypCd: '',
           drctnCd: '',
           roundTypCd: '',
           syncTypCd: '',
           rcvOpCd: '',
           rcvTr: '',
+          drctnNm: '',
           ifTypNm: '',
           roundTypNm: '',
           syncTypNm: '',
@@ -792,6 +836,7 @@ export default {
           rcvChrgrMngrId: '',
           rcvChrgrMngrNm: '',
           svcImpt: '',
+          eaiRmk: '',
           procSt: '',
         },
       ],
@@ -815,7 +860,7 @@ export default {
       opClCd: 'EAI', cdId: 'DRCTN_CD', allYn: 'N', listNm: 'drctnCd',
     });
     this.setCcCdList({
-      opClCd: 'EAI', cdId: 'SYNC_CD', allYn: 'N', listNm: 'syncTypCd',
+      opClCd: 'EAI', cdId: 'SYNC_TYP_CD', allYn: 'N', listNm: 'syncTypCd',
     });
     this.setCcCdList({
       opClCd: 'EAI', cdId: 'RCV_OP_CD', allYn: 'N', listNm: 'rcvOpCd',
@@ -829,29 +874,71 @@ export default {
   },
   methods: {
     ...mapActions('ccCdLst', ['setCcCdList']),
-    saveEaiRegTemp() {
-      console.log(this.sndRows);
-      console.log(this.rcvRows);
 
+    getEaiRegTempList() {
+      console.log('EAI 신청 정보 조회');
+
+      fetchGetEaiRegSvrList({
+        params: {
+          reqNum: this.reqNum,
+          procSt: 1,
+        },
+      })
+        .then((res) => {
+          this.svrRows = res.data.rstData.searchList;
+
+          this.sndRows.splice(0, this.sndRows.length);
+          this.rcvRows.splice(0, this.rcvRows.length);
+
+          for (let i = 0; i < this.svrRows.length; i++) {
+            if (this.svrRows[i].sndRcvCl === 'S') {
+              this.sndRows.push(this.svrRows[i]);
+            } else {
+              this.rcvRows.push(this.svrRows[i]);
+            }
+          }
+        })
+        .catch((ex) => {
+          console.log(`error occur!! : ${ex}`);
+        });
+
+      fetchGetEaiRegIfList({
+        params: {
+          reqNum: this.reqNum,
+          procSt: 1,
+        },
+      })
+        .then((res) => {
+          this.eaiIfList = res.data.rstData.searchList;
+
+          console.log(this.eaiIfList);
+        })
+        .catch((ex) => {
+          console.log(`error occur!! : ${ex}`);
+        });
+    },
+
+
+    saveEaiRegTemp() {
       this.svrRows.splice(0, this.svrRows.length);
 
       for (let i = 0; i < this.sndRows.length; i++) {
         this.sndRows[i].sndRcvCl = 'S';
         this.sndRows[i].reqNum = this.reqNum;
-        this.sndRows[i].procSt = 'T';
+        this.sndRows[i].procSt = '1';
         this.svrRows.push(this.sndRows[i]);
       }
 
       for (let i = 0; i < this.rcvRows.length; i++) {
         this.rcvRows[i].sndRcvCl = 'R';
         this.rcvRows[i].reqNum = this.reqNum;
-        this.rcvRows[i].procSt = 'T';
+        this.rcvRows[i].procSt = '1';
         this.svrRows.push(this.rcvRows[i]);
       }
 
       for (let i = 0; i < this.eaiIfList.length; i++) {
         this.eaiIfList[i].reqNum = this.reqNum;
-        this.eaiIfList[i].procSt = 'T';
+        this.eaiIfList[i].procSt = '1';
       }
 
       this.regList = { svrList: this.svrRows, ifList: this.eaiIfList };
@@ -883,7 +970,7 @@ export default {
         this.sndRows[0].hostNm = '';
         this.sndRows[0].vIp = '';
         this.sndRows[0].natIp = '';
-        this.sndRows[0].addIp = '';
+        this.sndRows[0].etcIp = '';
         this.sndRows[0].osNm = '';
         this.sndRows[0].company = '';
         this.sndRows[0].procSt = '';
@@ -907,13 +994,18 @@ export default {
         this.rcvRows[0].hostNm = '';
         this.rcvRows[0].vIp = '';
         this.rcvRows[0].natIp = '';
-        this.rcvRows[0].addIp = '';
+        this.rcvRows[0].etcIp = '';
         this.rcvRows[0].osNm = '';
         this.rcvRows[0].company = '';
         this.rcvRows[0].procSt = '';
       }
     },
-    resetFields() {
+    onChangeDrctnTypCd() {
+      for (let i = 0; i < this.ccCdList.drctnCd.length; i++) {
+        if (this.ccCdList.drctnCd[i].cdDtlId === this.drctnCd) {
+          this.drctnNm = this.ccCdList.drctnCd[i].cdNm;
+        }
+      }
     },
     onChangeIfTypCd() {
       for (let i = 0; i < this.ccCdList.ifTypCd.length; i++) {
@@ -961,10 +1053,10 @@ export default {
       }
     },
     checkFields() {
-      if (this.ifNmKor === '') {
+      if (this.eaiIfNmKor === '') {
         this.$gf.alertOn('인터페이스명을 입력하세요');
         return 0;
-      } if (this.ifNmEng === '') {
+      } if (this.eaiIfNmEng === '') {
         this.$gf.alertOn('인터페이스 영문 약자를 입력하세요');
         return 0;
       } if (this.drctnCd === '') {
@@ -1024,9 +1116,10 @@ export default {
         return;
       }
 
+
       this.eaiIfList.push({
-        ifNmKor: this.ifNmKor,
-        ifNmEng: this.ifNmEng,
+        eaiIfNmKor: this.eaiIfNmKor,
+        eaiIfNmEng: this.eaiIfNmEng,
         drctnCd: this.drctnCd,
         ifTypCd: this.ifTypCd,
         ifDesc: this.ifDesc,
@@ -1034,6 +1127,7 @@ export default {
         syncTypCd: this.syncTypCd,
         rcvOpCd: this.rcvOpCd,
         rcvTr: this.rcvTr,
+        drctnNm: this.drctnNm,
         ifTypNm: this.ifTypNm,
         roundTypNm: this.roundTypNm,
         syncTypNm: this.syncTypNm,
@@ -1058,6 +1152,7 @@ export default {
         rcvChrgrMngrId: this.rcvChrgrMngrId,
         rcvChrgrMngrNm: this.rcvChrgrMngrNm,
         svcImpt: this.svcImpt,
+        eaiRmk: this.eaiRmk,
 
       });
 
@@ -1081,8 +1176,8 @@ export default {
       if (this.checkFields() === 0) {
         return;
       }
-      this.currRow.ifNmKor = this.ifNmKor;
-      this.currRow.ifNmEng = this.ifNmEng;
+      this.currRow.eaiIfNmKor = this.eaiIfNmKor;
+      this.currRow.eaiIfNmEng = this.eaiIfNmEng;
       this.currRow.ifDesc = this.ifDesc;
       this.currRow.drctnCd = this.drctnCd;
       this.currRow.ifTypCd = this.ifTypCd;
@@ -1093,6 +1188,7 @@ export default {
       this.currRow.syncTypCd = this.syncTypCd;
       this.currRow.rcvOpCd = this.rcvOpCd;
       this.currRow.rcvTr = this.rcvTr;
+      this.currRow.drctnNm = this.drctnNm;
       this.currRow.ifTypNm = this.ifTypNm;
       this.currRow.roundTypNm = this.roundTypNm;
       this.currRow.syncTypNm = this.syncTypNm;
@@ -1117,12 +1213,13 @@ export default {
       this.currRow.rcvChrgrMngrId = this.rcvChrgrMngrId;
       this.currRow.rcvChrgrMngrNm = this.rcvChrgrMngrNm;
       this.currRow.svcImpt = this.svcImpt;
+      this.currRow.eaiRmk = this.eaiRmk;
 
       this.emptyIfFields();
     },
     getDetailInfo(eaiIf) {
-      this.ifNmKor = eaiIf.ifNmKor;
-      this.ifNmEng = eaiIf.ifNmEng;
+      this.eaiIfNmKor = eaiIf.eaiIfNmKor;
+      this.eaiIfNmEng = eaiIf.eaiIfNmEng;
       this.ifDesc = eaiIf.ifDesc;
       this.drctnCd = eaiIf.drctnCd;
       this.ifTypCd = eaiIf.ifTypCd;
@@ -1130,6 +1227,7 @@ export default {
       this.syncTypCd = eaiIf.syncTypCd;
       this.rcvOpCd = eaiIf.rcvOpCd;
       this.rcvTr = eaiIf.rcvTr;
+      this.drctnNm = eaiIf.drctnNm;
       this.ifTypNm = eaiIf.ifTypNm;
       this.roundTypNm = eaiIf.roundTypNm;
       this.syncTypNm = eaiIf.syncTypNm;
@@ -1154,6 +1252,7 @@ export default {
       this.rcvChrgrMngrId = eaiIf.rcvChrgrMngrId;
       this.rcvChrgrMngrNm = eaiIf.rcvChrgrMngrNm;
       this.svcImpt = eaiIf.svcImpt;
+      this.eaiRmk = eaiIf.eaiRmk;
 
       this.currRow = eaiIf;
 
@@ -1256,8 +1355,8 @@ export default {
       }
     },
     emptyIfFields() {
-      this.ifNmKor = '';
-      this.ifNmEng = '';
+      this.eaiIfNmKor = '';
+      this.eaiIfNmEng = '';
       this.ifDesc = '';
       this.drctnCd = '';
       this.ifTypCd = '';
@@ -1265,6 +1364,7 @@ export default {
       this.syncTypCd = '';
       this.rcvOpCd = '';
       this.rcvTr = '';
+      this.drctnNm = '';
       this.ifTypNm = '';
       this.roundTypNm = '';
       this.syncTypNm = '';
@@ -1289,6 +1389,7 @@ export default {
       this.rcvChrgrMngrId = '';
       this.rcvChrgrMngrNm = '';
       this.svcImpt = '';
+      this.eaiRmk = '';
 
       this.currRow = [];
     },

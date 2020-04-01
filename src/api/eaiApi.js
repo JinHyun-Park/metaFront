@@ -33,6 +33,14 @@ function fetchEaiServerList(param) {
   return axios.get(`${preUrl}/server`, param);
 }
 
+function fetchGetEaiRegSvrList(param) {
+  return axios.get(`${preUrl}/regSvrList`, param);
+}
+
+function fetchGetEaiRegIfList(param) {
+  return axios.get(`${preUrl}/regIfList`, param);
+}
+
 export {
   fetchGetEaiMqMngrList,
   fetchGetEaiQueueList,
@@ -42,4 +50,6 @@ export {
   fetchGetEaiSwgRcvList,
   fetchPostEaiSwgSnd,
   fetchEaiServerList,
+  fetchGetEaiRegSvrList,
+  fetchGetEaiRegIfList,
 };
