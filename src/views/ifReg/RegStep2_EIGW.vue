@@ -1,5 +1,11 @@
 <template>
   <div>
+    <InstListPopup
+      v-if="svrOnInstList"
+      v-bind="propsInstList"
+      @closePop="turOffSvrPopInstList"
+      @addData="addDataInstList"
+    />
     <section class="title style-1">
       <h2>
         <div>
@@ -11,32 +17,31 @@
       </h2>
     </section>
 
-    <section class="small_tabs">
-      <ul>
-        <li class="ov">
-          온라인
-        </li>
-        <li>파일</li>
-      </ul>
-    </section>
-
     <section class="form_area border_group">
       <h5 class="s_tit type-2">
-        인터페이스 정보
+        온라인 인터페이스 정보
         <div class="right_button_area">
           <button
             type="button"
             class="default_button"
+            @click="onlineUpdate()"
           >
-            삭제
+            수정
           </button>
           <button
             type="button"
             class="default_button on"
+            @click="addOnlineInfo()"
           >
-            추가
+            인터페이스 추가
           </button>
-          <!--<button type="button" class="default_button on">수정</button>-->
+          <button
+            type="button"
+            class="default_button on"
+            @click="searchList()"
+          >
+            조회
+          </button>
         </div>
       </h5>
 
@@ -46,242 +51,128 @@
           <div class="table_head">
             <ul>
               <li class="th_cell">
-                인터페이스ID<i class="ico-sort-down" />
+                인터페이스ID
               </li>
               <li class="th_cell">
-                인터페이스명<i class="ico-sort-down" />
+                인터페이스명
               </li>
               <li class="th_cell">
-                대외기관명<i class="ico-sort-up" />
+                대외기관명
               </li>
               <li class="th_cell">
-                개발REAL IP<i class="ico-sort-down" />
+                개발REAL IP
               </li>
               <li class="th_cell">
-                개발포트<i class="ico-sort-down" />
+                개발포트
               </li>
               <li class="th_cell">
-                운영REAL IP<i class="ico-sort-down" />
+                운영REAL IP
               </li>
               <li class="th_cell">
-                운영포트<i class="ico-sort-up" />
+                운영포트
               </li>
               <li class="th_cell">
-                송수신여부<i class="ico-sort-down" />
+                프로그램유형
               </li>
               <li class="th_cell">
-                연결유형<i class="ico-sort-up" />
+                연결유형
               </li>
-              <li class="th_cell" />
-              <li class="th_cell" />
+              <li class="th_cell">
+                Test
+              </li>
+              <li class="th_cell">
+                진행상태
+              </li>
+              <li class="th_cell">
+                삭제
+              </li>
             </ul>
           </div>
           <div class="table_body">
-            <ul class="table_row">
+            <ul
+              v-for="(row, index) in onlineList"
+              :key="row.eigwReqNum"
+              class="table_row w-auto"
+              @click="detailOnlineInfo(index)"
+            >
               <li class="td_cell">
-                2 documents
+                <input
+                  v-model="row.eigwIfId"
+                  type="text"
+                >
               </li>
               <li class="td_cell">
-                2 documents
+                <input
+                  v-model="row.eigwIfNm"
+                  type="text"
+                >
               </li>
               <li class="td_cell">
-                2 documents
+                <input
+                  v-model="row.instNm"
+                  type="text"
+                >
               </li>
               <li class="td_cell">
-                2 documents
+                <input
+                  v-model="row.devRealIp"
+                  type="text"
+                >
               </li>
               <li class="td_cell">
-                2 documents
+                <input
+                  v-model="row.devPort"
+                  type="text"
+                >
               </li>
               <li class="td_cell">
-                2 documents
+                <input
+                  v-model="row.prodRealIp"
+                  type="text"
+                >
               </li>
               <li class="td_cell">
-                2 documents
+                <input
+                  v-model="row.prodPort"
+                  type="text"
+                >
               </li>
               <li class="td_cell">
-                2 documents
+                <select v-model="row.pgmTyp">
+                  <option
+                    value="CLIENT"
+                  >
+                    Client
+                  </option>
+                  <option
+                    value="SERVER"
+                  >
+                    Server
+                  </option>
+                </select>
               </li>
               <li class="td_cell">
-                2 documents
+                <select v-model="row.linkTyp">
+                  <option
+                    value="CONNECT"
+                  >
+                    연결유지형
+                  </option>
+                  <option
+                    value="DISCONNECT"
+                  >
+                    비연결형
+                  </option>
+                </select>
               </li>
               <li class="td_cell">
-                <label class="label-default color-green">진행</label>
-              </li>
-              <li class="td_cell">
-                <i class="ico-del" />
-              </li>
-            </ul>
-            <ul class="table_row">
-              <li class="td_cell">
-                q sign
-              </li>
-              <li class="td_cell">
-                q sign
-              </li>
-              <li class="td_cell">
-                q sign
-              </li>
-              <li class="td_cell">
-                q sign
-              </li>
-              <li class="td_cell">
-                q sign
-              </li>
-              <li class="td_cell">
-                q sign
-              </li>
-              <li class="td_cell">
-                q sign
-              </li>
-              <li class="td_cell">
-                q sign
-              </li>
-              <li class="td_cell">
-                q sign
-              </li>
-              <li class="td_cell">
-                <label class="label-default">완료</label>
-              </li>
-              <li class="td_cell">
-                <i class="ico-del" />
-              </li>
-            </ul>
-            <ul class="table_row">
-              <li class="td_cell">
-                2 documents
-              </li>
-              <li class="td_cell">
-                2 documents
-              </li>
-              <li class="td_cell">
-                2 documents
-              </li>
-              <li class="td_cell">
-                2 documents
-              </li>
-              <li class="td_cell">
-                2 documents
-              </li>
-              <li class="td_cell">
-                2 documents
-              </li>
-              <li class="td_cell">
-                2 documents
-              </li>
-              <li class="td_cell">
-                2 documents
-              </li>
-              <li class="td_cell">
-                2 documents
-              </li>
-              <li class="td_cell">
-                <label class="label-default color-blue">보류</label>
-              </li>
-              <li class="td_cell">
-                <i class="ico-del" />
-              </li>
-            </ul>
-            <ul class="table_row">
-              <li class="td_cell">
-                q sign
-              </li>
-              <li class="td_cell">
-                q sign
-              </li>
-              <li class="td_cell">
-                q sign
-              </li>
-              <li class="td_cell">
-                q sign
-              </li>
-              <li class="td_cell">
-                q sign
-              </li>
-              <li class="td_cell">
-                q sign
-              </li>
-              <li class="td_cell">
-                q sign
-              </li>
-              <li class="td_cell">
-                q sign
-              </li>
-              <li class="td_cell">
-                q sign
-              </li>
-              <li class="td_cell">
-                <label class="label-default color-gray">대기</label>
-              </li>
-              <li class="td_cell">
-                <i class="ico-del" />
-              </li>
-            </ul>
-            <ul class="table_row">
-              <li class="td_cell">
-                2 documents
-              </li>
-              <li class="td_cell">
-                2 documents
-              </li>
-              <li class="td_cell">
-                2 documents
-              </li>
-              <li class="td_cell">
-                2 documents
-              </li>
-              <li class="td_cell">
-                2 documents
-              </li>
-              <li class="td_cell">
-                2 documents
-              </li>
-              <li class="td_cell">
-                2 documents
-              </li>
-              <li class="td_cell">
-                2 documents
-              </li>
-              <li class="td_cell">
-                2 documents
+                <input
+                  v-model="row.outUserInfo"
+                  type="text"
+                >
               </li>
               <li class="td_cell">
                 <label class="label-default color-black">반려</label>
-              </li>
-              <li class="td_cell">
-                <i class="ico-del" />
-              </li>
-            </ul>
-            <ul class="table_row">
-              <li class="td_cell">
-                q sign
-              </li>
-              <li class="td_cell">
-                q sign
-              </li>
-              <li class="td_cell">
-                q sign
-              </li>
-              <li class="td_cell">
-                q sign
-              </li>
-              <li class="td_cell">
-                q sign
-              </li>
-              <li class="td_cell">
-                q sign
-              </li>
-              <li class="td_cell">
-                q sign
-              </li>
-              <li class="td_cell">
-                q sign
-              </li>
-              <li class="td_cell">
-                q sign
-              </li>
-              <li class="td_cell">
-                <label class="label-default color-yellow">승인</label>
               </li>
               <li class="td_cell">
                 <i class="ico-del" />
@@ -292,128 +183,384 @@
       </div>
       <!-- ONLINE //-->
 
+      <div class="row_contain type-2">
+        <div class="column w-1">
+          <label class="column_label">I/F ID(명)</label>
+          <div class="search_group">
+            <input
+              v-model="onlineInfo.eigwIfId"
+              type="text"
+              class="add_text on"
+            >
+            <span class="search">
+              <i class="ico-search" />
+            </span>
+          </div>
+        </div>
+        <div class="column w-1">
+          <label class="column_label">&nbsp;</label>
+          <div class="search_group">
+            <input
+              v-model="onlineInfo.eigwIfNm"
+              type="text"
+              class="add_text on"
+            >
+            <span class="tooltips right ov">
+              <i class="tip_contn"><em class="tip_text">신규 I/F의 경우, EAI에서 등록 후 신청바랍니다.</em></i>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ONLINE -->
+      <div class="row_contain type-2">
+        <div class="column w-1">
+          <label class="column_label">대외기관</label>
+          <div class="search_group">
+            <input
+              v-model="onlineInfo.instNm"
+              type="text"
+              class="add_text on"
+            >
+            <span class="search">
+              <i class="ico-search" />
+            </span>
+          </div>
+        </div>
+        <div class="column w-1">
+          <label class="column_label">프로그램유형</label>
+          <div class="select_group">
+            <select v-model="onlineInfo.pgmTyp">
+              <option
+                value="CLIENT"
+                selected
+              >
+                Client
+              </option>
+              <option value="SERVER">
+                Server
+              </option>
+            </select>
+            <span class="select" />
+          </div>
+        </div>
+        <div class="column w-1">
+          <label class="column_label">연결유형</label>
+          <div class="select_group">
+            <select v-model="onlineInfo.linkTyp">
+              <option
+                value="CONNECT"
+                selected
+              >
+                연결유지형
+              </option>
+              <option value="DISCONNECT">
+                비연결형
+              </option>
+            </select>
+            <span class="select" />
+          </div>
+        </div>
+        <div class="column w-1">
+          <div class="search_group">
+            <input
+              v-model="onlineInfo.instCd"
+              type="hidden"
+              class="add_text on"
+            >
+          </div>
+        </div>
+        <div class="column w-1" />
+      </div>
+      <!-- ONLINE //-->
+
+      <div class="row_contain type-2">
+        <div class="column w-1">
+          <label class="column_label">개발 REAL IP</label>
+          <input
+            v-model="onlineInfo.devRealIp"
+            type="text"
+            class="add_text on"
+          >
+        </div>
+        <div class="column w-1">
+          <label class="column_label">개발 Port</label>
+          <input
+            v-model="onlineInfo.devPort"
+            type="text"
+            class="add_text on"
+          >
+        </div>
+        <div class="column w-1">
+          <label class="column_label tooltips ov top">운영 REAL IP</label>
+          <input
+            v-model="onlineInfo.prodRealIp"
+            type="text"
+            class="add_text on"
+          >
+        </div>
+        <div class="column w-1">
+          <label class="column_label">운영 Port</label>
+          <input
+            v-model="onlineInfo.prodPort"
+            type="text"
+            class="add_text on"
+          >
+        </div>
+        <div class="column w-1" />
+      </div>
+
+      <div class="row_contain type-2">
+        <div class="column w-1">
+          <label class="column_label">운영 담당자1</label>
+          <div class="search_group">
+            <input
+              v-model="onlineInfo.inuserNm1"
+              type="text"
+              class="add_text on"
+            >
+            <span class="search">
+              <i class="ico-search" />
+            </span>
+          </div>
+        </div>
+        <div class="column w-1">
+          <label class="column_label">운영 담당자2</label>
+          <div class="search_group">
+            <input
+              v-model="onlineInfo.inuserNm2"
+              type="text"
+              class="add_text on"
+            >
+            <span class="search">
+              <i class="ico-search" />
+            </span>
+          </div>
+        </div>
+        <div class="column w-1">
+          <div class="search_group">
+            <input
+              v-model="onlineInfo.inuserId1"
+              type="hidden"
+              class="add_text on"
+            >
+          </div>
+        </div>
+        <div class="column w-1">
+          <div class="search_group">
+            <input
+              v-model="onlineInfo.inuserId2"
+              type="hidden"
+              class="add_text on"
+            >
+          </div>
+        </div>
+        <div class="column w-1" />
+      </div>
+
+      <div class="row_contain type-2">
+        <div class="column w-1">
+          <label class="column_label">대외 담당자 이름</label>
+          <input
+            v-model="onlineInfo.outuserNm"
+            type="text"
+            class="add_text on"
+          >
+        </div>
+        <div class="column w-1">
+          <label class="column_label">기관</label>
+          <input
+            v-model="onlineInfo.outInstCd"
+            type="text"
+            class="add_text on"
+          >
+        </div>
+        <div class="column w-1">
+          <label class="column_label">직급</label>
+          <input
+            v-model="onlineInfo.ofcLvlCd"
+            type="text"
+            class="add_text on"
+          >
+        </div>
+        <div class="column w-1">
+          <label class="column_label">핸드폰</label>
+          <input
+            v-model="onlineInfo.mblPhonNum"
+            type="text"
+            class="add_text on"
+          >
+        </div>
+        <div class="column w-1">
+          <label class="column_label">E-mail</label>
+          <input
+            v-model="onlineInfo.emailAddr"
+            type="text"
+            class="add_text on"
+          >
+        </div>
+      </div>
+      <h5 class="s_tit type-2">
+        담당자 정보
+        <div class="right_button_area">
+          <button
+            type="button"
+            class="default_button"
+            @click="addchrgrList(1)"
+          >
+            추가
+          </button>
+        </div>
+      </h5>
+      <div class="table_colgroup">
+        <div class="table_grid">
+          <div class="table_head w-auto except">
+            <ul>
+              <li class="th_cell">
+                기관
+              </li>
+              <li class="th_cell">
+                이름
+              </li>
+              <li class="th_cell">
+                조직
+              </li>
+              <li class="th_cell">
+                핸드폰
+              </li>
+              <li class="th_cell">
+                E-mail
+              </li>
+              <li class="th_cell">
+                삭제
+              </li>
+            </ul>
+          </div>
+          <div class="table_body">
+            <ul
+              v-for="(inchrgr, i) in inChrgrList"
+              :key="inchrgr.userId"
+              class="table_row w-auto"
+            >
+              <li class="td_cell">
+                {{ inchrgr.instNm }}
+              </li>
+              <li class="td_cell">
+                {{ inchrgr.hanNm }}
+              </li>
+              <li class="td_cell">
+                {{ inchrgr.orgCd }}
+              </li>
+              <li class="td_cell">
+                {{ inchrgr.mblPhonNum }}
+              </li>
+              <li class="td_cell">
+                {{ inchrgr.emailAddr }}
+              </li>
+              <td class="td_cell">
+                <i
+                  class="ico-del"
+                  @click="delInList(i)"
+                />
+              </td>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+    </section>
+
+    <section class="form_area border_group">
+      <h5 class="s_tit type-2">
+        파일 인터페이스 정보
+        <div class="right_button_area">
+          <button
+            type="button"
+            class="default_button"
+            @click="fileUpdate()"
+          >
+            수정
+          </button>
+          <button
+            type="button"
+            class="default_button on"
+            @click="addFileInfo()"
+          >
+            인터페이스 추가
+          </button>
+        </div>
+      </h5>
+
       <!-- FILE -->
       <div class="table_colgroup first">
         <div class="table_grid">
           <div class="table_head">
             <ul>
               <li class="th_cell">
-                파일명<i class="ico-sort-down" />
+                파일명
               </li>
               <li class="th_cell">
-                파일날짜<i class="ico-sort-down" />
+                대외기관명
               </li>
               <li class="th_cell">
-                대외기관명<i class="ico-sort-up" />
+                인터페이스ID
               </li>
               <li class="th_cell">
-                개발REAL IP<i class="ico-sort-down" />
+                개발REAL IP
               </li>
               <li class="th_cell">
-                개발포트<i class="ico-sort-down" />
+                개발포트
               </li>
               <li class="th_cell">
-                운영REAL IP<i class="ico-sort-down" />
+                운영REAL IP
               </li>
               <li class="th_cell">
-                운영포트<i class="ico-sort-up" />
+                운영포트
               </li>
               <li class="th_cell">
-                송수신<i class="ico-sort-down" />
+                송수신
               </li>
               <li class="th_cell">
-                전송주기<i class="ico-sort-up" />
+                진행상태
               </li>
               <li class="th_cell">
-                전송시각<i class="ico-sort-up" />
+                삭제
               </li>
-              <li class="th_cell">
-                전송방식<i class="ico-sort-up" />
-              </li>
-              <li class="th_cell">
-                인터페이스ID<i class="ico-sort-up" />
-              </li>
-              <li class="th_cell" />
             </ul>
           </div>
           <div class="table_body">
-            <ul class="table_row">
+            <ul
+              v-for="(row, index) in fileList"
+              :key="row.eigwReqNum"
+              class="table_row w-auto"
+              @click="detailFileInfo(index)"
+            >
               <li class="td_cell">
-                2 documents
+                {{ row.fileNm }}
               </li>
               <li class="td_cell">
-                2 documents
+                {{ row.instNm }}
               </li>
               <li class="td_cell">
-                2 documents
+                {{ row.eigwIfId }}
               </li>
               <li class="td_cell">
-                2 documents
+                {{ row.devRealIp }}
               </li>
               <li class="td_cell">
-                2 documents
+                {{ row.devPort }}
               </li>
               <li class="td_cell">
-                2 documents
+                {{ row.prodRealIp }}
               </li>
               <li class="td_cell">
-                2 documents
+                {{ row.prodPort }}
               </li>
               <li class="td_cell">
-                2 documents
+                {{ row.srFlag }}
               </li>
               <li class="td_cell">
-                2 documents
-              </li>
-              <li class="td_cell">
-                2 documents
-              </li>
-              <li class="td_cell">
-                2 documents
-              </li>
-              <li class="td_cell">
-                2 documents
-              </li>
-              <li class="td_cell">
-                <i class="ico-del" />
-              </li>
-            </ul>
-            <ul class="table_row">
-              <li class="td_cell">
-                q sign
-              </li>
-              <li class="td_cell">
-                q sign
-              </li>
-              <li class="td_cell">
-                q sign
-              </li>
-              <li class="td_cell">
-                q sign
-              </li>
-              <li class="td_cell">
-                q sign
-              </li>
-              <li class="td_cell">
-                q sign
-              </li>
-              <li class="td_cell">
-                q sign
-              </li>
-              <li class="td_cell">
-                q sign
-              </li>
-              <li class="td_cell">
-                q sign
-              </li>
-              <li class="td_cell">
-                q sign
-              </li>
-              <li class="td_cell">
-                q sign
-              </li>
-              <li class="td_cell">
-                q sign
+                <label class="label-default color-black">반려</label>
               </li>
               <li class="td_cell">
                 <i class="ico-del" />
@@ -425,36 +572,38 @@
       <!-- FILE //-->
 
       <div class="row_contain type-2">
-        <div class="column on w-1">
+        <div class="column w-1">
           <label class="column_label">I/F ID(명)</label>
           <div class="search_group">
             <input
+              v-model="fileInfo.eigwIfId"
               type="text"
-              value="OPTGROUP"
+              class="add_text on"
             >
-            <span class="search">
-              <i class="ico-search" />
-            </span>
           </div>
         </div>
         <div class="column w-1">
           <label class="column_label">&nbsp;</label>
           <div class="search_group">
             <input
+              v-model="fileInfo.eigwIfNm"
               type="text"
-              value=""
+              class="add_text on"
             >
-            <span class="search">
-              <i class="ico-search" />
+            <span class="tooltips right ov">
+              <i class="tip_contn"><em class="tip_text">신규 I/F의 경우, EAI에서 등록 후 신청바랍니다.</em></i>
             </span>
           </div>
         </div>
+      </div>
+      <div class="row_contain type-2">
         <div class="column w-1">
           <label class="column_label">대외기관</label>
           <div class="search_group">
             <input
+              v-model="fileInfo.instNm"
               type="text"
-              value=""
+              class="add_text on"
             >
             <span class="search">
               <i class="ico-search" />
@@ -464,315 +613,184 @@
         <div class="column w-1">
           <label class="column_label">파일명</label>
           <input
+            v-model="fileInfo.fileNm"
             type="text"
-            value="channeltype_01"
+            class="add_text on"
           >
-        </div>
-      </div>
-      <!-- ONLINE -->
-      <div class="row_contain type-2">
-        <div class="column w-1">
-          <label class="column_label">연결유형</label>
-          <div class="select_group">
-            <select>
-              <option
-                value=""
-                selected
-              >
-                Client
-              </option>
-              <option value="">
-                N
-              </option>
-            </select>
-            <span class="select" />
-          </div>
         </div>
         <div class="column w-1">
           <label class="column_label">송수신</label>
-          <div class="select_group">
-            <select>
-              <option
-                value=""
-                selected
-              >
-                송신
-              </option>
-              <option value="">
-                수신
-              </option>
-            </select>
-            <span class="select" />
-          </div>
+          <select v-model="fileInfo.srFlag">
+            <option value="S">
+              송신
+            </option>
+            <option value="R">
+              수신
+            </option>
+          </select>
         </div>
         <div class="column w-1">
-          <label class="column_label">연결유형</label>
-          <div class="select_group">
-            <select>
-              <option
-                value=""
-                selected
-              >
-                연결유지
-              </option>
-              <option value="">
-                N
-              </option>
-            </select>
-            <span class="select" />
-          </div>
-        </div>
-        <div class="column w-1" />
-      </div>
-      <!-- ONLINE //-->
-
-      <div class="row_contain type-2">
-        <div class="column w-1">
-          <label class="column_label">송수신</label>
           <input
-            type="text"
-            value=""
+            v-model="fileInfo.instCd"
+            type="hidden"
+            class="add_text on"
           >
-        </div>
-        <div class="column w-1">
-          <label class="column_label">전송주기</label>
-          <input
-            type="text"
-            value=""
-          >
-        </div>
-        <div class="column w-1">
-          <label class="column_label">전송시각</label>
-          <input
-            type="text"
-            value=""
-          >
-        </div>
-        <div class="column w-1" />
-      </div>
-      <div class="row_contain type-2">
-        <div class="column w-2">
-          <label class="column_label">전송방식</label>
-          <div class="radio_group">
-            <span class="default_radio on">
-              <input
-                id="radio_1"
-                type="radio"
-                name="radio_1"
-              >(S)FTP<label for="radio_1"><span /></label>
-            </span>
-            <span class="default_radio tooltips left">
-              <i class="tip_contn"><em class="tip_text">TooltipTooltipTooltip<br>tooltips</em></i>
-              <input
-                id="radio_2"
-                type="radio"
-                name="radio_1"
-              >TCP<label for="radio_2"><span /></label>
-            </span>
-            <span class="default_radio tooltips right ov">
-              <i class="tip_contn"><em class="tip_text">Tooltip Tooltip</em></i>
-              <input
-                id="radio_3"
-                type="radio"
-                name="radio_1"
-              >기타<label for="radio_3"><span /></label>
-            </span>
-          </div>
-        </div>
-        <div class="column w-1" />
-      </div>
-      <div class="row_contain type-2">
-        <div class="column w-1">
-          <label class="column_label">개발 REAL IP</label>
-          <input
-            type="text"
-            value="OPGROUP"
-          >
-        </div>
-        <div class="column w-1">
-          <label class="column_label">개발 Port</label>
-          <input
-            type="text"
-            value=""
-          >
-        </div>
-        <div class="column w-1">
-          <label class="column_label tooltips ov top">운영 REAL IP
-            <span class="tip_contn">
-              <em class="tip_text">Tooltip Tooltip Tooltip
-                <br>Tooltip Tooltip Tooltip
-                <br>Tooltip Tooltip TooltipTooltip Tooltip Tooltip
-                <br>Tooltip Tooltip TooltipTooltip Tooltip Tooltip
-                <br>Tooltip Tooltip TooltipTooltip Tooltip Tooltip
-              </em></span>
-          </label>
-          <input
-            type="text"
-            value="OPGROUP"
-          >
-        </div>
-        <div class="column w-1">
-          <label class="column_label">운영 Port</label>
-          <input
-            type="text"
-            value=""
-            class="tooltips ov bottom"
-          >
-          <span class="tip_contn"><em class="tip_text">Tooltip</em></span>
         </div>
       </div>
-
       <!-- FILE -->
       <div class="row_contain">
-        <div class="column on w-2">
-          <label class="column_label">계정정보</label>
+        <div class="column w-3">
+          <label class="column_label">파일경로</label>
           <input
+            v-model="fileInfo.outPath"
             type="text"
-            value="ID"
+            class="add_text on"
+          >
+        </div>
+        <div class="column w-2">
+          <label class="column_label">계정정보(ID/PW)</label>
+          <input
+            v-model="fileInfo.id"
+            type="text"
+            class="add_text on"
           >
         </div>
         <div class="column w-3">
           <label class="column_label">&nbsp;</label>
           <input
+            v-model="fileInfo.pwd"
             type="text"
-            value="PW"
+            class="add_text on"
           >
         </div>
-        <div class="column w-3">
-          <label class="column_label">경로</label>
-          <input
-            type="text"
-            value=""
-          >
-        </div>
+        <div class="column w-1" />
       </div>
       <!-- FILE //-->
-    </section>
-
-    <section class="border_group">
-      <h5 class="s_tit type-2">
-        담당자 정보
-        <div class="right_button_area">
-          <button
-            type="button"
-            class="default_button on"
+      <div class="row_contain type-2">
+        <div class="column w-1">
+          <label class="column_label">개발 REAL IP</label>
+          <input
+            v-model="fileInfo.devRealIp"
+            type="text"
+            class="add_text on"
           >
-            추가
-          </button>
         </div>
-      </h5>
-      <div class="table_grid">
-        <div class="table_head w-auto except">
-          <ul>
-            <li class="th_cell">
-              기관
-            </li>
-            <li class="th_cell">
-              부서
-            </li>
-            <li class="th_cell">
-              이름
-            </li>
-            <li class="th_cell">
-              연락처
-            </li>
-            <li class="th_cell">
-              E-mail
-            </li>
-            <li class="th_cell" />
-          </ul>
+        <div class="column w-1">
+          <label class="column_label">개발 Port</label>
+          <input
+            v-model="fileInfo.devPort"
+            type="text"
+            class="add_text on"
+          >
         </div>
-        <div class="table_body">
-          <ul class="table_row form_type except w-auto">
-            <li class="td_cell on">
-              <div class="select_group">
-                <select>
-                  <option
-                    value=""
-                    selected
-                  >
-                    대외기관
-                  </option>
-                  <option value="">
-                    유사관련기관
-                  </option>
-                </select>
-                <span class="select" />
-              </div>
-            </li>
-            <li class="td_cell">
-              2 documents
-            </li>
-            <li class="td_cell on">
-              <div class="search_group">
-                <input
-                  type="text"
-                  value="유영준"
-                >
-                <span class="search">
-                  <i class="ico-search" />
-                </span>
-              </div>
-            </li>
-            <li class="td_cell">
-              010-123-1234
-            </li>
-            <li class="td_cell on">
-              <input
-                type="text"
-                value="skcc@skcc.com"
-              >
-            </li>
-            <li class="td_cell">
-              <i class="ico-add" /><i class="ico-edit" /><i class="ico-del" />
-            </li>
-          </ul>
-          <ul class="table_row form_type except w-auto">
-            <li class="td_cell">
-              <div class="select_group">
-                <select>
-                  <option
-                    value=""
-                    selected
-                  >
-                    대외기관
-                  </option>
-                  <option value="">
-                    유사관련기관
-                  </option>
-                </select>
-                <span class="select" />
-              </div>
-            </li>
-            <li class="td_cell">
-              q sign
-            </li>
-            <li class="td_cell">
-              <div class="search_group">
-                <input
-                  type="text"
-                  value=""
-                >
-                <span class="search">
-                  <i class="ico-search" />
-                </span>
-              </div>
-            </li>
-            <li class="td_cell">
-              010-000-0000
-            </li>
-            <li class="td_cell">
-              gmail@gmail.com
-            </li>
-            <li class="td_cell">
-              <i class="ico-add" /><i class="ico-edit" /><i class="ico-del" />
-            </li>
-          </ul>
+        <div class="column w-1">
+          <label class="column_label">운영 REAL IP</label>
+          <input
+            v-model="fileInfo.prodRealIp"
+            type="text"
+            class="add_text on"
+          >
+        </div>
+        <div class="column w-1">
+          <label class="column_label">운영 Port</label>
+          <input
+            v-model="fileInfo.prodPort"
+            type="text"
+            class="add_text on"
+          >
+        </div>
+      </div>
+      <div class="row_contain type-2">
+        <div class="column w-1">
+          <label class="column_label">운영 담당자1</label>
+          <div class="search_group">
+            <input
+              v-model="fileInfo.inuserNm1"
+              type="text"
+              class="add_text on"
+            >
+            <span class="search">
+              <i class="ico-search" />
+            </span>
+          </div>
+        </div>
+        <div class="column w-1">
+          <label class="column_label">운영 담당자2</label>
+          <div class="search_group">
+            <input
+              v-model="fileInfo.inuserNm2"
+              type="text"
+              class="add_text on"
+            >
+            <span class="search">
+              <i class="ico-search" />
+            </span>
+          </div>
+        </div>
+        <div class="column w-1">
+          <div class="search_group">
+            <input
+              v-model="fileInfo.inuserId1"
+              type="hidden"
+              class="add_text on"
+            >
+          </div>
+        </div>
+        <div class="column w-1">
+          <div class="search_group">
+            <input
+              v-model="fileInfo.inuserId2"
+              type="hidden"
+              class="add_text on"
+            >
+          </div>
+        </div>
+        <div class="column w-1" />
+      </div>
+      <div class="row_contain type-2">
+        <div class="column w-1">
+          <label class="column_label">대외 담당자 이름</label>
+          <input
+            v-model="fileInfo.outuserNm"
+            type="text"
+            class="add_text on"
+          >
+        </div>
+        <div class="column w-1">
+          <label class="column_label">기관</label>
+          <input
+            v-model="fileInfo.outInstCd"
+            type="text"
+            class="add_text on"
+          >
+        </div>
+        <div class="column w-1">
+          <label class="column_label">직급</label>
+          <input
+            v-model="fileInfo.ofcLvlCd"
+            type="text"
+            class="add_text on"
+          >
+        </div>
+        <div class="column w-1">
+          <label class="column_label">핸드폰</label>
+          <input
+            v-model="fileInfo.mblPhonNum"
+            type="text"
+            class="add_text on"
+          >
+        </div>
+        <div class="column w-1">
+          <label class="column_label">E-mail</label>
+          <input
+            v-model="fileInfo.emailAddr"
+            type="text"
+            class="add_text on"
+          >
         </div>
       </div>
     </section>
 
-    <!-- ONLINE -->
     <section class="form_area border_group style-1">
       <h5 class="s_tit">
         비고
@@ -781,19 +799,176 @@
         <div class="column w-6">
           <label class="column_label">추가요청사항</label>
           <textarea
+            v-model="eigwRmk"
             cols="50"
             row="5"
-            placeholder="요청사항 입니다."
+            placeholder="위의 항목 외 추가 요청사항을 적어주시기바랍니다."
           />
         </div>
       </div>
     </section>
-    <!-- ONLINE //-->
   </div>
 </template>
 
 <script>
+import InstListPopup from '@/components/popup/bizcomm/InstListPopup.vue';
+
 export default {
   name: 'RegStep2EIGW',
+  components: {
+    InstListPopup,
+  },
+  data() {
+    return {
+      svrOnInstList: false,
+      propsInstList: { // 조회 시 parameter에 사용자 정보를 담아주려면 여기를 통해 넘겨주세요.
+        message: '', // 사용방법 예시 데이터
+      },
+
+      reqNum: '',
+      eigwReqNum: '',
+      eigwType: '',
+      rmk: '',
+
+      onlineList: [],
+      fileList: [],
+      pageSet: { pageNo: 1, pageCount: 0, size: 5 },
+      onlineInfo: {
+        eigwIfId: '',
+        eigwIfNm: '',
+        eigwType: '',
+        dablInflu: '',
+        procSt: '',
+        eigwRmk: '',
+        instCd: '',
+        pgmTyp: '',
+        linkTyp: '',
+        srFlag: '',
+        instNm: '',
+        devRealIp: '',
+        devPort: '',
+        prodRealIp: '',
+        prodPort: '',
+        inuserNm1: '',
+        inuserNm2: '',
+        inuserId1: '',
+        inuserId2: '',
+        outuserNm: '',
+        outuserCd: '',
+        ofcLvlCd: '',
+        mblPhonNum: '',
+        emailAddr: '',
+      },
+      fileInfo: {
+        eigwIfId: '',
+        eigwIfNm: '',
+        eigwType: '',
+        dablInflu: '',
+        procSt: '',
+        eigwRmk: '',
+        instCd: '',
+        srFlag: '',
+        instNm: '',
+        devRealIp: '',
+        devPort: '',
+        prodRealIp: '',
+        prodPort: '',
+        fileNm: '',
+        inPath: '',
+        outPath: '',
+        id: '',
+        pwd: '',
+        inuserNm1: '',
+        inuserNm2: '',
+        inuserId1: '',
+        inuserId2: '',
+        outuserNm: '',
+        outuserCd: '',
+        ofcLvlCd: '',
+        mblPhonNum: '',
+        emailAddr: '',
+      },
+    };
+  },
+  methods: {
+    searchList() {
+      this.$axios.get('/api/eigw/ifReqList', {
+        params: {
+          reqNum: '1',
+        },
+      })
+        .then((res) => {
+          console.log(res);
+          if (res.data.rstCd === 'S') {
+            this.fileList = res.data.rstData.fileList;
+            this.onlineList = res.data.rstData.onlineList;
+          } else {
+            this.$gf.alertOn('failed');
+          }
+        })
+        .catch((ex) => {
+          console.log(`error occur!! : ${ex}`);
+        });
+    },
+    addOnlineInfo() {
+      this.onlineList.push({
+        eigwIfId: this.onlineInfo.eigwIfId,
+        eigwIfNm: this.onlineInfo.eigwIfNm,
+        instNm: this.onlineInfo.instNm,
+        instCd: this.onlineInfo.instCd,
+        eigwType: 'online',
+        procSt: this.onlineInfo.procSt,
+        eigwRmk: this.eigwRmk,
+        pgmTyp: this.onlineInfo.pgmTyp,
+        linkTyp: this.onlineInfo.linkTyp,
+        devRealIp: this.onlineInfo.devRealIp,
+        devPort: this.onlineInfo.devPort,
+        prodRealIp: this.onlineInfo.prodRealIp,
+        prodPort: this.onlineInfo.prodPort,
+        inuserId1: this.onlineInfo.inuserId1,
+        inuserId2: this.onlineInfo.inuserId2,
+        outUserInfo: this.onlineInfo.outuserNm + '/' + this.onlineInfo.outInstCd + '/' + this.onlineInfo.ofcLvlCd + '/' + this.onlineInfo.mblPhonNum+ '/' + this.onlineInfo.emailAddr,
+      });
+    },
+    addFileInfo() {
+      this.fileList.push({
+        eigwIfId: this.fileInfo.eigwIfId,
+        eigwIfNm: this.fileInfo.eigwIfNm,
+        instNm: this.fileInfo.instNm,
+        instCd: this.fileInfo.instCd,
+        eigwType: 'file',
+        procSt: this.fileInfo.procSt,
+        eigwRmk: this.eigwRmk,
+        srFlag: this.fileInfo.srFlag,
+        outPath: this.fileInfo.outPath,
+        devRealIp: this.fileInfo.devRealIp,
+        devPort: this.fileInfo.devPort,
+        prodRealIp: this.fileInfo.prodRealIp,
+        prodPort: this.fileInfo.prodPort,
+        inuserId1: this.fileInfo.inuserId1,
+        inuserId2: this.fileInfo.inuserId2,
+        outUserInfo: this.fileInfo.outuserNm,
+      });
+    },
+    turnOnSvrPopInstList(val) {
+      this.instPopupCase = val;
+      this.svrOnInstList = true;
+    },
+    turOffSvrPopInstList(val) {
+      console.log(`Popup에서 받아온 Data : ${val}`);
+      this.svrOnInstList = false;
+    },
+    addDataInstList(val) {
+      console.log(`Popup에서 받아온 Data : ${val}`);
+      if (this.instPopupCase === 1) {
+        this.instCd = val.instCd;
+        this.instNm = val.instNm;
+      } else {
+        this.fileIfMst.instCd = val.instCd;
+        this.fileIfMst.instNm = val.instNm;
+      }
+      this.svrOnInstList = false;
+    },
+  },
 };
 </script>
