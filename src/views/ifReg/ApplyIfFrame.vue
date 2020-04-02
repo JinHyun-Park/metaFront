@@ -139,9 +139,11 @@ export default {
     },
     tempSave() {
       console.log('tempSave');
-      eventBus.$emit('tempSave1');
-      eventBus.$emit('tempSave2', { dat: 'data1111' });
-      eventBus.$emit('tempSave3', 'data222222');
+      eventBus.$emit('Step2EaiSave');
+
+      // eventBus.$emit('tempSave1');
+      // eventBus.$emit('tempSave2', { dat: 'data1111' });
+      // eventBus.$emit('tempSave3', 'data222222');
     },
   },
 };

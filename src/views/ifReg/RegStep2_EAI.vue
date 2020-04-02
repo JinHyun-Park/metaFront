@@ -704,6 +704,7 @@ import { mapState, mapActions } from 'vuex';
 import { fetchGetEaiRegSvrList, fetchGetEaiRegIfList } from '@/api/eaiApi';
 
 import ChrgrListPopup from '@/components/popup/bizcomm/ChrgrListPopup.vue';
+import eventBus from '@/utils/eventBus';
 
 export default {
   name: 'RegStep2EAI',
@@ -846,6 +847,15 @@ export default {
   computed: {
     ...mapState('ccCdLst', ['ccCdList']),
   },
+  created() {
+    eventBus.$on('Step2EaiSave', () => {
+      console.log('event Bus 통해 eai 저장');
+      this.saveEaiRegTemp();
+    });
+  },
+  destroyBefore() {
+    eventBus.$off('Step2EaiSave');
+  },
   mounted() {
     this.eaiIfList.splice(this.eaiIfList.indexOf(0), 1);
     this.setCcCdList({
@@ -921,6 +931,7 @@ export default {
 
 
     saveEaiRegTemp() {
+      console.log('eai 임시저장 함수 시작');
       this.svrRows.splice(0, this.svrRows.length);
 
       for (let i = 0; i < this.sndRows.length; i++) {
@@ -947,7 +958,7 @@ export default {
       this.$axios.post('/api/eai/regTemp', this.regList)
         .then((res) => {
           console.log(res);
-          this.$gf.alertOn('작성하신 내용이 임시저장 되었습니다');
+          this.$gf.alertOn('작성하신 EAI 내용이 임시저장 되었습니다');
         })
         .catch((ex) => {
           console.log(`오류가 발생하였습니다 : ${ex}`);
