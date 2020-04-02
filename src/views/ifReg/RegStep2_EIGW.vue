@@ -23,13 +23,6 @@
         <div class="right_button_area">
           <button
             type="button"
-            class="default_button"
-            @click="onlineUpdate()"
-          >
-            수정
-          </button>
-          <button
-            type="button"
             class="default_button on"
             @click="addOnlineInfo()"
           >
@@ -41,6 +34,13 @@
             @click="searchList()"
           >
             조회
+          </button>
+          <button
+            type="button"
+            class="default_button on"
+            @click="saveTest()"
+          >
+            임시저장 Test
           </button>
         </div>
       </h5>
@@ -309,104 +309,13 @@
         </div>
         <div class="column w-1" />
       </div>
-
-      <div class="row_contain type-2">
-        <div class="column w-1">
-          <label class="column_label">운영 담당자1</label>
-          <div class="search_group">
-            <input
-              v-model="onlineInfo.inuserNm1"
-              type="text"
-              class="add_text on"
-            >
-            <span class="search">
-              <i class="ico-search" />
-            </span>
-          </div>
-        </div>
-        <div class="column w-1">
-          <label class="column_label">운영 담당자2</label>
-          <div class="search_group">
-            <input
-              v-model="onlineInfo.inuserNm2"
-              type="text"
-              class="add_text on"
-            >
-            <span class="search">
-              <i class="ico-search" />
-            </span>
-          </div>
-        </div>
-        <div class="column w-1">
-          <div class="search_group">
-            <input
-              v-model="onlineInfo.inuserId1"
-              type="hidden"
-              class="add_text on"
-            >
-          </div>
-        </div>
-        <div class="column w-1">
-          <div class="search_group">
-            <input
-              v-model="onlineInfo.inuserId2"
-              type="hidden"
-              class="add_text on"
-            >
-          </div>
-        </div>
-        <div class="column w-1" />
-      </div>
-
-      <div class="row_contain type-2">
-        <div class="column w-1">
-          <label class="column_label">대외 담당자 이름</label>
-          <input
-            v-model="onlineInfo.outuserNm"
-            type="text"
-            class="add_text on"
-          >
-        </div>
-        <div class="column w-1">
-          <label class="column_label">기관</label>
-          <input
-            v-model="onlineInfo.outInstCd"
-            type="text"
-            class="add_text on"
-          >
-        </div>
-        <div class="column w-1">
-          <label class="column_label">직급</label>
-          <input
-            v-model="onlineInfo.ofcLvlCd"
-            type="text"
-            class="add_text on"
-          >
-        </div>
-        <div class="column w-1">
-          <label class="column_label">핸드폰</label>
-          <input
-            v-model="onlineInfo.mblPhonNum"
-            type="text"
-            class="add_text on"
-          >
-        </div>
-        <div class="column w-1">
-          <label class="column_label">E-mail</label>
-          <input
-            v-model="onlineInfo.emailAddr"
-            type="text"
-            class="add_text on"
-          >
-        </div>
-      </div>
       <h5 class="s_tit type-2">
         담당자 정보
         <div class="right_button_area">
           <button
             type="button"
-            class="default_button"
-            @click="addchrgrList(1)"
+            class="default_button on"
+            @click="addOnlineChrgrRow()"
           >
             추가
           </button>
@@ -417,16 +326,19 @@
           <div class="table_head w-auto except">
             <ul>
               <li class="th_cell">
+                구분
+              </li>
+              <li class="th_cell">
                 기관
               </li>
               <li class="th_cell">
                 이름
               </li>
               <li class="th_cell">
-                조직
+                직급
               </li>
               <li class="th_cell">
-                핸드폰
+                연락처
               </li>
               <li class="th_cell">
                 E-mail
@@ -438,29 +350,65 @@
           </div>
           <div class="table_body">
             <ul
-              v-for="(inchrgr, i) in inChrgrList"
-              :key="inchrgr.userId"
-              class="table_row w-auto"
+              v-for="(row, i) in userList"
+              :key="row.userId"
+              class="table_row form_type except w-auto"
             >
               <li class="td_cell">
-                {{ inchrgr.instNm }}
+                <div class="select_group">
+                  <select v-model="row.chrgrType">
+                    <option value="in">
+                      내부운영
+                    </option>
+                    <option value="out">
+                      대외기관
+                    </option>
+                  </select>
+                  <span class="select" />
+                </div>
               </li>
               <li class="td_cell">
-                {{ inchrgr.hanNm }}
+                <input
+                  v-model="row.instNm"
+                  type="text"
+                >
               </li>
               <li class="td_cell">
-                {{ inchrgr.orgCd }}
+                <input
+                  v-model="row.hanNm"
+                  type="text"
+                >
               </li>
               <li class="td_cell">
-                {{ inchrgr.mblPhonNum }}
+                <div class="select_group">
+                  <select v-model="row.ofcLvlCd">
+                    <option
+                      v-for="(code, n) in ccCdList.ofcLvlCd"
+                      :key="n"
+                      :value="code.cdDtlId"
+                    >
+                      {{ code.cdNm }}
+                    </option>
+                  </select>
+                  <span class="select" />
+                </div>
               </li>
               <li class="td_cell">
-                {{ inchrgr.emailAddr }}
+                <input
+                  v-model="row.mblPhonNum"
+                  type="text"
+                >
+              </li>
+              <li class="td_cell">
+                <input
+                  v-model="row.emailAddr"
+                  type="text"
+                >
               </li>
               <td class="td_cell">
                 <i
                   class="ico-del"
-                  @click="delInList(i)"
+                  @click="delOutList(i)"
                 />
               </td>
             </ul>
@@ -473,13 +421,6 @@
       <h5 class="s_tit type-2">
         파일 인터페이스 정보
         <div class="right_button_area">
-          <button
-            type="button"
-            class="default_button"
-            @click="fileUpdate()"
-          >
-            수정
-          </button>
           <button
             type="button"
             class="default_button on"
@@ -699,93 +640,115 @@
           >
         </div>
       </div>
-      <div class="row_contain type-2">
-        <div class="column w-1">
-          <label class="column_label">운영 담당자1</label>
-          <div class="search_group">
-            <input
-              v-model="fileInfo.inuserNm1"
-              type="text"
-              class="add_text on"
-            >
-            <span class="search">
-              <i class="ico-search" />
-            </span>
+      <h5 class="s_tit type-2">
+        담당자 정보
+        <div class="right_button_area">
+          <button
+            type="button"
+            class="default_button on"
+          >
+            내부운영 추가
+          </button>
+          <button
+            type="button"
+            class="default_button on"
+          >
+            대외기관 추가
+          </button>
+        </div>
+      </h5>
+      <div class="table_colgroup">
+        <div class="table_grid">
+          <div class="table_head w-auto except">
+            <ul>
+              <li class="th_cell">
+                구분
+              </li>
+              <li class="th_cell">
+                기관
+              </li>
+              <li class="th_cell">
+                이름
+              </li>
+              <li class="th_cell">
+                직급
+              </li>
+              <li class="th_cell">
+                연락처
+              </li>
+              <li class="th_cell">
+                E-mail
+              </li>
+              <li class="th_cell">
+                삭제
+              </li>
+            </ul>
           </div>
-        </div>
-        <div class="column w-1">
-          <label class="column_label">운영 담당자2</label>
-          <div class="search_group">
-            <input
-              v-model="fileInfo.inuserNm2"
-              type="text"
-              class="add_text on"
+          <div class="table_body">
+            <ul
+              v-for="(row, i) in fileUserList"
+              :key="row.userId"
+              class="table_row form_type except w-auto"
             >
-            <span class="search">
-              <i class="ico-search" />
-            </span>
+              <li class="td_cell">
+                <div class="select_group">
+                  <select v-model="row.chrgrType">
+                    <option value="in">
+                      내부운영
+                    </option>
+                    <option value="out">
+                      대외기관
+                    </option>
+                  </select>
+                  <span class="select" />
+                </div>
+              </li>
+              <li class="td_cell">
+                <input
+                  v-model="row.instNm"
+                  type="text"
+                >
+              </li>
+              <li class="td_cell">
+                <input
+                  v-model="row.hanNm"
+                  type="text"
+                >
+              </li>
+              <li class="td_cell">
+                <div class="select_group">
+                  <select v-model="row.ofcLvlCd">
+                    <option
+                      v-for="(code, n) in ccCdList.ofcLvlCd"
+                      :key="n"
+                      :value="code.cdDtlId"
+                    >
+                      {{ code.cdNm }}
+                    </option>
+                  </select>
+                  <span class="select" />
+                </div>
+              </li>
+              <li class="td_cell">
+                <input
+                  v-model="row.mblPhonNum"
+                  type="text"
+                >
+              </li>
+              <li class="td_cell">
+                <input
+                  v-model="row.emailAddr"
+                  type="text"
+                >
+              </li>
+              <td class="td_cell">
+                <i
+                  class="ico-del"
+                  @click="delOutList(i)"
+                />
+              </td>
+            </ul>
           </div>
-        </div>
-        <div class="column w-1">
-          <div class="search_group">
-            <input
-              v-model="fileInfo.inuserId1"
-              type="hidden"
-              class="add_text on"
-            >
-          </div>
-        </div>
-        <div class="column w-1">
-          <div class="search_group">
-            <input
-              v-model="fileInfo.inuserId2"
-              type="hidden"
-              class="add_text on"
-            >
-          </div>
-        </div>
-        <div class="column w-1" />
-      </div>
-      <div class="row_contain type-2">
-        <div class="column w-1">
-          <label class="column_label">대외 담당자 이름</label>
-          <input
-            v-model="fileInfo.outuserNm"
-            type="text"
-            class="add_text on"
-          >
-        </div>
-        <div class="column w-1">
-          <label class="column_label">기관</label>
-          <input
-            v-model="fileInfo.outInstCd"
-            type="text"
-            class="add_text on"
-          >
-        </div>
-        <div class="column w-1">
-          <label class="column_label">직급</label>
-          <input
-            v-model="fileInfo.ofcLvlCd"
-            type="text"
-            class="add_text on"
-          >
-        </div>
-        <div class="column w-1">
-          <label class="column_label">핸드폰</label>
-          <input
-            v-model="fileInfo.mblPhonNum"
-            type="text"
-            class="add_text on"
-          >
-        </div>
-        <div class="column w-1">
-          <label class="column_label">E-mail</label>
-          <input
-            v-model="fileInfo.emailAddr"
-            type="text"
-            class="add_text on"
-          >
         </div>
       </div>
     </section>
@@ -810,6 +773,7 @@
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex';
 import InstListPopup from '@/components/popup/bizcomm/InstListPopup.vue';
 
 export default {
@@ -824,13 +788,27 @@ export default {
         message: '', // 사용방법 예시 데이터
       },
 
-      reqNum: '',
+      reqNum: 1,
       eigwReqNum: '',
       eigwType: '',
-      rmk: '',
+      eigwRmk: '',
+      procSt: '',
 
+      onlineSaveData: {},
       onlineList: [],
       fileList: [],
+      userList: [
+        {
+          chrgrType: '',
+          userId: '',
+          instNm: '',
+          instCd: '',
+          hanNm: '',
+          ofcLvlCd: '',
+          mblPhonNum: '',
+          emailAddr: '',
+        },
+      ],
       pageSet: { pageNo: 1, pageCount: 0, size: 5 },
       onlineInfo: {
         eigwIfId: '',
@@ -848,15 +826,6 @@ export default {
         devPort: '',
         prodRealIp: '',
         prodPort: '',
-        inuserNm1: '',
-        inuserNm2: '',
-        inuserId1: '',
-        inuserId2: '',
-        outuserNm: '',
-        outuserCd: '',
-        ofcLvlCd: '',
-        mblPhonNum: '',
-        emailAddr: '',
       },
       fileInfo: {
         eigwIfId: '',
@@ -877,23 +846,26 @@ export default {
         outPath: '',
         id: '',
         pwd: '',
-        inuserNm1: '',
-        inuserNm2: '',
-        inuserId1: '',
-        inuserId2: '',
-        outuserNm: '',
-        outuserCd: '',
-        ofcLvlCd: '',
-        mblPhonNum: '',
-        emailAddr: '',
       },
     };
   },
+  computed: {
+    ...mapState('frameSet', ['resetPopOn']),
+    ...mapState('ccCdLst', ['ccCdList']),
+  },
+  mounted() {
+    this.setCcCdList({
+      opClCd: 'EIGW', cdId: 'OFC_LVL_CD', allYn: 'Y', listNm: 'ofcLvlCd',
+    });
+  },
   methods: {
+    ...mapActions('frameSet', ['setResetPopOn']),
+    ...mapActions('ccCdLst', ['setCcCdList']),
     searchList() {
       this.$axios.get('/api/eigw/ifReqList', {
         params: {
           reqNum: '1',
+          procSt: '1',
         },
       })
         .then((res) => {
@@ -911,12 +883,13 @@ export default {
     },
     addOnlineInfo() {
       this.onlineList.push({
+        reqNum: this.reqNum,
         eigwIfId: this.onlineInfo.eigwIfId,
         eigwIfNm: this.onlineInfo.eigwIfNm,
         instNm: this.onlineInfo.instNm,
         instCd: this.onlineInfo.instCd,
         eigwType: 'online',
-        procSt: this.onlineInfo.procSt,
+        procSt: 1,
         eigwRmk: this.eigwRmk,
         pgmTyp: this.onlineInfo.pgmTyp,
         linkTyp: this.onlineInfo.linkTyp,
@@ -924,10 +897,23 @@ export default {
         devPort: this.onlineInfo.devPort,
         prodRealIp: this.onlineInfo.prodRealIp,
         prodPort: this.onlineInfo.prodPort,
-        inuserId1: this.onlineInfo.inuserId1,
-        inuserId2: this.onlineInfo.inuserId2,
-        outUserInfo: `${this.onlineInfo.outuserNm}/${this.onlineInfo.outInstCd}/${this.onlineInfo.ofcLvlCd}/${this.onlineInfo.mblPhonNum}/${this.onlineInfo.emailAddr}`,
+        userList: this.userList,
       });
+
+      this.onlineSaveData = { onlineList: this.onlineList, reqNum: this.reqNum };
+      console.log(this.onlineSaveData);
+
+      this.emptyIfFields();
+    },
+    saveTest() {
+      this.$axios.post('/api/eigw/ifReqInfo', this.onlineSaveData)
+        .then((res) => {
+          console.log(res);
+          this.$gf.alertOn('저장 되었습니다');
+        })
+        .catch((ex) => {
+          console.log(`오류가 발생하였습니다 : ${ex}`);
+        });
     },
     addFileInfo() {
       this.fileList.push({
@@ -936,7 +922,7 @@ export default {
         instNm: this.fileInfo.instNm,
         instCd: this.fileInfo.instCd,
         eigwType: 'file',
-        procSt: this.fileInfo.procSt,
+        procSt: 1,
         eigwRmk: this.eigwRmk,
         srFlag: this.fileInfo.srFlag,
         outPath: this.fileInfo.outPath,
@@ -944,10 +930,36 @@ export default {
         devPort: this.fileInfo.devPort,
         prodRealIp: this.fileInfo.prodRealIp,
         prodPort: this.fileInfo.prodPort,
-        inuserId1: this.fileInfo.inuserId1,
-        inuserId2: this.fileInfo.inuserId2,
-        outUserInfo: this.fileInfo.outuserNm,
       });
+    },
+    emptyIfFields() {
+      this.onlineInfo.eigwIfId = '';
+      this.onlineInfo.eigwIfNm = '';
+      this.onlineInfo.instNm = '';
+      this.onlineInfo.instCd = '';
+      this.eigwRmk = '';
+      this.onlineInfo.pgmTyp = '';
+      this.onlineInfo.linkTyp = '';
+      this.onlineInfo.devRealIp = '';
+      this.onlineInfo.devPort = '';
+      this.onlineInfo.prodRealIp = '';
+      this.onlineInfo.prodPort = '';
+      this.userList = [
+        {
+          chrgrType: '',
+          userId: '',
+          instNm: '',
+          instCd: '',
+          hanNm: '',
+          ofcLvlCd: '',
+          mblPhonNum: '',
+          emailAddr: '',
+        },
+      ];
+    },
+    addOnlineChrgrRow(n) {
+      console.log('행 추가!');
+      this.userList.splice(n + 1, 0, {});
     },
     turnOnSvrPopInstList(val) {
       this.instPopupCase = val;
