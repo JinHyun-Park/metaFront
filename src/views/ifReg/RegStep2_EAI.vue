@@ -805,6 +805,7 @@ export default {
           reqNum: '',
           eaiIfNmKor: '',
           eaiIfNmEng: '',
+          ifDesc: '',
           ifTypCd: '',
           drctnCd: '',
           roundTypCd: '',
