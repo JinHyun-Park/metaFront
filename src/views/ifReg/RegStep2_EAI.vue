@@ -24,22 +24,40 @@
         <div class="table_grid tb_layout">
           <div class="table_head w-auto">
             <ul>
-              <li class="th_cell">
+              <li
+                class="th_cell"
+                style="width:5%"
+              >
                 서버 유형
               </li>
-              <li class="th_cell">
+              <li
+                class="th_cell"
+                style="width:10%"
+              >
                 시스템명
               </li>
-              <li class="th_cell">
+              <li
+                class="th_cell"
+                style="width:10%"
+              >
                 Hostname
               </li>
-              <li class="th_cell">
+              <li
+                class="th_cell"
+                style="width:10%"
+              >
                 IP  ( VIP or 대표 IP )
               </li>
-              <li class="th_cell">
+              <li
+                class="th_cell"
+                style="width:10%"
+              >
                 IP ( NAT IP )
               </li>
-              <li class="th_cell">
+              <li
+                class="th_cell"
+                style="width:10%"
+              >
                 IP ( 추가 )
               </li>
               <li class="th_cell">
@@ -61,7 +79,9 @@
             >
               <li class="td_cell">
                 <div class="select_group">
-                  <select v-model="sndRow.svrTypCd">
+                  <select
+                    v-model="sndRow.svrTypCd"
+                  >
                     <option
                       v-for="(code, i) in ccCdList.svrTypCd"
                       :key="i"
@@ -135,22 +155,40 @@
         <div class="table_grid tb_layout">
           <div class="table_head w-auto">
             <ul>
-              <li class="th_cell">
+              <li
+                class="th_cell"
+                style="width:5%"
+              >
                 서버 유형
               </li>
-              <li class="th_cell">
+              <li
+                class="th_cell"
+                style="width:10%"
+              >
                 시스템명
               </li>
-              <li class="th_cell">
+              <li
+                class="th_cell"
+                style="width:10%"
+              >
                 Hostname
               </li>
-              <li class="th_cell">
+              <li
+                class="th_cell"
+                style="width:10%"
+              >
                 IP ( VIP or 대표 IP )
               </li>
-              <li class="th_cell">
+              <li
+                class="th_cell"
+                style="width:10%"
+              >
                 IP ( NAT IP )
               </li>
-              <li class="th_cell">
+              <li
+                class="th_cell"
+                style="width:10%"
+              >
                 IP ( 추가 )
               </li>
               <li class="th_cell">
@@ -251,43 +289,49 @@
             <ul>
               <li
                 class="th_cell"
-                style="width:30%"
+                style="width:15%"
+              >
+                EAI 인터페이스ID
+              </li>
+              <li
+                class="th_cell"
+                style="width:15%"
               >
                 인터페이스명
               </li>
               <li
                 class="th_cell"
-                style="width:30%"
+                style="width:15%"
               >
                 인터페이스명(영문)
               </li>
               <li
                 class="th_cell"
-                style="width:10%"
+                style="width:5%"
               >
                 연동 방향
               </li>
               <li
                 class="th_cell"
-                style="width:5%"
+                style="width:3%"
               >
                 연동 방식
               </li>
               <li
                 class="th_cell"
-                style="width:5%"
+                style="width:3%"
               >
                 단/양방향
               </li>
               <li
                 class="th_cell"
-                style="width:10%"
+                style="width:5%"
               >
                 요청 처리 방식
               </li>
               <li
                 class="th_cell"
-                style="width:5%"
+                style="width:3%"
               >
                 삭제
               </li>
@@ -298,24 +342,47 @@
               v-for="(eaiIf, i) in eaiIfList"
               :key="i"
               class="table_row w-auto"
-              @click="getDetailInfo(eaiIf)"
             >
-              <li class="td_cell on">
+              <li
+                class="td_cell on"
+                @click="getDetailInfo(eaiIf)"
+              >
+                {{ eaiIf.eaiIfId }}
+              </li>
+              <li
+                class="td_cell on"
+                @click="getDetailInfo(eaiIf)"
+              >
                 {{ eaiIf.eaiIfNmKor }}
               </li>
-              <li class="td_cell on">
+              <li
+                class="td_cell on"
+                @click="getDetailInfo(eaiIf)"
+              >
                 {{ eaiIf.eaiIfNmEng }}
               </li>
-              <li class="td_cell">
+              <li
+                class="td_cell"
+                @click="getDetailInfo(eaiIf)"
+              >
                 {{ eaiIf.drctnNm }}
               </li>
-              <li class="td_cell">
+              <li
+                class="td_cell"
+                @click="getDetailInfo(eaiIf)"
+              >
                 {{ eaiIf.ifTypNm }}
               </li>
-              <li class="td_cell">
+              <li
+                class="td_cell"
+                @click="getDetailInfo(eaiIf)"
+              >
                 {{ eaiIf.roundTypNm }}
               </li>
-              <li class="td_cell">
+              <li
+                class="td_cell"
+                @click="getDetailInfo(eaiIf)"
+              >
                 {{ eaiIf.syncTypNm }}
               </li>
               <li class="td_cell">
@@ -352,6 +419,15 @@
       </h5>
       <div class="row_contain">
         <div class="column w-2">
+          <label class="column_label"> EAI 인터페이스ID</label>
+          <input
+            v-model="eaiIfId"
+            type="text"
+            oninput="this.value = this.value.toUpperCase()"
+            placeholder="신청 승인 후 발급되며 별도로 희망하는 ID가 있는 경우만 기입 바랍니다."
+          >
+        </div>
+        <div class="column w-2">
           <label class="column_label">인터페이스명</label>
           <input
             v-model="eaiIfNmKor"
@@ -381,7 +457,10 @@
         <div class="column w-1">
           <label class="column_label">연동 방향</label>
           <div class="select_group">
-            <select v-model="drctnCd">
+            <select
+              v-model="drctnCd"
+              @change="onChangeDrctnCd()"
+            >
               <option
                 v-for="(code, i) in ccCdList.drctnCd"
                 :key="i"
@@ -734,6 +813,7 @@ export default {
       ifTypNm: '',
       roundTypNm: '',
       syncTypNm: '',
+      eaiIfId: '',
       eaiIfNmEng: '',
       eaiIfNmKor: '',
       ifDesc: '',
@@ -775,6 +855,7 @@ export default {
         {
           reqNum: '',
           sndRcvCl: '',
+          sysTypCd: '',
           svrTypCd: '',
           sysNm: '',
           hostNm: '',
@@ -790,6 +871,7 @@ export default {
         {
           reqNum: '',
           sndRcvCl: '',
+          sysTypCd: '',
           svrTypCd: '',
           sysNm: '',
           hostNm: '',
@@ -804,6 +886,7 @@ export default {
       eaiIfList: [
         {
           reqNum: '',
+          eaiIfId: '',
           eaiIfNmKor: '',
           eaiIfNmEng: '',
           ifDesc: '',
@@ -847,6 +930,7 @@ export default {
   computed: {
     ...mapState('ccCdLst', ['ccCdList']),
   },
+
   created() {
     eventBus.$on('Step2EaiSave', () => {
       console.log('event Bus 통해 eai 저장');
@@ -856,6 +940,7 @@ export default {
   destroyBefore() {
     eventBus.$off('Step2EaiSave');
   },
+
   mounted() {
     this.eaiIfList.splice(this.eaiIfList.indexOf(0), 1);
     this.setCcCdList({
@@ -977,6 +1062,7 @@ export default {
       } else {
         this.sndRows[0].reqNum = '';
         this.sndRows[0].sndRcvCl = '';
+        this.sndRows[0].sysTypCd = '';
         this.sndRows[0].svrTypCd = '';
         this.sndRows[0].sysNm = '';
         this.sndRows[0].hostNm = '';
@@ -1001,6 +1087,7 @@ export default {
       } else {
         this.rcvRows[0].reqNum = '';
         this.rcvRows[0].sndRcvCl = '';
+        this.rcvRows[0].sysTypCd = '';
         this.rcvRows[0].svrTypCd = '';
         this.rcvRows[0].sysNm = '';
         this.rcvRows[0].hostNm = '';
@@ -1012,7 +1099,21 @@ export default {
         this.rcvRows[0].procSt = '';
       }
     },
-    onChangeDrctnTypCd() {
+    onChangeSndSysTypCd(code, index) {
+      if (code === '1') {
+        this.sndRows[index].sysNm = 'SWING';
+      } else if (this.sndRows[index].sysNm === 'SWING') {
+        this.sndRows[index].sysNm = '';
+      }
+    },
+    onChangeRcvSysTypCd(code, index) {
+      if (code === '1') {
+        this.rcvRows[index].sysNm = 'SWING';
+      } else if (this.rcvRows[index].sysNm === 'SWING') {
+        this.rcvRows[index].sysNm = '';
+      }
+    },
+    onChangeDrctnCd() {
       for (let i = 0; i < this.ccCdList.drctnCd.length; i++) {
         if (this.ccCdList.drctnCd[i].cdDtlId === this.drctnCd) {
           this.drctnNm = this.ccCdList.drctnCd[i].cdNm;
@@ -1124,12 +1225,13 @@ export default {
       return 1;
     },
     addNewIf() {
+      /*
       if (this.checkFields() === 0) {
         return;
       }
-
-
+      */
       this.eaiIfList.push({
+        eaiIfId: this.eaiIfId,
         eaiIfNmKor: this.eaiIfNmKor,
         eaiIfNmEng: this.eaiIfNmEng,
         drctnCd: this.drctnCd,
@@ -1179,6 +1281,8 @@ export default {
       this.eaiIfList.splice(idx, 1);
 
       this.emptyIfFields();
+
+      // this.$gf.alertOn(`인터페이스명 : ${this.eaiIfNmKor}`);
     },
     updateIf() {
       if (this.currRow.length === 0) {
@@ -1188,6 +1292,7 @@ export default {
       if (this.checkFields() === 0) {
         return;
       }
+      this.currRow.eaiIfId = this.eaiIfId;
       this.currRow.eaiIfNmKor = this.eaiIfNmKor;
       this.currRow.eaiIfNmEng = this.eaiIfNmEng;
       this.currRow.ifDesc = this.ifDesc;
@@ -1230,6 +1335,7 @@ export default {
       this.emptyIfFields();
     },
     getDetailInfo(eaiIf) {
+      this.eaiIfId = eaiIf.eaiIfId;
       this.eaiIfNmKor = eaiIf.eaiIfNmKor;
       this.eaiIfNmEng = eaiIf.eaiIfNmEng;
       this.ifDesc = eaiIf.ifDesc;
@@ -1367,6 +1473,7 @@ export default {
       }
     },
     emptyIfFields() {
+      this.eaiIfId = '';
       this.eaiIfNmKor = '';
       this.eaiIfNmEng = '';
       this.ifDesc = '';
