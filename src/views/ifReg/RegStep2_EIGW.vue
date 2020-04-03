@@ -776,6 +776,8 @@
 import { mapState, mapActions } from 'vuex';
 import InstListPopup from '@/components/popup/bizcomm/InstListPopup.vue';
 
+import eventBus from '@/utils/eventBus';
+
 export default {
   name: 'RegStep2EIGW',
   components: {
@@ -852,6 +854,15 @@ export default {
   computed: {
     ...mapState('frameSet', ['resetPopOn']),
     ...mapState('ccCdLst', ['ccCdList']),
+  },
+  created() {
+    eventBus.$on('Step2EigwSave', () => {
+      console.log('event Bus 통해 eigw 저장');
+      this.saveTest();
+    });
+  },
+  destroyed() {
+    eventBus.$off('Step2EigwSave');
   },
   mounted() {
     this.setCcCdList({

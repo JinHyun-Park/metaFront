@@ -937,7 +937,7 @@ export default {
       this.saveEaiRegTemp();
     });
   },
-  destroyBefore() {
+  destroyed() {
     eventBus.$off('Step2EaiSave');
   },
 
