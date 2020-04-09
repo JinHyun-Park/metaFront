@@ -1,33 +1,48 @@
 <template>
   <div>
-    <!--
-                <section class="big_tabs">
-                    <ul>
-                        <li class="on">EIGW</li>
-                        <li>EAI</li>
-                        <li>MCG</li>
-                    </ul>
-                </section>
--->
-
     <section class="form_area border_group">
       <h5 class="s_tit">
-        신청사유
+        신청 기본 정보
       </h5>
+      <div class="row_contain type-2">
+        <div class="column on w-4">
+          <label class="column_label">제목</label>
+          <input
+            v-model="ifReqMstInfo.reqTitle"
+            type="text"
+            value=""
+          >
+        </div>
+        <div class="column w-2">
+          <label class="column_label">운영 반영예정일</label>
+          <div class="calander_group">
+            <input
+              v-model="ifReqMstInfo.operAplyReqDt"
+              type="text"
+              value=""
+            >
+            <span class="calander">
+              <i class="ico-cal" />
+            </span>
+          </div>
+        </div>
+      </div>
       <div class="row_contain type-2">
         <div class="column on w-4">
           <label class="column_label">사유</label>
           <input
+            v-model="ifReqMstInfo.reqPurp"
             type="text"
-            value="JOP369"
+            value=""
           >
         </div>
         <div class="column w-2">
-          <label class="column_label">반영예정일</label>
+          <label class="column_label">개발 반영예정일</label>
           <div class="calander_group">
             <input
+              v-model="ifReqMstInfo.dvlpAplyReqDt"
               type="text"
-              value="2019-07-08"
+              value=""
             >
             <span class="calander">
               <i class="ico-cal" />
@@ -37,19 +52,23 @@
       </div>
       <div class="row_contain">
         <div class="column w-6">
-          <label class="column_label">기타</label>
+          <label class="column_label">비고</label>
           <textarea
+            v-model="ifReqMstInfo.reqRmk"
             cols="50"
-            rows="5"
+            rows="3"
             placeholder="기타 입니다."
           />
         </div>
       </div>
     </section>
 
-    <section class="border_group">
+    <section
+      v-if="false"
+      class="border_group"
+    >
       <h5 class="s_tit type-2">
-        담당자 정보
+        요청자 정보
         <div class="right_button_area">
           <button
             type="button"
@@ -163,9 +182,56 @@
 
 <script>
 
+import { fetchPostIfStep1Reg } from '@/api/ifRegApi';
+import eventBus from '@/utils/eventBus';
+
 export default {
   name: 'RegStep1ApplyIf',
+  components: {
+    fetchPostIfStep1Reg,
+  },
+  data() {
+    return {
+      ifReqMstInfo: {
+        reqNum: '',
+        reqTitle: '',
+        reqPurp: '',
+        reqrId: '',
+        reqrM: '',
+        procSt: '',
+        dvlpAplyReqDt: '',
+        operAplyReqDt: '',
+        reqDtm: '',
+        reqRmk: '',
+        delYn: '',
+      },
+    };
+  },
+  created() {
+    eventBus.$on('Step1ReqMstSave', () => {
+      console.log('event Bus 통해 Step1 저장');
+      this.saveIfReqMst();
+      console.log(`step1 reqnum : ${this.ifReqMstInfo.reqNum}`);
+      this.$emit('afterSave', this.ifReqMstInfo.reqNum);
+    });
+    console.log(`parent reqNum : ${this.$parent.reqNum}`);
+  },
+  destroyed() {
+    eventBus.$off('Step1ReqMstSave');
+  },
   methods: {
+    saveIfReqMst() {
+      // this.$axios.post('/api/eai/regTemp', this.regList)
+      fetchPostIfStep1Reg(this.ifReqMstInfo)
+        .then((res) => {
+          console.log(res);
+          this.ifReqMstInfo = res.data.rstData.reqInfo;
+          this.$gf.alertOn('작성하신 내용이 저장 되었습니다.');
+        })
+        .catch((ex) => {
+          console.log(`오류가 발생하였습니다 : ${ex}`);
+        });
+    },
   },
 };
 </script>

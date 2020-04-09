@@ -936,6 +936,7 @@ export default {
       console.log('event Bus 통해 eai 저장');
       this.saveEaiRegTemp();
     });
+    console.log(`parent reqNum : ${this.$parent.reqNum}`);
   },
   destroyed() {
     eventBus.$off('Step2EaiSave');

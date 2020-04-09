@@ -42,6 +42,7 @@
     </section>
     <reg-step1-apply-if
       v-show="tabNum === 1"
+      @afterSave="setRegNum"
     />
     <reg-step2-frame
       v-show="tabNum === 2"
@@ -106,6 +107,7 @@ export default {
   data() {
     return {
       tabNum: '',
+      reqNum: '',
     };
   },
   created() {
@@ -114,6 +116,7 @@ export default {
     } else {
       this.tabNum = Number(localStorage.getItem('APPLY_TABNUM'));
     }
+    this.reqNum = '12381237128492879734';
   },
   destroyed() {
     localStorage.setItem('APPLY_TABNUM', '');
@@ -129,18 +132,30 @@ export default {
     },
     toNextTab() {
       window.scrollTo(0, 0);
+      this.tempSave();
       this.tabNum = this.tabNum + 1;
       localStorage.setItem('APPLY_TABNUM', this.tabNum);
     },
     toBeforeTab() {
       window.scrollTo(0, 0);
+      this.tempSave();
       this.tabNum = this.tabNum - 1;
       localStorage.setItem('APPLY_TABNUM', this.tabNum);
     },
+    setRegNum(reqNum) {
+      console.log(`reqNum: ${reqNum}`);
+      this.reqNum = reqNum;
+      // alert(this.reqNum);
+    },
     tempSave() {
       console.log('tempSave');
-      eventBus.$emit('Step2EaiSave');
-      eventBus.$emit('Step2EigwSave');
+      if (this.tabNum === 1) {
+        eventBus.$emit('Step1ReqMstSave', { reqNum: this.reqNum });
+      } else if (this.tabNum === 2) {
+        eventBus.$emit('Step2EaiSave', { reqNum: this.reqNum });
+        eventBus.$emit('Step2EigwSave', { reqNum: this.reqNum });
+        // eventBus.$emit('Step2McgSave', { reqNum: this.reqNum });
+      }
 
       // eventBus.$emit('tempSave1');
       // eventBus.$emit('tempSave2', { dat: 'data1111' });
