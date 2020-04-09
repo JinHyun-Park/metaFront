@@ -255,11 +255,8 @@ export default {
     ...mapActions('frameSet', ['setResetPopOn']),
     ...mapActions('ccCdLst', ['setCcCdList']),
     searchList() {
-      // this.tgtUrl = '/api/eigw/serverList';
-      // this.$axios.get(this.tgtUrl, {
       fetchEigwServerList({
         params: {
-          // pageSet: this.pageSet,
           pageNo: this.pageSet.pageNo,
           size: this.pageSet.size,
           svrTypCd: this.svrTypCd,
@@ -275,7 +272,6 @@ export default {
             this.serverList = res.data.rstData.searchList;
             this.pageSet = res.data.rstData.pageSet;
           } else {
-            // eslint-disable-next-line no-alert
             alert('failed');
           }
         })
@@ -286,6 +282,7 @@ export default {
     save() {
       if (this.instCd === '') {
         this.$gf.alertOn('대외기관을 입력해주세요.');
+        return;
       }
       console.log('서버 정보 등록');
       this.saveServerInfo = {
@@ -299,6 +296,7 @@ export default {
         .then((res) => {
           console.log(res);
           this.$gf.alertOn('등록되었습니다.');
+          this.emptyFields();
           this.searchList();
         })
         .catch((ex) => {
@@ -323,6 +321,14 @@ export default {
         .catch((ex) => {
           console.log(`error occur!! : ${ex}`);
         });
+    },
+    emptyFields() {
+      this.instCd = '';
+      this.instNm = '';
+      this.svrTypCd = '';
+      this.svrRealIp = '';
+      this.svrNatIp = '';
+      this.useYn = '';
     },
     turnOnSvrPopInstList(val) {
       this.instPopupCase = val;

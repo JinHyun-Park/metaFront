@@ -259,11 +259,14 @@ export default {
     searchList() {
       fetchGetEigwChrgrInfo({
         params: {
-          // pageSet: this.pageSet,
           pageNo: this.pageSet.pageNo,
           size: this.pageSet.size,
           hanNm: this.hanNm,
           instCd: this.instCd,
+          ofcLvlCd: this.ofcLvlCd,
+          offcPhonNum: this.offcPhonNum,
+          mblPhonNum: this.mblPhonNum,
+          emailAddr: this.emailAddr,
         },
       })
         .then((res) => {
@@ -271,9 +274,6 @@ export default {
           if (res.data.rstCd === 'S') {
             this.eigwChrgrInfoList = res.data.rstData.searchList;
             this.pageSet = res.data.rstData.pageSet;
-          } else {
-            // eslint-disable-next-line no-alert
-            alert('failed');
           }
         })
         .catch((ex) => {
@@ -283,9 +283,11 @@ export default {
     save() {
       if (this.instCd === '') {
         this.$gf.alertOn('대외기관을 입력해주세요.');
+        return;
       }
       if (this.hanNm === '') {
         this.$gf.alertOn('이름을 입력해주세요.');
+        return;
       }
       console.log('담당자 정보 등록');
       this.saveChrgrInfo = {
@@ -300,6 +302,8 @@ export default {
         .then((res) => {
           console.log(res);
           this.$gf.alertOn('등록되었습니다.');
+          this.emptyFields();
+          this.searchList();
         })
         .catch((ex) => {
           console.log(`error occur!! : ${ex}`);
@@ -323,6 +327,16 @@ export default {
         .catch((ex) => {
           console.log(`error occur!! : ${ex}`);
         });
+    },
+    emptyFields() {
+      this.instCd = '';
+      this.instNm = '';
+      this.hanNm = '';
+      this.eaiIfNmEng = '';
+      this.ofcLvlCd = '';
+      this.offcPhonNum = '';
+      this.mblPhonNum = '';
+      this.emailAddr = '';
     },
     turnOnSvrPopInstList(val) {
       this.instPopupCase = val;

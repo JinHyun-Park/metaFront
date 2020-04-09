@@ -1,5 +1,11 @@
 <template>
   <div class="right_space">
+    <InstListPopup
+      v-if="svrOnInstList"
+      v-bind="propsInstList"
+      @closePop="turOffSvrPopInstList"
+      @addData="addDataInstList"
+    />
     <section class="title style-1">
       <h2>
         <div>
@@ -27,10 +33,11 @@
         <div class="column w-1">
           <label class="column_label">대외기관</label>
           <input
-            v-model="instCd"
+            v-model="instNm"
             type="text"
             class="add_text on"
             @keyup.13="searchList()"
+            @click="turnOnSvrPopInstList()"
           >
         </div>
         <div class="column w-1">
@@ -47,6 +54,14 @@
           <input
             v-model="reqIp"
             type="text"
+            class="add_text on"
+            @keyup.13="searchList()"
+          >
+        </div>
+        <div class="column w-1">
+          <input
+            v-model="instCd"
+            type="hidden"
             class="add_text on"
             @keyup.13="searchList()"
           >
@@ -362,48 +377,50 @@
       <h5 class="s_tit type-2">
         대외기관 담당자 정보
       </h5>
-      <div class="table_grid">
-        <div class="table_head w-auto except">
-          <ul>
-            <li class="th_cell">
-              기관
-            </li>
-            <li class="th_cell">
-              부서
-            </li>
-            <li class="th_cell">
-              이름
-            </li>
-            <li class="th_cell">
-              연락처
-            </li>
-            <li class="th_cell">
-              E-mail
-            </li>
-          </ul>
-        </div>
-        <div class="table_body">
-          <ul
-            v-for="outchrgr in outChrgrList"
-            :key="outchrgr.userId"
-            class="table_row form_type except w-auto"
-          >
-            <li class="td_cell">
-              {{ outchrgr.instNm }}
-            </li>
-            <li class="td_cell">
-              {{ outchrgr.orgCd }}
-            </li>
-            <li class="td_cell">
-              {{ outchrgr.hanNm }}
-            </li>
-            <li class="td_cell">
-              {{ outchrgr.mblPhonNum }}
-            </li>
-            <li class="td_cell">
-              {{ outchrgr.emailAddr }}
-            </li>
-          </ul>
+      <div class="table_colgroup">
+        <div class="table_grid">
+          <div class="table_head w-auto except">
+            <ul>
+              <li class="th_cell">
+                기관
+              </li>
+              <li class="th_cell">
+                부서
+              </li>
+              <li class="th_cell">
+                이름
+              </li>
+              <li class="th_cell">
+                연락처
+              </li>
+              <li class="th_cell">
+                E-mail
+              </li>
+            </ul>
+          </div>
+          <div class="table_body">
+            <ul
+              v-for="outchrgr in outChrgrList"
+              :key="outchrgr.userId"
+              class="table_row form_type except w-auto"
+            >
+              <li class="td_cell">
+                {{ outchrgr.instNm }}
+              </li>
+              <li class="td_cell">
+                {{ outchrgr.orgCd }}
+              </li>
+              <li class="td_cell">
+                {{ outchrgr.hanNm }}
+              </li>
+              <li class="td_cell">
+                {{ outchrgr.mblPhonNum }}
+              </li>
+              <li class="td_cell">
+                {{ outchrgr.emailAddr }}
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </section>
@@ -412,14 +429,23 @@
 
 <script>
 import { fetchEigwAdFileList, fetchEigwFileDetail } from '@/api/eigwApi';
+import InstListPopup from '@/components/popup/bizcomm/InstListPopup.vue';
 
 export default {
+  components: {
+    InstListPopup,
+  },
   data() {
     return {
+      svrOnInstList: false,
+      propsInstList: { // 조회 시 parameter에 사용자 정보를 담아주려면 여기를 통해 넘겨주세요.
+        message: '', // 사용방법 예시 데이터
+      },
       fileList: '',
       fileNm: '',
       reqIp: '',
       instCd: '',
+      instNm: '',
       fileMst: {},
       fileSktConf: {},
       fileEigwConf: {},
@@ -475,6 +501,19 @@ export default {
         .catch((ex) => {
           console.log(`error occur!! : ${ex}`);
         });
+    },
+    turnOnSvrPopInstList() {
+      this.svrOnInstList = true;
+    },
+    turOffSvrPopInstList(val) {
+      console.log(`Popup에서 받아온 Data : ${val}`);
+      this.svrOnInstList = false;
+    },
+    addDataInstList(val) {
+      console.log(`Popup에서 받아온 Data : ${val}`);
+      this.instCd = val.instCd;
+      this.instNm = val.instNm;
+      this.svrOnInstList = false;
     },
   },
 };

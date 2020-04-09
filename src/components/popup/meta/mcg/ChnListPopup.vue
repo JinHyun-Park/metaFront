@@ -7,251 +7,306 @@
       tabindex="0"
       @keydown.prevent.esc="closePop"
     >
-      <article class="layer_popup medium">
-        <section class="title style-2">
-          <h2><i class="ico-bar" />채널 정보 조회</h2>
-        </section>
-        <section class="border_group">
-          <h5 class="s_tit type-2">
-            기본 정보
-            <div class="right_button_area">
-              <button
-                type="button"
-                class="default_button"
-              >
-                임시추가
-              </button>
-              <button
-                type="button"
-                class="default_button on"
-              >
-                조회
-              </button>
-            </div>
-          </h5>
-          <div class="add_info">
-            <input
-              type="text"
-              class="add_text on"
-              value="채널 업무 담당조회추가 채널업무"
+      <section class="title style-2">
+        <h2><i class="ico-bar" />채널 정보 조회</h2>
+      </section>
+      <section class="form_area border_group">
+        <h5 class="s_tit type-2">
+          기본 정보
+          <div class="right_button_area">
+            <button
+              type="button"
+              class="default_button"
             >
-            <input
-              type="text"
-              class="add_text"
-              value="채널양식 업무 담당추가 채널업무"
+              임시추가
+            </button>
+            <button
+              type="button"
+              class="default_button on"
+              @click="listing()"
             >
+              조회
+            </button>
+          </div>
+        </h5>
+        <div class="row_contain type-3">
+          <div class="column w-1">
+            <label class="column_label">기관코드</label>
             <input
+              v-model="mcgInstCd"
               type="text"
-              class="add_text"
-              value="채널양식 업무 거래코드 채널업무"
-            >
-            <input
-              type="text"
-              class="add_text"
-              value="거래 업무 담당 조회추가채널업무"
-            >
-            <input
-              type="text"
-              class="add_text"
-              value="거래 연동 담당 ID추가 채널 업무"
-            >
-            <input
-              type="text"
-              class="add_text"
-              value="채널 ID 조회 담당추가 채널 업무"
+              value=""
             >
           </div>
-          <div class="table_colgroup">
-            <div class="table_grid radio_group">
-              <div class="table_head w-auto">
-                <ul>
-                  <li class="th_cell" />
-                  <li class="th_cell">
-                    기관코드<i class="ico-sort-down" />
-                  </li>
-                  <li class="th_cell">
-                    업무코드<i class="ico-sort-down" />
-                  </li>
-                  <li class="th_cell">
-                    채널명<i class="ico-sort-down" />
-                  </li>
-                  <li class="th_cell">
-                    채널ID<i class="ico-sort-up" />
-                  </li>
-                  <li class="th_cell">
-                    채널유형<i class="ico-sort-up" />
-                  </li>
-                  <li class="th_cell">
-                    연동방식<i class="ico-sort-down" />
-                  </li>
-                </ul>
-              </div>
-              <div class="table_body">
-                <ul class="table_row">
-                  <li class="td_cell w-auto">
-                    <span class="default_radio on">
-                      <input
-                        id="radio_chk_1"
-                        type="radio"
-                        name="radio_chk_1"
-                      ><label for="radio_chk_1"><span /></label>
-                    </span>
-                  </li>
-                  <li class="td_cell">
-                    2 documents
-                  </li>
-                  <li class="td_cell">
-                    2 documents
-                  </li>
-                  <li class="td_cell">
-                    2 documents
-                  </li>
-                  <li class="td_cell">
-                    2 documents
-                  </li>
-                  <li class="td_cell">
-                    2 documents
-                  </li>
-                  <li class="td_cell">
-                    2 documents
-                  </li>
-                </ul>
-                <ul class="table_row w-auto">
-                  <li class="td_cell">
-                    <span class="default_radio">
-                      <input
-                        id="radio_chk_2"
-                        type="radio"
-                        name="radio_chk_2"
-                      ><label for="radio_chk_2"><span /></label>
-                    </span>
-                  </li>
-                  <li class="td_cell">
-                    q sign
-                  </li>
-                  <li class="td_cell">
-                    q sign
-                  </li>
-                  <li class="td_cell">
-                    q sign
-                  </li>
-                  <li class="td_cell">
-                    q sign
-                  </li>
-                  <li class="td_cell">
-                    q sign
-                  </li>
-                  <li class="td_cell">
-                    q sign
-                  </li>
-                </ul>
-                <ul class="table_row w-auto">
-                  <li class="td_cell">
-                    <span class="default_radio">
-                      <input
-                        id="radio_chk_3"
-                        type="radio"
-                        name="radio_chk_3"
-                      ><label for="radio_chk_3"><span /></label>
-                    </span>
-                  </li>
-                  <li class="td_cell">
-                    q sign
-                  </li>
-                  <li class="td_cell">
-                    q sign
-                  </li>
-                  <li class="td_cell">
-                    q sign
-                  </li>
-                  <li class="td_cell">
-                    q sign
-                  </li>
-                  <li class="td_cell">
-                    q sign
-                  </li>
-                  <li class="td_cell">
-                    q sign
-                  </li>
-                </ul>
-                <ul class="table_row w-auto">
-                  <li class="td_cell">
-                    <span class="default_radio">
-                      <input
-                        id="radio_chk_4"
-                        type="radio"
-                        name="radio_chk_4"
-                      ><label for="radio_chk_4"><span /></label>
-                    </span>
-                  </li>
-                  <li class="td_cell">
-                    2 documents
-                  </li>
-                  <li class="td_cell">
-                    2 documents
-                  </li>
-                  <li class="td_cell">
-                    2 documents
-                  </li>
-                  <li class="td_cell">
-                    2 documents
-                  </li>
-                  <li class="td_cell">
-                    2 documents
-                  </li>
-                  <li class="td_cell">
-                    2 documents
-                  </li>
-                </ul>
-                <ul class="table_row w-auto">
-                  <li class="td_cell">
-                    <span class="default_radio">
-                      <input
-                        id="radio_chk_5"
-                        type="radio"
-                        name="radio_chk_5"
-                      ><label for="radio_chk_5"><span /></label>
-                    </span>
-                  </li>
-                  <li class="td_cell">
-                    2 documents
-                  </li>
-                  <li class="td_cell">
-                    2 documents
-                  </li>
-                  <li class="td_cell">
-                    2 documents
-                  </li>
-                  <li class="td_cell">
-                    2 documents
-                  </li>
-                  <li class="td_cell">
-                    2 documents
-                  </li>
-                  <li class="td_cell">
-                    2 documents
-                  </li>
-                </ul>
-              </div>
-            </div>
+          <div class="column w-1">
+            <label class="column_label">업무코드</label>
+            <input
+              v-model="opCd"
+              type="text"
+              value=""
+            >
           </div>
-        </section>
+          <div class="column w-1">
+            <label class="column_label tooltips ov top">채널ID
+              <span class="tip_contn">
+                <em class="tip_text">채널ID, 채널명으로 검색해보세요.
+                </em></span></label>
+            <input
+              v-model="chnlId"
+              type="text"
+              value=""
+            >
+          </div>
+          <div class="column w-1">
+            <label class="column_label">채널명</label>
+            <input
+              v-model="chnlNm"
+              type="text"
+              value=""
+            >
+          </div>
+          <div class="column w-1">
+            <label class="column_label">채널유형</label>
+            <select v-model="chnlTyp">
+              <option
+                v-for="(code, m) in ccCdList.mcgChnlTyp"
+                :key="m"
+                :value="code.cdDtlId"
+              >
+                {{ code.cdNm }}
+              </option>
+            </select>
+          </div>
+          <div class="column w-1">
+            <label class="column_label">연동방식</label>
+            <select v-model="lnkgMthd">
+              <option
+                v-for="(code, m) in ccCdList.mcgChnlLnkgMthd"
+                :key="m"
+                :value="code.cdDtlId"
+              >
+                {{ code.cdNm }}
+              </option>
+            </select>
+          </div>
+        </div>
 
-        <section class="btm_button_area">
-          <button
-            type="button"
-            class="default_button"
-          >
-            닫기
-          </button>
-          <button
-            type="button"
-            class="default_button on"
-          >
-            추가
-          </button>
-        </section>
-      </article>
+        <div class="table_colgroup">
+          <div class="table_grid radio_group">
+            <div class="table_head w-auto">
+              <ul>
+                <li class="th_cell" />
+                <li class="th_cell">
+                  기관코드<i class="ico-sort-down" />
+                </li>
+                <li class="th_cell">
+                  업무코드<i class="ico-sort-down" />
+                </li>
+                <li class="th_cell">
+                  채널ID<i class="ico-sort-up" />
+                </li>
+                <li class="th_cell">
+                  채널명<i class="ico-sort-down" />
+                </li>
+                <li class="th_cell">
+                  채널유형<i class="ico-sort-up" />
+                </li>
+                <li class="th_cell">
+                  연동방식<i class="ico-sort-down" />
+                </li>
+              </ul>
+            </div>
+            <div class="table_body">
+              <ul
+                v-for="chn in chnList"
+                :key="chn.index"
+                class="table_row  w-auto"
+              >
+                <li class="td_cell">
+                  <span class="default_radio">
+                    <label><input
+                      v-model="radio_chk"
+                      type="radio"
+                      :value="chn.chnlId"
+                    ></label></span>
+                </li>
+
+                <li class="td_cell">
+                  {{ chn.mcgInstCd }}
+                </li>
+                <li class="td_cell">
+                  {{ chn.opCd }}
+                </li>
+                <li class="td_cell">
+                  {{ chn.chnlId }}
+                </li>
+                <li class="td_cell">
+                  {{ chn.chnlNm }}
+                </li>
+                <li class="td_cell">
+                  {{ chn.chnlTyp }}
+                </li>
+                <li class="td_cell">
+                  {{ chn.lnkgMthd }}
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="pagination_space">
+            <paginate
+              v-model="pageSet.pageNo"
+              :page-count="pageSet.pageCount"
+              :page-range="3"
+              :margin-pages="1"
+              :click-handler="listing"
+              :prev-text="'이전'"
+              :next-text="'다음'"
+              :container-class="'pagination'"
+              :page-class="'page-item'"
+            />
+          </div>
+        </div>
+      </section>
+
+      <section class="btm_button_area">
+        <button
+          type="button"
+          class="default_button"
+          @click="closePop"
+        >
+          닫기
+        </button>
+        <button
+          type="button"
+          class="default_button on"
+          @click="addData"
+        >
+          확인
+        </button>
+      </section>
     </article>
   </div>
 </template>
+<script>
+import { mapState, mapActions } from 'vuex';
+import {
+  fetchGetMcgChnlList,
+} from '@/api/mcgApi';
+
+export default {
+  data() {
+    return {
+      tgtUrl: '',
+      chnList: [],
+      userId: '',
+      pageSet: { pageNo: 1, pageCount: 0, size: 5 },
+      opCd: null,
+      opCdr: '',
+      svrTypr: '',
+      instCd: '',
+      mcgInstCd: '',
+      chnlTyp: '',
+      chnlGrp: '',
+      lnkgMthd: '',
+      chnlId: '',
+      chnlNm: '',
+      containerNum: '',
+      tcpgwNm: '',
+      dvlpLang: '',
+      chnlRmk: '',
+      useYn: 'Y',
+      svrTyp: '',
+      svrIp: '',
+      svrPort: '',
+      mcgServerNum: '',
+      ipTyp: '',
+      sUserId: '',
+      dealCd: '',
+      chrgrTyp: '',
+      hanNm: '',
+      chrgrId: '',
+      mblPhonNum: '',
+      isStatusOn: '',
+      chrgrpopupstate: '',
+      chrgrn: '',
+      chrgropCd: '',
+      radio_chk: '',
+    };
+  },
+  computed: {
+    ...mapState('frameSet', ['resetPopOn']),
+    ...mapState('ccCdLst', ['ccCdList']),
+  },
+  mounted() {
+    this.setCcCdList({
+      opClCd: 'MCG', cdId: 'CHNL_GRP', allYn: 'Y', listNm: 'mcgChnlGrp',
+    });
+    this.setCcCdList({
+      opClCd: 'MCG', cdId: 'CHNL_TYP', allYn: 'Y', listNm: 'mcgChnlTyp',
+    });
+    this.setCcCdList({
+      opClCd: 'MCG', cdId: 'LNKG_MTHD', allYn: 'Y', listNm: 'mcgChnlLnkgMthd',
+    });
+    this.setCcCdList({
+      opClCd: 'MCG', cdId: 'LNKG_MTHD', allYn: 'N', listNm: 'mcgChnlLnkgMthdR',
+    });
+    this.setCcCdList({
+      opClCd: 'MCG', cdId: 'CHNL_GRP', allYn: 'N', listNm: 'mcgChnlGrpR',
+    });
+    this.setCcCdList({
+      opClCd: 'MCG', cdId: 'CHNL_TYP', allYn: 'N', listNm: 'mcgChnlTypR',
+    });
+    this.setCcCdList({
+      opClCd: 'MCG', cdId: 'CONTAINER_NUM', allYn: 'N', listNm: 'mcgContainerNumR',
+    });
+  },
+  methods: {
+    ...mapActions('ccCdLst', ['setCcCdList']),
+    ...mapActions('frameSet', ['setResetPopOn']),
+    listing() {
+      console.log('채널 목록 조회!');
+      // this.$axios.get('/api/mcg/chnl', {
+      fetchGetMcgChnlList({
+        params: {
+          pageNo: this.pageSet.pageNo,
+          pageCount: this.pageSet.pageCount,
+          size: this.pageSet.size,
+          opCd: this.opCd,
+          instCd: this.instCd,
+          mcgInstCd: this.mcgInstCd,
+          chnlTyp: this.chnlTyp,
+          chnlGrp: this.chnlGrp,
+          lnkgMthd: this.lnkgMthd,
+          chnlId: this.chnlId,
+          chnlNm: this.chnlNm,
+          containerNum: this.containerNum,
+          tcpgwNm: this.tcpgwNm,
+          dvlpLang: this.dvlpLang,
+          chnlRmk: this.chnlRmk,
+          useYn: this.useYn,
+        },
+      })
+
+        .then((res) => {
+          this.chnList = res.data.rstData.searchList;
+          this.pageSet = res.data.rstData.pageSet;
+          console.log(res.data.rstData.searchList);
+          console.log(this.chnList);
+        })
+        .catch((ex) => {
+          console.log(`error occur!! : ${ex}`);
+        });
+    },
+    pageChanged() {
+      console.log();
+      this.searchList();
+    },
+    closePop() {
+      this.$emit('closePop', 'Hellos');
+    },
+    addData() {
+      this.$emit('addData', this.radio_chk);
+    },
+  },
+};
+</script>
