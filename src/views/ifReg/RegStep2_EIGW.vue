@@ -6,6 +6,18 @@
       @closePop="turOffSvrPopInstList"
       @addData="addDataInstList"
     />
+    <ChrgrListPopup
+      v-if="svrOnChrgr"
+      v-bind="propsChrgr"
+      @closePop="turOffSvrPopChrgr"
+      @addData="addDataChrgr"
+    />
+    <EigwChrgrListPopup
+      v-if="svrOnEigwChrgr"
+      v-bind="propsEigwChrgr"
+      @closePop="turOffSvrPopChrgr"
+      @addData="addDataChrgr"
+    />
     <section class="title style-1">
       <h2>
         <div>
@@ -21,6 +33,13 @@
       <h5 class="s_tit type-2">
         온라인 인터페이스 정보
         <div class="right_button_area">
+          <button
+            type="button"
+            class="default_button on"
+            @click="updateOnlineInfo()"
+          >
+            수정
+          </button>
           <button
             type="button"
             class="default_button on"
@@ -78,9 +97,6 @@
                 연결유형
               </li>
               <li class="th_cell">
-                Test
-              </li>
-              <li class="th_cell">
                 진행상태
               </li>
               <li class="th_cell">
@@ -96,46 +112,25 @@
               @click="detailOnlineInfo(index)"
             >
               <li class="td_cell">
-                <input
-                  v-model="row.eigwIfId"
-                  type="text"
-                >
+                {{ row.eigwIfId }}
               </li>
               <li class="td_cell">
-                <input
-                  v-model="row.eigwIfNm"
-                  type="text"
-                >
+                {{ row.eigwIfNm }}
               </li>
               <li class="td_cell">
-                <input
-                  v-model="row.instNm"
-                  type="text"
-                >
+                {{ row.instNm }}
               </li>
               <li class="td_cell">
-                <input
-                  v-model="row.devRealIp"
-                  type="text"
-                >
+                {{ row.devRealIp }}
               </li>
               <li class="td_cell">
-                <input
-                  v-model="row.devPort"
-                  type="text"
-                >
+                {{ row.devPort }}
               </li>
               <li class="td_cell">
-                <input
-                  v-model="row.prodRealIp"
-                  type="text"
-                >
+                {{ row.prodRealIp }}
               </li>
               <li class="td_cell">
-                <input
-                  v-model="row.prodPort"
-                  type="text"
-                >
+                {{ row.prodPort }}
               </li>
               <li class="td_cell">
                 <select v-model="row.pgmTyp">
@@ -166,16 +161,13 @@
                 </select>
               </li>
               <li class="td_cell">
-                <input
-                  v-model="row.outUserInfo"
-                  type="text"
-                >
-              </li>
-              <li class="td_cell">
                 <label class="label-default color-black">반려</label>
               </li>
               <li class="td_cell">
-                <i class="ico-del" />
+                <i
+                  class="ico-del"
+                  @click="delOnlineInfo(i)"
+                />
               </li>
             </ul>
           </div>
@@ -221,6 +213,7 @@
               v-model="onlineInfo.instNm"
               type="text"
               class="add_text on"
+              @click="turnOnSvrPopInstList(-1, 'on')"
             >
             <span class="search">
               <i class="ico-search" />
@@ -311,16 +304,8 @@
       </div>
       <h5 class="s_tit type-2">
         담당자 정보
-        <div class="right_button_area">
-          <button
-            type="button"
-            class="default_button on"
-            @click="addOnlineChrgrRow()"
-          >
-            추가
-          </button>
-        </div>
       </h5>
+      <label class="column_label">검색이 되지 않는 신규인력은 구분에 '입력'을 선택하고 정보를 기입해주세요.</label>
       <div class="table_colgroup">
         <div class="table_grid">
           <div class="table_head w-auto except">
@@ -350,18 +335,24 @@
           </div>
           <div class="table_body">
             <ul
-              v-for="(row, i) in userList"
+              v-for="(row, i) in onlineUserList"
               :key="row.userId"
               class="table_row form_type except w-auto"
             >
               <li class="td_cell">
                 <div class="select_group">
-                  <select v-model="row.chrgrType">
+                  <select v-model="row.chrgrTyp">
+                    <option value="">
+                      전체
+                    </option>
                     <option value="in">
                       내부운영
                     </option>
                     <option value="out">
                       대외기관
+                    </option>
+                    <option value="new">
+                      입력
                     </option>
                   </select>
                   <span class="select" />
@@ -371,6 +362,7 @@
                 <input
                   v-model="row.instNm"
                   type="text"
+                  @click="searchOnChrgr(i)"
                 >
               </li>
               <li class="td_cell">
@@ -407,8 +399,12 @@
               </li>
               <td class="td_cell">
                 <i
+                  class="ico-add"
+                  @click="addOnlineUser(i)"
+                />
+                <i
                   class="ico-del"
-                  @click="delOutList(i)"
+                  @click="delOnlineUser(i)"
                 />
               </td>
             </ul>
@@ -421,6 +417,13 @@
       <h5 class="s_tit type-2">
         파일 인터페이스 정보
         <div class="right_button_area">
+          <button
+            type="button"
+            class="default_button on"
+            @click="updateFileInfo()"
+          >
+            수정
+          </button>
           <button
             type="button"
             class="default_button on"
@@ -536,7 +539,7 @@
           </div>
         </div>
       </div>
-      <div class="row_contain type-2">
+      <div class="row_contain type-1">
         <div class="column w-1">
           <label class="column_label">대외기관</label>
           <div class="search_group">
@@ -544,6 +547,7 @@
               v-model="fileInfo.instNm"
               type="text"
               class="add_text on"
+              @click="turnOnSvrPopInstList(-2, 'file')"
             >
             <span class="search">
               <i class="ico-search" />
@@ -579,7 +583,7 @@
       </div>
       <!-- FILE -->
       <div class="row_contain">
-        <div class="column w-3">
+        <div class="column w-2">
           <label class="column_label">파일경로</label>
           <input
             v-model="fileInfo.outPath"
@@ -587,7 +591,7 @@
             class="add_text on"
           >
         </div>
-        <div class="column w-2">
+        <div class="column w-1">
           <label class="column_label">계정정보(ID/PW)</label>
           <input
             v-model="fileInfo.id"
@@ -595,7 +599,7 @@
             class="add_text on"
           >
         </div>
-        <div class="column w-3">
+        <div class="column w-1">
           <label class="column_label">&nbsp;</label>
           <input
             v-model="fileInfo.pwd"
@@ -606,7 +610,7 @@
         <div class="column w-1" />
       </div>
       <!-- FILE //-->
-      <div class="row_contain type-2">
+      <div class="row_contain type-1">
         <div class="column w-1">
           <label class="column_label">개발 REAL IP</label>
           <input
@@ -642,21 +646,8 @@
       </div>
       <h5 class="s_tit type-2">
         담당자 정보
-        <div class="right_button_area">
-          <button
-            type="button"
-            class="default_button on"
-          >
-            내부운영 추가
-          </button>
-          <button
-            type="button"
-            class="default_button on"
-          >
-            대외기관 추가
-          </button>
-        </div>
       </h5>
+      <label class="column_label">검색이 되지 않는 신규인력은 구분에 '입력'을 선택하고 정보를 기입해주세요.</label>
       <div class="table_colgroup">
         <div class="table_grid">
           <div class="table_head w-auto except">
@@ -692,12 +683,18 @@
             >
               <li class="td_cell">
                 <div class="select_group">
-                  <select v-model="row.chrgrType">
+                  <select v-model="row.chrgrTyp">
+                    <option value="">
+                      전체
+                    </option>
                     <option value="in">
                       내부운영
                     </option>
                     <option value="out">
                       대외기관
+                    </option>
+                    <option value="new">
+                      입력
                     </option>
                   </select>
                   <span class="select" />
@@ -707,6 +704,7 @@
                 <input
                   v-model="row.instNm"
                   type="text"
+                  @click="searchFileChrgr(i)"
                 >
               </li>
               <li class="td_cell">
@@ -743,8 +741,12 @@
               </li>
               <td class="td_cell">
                 <i
+                  class="ico-add"
+                  @click="addFileUser(i)"
+                />
+                <i
                   class="ico-del"
-                  @click="delOutList(i)"
+                  @click="delFileUser(i)"
                 />
               </td>
             </ul>
@@ -775,18 +777,29 @@
 <script>
 import { mapState, mapActions } from 'vuex';
 import InstListPopup from '@/components/popup/bizcomm/InstListPopup.vue';
-
+import ChrgrListPopup from '@/components/popup/bizcomm/ChrgrListPopup.vue';
+import EigwChrgrListPopup from '@/components/popup/meta/eigw/EigwChrgrListPopup.vue';
 import eventBus from '@/utils/eventBus';
 
 export default {
   name: 'RegStep2EIGW',
   components: {
     InstListPopup,
+    ChrgrListPopup,
+    EigwChrgrListPopup,
   },
   data() {
     return {
       svrOnInstList: false,
       propsInstList: { // 조회 시 parameter에 사용자 정보를 담아주려면 여기를 통해 넘겨주세요.
+        message: '', // 사용방법 예시 데이터
+      },
+      svrOnChrgr: false,
+      svrOnEigwChrgr: false,
+      propsChrgr: { // 조회 시 parameter에 사용자 정보를 담아주려면 여기를 통해 넘겨주세요.
+        message: '', // 사용방법 예시 데이터
+      },
+      propsEigwChrgr: { // 조회 시 parameter에 사용자 정보를 담아주려면 여기를 통해 넘겨주세요.
         message: '', // 사용방법 예시 데이터
       },
 
@@ -796,12 +809,14 @@ export default {
       eigwRmk: '',
       procSt: '',
 
-      onlineSaveData: {},
+      currRow: '',
+
+      saveData: {},
       onlineList: [],
       fileList: [],
-      userList: [
+      onlineUserList: [
         {
-          chrgrType: '',
+          chrgrTyp: '',
           userId: '',
           instNm: '',
           instCd: '',
@@ -811,7 +826,18 @@ export default {
           emailAddr: '',
         },
       ],
-      pageSet: { pageNo: 1, pageCount: 0, size: 5 },
+      fileUserList: [
+        {
+          chrgrTyp: '',
+          userId: '',
+          instNm: '',
+          instCd: '',
+          hanNm: '',
+          ofcLvlCd: '',
+          mblPhonNum: '',
+          emailAddr: '',
+        },
+      ],
       onlineInfo: {
         eigwIfId: '',
         eigwIfNm: '',
@@ -892,7 +918,46 @@ export default {
           console.log(`error occur!! : ${ex}`);
         });
     },
+    detailOnlineInfo(i) {
+      this.currRow = i;
+      this.onlineInfo.eigwIfNm = this.onlineList[i].eigwIfNm;
+      this.onlineInfo.eigwIfId = this.onlineList[i].eigwIfId;
+      this.onlineInfo.instNm = this.onlineList[i].instNm;
+      this.onlineInfo.instCd = this.onlineList[i].instCd;
+      this.onlineInfo.pgmTyp = this.onlineList[i].pgmTyp;
+      this.onlineInfo.linkTyp = this.onlineList[i].linkTyp;
+      this.onlineInfo.devRealIp = this.onlineList[i].devRealIp;
+      this.onlineInfo.devPort = this.onlineList[i].devPort;
+      this.onlineInfo.prodRealIp = this.onlineList[i].prodRealIp;
+      this.onlineInfo.prodPort = this.onlineList[i].prodPort;
+      this.eigwRmk = this.onlineList[i].eigwRmk;
+      this.onlineUserList = this.onlineList[i].onlineUserList;
+    },
+    updateOnlineInfo() {
+      if (this.currRow === '') {
+        this.$gf.alertOn('인터페이스 목록에서 수정할 대상을 선택하세요');
+        return;
+      }
+      this.onlineList[this.currRow].eigwIfNm = this.onlineInfo.eigwIfNm;
+      this.onlineList[this.currRow].eigwIfId = this.onlineInfo.eigwIfId;
+      this.onlineList[this.currRow].instNm = this.onlineInfo.instNm;
+      this.onlineList[this.currRow].instCd = this.onlineInfo.instCd;
+      this.onlineList[this.currRow].pgmTyp = this.onlineInfo.pgmTyp;
+      this.onlineList[this.currRow].linkTyp = this.onlineInfo.linkTyp;
+      this.onlineList[this.currRow].eigwRmk = this.eigwRmk;
+      this.onlineList[this.currRow].devRealIp = this.onlineInfo.devRealIp;
+      this.onlineList[this.currRow].devPort = this.onlineInfo.devPort;
+      this.onlineList[this.currRow].prodRealIp = this.onlineInfo.prodRealIp;
+      this.onlineList[this.currRow].prodPort = this.onlineInfo.prodPort;
+      this.onlineList[this.currRow].onlineUserList = this.onlineUserList;
+
+      this.emptyOnlineIfFields();
+    },
     addOnlineInfo() {
+      if (this.checkOnlineFields() === 0) {
+        return;
+      }
+
       this.onlineList.push({
         reqNum: this.reqNum,
         eigwIfId: this.onlineInfo.eigwIfId,
@@ -908,16 +973,31 @@ export default {
         devPort: this.onlineInfo.devPort,
         prodRealIp: this.onlineInfo.prodRealIp,
         prodPort: this.onlineInfo.prodPort,
-        userList: this.userList,
+        onlineUserList: this.onlineUserList,
       });
 
-      this.onlineSaveData = { onlineList: this.onlineList, reqNum: this.reqNum };
-      console.log(this.onlineSaveData);
+      /* this.onlineSaveData = { onlineList: this.onlineList, reqNum: this.reqNum }; */
+      console.log(this.saveData);
 
-      this.emptyIfFields();
+      this.emptyOnlineIfFields();
     },
     saveTest() {
-      this.$axios.post('/api/eigw/ifReqInfo', this.onlineSaveData)
+      if (this.onlineList.length === 0) {
+        this.$gf.alertOn('신청정보를 입력하세요');
+        return;
+      }
+
+      if (this.onlineUserList.length === '') {
+        this.$gf.alertOn('담당자를 입력하세요');
+        return;
+      }
+      this.saveData = {
+        onlineList: this.onlineList,
+        fileList: this.fileList,
+        reqNum: this.reqNum,
+        eigwRmk: this.eigwRmk,
+      };
+      this.$axios.post('/api/eigw/ifReqInfo', this.saveData)
         .then((res) => {
           console.log(res);
           this.$gf.alertOn('저장 되었습니다');
@@ -926,38 +1006,60 @@ export default {
           console.log(`오류가 발생하였습니다 : ${ex}`);
         });
     },
-    addFileInfo() {
-      this.fileList.push({
-        eigwIfId: this.fileInfo.eigwIfId,
-        eigwIfNm: this.fileInfo.eigwIfNm,
-        instNm: this.fileInfo.instNm,
-        instCd: this.fileInfo.instCd,
-        eigwType: 'file',
-        procSt: 1,
-        eigwRmk: this.eigwRmk,
-        srFlag: this.fileInfo.srFlag,
-        outPath: this.fileInfo.outPath,
-        devRealIp: this.fileInfo.devRealIp,
-        devPort: this.fileInfo.devPort,
-        prodRealIp: this.fileInfo.prodRealIp,
-        prodPort: this.fileInfo.prodPort,
-      });
+    addOnlineUser(i) {
+      console.log('행 추가!');
+      this.onlineUserList.splice(i + 1, 0, {});
     },
-    emptyIfFields() {
+    delOnlineUser(i) {
+      console.log('행 삭제!');
+      if (this.onlineUserList.length > 1) {
+        console.log('행 삭제!');
+        const idx = this.onlineUserList.indexOf(i);
+        this.onlineUserList.splice(idx, 1);
+      } else {
+        this.onlineUserList[0].chrgrTyp = '';
+        this.onlineUserList[0].instNm = '';
+        this.onlineUserList[0].instCd = '';
+        this.onlineUserList[0].hanNm = '';
+        this.onlineUserList[0].mblPhonNum = '';
+        this.onlineUserList[0].emailAddr = '';
+      }
+    },
+    delOnlineInfo(i) {
+      console.log('행 삭제!');
+      if (this.onlineList.length > 1) {
+        console.log('행 삭제!');
+        const idx = this.onlineList.indexOf(i);
+        this.onlineList.splice(idx, 1);
+      } else {
+        this.onlineList[0].eigwIfId = '';
+        this.onlineList[0].eigwIfNm = '';
+        this.onlineList[0].instNm = '';
+        this.onlineList[0].instCd = '';
+        this.onlineList[0].eigwRmk = '';
+        this.onlineList[0].pgmTyp = '';
+        this.onlineList[0].linkTyp = '';
+        this.onlineList[0].devRealIp = '';
+        this.onlineList[0].devPort = '';
+        this.onlineList[0].prodRealIp = '';
+        this.onlineList[0].prodPort = '';
+      }
+    },
+    emptyOnlineIfFields() {
       this.onlineInfo.eigwIfId = '';
       this.onlineInfo.eigwIfNm = '';
       this.onlineInfo.instNm = '';
       this.onlineInfo.instCd = '';
-      this.eigwRmk = '';
+      this.onlineInfo.eigwRmk = '';
       this.onlineInfo.pgmTyp = '';
       this.onlineInfo.linkTyp = '';
       this.onlineInfo.devRealIp = '';
       this.onlineInfo.devPort = '';
       this.onlineInfo.prodRealIp = '';
       this.onlineInfo.prodPort = '';
-      this.userList = [
+      this.onlineUserList = [
         {
-          chrgrType: '',
+          chrgrTyp: '',
           userId: '',
           instNm: '',
           instCd: '',
@@ -968,12 +1070,269 @@ export default {
         },
       ];
     },
-    addOnlineChrgrRow(n) {
-      console.log('행 추가!');
-      this.userList.splice(n + 1, 0, {});
+    checkOnlineFields() {
+      if (this.onlineInfo.eigwIfNm === '') {
+        this.$gf.alertOn('인터페이스명을 입력하세요');
+        return 0;
+      } if (this.onlineInfo.eigwIfId === '') {
+        this.$gf.alertOn('인터페이스 영문 약자를 입력하세요');
+        return 0;
+      } if (this.onlineInfo.instNm === '') {
+        this.$gf.alertOn('대외기관을 입력하세요');
+        return 0;
+      } if (this.onlineInfo.pgmTyp === '') {
+        this.$gf.alertOn('프로그램 유형을 선택하세요');
+        return 0;
+      } if (this.onlineInfo.linkTyp === '') {
+        this.$gf.alertOn('연결 유형을 선택하세요');
+        return 0;
+      } if (this.onlineInfo.devRealIp === '' || this.onlineInfo.devPort === '' || this.onlineInfo.prodRealIp === '' || this.onlineInfo.prodPort === '') {
+        this.$gf.alertOn('서버정보를 입력하세요');
+        return 0;
+      }
+
+      for (let i = 0; i < this.onlineUserList.length; i++) {
+        if (this.onlineUserList[i].chrgrTyp === '' || this.onlineUserList[i].instNm === ''
+        || this.onlineUserList[i].instCd === '' || this.onlineUserList[i].hanNm === ''
+        || this.onlineUserList[i].mblPhonNum === '' || this.onlineUserList[i].emailAddr === '') {
+          this.$gf.alertOn('담당자 정보를 입력하세요');
+          return 0;
+        }
+      }
+      return 1;
     },
-    turnOnSvrPopInstList(val) {
+    detailFileInfo(i) {
+      this.currRow = i;
+      this.fileInfo.eigwIfNm = this.fileList[i].eigwIfNm;
+      this.fileInfo.eigwIfId = this.fileList[i].eigwIfId;
+      this.fileInfo.instNm = this.fileList[i].instNm;
+      this.fileInfo.instCd = this.fileList[i].instCd;
+      this.fileInfo.fileNm = this.fileList[i].fileNm;
+      this.fileInfo.outPath = this.fileList[i].outPath;
+      this.fileInfo.id = this.fileList[i].id;
+      this.fileInfo.pwd = this.fileList[i].pwd;
+      this.fileInfo.srFlag = this.fileList[i].srFlag;
+      this.fileInfo.devRealIp = this.fileList[i].devRealIp;
+      this.fileInfo.devPort = this.fileList[i].devPort;
+      this.fileInfo.prodRealIp = this.fileList[i].prodRealIp;
+      this.fileInfo.prodPort = this.fileList[i].prodPort;
+      this.fileUserList = this.fileList[i].fileUserList;
+    },
+    updateFileInfo() {
+      if (this.currRow === '') {
+        this.$gf.alertOn('인터페이스 목록에서 수정할 대상을 선택하세요');
+        return;
+      }
+      this.fileList[this.currRow].eigwIfNm = this.fileInfo.eigwIfNm;
+      this.fileList[this.currRow].eigwIfId = this.fileInfo.eigwIfId;
+      this.fileList[this.currRow].instNm = this.fileInfo.instNm;
+      this.fileList[this.currRow].instCd = this.fileInfo.instCd;
+      this.fileList[this.currRow].fileNm = this.fileInfo.fileNm;
+      this.fileList[this.currRow].outPath = this.fileInfo.outPath;
+      this.fileList[this.currRow].id = this.fileInfo.id;
+      this.fileList[this.currRow].pwd = this.fileInfo.pwd;
+      this.fileList[this.currRow].srFlag = this.fileInfo.srFlag;
+      this.fileList[this.currRow].eigwRmk = this.eigwRmk;
+      this.fileList[this.currRow].devRealIp = this.fileInfo.devRealIp;
+      this.fileList[this.currRow].devPort = this.fileInfo.devPort;
+      this.fileList[this.currRow].prodRealIp = this.fileInfo.prodRealIp;
+      this.fileList[this.currRow].prodPort = this.fileInfo.prodPort;
+      this.fileList[this.currRow].fileUserList = this.fileUserList;
+
+      this.emptyFileIfFields();
+    },
+    addFileInfo() {
+      if (this.checkFileFields() === 0) {
+        return;
+      }
+
+      this.fileList.push({
+        reqNum: this.reqNum,
+        eigwIfId: this.fileInfo.eigwIfId,
+        eigwIfNm: this.fileInfo.eigwIfNm,
+        instNm: this.fileInfo.instNm,
+        instCd: this.fileInfo.instCd,
+        fileNm: this.fileInfo.fileNm,
+        eigwType: 'file',
+        procSt: 1,
+        srFlag: this.fileInfo.srFlag,
+        eigwRmk: this.eigwRmk,
+        outPath: this.fileInfo.outPath,
+        devRealIp: this.fileInfo.devRealIp,
+        devPort: this.fileInfo.devPort,
+        prodRealIp: this.fileInfo.prodRealIp,
+        prodPort: this.fileInfo.prodPort,
+        fileUserList: this.fileUserList,
+      });
+      this.emptyFileIfFields();
+    },
+    addFileUser(i) {
+      console.log('행 추가!');
+      this.fileUserList.splice(i + 1, 0, {});
+    },
+    delFileUser(i) {
+      console.log('행 삭제!');
+      if (this.fileUserList.length > 1) {
+        console.log('행 삭제!');
+        const idx = this.fileUserList.indexOf(i);
+        this.fileUserList.splice(idx, 1);
+      } else {
+        this.fileUserList[0].chrgrTyp = '';
+        this.fileUserList[0].instNm = '';
+        this.fileUserList[0].instCd = '';
+        this.fileUserList[0].hanNm = '';
+        this.fileUserList[0].mblPhonNum = '';
+        this.fileUserList[0].emailAddr = '';
+      }
+    },
+    delFileInfo(i) {
+      console.log('행 삭제!');
+      if (this.fileList.length > 1) {
+        console.log('행 삭제!');
+        const idx = this.fileList.indexOf(i);
+        this.fileList.splice(idx, 1);
+      } else {
+        this.fileList[0].eigwIfId = '';
+        this.fileList[0].eigwIfNm = '';
+        this.fileList[0].instNm = '';
+        this.fileList[0].instCd = '';
+        this.fileList[0].eigwRmk = '';
+        this.fileList[0].srFlag = '';
+        this.fileList[0].fileNm = '';
+        this.fileList[0].devRealIp = '';
+        this.fileList[0].devPort = '';
+        this.fileList[0].prodRealIp = '';
+        this.fileList[0].prodPort = '';
+      }
+    },
+    emptyFileIfFields() {
+      this.fileInfo.eigwIfId = '';
+      this.fileInfo.eigwIfNm = '';
+      this.fileInfo.instNm = '';
+      this.fileInfo.instCd = '';
+      this.fileInfo.fileNm = '';
+      this.fileInfo.srFlag = '';
+      this.fileInfo.outPath = '';
+      this.fileInfo.devRealIp = '';
+      this.fileInfo.devPort = '';
+      this.fileInfo.prodRealIp = '';
+      this.fileInfo.prodPort = '';
+      this.fileUserList = [
+        {
+          chrgrTyp: '',
+          userId: '',
+          instNm: '',
+          instCd: '',
+          hanNm: '',
+          ofcLvlCd: '',
+          mblPhonNum: '',
+          emailAddr: '',
+        },
+      ];
+    },
+    checkFileFields() {
+      if (this.fileInfo.eigwIfNm === '') {
+        this.$gf.alertOn('인터페이스명을 입력하세요');
+        return 0;
+      } if (this.fileInfo.eigwIfId === '') {
+        this.$gf.alertOn('인터페이스 영문 약자를 입력하세요');
+        return 0;
+      } if (this.fileInfo.instNm === '') {
+        this.$gf.alertOn('대외기관을 입력하세요');
+        return 0;
+      } if (this.fileInfo.fileNm === '') {
+        this.$gf.alertOn('파일명을 입력하세요');
+        return 0;
+      } if (this.fileInfo.srFlag === '') {
+        this.$gf.alertOn('송수신 유형을 선택하세요');
+        return 0;
+      } if (this.fileInfo.devRealIp === '' || this.fileInfo.devPort === '' || this.fileInfo.prodRealIp === '' || this.fileInfo.prodPort === '') {
+        this.$gf.alertOn('서버정보를 입력하세요');
+        return 0;
+      }
+
+      for (let i = 0; i < this.fileUserList.length; i++) {
+        if (this.fileUserList[i].chrgrTyp === '' || this.fileUserList[i].instNm === ''
+        || this.fileUserList[i].instCd === '' || this.fileUserList[i].hanNm === ''
+        || this.fileUserList[i].mblPhonNum === '' || this.fileUserList[i].emailAddr === '') {
+          this.$gf.alertOn('담당자 정보를 입력하세요');
+          return 0;
+        }
+      }
+      return 1;
+    },
+    searchOnChrgr(row) {
+      this.row = row;
+      if (this.onlineUserList[row].chrgrTyp === '' || this.onlineUserList[row].chrgrTyp === undefined) {
+        this.$gf.alertOn('구분을 선택하세요');
+        return;
+      }
+      console.log('담당자 추가!');
+      this.addOnlineChrgrRow(row);
+    },
+    addOnlineChrgrRow(row) {
+      this.type = 'on';
+      console.log('행 추가!');
+      if (this.onlineUserList[row].chrgrTyp === 'in') {
+        this.svrOnChrgr = true;
+      } else if (this.onlineUserList[row].chrgrTyp === 'out') {
+        this.svrOnEigwChrgr = true;
+      } else {
+        this.turnOnSvrPopInstList(row, 'on');
+      }
+    },
+    searchFileChrgr(row) {
+      this.row = row;
+      if (this.fileUserList[row].chrgrTyp === '' || this.fileUserList[row].chrgrTyp === undefined) {
+        this.$gf.alertOn('구분을 선택하세요');
+        return;
+      }
+      console.log('담당자 추가!');
+      this.addFileChrgrRow(row);
+    },
+    addFileChrgrRow(row) {
+      this.type = 'file';
+      console.log('행 추가!');
+      if (this.fileUserList[row].chrgrTyp === 'in') {
+        this.svrOnChrgr = true;
+      } else if (this.fileUserList[row].chrgrTyp === 'out') {
+        this.svrOnEigwChrgr = true;
+      } else {
+        this.turnOnSvrPopInstList(row, 'file');
+      }
+    },
+    addDataChrgr(val) {
+      console.log(`Popup에서 받아온 Data : ${val}`);
+      if (this.type === 'on') {
+        this.onlineUserList[this.row].hanNm = val.hanNm;
+        this.onlineUserList[this.row].userId = val.userId;
+        this.onlineUserList[this.row].instCd = val.instCd;
+        this.onlineUserList[this.row].instNm = val.instNm;
+        this.onlineUserList[this.row].ofcLvlCd = val.ofcLvlCd;
+        this.onlineUserList[this.row].ofcLvlNm = val.ofcLvlNm;
+        this.onlineUserList[this.row].mblPhonNum = val.mblPhonNum;
+        this.onlineUserList[this.row].emailAddr = val.emailAddr;
+      } else {
+        this.fileUserList[this.row].hanNm = val.hanNm;
+        this.fileUserList[this.row].userId = val.userId;
+        this.fileUserList[this.row].instCd = val.instCd;
+        this.fileUserList[this.row].instNm = val.instNm;
+        this.fileUserList[this.row].ofcLvlCd = val.ofcLvlCd;
+        this.fileUserList[this.row].ofcLvlNm = val.ofcLvlNm;
+        this.fileUserList[this.row].mblPhonNum = val.mblPhonNum;
+        this.fileUserList[this.row].emailAddr = val.emailAddr;
+      }
+      this.svrOnChrgr = false;
+      this.svrOnEigwChrgr = false;
+    },
+    turOffSvrPopChrgr(val) {
+      console.log(`Popup에서 받아온 Data : ${val}`);
+      this.svrOnChrgr = false;
+      this.svrOnEigwChrgr = false;
+    },
+    turnOnSvrPopInstList(val, type) {
       this.instPopupCase = val;
+      this.typeCase = type;
       this.svrOnInstList = true;
     },
     turOffSvrPopInstList(val) {
@@ -982,12 +1341,23 @@ export default {
     },
     addDataInstList(val) {
       console.log(`Popup에서 받아온 Data : ${val}`);
-      if (this.instPopupCase === 1) {
-        this.instCd = val.instCd;
-        this.instNm = val.instNm;
-      } else {
-        this.fileIfMst.instCd = val.instCd;
-        this.fileIfMst.instNm = val.instNm;
+      if (this.typeCase === 'on') {
+        if (this.instPopupCase === -1) {
+          this.onlineInfo.instCd = val.instCd;
+          this.onlineInfo.instNm = val.instNm;
+        } else {
+          this.onlineUserList[this.instPopupCase].instCd = val.instCd;
+          this.onlineUserList[this.instPopupCase].instNm = val.instNm;
+        }
+      }
+      if (this.typeCase === 'file') {
+        if (this.instPopupCase === -2) {
+          this.fileInfo.instCd = val.instCd;
+          this.fileInfo.instNm = val.instNm;
+        } else {
+          this.fileUserList[this.instPopupCase].instCd = val.instCd;
+          this.fileUserList[this.instPopupCase].instNm = val.instNm;
+        }
       }
       this.svrOnInstList = false;
     },
