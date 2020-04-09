@@ -1,5 +1,11 @@
 <template>
   <div class="right_space">
+    <InstListPopup
+      v-if="svrOnInstList"
+      v-bind="propsInstList"
+      @closePop="turOffSvrPopInstList"
+      @addData="addDataInstList"
+    />
     <section class="title style-1">
       <h2>
         <div>
@@ -27,10 +33,11 @@
         <div class="column w-1">
           <label class="column_label">대외기관</label>
           <input
-            v-model="instCd"
+            v-model="instNm"
             type="text"
             class="add_text on"
             @keyup.13="searchList()"
+            @click="turnOnSvrPopInstList()"
           >
         </div>
         <div class="column w-1">
@@ -47,6 +54,14 @@
           <input
             v-model="svrIp"
             type="text"
+            class="add_text on"
+            @keyup.13="searchList()"
+          >
+        </div>
+        <div class="column w-1">
+          <input
+            v-model="instCd"
+            type="hidden"
             class="add_text on"
             @keyup.13="searchList()"
           >
@@ -117,8 +132,20 @@
           </div>
         </div>
       </div>
+      <div class="pagination_space">
+        <paginate
+          v-model="pageSet.pageNo"
+          :page-count="pageSet.pageCount"
+          :page-range="3"
+          :margin-pages="1"
+          :click-handler="searchList"
+          :prev-text="'이전'"
+          :next-text="'다음'"
+          :container-class="'pagination'"
+          :page-class="'page-item'"
+        />
+      </div>
     </section>
-
     <section class="form_area border_group">
       <h5 class="s_tit">
         상세정보
@@ -141,18 +168,28 @@
       </div>
       <div class="row_contain type-2">
         <div class="column on w-1">
-          <label class="column_label">프로그램 타입</label>
-          <input
-            v-model="procInfo.pgmTyp"
-            type="text"
-          >
+          <label class="column_label">프로그램 유형</label>
+          <select v-model="procInfo.pgmTyp">
+            <option value="CLIENT">
+              클라이언트
+            </option>
+            <option value="SERVER">
+              서버
+            </option>
+          </select>
+          <span class="select" />
         </div>
         <div class="column w-1">
           <label class="column_label">연결유형</label>
-          <input
-            v-model="procInfo.linkTyp"
-            type="text"
-          >
+          <select v-model="procInfo.linkTyp">
+            <option value="CONN">
+              연결형
+            </option>
+            <option value="DISCONN">
+              비연결형
+            </option>
+          </select>
+          <span class="select" />
         </div>
       </div>
     </section>
@@ -261,51 +298,50 @@
       <h5 class="s_tit type-2">
         대외기관 담당자 정보
       </h5>
-      <div class="table_grid">
-        <div class="table_head w-auto except">
-          <ul>
-            <li class="th_cell">
-              기관
-            </li>
-            <li class="th_cell">
-              부서
-            </li>
-            <li class="th_cell">
-              이름
-            </li>
-            <li class="th_cell">
-              연락처
-            </li>
-            <li class="th_cell">
-              E-mail
-            </li>
-          </ul>
-        </div>
-        <div class="table_body">
-          <ul
-            v-for="outchrgr in outChrgrList"
-            :key="outchrgr.userId"
-            class="table_row form_type except w-auto"
-          >
-            <li class="td_cell">
-              {{ outchrgr.userId }}
-            </li>
-            <li class="td_cell">
-              {{ outchrgr.instNm }}
-            </li>
-            <li class="td_cell">
-              {{ outchrgr.orgCd }}
-            </li>
-            <li class="td_cell">
-              {{ outchrgr.hanNm }}
-            </li>
-            <li class="td_cell">
-              {{ outchrgr.mblPhonNum }}
-            </li>
-            <li class="td_cell">
-              {{ outchrgr.emailAddr }}
-            </li>
-          </ul>
+      <div class="table_colgroup">
+        <div class="table_grid">
+          <div class="table_head w-auto except">
+            <ul>
+              <li class="th_cell">
+                기관
+              </li>
+              <li class="th_cell">
+                부서
+              </li>
+              <li class="th_cell">
+                이름
+              </li>
+              <li class="th_cell">
+                연락처
+              </li>
+              <li class="th_cell">
+                E-mail
+              </li>
+            </ul>
+          </div>
+          <div class="table_body">
+            <ul
+              v-for="outchrgr in outChrgrList"
+              :key="outchrgr.userId"
+              class="table_row form_type except w-auto"
+            >
+              <li class="td_cell">
+                {{ outchrgr.instNm }}
+              </li>
+              <li class="td_cell">
+                {{ outchrgr.orgCd }}
+              </li>
+              <li class="td_cell">
+                {{ outchrgr.hanNm }}
+              </li>
+              <li class="td_cell">
+                {{ outchrgr.mblPhonNum }}
+              </li>
+              <li class="td_cell">
+                {{ outchrgr.emailAddr }}
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </section>
@@ -314,14 +350,24 @@
 
 <script>
 import { fetchEigwAdOnlineList, fetchEigwOnlineDetail } from '@/api/eigwApi';
+import InstListPopup from '@/components/popup/bizcomm/InstListPopup.vue';
 
 export default {
+  components: {
+    InstListPopup,
+  },
   data() {
     return {
+      svrOnInstList: false,
+      propsInstList: { // 조회 시 parameter에 사용자 정보를 담아주려면 여기를 통해 넘겨주세요.
+        message: '', // 사용방법 예시 데이터
+      },
+      pageSet: { pageNo: 1, pageCount: 0, size: 5 },
       onlineIfList: '',
       eaiIfId: '',
       svrIp: '',
       instCd: '',
+      instNm: '',
       inChrgrList: '',
       outChrgrList: '',
       onlineMst: {},
@@ -335,12 +381,15 @@ export default {
           eaiIfId: this.eaiIfId,
           svrIp: this.svrIp,
           instCd: this.instCd,
+          pageNo: this.pageSet.pageNo,
+          size: this.pageSet.size,
         },
       })
         .then((res) => {
           console.log(res);
           if (res.data.rstCd === 'S') {
             this.onlineIfList = res.data.rstData.searchList;
+            this.pageSet = res.data.rstData.pageSet;
           } else {
             this.$gf.alertOn('failed');
           }
@@ -370,6 +419,19 @@ export default {
         .catch((ex) => {
           console.log(`error occur!! : ${ex}`);
         });
+    },
+    turnOnSvrPopInstList() {
+      this.svrOnInstList = true;
+    },
+    turOffSvrPopInstList(val) {
+      console.log(`Popup에서 받아온 Data : ${val}`);
+      this.svrOnInstList = false;
+    },
+    addDataInstList(val) {
+      console.log(`Popup에서 받아온 Data : ${val}`);
+      this.instCd = val.instCd;
+      this.instNm = val.instNm;
+      this.svrOnInstList = false;
     },
   },
 };
