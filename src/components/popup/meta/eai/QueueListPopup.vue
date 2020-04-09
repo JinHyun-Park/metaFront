@@ -109,7 +109,7 @@
                 {{ queue.queueNm }}
               </li>
               <li class="td_cell">
-                {{ queue.queueType }}
+                {{ queue.qTypeCd }}
               </li>
               <li class="td_cell">
                 {{ queue.chrgrNm }}
