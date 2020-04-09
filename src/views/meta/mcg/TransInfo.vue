@@ -5,6 +5,11 @@
       @closePop="turOffPopChrgr"
       @addData="addDataChrgr"
     />
+    <ChnlListPopup
+      v-if="chnlpopupstate"
+      @closePop="turOffPopChnl"
+      @addData="addDataChnl"
+    />
     <section class="title style-1">
       <h2>
         <div>
@@ -42,11 +47,24 @@
           type="text"
           class="add_text on"
         >
-        <input
-          v-model="chnlId"
-          type="text"
-          class="add_text"
-        >
+        <div class="search_group">
+          <label class="column_label tooltips ov top">
+            <span class="tip_contn">
+              <em class="tip_text">   MCG 채널ID 로 조회
+              </em></span></label>
+          <input
+            v-model="chnlId"
+            type="text"
+            class="add_text"
+          >
+          <span class="search">
+            <i
+              class="ico-search"
+              @click="chnlpopon()"
+            />
+          </span>
+        </div>
+
         <input
           v-model="chnlTyp"
           type="text"
@@ -192,7 +210,7 @@
         </div>
       </div>
       <div class="row_contain type-3">
-        <div class="column on w-1">
+        <div class="column w-1">
           <label class="column_label">요청담당자</label>
           <div class="search_group">
             <input
@@ -253,12 +271,12 @@
           <div class="select_group">
             <select v-model="dealdtl.useYn">
               <option
-                value=""
+                value="Y"
                 selected
               >
                 Y
               </option>
-              <option value="">
+              <option value="N">
                 N
               </option>
             </select>
@@ -279,7 +297,11 @@
     </section>
   </div>
 </template>
-
+<style scoped>
+ul:hover{
+background-color: rgb(223, 219, 219);
+}
+</style>
 
 <script>
 import { mapState, mapActions } from 'vuex';
@@ -289,10 +311,12 @@ import {
   fetchGetMcgDealList,
 } from '@/api/mcgApi';
 import ChrgrListPopup from '@/components/popup/bizcomm/ChrgrListPopup.vue';
+import ChnlListPopup from '@/components/popup/meta/mcg/ChnListPopup.vue';
 
 export default {
   components: {
     ChrgrListPopup,
+    ChnlListPopup,
   },
   data() {
     return {
@@ -350,13 +374,14 @@ export default {
       chrgrId: '',
       mblPhonNum: '',
       isStatusOn: '',
-      chrgrpopupstate: '',
+      chrgrpopupstate: false,
+      chnlpopupstate: false,
       chrgrn: '',
       chrgropCd: '',
     };
   },
   computed: {
-    // ...mapState('frameSet', ['resetPopOn']),
+    ...mapState('frameSet', ['resetPopOn']),
     ...mapState('ccCdLst', ['ccCdList']),
   },
   methods: {
@@ -422,6 +447,23 @@ export default {
       if (this.chrgrn === 2) { this.chrgrs.chrgrId = val.userId; this.chrgrs.hanNm = val.hanNm; }
 
       console.log(val.userId, this.chrgrm.chrgrId, this.chrgrs.chrgrId);
+    },
+
+    chnlpopon() {
+      this.chnlpopupstate = true;
+    },
+
+    turOffPopChnl(val) {
+      console.log(`Popup에서 받아온 Data : ${val}`);
+      this.chnlpopupstate = false;
+    },
+
+    addDataChnl(val) {
+      console.log(`Popup에서 받아온 Data : ${val}`);
+      this.chnlpopupstate = false;
+      this.chnlId = val;
+
+      console.log();
     },
 
     dtlDeal(deal) {

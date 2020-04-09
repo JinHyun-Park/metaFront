@@ -69,7 +69,7 @@
           </div>
         </div>
         <div class="column w-1">
-          <label class="column_label">채널타입</label>
+          <label class="column_label">채널유형</label>
           <select v-model="chnlTyp">
             <option
               v-for="(code, m) in ccCdList.mcgChnlTyp"
@@ -140,7 +140,7 @@
                 채널그룹<i class="ico-sort-down" />
               </li>
               <li class="th_cell">
-                채널타입<i class="ico-sort-down" />
+                채널유형<i class="ico-sort-down" />
               </li>
               <li class="th_cell">
                 연동방식<i class="ico-sort-down" />
@@ -457,6 +457,11 @@
     </section>
   </div>
 </template>
+<style scoped>
+ul:hover{
+background-color: rgb(223, 219, 219);
+}
+</style>
 
 <script>
 import { mapState, mapActions } from 'vuex';
@@ -472,6 +477,7 @@ import {
 // fetchPutMcgChrgrList,
 } from '@/api/mcgApi';
 import ChrgrListPopup from '@/components/popup/bizcomm/ChrgrListPopup.vue';
+
 
 export default {
   components: {
@@ -543,7 +549,7 @@ export default {
       chrgrId: '',
       mblPhonNum: '',
       isStatusOn: '',
-      chrgrpopupstate: '',
+      chrgrpopupstate: false,
       chrgrn: '',
       chrgropCd: '',
     };
@@ -689,9 +695,9 @@ export default {
     },
 
     chrgrpopon(n, opCdr) {
-      this.chrgrn = n;
-      this.chrgropCd = opCdr;
       this.chrgrpopupstate = true;
+      this.chrgrn = String(n);
+      this.chrgropCd = opCdr;
     },
 
     turOffPopChrgr(val) {
@@ -702,10 +708,9 @@ export default {
     addDataChrgr(val) {
       console.log(`Popup에서 받아온 Data : ${val}`);
       this.chrgrpopupstate = false;
-      if (this.chrgrn === 1) { this.chrgrm.chrgrId = val.userId; this.chrgrm.hanNm = val.hanNm; }
-      if (this.chrgrn === 2) { this.chrgrs.chrgrId = val.userId; this.chrgrs.hanNm = val.hanNm; }
+      if (this.chrgrn === '1') { this.chrgrm.chrgrId = val.userId; this.chrgrm.hanNm = val.hanNm; } else if (this.chrgrn === '2') { this.chrgrs.chrgrId = val.userId; this.chrgrs.hanNm = val.hanNm; }
 
-      console.log(val.userId, this.chrgrm.chrgrId, this.chrgrs.chrgrId);
+      console.log(this.chrgrn, val.userId, this.chrgrm.chrgrId, this.chrgrs.chrgrId);
     },
 
     dtlChnl(chn) {
