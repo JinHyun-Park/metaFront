@@ -220,69 +220,6 @@
         </div>
       </div>
     </section>
-    <!--
-    <section class="form_area border_group">
-      <h5 class="s_tit">
-        DB / Program
-      </h5>
-      <div class="row_contain">
-        <div class="column on w-3">
-          <label class="column_label">송신 I/F DB</label>
-          <div class="search_group">
-            <input
-              type="text"
-              value="myidisyoungjunyumyidisyoungjunyu12myidisyo"
-            >
-            <span class="search">
-              <i class="ico-search" />
-            </span>
-          </div>
-        </div>
-        <div class="column w-3">
-          <label class="column_label">수신 I/F DB</label>
-          <div class="search_group">
-            <input
-              type="text"
-              value="myidisyoungjunyumyidisyoungjunyu12myidisyo"
-            >
-            <span class="search">
-              <i class="ico-search" />
-            </span>
-          </div>
-        </div>
-      </div>
-      <div class="row_contain">
-        <div class="column w-2">
-          <label class="column_label">수신전문처리</label>
-          <div class="select_group">
-            <select>
-              <option
-                value=""
-                selected
-              >
-                실시간/배치
-              </option>
-              <option value="">
-                실시간
-              </option>
-              <option value="">
-                배치
-              </option>
-            </select>
-            <span class="select" />
-          </div>
-        </div>
-        <div class="column w-3">
-          <label class="column_label">수신 프로그램</label>
-          <input
-            type="text"
-            value="myidisyoungjunyumyidisyoungjunyu12myidisyo"
-          >
-        </div>
-        <div class="column w-3" />
-      </div>
-    </section>
-    -->
     <section class="form_area border_group">
       <h5 class="s_tit">
         File 연동
@@ -375,6 +312,16 @@
           </div>
         </div>
         <div class="column w-2">
+          <label class="column_label">소속</label>
+          <div class="search_group">
+            <input
+              v-model="ifDetailInfo.sndChrgrOrgNm1"
+              type="text"
+              readonly
+            >
+          </div>
+        </div>
+        <div class="column w-2">
           <label class="column_label">운영 담당자2</label>
           <div class="search_group">
             <input
@@ -391,6 +338,16 @@
           </div>
         </div>
         <div class="column w-2">
+          <label class="column_label">소속</label>
+          <div class="search_group">
+            <input
+              v-model="ifDetailInfo.sndChrgrOrgNm2"
+              type="text"
+              readonly
+            >
+          </div>
+        </div>
+        <div class="column w-2">
           <label class="column_label">업무 담당 매니저</label>
           <div class="search_group">
             <input
@@ -404,6 +361,16 @@
                 @click="turnOnSvrPopChrgr(3)"
               />
             </span>
+          </div>
+        </div>
+        <div class="column w-2">
+          <label class="column_label">소속</label>
+          <div class="search_group">
+            <input
+              v-model="ifDetailInfo.sndChrgrMngrOrgNm"
+              type="text"
+              readonly
+            >
           </div>
         </div>
       </div>
@@ -437,6 +404,16 @@
           </div>
         </div>
         <div class="column w-2">
+          <label class="column_label">소속</label>
+          <div class="search_group">
+            <input
+              v-model="ifDetailInfo.rcvChrgrOrgNm1"
+              type="text"
+              readonly
+            >
+          </div>
+        </div>
+        <div class="column w-2">
           <label class="column_label">운영 담당자2</label>
           <div class="search_group">
             <input
@@ -453,6 +430,16 @@
           </div>
         </div>
         <div class="column w-2">
+          <label class="column_label">소속</label>
+          <div class="search_group">
+            <input
+              v-model="ifDetailInfo.rcvChrgrOrgNm2"
+              type="text"
+              readonly
+            >
+          </div>
+        </div>
+        <div class="column w-2">
           <label class="column_label">업무 담당 매니저</label>
           <div class="search_group">
             <input
@@ -466,6 +453,16 @@
                 @click="turnOnSvrPopChrgr(6)"
               />
             </span>
+          </div>
+        </div>
+        <div class="column w-2">
+          <label class="column_label">소속</label>
+          <div class="search_group">
+            <input
+              v-model="ifDetailInfo.rcvChrgrMngrOrgNm"
+              type="text"
+              readonly
+            >
           </div>
         </div>
       </div>
@@ -1041,6 +1038,12 @@ export default {
         rcvChrgrNm2: '',
         rcvChrgrMngrId: '',
         rcvChrgrMngrNm: '',
+        sndChrgrOrgNm1: '',
+        sndChrgrOrgNm2: '',
+        sndChrgrMngrOrgNm: '',
+        rcvChrgrOrgNm1: '',
+        rcvChrgrOrgNm2: '',
+        rcvChrgrMngrOrgNm: '',
         svcImpt: '',
         eaiRmk: '',
         useYn: '',
@@ -1369,26 +1372,32 @@ export default {
       if (this.callChrgr === 1) {
         this.ifDetailInfo.sndChrgrId1 = val.userId;
         this.ifDetailInfo.sndChrgrNm1 = val.hanNm;
+        this.ifDetailInfo.sndChrgrOrgNm1 = val.orgNm;
       }
       if (this.callChrgr === 2) {
         this.ifDetailInfo.sndChrgrId2 = val.userId;
         this.ifDetailInfo.sndChrgrNm2 = val.hanNm;
+        this.ifDetailInfo.sndChrgrOrgNm2 = val.orgNm;
       }
       if (this.callChrgr === 3) {
         this.ifDetailInfo.sndChrgrMngrId = val.userId;
         this.ifDetailInfo.sndChrgrMngrNm = val.hanNm;
+        this.ifDetailInfo.sndChrgrMngrOrgNm = val.orgNm;
       }
       if (this.callChrgr === 4) {
         this.ifDetailInfo.rcvChrgrId1 = val.userId;
         this.ifDetailInfo.rcvChrgrNm1 = val.hanNm;
+        this.ifDetailInfo.rcvChrgrOrgNm1 = val.orgNm;
       }
       if (this.callChrgr === 5) {
         this.ifDetailInfo.rcvChrgrId2 = val.userId;
         this.ifDetailInfo.rcvChrgrNm2 = val.hanNm;
+        this.ifDetailInfo.rcvChrgrOrgNm2 = val.orgNm;
       }
       if (this.callChrgr === 6) {
         this.ifDetailInfo.rcvChrgrMngrId = val.userId;
         this.ifDetailInfo.rcvChrgrMngrNm = val.hanNm;
+        this.ifDetailInfo.rcvChrgrMngrOrgNm = val.orgNm;
       }
     },
     onChangeIfTypCd() {

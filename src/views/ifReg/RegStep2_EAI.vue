@@ -645,6 +645,16 @@
           </div>
         </div>
         <div class="column w-2">
+          <label class="column_label">소속</label>
+          <div class="search_group">
+            <input
+              v-model="sndChrgrOrgNm1"
+              type="text"
+              readonly
+            >
+          </div>
+        </div>
+        <div class="column w-2">
           <label class="column_label">운영 담당자2</label>
           <div class="search_group">
             <input
@@ -661,6 +671,16 @@
           </div>
         </div>
         <div class="column w-2">
+          <label class="column_label">소속</label>
+          <div class="search_group">
+            <input
+              v-model="sndChrgrOrgNm2"
+              type="text"
+              readonly
+            >
+          </div>
+        </div>
+        <div class="column w-2">
           <label class="column_label">업무 담당 매니저</label>
           <div class="search_group">
             <input
@@ -674,6 +694,16 @@
                 @click="turnOnSvrPopChrgr(3)"
               />
             </span>
+          </div>
+        </div>
+        <div class="column w-2">
+          <label class="column_label">소속</label>
+          <div class="search_group">
+            <input
+              v-model="sndChrgrMngrOrgNm"
+              type="text"
+              readonly
+            >
           </div>
         </div>
       </div>
@@ -707,6 +737,16 @@
           </div>
         </div>
         <div class="column w-2">
+          <label class="column_label">소속</label>
+          <div class="search_group">
+            <input
+              v-model="rcvChrgrOrgNm1"
+              type="text"
+              readonly
+            >
+          </div>
+        </div>
+        <div class="column w-2">
           <label class="column_label">운영 담당자2</label>
           <div class="search_group">
             <input
@@ -723,6 +763,16 @@
           </div>
         </div>
         <div class="column w-2">
+          <label class="column_label">소속</label>
+          <div class="search_group">
+            <input
+              v-model="rcvChrgrOrgNm2"
+              type="text"
+              readonly
+            >
+          </div>
+        </div>
+        <div class="column w-2">
           <label class="column_label">업무 담당 매니저</label>
           <div class="search_group">
             <input
@@ -736,6 +786,16 @@
                 @click="turnOnSvrPopChrgr(6)"
               />
             </span>
+          </div>
+        </div>
+        <div class="column w-2">
+          <label class="column_label">소속</label>
+          <div class="search_group">
+            <input
+              v-model="rcvChrgrMngrOrgNm"
+              type="text"
+              readonly
+            >
           </div>
         </div>
       </div>
@@ -839,6 +899,12 @@ export default {
       rcvChrgrNm1: '',
       rcvChrgrNm2: '',
       rcvChrgrMngrNm: '',
+      sndChrgrOrgNm1: '',
+      sndChrgrOrgNm2: '',
+      sndChrgrMngrOrgNm: '',
+      rcvChrgrOrgNm1: '',
+      rcvChrgrOrgNm2: '',
+      rcvChrgrMngrOrgNm: '',
       sndMid: '',
       rcvMid: '',
       svcImpt: '',
@@ -920,6 +986,12 @@ export default {
           rcvChrgrNm2: '',
           rcvChrgrMngrId: '',
           rcvChrgrMngrNm: '',
+          sndChrgrOrgNm1: '',
+          sndChrgrOrgNm2: '',
+          sndChrgrMngrOrgNm: '',
+          rcvChrgrOrgNm1: '',
+          rcvChrgrOrgNm2: '',
+          rcvChrgrMngrOrgNm: '',
           svcImpt: '',
           eaiRmk: '',
           procSt: '',
@@ -1330,6 +1402,14 @@ export default {
       this.currRow.rcvChrgrNm2 = this.rcvChrgrNm2;
       this.currRow.rcvChrgrMngrId = this.rcvChrgrMngrId;
       this.currRow.rcvChrgrMngrNm = this.rcvChrgrMngrNm;
+
+      this.currRow.sndChrgrOrgNm1 = this.sndChrgrOrgNm1;
+      this.currRow.sndChrgrOrgNm2 = this.sndChrgrOrgNm2;
+      this.currRow.sndChrgrMngrOrgNm = this.sndChrgrMngrOrgNm;
+      this.currRow.rcvChrgrOrgNm1 = this.rcvChrgrOrgNm1;
+      this.currRow.rcvChrgrOrgNm2 = this.rcvChrgrOrgNm2;
+      this.currRow.rcvChrgrMngrOrgNm = this.rcvChrgrMngrOrgNm;
+
       this.currRow.svcImpt = this.svcImpt;
       this.currRow.eaiRmk = this.eaiRmk;
 
@@ -1356,6 +1436,7 @@ export default {
       this.rcvDir = eaiIf.rcvDir;
       this.rcvShNm = eaiIf.rcvShNm;
       this.fileOpCode = eaiIf.fileOpCode;
+
       this.sndMid = eaiIf.sndMid;
       this.sndChrgrId1 = eaiIf.sndChrgrId1;
       this.sndChrgrNm1 = eaiIf.sndChrgrNm1;
@@ -1363,6 +1444,7 @@ export default {
       this.sndChrgrNm2 = eaiIf.sndChrgrNm2;
       this.sndChrgrMngrId = eaiIf.sndChrgrMngrId;
       this.sndChrgrMngrNm = eaiIf.sndChrgrMngrNm;
+
       this.rcvMid = eaiIf.rcvMid;
       this.rcvChrgrId1 = eaiIf.rcvChrgrId1;
       this.rcvChrgrNm1 = eaiIf.rcvChrgrNm1;
@@ -1370,6 +1452,14 @@ export default {
       this.rcvChrgrNm2 = eaiIf.rcvChrgrNm2;
       this.rcvChrgrMngrId = eaiIf.rcvChrgrMngrId;
       this.rcvChrgrMngrNm = eaiIf.rcvChrgrMngrNm;
+
+      this.sndChrgrOrgNm1 = eaiIf.sndChrgrOrgNm1;
+      this.sndChrgrOrgNm2 = eaiIf.sndChrgrOrgNm2;
+      this.sndChrgrMngrOrgNm = eaiIf.sndChrgrMngrOrgNm;
+      this.rcvChrgrOrgNm1 = eaiIf.rcvChrgrOrgNm1;
+      this.rcvChrgrOrgNm2 = eaiIf.rcvChrgrOrgNm2;
+      this.rcvChrgrMngrOrgNm = eaiIf.rcvChrgrMngrOrgNm;
+
       this.svcImpt = eaiIf.svcImpt;
       this.eaiRmk = eaiIf.eaiRmk;
 
@@ -1529,26 +1619,32 @@ export default {
       if (this.callChrgr === 1) {
         this.sndChrgrId1 = val.userId;
         this.sndChrgrNm1 = val.hanNm;
+        this.sndChrgrOrgNm1 = val.orgNm;
       }
       if (this.callChrgr === 2) {
         this.sndChrgrId2 = val.userId;
         this.sndChrgrNm2 = val.hanNm;
+        this.sndChrgrOrgNm2 = val.orgNm;
       }
       if (this.callChrgr === 3) {
         this.sndChrgrMngrId = val.userId;
         this.sndChrgrMngrNm = val.hanNm;
+        this.sndChrgrMngrOrgNm = val.orgNm;
       }
       if (this.callChrgr === 4) {
         this.rcvChrgrId1 = val.userId;
         this.rcvChrgrNm1 = val.hanNm;
+        this.rcvChrgrOrgNm1 = val.orgNm;
       }
       if (this.callChrgr === 5) {
         this.rcvChrgrId2 = val.userId;
         this.rcvChrgrNm2 = val.hanNm;
+        this.rcvChrgrOrgNm2 = val.orgNm;
       }
       if (this.callChrgr === 6) {
         this.rcvChrgrMngrId = val.userId;
         this.rcvChrgrMngrNm = val.hanNm;
+        this.rcvChrgrMngrOrgNm = val.orgNm;
       }
     },
   },
