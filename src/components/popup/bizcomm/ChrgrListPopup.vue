@@ -57,7 +57,7 @@
                   생년월일
                 </li>
                 <li class="th_cell">
-                  기관코드
+                  기관명
                 </li>
                 <li class="th_cell">
                   직급
@@ -116,7 +116,7 @@
                   {{ chrgr.juminNo }}
                 </li>
                 <li class="td_cell">
-                  {{ chrgr.orgCd }}
+                  {{ chrgr.orgNm }}
                 </li>
                 <li class="td_cell">
                   {{ chrgr.ofcLvlNm }}
