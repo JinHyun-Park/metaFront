@@ -45,6 +45,10 @@ function fetchGetEaiIfDetailInfo(param) {
   return axios.get(`${preUrl}/eaiDetail`, param);
 }
 
+function fetchGetEaiIfList(param) {
+  return axios.get(`${preUrl}/eaiList`, param);
+}
+
 export {
   fetchGetEaiMqMngrList,
   fetchGetEaiQueueList,
@@ -57,4 +61,5 @@ export {
   fetchGetEaiRegSvrList,
   fetchGetEaiRegIfList,
   fetchGetEaiIfDetailInfo,
+  fetchGetEaiIfList,
 };

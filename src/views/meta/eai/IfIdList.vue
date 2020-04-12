@@ -1,563 +1,463 @@
 <template>
   <div class="right_space">
+    <EaiServerListPopup
+      v-if="svrOnServer"
+      v-bind="propsServer"
+      @closePop="turOffSvrPopServer"
+      @returnData="getData"
+    />
+    <ChrgrListPopup
+      v-if="svrOnChrgr"
+      v-bind="propsChrgr"
+      @closePop="turOffSvrPopChrgr"
+      @addData="addDataChrgr"
+    />
     <section class="title style-2">
       <h2>
         <div>
-          <i class="ico-bar" />EAI 인터페이스 등록
-        </div>
-        <div class="breadcrumb">
-          <span>EGIW</span><em class="on">EAI</em>
+          <i class="ico-bar" />EAI 인터페이스 목록
         </div>
       </h2>
     </section>
-
-    <section class="sub_info">
-      <h4 class="sub_tit">
-        사용자 안내
-      </h4>
-      <ul class="sub_list">
-        <li>
-          정보시스템 서비스 운영자가 자체 개선을 위해 변경 작업 등이 필요한 경우 작성하는 요청서입니다.
-        </li>
-        <li>
-          고객 또는 현업 사용자 요청을 대리 등록할 수 없습니다.
-        </li>
-        <li>
-          요청서 제출 후 변경계획서를 작성할 수 있습니다.
-        </li>
-      </ul>
-    </section>
-
     <section class="form_area border_group">
-      <h5 class="s_tit">
+      <h5 class="s_tit type-2">
         기본 정보
+        <div class="right_button_area">
+          <button
+            type="button"
+            class="default_button on"
+            @click="searchList"
+          >
+            조회
+          </button>
+          <button
+            type="button"
+            class="default_button on"
+            @click="clearSearchFields"
+          >
+            지우기
+          </button>
+        </div>
       </h5>
       <div class="row_contain">
-        <div class="column on w-2">
-          <label class="column_label">인터페이스 ID</label>
+        <div class="column w-2">
+          <label class="column_label">인터페이스ID</label>
           <input
+            v-model="eaiIfId"
             type="text"
-            value="myidisyoungjunyumyidisyoungjunyu12"
+            value=""
+            oninput="this.value = this.value.toUpperCase()"
           >
         </div>
-        <div class="column w-4">
+        <div class="column w-2">
           <label class="column_label">인터페이스명</label>
           <input
+            v-model="eaiIfNmKor"
             type="text"
             value=""
           >
         </div>
-      </div>
-      <div class="row_contain">
         <div class="column w-1">
-          <label class="column_label">유형</label>
+          <label class="column_label">연동 방식</label>
           <div class="select_group">
-            <select>
+            <select
+              v-model="ifTypCd"
+            >
               <option
-                value=""
-                selected
+                v-for="(code, i) in ccCdList.ifTypCd"
+                :key="i"
+                :value="code.cdDtlId"
               >
-                MQ
-              </option>
-              <option value="">
-                FILE
+                {{ code.cdNm }}
               </option>
             </select>
             <span class="select" />
           </div>
         </div>
-        <div class="column on w-1">
-          <label class="column_label">HUB</label>
+        <div class="column w-1">
+          <label class="column_label">단/양방향</label>
           <div class="select_group">
-            <select>
+            <select
+              v-model="roundTypCd"
+            >
+              <option
+                v-for="(code, i) in ccCdList.roundTypCd"
+                :key="i"
+                :value="code.cdDtlId"
+              >
+                {{ code.cdNm }}
+              </option>
+            </select>
+            <span class="select" />
+          </div>
+        </div>
+        <div class="column w-1">
+          <label class="column_label">EAI HUB</label>
+          <div class="select_group">
+            <select
+              v-model="eaiHub"
+            >
               <option
                 value=""
-                selected
+              >
+                전체
+              </option>
+              <option
+                value="1"
               >
                 1
               </option>
-              <option value="">
+              <option
+                value="2"
+              >
                 2
               </option>
-              <option value="">
-                3
-              </option>
-              <option value="">
-                4
-              </option>
             </select>
             <span class="select" />
+          </div>
+        </div>
+      </div>
+      <div class="row_contain">
+        <div class="column w-1">
+          <label class="column_label">큐매니저</label>
+          <input
+            v-model="mqMngrNm"
+            type="text"
+            value=""
+            oninput="this.value = this.value.toUpperCase()"
+          >
+        </div>
+        <div class="column w-2">
+          <label class="column_label">큐</label>
+          <input
+            v-model="queueNm"
+            type="text"
+            value=""
+          >
+        </div>
+        <div class="column w-1">
+          <label class="column_label">수신TR (SWING)</label>
+          <input
+            ref="rcvTrInput"
+            v-model="rcvTr"
+            type="text"
+            oninput="this.value = this.value.toUpperCase()"
+          >
+        </div>
+        <div class="column w-1">
+          <label class="column_label">시스템</label>
+          <div class="search_group">
+            <input
+              v-model="hostNm"
+              type="text"
+              value=""
+              @click="turnOnSvrPopServer"
+            >
+            <span
+              class="search"
+              @click="turnOnSvrPopServer"
+            ><i class="ico-search" /></span>
           </div>
         </div>
         <div class="column w-1">
-          <label class="column_label">방향</label>
-          <div class="select_group">
-            <select>
-              <option
-                value=""
-                selected
-              >
-                단방향
-              </option>
-              <option value="">
-                양방향
-              </option>
-            </select>
-            <span class="select" />
+          <label class="column_label">담당자</label>
+          <div class="search_group">
+            <input
+              v-model="chrgrNm"
+              type="text"
+              value=""
+              @click="turnOnSvrPopChrgr"
+            >
+            <span
+              class="search"
+              @click="turnOnSvrPopChrgr"
+            ><i class="ico-search" /></span>
           </div>
         </div>
         <div class="column w-1">
-          <label class="column_label">브로커</label>
+          <label class="column_label">사용 여부</label>
           <div class="select_group">
-            <select>
-              <option
-                value=""
-                selected
-              >
-                Y
-              </option>
+            <select v-model="useYn">
               <option value="">
-                N
+                전체
               </option>
-            </select>
-            <span class="select" />
-          </div>
-        </div>
-        <div class="column w-1">
-          <label class="column_label">사용여부</label>
-          <div class="select_group disabled">
-            <select disabled>
-              <option value="">
-                Y
+              <option value="Y">
+                사용
               </option>
-              <option
-                value=""
-                selected
-              >
-                N
-              </option>
-            </select>
-            <span class="select" />
-          </div>
-        </div>
-        <div class="column w-1" />
-      </div>
-    </section>
-    <section class="form_area border_group">
-      <h5 class="s_tit">
-        DB / Program
-      </h5>
-      <div class="row_contain">
-        <div class="column on w-3">
-          <label class="column_label">송신 I/F DB</label>
-          <div class="search_group">
-            <input
-              type="text"
-              value="myidisyoungjunyumyidisyoungjunyu12myidisyo"
-            >
-            <span class="search">
-              <i class="ico-search" />
-            </span>
-          </div>
-        </div>
-        <div class="column w-3">
-          <label class="column_label">수신 I/F DB</label>
-          <div class="search_group">
-            <input
-              type="text"
-              value="myidisyoungjunyumyidisyoungjunyu12myidisyo"
-            >
-            <span class="search">
-              <i class="ico-search" />
-            </span>
-          </div>
-        </div>
-      </div>
-      <div class="row_contain">
-        <div class="column w-2">
-          <label class="column_label">수신전문처리</label>
-          <div class="select_group">
-            <select>
-              <option
-                value=""
-                selected
-              >
-                실시간/배치
-              </option>
-              <option value="">
-                실시간
-              </option>
-              <option value="">
-                배치
-              </option>
-            </select>
-            <span class="select" />
-          </div>
-        </div>
-        <div class="column w-3">
-          <label class="column_label">수신 프로그램</label>
-          <input
-            type="text"
-            value="myidisyoungjunyumyidisyoungjunyu12myidisyo"
-          >
-        </div>
-        <div class="column w-3" />
-      </div>
-    </section>
-    <section class="form_area border_group">
-      <h5 class="s_tit">
-        File 연동
-      </h5>
-      <div class="row_contain">
-        <div class="column w-2">
-          <label class="column_label">파일 전송 유형</label>
-          <div class="select_group">
-            <select>
-              <option
-                value=""
-                selected
-              >
-                file_put
-              </option>
-              <option value="">
-                file_get
-              </option>
-            </select>
-            <span class="select" />
-          </div>
-        </div>
-        <div class="column w-3">
-          <label class="column_label">송신 디렉토리</label>
-          <input
-            type="text"
-            value="myidisyoungjunyumyidisyoungjunyu12myidisyo"
-          >
-        </div>
-        <div class="column w-3">
-          <label class="column_label">수신 디렉토리</label>
-          <input
-            type="text"
-            value="myidisyoungjunyumyidisyoungjunyu12myidisyo"
-          >
-        </div>
-      </div>
-    </section>
-    <section class="form_area border_group">
-      <h5 class="s_tit">
-        담당자 정보
-      </h5>
-      <div class="row_contain">
-        <div class="column w-2">
-          <label class="column_label">송신 담당자1</label>
-          <div class="search_group">
-            <input
-              type="text"
-              value=""
-            >
-            <span class="search">
-              <i class="ico-search" />
-            </span>
-          </div>
-        </div>
-        <div class="column w-2">
-          <label class="column_label">송신 담당자2</label>
-          <div class="search_group">
-            <input
-              type="text"
-              value=""
-            >
-            <span class="search">
-              <i class="ico-search" />
-            </span>
-          </div>
-        </div>
-        <div class="column w-2">
-          <label class="column_label">송신 회사</label>
-          <div class="select_group">
-            <select>
-              <option
-                value=""
-                selected
-              >
-                SKT
-              </option>
-              <option value="">
-                SKB
-              </option>
-              <option value="">
-                SKP
-              </option>
-              <option value="">
-                SKTX
+              <option value="N">
+                미사용
               </option>
             </select>
             <span class="select" />
           </div>
         </div>
       </div>
-      <div class="row_contain">
-        <div class="column w-2">
-          <label class="column_label">수신 담당자1</label>
-          <div class="search_group">
-            <input
-              type="text"
-              value=""
+      <div class="table_grid">
+        <div class="table_head w-auto">
+          <ul>
+            <li
+              class="th_cell"
+              style="width:30%"
             >
-            <span class="search">
-              <i class="ico-search" />
-            </span>
-          </div>
+              인터페이스ID
+            </li>
+            <li
+              class="th_cell"
+              style="width:30%"
+            >
+              인터페이스명
+            </li>
+            <li class="th_cell">
+              연동 방식
+            </li>
+            <li class="th_cell">
+              단/양방향
+            </li>
+            <li class="th_cell">
+              사용 여부
+            </li>
+          </ul>
         </div>
-        <div class="column w-2">
-          <label class="column_label">수신 담당자2</label>
-          <div class="search_group">
-            <input
-              type="text"
-              value=""
-            >
-            <span class="search">
-              <i class="ico-search" />
-            </span>
-          </div>
-        </div>
-        <div class="column w-2">
-          <label class="column_label">수신 회사</label>
-          <div class="select_group">
-            <select>
-              <option
-                value=""
-                selected
-              >
-                SKT
-              </option>
-              <option value="">
-                SKB
-              </option>
-              <option value="">
-                SKP
-              </option>
-              <option value="">
-                SKTX
-              </option>
-            </select>
-            <span class="select" />
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="grid_form border_group">
-      <h5 class="s_tit">
-        Queue 상세 정보
-      </h5>
-      <div class="division_row">
-        <div>
-          <label class="column_label">요청 송신 Q</label>
-          <div class="search_group">
-            <input
-              type="text"
-              value="qsign"
-            >
-            <span class="search">
-              <i class="ico-search" />
-            </span>
-          </div>
-          <input
-            type="text"
-            value="2documents2documents2documents2documents2document"
+        <div class="table_body">
+          <ul
+            v-for="(eaiIf, i) in ifList"
+            :key="i"
+            class="table_row w-auto"
+            @click="getRowData(eaiIf);movePage('ifIdListAdmin', 1)"
           >
-          <label class="column_label">요청 송신 XQ</label>
-          <div class="search_group">
-            <input
-              type="text"
-              value="qsign"
-            >
-            <span class="search">
-              <i class="ico-search" />
-            </span>
-          </div>
-          <input
-            type="text"
-            value="2documents2documents2documents2documents2document"
-          >
-          <label class="column_label">HUB 수신 Q</label>
-          <div class="search_group">
-            <input
-              type="text"
-              value="qsign"
-            >
-            <span class="search">
-              <i class="ico-search" />
-            </span>
-          </div>
-          <input
-            type="text"
-            value="2documents2documents2documents2documents2document"
-          >
-          <label class="column_label">HUB 송신 Q</label>
-          <div class="search_group">
-            <input
-              type="text"
-              value="qsign"
-            >
-            <span class="search">
-              <i class="ico-search" />
-            </span>
-          </div>
-          <input
-            type="text"
-            value="2documents2documents2documents2documents2document"
-          >
-          <label class="column_label">HUB 송신 XQ</label>
-          <div class="search_group">
-            <input
-              type="text"
-              value="qsign"
-            >
-            <span class="search">
-              <i class="ico-search" />
-            </span>
-          </div>
-          <input
-            type="text"
-            value="2documents2documents2documents2documents2document"
-          >
-          <label class="column_label">요청 수신 Q</label>
-          <div class="search_group">
-            <input
-              type="text"
-              value="qsign"
-            >
-            <span class="search">
-              <i class="ico-search" />
-            </span>
-          </div>
-          <input
-            type="text"
-            value="2documents2documents2documents2documents2document"
-          >
-        </div>
-        <div>
-          <label class="column_label">요청 송신 Q</label>
-          <div class="search_group">
-            <input
-              type="text"
-              value="qsign"
-            >
-            <span class="search">
-              <i class="ico-search" />
-            </span>
-          </div>
-          <input
-            type="text"
-            value="2documents2documents2documents2documents2document"
-          >
-          <label class="column_label">요청 송신 XQ</label>
-          <div class="search_group">
-            <input
-              type="text"
-              value="qsign"
-            >
-            <span class="search">
-              <i class="ico-search" />
-            </span>
-          </div>
-          <input
-            type="text"
-            value="2documents2documents2documents2documents2document"
-          >
-          <label class="column_label">HUB 수신 Q</label>
-          <div class="search_group on">
-            <input
-              type="text"
-              value="qsign"
-            >
-            <span class="search">
-              <i class="ico-search" />
-            </span>
-          </div>
-          <input
-            class="on"
-            type="text"
-            value="2documents2documents2documents2documents2document"
-          >
-          <label class="column_label">HUB 송신 Q</label>
-          <div class="search_group">
-            <input
-              type="text"
-              value="qsign"
-            >
-            <span class="search">
-              <i class="ico-search" />
-            </span>
-          </div>
-          <input
-            type="text"
-            value="2documents2documents2documents2documents2document"
-          >
-          <label class="column_label">HUB 송신 XQ</label>
-          <div class="search_group">
-            <input
-              type="text"
-              value="qsign"
-            >
-            <span class="search">
-              <i class="ico-search" />
-            </span>
-          </div>
-          <input
-            type="text"
-            value="2documents2documents2documents2documents2document"
-          >
-          <label class="column_label">요청 수신 Q</label>
-          <div class="search_group">
-            <input
-              type="text"
-              value="qsign"
-            >
-            <span class="search">
-              <i class="ico-search" />
-            </span>
-          </div>
-          <input
-            type="text"
-            value="2documents2documents2documents2documents2document"
-          >
+            <li class="td_cell">
+              {{ eaiIf.eaiIfId }}
+            </li>
+            <li class="td_cell">
+              {{ eaiIf.eaiIfNmKor }}
+            </li>
+            <li class="td_cell">
+              {{ eaiIf.ifTypNm }}
+            </li>
+            <li class="td_cell">
+              {{ eaiIf.roundTypNm }}
+            </li>
+            <li class="td_cell">
+              {{ eaiIf.useYn }}
+            </li>
+          </ul>
         </div>
       </div>
-    </section>
-
-    <section class="form_area border_group style-1">
-      <h5 class="s_tit">
-        참고 사항
-      </h5>
-      <div class="row_contain">
-        <div class="column on w-3">
-          <label class="column_label">장애 영향도</label>
-          <textarea
-            cols="50"
-            rows="5"
-            placeholder="이러한 장애가 있습니다."
-          />
-        </div>
-        <div class="column w-3">
-          <label class="column_label">비고</label>
-          <textarea
-            cols="50"
-            rows="5"
-            placeholder="비고란 입니다."
-          />
-        </div>
+      <div class="pagination_space">
+        <paginate
+          v-model="pageSet.pageNo"
+          :page-count="pageSet.pageCount"
+          :page-range="3"
+          :margin-pages="1"
+          :click-handler="searchList"
+          :prev-text="'이전'"
+          :next-text="'다음'"
+          :container-class="'pagination'"
+          :page-class="'page-item'"
+        />
       </div>
     </section>
-
-    <section class="btm_button_area">
-      <button class="default_button on">
+    <div class="right_button_area">
+      <button
+        type="button"
+        class="default_button on"
+        @click="movePage('ifIdListAdmin', 0)"
+      >
         등록
       </button>
-      <button class="default_button">
-        수정
-      </button>
-    </section>
+    </div>
   </div>
 </template>
+
+<style scoped>
+ul:hover { background-color: #F9F9F9}
+</style>
+
+<script>
+import { mapState, mapActions } from 'vuex';
+import EaiServerListPopup from '@/components/popup/meta/eai/EaiServerListPopup.vue';
+import ChrgrListPopup from '@/components/popup/bizcomm/ChrgrListPopup.vue';
+import { fetchGetEaiIfList } from '@/api/eaiApi';
+
+export default {
+  components: {
+    EaiServerListPopup,
+    ChrgrListPopup,
+  },
+  data() {
+    return {
+      svrOnServer: false,
+      svrOnChrgr: false,
+
+      propsServer: {
+        message: '',
+      },
+      propsChrgr: {
+        message: '',
+      },
+
+      pageSet: { pageNo: 1, pageCount: 0, size: 10 },
+
+      eaiIfSeq: '',
+      eaiIfId: '',
+      eaiIfNmKor: '',
+      mqMngrNm: '',
+      queueNm: '',
+      useYn: '',
+      eaiHub: '',
+      ifTypCd: '',
+      roundTypCd: '',
+      hostNm: '',
+      chrgrId: '',
+      chrgrNm: '',
+      rcvTr: '',
+      ifTypNm: '',
+      roundTypNm: '',
+
+      ifList: [],
+
+    };
+  },
+  computed: {
+    ...mapState('ccCdLst', ['ccCdList']),
+  },
+  created() {
+    // EAI 상세 정보 화면에서 목록으로 다시 돌아올때 바로 조회
+    if (this.$route.params.callType === 'goList') {
+      this.eaiIfId = this.$route.params.eaiIfId;
+      this.eaiIfNmKor = this.$route.params.eaiIfNmKor;
+      this.ifTypCd = this.$route.params.ifTypCd;
+      this.roundTypCd = this.$route.params.roundTypCd;
+      this.eaiHub = this.$route.params.eaiHub;
+      this.mqMngrNm = this.$route.params.mqMngrNm;
+      this.queueNm = this.$route.params.queueNm;
+      this.rcvTr = this.$route.params.rcvTr;
+      this.hostNm = this.$route.params.hostNm;
+      this.chrgrId = this.$route.params.chrgrId;
+      this.useYn = this.$route.params.useYn;
+
+      this.searchList();
+    }
+  },
+  mounted() {
+    this.setCcCdList({
+      opClCd: 'EAI', cdId: 'ROUND_TYP_CD', allYn: 'Y', listNm: 'roundTypCd',
+    });
+    this.setCcCdList({
+      opClCd: 'EAI', cdId: 'IF_TYP_CD', allYn: 'Y', listNm: 'ifTypCd',
+    });
+  },
+  methods: {
+
+    ...mapActions('ccCdLst', ['setCcCdList']),
+
+    searchList() {
+      fetchGetEaiIfList({
+        params: {
+          pageNo: this.pageSet.pageNo,
+          pageCount: this.pageSet.pageCount,
+          eaiIfId: this.eaiIfId,
+          eaiIfNmKor: this.eaiIfNmKor,
+          ifTypCd: this.ifTypCd,
+          roundTypCd: this.roundTypCd,
+          eaiHub: this.eaiHub,
+          mqMngrNm: this.mqMngrNm,
+          queueNm: this.queueNm,
+          rcvTr: this.rcvTr,
+          hostNm: this.hostNm,
+          chrgrId: this.chrgrId,
+          useYn: this.useYn,
+        },
+      })
+        .then((res) => {
+          console.log(res);
+          if (res.data.rstCd === 'S') {
+            this.ifList = res.data.rstData.searchList;
+            this.pageSet = res.data.rstData.pageSet;
+          } else {
+            this.$gf.alertOn('오류가 발생하였습니다. 관리자에게 문의 하세요.');
+          }
+        })
+        .catch((ex) => {
+          console.log(`error occur!! : ${ex}`);
+        });
+    },
+
+    turnOnSvrPopChrgr(callChrgr) {
+      this.callChrgr = callChrgr;
+      this.svrOnChrgr = true;
+    },
+    turOffSvrPopChrgr(val) {
+      console.log(`Popup에서 받아온 Data : ${val}`);
+      this.svrOnChrgr = false;
+    },
+    addDataChrgr(val) {
+      console.log(`Popup에서 받아온 Data : ${val}`);
+      this.svrOnChrgr = false;
+      this.chrgrId = val.userId;
+      this.chrgrNm = val.hanNm;
+    },
+    turnOnSvrPopServer(op, idx) {
+      this.op = op;
+      this.idx = idx;
+      this.svrOnServer = true;
+    },
+    turOffSvrPopServer(val) {
+      console.log(`가져온 데이터 : ${val}`);
+      this.svrOnServer = false;
+    },
+    getData(val) {
+      console.log(`가져온 데이터2 : ${val.hostNm}`);
+      this.svrOnServer = false;
+      this.hostNm = val.hostNm;
+    },
+
+    getRowData(eaiIf) {
+      console.log(eaiIf.eaiIfId);
+      this.eaiIfSeq = eaiIf.eaiIfSeq;
+    },
+
+    clearSearchFields() {
+      this.eaiIfId = '';
+      this.eaiIfNmKor = '';
+      this.ifTypCd = '';
+      this.roundTypCd = '';
+      this.eaiHub = '';
+      this.mqMngrNm = '';
+      this.queueNm = '';
+      this.rcvTr = '';
+      this.hostNm = '';
+      this.chrgrId = '';
+      this.chrgrNm = '';
+      this.useYn = '';
+    },
+
+    movePage(page, type) { // 페이지 이동
+      // type == 0 : 신규 등록 화면 / type == 1 : 수정 화면
+      if (type === 0) {
+        this.$router.push({ name: page, params: { callType: 'new' } });
+      } else if (type === 1) {
+        this.$router.push({
+          name: page,
+          params: {
+            eaiIfSeq: this.eaiIfSeq,
+            callType: 'update',
+            eaiIfId: this.eaiIfId,
+            eaiIfNmKor: this.eaiIfNmKor,
+            ifTypCd: this.ifTypCd,
+            roundTypCd: this.roundTypCd,
+            eaiHub: this.eaiHub,
+            mqMngrNm: this.mqMngrNm,
+            queueNm: this.queueNm,
+            rcvTr: this.rcvTr,
+            hostNm: this.hostNm,
+            chrgrId: this.chrgrId,
+            useYn: this.useYn,
+          },
+        });
+      }
+    },
+  },
+};
+
+</script>

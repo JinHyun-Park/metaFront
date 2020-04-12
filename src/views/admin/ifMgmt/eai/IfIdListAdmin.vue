@@ -943,17 +943,19 @@
     <section class="btm_button_area">
       <button
         class="default_button on"
-        @click="getEaiInterfaceInfo()"
+        @click="movePage('ifIdList')"
       >
-        조회
+        목록
       </button>
       <button
+        v-if="callType === 'new'"
         class="default_button on"
         @click="saveEaiInterfaceInfo()"
       >
         등록
       </button>
       <button
+        v-if="callType === 'update'"
         class="default_button"
         @click="updateEaiInterfaceInfo()"
       >
@@ -1001,11 +1003,26 @@ export default {
 
       idx: '',
 
-      eaiIfSeq: 26,
+      eaiIfSeq: '',
 
       eaiIfInfo: {},
       svrList: [],
       qInfo: {},
+
+      callType: '',
+
+      pEaiIfId: '',
+      pEaiIfNmKor: '',
+      pIfTypCd: '',
+      pRoundTypCd: '',
+      pEaiHub: '',
+      pMqMngrNm: '',
+      pQueueNm: '',
+      pRcvTr: '',
+      pHostNm: '',
+      pChrgrId: '',
+      pUseYn: '',
+
 
       ifDetailInfo: {
         eaiIfSeq: '',
@@ -1087,6 +1104,29 @@ export default {
   computed: {
     ...mapState('ccCdLst', ['ccCdList']),
   },
+  created() {
+    if (this.$route.params.callType === 'update') {
+      this.eaiIfSeq = this.$route.params.eaiIfSeq;
+      this.callType = this.$route.params.callType;
+
+      // EAI 인터페이스 목록 조회 조건 값들을 유지하기 위해 할당
+      this.pEaiIfId = this.$route.params.eaiIfId;
+      this.pEaiIfNmKor = this.$route.params.eaiIfNmKor;
+      this.pIfTypCd = this.$route.params.ifTypCd;
+      this.pRoundTypCd = this.$route.params.roundTypCd;
+      this.pEaiHub = this.$route.params.eaiHub;
+      this.pMqMngrNm = this.$route.params.mqMngrNm;
+      this.pQueueNm = this.$route.params.queueNm;
+      this.pRcvTr = this.$route.params.rcvTr;
+      this.pHostNm = this.$route.params.hostNm;
+      this.pChrgrId = this.$route.params.chrgrId;
+      this.pUseYn = this.$route.params.useYn;
+
+      this.getEaiInterfaceInfo();
+    } else if (this.$route.params.callType === 'new') {
+      this.callType = this.$route.params.callType;
+    }
+  },
   mounted() {
     this.setCcCdList({
       opClCd: 'COMM', cdId: 'SVR_TYP_CD', allYn: 'N', listNm: 'svrTypCd',
@@ -1153,73 +1193,97 @@ export default {
     },
 
     saveEaiInterfaceInfo() {
-      this.svrList.splice(0, this.svrList.length);
-
-      for (let i = 0; i < this.sndRows.length; i++) {
-        if (this.sndRows[i].hostNm !== '') {
-          this.sndRows[i].sndRcvCl = 'S';
-          this.svrList.push(this.sndRows[i]);
-        }
+      if (this.ifDetailInfo.eaiIfId === '') {
+        this.$gf.alertOn('EAI 인터페이스ID를 입력해주세요.');
+        return;
       }
-      for (let i = 0; i < this.rcvRows.length; i++) {
-        if (this.rcvRows[i].hostNm !== '') {
-          this.rcvRows[i].sndRcvCl = 'R';
-          this.svrList.push(this.rcvRows[i]);
-        }
+      if (this.sndRows[0].hostNm === '') {
+        this.$gf.alertOn('송신 시스템 정보를 입력해주세요.');
+        return;
       }
+      if (this.rcvRows[0].hostNm === '') {
+        this.$gf.alertOn('수신 시스템 정보를 입력해주세요.');
+        return;
+      }
+      this.$gf.confirmOn('EAI 인터페이스 정보를 등록 하시겠습니까?', this.insertEaiInterfaceData);
+    },
+    insertEaiInterfaceData() {
+      if (this.eaiIfSeq === '') {
+        this.svrList.splice(0, this.svrList.length);
 
-      console.log(this.sndRows.length);
-      console.log(this.svrList.length);
-      this.eaiIfInfo = {
-        eaiIfSeq: '',
-        ifDetail: this.ifDetailInfo,
-        svrList: this.svrList,
-        qInfo: this.qInfo,
-      };
+        for (let i = 0; i < this.sndRows.length; i++) {
+          if (this.sndRows[i].hostNm !== '') {
+            this.sndRows[i].sndRcvCl = 'S';
+            this.svrList.push(this.sndRows[i]);
+          }
+        }
+        for (let i = 0; i < this.rcvRows.length; i++) {
+          if (this.rcvRows[i].hostNm !== '') {
+            this.rcvRows[i].sndRcvCl = 'R';
+            this.svrList.push(this.rcvRows[i]);
+          }
+        }
 
-      this.$axios.post('/api/eai/eaiDetail', this.eaiIfInfo)
-        .then((res) => {
-          console.log(res);
-          this.$gf.alertOn('EAI 정보가 정상 등록 되었습니다');
-        })
-        .catch((ex) => {
-          console.log(`오류가 발생하였습니다 : ${ex}`);
-        });
+        console.log(this.sndRows.length);
+        console.log(this.svrList.length);
+        this.eaiIfInfo = {
+          eaiIfSeq: '',
+          ifDetail: this.ifDetailInfo,
+          svrList: this.svrList,
+          qInfo: this.qInfo,
+        };
+
+
+        this.$axios.post('/api/eai/eaiDetail', this.eaiIfInfo)
+          .then((res) => {
+            console.log(res);
+            this.$gf.alertOn('EAI 정보가 정상 등록 되었습니다');
+          })
+          .catch((ex) => {
+            console.log(`오류가 발생하였습니다 : ${ex}`);
+          });
+      }
     },
 
     updateEaiInterfaceInfo() {
-      this.svrList.splice(0, this.svrList.length);
+      this.$gf.confirmOn('EAI 인터페이스 정보를 수정 하시겠습니까?', this.updateEaiInterfaceData);
+    },
 
-      for (let i = 0; i < this.sndRows.length; i++) {
-        if (this.sndRows[i].hostNm !== '') {
-          this.sndRows[i].sndRcvCl = 'S';
-          this.svrList.push(this.sndRows[i]);
+    updateEaiInterfaceData() {
+      if (this.eaiIfSeq > 0) {
+        this.svrList.splice(0, this.svrList.length);
+
+        for (let i = 0; i < this.sndRows.length; i++) {
+          if (this.sndRows[i].hostNm !== '') {
+            this.sndRows[i].sndRcvCl = 'S';
+            this.svrList.push(this.sndRows[i]);
+          }
         }
-      }
-      for (let i = 0; i < this.rcvRows.length; i++) {
-        if (this.rcvRows[i].hostNm !== '') {
-          this.rcvRows[i].sndRcvCl = 'R';
-          this.svrList.push(this.rcvRows[i]);
+        for (let i = 0; i < this.rcvRows.length; i++) {
+          if (this.rcvRows[i].hostNm !== '') {
+            this.rcvRows[i].sndRcvCl = 'R';
+            this.svrList.push(this.rcvRows[i]);
+          }
         }
+
+        console.log(this.sndRows.length);
+        console.log(this.svrList.length);
+        this.eaiIfInfo = {
+          eaiIfSeq: this.eaiIfSeq,
+          ifDetail: this.ifDetailInfo,
+          svrList: this.svrList,
+          qInfo: this.qInfo,
+        };
+
+        this.$axios.put('/api/eai/eaiDetail', this.eaiIfInfo)
+          .then((res) => {
+            console.log(res);
+            this.$gf.alertOn('EAI 정보가 수정 되었습니다');
+          })
+          .catch((ex) => {
+            console.log(`오류가 발생하였습니다 : ${ex}`);
+          });
       }
-
-      console.log(this.sndRows.length);
-      console.log(this.svrList.length);
-      this.eaiIfInfo = {
-        eaiIfSeq: this.eaiIfSeq,
-        ifDetail: this.ifDetailInfo,
-        svrList: this.svrList,
-        qInfo: this.qInfo,
-      };
-
-      this.$axios.put('/api/eai/eaiDetail', this.eaiIfInfo)
-        .then((res) => {
-          console.log(res);
-          this.$gf.alertOn('EAI 정보가 수정 되었습니다');
-        })
-        .catch((ex) => {
-          console.log(`오류가 발생하였습니다 : ${ex}`);
-        });
     },
 
     turnOnSvrPop(val) {
@@ -1508,6 +1572,28 @@ export default {
 
     resetQInfo() {
       this.qInfo = {};
+    },
+
+    movePage(page) { // 페이지 이동
+    // 목록으로 돌아갈때 조회 조건 값을 유지하기 위해 값을 재할당
+
+      this.$router.push({
+        name: page,
+        params: {
+          callType: 'goList',
+          eaiIfId: this.pEaiIfId,
+          eaiIfNmKor: this.pEaiIfNmKor,
+          ifTypCd: this.pIfTypCd,
+          roundTypCd: this.pRoundTypCd,
+          eaiHub: this.pEaiHub,
+          mqMngrNm: this.pMqMngrNm,
+          queueNm: this.pQueueNm,
+          rcvTr: this.pRcvTr,
+          hostNm: this.pHostNm,
+          chrgrId: this.pChrgrId,
+          useYn: this.pUseYn,
+        },
+      });
     },
   },
 };
