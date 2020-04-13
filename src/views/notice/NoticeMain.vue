@@ -103,9 +103,10 @@
           <div class="table_body">
             <ul
               v-for="board in boardList"
-              :key="board.boardNum"
+              :key="board['BOARD_NUM']"
               class="table_row w-auto"
             >
+              <!--
               <li class="td_cell">
                 {{ board.boardNum }}
               </li>
@@ -117,9 +118,34 @@
               </li>
               <li class="td_cell">
                 {{ board.chgChrgrInfo.hanNm }}({{ board.chgId }})
+                {{ board.chgId }}
               </li>
               <li class="td_cell">
                 {{ board.chgDt }}
+              </li>
+              -->
+
+              <li class="td_cell">
+                {{ board['BOARD_NUM'] }}
+              </li>
+              <li class="td_cell">
+                {{ board['TITLE'] }}
+              </li>
+              <li class="td_cell">
+                {{ board['BOARD_ST'] }}
+              </li>
+              <li class="td_cell">
+                {{ board['CHG_ID'] }}
+              </li>
+              <li class="td_cell">
+                {{ board['CHG_DT'] }}
+                <button
+                  type="button"
+                  class="default_button on"
+                  @click="deleteBoard(board['BOARD_NUM'])"
+                >
+                  삭제
+                </button>
               </li>
             </ul>
           </div>
@@ -153,7 +179,7 @@
 </template>
 
 <script>
-import { fetchSearchBoard } from '@/api/bizCommApi';
+import { fetchSearchBoard, fetchDeleteBoard } from '@/api/bizCommApi';
 
 export default {
   name: 'NoticeMain',
@@ -170,6 +196,9 @@ export default {
       pageSet: { pageNo: 1, pageCount: 0, size: 10 },
       boardList: [],
     };
+  },
+  created() { 
+    this.searchList();
   },
   mounted() {
     this.startReqDtm = this.$gf.dateToString(new Date(), '-7d');
@@ -201,11 +230,34 @@ export default {
         .then((res) => {
           console.log(res);
           if (res.data.rstCd === 'S') {
-            this.boardList = this.$gf.parseRtnData(this.pageSet, res.data.rstData.boardLst, 'Y');
+            // this.boardList = this.$gf.parseRtnData(this.pageSet, res.data.rstData.board, 'Y')
+            this.boardList = res.data.rstData.board
+            this.pageSet = res.data.rstData.pageSet
             // this.serverList = res.data.rstData.serverList;
           } else {
             // eslint-disable-next-line no-alert
             alert('failed');
+          }
+        })
+        .catch((ex) => {
+          console.log(`error occur!! : ${ex}`);
+        });
+    },
+
+    deleteBoard(boardNum) {
+      fetchDeleteBoard({
+        params: {
+          boardNum: boardNum
+        }
+      })
+        .then((res) => {
+          console.log(res)
+          console.log(boardNum)
+          if (res.data.rstCd === 'S') {
+            this.$gf.alertOn('처리되었습니다.');
+            this.searchList();
+          } else {
+            this.$gf.alertOn(res.data.rstMsg);
           }
         })
         .catch((ex) => {

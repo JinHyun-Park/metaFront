@@ -36,10 +36,12 @@
           </div>
         </h5>
         <div class="row_contain chart_area">
-          <img
-            src="@/assets/images/img-chart-1.png"
-            alt="dashboard chart-1"
-          >
+          <reactive-bar-chart :chart-data="datacollection" />
+          <div>
+            <button class="button is-primary" @click="fillData()">
+              Randomize
+            </button>
+          </div>
         </div>
       </section>
 
@@ -57,10 +59,7 @@
             </div>
           </h5>
           <div class="row_contain type-2 chart_area">
-            <img
-              src="@/assets/images/img-chart-2.png"
-              alt="dashboard chart-2"
-            >
+            <radar-chart />
           </div>
         </section>
         <section class="form_area border_group dashboard">
@@ -76,10 +75,7 @@
             </div>
           </h5>
           <div class="row_contain type-2 chart_area">
-            <img
-              src="@/assets/images/img-chart-3.png"
-              alt="dashboard chart-3"
-            >
+            <bar-chart />
           </div>
         </section>
         <section class="form_area border_group dashboard">
@@ -95,10 +91,7 @@
             </div>
           </h5>
           <div class="row_contain type-2 chart_area">
-            <img
-              src="@/assets/images/img-chart-4.png"
-              alt="dashboard chart-4"
-            >
+            <line-chart />
           </div>
         </section>
       </div>
@@ -541,7 +534,49 @@
 </template>
 
 <script>
+import LineChart from './chart/LineChart.vue';
+import BarChart from './chart/BarChart.vue';
+import ReactiveBarChart from './chart/ReactiveBarChart.vue';
+import RadarChart from './chart/RadarChart.vue';
+
 export default {
   name: 'Home',
-};
+  components: {
+    'line-chart': LineChart,
+    'bar-chart': BarChart,
+    'reactive-bar-chart': ReactiveBarChart,
+    'radar-chart': RadarChart,
+  },
+  data() {
+    return {
+      datacollection: null,
+    };
+  },
+  created() {
+    this.fillData();
+  },
+  methods: {
+    fillData() {
+      this.datacollection = {
+        // Data for the y-axis of the chart
+        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+
+        datasets: [
+          {
+            label: 'Data One',
+            backgroundColor: '#f87979',
+            // Data for the x-axis of the chart
+            data: [
+              this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(),
+              this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt(),
+              this.getRandomInt(), this.getRandomInt(), this.getRandomInt(), this.getRandomInt()],
+          },
+        ],
+      };
+    },
+    getRandomInt() {
+      return Math.floor(Math.random() * 100) + 1;
+    },
+  },
+}
 </script>
