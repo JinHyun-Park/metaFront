@@ -257,6 +257,7 @@
         />
       </div>
     </section>
+    <!--
     <div class="right_button_area">
       <button
         type="button"
@@ -266,6 +267,7 @@
         등록
       </button>
     </div>
+    -->
   </div>
 </template>
 

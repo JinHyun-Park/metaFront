@@ -212,6 +212,11 @@ const router = new Router({
       name: 'accList',
       component: () => import('@/views/admin/portalMgmt/AccList.vue'),
     },
+    {
+      path: '/admin/ifMgmt/eai/approEaiList',
+      name: 'approEaiList',
+      component: () => import('@/views/admin/ifMgmt/eai/ApproEaiList.vue'),
+    },
 
     ],
   },
