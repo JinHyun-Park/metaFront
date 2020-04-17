@@ -1298,11 +1298,9 @@ export default {
       return 1;
     },
     addNewIf() {
-      /*
       if (this.checkFields() === 0) {
         return;
       }
-      */
       this.eaiIfList.push({
         eaiIfId: this.eaiIfId,
         eaiIfNmKor: this.eaiIfNmKor,
