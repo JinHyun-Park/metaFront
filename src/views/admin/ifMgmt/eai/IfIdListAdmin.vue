@@ -942,13 +942,21 @@
 
     <section class="btm_button_area">
       <button
+        v-if="callType === 'new' || callType === 'appro'"
+        class="default_button on"
+        @click="movePage('approEaiList')"
+      >
+        목록
+      </button>
+      <button
+        v-if="callType === 'update'"
         class="default_button on"
         @click="movePage('ifIdList')"
       >
         목록
       </button>
       <button
-        v-if="callType === 'new'"
+        v-if="callType === 'new' || callType === 'appro'"
         class="default_button on"
         @click="saveEaiInterfaceInfo()"
       >
@@ -1125,6 +1133,9 @@ export default {
       this.getEaiInterfaceInfo();
     } else if (this.$route.params.callType === 'new') {
       this.callType = this.$route.params.callType;
+    } else if (this.$route.params.callType === 'appro') {
+      this.callType = this.$route.params.callType;
+      this.ifDetailInfo = this.$route.params.approData;
     }
   },
   mounted() {
@@ -1577,23 +1588,27 @@ export default {
     movePage(page) { // 페이지 이동
     // 목록으로 돌아갈때 조회 조건 값을 유지하기 위해 값을 재할당
 
-      this.$router.push({
-        name: page,
-        params: {
-          callType: 'goList',
-          eaiIfId: this.pEaiIfId,
-          eaiIfNmKor: this.pEaiIfNmKor,
-          ifTypCd: this.pIfTypCd,
-          roundTypCd: this.pRoundTypCd,
-          eaiHub: this.pEaiHub,
-          mqMngrNm: this.pMqMngrNm,
-          queueNm: this.pQueueNm,
-          rcvTr: this.pRcvTr,
-          hostNm: this.pHostNm,
-          chrgrId: this.pChrgrId,
-          useYn: this.pUseYn,
-        },
-      });
+      if (page === 'approEaiList') {
+        this.$router.push({ name: page });
+      } else {
+        this.$router.push({
+          name: page,
+          params: {
+            callType: 'goList',
+            eaiIfId: this.pEaiIfId,
+            eaiIfNmKor: this.pEaiIfNmKor,
+            ifTypCd: this.pIfTypCd,
+            roundTypCd: this.pRoundTypCd,
+            eaiHub: this.pEaiHub,
+            mqMngrNm: this.pMqMngrNm,
+            queueNm: this.pQueueNm,
+            rcvTr: this.pRcvTr,
+            hostNm: this.pHostNm,
+            chrgrId: this.pChrgrId,
+            useYn: this.pUseYn,
+          },
+        });
+      }
     },
   },
 };

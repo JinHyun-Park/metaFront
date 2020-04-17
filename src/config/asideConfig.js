@@ -85,7 +85,7 @@ export default {
       menuLcl: 'MGMT_MCG', index: 1, menuNm: '가상사용자 관리', url: 'virtualUserList_MCG',
     },
     {
-      menuLcl: 'MGMT_EAI', index: 1, menuNm: 'EAI 인터페이스 등록', url: 'ifIdListAdmin',
+      menuLcl: 'MGMT_EAI', index: 1, menuNm: 'EAI 승인 완료 목록', url: 'approEaiList',
     },
   ],
 };
