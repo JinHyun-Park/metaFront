@@ -46,6 +46,7 @@
           v-model="opCd"
           type="text"
           class="add_text on"
+          placeholder="업무코드"
         >
         <div class="search_group">
           <label class="column_label tooltips ov top">
@@ -56,6 +57,7 @@
             v-model="chnlId"
             type="text"
             class="add_text"
+            placeholder="채널ID"
           >
           <span class="search">
             <i
@@ -69,16 +71,19 @@
           v-model="chnlTyp"
           type="text"
           class="add_text"
+          placeholder="채널유형"
         >
         <input
           v-model="dealCd"
           type="text"
           class="add_text"
+          placeholder="거래코드"
         >
         <input
           v-model="dealNm"
           type="text"
           class="add_text"
+          placeholder="거래명"
         >
 
         <select v-model="useYn">
@@ -119,7 +124,7 @@
             v-for="deal in dealList"
             :key="deal.index"
             class="table_row w-auto"
-            @click="dtlDeal(deal)"
+            @click="dtlDeal(deal), Chrgrinfodtl(deal.opCd, deal.dealCd)"
           >
             <li class="td_cell">
               {{ deal.opCd }}
@@ -214,11 +219,14 @@
           <label class="column_label">요청담당자</label>
           <div class="search_group">
             <input
-              v-model="dealdtl.reqChrgr"
+              v-model="chrgrReq.hanNm"
               type="text"
             >
             <span class="search">
-              <i class="ico-search" />
+              <i
+                class="ico-search"
+                @click="chrgrpopon('REQ', dealdtl.opCd)"
+              />
             </span>
           </div>
         </div>
@@ -226,11 +234,14 @@
           <label class="column_label">응답담당자</label>
           <div class="search_group">
             <input
-              v-model="dealdtl.rpsChrgr"
+              v-model="chrgrRps.hanNm"
               type="text"
             >
             <span class="search">
-              <i class="ico-search" />
+              <i
+                class="ico-search"
+                @click="chrgrpopon('RPS', dealdtl.opCd)"
+              />
             </span>
           </div>
         </div>
@@ -309,6 +320,8 @@ import {
   fetchPutMcgDealList,
   fetchPostMcgDealList,
   fetchGetMcgDealList,
+  // fetchPostMcgChrgrList,
+  fetchGetMcgDealChrgrList,
 } from '@/api/mcgApi';
 import ChrgrListPopup from '@/components/popup/bizcomm/ChrgrListPopup.vue';
 import ChnlListPopup from '@/components/popup/meta/mcg/ChnListPopup.vue';
@@ -337,13 +350,27 @@ export default {
         chrgrId: '',
         mblPhonNum: '',
       },
-      chrgrm: [],
-      chrgrs: [],
+      chrgrReq: [],
+      chrgrRps: [],
+      chrgrinfoReq: {
+        chrgrTyp: '',
+        hanNm: '',
+        chrgrId: '',
+        mblPhonNum: '',
+      },
+      chrgrinfoRps: {
+        chrgrTyp: '',
+        hanNm: '',
+        chrgrId: '',
+        mblPhonNum: '',
+      },
       chrgrnm: '',
       pageSet: { pageNo: 1, pageCount: 0, size: 10 },
       opCd: null,
       opCdr: '',
       dealCd: '',
+      deakCdr: '',
+      chrgrdealCd: '',
       realDealCd: '',
       dealModuleNm: '',
       dealNm: '',
@@ -424,15 +451,54 @@ export default {
         });
     },
 
+
+    Chrgrinfodtl(opCdr, dealCdr) {
+      console.log('채널 담당자 조회!');
+      console.log(this.chrgrinfoReq, this.chrgrinfoRps);
+      fetchGetMcgDealChrgrList({
+        params: {
+          chrgrTyp: this.chrgrTyp,
+          hanNm: this.hanNm,
+          chrgrId: this.chrgrId,
+          mblPhonNum: this.mblPhonNum,
+          opCd: opCdr,
+          dealCd: dealCdr,
+
+        },
+      })
+
+        .then((res) => {
+          this.chrgrReq = res.data.rstData.searchList.chrgr1;
+          this.chrgrRps = res.data.rstData.searchList.chrgr2;
+          if (this.chrgrReq === null) {
+            this.chrgrinfoReq.hanNm = '';
+            this.chrgrinfoReq.chrgrId = '';
+            this.chrgrReq = this.chrgrinfoReq;
+          }
+          if (this.chrgrRps === null) {
+            this.chrgrinfoRps.hanNm = '';
+            this.chrgrinfoRps.chrgrId = '';
+            this.chrgrRps = this.chrgrinfoRps;
+          }
+          console.log(this.chrgrReq, this.chrgrRps);
+
+          console.log('대표 담당자 조회!');
+        })
+        .catch((ex) => {
+          console.log(`error occur!! : ${ex}`);
+        });
+    },
+
     noshow() {
       this.isStatusOn = false;
       console.log(this.isStatusOn);
     },
 
-    chrgrpopon(n, opCdr) {
+    chrgrpopon(n, opCdr, dealCdr) {
       this.chrgrn = n;
       this.chrgropCd = opCdr;
       this.chrgrpopupstate = true;
+      this.chrgrdealCd = dealCdr;
     },
 
     turOffPopChrgr(val) {
@@ -443,10 +509,16 @@ export default {
     addDataChrgr(val) {
       console.log(`Popup에서 받아온 Data : ${val}`);
       this.chrgrpopupstate = false;
-      if (this.chrgrn === 1) { this.chrgrm.chrgrId = val.userId; this.chrgrm.hanNm = val.hanNm; }
-      if (this.chrgrn === 2) { this.chrgrs.chrgrId = val.userId; this.chrgrs.hanNm = val.hanNm; }
-
-      console.log(val.userId, this.chrgrm.chrgrId, this.chrgrs.chrgrId);
+      if (this.chrgrn === 'REQ') {
+        this.chrgrReq.chrgrId = val.userId;
+        this.chrgrReq.hanNm = val.hanNm;
+        console.log('REQ');
+      } else if (this.chrgrn === 'RPS') {
+        this.chrgrRps.chrgrId = val.userId;
+        this.chrgrRps.hanNm = val.hanNm;
+        console.log('RPS');
+      }
+      console.log(val.userId, this.chrgrReq.chrgrId, this.chrgrRps.chrgrId);
     },
 
     chnlpopon() {

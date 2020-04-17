@@ -292,7 +292,7 @@
             <span class="search">
               <i
                 class="ico-search"
-                @click="chrgrpopon(1, chnldtl.opCd)"
+                @click="chrgrpopon('M', chnldtl.opCd)"
               />
             </span>
           </div>
@@ -307,7 +307,7 @@
             <span class="search">
               <i
                 class="ico-search"
-                @click="chrgrpopon(2, chnldtl.opCd)"
+                @click="chrgrpopon('S', chnldtl.opCd)"
               />
             </span>
           </div>
@@ -468,10 +468,10 @@ import { mapState, mapActions } from 'vuex';
 import {
   fetchGetMcgChnlList,
   fetchGetMcgServerList,
-  fetchGetMcgChrgrList,
+  fetchGetMcgChnlChrgrList,
   fetchPostMcgChnlList,
   // fetchPostMcgServerList,
-  fetchPostMcgChrgrList,
+  fetchPostMcgChnlChrgr1, fetchPostMcgChnlChrgr2,
   fetchPutMcgChnlList,
 // fetchPutMcgServerList,
 // fetchPutMcgChrgrList,
@@ -512,7 +512,13 @@ export default {
       svrinfo1: [],
       svrinfo2: [],
       svrinfo3: [],
-      chrgrinfo: {
+      chrgrinfom: {
+        chrgrTyp: '',
+        hanNm: '',
+        chrgrId: '',
+        mblPhonNum: '',
+      },
+      chrgrinfos: {
         chrgrTyp: '',
         hanNm: '',
         chrgrId: '',
@@ -664,7 +670,8 @@ export default {
 
     Chrgrinfodtl(opCdr) {
       console.log('채널 담당자 조회!');
-      fetchGetMcgChrgrList({
+      console.log(this.chrgrinfom, this.chrgrinfos);
+      fetchGetMcgChnlChrgrList({
         params: {
           chrgrTyp: this.chrgrTyp,
           hanNm: this.hanNm,
@@ -678,9 +685,18 @@ export default {
         .then((res) => {
           this.chrgrm = res.data.rstData.searchList.chrgr1;
           this.chrgrs = res.data.rstData.searchList.chrgr2;
-          if (this.chrgrm === null) { this.chrgrm = this.chrgrinfo; }
-          if (this.chrgrs === null) { this.chrgrs = this.chrgrinfo; }
+          if (this.chrgrm === null) {
+            this.chrgrinfom.hanNm = '';
+            this.chrgrinfom.chrgrId = '';
+            this.chrgrm = this.chrgrinfom;
+          }
+          if (this.chrgrs === null) {
+            this.chrgrinfos.hanNm = '';
+            this.chrgrinfos.chrgrId = '';
+            this.chrgrs = this.chrgrinfos;
+          }
           console.log(this.chrgrm, this.chrgrs);
+
           console.log('대표 담당자 조회!');
         })
         .catch((ex) => {
@@ -696,7 +712,7 @@ export default {
 
     chrgrpopon(n, opCdr) {
       this.chrgrpopupstate = true;
-      this.chrgrn = String(n);
+      this.chrgrn = n;
       this.chrgropCd = opCdr;
     },
 
@@ -707,10 +723,19 @@ export default {
 
     addDataChrgr(val) {
       console.log(`Popup에서 받아온 Data : ${val}`);
-      this.chrgrpopupstate = false;
-      if (this.chrgrn === '1') { this.chrgrm.chrgrId = val.userId; this.chrgrm.hanNm = val.hanNm; } else if (this.chrgrn === '2') { this.chrgrs.chrgrId = val.userId; this.chrgrs.hanNm = val.hanNm; }
+
+      if (this.chrgrn === 'M') {
+        this.chrgrm.chrgrId = val.userId;
+        this.chrgrm.hanNm = val.hanNm;
+        console.log('M');
+      } else if (this.chrgrn === 'S') {
+        this.chrgrs.chrgrId = val.userId;
+        this.chrgrs.hanNm = val.hanNm;
+        console.log('S');
+      }
 
       console.log(this.chrgrn, val.userId, this.chrgrm.chrgrId, this.chrgrs.chrgrId);
+      this.chrgrpopupstate = false;
     },
 
     dtlChnl(chn) {
@@ -793,7 +818,17 @@ export default {
           console.log(`error occur!! : ${ex}`);
         });
 
-      fetchPostMcgChrgrList(chrgrm)
+      fetchPostMcgChnlChrgr1(chrgrm)
+        .then((res) => {
+          console.log(res);
+          this.$gf.alertOn('채널 담당자 수정 완료!');
+          this.listing();
+        })
+        .catch((ex) => {
+          console.log(`error occur!! : ${ex}`);
+        });
+
+      fetchPostMcgChnlChrgr2(chrgrm)
         .then((res) => {
           console.log(res);
           this.$gf.alertOn('채널 담당자 수정 완료!');

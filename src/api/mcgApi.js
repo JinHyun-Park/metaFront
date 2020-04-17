@@ -13,8 +13,12 @@ function fetchGetMcgServerList(param) {
   return axios.get(`${preUrl}/chnl/server`, param);
 }
 
-function fetchGetMcgChrgrList(param) {
+function fetchGetMcgChnlChrgrList(param) {
   return axios.get(`${preUrl}/chnl/chrgr`, param);
+}
+
+function fetchGetMcgDealChrgrList(param) {
+  return axios.get(`${preUrl}/deal/chrgr`, param);
 }
 
 function fetchPostMcgChnlList(param) {
@@ -29,8 +33,20 @@ function fetchPostMcgServerList(param) {
   return axios.post(`${preUrl}/chnl/server/post`, param);
 }
 
-function fetchPostMcgChrgrList(param) {
-  return axios.post(`${preUrl}/chnl/chrgr/post`, param);
+function fetchPostMcgChnlChrgr1(param) {
+  return axios.post(`${preUrl}/chnl/chrgr1/post`, param);
+}
+
+function fetchPostMcgDealChrgr2(param) {
+  return axios.post(`${preUrl}/deal/chrgr2/post`, param);
+}
+
+function fetchPostMcgDealChrgr1(param) {
+  return axios.post(`${preUrl}/deal/chrgr1/post`, param);
+}
+
+function fetchPostMcgChnlChrgr2(param) {
+  return axios.post(`${preUrl}/chnl/chrgr2/post`, param);
 }
 
 function fetchPutMcgChnlList(param) {
@@ -45,8 +61,20 @@ function fetchPutMcgServerList(param) {
   return axios.put(`${preUrl}/chnl/server/put`, param);
 }
 
-function fetchPutMcgChrgrList(param) {
-  return axios.put(`${preUrl}/chnl/chrgr/put`, param);
+function fetchPutMcgChnlChrgr1(param) {
+  return axios.put(`${preUrl}/chnl/chrgr1/put`, param);
+}
+
+function fetchPutMcgChnlChrgr2(param) {
+  return axios.put(`${preUrl}/chnl/chrgr2/put`, param);
+}
+
+function fetchPutMcgDealChrgr1(param) {
+  return axios.put(`${preUrl}/deal/chrgr1/put`, param);
+}
+
+function fetchPutMcgDealChrgr2(param) {
+  return axios.put(`${preUrl}/deal/chrgr2/put`, param);
 }
 
 function fetchGetMcgVirtualUserList(param) {
@@ -65,18 +93,25 @@ function fetchPutVirtualUserList(param) {
 export {
   fetchGetMcgChnlList,
   fetchGetMcgServerList,
-  fetchGetMcgChrgrList,
+  fetchGetMcgChnlChrgrList,
+  fetchGetMcgDealChrgrList,
   fetchPostMcgChnlList,
   fetchPostMcgServerList,
-  fetchPostMcgChrgrList,
   fetchPutMcgChnlList,
   fetchPutMcgServerList,
-  fetchPutMcgChrgrList,
   fetchPutMcgDealList,
   fetchPostMcgDealList,
   fetchGetMcgDealList,
   fetchGetMcgVirtualUserList,
   fetchPostMcgVirtualUserList,
   fetchPutVirtualUserList,
+  fetchPostMcgChnlChrgr1,
+  fetchPostMcgChnlChrgr2,
+  fetchPostMcgDealChrgr1,
+  fetchPostMcgDealChrgr2,
+  fetchPutMcgChnlChrgr1,
+  fetchPutMcgChnlChrgr2,
+  fetchPutMcgDealChrgr1,
+  fetchPutMcgDealChrgr2,
 
 };

@@ -1,5 +1,10 @@
 <template>
   <div class="right_space">
+    <ChnlListPopup
+      v-if="chnlpopupstate"
+      @closePop="turOffPopChnl"
+      @addData="addDataChnl"
+    />
     <section class="title style-1">
       <h2>
         <div>
@@ -23,10 +28,18 @@
       <div class="row_contain type-2">
         <div class="column on w-2">
           <label class="column_label">채널ID</label>
-          <input
-            v-model="chnlId"
-            type="text"
-          >
+          <div class="search_group">
+            <input
+              v-model="chnlId"
+              type="text"
+            >
+            <span class="search">
+              <i
+                class="ico-search"
+                @click="chnlpopon()"
+              />
+            </span>
+          </div>
         </div>
         <div class="column w-2">
           <label class="column_label">채널명</label>
@@ -233,8 +246,13 @@ import {
   fetchPostMcgVirtualUserList,
   fetchPutVirtualUserList,
 } from '@/api/mcgApi';
+import ChnlListPopup from '@/components/popup/meta/mcg/ChnListPopup.vue';
+
 
 export default {
+  components: {
+    ChnlListPopup,
+  },
   data() {
     return {
       index: 0,
@@ -253,6 +271,7 @@ export default {
       coCl: '',
       vUserRmk: '',
       isStatusOn: '',
+      chnlpopupstate: false,
     };
   },
   computed: {
@@ -294,6 +313,22 @@ export default {
     noshow() {
       this.isStatusOn = false;
       console.log(this.isStatusOn);
+    },
+    chnlpopon() {
+      this.chnlpopupstate = true;
+    },
+
+    turOffPopChnl(val) {
+      console.log(`Popup에서 받아온 Data : ${val}`);
+      this.chnlpopupstate = false;
+    },
+
+    addDataChnl(val) {
+      console.log(`Popup에서 받아온 Data : ${val}`);
+      this.chnlpopupstate = false;
+      this.chnlId = val;
+
+      console.log();
     },
 
     save() {
