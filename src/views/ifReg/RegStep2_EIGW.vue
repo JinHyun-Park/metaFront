@@ -302,6 +302,17 @@
         </div>
         <div class="column w-1" />
       </div>
+      <div class="row_contain type-2">
+        <div class="column w-4">
+          <label class="column_label">기타 요청사항</label>
+          <input
+            v-model="onlineInfo.eigwRmk"
+            type="text"
+            class="add_text on"
+          >
+        </div>
+        <div class="column w-1" />
+      </div>
       <h5 class="s_tit type-2">
         담당자 정보
       </h5>
@@ -506,7 +517,10 @@
                 <label class="label-default color-black">반려</label>
               </li>
               <li class="td_cell">
-                <i class="ico-del" />
+                <i
+                  class="ico-del"
+                  @click="delFileInfo(i)"
+                />
               </li>
             </ul>
           </div>
@@ -644,6 +658,17 @@
           >
         </div>
       </div>
+      <div class="row_contain type-2">
+        <div class="column w-4">
+          <label class="column_label">기타 요청사항</label>
+          <input
+            v-model="fileInfo.eigwRmk"
+            type="text"
+            class="add_text on"
+          >
+        </div>
+        <div class="column w-1" />
+      </div>
       <h5 class="s_tit type-2">
         담당자 정보
       </h5>
@@ -754,23 +779,6 @@
         </div>
       </div>
     </section>
-
-    <section class="form_area border_group style-1">
-      <h5 class="s_tit">
-        비고
-      </h5>
-      <div class="row_contain">
-        <div class="column w-6">
-          <label class="column_label">추가요청사항</label>
-          <textarea
-            v-model="eigwRmk"
-            cols="50"
-            row="5"
-            placeholder="위의 항목 외 추가 요청사항을 적어주시기바랍니다."
-          />
-        </div>
-      </div>
-    </section>
   </div>
 </template>
 
@@ -806,7 +814,6 @@ export default {
       reqNum: 1,
       eigwReqNum: '',
       eigwType: '',
-      eigwRmk: '',
       procSt: '',
 
       currRow: '',
@@ -930,7 +937,7 @@ export default {
       this.onlineInfo.devPort = this.onlineList[i].devPort;
       this.onlineInfo.prodRealIp = this.onlineList[i].prodRealIp;
       this.onlineInfo.prodPort = this.onlineList[i].prodPort;
-      this.eigwRmk = this.onlineList[i].eigwRmk;
+      this.onlineInfo.eigwRmk = this.onlineList[i].eigwRmk;
       this.onlineUserList = this.onlineList[i].onlineUserList;
     },
     updateOnlineInfo() {
@@ -944,7 +951,7 @@ export default {
       this.onlineList[this.currRow].instCd = this.onlineInfo.instCd;
       this.onlineList[this.currRow].pgmTyp = this.onlineInfo.pgmTyp;
       this.onlineList[this.currRow].linkTyp = this.onlineInfo.linkTyp;
-      this.onlineList[this.currRow].eigwRmk = this.eigwRmk;
+      this.onlineList[this.currRow].eigwRmk = this.onlineInfo.eigwRmk;
       this.onlineList[this.currRow].devRealIp = this.onlineInfo.devRealIp;
       this.onlineList[this.currRow].devPort = this.onlineInfo.devPort;
       this.onlineList[this.currRow].prodRealIp = this.onlineInfo.prodRealIp;
@@ -966,7 +973,7 @@ export default {
         instCd: this.onlineInfo.instCd,
         eigwType: 'online',
         procSt: 1,
-        eigwRmk: this.eigwRmk,
+        eigwRmk: this.onlineInfo.eigwRmk,
         pgmTyp: this.onlineInfo.pgmTyp,
         linkTyp: this.onlineInfo.linkTyp,
         devRealIp: this.onlineInfo.devRealIp,
@@ -995,7 +1002,6 @@ export default {
         onlineList: this.onlineList,
         fileList: this.fileList,
         reqNum: this.reqNum,
-        eigwRmk: this.eigwRmk,
       };
       this.$axios.post('/api/eigw/ifReqInfo', this.saveData)
         .then((res) => {
@@ -1116,6 +1122,7 @@ export default {
       this.fileInfo.devPort = this.fileList[i].devPort;
       this.fileInfo.prodRealIp = this.fileList[i].prodRealIp;
       this.fileInfo.prodPort = this.fileList[i].prodPort;
+      this.fileInfo.eigwRmk = this.fileList[i].eigwRmk;
       this.fileUserList = this.fileList[i].fileUserList;
     },
     updateFileInfo() {
@@ -1132,7 +1139,7 @@ export default {
       this.fileList[this.currRow].id = this.fileInfo.id;
       this.fileList[this.currRow].pwd = this.fileInfo.pwd;
       this.fileList[this.currRow].srFlag = this.fileInfo.srFlag;
-      this.fileList[this.currRow].eigwRmk = this.eigwRmk;
+      this.fileList[this.currRow].eigwRmk = this.fileInfo.eigwRmk;
       this.fileList[this.currRow].devRealIp = this.fileInfo.devRealIp;
       this.fileList[this.currRow].devPort = this.fileInfo.devPort;
       this.fileList[this.currRow].prodRealIp = this.fileInfo.prodRealIp;
@@ -1156,7 +1163,7 @@ export default {
         eigwType: 'file',
         procSt: 1,
         srFlag: this.fileInfo.srFlag,
-        eigwRmk: this.eigwRmk,
+        eigwRmk: this.fileInfo.eigwRmk,
         outPath: this.fileInfo.outPath,
         devRealIp: this.fileInfo.devRealIp,
         devPort: this.fileInfo.devPort,
@@ -1217,6 +1224,7 @@ export default {
       this.fileInfo.devPort = '';
       this.fileInfo.prodRealIp = '';
       this.fileInfo.prodPort = '';
+      this.fileInfo.eigwRmk = '';
       this.fileUserList = [
         {
           chrgrTyp: '',

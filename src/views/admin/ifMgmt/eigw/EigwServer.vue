@@ -49,7 +49,7 @@
             </option>
           </select>
         </div>
-        <div class="column w-1">
+        <div class="column on w-1">
           <label class="column_label">대외기관</label>
           <input
             v-model="instNm"
@@ -271,8 +271,6 @@ export default {
           if (res.data.rstCd === 'S') {
             this.serverList = res.data.rstData.searchList;
             this.pageSet = res.data.rstData.pageSet;
-          } else {
-            alert('failed');
           }
         })
         .catch((ex) => {

@@ -37,7 +37,7 @@
         </div>
       </h5>
       <div class="row_contain type-2">
-        <div class="column w-1">
+        <div class="column on w-1">
           <label class="column_label">대외기관</label>
           <input
             v-model="instNm"
