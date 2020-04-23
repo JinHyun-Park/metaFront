@@ -107,13 +107,13 @@
         <div class="table_body">
           <ul
             v-for="(row) in ifReqList"
-            :key="row.reqMgmtNum"
+            :key="row.reqNum"
             class="table_row w-auto"
           >
             <li
               class="td_cell"
             >
-              {{ row.reqMgmtNum }}
+              {{ row.reqNum }}
             </li>
             <li
               class="td_cell"
