@@ -182,13 +182,16 @@
 
 <script>
 
-import { fetchPostIfStep1Reg } from '@/api/ifRegApi';
+import { mapState, mapActions } from 'vuex';
+import { fetchPostIfStep1Reg, fetchGetIfReqMst, fetchPutIfStep1Reg } from '@/api/ifRegApi';
 import eventBus from '@/utils/eventBus';
 
 export default {
   name: 'RegStep1ApplyIf',
   components: {
     fetchPostIfStep1Reg,
+    fetchGetIfReqMst,
+    fetchPutIfStep1Reg,
   },
   data() {
     return {
@@ -207,10 +210,18 @@ export default {
       },
     };
   },
+  computed: {
+    ...mapState('ifRegInfo', ['reqNum']),
+  },
   created() {
-    eventBus.$on('Step1ReqMstSave', () => {
+    eventBus.$on('Step1GetIfReqMst', (params) => {
+      console.log(`event Bus 통해 Step1 조회 params: ${params.reqNum}`);
+      this.getIfReqMst(params.reqNum);
+    });
+
+    eventBus.$on('Step1ReqMstSave', (params) => {
       console.log('event Bus 통해 Step1 저장');
-      this.saveIfReqMst();
+      this.saveIfReqMst(params.callType);
       console.log(`step1 reqnum : ${this.ifReqMstInfo.reqNum}`);
       this.$emit('afterSave', this.ifReqMstInfo.reqNum);
     });
@@ -218,15 +229,50 @@ export default {
   },
   destroyed() {
     eventBus.$off('Step1ReqMstSave');
+    eventBus.$off('Step1GetIfReqMst');
   },
   methods: {
-    saveIfReqMst() {
-      // this.$axios.post('/api/eai/regTemp', this.regList)
-      fetchPostIfStep1Reg(this.ifReqMstInfo)
+    ...mapActions('ifRegInfo', ['setReqNum']),
+    saveIfReqMst(callType) {
+      if (callType === 'update') {
+        console.log('Step1 수정');
+        fetchPutIfStep1Reg(this.ifReqMstInfo)
+          .then((res) => {
+            console.log(res);
+            this.$gf.alertOn('수정 되었습니다.');
+          })
+          .catch((ex) => {
+            console.log(`오류가 발생하였습니다 : ${ex}`);
+          });
+      } else {
+        // this.$axios.post('/api/eai/regTemp', this.regList)
+        fetchPostIfStep1Reg(this.ifReqMstInfo)
+          .then((res) => {
+            console.log(res);
+            this.ifReqMstInfo = res.data.rstData.reqInfo;
+            this.setReqNum(this.ifReqMstInfo.reqNum);
+            this.$gf.alertOn('작성하신 내용이 저장 되었습니다.');
+          })
+          .catch((ex) => {
+            console.log(`오류가 발생하였습니다 : ${ex}`);
+          });
+      }
+    },
+    getIfReqMst(value) {
+      if (value === null) {
+        this.$gf.alertOn('작성하신 내용이 저장 되었습니다.');
+        return;
+      }
+      fetchGetIfReqMst({
+        params: {
+          reqNum: value,
+        },
+      })
         .then((res) => {
           console.log(res);
-          this.ifReqMstInfo = res.data.rstData.reqInfo;
-          this.$gf.alertOn('작성하신 내용이 저장 되었습니다.');
+          this.ifReqMstInfo = res.data.rstData.ifReqMst;
+          // this.setReqNum(this.ifReqMstInfo.reqNum);
+          // this.$gf.alertOn('작성하신 내용이 저장 되었습니다.');
         })
         .catch((ex) => {
           console.log(`오류가 발생하였습니다 : ${ex}`);

@@ -106,6 +106,7 @@ export default {
   },
   data() {
     return {
+      callType: 'new',
       tabNum: '',
       reqNum: '',
     };
@@ -116,7 +117,19 @@ export default {
     } else {
       this.tabNum = Number(localStorage.getItem('APPLY_TABNUM'));
     }
-    this.reqNum = '12381237128492879734';
+    // this.reqNum = '12381237128492879734';
+  },
+  mounted() {
+    if (this.$route.params.reqNum != null) {
+      if (this.tabNum === 1) {
+        // this.getIfReqMst(this.$route.params.reqNum);
+        eventBus.$emit('Step1GetIfReqMst', { reqNum: this.$route.params.reqNum });
+      }
+    }
+
+    if (this.$route.params.callType != null) {
+      this.callType = this.$route.params.callType;
+    }
   },
   destroyed() {
     localStorage.setItem('APPLY_TABNUM', '');
@@ -150,7 +163,7 @@ export default {
     tempSave() {
       console.log('tempSave');
       if (this.tabNum === 1) {
-        eventBus.$emit('Step1ReqMstSave', { reqNum: this.reqNum });
+        eventBus.$emit('Step1ReqMstSave', { reqNum: this.reqNum, callType: this.callType });
       } else if (this.tabNum === 2) {
         eventBus.$emit('Step2EaiSave', { reqNum: this.reqNum });
         eventBus.$emit('Step2EigwSave', { reqNum: this.reqNum });

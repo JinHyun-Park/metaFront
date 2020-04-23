@@ -106,12 +106,13 @@
         </div>
         <div class="table_body">
           <ul
-            v-for="(row) in ifReqList"
+            v-for="(row, i) in ifReqList"
             :key="row.reqNum"
             class="table_row w-auto"
           >
             <li
               class="td_cell"
+              @click="detail(i)"
             >
               {{ row.reqNum }}
             </li>
@@ -229,6 +230,9 @@ export default {
     newApply() {
       //ifReg/applyIf
       this.$router.push({ name: 'applyIf' });
+    },
+    detail(i) {
+      this.$router.push({ name: 'applyIf', params: { reqNum: this.ifReqList[i].reqNum, callType:'update' }})
     }
   },
 }
