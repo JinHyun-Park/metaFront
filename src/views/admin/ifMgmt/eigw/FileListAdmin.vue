@@ -24,6 +24,12 @@
       @closePop="turOffSvrPopInstList"
       @addData="addDataInstList"
     />
+    <EaiListPopup
+      v-if="svrOnEaiList"
+      v-bind="propsEaiList"
+      @closePop="turOffSvrPopEaiList"
+      @addData="addDataEaiList"
+    />
     <section class="title style-1">
       <h2>
         <div>
@@ -381,6 +387,7 @@
             v-model="fileSktConf.eaiIfId"
             type="text"
             class="add_text"
+            @click="turnOnSvrPopEaiList()"
           >
         </div>
         <div class="column w-2">
@@ -857,6 +864,7 @@ import EigwServerListPopup from '@/components/popup/meta/eigw/EigwServerListPopu
 import ChrgrListPopup from '@/components/popup/bizcomm/ChrgrListPopup.vue';
 import EigwChrgrListPopup from '@/components/popup/meta/eigw/EigwChrgrListPopup.vue';
 import InstListPopup from '@/components/popup/bizcomm/InstListPopup.vue';
+import EaiListPopup from '@/components/popup/meta/eigw/EaiListPopup.vue';
 
 export default {
   components: {
@@ -864,6 +872,7 @@ export default {
     ChrgrListPopup,
     EigwChrgrListPopup,
     InstListPopup,
+    EaiListPopup,
   },
   data() {
     return {
@@ -882,6 +891,10 @@ export default {
       serverPopupCase: '',
       svrOnInstList: false,
       propsInstList: { // 조회 시 parameter에 사용자 정보를 담아주려면 여기를 통해 넘겨주세요.
+        message: '', // 사용방법 예시 데이터
+      },
+      svrOnEaiList: false,
+      propsEaiList: { // 조회 시 parameter에 사용자 정보를 담아주려면 여기를 통해 넘겨주세요.
         message: '', // 사용방법 예시 데이터
       },
 
@@ -1280,6 +1293,18 @@ export default {
         this.outChrgrList[this.instPopupCase].instNm = val.instNm;
       }
       this.svrOnInstList = false;
+    },
+    turnOnSvrPopEaiList() {
+      this.svrOnEaiList = true;
+    },
+    turOffSvrPopEaiList(val) {
+      console.log(`Popup에서 받아온 Data : ${val}`);
+      this.svrOnEaiList = false;
+    },
+    addDataEaiList(val) {
+      console.log(`Popup에서 받아온 Data : ${val}`);
+      this.fileSktConf.eaiIfId = val.eaiIfId;
+      this.svrOnEaiList = false;
     },
   },
 };
