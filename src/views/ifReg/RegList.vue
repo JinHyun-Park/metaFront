@@ -145,7 +145,7 @@
           :page-count="pageSet.pageCount"
           :page-range="3"
           :margin-pages="1"
-          :click-handler="pageChanged"
+          :click-handler="searchList"
           :prev-text="'이전'"
           :next-text="'다음'"
           :container-class="'pagination'"
