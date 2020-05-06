@@ -1004,8 +1004,11 @@ export default {
   },
 
   created() {
-    eventBus.$on('Step2EaiSave', () => {
+    eventBus.$on('Step2EaiSave', (params) => {
       console.log('event Bus 통해 eai 저장');
+      if (params.reqNum != null) {
+        this.reqNum = params.reqNum;
+      }
       this.saveEaiRegTemp();
     });
     console.log(`parent reqNum : ${this.$parent.reqNum}`);

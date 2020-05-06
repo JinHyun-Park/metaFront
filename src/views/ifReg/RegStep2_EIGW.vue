@@ -889,8 +889,11 @@ export default {
     ...mapState('ccCdLst', ['ccCdList']),
   },
   created() {
-    eventBus.$on('Step2EigwSave', () => {
+    eventBus.$on('Step2EigwSave', (params) => {
       console.log('event Bus 통해 eigw 저장');
+      if (params.reqNum != null) {
+        this.reqNum = params.reqNum;
+      }
       this.saveTest();
     });
   },
