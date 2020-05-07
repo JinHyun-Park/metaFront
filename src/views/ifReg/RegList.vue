@@ -112,19 +112,41 @@
           >
             <li
               class="td_cell"
-              @click="detail(i)"
             >
               {{ row.reqNum }}
             </li>
             <li
               class="td_cell"
+              style="cursor:pointer;text-decoration: underline; width:40%;"
+              @click="detail(i)"
             >
               {{ row.reqTitle }}
             </li>
-            <li
-              class="td_cell"
-            >
-              {{ row.procSt }}
+            <li class="td_cell">
+              <label
+                v-if="row.procSt === '0'"
+                class="label-default color-black"
+              >
+                {{ row.procNm }}
+              </label>
+              <label
+                v-else-if="row.procSt === '1'"
+                class="label-default color-blue"
+              >
+                {{ row.procNm }}
+              </label>
+              <label
+                v-else-if="row.procSt === '2'"
+                class="label-default color-yellow"
+              >
+                {{ row.procNm }}
+              </label>
+              <label
+                v-else
+                class="label-default color-gray"
+              >
+                {{ row.procNm }}
+              </label>
             </li>
             <li
               class="td_cell"
