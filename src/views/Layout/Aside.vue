@@ -102,6 +102,9 @@ export default {
       } else if (path.indexOf('/admin/ifMgmt/eai/') > -1) {
         this.subNm = 'EAI 관리';
         this.menuLists = this.menuAllList.filter(item => item.menuLcl === 'MGMT_EAI');
+      } else if (path.indexOf('/admin/portalMgmt/') > -1) {
+        this.subNm = '포탈 관리';
+        this.menuLists = this.menuAllList.filter(item => item.menuLcl === 'PORTAL_MGMT');
       }
     },
   },
