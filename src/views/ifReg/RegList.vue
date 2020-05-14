@@ -17,7 +17,7 @@
           <button
             type="button"
             class="default_button"
-            @click="searchList"
+            @click="searchList(1)"
           >
             검색
           </button>
@@ -167,7 +167,7 @@
           :page-count="pageSet.pageCount"
           :page-range="3"
           :margin-pages="1"
-          :click-handler="searchList"
+          :click-handler="searchList(pageSet.pageNo)"
           :prev-text="'이전'"
           :next-text="'다음'"
           :container-class="'pagination'"
@@ -211,12 +211,12 @@ export default {
   },
   methods: {
     ...mapActions('frameSet', ['setResetPopOn']),
-    searchList() {
+    searchList(pageNo) {
       //this.tgtUrl = '/api/ifreq/list';
       //this.$axios.get(this.tgtUrl, {
       fetchGetIfRegList({
         params: {
-          pageNo: this.pageSet.pageNo,
+          pageNo: pageNo,
           size: this.pageSet.size,
           reqTitle: this.reqTitle,
           startReqDtm: this.startReqDtm.replace(/\-/g, ''),

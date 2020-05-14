@@ -64,19 +64,23 @@
               <li class="td_cell">
                 {{ instRow.instCd }}
               </li>
-              <li class="td_cell">
-                {{ instRow.instNm }}
-              </li>
-              <li class="td_cell">
-                {{ instRow.instRmk }}
-              </li>
-              <li class="td_cell">
+              <li class="td_cell on">
                 <input
+                  v-model="instRow.instNm"
                   type="text"
-                  :value="instRow.instRmk"
+                >
+              </li>
+              <li class="td_cell on">
+                <input
+                  v-model="instRow.instRmk"
+                  type="text"
                 >
               </li>
               <li class="td_cell">
+                <i
+                  class="ico-edit"
+                  @click="editList(i)"
+                />
                 <i
                   class="ico-del"
                   @click="delList(i)"
@@ -126,7 +130,9 @@
 
 <script>
 import { mapState, mapActions } from 'vuex';
-import { fetchGetInstCdList, fetchDeleteInstCdList } from '@/api/bizCommApi';
+import {
+  fetchGetInstCdList, fetchDeleteInstCdList, fetchPostInstCdList, fetchPutInstCdList,
+} from '@/api/bizCommApi';
 
 export default {
   name: 'InstList',
@@ -158,6 +164,9 @@ export default {
           if (res.data.rstCd === 'S') {
             this.instList = res.data.rstData.instCdLst;
             this.pageSet = res.data.rstData.pageSet;
+            if (this.instList.length === 0) {
+              this.addList();
+            }
           } else {
             // eslint-disable-next-line no-alert
             alert('failed');
@@ -166,6 +175,45 @@ export default {
         .catch((ex) => {
           console.log(`error occur!! : ${ex}`);
         });
+    },
+    addList() {
+      const a = {
+        instCd: this.instCd, useYn: 'Y', flag: 'I',
+      };
+      this.instList.push(a);
+    },
+    editList(i) {
+      const confirmText = `${this.instList[i].instCd} 를 저장하십니까?`;
+      this.$gf.confirmOn(confirmText, this.editCall, i);
+    },
+    editCall(i) {
+      this.tgtUrl = '/api/bizcomm/cccd';
+      if (this.instList[i].flag != null && this.instList[i].flag === 'I') {
+        fetchPostInstCdList(this.instList[i])
+          .then((res) => {
+            console.log(res);
+            if (res.data.rstCd === 'S') {
+              this.$gf.alertOn('반영되었습니다.');
+              this.searchList();
+            }
+          })
+          .catch((ex) => {
+            console.log(`error occur!! : ${ex}`);
+          });
+      } else {
+        // this.$axios.put(this.tgtUrl, this.ccCdLst[i])
+        fetchPutInstCdList(this.instList[i])
+          .then((res) => {
+            console.log(res);
+            if (res.data.rstCd === 'S') {
+              this.$gf.alertOn('반영되었습니다.');
+              this.searchList();
+            }
+          })
+          .catch((ex) => {
+            console.log(`error occur!! : ${ex}`);
+          });
+      }
     },
     delList(i) {
       // this.tgtUrl = '/api/bizcomm/inst_cd';

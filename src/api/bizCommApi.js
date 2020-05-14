@@ -33,6 +33,14 @@ function fetchGetInstCdList(param) {
   return axios.get(`${preUrl}/inst_cd`, param);
 }
 
+function fetchPostInstCdList(param) {
+  return axios.post(`${preUrl}/inst_cd`, param);
+}
+
+function fetchPutInstCdList(param) {
+  return axios.put(`${preUrl}/inst_cd`, param);
+}
+
 function fetchDeleteInstCdList(param) {
   return axios.delete(`${preUrl}/inst_cd`, param);
 }
@@ -58,6 +66,8 @@ export {
   fetchPostCcCdList,
   fetchPutCcCdList,
   fetchGetInstCdList,
+  fetchPostInstCdList,
+  fetchPutInstCdList,
   fetchDeleteInstCdList,
   fetchGetChrgrInfo,
   fetchGetMenuList,
