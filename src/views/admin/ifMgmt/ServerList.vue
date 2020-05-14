@@ -55,6 +55,14 @@
             value=""
           >
         </div>
+        <div class="column on w-1">
+          <label class="column_label">Port</label>
+          <input
+            v-model="svrPort"
+            type="text"
+            value=""
+          >
+        </div>
         <div class="column w-1">
           <label class="column_label">&nbsp;</label>
           <div class="right_button_area">
@@ -96,37 +104,80 @@
               <li class="th_cell">
                 사용여부
               </li>
+              <li class="th_cell" />
             </ul>
           </div>
           <div class="table_body">
             <ul
-              v-for="server in serverList"
+              v-for="(server, i) in serverList"
               :key="server.svrNum"
               class="table_row w-auto"
             >
               <li class="td_cell">
                 {{ server.svrNum }}
               </li>
-              <li class="td_cell">
-                {{ server.svrTypCd }}
+              <li class="td_cell on">
+                <div class="select_group">
+                  <select v-model="server.svrTypCd">
+                    <option
+                      v-for="(code, i) in ccCdList.syrTypCd"
+                      :key="i"
+                      :value="code.cdDtlId"
+                    >
+                      {{ code.cdNm }}
+                    </option>
+                  </select>
+                </div>
               </li>
-              <li class="td_cell">
-                {{ server.ipTyp }}
+              <li class="td_cell on">
+                <div class="select_group">
+                  <select v-model="server.ipTyp">
+                    <option
+                      v-for="(code, i) in ccCdList.ipTyp"
+                      :key="i"
+                      :value="code.cdDtlId"
+                    >
+                      {{ code.cdNm }}
+                    </option>
+                  </select>
+                </div>
               </li>
-              <li class="td_cell">
-                {{ server.hostNm }}
+              <li class="td_cell on">
+                <input
+                  v-model="server.hostNm"
+                  type="text"
+                >
               </li>
-              <li class="td_cell">
-                {{ server.svrIp }}
+              <li class="td_cell on">
+                <input
+                  v-model="server.svrIp"
+                  type="text"
+                >
               </li>
-              <li class="td_cell">
-                {{ server.svrPort }}
+              <li class="td_cell on">
+                <input
+                  v-model="server.svrPort"
+                  type="text"
+                >
               </li>
-              <li class="td_cell">
-                {{ server.userId }}
+              <li class="td_cell on">
+                <input
+                  v-model="server.userId"
+                  type="text"
+                >
               </li>
               <li class="td_cell">
                 {{ server.useYn }}
+              </li>
+              <li class="td_cell">
+                <i
+                  class="ico-edit"
+                  @click="editList(i)"
+                />
+                <i
+                  class="ico-del"
+                  @click="delList(i)"
+                />
               </li>
             </ul>
           </div>
@@ -172,7 +223,9 @@
 
 <script>
 import { mapState, mapActions } from 'vuex';
-import { fetchServerList } from '@/api/bizCommApi';
+import {
+  fetchServerList, fetchPostServer, fetchPutServer, fetchDeleteServer,
+} from '@/api/bizCommApi';
 
 export default {
   data() {
@@ -182,6 +235,7 @@ export default {
       pageSet: { pageNo: 1, pageCount: 0, size: 10 },
       tgtUrl: '',
       svrIp: '',
+      svrPort: '',
       svrTypCd: '',
       ipTyp: '',
       hostNm: '',
@@ -212,6 +266,7 @@ export default {
           pageNo: this.pageSet.pageNo,
           size: this.pageSet.size,
           svrIp: this.svrIp,
+          svrPort: this.svrPort,
           svrTypCd: this.svrTypCd,
           ipTyp: this.ipTyp,
           hostNm: this.hostNm,
@@ -223,9 +278,74 @@ export default {
           if (res.data.rstCd === 'S') {
             this.serverList = res.data.rstData.serverList;
             this.pageSet = res.data.rstData.pageSet;
+            if (this.serverList.length === 0) {
+              this.addList();
+            }
           } else {
             // eslint-disable-next-line no-alert
             alert('failed');
+          }
+        })
+        .catch((ex) => {
+          console.log(`error occur!! : ${ex}`);
+        });
+    },
+    addList() {
+      const a = {
+        svrIp: this.svrIp,
+        svrPort: this.svrPort,
+        svrTypCd: this.svrTypCd,
+        ipTyp: this.ipTyp,
+        hostNm: this.hostNm,
+      };
+      this.serverList.push(a);
+    },
+    editList(i) {
+      const confirmText = `${this.serverList[i].svrIp}:${this.serverList[i].svrPort} 를 저장하십니까?`;
+      this.$gf.confirmOn(confirmText, this.editCall, i);
+    },
+    editCall(i) {
+      this.tgtUrl = '/api/bizcomm/cccd';
+      if (this.serverList[i].svrNum == null || this.serverList[i].svrNum === '') {
+        fetchPostServer(this.serverList[i])
+          .then((res) => {
+            console.log(res);
+            if (res.data.rstCd === 'S') {
+              this.$gf.alertOn('반영되었습니다.');
+              this.searchList();
+            }
+          })
+          .catch((ex) => {
+            console.log(`error occur!! : ${ex}`);
+          });
+      } else {
+        // this.$axios.put(this.tgtUrl, this.ccCdLst[i])
+        fetchPutServer(this.serverList[i])
+          .then((res) => {
+            console.log(res);
+            if (res.data.rstCd === 'S') {
+              this.$gf.alertOn('반영되었습니다.');
+              this.searchList();
+            }
+          })
+          .catch((ex) => {
+            console.log(`error occur!! : ${ex}`);
+          });
+      }
+    },
+    delList(i) {
+      // this.tgtUrl = '/api/bizcomm/inst_cd';
+      // this.$axios.delete(this.tgtUrl, {
+      fetchDeleteServer({
+        params: this.serverList[i],
+      })
+        .then((res) => {
+          console.log(res);
+          if (res.data.rstCd === 'S') {
+            this.$gf.alertOn('처리되었습니다.');
+            this.searchList();
+          } else {
+            this.$gf.alertOn(res.data.rstMsg);
           }
         })
         .catch((ex) => {

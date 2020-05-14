@@ -17,6 +17,18 @@ function fetchServerList(param) {
   return axios.get(`${preUrl}/server`, param);
 }
 
+function fetchPostServer(param) {
+  return axios.post(`${preUrl}/server`, param);
+}
+
+function fetchPutServer(param) {
+  return axios.put(`${preUrl}/server`, param);
+}
+
+function fetchDeleteServer(param) {
+  return axios.delete(`${preUrl}/server`, param);
+}
+
 function fetchGetCcCdList(param) {
   return axios.get(`${preUrl}/cccd`, param);
 }
@@ -62,6 +74,9 @@ export {
   fetchDeleteBoard,
   fetchGetCccdSelbox,
   fetchServerList,
+  fetchPostServer,
+  fetchPutServer,
+  fetchDeleteServer,
   fetchGetCcCdList,
   fetchPostCcCdList,
   fetchPutCcCdList,

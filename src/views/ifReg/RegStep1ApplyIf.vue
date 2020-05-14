@@ -24,6 +24,13 @@
             <span class="calander">
               <i class="ico-cal" />
             </span>
+            <datepicker
+              :value="ifReqMstInfo.operAplyReqDt"
+              :min="today"
+              :day-str="datePickerSet.dayStr"
+              :popper-props="datePickerSet.popperProps"
+              @input="setOperAplyReqDt"
+            />
           </div>
         </div>
       </div>
@@ -47,6 +54,13 @@
             <span class="calander">
               <i class="ico-cal" />
             </span>
+            <datepicker
+              :value="ifReqMstInfo.dvlpAplyReqDt"
+              :min="today"
+              :day-str="datePickerSet.dayStr"
+              :popper-props="datePickerSet.popperProps"
+              @input="setDvlpAplyReqDt"
+            />
           </div>
         </div>
       </div>
@@ -188,13 +202,9 @@ import eventBus from '@/utils/eventBus';
 
 export default {
   name: 'RegStep1ApplyIf',
-  components: {
-    fetchPostIfStep1Reg,
-    fetchGetIfReqMst,
-    fetchPutIfStep1Reg,
-  },
   data() {
     return {
+      today: '',
       ifReqMstInfo: {
         reqNum: '',
         reqTitle: '',
@@ -208,10 +218,19 @@ export default {
         reqRmk: '',
         delYn: '',
       },
+      datePickerSet: {
+        dayStr: this.$gf.getCalDaySet(),
+        popperProps: {
+          type: Object,
+        },
+      },
     };
   },
   computed: {
     ...mapState('ifRegInfo', ['reqNum']),
+  },
+  mounted() {
+    this.today = this.$gf.dateToString(new Date(), '', 'Y');
   },
   created() {
     eventBus.$on('Step1GetIfReqMst', (params) => {
@@ -234,6 +253,9 @@ export default {
   methods: {
     ...mapActions('ifRegInfo', ['setReqNum']),
     saveIfReqMst(callType) {
+      this.ifReqMstInfo.dvlpAplyReqDt = this.ifReqMstInfo.dvlpAplyReqDt.replace(/\-/g, '');
+      this.ifReqMstInfo.operAplyReqDt = this.ifReqMstInfo.operAplyReqDt.replace(/\-/g, '');
+
       if (callType === 'update') {
         console.log('Step1 수정');
         fetchPutIfStep1Reg(this.ifReqMstInfo)
@@ -278,6 +300,15 @@ export default {
           console.log(`오류가 발생하였습니다 : ${ex}`);
         });
     },
+    setDvlpAplyReqDt(val) {
+      this.ifReqMstInfo.dvlpAplyReqDt = val;
+      console.log(val);
+    },
+    setOperAplyReqDt(val) {
+      this.ifReqMstInfo.operAplyReqDt = val;
+      console.log(val);
+    },
   },
+
 };
 </script>
