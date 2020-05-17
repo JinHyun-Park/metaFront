@@ -1004,6 +1004,10 @@ export default {
   },
 
   created() {
+    eventBus.$on('Step2GetEAIReqMst', (params) => {
+      console.log(`event Bus 통해 Step1 조회 params: ${params.reqNum}`);
+      this.getEaiRegTempList(params.reqNum);
+    });
     eventBus.$on('Step2EaiSave', (params) => {
       console.log('event Bus 통해 eai 저장');
       if (params.reqNum != null) {
@@ -1015,6 +1019,7 @@ export default {
   },
   destroyed() {
     eventBus.$off('Step2EaiSave');
+    eventBus.$off('Step2GetEAIReqMst');
   },
 
   mounted() {
@@ -1047,12 +1052,12 @@ export default {
   methods: {
     ...mapActions('ccCdLst', ['setCcCdList']),
 
-    getEaiRegTempList() {
+    getEaiRegTempList(tgtReqNum) {
       console.log('EAI 신청 정보 조회');
 
       fetchGetEaiRegSvrList({
         params: {
-          reqNum: this.reqNum,
+          reqNum: tgtReqNum,
           procSt: 1,
         },
       })
