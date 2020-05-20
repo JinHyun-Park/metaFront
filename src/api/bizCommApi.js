@@ -81,6 +81,10 @@ function fetchGetMyChrgrInfo(param) {
   return axios.get(`${preUrl}/chrgr/my`, param);
 }
 
+function fetchGetAllMetaList(param) {
+  return axios.get(`${preUrl}/allmeta`, param);
+}
+
 export {
   fetchGetBoard,
   fetchGetBoardList,
@@ -102,4 +106,5 @@ export {
   fetchGetChrgrInfo,
   fetchGetMenuList,
   fetchGetMyChrgrInfo,
+  fetchGetAllMetaList,
 };
