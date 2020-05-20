@@ -29,6 +29,18 @@ function fetchServerList(param) {
   return axios.get(`${preUrl}/server`, param);
 }
 
+function fetchPostServer(param) {
+  return axios.post(`${preUrl}/server`, param);
+}
+
+function fetchPutServer(param) {
+  return axios.put(`${preUrl}/server`, param);
+}
+
+function fetchDeleteServer(param) {
+  return axios.delete(`${preUrl}/server`, param);
+}
+
 function fetchGetCcCdList(param) {
   return axios.get(`${preUrl}/cccd`, param);
 }
@@ -43,6 +55,14 @@ function fetchPostCcCdList(param) {
 
 function fetchGetInstCdList(param) {
   return axios.get(`${preUrl}/inst_cd`, param);
+}
+
+function fetchPostInstCdList(param) {
+  return axios.post(`${preUrl}/inst_cd`, param);
+}
+
+function fetchPutInstCdList(param) {
+  return axios.put(`${preUrl}/inst_cd`, param);
 }
 
 function fetchDeleteInstCdList(param) {
@@ -69,10 +89,15 @@ export {
   fetchDeleteBoard,
   fetchGetCccdSelbox,
   fetchServerList,
+  fetchPostServer,
+  fetchPutServer,
+  fetchDeleteServer,
   fetchGetCcCdList,
   fetchPostCcCdList,
   fetchPutCcCdList,
   fetchGetInstCdList,
+  fetchPostInstCdList,
+  fetchPutInstCdList,
   fetchDeleteInstCdList,
   fetchGetChrgrInfo,
   fetchGetMenuList,

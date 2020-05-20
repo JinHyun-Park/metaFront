@@ -49,7 +49,7 @@
             <button
               type="button"
               class="default_button on"
-              @click="pageNo=1;searchList()"
+              @click="searchList(1)"
             >
               검색
             </button>
@@ -183,12 +183,12 @@ export default {
   methods: {
     ...mapActions('frameSet', ['setResetPopOn']),
     ...mapActions('ccCdLst', ['setCcCdList']),
-    searchList() {
+    searchList(page) {
       //this.tgtUrl = '/api/bizcomm/cccd';
       //this.$axios.get(this.tgtUrl, {
       fetchGetCcCdList({
         params: {
-          pageNo: this.pageSet.pageNo,
+          pageNo: page,
           size: this.size,
           pageCount: this.pageSet.pageCount,
           opClCd: this.opClCd,
@@ -230,6 +230,7 @@ export default {
               console.log(res);
               if (res.data.rstCd === 'S') {
                 this.$gf.alertOn(`반영되었습니다.`);
+                this.searchList(1);
               }
             })
             .catch((ex) => {
@@ -242,6 +243,7 @@ export default {
               console.log(res);
               if (res.data.rstCd === 'S') {
                 this.$gf.alertOn(`반영되었습니다.`);
+                this.searchList(i);
               }
             })
             .catch((ex) => {

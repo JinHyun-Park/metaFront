@@ -121,10 +121,14 @@ export default {
   },
   mounted() {
     if (this.$route.params.reqNum != null) {
-      if (this.tabNum === 1) {
-        // this.getIfReqMst(this.$route.params.reqNum);
-        eventBus.$emit('Step1GetIfReqMst', { reqNum: this.$route.params.reqNum });
-      }
+      eventBus.$emit('Step1GetIfReqMst', { reqNum: this.$route.params.reqNum });
+      eventBus.$emit('Step2GetEAIReqMst', { reqNum: this.$route.params.reqNum });
+      // if (this.tabNum === 1) {
+      //   // this.getIfReqMst(this.$route.params.reqNum);
+      //   eventBus.$emit('Step1GetIfReqMst', { reqNum: this.$route.params.reqNum });
+      // } else if (this.tabNum === 2) {
+      //   eventBus.$emit('Step2GetEAIReqMst', { reqNum: this.$route.params.reqNum });
+      // }
     }
 
     if (this.$route.params.callType != null) {

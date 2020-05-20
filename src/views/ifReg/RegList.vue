@@ -17,7 +17,7 @@
           <button
             type="button"
             class="default_button"
-            @click="searchList"
+            @click="searchList(1)"
           >
             검색
           </button>
@@ -211,12 +211,12 @@ export default {
   },
   methods: {
     ...mapActions('frameSet', ['setResetPopOn']),
-    searchList() {
+    searchList(pageNo) {
       //this.tgtUrl = '/api/ifreq/list';
       //this.$axios.get(this.tgtUrl, {
       fetchGetIfRegList({
         params: {
-          pageNo: this.pageSet.pageNo,
+          pageNo: pageNo,
           size: this.pageSet.size,
           reqTitle: this.reqTitle,
           startReqDtm: this.startReqDtm.replace(/\-/g, ''),
