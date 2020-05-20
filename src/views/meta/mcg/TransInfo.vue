@@ -533,7 +533,7 @@ export default {
     addDataChnl(val) {
       console.log(`Popup에서 받아온 Data : ${val}`);
       this.chnlpopupstate = false;
-      this.chnlId = val;
+      this.chnlId = val.chnlId;
 
       console.log();
     },

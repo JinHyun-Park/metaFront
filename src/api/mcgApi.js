@@ -89,6 +89,30 @@ function fetchPutVirtualUserList(param) {
   return axios.put(`${preUrl}/vuser/put`, param);
 }
 
+function fetchGetMcgChrgrList(param) {
+  return axios.get(`${preUrl}/chrgr`, param);
+}
+
+function fetchPostMcgChrgrList(param) {
+  return axios.post(`${preUrl}/chrgr/post`, param);
+}
+
+function fetchPutMcgChrgrList(param) {
+  return axios.put(`${preUrl}/chrgr/put`, param);
+}
+
+function fetchGetMcgSvrList(param) {
+  return axios.get(`${preUrl}/server`, param);
+}
+
+function fetchPostMcgSvrList(param) {
+  return axios.post(`${preUrl}/server/post`, param);
+}
+
+function fetchPutMcgSvrList(param) {
+  return axios.put(`${preUrl}/server/put`, param);
+}
+
 
 export {
   fetchGetMcgChnlList,
@@ -113,5 +137,10 @@ export {
   fetchPutMcgChnlChrgr2,
   fetchPutMcgDealChrgr1,
   fetchPutMcgDealChrgr2,
-
+  fetchGetMcgChrgrList,
+  fetchPostMcgChrgrList,
+  fetchPutMcgChrgrList,
+  fetchGetMcgSvrList,
+  fetchPostMcgSvrList,
+  fetchPutMcgSvrList,
 };

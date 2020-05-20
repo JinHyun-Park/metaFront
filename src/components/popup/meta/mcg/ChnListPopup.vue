@@ -127,7 +127,7 @@
                     <label><input
                       v-model="radio_chk"
                       type="radio"
-                      :value="chn.chnlId"
+                      :value="chn"
                     ></label></span>
                 </li>
 

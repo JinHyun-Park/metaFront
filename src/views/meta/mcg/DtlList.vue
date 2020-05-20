@@ -41,7 +41,7 @@
         <div class="column w-1">
           <label class="column_label">업무코드</label>
           <input
-            v-model="opCd"
+            v-model="opCdin"
             type="text"
             value=""
           >
@@ -49,7 +49,7 @@
         <div class="column w-1">
           <label class="column_label">기관코드</label>
           <input
-            v-model="mcgInstCd"
+            v-model="mcgInstCdin"
             type="text"
             value=""
           >
@@ -57,7 +57,7 @@
         <div class="column w-1">
           <label class="column_label">채널그룹</label>
           <div class="select_group">
-            <select v-model="chnlGrp">
+            <select v-model="chnlGrpin">
               <option
                 v-for="(code, m) in ccCdList.mcgChnlGrp"
                 :key="m"
@@ -70,7 +70,7 @@
         </div>
         <div class="column w-1">
           <label class="column_label">채널유형</label>
-          <select v-model="chnlTyp">
+          <select v-model="chnlTypin">
             <option
               v-for="(code, m) in ccCdList.mcgChnlTyp"
               :key="m"
@@ -82,7 +82,7 @@
         </div>
         <div class="column w-1">
           <label class="column_label">연동방식</label>
-          <select v-model="lnkgMthd">
+          <select v-model="lnkgMthdin">
             <option
               v-for="(code, m) in ccCdList.mcgChnlLnkgMthd"
               :key="m"
@@ -98,7 +98,7 @@
               <em class="tip_text">채널ID, 채널명으로 검색해보세요.
               </em></span></label>
           <input
-            v-model="chnlId"
+            v-model="chnlIdin"
             type="text"
             value=""
           >
@@ -106,7 +106,7 @@
         <div class="column w-1">
           <label class="column_label">채널명</label>
           <input
-            v-model="chnlNm"
+            v-model="chnlNmin"
             type="text"
             value=""
           >
@@ -114,7 +114,7 @@
         <div class="column w-1">
           <label class="column_label">사용여부</label>
           <div class="select_group">
-            <select v-model="useYn">
+            <select v-model="useYnin">
               <option value="Y">
                 Y
               </option>
@@ -530,6 +530,7 @@ export default {
       pageSet: { pageNo: 1, pageCount: 0, size: 10 },
       opCd: null,
       opCdr: '',
+      opCdin: '',
       svrTypr: '',
       instCd: '',
       mcgInstCd: '',
@@ -538,11 +539,18 @@ export default {
       lnkgMthd: '',
       chnlId: '',
       chnlNm: '',
+      mcgInstCdin: '',
+      chnlTypin: '',
+      chnlGrpin: '',
+      lnkgMthdin: '',
+      chnlIdin: '',
+      chnlNmin: '',
       containerNum: '',
       tcpgwNm: '',
       dvlpLang: '',
       chnlRmk: '',
       useYn: 'Y',
+      useYnin: 'Y',
       svrTyp: '',
       svrIp: '',
       svrPort: '',
@@ -597,19 +605,19 @@ export default {
           pageNo: this.pageSet.pageNo,
           pageCount: this.pageSet.pageCount,
           size: this.pageSet.size,
-          opCd: this.opCd,
-          instCd: this.instCd,
-          mcgInstCd: this.mcgInstCd,
-          chnlTyp: this.chnlTyp,
-          chnlGrp: this.chnlGrp,
-          lnkgMthd: this.lnkgMthd,
-          chnlId: this.chnlId,
-          chnlNm: this.chnlNm,
+          opCd: this.opCdin,
+          instCd: this.instCdin,
+          mcgInstCd: this.mcgInstCdin,
+          chnlTyp: this.chnlTypin,
+          chnlGrp: this.chnlGrpin,
+          lnkgMthd: this.lnkgMthdin,
+          chnlId: this.chnlIdin,
+          chnlNm: this.chnlNmin,
           containerNum: this.containerNum,
           tcpgwNm: this.tcpgwNm,
           dvlpLang: this.dvlpLang,
           chnlRmk: this.chnlRmk,
-          useYn: this.useYn,
+          useYn: this.useYnin,
         },
       })
 
@@ -785,14 +793,14 @@ export default {
       console.log(this.chnlNm, this.opCd);
       // this.$axios.post('/api/mcg/chnl/post', {
       fetchPutMcgChnlList({
-        opCd: this.opCd,
-        mcgInstCd: this.mcgInstCd,
-        chnlTyp: this.chnlTyp,
-        chnlGrp: this.chnlGrp,
-        lnkgMthd: this.lnkgMthd,
-        chnlId: this.chnlId,
-        chnlNm: this.chnlNm,
-        useYn: this.useYn,
+        opCd: this.opCdin,
+        mcgInstCd: this.mcgInstCdin,
+        chnlTyp: this.chnlTypin,
+        chnlGrp: this.chnlGrpin,
+        lnkgMthd: this.lnkgMthdin,
+        chnlId: this.chnlIdin,
+        chnlNm: this.chnlNmin,
+        useYn: this.useYnin,
       })
         .then((res) => {
           console.log(res);
