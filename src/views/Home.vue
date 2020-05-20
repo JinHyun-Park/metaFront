@@ -38,7 +38,10 @@
         <div class="row_contain chart_area">
           <reactive-bar-chart :chart-data="datacollection" />
           <div>
-            <button class="button is-primary" @click="fillData()">
+            <button
+              class="button is-primary"
+              @click="fillData()"
+            >
               Randomize
             </button>
           </div>
@@ -578,5 +581,5 @@ export default {
       return Math.floor(Math.random() * 100) + 1;
     },
   },
-}
+};
 </script>

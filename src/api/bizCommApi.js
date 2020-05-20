@@ -1,8 +1,20 @@
 /* eslint-disable no-undef */
 const preUrl = '/api/bizcomm';
 
-function fetchSearchBoard(param) {
+function fetchGetBoard(param) {
   return axios.get(`${preUrl}/board`, param);
+}
+
+function fetchGetBoardList(param) {
+  return axios.get(`${preUrl}/board/list`, param);
+}
+
+function fetchPostBoard(param) {
+  return axios.post(`${preUrl}/board`, param);
+}
+
+function fetchPutBoard(param) {
+  return axios.put(`${preUrl}/board`, param);
 }
 
 function fetchDeleteBoard(param) {
@@ -50,7 +62,10 @@ function fetchGetMyChrgrInfo(param) {
 }
 
 export {
-  fetchSearchBoard,
+  fetchGetBoard,
+  fetchGetBoardList,
+  fetchPutBoard,
+  fetchPostBoard,
   fetchDeleteBoard,
   fetchGetCccdSelbox,
   fetchServerList,

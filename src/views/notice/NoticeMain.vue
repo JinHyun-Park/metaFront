@@ -98,12 +98,13 @@
               <li class="th_cell">
                 작성일자
               </li>
+              <li class="th_cell" />
             </ul>
           </div>
           <div class="table_body">
             <ul
               v-for="board in boardList"
-              :key="board['BOARD_NUM']"
+              :key="board.BOARD_NUM"
               class="table_row w-auto"
             >
               <!--
@@ -126,26 +127,29 @@
               -->
 
               <li class="td_cell">
-                {{ board['BOARD_NUM'] }}
+                {{ board.BOARD_NUM }}
               </li>
               <li class="td_cell">
-                {{ board['TITLE'] }}
+                {{ board.TITLE }}
               </li>
               <li class="td_cell">
-                {{ board['BOARD_ST'] }}
+                {{ board.BOARD_ST }}
               </li>
               <li class="td_cell">
-                {{ board['CHG_ID'] }}
+                {{ board.CHG_ID }}
               </li>
               <li class="td_cell">
-                {{ board['CHG_DT'] }}
-                <button
-                  type="button"
-                  class="default_button on"
-                  @click="deleteBoard(board['BOARD_NUM'])"
-                >
-                  삭제
-                </button>
+                {{ board.formatChgDt }}
+              </li>
+              <li class="td_cell">
+                <i
+                  class="ico-edit"
+                  @click="moveToWrite(board.BOARD_NUM)"
+                />
+                <i
+                  class="ico-del"
+                  @click="deleteBoard(board.BOARD_NUM)"
+                />
               </li>
             </ul>
           </div>
@@ -179,7 +183,7 @@
 </template>
 
 <script>
-import { fetchSearchBoard, fetchDeleteBoard } from '@/api/bizCommApi';
+import { fetchGetBoardList, fetchDeleteBoard } from '@/api/bizCommApi';
 
 export default {
   name: 'NoticeMain',
@@ -197,17 +201,22 @@ export default {
       boardList: [],
     };
   },
-  created() { 
+  created() {
     this.searchList();
   },
   mounted() {
     this.startReqDtm = this.$gf.dateToString(new Date(), '-7d');
     this.endReqDtm = this.$gf.dateToString(new Date());
     this.date = this.$gf.dateToString(new Date());
+    // console.log('date날짜다.');
+    // console.log(this.startReqDtm);
+    // console.log(this.endReqDtm);
+    // console.log(this.date);
+    // console.log('date날짜 가능하다.');
   },
   methods: {
-    moveToWrite() {
-      this.$router.push({ name: 'noticeWrite' });
+    moveToWrite(boardNum) {
+      this.$router.push({ name: 'noticeWrite', params: { boardNum } });
     },
     log(val) {
       this.startReqDtm = val;
@@ -216,9 +225,10 @@ export default {
     searchList() {
       // this.tgtUrl = '/api/bizcomm/board';
       // this.$axios.get(this.tgtUrl, {
-      fetchSearchBoard({
+      fetchGetBoardList({
         params: {
           pageNo: this.pageSet.pageNo,
+          pageCount: this.pageSet.pageCount,
           size: this.pageSet.size,
           boardSt: '', // 0:정상
           boardTyp: 'NOTI',
@@ -231,9 +241,9 @@ export default {
           console.log(res);
           if (res.data.rstCd === 'S') {
             // this.boardList = this.$gf.parseRtnData(this.pageSet, res.data.rstData.board, 'Y')
-            this.boardList = res.data.rstData.board
-            this.pageSet = res.data.rstData.pageSet
-            // this.serverList = res.data.rstData.serverList;
+            this.boardList = res.data.rstData.board;
+            this.pageSet = res.data.rstData.pageSet;
+            console.log(this.pageSet);
           } else {
             // eslint-disable-next-line no-alert
             alert('failed');
@@ -247,12 +257,11 @@ export default {
     deleteBoard(boardNum) {
       fetchDeleteBoard({
         params: {
-          boardNum: boardNum
-        }
+          boardNum,
+        },
       })
         .then((res) => {
-          console.log(res)
-          console.log(boardNum)
+          console.log(res);
           if (res.data.rstCd === 'S') {
             this.$gf.alertOn('처리되었습니다.');
             this.searchList();
