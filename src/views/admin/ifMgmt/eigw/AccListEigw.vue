@@ -289,6 +289,10 @@ export default {
         this.$gf.alertOn('이름을 입력해주세요.');
         return;
       }
+      if (this.ofcLvlCd === '') {
+        this.$gf.alertOn('직급을 선택해주세요.');
+        return;
+      }
       console.log('담당자 정보 등록');
       this.saveChrgrInfo = {
         instCd: this.instCd,
@@ -317,6 +321,18 @@ export default {
     editCall(i) {
       console.log('대외기관 담당자 정보 수정!');
       console.log(i);
+      if (this.eigwChrgrInfoList[i].instCd === '') {
+        this.$gf.alertOn('대외기관을 입력해주세요.');
+        return;
+      }
+      if (this.eigwChrgrInfoList[i].hanNm === '') {
+        this.$gf.alertOn('이름을 입력해주세요.');
+        return;
+      }
+      if (this.eigwChrgrInfoList[i].ofcLvlCd === '') {
+        this.$gf.alertOn('직급을 선택해주세요.');
+        return;
+      }
       fetchPutEigwChrgrInfo(this.eigwChrgrInfoList[i])
         .then((res) => {
           console.log(res);
