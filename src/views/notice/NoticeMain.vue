@@ -107,25 +107,6 @@
               :key="board.BOARD_NUM"
               class="table_row w-auto"
             >
-              <!--
-              <li class="td_cell">
-                {{ board.boardNum }}
-              </li>
-              <li class="td_cell">
-                {{ board.title }}
-              </li>
-              <li class="td_cell">
-                {{ board.boardSt }}
-              </li>
-              <li class="td_cell">
-                {{ board.chgChrgrInfo.hanNm }}({{ board.chgId }})
-                {{ board.chgId }}
-              </li>
-              <li class="td_cell">
-                {{ board.chgDt }}
-              </li>
-              -->
-
               <li class="td_cell">
                 {{ board.BOARD_NUM }}
               </li>
@@ -205,14 +186,8 @@ export default {
     this.searchList();
   },
   mounted() {
-    this.startReqDtm = this.$gf.dateToString(new Date(), '-7d');
-    this.endReqDtm = this.$gf.dateToString(new Date());
-    this.date = this.$gf.dateToString(new Date());
-    // console.log('date날짜다.');
-    // console.log(this.startReqDtm);
-    // console.log(this.endReqDtm);
-    // console.log(this.date);
-    // console.log('date날짜 가능하다.');
+    this.startReqDtm = this.$gf.dateToString(new Date(), '-7d', 'Y');
+    this.endReqDtm = this.$gf.dateToString(new Date(), '', 'Y');
   },
   methods: {
     moveToWrite(boardNum) {
@@ -221,7 +196,9 @@ export default {
     log(val) {
       this.startReqDtm = val;
     },
-
+    log2(val) {
+      this.endReqDtm = val;
+    },
     searchList() {
       // this.tgtUrl = '/api/bizcomm/board';
       // this.$axios.get(this.tgtUrl, {
@@ -235,6 +212,10 @@ export default {
           title: '',
           content: '',
           boardNum: '',
+          // eslint-disable-next-line no-useless-escape
+          startReqDtm: this.startReqDtm.replace(/\-/g, ''),
+          // eslint-disable-next-line no-useless-escape
+          endReqDtm: this.endReqDtm.replace(/\-/g, ''),
         },
       })
         .then((res) => {
