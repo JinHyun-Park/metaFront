@@ -261,7 +261,7 @@ export default {
         fetchPutIfStep1Reg(this.ifReqMstInfo)
           .then((res) => {
             console.log(res);
-            this.$gf.alertOn('수정 되었습니다.');
+            this.$gf.alertOn('저장되었습니다.');
           })
           .catch((ex) => {
             console.log(`오류가 발생하였습니다 : ${ex}`);

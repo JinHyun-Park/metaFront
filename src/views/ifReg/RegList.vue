@@ -74,12 +74,12 @@
           </div>
         </div>
         <div class="column w-4">
-          <label class="column_label">검색어</label>
+          <label class="column_label">신청제목</label>
           <div class="search_group">
             <input
               v-model="reqTitle"
               type="text"
-              value="Searching"
+              value=""
             >
           </div>
         </div>
@@ -117,10 +117,13 @@
             </li>
             <li
               class="td_cell"
-              style="cursor:pointer;text-decoration: underline; width:40%;"
-              @click="detail(i)"
             >
-              {{ row.reqTitle }}
+              <label
+                style="cursor:pointer;text-decoration: underline; width:40%;"
+                @click="detail(i)"
+              >
+                {{ row.reqTitle }}
+              </label>
             </li>
             <li class="td_cell">
               <label
