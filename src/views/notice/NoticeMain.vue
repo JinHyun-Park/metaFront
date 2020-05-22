@@ -182,12 +182,12 @@ export default {
       boardList: [],
     };
   },
-  created() {
-    this.searchList();
-  },
   mounted() {
+    console.log('mount');
+    console.log(this.pageSet);
     this.startReqDtm = this.$gf.dateToString(new Date(), '-7d', 'Y');
     this.endReqDtm = this.$gf.dateToString(new Date(), '', 'Y');
+    this.searchList();
   },
   methods: {
     moveToWrite(boardNum) {
