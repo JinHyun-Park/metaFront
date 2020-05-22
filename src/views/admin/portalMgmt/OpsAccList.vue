@@ -24,7 +24,7 @@
           >
         </div>
         <div class="column on w-2">
-          <label class="column_label">사용자명</label>
+          <label class="column_label">한글명</label>
           <input
             v-model="hanNm"
             type="text"
