@@ -1,7 +1,12 @@
 <template>
   <div class="contents popup">
     <i class="dim" />
-    <article class="layer_popup large">
+    <article
+      ref="eaiListPopup"
+      class="layer_popup medium"
+      tabindex="0"
+      @keydown.prevent.esc="closePop"
+    >
       <section class="title style-2">
         <h2><i class="ico-bar" />인퍼테이스 조회</h2>
       </section>

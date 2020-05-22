@@ -1,7 +1,12 @@
 <template>
   <div class="contents popup">
     <i class="dim" />
-    <article class="layer_popup medium">
+    <article
+      ref="instListPopup"
+      class="layer_popup medium"
+      tabindex="0"
+      @keydown.prevent.esc="closePop"
+    >
       <section class="title style-2">
         <h2><i class="ico-bar" />대외기관 조회</h2>
       </section>
@@ -10,7 +15,7 @@
           <div class="column on w-5">
             <label class="column_label">기관명</label>
             <input
-              v-model="instCd"
+              v-model="instNm"
               type="text"
               value=""
             >
@@ -94,14 +99,9 @@
         <button
           type="button"
           class="default_button"
+          @click="closePop"
         >
           닫기
-        </button>
-        <button
-          type="button"
-          class="default_button on"
-        >
-          선택
         </button>
       </section>
     </article>
@@ -117,7 +117,7 @@ export default {
     return {
       pageSet: { pageNo: 1, pageCount: 0, size: 5 },
       instList: [],
-      instCd: '',
+      instNm: '',
     };
   },
   computed: {
@@ -131,7 +131,7 @@ export default {
           pageNo: this.pageSet.pageNo,
           size: this.pageSet.size,
           pageCount: this.pageSet.pageCount,
-          instCd: this.instCd,
+          instNm: this.instNm,
         },
       })
         .then((res) => {

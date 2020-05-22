@@ -278,6 +278,10 @@ export default {
         });
     },
     save() {
+      if (this.svrTypCd === '') {
+        this.$gf.alertOn('서버타입을 선택해주세요.');
+        return;
+      }
       if (this.instCd === '') {
         this.$gf.alertOn('대외기관을 입력해주세요.');
         return;
@@ -309,6 +313,10 @@ export default {
     editCall(i) {
       console.log('서버 정보 수정!');
       console.log(i);
+      if (this.serverList[i].svrTypCd === '') {
+        this.$gf.alertOn('서버타입을 선택해주세요.');
+        return;
+      }
       fetchPutEigwServerInfo(this.serverList[i])
         .then((res) => {
           console.log(res);
