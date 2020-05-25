@@ -53,6 +53,10 @@ function fetchPostCcCdList(param) {
   return axios.post(`${preUrl}/cccd`, param);
 }
 
+function fetchDeleteCcCdList(param) {
+  return axios.delete(`${preUrl}/cccd`, param);
+}
+
 function fetchGetInstCdList(param) {
   return axios.get(`${preUrl}/inst_cd`, param);
 }
@@ -99,6 +103,7 @@ export {
   fetchGetCcCdList,
   fetchPostCcCdList,
   fetchPutCcCdList,
+  fetchDeleteCcCdList,
   fetchGetInstCdList,
   fetchPostInstCdList,
   fetchPutInstCdList,

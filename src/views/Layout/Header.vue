@@ -14,7 +14,7 @@
       </h1>
       <div>
         <div class="util_space">
-          <em @click="confirmOn"><i class="ico-user" />[{{ hanNm }}] 님 환영합니다!</em>
+          <em><i class="ico-user" />[{{ hanNm }}] 님 환영합니다!</em>
           <button
             class="log"
             @click="logout()"
@@ -166,12 +166,6 @@ export default {
           console.log(`error occur!! : ${ex}`);
         });
       this.movePage('login');
-    },
-    confirmOn() {
-      // this.$gf.moveSite();
-      const text1 = '11222';
-      this.$gf.confirmOn('괜찮으세요??', this.alertMsg, text1);
-      // this.$gf.alertOn('', this.alertMsg);
     },
     alertMsg(text) {
       // eslint-disable-next-line no-alert

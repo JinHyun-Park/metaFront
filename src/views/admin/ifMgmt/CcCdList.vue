@@ -133,6 +133,10 @@
                   class="ico-edit"
                   @click="editList(i)"
                 />
+                <i
+                  class="ico-del"
+                  @click="delList(i)"
+                />
               </li>
             </ul>
           </div>
@@ -157,7 +161,9 @@
 
 <script>
 import { mapState, mapActions } from 'vuex';
-import { fetchGetCcCdList, fetchPostCcCdList, fetchPutCcCdList } from '@/api/bizCommApi';
+import {
+  fetchGetCcCdList, fetchPostCcCdList, fetchPutCcCdList, fetchDeleteCcCdList,
+} from '@/api/bizCommApi';
 
 export default {
   /* eslint-disable */
@@ -202,7 +208,7 @@ export default {
             //this.ccCdLst = this.$gf.parseRtnData(this.pageSet, res.data.rstData.ccCdLst, 'Y');
             this.ccCdLst = res.data.rstData.ccCdLst;
             this.pageSet = res.data.rstData.pageSet;
-            if (this.ccCdLst.length === 0) {
+            if (this.ccCdLst.length === 0 && this.opClCd != "") {
               this.addList();
             }
           }
@@ -217,6 +223,28 @@ export default {
       };
       this.ccCdLst.push(a);
     },
+    delList(i) {
+      const confirmText = `${this.ccCdLst[i].cdId} > ${this.ccCdLst[i].cdDtlId} 를 삭제하십니까?`;
+      this.$gf.confirmOn(confirmText, this.delCall, i);
+    },
+    delCall(i) {
+      fetchDeleteCcCdList({
+        params: {
+          opClCd: this.ccCdLst[i].opClCd,
+          cdId: this.ccCdLst[i].cdId,
+          cdDtlId: this.ccCdLst[i].cdDtlId,
+        }})
+        .then((res) => {
+              console.log(res);
+              if (res.data.rstCd === 'S') {
+                this.$gf.alertOn(`삭제되었습니다.`);
+                this.searchList(this.pageSet.pageNo);
+              }
+            })
+            .catch((ex) => {
+              console.log(`error occur!! : ${ex}`);
+            });
+    },
     editList(i) {
       const confirmText = `${this.ccCdLst[i].cdId} > ${this.ccCdLst[i].cdDtlId} 를 저장하십니까?`;
       this.$gf.confirmOn(confirmText, this.editCall, i);
@@ -230,7 +258,7 @@ export default {
               console.log(res);
               if (res.data.rstCd === 'S') {
                 this.$gf.alertOn(`반영되었습니다.`);
-                this.searchList(1);
+                this.searchList(this.pageSet.pageNo);
               }
             })
             .catch((ex) => {
@@ -243,7 +271,7 @@ export default {
               console.log(res);
               if (res.data.rstCd === 'S') {
                 this.$gf.alertOn(`반영되었습니다.`);
-                this.searchList(i);
+                this.searchList(this.pageSet.pageNo);
               }
             })
             .catch((ex) => {
