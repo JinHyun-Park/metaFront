@@ -140,7 +140,7 @@
                   />
                   <i
                     class="ico-del"
-                    @click="delList(i)"
+                    @click="resetPw(i)"
                   />
                 </td>
               </tr>
@@ -167,7 +167,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex';
-import { fetchGetUserInfoList } from '@/api/loginApi';
+import { fetchGetUserInfoList, fetchResetPasswdAdmin } from '@/api/loginApi';
 
 export default {
   /* eslint-disable */
@@ -225,10 +225,28 @@ export default {
             console.log(`error occur!! : ${ex}`);
           });
     },
-    delList(i) {
-      if (confirm(`${this.userList[i].hanNm}님 계정을 정말 삭제할래요?`)) {
-        // to-do use_yn을 n으로 변경;
-      }
+    resetPw(i) {
+      let confirmText = `${this.userList[i].hanNm}님 비밀번호 초기화를 하시겠습니까?`;
+      this.$gf.confirmOn(confirmText, this.resetPwCall, i);
+    },
+    resetPwCall(i) {
+      const reqData = {
+        userId: this.userList[i].userId,
+      };
+      // 비밀번호 초기화;
+      fetchResetPasswdAdmin(reqData)
+      .then((res) => {
+        if (res.data.rstCd === 'S') {
+          console.log(res.headers);
+          this.$gf.alertOn(`초기화되었습니다.`);
+        } else {
+          // eslint-disable-next-line no-alert
+          // alert(res.data.rstMsg);
+        }
+      })
+      .catch((ex) => {
+        console.log(`error occur!! : ${ex}`);
+      });
     },
     pageChanged(pageNum) { 
       console.log(pageNum);
