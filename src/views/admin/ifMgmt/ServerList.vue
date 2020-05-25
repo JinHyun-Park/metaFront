@@ -121,6 +121,7 @@
                   <select v-model="server.svrTypCd">
                     <option
                       v-for="(code, i) in ccCdList.syrTypCd"
+                      v-if="code.cdNm != '전체'"
                       :key="i"
                       :value="code.cdDtlId"
                     >
@@ -134,6 +135,7 @@
                   <select v-model="server.ipTyp">
                     <option
                       v-for="(code, i) in ccCdList.ipTyp"
+                      v-if="code.cdNm != '전체'"
                       :key="i"
                       :value="code.cdDtlId"
                     >
@@ -196,27 +198,6 @@
           :page-class="'page-item'"
         />
       </div>
-    </section>
-
-    <section class="btm_button_area">
-      <button
-        type="button"
-        class="default_button"
-      >
-        수정
-      </button>
-      <button
-        type="button"
-        class="default_button"
-      >
-        추가
-      </button>
-      <button
-        type="button"
-        class="default_button on"
-      >
-        등록
-      </button>
     </section>
   </div>
 </template>

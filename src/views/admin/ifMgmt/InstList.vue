@@ -12,10 +12,18 @@
     </section>
     <section class="form_area border_group">
       <div class="row_contain type-3 last">
-        <div class="column on w-5">
-          <label class="column_label">기관명(코드)</label>
+        <div class="column on w-2">
+          <label class="column_label">기관코드</label>
           <input
             v-model="instCd"
+            type="text"
+            value=""
+          >
+        </div>
+        <div class="column on w-3">
+          <label class="column_label">기관명</label>
+          <input
+            v-model="instNm"
             type="text"
             value=""
           >
@@ -35,21 +43,35 @@
       </div>
 
       <div class="table_colgroup">
-        <div class="table_grid radio_group extend-1">
+        <div class="table_grid">
           <div class="table_head w-auto">
             <ul>
-              <li class="th_cell" />
-              <li class="th_cell">
+              <li
+                class="th_cell"
+                style="width:10%"
+              />
+              <li
+                class="th_cell"
+                style="width:20%"
+              >
                 기관코드
               </li>
-              <li class="th_cell">
+              <li
+                class="th_cell"
+                style="width:30%"
+              >
                 기관명
               </li>
-              <li class="th_cell">
+              <li
+                class="th_cell"
+                style="width:40%"
+              >
                 기관설명
               </li>
-              <li class="th_cell" />
-              <li class="th_cell" />
+              <li
+                class="th_cell"
+                style="width:10%"
+              />
             </ul>
           </div>
           <div class="table_body">
@@ -104,27 +126,6 @@
         />
       </div>
     </section>
-
-    <section class="btm_button_area">
-      <button
-        type="button"
-        class="default_button"
-      >
-        수정
-      </button>
-      <button
-        type="button"
-        class="default_button"
-      >
-        선택
-      </button>
-      <button
-        type="button"
-        class="default_button on"
-      >
-        등록
-      </button>
-    </section>
   </div>
 </template>
 
@@ -141,6 +142,7 @@ export default {
       pageSet: { pageNo: 1, pageCount: 0, size: 10 },
       instList: [],
       instCd: '',
+      instNm: '',
     };
   },
   computed: {
@@ -157,6 +159,7 @@ export default {
           size: this.pageSet.size,
           pageCount: this.pageSet.pageCount,
           instCd: this.instCd,
+          instNm: this.instNm,
         },
       })
         .then((res) => {
@@ -178,7 +181,7 @@ export default {
     },
     addList() {
       const a = {
-        instCd: this.instCd, useYn: 'Y', flag: 'I',
+        instCd: this.instCd, instNm: this.instNm, useYn: 'Y', flag: 'I',
       };
       this.instList.push(a);
     },
