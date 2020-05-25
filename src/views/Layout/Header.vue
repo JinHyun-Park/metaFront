@@ -14,6 +14,14 @@
       </h1>
       <div>
         <div class="util_space">
+          <em style="font-size: 16px;">{{ remainTime }}</em>
+          <button
+            class="log"
+            @click="resetCount()"
+          >
+            연장
+          </button>
+          <em />
           <em><i class="ico-user" />[{{ hanNm }}] 님 환영합니다!</em>
           <button
             class="log"
@@ -21,6 +29,7 @@
           >
             로그아웃<i class="ico-logout" />
           </button>
+          </basetimer>
         </div>
         <nav>
           <ul class="menu">
@@ -102,7 +111,7 @@
 <script>
 import { mapState, mapActions } from 'vuex';
 import { fetchGetLogout } from '@/api/loginApi';
-import { fetchGetMyChrgrInfo } from '@/api/bizCommApi';
+import { fetchGetMyChrgrInfo, fetchGetKeepSession } from '@/api/bizCommApi';
 
 export default {
 //   mixins: [common],
@@ -113,6 +122,8 @@ export default {
       alertMsgText: '123333',
       userHanNm: '',
       hanNm: '',
+      remainTime: ':  :  ',
+      intervalFuc: '',
     };
   },
   computed: {
@@ -122,6 +133,16 @@ export default {
     this.setActiveItem();
     this.getMyInfo();
     this.setMenuAllList(); // 서버로부터 menu 내 left list 수신
+    this.$gf.resetCount();
+    this.intervalFuc = setInterval(() => {
+      this.remainTime = this.$gf.getSessionCount(1);
+      if (this.remainTime === '0:00') {
+        this.$gf.alertOn('세션이 종료되었습니다. 재로그인 바랍니다.', this.logoutCall);
+      }
+    }, 1000);
+  },
+  destroyed() {
+    clearInterval(this.intervalFuc);
   },
   methods: {
     ...mapActions('frameSet', ['setMenuAllList']),
@@ -171,6 +192,24 @@ export default {
       // eslint-disable-next-line no-alert
       alert(text);
       // this.$router.push({ name: 'swingDbInfo' });
+    },
+    resetCount() {
+      fetchGetKeepSession()
+        .then((res) => {
+          if (res.status === 200) {
+            this.timePassed = 0;
+            this.$gf.resetCount();
+          } else {
+            this.logoutCall();
+            this.movePage('login');
+          }
+        })
+        .catch((ex) => {
+          // console.log(`error occur!! : ${ex}`);
+          // todo : 오류니까 무조건 logout하자!!
+          this.logoutCall();
+          this.movePage('login');
+        });
     },
   },
 };

@@ -89,6 +89,10 @@ function fetchGetAllMetaList(param) {
   return axios.get(`${preUrl}/allmeta`, param);
 }
 
+function fetchGetKeepSession(param) {
+  return axios.get(`${preUrl}/keepsession`, param);
+}
+
 export {
   fetchGetBoard,
   fetchGetBoardList,
@@ -112,4 +116,5 @@ export {
   fetchGetMenuList,
   fetchGetMyChrgrInfo,
   fetchGetAllMetaList,
+  fetchGetKeepSession,
 };

@@ -7,6 +7,9 @@ import store from '@/store';
 let loader;
 let loaderOn = false;
 
+const TIME_LIMIT = 89 * 60;
+let remainingTime = TIME_LIMIT;
+
 const helpers = {
 
   /**
@@ -281,6 +284,35 @@ const helpers = {
   hideLoading() {
     loader.hide();
     loaderOn = false;
+  },
+
+  /**
+   * 세션 Count Time 값
+   */
+  getSessionCount(timePassed) {
+    if (remainingTime === 0) {
+      return '0:00';
+    }
+
+    remainingTime -= timePassed;
+
+    // eslint-disable-next-line prefer-const
+    let minutes = Math.floor(remainingTime / 60);
+    let seconds = remainingTime % 60;
+
+    if (seconds < 10) {
+      seconds = `0${seconds}`;
+    }
+
+    if (remainingTime === 0) {
+      seconds = '00';
+    }
+
+    return `${minutes}:${seconds}`;
+  },
+
+  resetCount() {
+    remainingTime = TIME_LIMIT;
   },
 
   /**

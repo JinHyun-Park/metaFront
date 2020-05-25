@@ -74,6 +74,9 @@ _axios.interceptors.response.use(
         }
         helpers.hideLoading(); // 로딩화면 멈춤
 
+        //세션 값 초기화
+        Vue.gf.resetCount();
+
         return response
     },
     error => {
