@@ -52,16 +52,8 @@
         <div class="column w-1">
           <label class="column_label">IP</label>
           <input
-            v-model="svrIp"
+            v-model="reqIp"
             type="text"
-            class="add_text on"
-            @keyup.13="searchList()"
-          >
-        </div>
-        <div class="column w-1">
-          <input
-            v-model="instCd"
-            type="hidden"
             class="add_text on"
             @keyup.13="searchList()"
           >
@@ -72,16 +64,16 @@
           <div class="table_head">
             <ul>
               <li class="th_cell">
-                대외기관<i class="ico-sort-up" />
+                대외기관
               </li>
               <li class="th_cell">
-                I/F ID<i class="ico-sort-down" />
+                I/F ID
               </li>
               <li class="th_cell">
-                거래명<i class="ico-sort-up" />
+                거래명
               </li>
               <li class="th_cell">
-                프로그램 유형<i class="ico-sort-down" />
+                프로그램 유형
               </li>
               <li class="th_cell">
                 개발IP(NAT)
@@ -114,7 +106,7 @@
                 {{ row.onlineDealNm }}
               </li>
               <li class="td_cell">
-                {{ row.pgmTyp }}
+                {{ row.pgmTypNm }}
               </li>
               <li class="td_cell">
                 {{ row.dvpSvrRealIp }}<br>({{ row.dvpSvrNatIp }})
@@ -156,6 +148,7 @@
           <input
             v-model="onlineMst.eaiIfId"
             type="text"
+            readonly
           >
         </div>
         <div class="column w-1">
@@ -163,33 +156,26 @@
           <input
             v-model="onlineMst.instNm"
             type="text"
+            readonly
           >
         </div>
       </div>
       <div class="row_contain type-2">
         <div class="column on w-1">
           <label class="column_label">프로그램 유형</label>
-          <select v-model="procInfo.pgmTyp">
-            <option value="CLIENT">
-              클라이언트
-            </option>
-            <option value="SERVER">
-              서버
-            </option>
-          </select>
-          <span class="select" />
+          <input
+            v-model="procInfo.pgmTypNm"
+            type="text"
+            readonly
+          >
         </div>
         <div class="column w-1">
           <label class="column_label">연결유형</label>
-          <select v-model="procInfo.linkTyp">
-            <option value="CONN">
-              연결형
-            </option>
-            <option value="DISCONN">
-              비연결형
-            </option>
-          </select>
-          <span class="select" />
+          <input
+            v-model="procInfo.linkTypNm"
+            type="text"
+            readonly
+          >
         </div>
       </div>
     </section>
@@ -203,6 +189,7 @@
           <input
             v-model="procInfo.dvpSvrRealIp"
             type="text"
+            readonly
           >
         </div>
         <div class="column w-1">
@@ -210,6 +197,7 @@
           <input
             v-model="procInfo.dvpSvrNatIp"
             type="text"
+            readonly
           >
         </div>
         <div class="column w-1">
@@ -217,6 +205,7 @@
           <input
             v-model="procInfo.dvpSvrPort"
             type="text"
+            readonly
           >
         </div>
       </div>
@@ -226,6 +215,7 @@
           <input
             v-model="procInfo.prodSvrRealIp"
             type="text"
+            readonly
           >
         </div>
         <div class="column w-1">
@@ -233,6 +223,7 @@
           <input
             v-model="procInfo.prodSvrNatIp"
             type="text"
+            readonly
           >
         </div>
         <div class="column w-1">
@@ -240,6 +231,7 @@
           <input
             v-model="procInfo.prodSvrPort"
             type="text"
+            readonly
           >
         </div>
       </div>
@@ -366,7 +358,6 @@ export default {
       onlineIfList: '',
       eaiIfId: '',
       svrIp: '',
-      instCd: '',
       instNm: '',
       inChrgrList: '',
       outChrgrList: '',
@@ -379,8 +370,8 @@ export default {
       fetchEigwAdOnlineList({
         params: {
           eaiIfId: this.eaiIfId,
-          svrIp: this.svrIp,
-          instCd: this.instCd,
+          reqIp: this.reqIp,
+          instNm: this.instNm,
           pageNo: this.pageSet.pageNo,
           size: this.pageSet.size,
         },

@@ -263,7 +263,7 @@ export default {
           useYn: this.useYn,
           svrRealIp: this.svrRealIp,
           svrNatIp: this.svrNatIp,
-          instCd: this.instCd,
+          instNm: this.instNm,
         },
       })
         .then((res) => {
@@ -282,7 +282,7 @@ export default {
         this.$gf.alertOn('서버타입을 선택해주세요.');
         return;
       }
-      if (this.instCd === '') {
+      if (this.instCd === '' || this.instNm === '') {
         this.$gf.alertOn('대외기관을 입력해주세요.');
         return;
       }

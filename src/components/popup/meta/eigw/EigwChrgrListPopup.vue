@@ -91,18 +91,7 @@
                   {{ row.hanNm }}
                 </li>
                 <li class="td_cell">
-                  <div class="select_group">
-                    <select v-model="row.ofcLvlCd">
-                      <option
-                        v-for="(code, n) in ccCdList.ofcLvlCd"
-                        :key="n"
-                        :value="code.cdDtlId"
-                      >
-                        {{ code.cdNm }}
-                      </option>
-                    </select>
-                    <span class="select" />
-                  </div>
+                  {{ row.ofcLvlNm }}
                 </li>
                 <li class="td_cell">
                   {{ row.offcPhonNum }}

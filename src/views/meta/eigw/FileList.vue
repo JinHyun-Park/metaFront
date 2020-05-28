@@ -58,14 +58,6 @@
             @keyup.13="searchList()"
           >
         </div>
-        <div class="column w-1">
-          <input
-            v-model="instCd"
-            type="hidden"
-            class="add_text on"
-            @keyup.13="searchList()"
-          >
-        </div>
       </div>
       <div class="table_colgroup">
         <div class="table_grid">
@@ -108,18 +100,7 @@
                 {{ row.instNm }}
               </li>
               <li class="td_cell">
-                <select v-model="row.srFlag">
-                  <option
-                    value="S"
-                  >
-                    송신
-                  </option>
-                  <option
-                    value="R"
-                  >
-                    수신
-                  </option>
-                </select>
+                {{ row.srFlagNm }}
               </li>
               <li class="td_cell">
                 {{ row.fileNm }}
@@ -169,6 +150,7 @@
             v-model="fileMst.fileNm"
             type="text"
             class="add_text on"
+            readonly
           >
         </div>
         <div class="column w-1">
@@ -177,20 +159,18 @@
             v-model="fileMst.instNm"
             type="text"
             class="add_text on"
+            readonly
           >
         </div>
         <div class="column w-1">
           <label class="column_label">송수신구분</label>
           <div class="select_group">
-            <select v-model="fileMst.srFlag">
-              <option value="S">
-                송신
-              </option>
-              <option value="R">
-                수신
-              </option>
-            </select>
-            <span class="select" />
+            <input
+              v-model="fileMst.srFlagNm"
+              type="text"
+              class="add_text on"
+              readonly
+            >
           </div>
         </div>
       </div>
@@ -201,6 +181,7 @@
             v-model="fileSktConf.eaiIfId"
             type="text"
             class="add_text"
+            readonly
           >
         </div>
         <div class="column w-3">
@@ -209,6 +190,7 @@
             v-model="fileMst.fileDesc"
             type="text"
             class="add_text"
+            readonly
           >
         </div>
       </div>
@@ -225,6 +207,7 @@
             v-model="fileAgencyConf.dvpSvrRealIp"
             type="text"
             class="add_text on"
+            readonly
           >
         </div>
         <div class="column w-1">
@@ -233,6 +216,7 @@
             v-model="fileAgencyConf.dvpSvrNatIp"
             type="text"
             class="add_text on"
+            readonly
           >
         </div>
         <div class="column w-1">
@@ -241,6 +225,7 @@
             v-model="fileAgencyConf.dvpSvrPort"
             type="text"
             class="add_text on"
+            readonly
           >
         </div>
       </div>
@@ -251,6 +236,7 @@
             v-model="fileAgencyConf.prodSvrRealIp"
             type="text"
             class="add_text on"
+            readonly
           >
         </div>
         <div class="column w-1">
@@ -259,6 +245,7 @@
             v-model="fileAgencyConf.prodSvrNatIp"
             type="text"
             class="add_text on"
+            readonly
           >
         </div>
         <div class="column w-1">
@@ -267,6 +254,7 @@
             v-model="fileAgencyConf.prodSvrPort"
             type="text"
             class="add_text on"
+            readonly
           >
         </div>
       </div>
@@ -283,6 +271,7 @@
           <input
             v-model="fileSktConf.staPath"
             type="text"
+            readonly
           >
         </div>
 
@@ -293,6 +282,7 @@
           <input
             v-model="fileAgencyConf.endPath"
             type="text"
+            readonly
           >
         </div>
         <div class="column w-2">
@@ -300,6 +290,7 @@
           <input
             v-model="fileSktConf.opCode"
             type="text"
+            readonly
           >
         </div>
       </div>
@@ -311,6 +302,7 @@
           <input
             v-model="fileAgencyConf.staPath"
             type="text"
+            readonly
           >
         </div>
 
@@ -319,6 +311,7 @@
           <input
             v-model="fileSktConf.endPath"
             type="text"
+            readonly
           >
         </div>
       </div>
@@ -461,7 +454,7 @@ export default {
         params: {
           fileNm: this.fileNm,
           reqIp: this.reqIp,
-          instCd: this.instCd,
+          instNm: this.instNm,
           pageNo: this.pageSet.pageNo,
           size: this.pageSet.size,
         },

@@ -51,7 +51,7 @@
                   기관코드
                 </li>
                 <li class="th_cell">
-                  한글명
+                  사용자명
                 </li>
                 <li class="th_cell">
                   생년월일

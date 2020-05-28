@@ -123,6 +123,7 @@ export default {
     if (this.$route.params.reqNum != null) {
       eventBus.$emit('Step1GetIfReqMst', { reqNum: this.$route.params.reqNum });
       eventBus.$emit('Step2GetEAIReqMst', { reqNum: this.$route.params.reqNum });
+      eventBus.$emit('Step2GetEIGWReqMst', { reqNum: this.$route.params.reqNum });
       // if (this.tabNum === 1) {
       //   // this.getIfReqMst(this.$route.params.reqNum);
       //   eventBus.$emit('Step1GetIfReqMst', { reqNum: this.$route.params.reqNum });
