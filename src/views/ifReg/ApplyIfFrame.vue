@@ -79,9 +79,18 @@
         임시저장
       </button>
       <button
+        v-if="tabNum === 3"
+        type="button"
+        class="default_button on"
+        @click="aprvReq()"
+      >
+        승인요청
+      </button>
+      <button
         v-if="tabNum === 4"
         type="button"
         class="default_button on"
+        @click="aprv"
       >
         승인
       </button>
@@ -124,6 +133,7 @@ export default {
       eventBus.$emit('Step1GetIfReqMst', { reqNum: this.$route.params.reqNum });
       eventBus.$emit('Step2GetEAIReqMst', { reqNum: this.$route.params.reqNum });
       eventBus.$emit('Step2GetEIGWReqMst', { reqNum: this.$route.params.reqNum });
+      eventBus.$emit('Step3GetAprvReqMst', { reqNum: this.$route.params.reqNum });
       // if (this.tabNum === 1) {
       //   // this.getIfReqMst(this.$route.params.reqNum);
       //   eventBus.$emit('Step1GetIfReqMst', { reqNum: this.$route.params.reqNum });
@@ -167,17 +177,24 @@ export default {
     },
     tempSave() {
       console.log('tempSave');
-      if (this.tabNum === 1) {
+      if (this.tabNum === 1) { // 신청 개요 데이터
         eventBus.$emit('Step1ReqMstSave', { reqNum: this.reqNum, callType: this.callType });
-      } else if (this.tabNum === 2) {
+      } else if (this.tabNum === 2) { // 각단계 별 신청 데이터
         eventBus.$emit('Step2EaiSave', { reqNum: this.reqNum });
         eventBus.$emit('Step2EigwSave', { reqNum: this.reqNum });
         // eventBus.$emit('Step2McgSave', { reqNum: this.reqNum });
+      } else if (this.tabNum === 3) { // 최종 승인요청 화면
+        eventBus.$emit('Step3AprvSave', { reqNum: this.reqNum });
       }
 
       // eventBus.$emit('tempSave1');
       // eventBus.$emit('tempSave2', { dat: 'data1111' });
       // eventBus.$emit('tempSave3', 'data222222');
+    },
+    aprvReq() {
+      if (this.tabNum === 3) {
+        eventBus.$emit('Step3AprvReq', { reqNum: this.reqNum });
+      }
     },
   },
 };

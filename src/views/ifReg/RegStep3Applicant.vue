@@ -1,9 +1,15 @@
 <template>
   <div>
+    <ChrgrListPopup
+      v-if="svrOnChrgr"
+      v-bind="aprvChrgrId"
+      @closePop="turOffSvrPopChrgr"
+      @addData="addDataChrgr"
+    />
     <section class="title style-1">
       <h2>
         <div>
-          <i class="ico-bar" />신청 완료 (신청자용)
+          <i class="ico-bar" />신청 최종 요청 (신청자용)
         </div>
         <div class="breadcrumb">
           <span>EGIW</span><em class="on">EAI</em>
@@ -254,14 +260,17 @@
     <section class="table_grid border_group">
       <div class="table_head">
         <h5 class="s_tit">
-          승인자 지정
+          승인자(파트장) 지정
         </h5>
         <ul>
           <li class="th_cell">
-            Unit명
+            이름
           </li>
           <li class="th_cell">
-            이름
+            조직
+          </li>
+          <li class="th_cell">
+            직급
           </li>
           <li class="th_cell">
             연락처
@@ -269,19 +278,20 @@
           <li class="th_cell">
             E-mail
           </li>
-          <li class="th_cell">
-            비고
-          </li>
           <!--                            <li class="th_cell"></li>-->
         </ul>
       </div>
       <div class="table_body">
         <ul class="table_row form_type">
           <li class="td_cell on">
-            <div class="search_group">
+            <div
+              class="search_group"
+              @click="turnOnSvrPopChrgr"
+            >
               <input
+                v-model="aprvChrgrNm"
                 type="text"
-                value="MIS"
+                value=""
               >
               <span class="search">
                 <i class="ico-search" />
@@ -290,20 +300,36 @@
           </li>
           <li class="td_cell">
             <input
+              v-model="aprvChrgOrgNm"
               type="text"
-              value="유영준"
+              value=""
+              disabled
             >
           </li>
           <li class="td_cell">
-            010-123-1234
-          </li>
-          <li class="td_cell on">
             <input
+              v-model="aprvOfcLvlNm"
               type="text"
-              value="skcc@skcc.com"
+              value=""
+              disabled
             >
           </li>
-          <li class="td_cell" />
+          <li class="td_cell">
+            <input
+              v-model="aprvMblPhonNum"
+              type="text"
+              value=""
+              disabled
+            >
+          </li>
+          <li class="td_cell">
+            <input
+              v-model="aprvEmailAddr"
+              type="text"
+              value=""
+              disabled
+            >
+          </li>
           <!--<li class="td_cell"><i class="ico-edit"></i><i class="ico-del"></i></li>-->
         </ul>
       </div>
@@ -312,9 +338,120 @@
 </template>
 
 <script>
+import ChrgrListPopup from '@/components/popup/bizcomm/ChrgrListPopup.vue';
+import { fetchPostIfStep3AprvId, fetchPutIfStepAprvReq } from '@/api/ifRegApi';
+import eventBus from '@/utils/eventBus';
+
 export default {
   name: 'RegStep3Applicant',
+  components: {
+    ChrgrListPopup,
+  },
+  data() {
+    return {
+      svrOnChrgr: false,
+      reqNum: '',
+      aprvChrgrId: '',
+      aprvChrgrNm: '',
+      aprvChrgOrgNm: '',
+      aprvOfcLvlNm: '',
+      aprvMblPhonNum: '',
+      aprvEmailAddr: '',
+    };
+  },
+  created() {
+    eventBus.$on('Step3GetAprvReqMst', (params) => {
+      console.log(`event Bus 통해 Step3 조회 params: ${params.reqNum}`);
+      this.getStep3AprvReqList(params.reqNum);
+    });
+    eventBus.$on('Step3AprvSave', (params) => {
+      console.log('event Bus 통해 step3 저장');
+      if (this.reqNum == null) {
+        this.reqNum = params.reqNum;
+      }
+      this.saveStep3AprvId();
+    });
+    eventBus.$on('Step3AprvReq', (params) => {
+      console.log('event Bus 통해 step3 승인요청');
+      if (this.reqNum == null) {
+        this.reqNum = params.reqNum;
+      }
+      this.saveStep3AprvReq();
+    });
+    console.log(`parent reqNum : ${this.$parent.reqNum}`);
+  },
+  destroyed() {
+    eventBus.$off('Step3GetAprvReqMst');
+    eventBus.$off('Step3AprvSave');
+    eventBus.$off('Step3AprvReq');
+  },
   methods: {
+    getStep3AprvReqList(tgtReqNum) {
+      // 승인번호3 데이터 조회
+      this.reqNum = tgtReqNum;
+      // 승인자 저장정보 GET
+    },
+    saveStep3AprvId() {
+      // 승인자 정보 등록
+      if (this.aprvChrgrId === '') {
+        this.$gf.alertOn('승인자 지정은 필수입니다.');
+        return;
+      }
+      fetchPostIfStep3AprvId({
+        reqNum: this.reqNum,
+        aprvId: this.aprvChrgrId,
+      })
+        .then((res) => {
+          console.log(res);
+          this.$gf.alertOn('저장 되었습니다');
+        })
+        .catch((ex) => {
+          console.log(`error occur!! : ${ex}`);
+        });
+    },
+    saveStep3AprvReq() {
+      // 승인요청
+      if (this.aprvChrgrId === '') {
+        this.$gf.alertOn('승인자 지정은 필수입니다.');
+        return;
+      }
+      fetchPutIfStepAprvReq({
+        reqNum: this.reqNum,
+        aprvId: this.aprvChrgrId,
+        procSt: '2', // 승인요청
+      })
+        .then((res) => {
+          console.log(res);
+          this.$gf.alertOn('승인 요청되었습니다');
+          this.movePage('regList');
+        })
+        .catch((ex) => {
+          console.log(`error occur!! : ${ex}`);
+        });
+    },
+    turnOnSvrPopChrgr(callChrgr) {
+      this.callChrgr = callChrgr;
+      this.svrOnChrgr = true;
+    },
+    turOffSvrPopChrgr(val) {
+      console.log(`Popup에서 받아온 Data : ${val}`);
+      this.svrOnChrgr = false;
+    },
+    addDataChrgr(val) {
+      console.log(`Popup에서 받아온 Data : ${val}`);
+      this.svrOnChrgr = false;
+
+      this.aprvChrgrId = val.userId;
+      this.aprvChrgrNm = val.hanNm;
+      this.aprvChrgOrgNm = val.orgNm;
+      this.aprvOfcLvlNm = val.ofcLvlNm;
+      this.aprvMblPhonNum = val.mblPhonNum;
+      this.aprvEmailAddr = val.emailAddr;
+    },
+    movePage(page) { // 페이지 이동
+      this.activeItem = page; // 헤더에서 내려오는 바에 현 위치 표시
+      this.$router.push({ name: page });
+    },
   },
 };
 </script>
