@@ -55,20 +55,16 @@
                 v-for="(instRow, i) in instList"
                 :key="instRow.instCd"
                 class="table_row w-auto"
+                style="cursor:pointer"
+                @click="addData(i)"
               >
                 <li class="td_cell">
                   {{ i+1 }}
                 </li>
-                <li
-                  class="td_cell"
-                  @click="addData(i)"
-                >
+                <li class="td_cell">
                   {{ instRow.instCd }}
                 </li>
-                <li
-                  class="td_cell"
-                  @click="addData(i)"
-                >
+                <li class="td_cell">
                   {{ instRow.instNm }}
                 </li>
                 <li

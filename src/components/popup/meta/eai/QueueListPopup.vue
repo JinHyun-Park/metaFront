@@ -98,14 +98,13 @@
               v-for="(queue, i) in qList"
               :key="queue.index"
               class="table_row w-auto"
+              style="cursor:pointer"
+              @click="addData(i)"
             >
               <li class="td_cell">
                 {{ queue.mqMngrNm }}
               </li>
-              <li
-                class="td_cell"
-                @click="addData(i)"
-              >
+              <li class="td_cell">
                 {{ queue.queueNm }}
               </li>
               <li class="td_cell">

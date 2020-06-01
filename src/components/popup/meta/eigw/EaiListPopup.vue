@@ -70,11 +70,10 @@
                 v-for="(row, i) in eaiIfList"
                 :key="row.eaiIfSeq"
                 class="table_row w-auto"
+                style="cursor:pointer"
+                @click="addData(i)"
               >
-                <li
-                  class="td_cell"
-                  @click="addData(i)"
-                >
+                <li class="td_cell">
                   {{ row.eaiIfId }}
                 </li>
                 <li class="td_cell">

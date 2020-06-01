@@ -77,6 +77,8 @@
                 v-for="(row, i) in eigwChrgrInfoList"
                 :key="row.userId"
                 class="table_row w-auto"
+                style="cursor:pointer"
+                @click="addData(i)"
               >
                 <li class="td_cell">
                   {{ row.userId }}
@@ -84,10 +86,7 @@
                 <li class="td_cell">
                   {{ row.instCd }}
                 </li>
-                <li
-                  class="td_cell"
-                  @click="addData(i)"
-                >
+                <li class="td_cell">
                   {{ row.hanNm }}
                 </li>
                 <li class="td_cell">
