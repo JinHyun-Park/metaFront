@@ -2,7 +2,7 @@
   <div>
     <ChrgrListPopup
       v-if="svrOnChrgr"
-      v-bind="aprvChrgrId"
+      v-bind="aprvInfo"
       @closePop="turOffSvrPopChrgr"
       @addData="addDataChrgr"
     />
@@ -21,6 +21,56 @@
       <h5 class="s_tit">
         신청내역
       </h5>
+    </section>
+
+    <section class="info_title small">
+      <em class="sub_tit">EAI 신청내용</em>
+    </section>
+    <section class="form_area border_group">
+      <div class="table_grid">
+        <div class="table_head w-auto">
+          <ul>
+            <li class="th_cell">
+              신청번호
+            </li>
+            <li class="th_cell">
+              신청제목
+            </li>
+            <li class="th_cell">
+              진행상태
+            </li>
+            <li class="th_cell">
+              등록일
+            </li>
+            <li class="th_cell">
+              신청자
+            </li>
+          </ul>
+        </div>
+        <div class="table_body">
+          <ul
+            v-for="(row, i) in eaiList"
+            :key="i"
+            class="table_row w-auto"
+          >
+            <li class="td_cell">
+              {{ row.eaiIfNmEng }}
+            </li>
+            <li class="td_cell">
+              {{ row.eaiIfNmKor }}
+            </li>
+            <li class="td_cell">
+              {{ row.ifTypCd }}
+            </li>
+            <li class="td_cell">
+              {{ row.sndMid }}
+            </li>
+            <li class="td_cell">
+              {{ row.rcvMid }}
+            </li>
+          </ul>
+        </div>
+      </div>
     </section>
 
     <section class="info_title small">
@@ -283,13 +333,15 @@
       </div>
       <div class="table_body">
         <ul class="table_row form_type">
-          <li class="td_cell on">
+          <li
+            class="td_cell on"
+          >
             <div
               class="search_group"
               @click="turnOnSvrPopChrgr"
             >
               <input
-                v-model="aprvChrgrNm"
+                v-model="aprvInfo.aprvNm"
                 type="text"
                 value=""
               >
@@ -300,7 +352,7 @@
           </li>
           <li class="td_cell">
             <input
-              v-model="aprvChrgOrgNm"
+              v-model="aprvInfo.orgNm"
               type="text"
               value=""
               disabled
@@ -308,7 +360,7 @@
           </li>
           <li class="td_cell">
             <input
-              v-model="aprvOfcLvlNm"
+              v-model="aprvInfo.ofcLvlNm"
               type="text"
               value=""
               disabled
@@ -316,7 +368,7 @@
           </li>
           <li class="td_cell">
             <input
-              v-model="aprvMblPhonNum"
+              v-model="aprvInfo.mblPhonNum"
               type="text"
               value=""
               disabled
@@ -324,7 +376,7 @@
           </li>
           <li class="td_cell">
             <input
-              v-model="aprvEmailAddr"
+              v-model="aprvInfo.emailAddr"
               type="text"
               value=""
               disabled
@@ -339,7 +391,9 @@
 
 <script>
 import ChrgrListPopup from '@/components/popup/bizcomm/ChrgrListPopup.vue';
-import { fetchPostIfStep3AprvId, fetchPutIfStepAprvReq } from '@/api/ifRegApi';
+import {
+  fetchPostIfStep3AprvId, fetchPutIfStepAprvReq, fetchGetIfStep3Reg, fetchGetIfReqDetailInfo,
+} from '@/api/ifRegApi';
 import eventBus from '@/utils/eventBus';
 
 export default {
@@ -351,12 +405,8 @@ export default {
     return {
       svrOnChrgr: false,
       reqNum: '',
-      aprvChrgrId: '',
-      aprvChrgrNm: '',
-      aprvChrgOrgNm: '',
-      aprvOfcLvlNm: '',
-      aprvMblPhonNum: '',
-      aprvEmailAddr: '',
+      eaiList: [],
+      aprvInfo: {},
     };
   },
   created() {
@@ -389,17 +439,44 @@ export default {
     getStep3AprvReqList(tgtReqNum) {
       // 승인번호3 데이터 조회
       this.reqNum = tgtReqNum;
-      // 승인자 저장정보 GET
+      fetchGetIfStep3Reg({
+        params: {
+          reqNum: this.reqNum,
+        },
+      })
+        .then((res) => {
+          if (res.data.rstData.aprvInfo.length > 0) {
+            console.log(res);
+            this.aprvInfo = res.data.rstData.aprvInfo;
+          }
+        })
+        .catch((ex) => {
+          console.log(`error occur!! : ${ex}`);
+        });
+
+      fetchGetIfReqDetailInfo({
+        params: {
+          reqNum: this.reqNum,
+        },
+      })
+        .then((res) => {
+          console.log(res);
+          this.eaiList = res.data.rstData.ifReqEaiList;
+          console.log(this.eaiList.length);
+        })
+        .catch((ex) => {
+          console.log(`error occur!! : ${ex}`);
+        });
     },
     saveStep3AprvId() {
       // 승인자 정보 등록
-      if (this.aprvChrgrId === '') {
+      if (this.aprvInfo.aprvId === '') {
         this.$gf.alertOn('승인자 지정은 필수입니다.');
         return;
       }
       fetchPostIfStep3AprvId({
         reqNum: this.reqNum,
-        aprvId: this.aprvChrgrId,
+        aprvId: this.aprvInfo.aprvId,
       })
         .then((res) => {
           console.log(res);
@@ -411,13 +488,13 @@ export default {
     },
     saveStep3AprvReq() {
       // 승인요청
-      if (this.aprvChrgrId === '') {
+      if (this.aprvInfo.aprvId === '') {
         this.$gf.alertOn('승인자 지정은 필수입니다.');
         return;
       }
       fetchPutIfStepAprvReq({
         reqNum: this.reqNum,
-        aprvId: this.aprvChrgrId,
+        aprvId: this.aprvInfo.aprvId,
         procSt: '2', // 승인요청
       })
         .then((res) => {
@@ -441,12 +518,12 @@ export default {
       console.log(`Popup에서 받아온 Data : ${val}`);
       this.svrOnChrgr = false;
 
-      this.aprvChrgrId = val.userId;
-      this.aprvChrgrNm = val.hanNm;
-      this.aprvChrgOrgNm = val.orgNm;
-      this.aprvOfcLvlNm = val.ofcLvlNm;
-      this.aprvMblPhonNum = val.mblPhonNum;
-      this.aprvEmailAddr = val.emailAddr;
+      this.aprvInfo.aprvId = val.userId;
+      this.aprvInfo.aprvNm = val.hanNm;
+      this.aprvInfo.orgNm = val.orgNm;
+      this.aprvInfo.ofcLvlNm = val.ofcLvlNm;
+      this.aprvInfo.mblPhonNum = val.mblPhonNum;
+      this.aprvInfo.emailAddr = val.emailAddr;
     },
     movePage(page) { // 페이지 이동
       this.activeItem = page; // 헤더에서 내려오는 바에 현 위치 표시

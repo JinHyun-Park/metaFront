@@ -25,9 +25,18 @@ function fetchPostIfStep3AprvId(param) {
   return axios.post(`${preUrl}/reqInfo/step3`, param);
 }
 
+function fetchGetIfStep3Reg(param) {
+  return axios.get(`${preUrl}/detail/step3`, param);
+}
+
 function fetchPutIfStepAprvReq(param) {
   return axios.put(`${preUrl}/reqInfo/aprvReq`, param);
 }
+
+function fetchGetIfReqDetailInfo(param) {
+  return axios.get(`${preUrl}/detail/allList`, param);
+}
+
 
 export {
   fetchGetIfRegList,
@@ -37,4 +46,6 @@ export {
   fetchPostIfStep2Reg,
   fetchPostIfStep3AprvId,
   fetchPutIfStepAprvReq,
+  fetchGetIfStep3Reg,
+  fetchGetIfReqDetailInfo,
 };
