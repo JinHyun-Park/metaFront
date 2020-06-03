@@ -47,13 +47,19 @@ const router = new Router({
             import ('@/views/notice/NoticeMain.vue'),
         },
         {
-          path: '/notice/noticeView',
+          path: '/notice/noticeView/:boardNum',
           name: 'noticeView',
           component: () =>
             import ('@/views/notice/NoticeView.vue'),
         },
         {
-          path: '/notice/noticeWrite',
+          path: '/notice/noticeCreate',
+          name: 'noticeCreate',
+          component: () =>
+            import ('@/views/notice/NoticeWrite.vue'),
+        },
+        {
+          path: '/notice/noticeWrite/:boardNum',
           name: 'noticeWrite',
           component: () =>
             import ('@/views/notice/NoticeWrite.vue'),

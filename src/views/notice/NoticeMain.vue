@@ -110,11 +110,14 @@
               <li class="td_cell">
                 {{ board.BOARD_NUM }}
               </li>
-              <li class="td_cell">
+              <li
+                class="td_cell"
+                @click="moveToView(board.BOARD_NUM)"
+              >
                 {{ board.TITLE }}
               </li>
               <li class="td_cell">
-                {{ board.BOARD_ST }}
+                {{ setBoardStName(board.BOARD_ST) }}
               </li>
               <li class="td_cell">
                 {{ board.CHG_ID }}
@@ -155,7 +158,7 @@
       <button
         type="button"
         class="default_button on"
-        @click="moveToWrite()"
+        @click="moveToCreate()"
       >
         등록
       </button>
@@ -183,21 +186,35 @@ export default {
     };
   },
   mounted() {
-    console.log('mount');
-    console.log(this.pageSet);
     this.startReqDtm = this.$gf.dateToString(new Date(), '-7d', 'Y');
     this.endReqDtm = this.$gf.dateToString(new Date(), '', 'Y');
     this.searchList();
   },
   methods: {
+    moveToView(boardNum) {
+      this.$router.push({ name: 'noticeView', params: { boardNum } });
+    },
     moveToWrite(boardNum) {
       this.$router.push({ name: 'noticeWrite', params: { boardNum } });
+    },
+    moveToCreate() {
+      this.$router.push({ name: 'noticeCreate' });
     },
     log(val) {
       this.startReqDtm = val;
     },
     log2(val) {
       this.endReqDtm = val;
+    },
+    // eslint-disable-next-line consistent-return
+    setBoardStName(boardState) {
+      // eslint-disable-next-line default-case
+      switch (boardState) {
+        case '0': return '유효(0)';
+        case '1': return '기간만료(1)';
+        case '2': return '완료(2)';
+        case '9': return '삭제(9)';
+      }
     },
     searchList() {
       // this.tgtUrl = '/api/bizcomm/board';
@@ -244,7 +261,7 @@ export default {
         .then((res) => {
           console.log(res);
           if (res.data.rstCd === 'S') {
-            this.$gf.alertOn('처리되었습니다.');
+            this.$gf.alertOn('삭제되었습니다.');
             this.searchList();
           } else {
             this.$gf.alertOn(res.data.rstMsg);

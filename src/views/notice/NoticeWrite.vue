@@ -34,18 +34,31 @@
       <div class="row_contain type-2">
         <div class="column w-2">
           <label class="column_label">게시판 유형</label>
-          <input
-            v-model="boardTyp"
-            type="text"
-            value=""
-          >
+          <div class="select_group">
+            <select v-model="boardTyp">
+              <option
+                v-for="boardTypOption in boardTypOptions"
+                :key="boardTypOption.id"
+              >
+                {{ boardTypOption.value }}
+              </option>
+            </select>
+          </div>
         </div>
         <div class="column w-2">
           <label class="column_label">게시글 상태코드</label>
-          <input
-            v-model="boardSt"
-            type="text"
-          >
+          <div class="select_group">
+            <select v-model="boardSt">
+              <option
+                v-for="boardStOption in boardStOptions"
+                :key="boardStOption.id"
+                :value="boardStOption.value"
+                :selected="(boardStOption.value === `${boardSt}`)"
+              >
+                {{ boardStOption.name }}
+              </option>
+            </select>
+          </div>
         </div>
       </div>
       <!-- 한 줄 짜리 -->
@@ -79,6 +92,7 @@
           />
         </div>
       </div>
+      <!-- 태그, 파일
       <div class="row_contain type-2">
         <div class="column w-4">
           <label class="column_label">TAG</label>
@@ -100,6 +114,7 @@
           </div>
         </div>
       </div>
+      -->
     </section>
 
     <section class="btm_button_area">
@@ -111,12 +126,14 @@
         목록
       </button>
       <button
+        v-if="boardNum"
         type="button"
         class="default_button"
-        @click="moveToNotiMain()"
+        @click="moveToBack()"
       >
         취소
       </button>
+
       <button
         v-if="boardNum"
         type="button"
@@ -129,7 +146,7 @@
         v-else
         type="button"
         class="default_button on"
-        @click="addBoard()"
+        @click="addBoard(boardNum)"
       >
         등록
       </button>
@@ -154,6 +171,39 @@ export default {
       content: '',
       creId: '',
       chgId: '',
+      boardTypOptions: [
+        {
+          id: 'noti',
+          value: 'NOTI',
+        },
+        {
+          id: 'qna',
+          value: 'QNA',
+        },
+      ],
+      boardStOptions: [
+        {
+          id: '0',
+          name: '유효(0)',
+          value: '0',
+        },
+        {
+          id: '1',
+          name: '기간만료(1)',
+          value: '1',
+        },
+        {
+          id: '2',
+          name: '완료(2)',
+          value: '2',
+        },
+        {
+          id: '9',
+          name: '삭제(9)',
+          value: '9',
+        },
+      ],
+      preRoute: null,
     };
   },
   computed: {
@@ -165,11 +215,27 @@ export default {
     if (this.$route.params.boardNum) {
       this.boardNum = this.$route.params.boardNum;
       this.searchBoard();
+    } else { // 등록하는 경우 boardType 'NOTI', boardSt '0'으로 초기화
+      this.boardTyp = 'NOTI';
+      this.boardSt = '0';
     }
+  },
+  // 취소버튼을 위한 이전주소로 가기
+  beforeRouteEnter(to, from, next) {
+    next((vm) => {
+      // eslint-disable-next-line no-param-reassign
+      vm.preRoute = from;
+    });
   },
   methods: {
     moveToNotiMain() {
       this.$router.push({ name: 'noticeMain' });
+    },
+    moveToView(boardNum) {
+      this.$router.push({ name: 'noticeView', params: { boardNum } });
+    },
+    moveToBack() {
+      this.$router.push({ path: this.preRoute.path, params: this.preRoute.params });
     },
     onEditorBlur(quill) {
       console.log('editor blur!', quill);
@@ -209,6 +275,7 @@ export default {
         });
     },
     addBoard() {
+      console.log(this.boardSt);
       fetchPostBoard({
         boardTyp: this.boardTyp,
         boardSt: this.boardSt,
@@ -249,7 +316,7 @@ export default {
             // eslint-disable-next-line no-alert
             alert('update board failed');
           }
-          this.moveToNotiMain();
+          this.moveToView(this.boardNum);
         })
         .catch((ex) => {
           console.log(`error occur!! : ${ex}`);
