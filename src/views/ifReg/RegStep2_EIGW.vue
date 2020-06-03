@@ -47,20 +47,6 @@
           >
             인터페이스 추가
           </button>
-          <button
-            type="button"
-            class="default_button on"
-            @click="searchList()"
-          >
-            조회
-          </button>
-          <button
-            type="button"
-            class="default_button on"
-            @click="saveEigwTemp()"
-          >
-            임시저장 Test
-          </button>
         </div>
       </h5>
 
@@ -89,15 +75,6 @@
               </li>
               <li class="th_cell">
                 운영포트
-              </li>
-              <li class="th_cell">
-                프로그램유형
-              </li>
-              <li class="th_cell">
-                연결유형
-              </li>
-              <li class="th_cell">
-                진행상태
               </li>
               <li class="th_cell">
                 삭제
@@ -131,15 +108,6 @@
               </li>
               <li class="td_cell">
                 {{ row.prodPort }}
-              </li>
-              <li class="td_cell">
-                {{ row.pgmTypNm }}
-              </li>
-              <li class="td_cell">
-                {{ row.linkTypNm }}
-              </li>
-              <li class="td_cell">
-                <label class="label-default color-black">반려</label>
               </li>
               <li class="td_cell">
                 <i
@@ -447,12 +415,6 @@
                 운영포트
               </li>
               <li class="th_cell">
-                송수신
-              </li>
-              <li class="th_cell">
-                진행상태
-              </li>
-              <li class="th_cell">
                 삭제
               </li>
             </ul>
@@ -484,12 +446,6 @@
               </li>
               <li class="td_cell">
                 {{ row.prodPort }}
-              </li>
-              <li class="td_cell">
-                {{ row.srFlag }}
-              </li>
-              <li class="td_cell">
-                <label class="label-default color-black">반려</label>
               </li>
               <li class="td_cell">
                 <i
@@ -868,15 +824,17 @@ export default {
   created() {
     eventBus.$on('Step2GetEIGWReqMst', (params) => {
       console.log(`event Bus 통해 Step1 조회 params: ${params.reqNum}`);
+      if (params.reqNum != null) {
+        this.reqNum = params.reqNum;
+      }
       this.searchList(params.reqNum);
     });
     eventBus.$on('Step2EigwSave', (params) => {
       console.log('event Bus 통해 eigw 저장');
-      console.log(`event Bus 통해 Step1 조회 params: ${params.reqNum}`);
       if (params.reqNum != null) {
         this.reqNum = params.reqNum;
       }
-      this.saveEigwTemp();
+      this.saveEigwTemp(params.reqNum);
     });
   },
   destroyed() {
@@ -891,10 +849,8 @@ export default {
   methods: {
     ...mapActions('frameSet', ['setResetPopOn']),
     ...mapActions('ccCdLst', ['setCcCdList']),
-    searchList(paramReqNum){
-
+    searchList(paramReqNum) {
       fetchEigwReqList({
-      //this.$axios.get('/api/eigw/ifReqList', {
         params: {
           reqNum: paramReqNum,
           procSt: 1,
@@ -982,8 +938,8 @@ export default {
 
       this.emptyOnlineIfFields();
     },
-    saveEigwTemp() {
-      this.$gf.alertOn(`parent reqNum : ${this.reqNum}`);
+    saveEigwTemp(saveReqNum) {
+      this.$gf.alertOn(saveReqNum);
 
       if (this.onlineList.length === 0) {
         this.$gf.alertOn('신청정보를 입력하세요');
@@ -995,13 +951,12 @@ export default {
         return;
       }
       this.saveData = {
+        reqNum: this.reqNum,
         onlineList: this.onlineList,
         fileList: this.fileList,
-        reqNum: this.reqNum,
       };
 
       fetchEigwReqSave(this.saveData)
-      //this.$axios.post('/api/eigw/ifReqInfo', this.saveData)
         .then((res) => {
           console.log(res);
           this.$gf.alertOn('저장 되었습니다');
@@ -1129,6 +1084,11 @@ export default {
         this.$gf.alertOn('인터페이스 목록에서 수정할 대상을 선택하세요');
         return;
       }
+
+      if (this.checkFileFields() === 0) {
+        return;
+      }
+
       this.fileList[this.currRow].eigwIfNm = this.fileInfo.eigwIfNm;
       this.fileList[this.currRow].eigwIfId = this.fileInfo.eigwIfId;
       this.fileList[this.currRow].instNm = this.fileInfo.instNm;
