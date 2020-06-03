@@ -26,47 +26,56 @@
             <ul>
               <li
                 class="th_cell"
-                style="width:5%"
+                style="width:10%"
               >
                 서버 유형
               </li>
               <li
                 class="th_cell"
-                style="width:10%"
+                style="width:15%"
               >
                 시스템명
               </li>
               <li
                 class="th_cell"
-                style="width:10%"
+                style="width:15%"
               >
                 Hostname
               </li>
               <li
                 class="th_cell"
-                style="width:10%"
+                style="width:14%"
               >
-                IP  ( VIP or 대표 IP )
+                IP  ( VIP/대표 IP )
               </li>
               <li
                 class="th_cell"
-                style="width:10%"
+                style="width:14%"
               >
                 IP ( NAT IP )
               </li>
               <li
                 class="th_cell"
-                style="width:10%"
+                style="width:14%"
               >
                 IP ( 추가 )
               </li>
-              <li class="th_cell">
+              <li
+                class="th_cell"
+                style="width:8%"
+              >
                 OS
               </li>
-              <li class="th_cell">
+              <li
+                class="th_cell"
+                style="width:8%"
+              >
                 담당 회사
               </li>
-              <li class="th_cell">
+              <li
+                class="th_cell"
+                style="width:10%"
+              >
                 Edit
               </li>
             </ul>
@@ -157,47 +166,56 @@
             <ul>
               <li
                 class="th_cell"
-                style="width:5%"
+                style="width:10%"
               >
                 서버 유형
               </li>
               <li
                 class="th_cell"
-                style="width:10%"
+                style="width:15%"
               >
                 시스템명
               </li>
               <li
                 class="th_cell"
-                style="width:10%"
+                style="width:15%"
               >
                 Hostname
               </li>
               <li
                 class="th_cell"
-                style="width:10%"
+                style="width:14%"
               >
-                IP ( VIP or 대표 IP )
+                IP  ( VIP/대표 IP )
               </li>
               <li
                 class="th_cell"
-                style="width:10%"
+                style="width:14%"
               >
                 IP ( NAT IP )
               </li>
               <li
                 class="th_cell"
-                style="width:10%"
+                style="width:14%"
               >
                 IP ( 추가 )
               </li>
-              <li class="th_cell">
+              <li
+                class="th_cell"
+                style="width:8%"
+              >
                 OS
               </li>
-              <li class="th_cell">
+              <li
+                class="th_cell"
+                style="width:8%"
+              >
                 담당 회사
               </li>
-              <li class="th_cell">
+              <li
+                class="th_cell"
+                style="width:10%"
+              >
                 Edit
               </li>
             </ul>
@@ -307,31 +325,31 @@
               </li>
               <li
                 class="th_cell"
+                style="width:10%"
+              >
+                방향
+              </li>
+              <li
+                class="th_cell"
                 style="width:5%"
               >
-                연동 방향
+                방식
               </li>
               <li
                 class="th_cell"
-                style="width:3%"
-              >
-                연동 방식
-              </li>
-              <li
-                class="th_cell"
-                style="width:3%"
+                style="width:7%"
               >
                 단/양방향
               </li>
               <li
                 class="th_cell"
-                style="width:5%"
+                style="width:8%"
               >
                 요청 처리 방식
               </li>
               <li
                 class="th_cell"
-                style="width:3%"
+                style="width:5%"
               >
                 삭제
               </li>
@@ -819,6 +837,7 @@
         </div>
       </div>
     </section>
+    <!--
     <button
       type="button"
       class="default_button extend on"
@@ -833,6 +852,7 @@
     >
       임시저장 불러오기
     </button>
+    -->
   </div>
 </template>
 <style scoped>

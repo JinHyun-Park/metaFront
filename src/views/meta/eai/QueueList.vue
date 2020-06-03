@@ -35,83 +35,49 @@
           </button>
         </div>
       </h5>
-      <!--
-      <div class="row_contain type-3">
-        <div class="column w-2">
-          <label class="column_label">큐매니저</label>
-          <div class="search_group">
-            <input
-              v-model="mqMngrNm"
-              type="text"
-              value=""
-            >
-            <span
-              class="search"
-              @click="turnOnSvrPop"
-            ><i class="ico-search" /></span>
-          </div>
-        </div>
-        <div class="column w-4">
-          <label class="column_label">큐</label>
-          <input
-            v-model="queueNm"
-            type="text"
-            value=""
-          >
-        </div>
-        <div class="column w-2">
-          <label class="column_label">유형</label>
-          <div class="select_group">
-            <select v-model="qTypeCd">
-              <option
-                v-for="(code, i) in ccCdList.qTypeCd"
-                :key="i"
-                :value="code.cdDtlId"
-              >
-                {{ code.cdNm }}
-              </option>
-            </select>
-            <span class="select" />
-          </div>
-        </div>
-        <div class="column w-2">
-          <label class="column_label">사용</label>
-          <div class="select_group">
-            <select v-model="useYn">
-              <option value="Y">
-                사용
-              </option>
-              <option value="N">
-                미사용
-              </option>
-            </select>
-            <span class="select" />
-          </div>
-        </div>
-      </div>
-      -->
       <div class="table_grid">
         <div class="table_head w-auto">
           <ul>
-            <li class="th_cell">
+            <li
+              class="th_cell"
+              style="width:15%;"
+            >
               큐매니저
             </li>
-            <li class="th_cell">
+            <li
+              class="th_cell"
+              style="width:40%;"
+            >
               큐
             </li>
-            <li class="th_cell">
+            <li
+              class="th_cell"
+              style="width:28%;"
+            >
               유형
             </li>
-            <li class="th_cell">
+            <li
+              class="th_cell"
+              style="width:2%;"
+            >
               담당자
             </li>
-            <li class="th_cell">
+            <li
+              class="th_cell"
+              style="width:5%;"
+            >
               최대 적체
             </li>
-            <li class="th_cell">
+            <li
+              class="th_cell"
+              style="width:2%;"
+            >
               사용 여부
             </li>
-            <li class="th_cell">
+            <li
+              class="th_cell"
+              style="width:8%;"
+            >
               EDIT
             </li>
           </ul>
@@ -147,7 +113,6 @@
               </div>
             </li>
             <li
-              style="width:5%;"
               class="td_cell"
             >
               <input
@@ -158,18 +123,17 @@
               >
             </li>
             <li
-              style="width:5%;"
               class="td_cell"
             >
               <input
                 v-model="crtcVal"
                 type="number"
                 min="0"
+                oninput="this.value = Math.abs(this.value)"
                 style="text-align:right"
               >
             </li>
             <li
-              style="width:2%;"
               class="td_cell"
             >
               <div class="select_group">
@@ -193,7 +157,6 @@
               </div>
             </li>
             <li
-              style="width:5%;"
               class="td_cell"
             >
               <i

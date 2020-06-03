@@ -110,33 +110,51 @@
         <div class="table_head w-auto">
           <ul>
             <li
-              style="width:15%; "
               class="th_cell"
+              style="width:15%;"
             >
               큐매니저
             </li>
-            <li class="th_cell">
-              Hostname
+            <li
+              class="th_cell"
+              style="width:20%;"
+            >
+              호스트명
             </li>
-            <li class="th_cell">
+            <li
+              class="th_cell"
+              style="width:15%;"
+            >
               VIP
             </li>
-            <li class="th_cell">
+            <li
+              class="th_cell"
+              style="width:15%;"
+            >
               NAT IP
             </li>
-            <li class="th_cell">
+            <li
+              class="th_cell"
+              style="width:15%;"
+            >
               IP(기타)
             </li>
             <li
-              style="width:5%;"
               class="th_cell"
+              style="width:5%;"
             >
               PORT
             </li>
-            <li class="th_cell">
+            <li
+              class="th_cell"
+              style="width:5%;"
+            >
               사용 여부
             </li>
-            <li class="th_cell">
+            <li
+              class="th_cell"
+              style="width:10%;"
+            >
               EDIT
             </li>
           </ul>

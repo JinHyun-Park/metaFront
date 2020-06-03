@@ -24,100 +24,55 @@
           </button>
         </div>
       </h5>
-      <!--
-      <div class="row_contain type-3">
-        <div class="column on w-3">
-          <label class="column_label">인터페이스ID</label>
-          <input
-            v-model="rEaiIfId"
-            type="text"
-            value=""
-          >
-        </div>
-        <div class="column w-2">
-          <label class="column_label">테이블</label>
-          <input
-            v-model="rcvTbl"
-            type="text"
-            value=""
-          >
-        </div>
-        <div class="column w-2">
-          <label class="column_label">수신TR</label>
-          <input
-            v-model="tr"
-            type="text"
-            value=""
-          >
-        </div>
-      </div>
-      <div class="row_contain">
-        <div class="column w-2">
-          <label class="column_label">MQ UCS</label>
-          <input
-            v-model="swgmq"
-            type="text"
-            value=""
-          >
-        </div>
-        <div class="column w-2">
-          <label class="column_label">TP UCS</label>
-          <input
-            v-model="swgtp"
-            type="text"
-            value=""
-          >
-        </div>
-        <div class="column w-2">
-          <label class="column_label">수신큐</label>
-          <input
-            v-model="rcvQ"
-            type="text"
-            value=""
-          >
-        </div>
-        <div class="column w-1">
-          <label class="column_label">사용</label>
-          <div class="select_group">
-            <select v-model="useYn">
-              <option value="Y">
-                사용
-              </option>
-              <option value="N">
-                미사용
-              </option>
-            </select>
-            <span class="select" />
-          </div>
-        </div>
-        <div class="column w-1" />
-      </div>
-      -->
       <div class="table_grid">
         <div class="table_head w-auto">
           <ul>
-            <li class="th_cell">
+            <li
+              class="th_cell"
+              style="width:20%;"
+            >
               인터페이스ID
             </li>
-            <li class="th_cell">
+            <li
+              class="th_cell"
+              style="width:20%;"
+            >
               수신 테이블
             </li>
-            <li class="th_cell">
+            <li
+              class="th_cell"
+              style="width:10%;"
+            >
               수신 TR
             </li>
-            <li class="th_cell">
+            <li
+              class="th_cell"
+              style="width:10%;"
+            >
               MQ UCS
             </li>
-            <li class="th_cell">
+            <li
+              class="th_cell"
+              style="width:10%;"
+            >
               TP UCS
             </li>
-            <li class="th_cell">
+            <li
+              class="th_cell"
+              style="width:10%;"
+            >
               수신큐
             </li>
-            <li class="th_cell">
+            <li
+              class="th_cell"
+              style="width:10%;"
+            >
               사용 여부
             </li>
-            <li class="th_cell">
+            <li
+              class="th_cell"
+              style="width:10%;"
+            >
               EDIT
             </li>
           </ul>
@@ -125,7 +80,6 @@
         <div class="table_body">
           <ul class="table_row w-auto">
             <li
-              style="width:25%; "
               class="td_cell"
             >
               <input
@@ -135,7 +89,6 @@
               >
             </li>
             <li
-              style="width:12%; "
               class="td_cell"
             >
               <input
@@ -145,7 +98,6 @@
               >
             </li>
             <li
-              style="width:12%; "
               class="td_cell"
             >
               <input
@@ -155,7 +107,6 @@
               >
             </li>
             <li
-              style="width:8%; "
               class="td_cell"
             >
               <input
@@ -165,7 +116,6 @@
               >
             </li>
             <li
-              style="width:8%; "
               class="td_cell"
             >
               <input
@@ -175,7 +125,6 @@
               >
             </li>
             <li
-              style="width:25%; "
               class="td_cell"
             >
               <input
