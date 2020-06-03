@@ -51,7 +51,7 @@
                   기관코드
                 </li>
                 <li class="th_cell">
-                  한글명
+                  사용자명
                 </li>
                 <li class="th_cell">
                   생년월일
@@ -93,6 +93,8 @@
                 v-for="(chrgr, i) in chrgrList"
                 :key="chrgr.userId"
                 class="table_row w-auto"
+                style="cursor:pointer"
+                @click="addData(i)"
               >
                 <li class="td_cell">
                   {{ i+1 }}
@@ -106,10 +108,7 @@
                 <li class="td_cell">
                   {{ chrgr.instCd }}
                 </li>
-                <li
-                  class="td_cell"
-                  @click="addData(i)"
-                >
+                <li class="td_cell">
                   {{ chrgr.hanNm }}
                 </li>
                 <li class="td_cell">

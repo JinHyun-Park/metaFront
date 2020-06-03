@@ -47,6 +47,13 @@
           <button
             type="button"
             class="default_button"
+            @click="emptyFields()"
+          >
+            초기화
+          </button>
+          <button
+            type="button"
+            class="default_button"
             @click="save()"
           >
             신규신청
@@ -140,13 +147,6 @@
             @keyup.13="searchList()"
           >
         </div>
-        <div class="column on w-1">
-          <input
-            v-model="instCd"
-            type="hidden"
-            class="add_text on"
-          >
-        </div>
         <div class="column w-1" />
       </div>
       <div class="table_colgroup">
@@ -190,35 +190,13 @@
               @click="detailInfo(index)"
             >
               <li class="td_cell">
-                <select v-model="row.mqMngrNm">
-                  <option
-                    value="EIGW1P"
-                  >
-                    1호기
-                  </option>
-                  <option
-                    value="EIGW2P"
-                  >
-                    2호기
-                  </option>
-                </select>
+                {{ row.mqMngr }}
               </li>
               <li class="td_cell">
                 {{ row.instNm }}
               </li>
               <li class="td_cell">
-                <select v-model="row.srFlag">
-                  <option
-                    value="S"
-                  >
-                    송신
-                  </option>
-                  <option
-                    value="R"
-                  >
-                    수신
-                  </option>
-                </select>
+                {{ row.srFlagNm }}
               </li>
               <li class="td_cell">
                 {{ row.fileNm }}
@@ -631,7 +609,7 @@
           <label class="column_label">개발기 Port</label>
           <input
             v-model="fileAgencyConf.dvpSvrPort"
-            type="text"
+            type="number"
             class="add_text"
           >
         </div>
@@ -666,7 +644,7 @@
           <label class="column_label">운영기 Port</label>
           <input
             v-model="fileAgencyConf.prodSvrPort"
-            type="text"
+            type="number"
             class="add_text"
           >
         </div>
@@ -1017,7 +995,7 @@ export default {
           eaiIfId: this.eaiIfId,
           fileNm: this.fileNm,
           svrIp: this.svrIp,
-          instCd: this.instCd,
+          instNm: this.instNm,
           srFlag: this.srFlag,
           pageNo: this.pageSet.pageNo,
           size: this.pageSet.size,
@@ -1102,6 +1080,14 @@ export default {
         });
     },
     update() {
+      if (this.inChrgrList.length < 2) {
+        this.$gf.alertOn('담당자 정보를 입력해주세요.');
+        return;
+      }
+      if (this.outChrgrList.length < 2) {
+        this.$gf.alertOn('대외기관 담당자 정보를 입력해주세요.');
+        return;
+      }
       this.saveInfo = {
         mstFileNum: this.fileIfMst.mstFileNum,
         fileIfMst: this.fileIfMst,

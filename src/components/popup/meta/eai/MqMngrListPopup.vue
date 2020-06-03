@@ -87,11 +87,10 @@
               v-for="(row, index) in mqMngrList"
               :key="index"
               class="table_row w-auto"
+              style="cursor:pointer"
+              @click="addData(index)"
             >
-              <li
-                class="td_cell"
-                @click="addData(index)"
-              >
+              <li class="td_cell">
                 {{ row.mqMngrNm }}
               </li>
               <li class="td_cell">

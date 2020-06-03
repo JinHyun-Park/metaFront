@@ -77,6 +77,8 @@
                 v-for="(row, i) in eigwChrgrInfoList"
                 :key="row.userId"
                 class="table_row w-auto"
+                style="cursor:pointer"
+                @click="addData(i)"
               >
                 <li class="td_cell">
                   {{ row.userId }}
@@ -84,25 +86,11 @@
                 <li class="td_cell">
                   {{ row.instCd }}
                 </li>
-                <li
-                  class="td_cell"
-                  @click="addData(i)"
-                >
+                <li class="td_cell">
                   {{ row.hanNm }}
                 </li>
                 <li class="td_cell">
-                  <div class="select_group">
-                    <select v-model="row.ofcLvlCd">
-                      <option
-                        v-for="(code, n) in ccCdList.ofcLvlCd"
-                        :key="n"
-                        :value="code.cdDtlId"
-                      >
-                        {{ code.cdNm }}
-                      </option>
-                    </select>
-                    <span class="select" />
-                  </div>
+                  {{ row.ofcLvlNm }}
                 </li>
                 <li class="td_cell">
                   {{ row.offcPhonNum }}

@@ -102,6 +102,8 @@
                 v-for="(server, index) in serverList"
                 :key="server.svrNum"
                 class="table_row w-auto"
+                style="cursor:pointer"
+                @click="addData(index)"
               >
                 <li class="td_cell">
                   {{ server.svrNum }}
@@ -112,16 +114,10 @@
                 <li class="td_cell">
                   {{ server.svrTypCd }}
                 </li>
-                <li
-                  class="td_cell"
-                  @click="addData(index)"
-                >
+                <li class="td_cell">
                   {{ server.svrRealIp }}
                 </li>
-                <li
-                  class="td_cell"
-                  @click="addData(index)"
-                >
+                <li class="td_cell">
                   {{ server.svrNatIp }}
                 </li>
                 <li class="td_cell">

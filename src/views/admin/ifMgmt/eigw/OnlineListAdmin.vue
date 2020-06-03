@@ -47,6 +47,13 @@
           <button
             type="button"
             class="default_button"
+            @click="emptyFields()"
+          >
+            초기화
+          </button>
+          <button
+            type="button"
+            class="default_button"
             @click="save()"
           >
             신규신청
@@ -133,13 +140,6 @@
             @keyup.13="searchList()"
           >
         </div>
-        <div class="column on w-1">
-          <input
-            v-model="instCd"
-            type="hidden"
-            class="add_text on"
-          >
-        </div>
       </div>
       <div class="table_colgroup">
         <div class="table_grid">
@@ -188,18 +188,7 @@
               @click="detailInfo(index)"
             >
               <li class="td_cell">
-                <select v-model="row.mqMngrNm">
-                  <option
-                    value="EIGW1P"
-                  >
-                    1호기
-                  </option>
-                  <option
-                    value="EIGW2P"
-                  >
-                    2호기
-                  </option>
-                </select>
+                {{ row.mqMngr }}
               </li>
               <li class="td_cell">
                 {{ row.eaiIfId }}
@@ -211,7 +200,7 @@
                 {{ row.instNm }}
               </li>
               <li class="td_cell">
-                {{ row.pgmTyp }}
+                {{ row.pgmTypNm }}
               </li>
               <li class="td_cell">
                 {{ row.pgmId }}
@@ -451,7 +440,7 @@
           <label class="column_label">개발기 Port</label>
           <input
             v-model="procInfo.dvpSvrPort"
-            type="text"
+            type="number"
             class="add_text"
           >
         </div>
@@ -486,7 +475,7 @@
           <label class="column_label">운영기 Port</label>
           <input
             v-model="procInfo.prodSvrPort"
-            type="text"
+            type="number"
             class="add_text"
           >
         </div>
@@ -806,7 +795,7 @@ export default {
           mqMngrNm: this.mqMngrNm,
           eaiIfId: this.eaiIfId,
           reqIp: this.reqIp,
-          instCd: this.instCd,
+          instNm: this.instNm,
           pgmId: this.pgmId,
           confFile: this.confFile,
           pageNo: this.pageSet.pageNo,
@@ -887,6 +876,15 @@ export default {
         });
     },
     update() {
+      if (this.inChrgrList.length < 1) {
+        this.$gf.alertOn('담당자 정보를 입력해주세요.');
+        return;
+      }
+
+      if (this.outChrgrList.length < 1) {
+        this.$gf.alertOn('대외기관 담당자 정보를 입력해주세요.');
+        return;
+      }
       this.saveInfo = {
         onlineMetaNum: this.onlineMst.onlineMetaNum,
         procNum: this.procInfo.procNum,

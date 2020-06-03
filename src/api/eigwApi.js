@@ -82,6 +82,14 @@ function fetchDeleteOnlineChrgrInfo(param) {
   return axios.delete(`${preUrl}/onlineChrgrInfo`, param);
 }
 
+function fetchEigwReqList(param) {
+  return axios.get(`${preUrl}/ifReqList`, param);
+}
+
+function fetchEigwReqSave(param) {
+  return axios.post(`${preUrl}/ifReqInfo`, param);
+}
+
 export {
   fetchEigwServerList,
   fetchEigwAdFileList,
@@ -103,4 +111,6 @@ export {
   fetchEigwOninePutInfo,
   fetchEigwOnlineSaveChrgr,
   fetchDeleteOnlineChrgrInfo,
+  fetchEigwReqList,
+  fetchEigwReqSave,
 };

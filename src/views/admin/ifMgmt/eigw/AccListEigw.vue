@@ -262,7 +262,7 @@ export default {
           pageNo: this.pageSet.pageNo,
           size: this.pageSet.size,
           hanNm: this.hanNm,
-          instCd: this.instCd,
+          instNm: this.instNm,
           ofcLvlCd: this.ofcLvlCd,
           offcPhonNum: this.offcPhonNum,
           mblPhonNum: this.mblPhonNum,
@@ -281,7 +281,7 @@ export default {
         });
     },
     save() {
-      if (this.instCd === '') {
+      if (this.instCd === '' || this.instNm === '') {
         this.$gf.alertOn('대외기관을 입력해주세요.');
         return;
       }

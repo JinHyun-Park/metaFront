@@ -47,20 +47,6 @@
           >
             인터페이스 추가
           </button>
-          <button
-            type="button"
-            class="default_button on"
-            @click="searchList()"
-          >
-            조회
-          </button>
-          <button
-            type="button"
-            class="default_button on"
-            @click="saveTest()"
-          >
-            임시저장 Test
-          </button>
         </div>
       </h5>
 
@@ -89,15 +75,6 @@
               </li>
               <li class="th_cell">
                 운영포트
-              </li>
-              <li class="th_cell">
-                프로그램유형
-              </li>
-              <li class="th_cell">
-                연결유형
-              </li>
-              <li class="th_cell">
-                진행상태
               </li>
               <li class="th_cell">
                 삭제
@@ -133,37 +110,6 @@
                 {{ row.prodPort }}
               </li>
               <li class="td_cell">
-                <select v-model="row.pgmTyp">
-                  <option
-                    value="CLIENT"
-                  >
-                    Client
-                  </option>
-                  <option
-                    value="SERVER"
-                  >
-                    Server
-                  </option>
-                </select>
-              </li>
-              <li class="td_cell">
-                <select v-model="row.linkTyp">
-                  <option
-                    value="CONNECT"
-                  >
-                    연결유지형
-                  </option>
-                  <option
-                    value="DISCONNECT"
-                  >
-                    비연결형
-                  </option>
-                </select>
-              </li>
-              <li class="td_cell">
-                <label class="label-default color-black">반려</label>
-              </li>
-              <li class="td_cell">
                 <i
                   class="ico-del"
                   @click="delOnlineInfo(i)"
@@ -177,20 +123,17 @@
 
       <div class="row_contain type-2">
         <div class="column w-1">
-          <label class="column_label">I/F ID(명)</label>
+          <label class="column_label">I/F ID</label>
           <div class="search_group">
             <input
               v-model="onlineInfo.eigwIfId"
               type="text"
               class="add_text on"
             >
-            <span class="search">
-              <i class="ico-search" />
-            </span>
           </div>
         </div>
         <div class="column w-1">
-          <label class="column_label">&nbsp;</label>
+          <label class="column_label">I/F명</label>
           <div class="search_group">
             <input
               v-model="onlineInfo.eigwIfNm"
@@ -242,12 +185,12 @@
           <div class="select_group">
             <select v-model="onlineInfo.linkTyp">
               <option
-                value="CONNECT"
+                value="CONN"
                 selected
               >
                 연결유지형
               </option>
-              <option value="DISCONNECT">
+              <option value="DISCONN">
                 비연결형
               </option>
             </select>
@@ -280,7 +223,7 @@
           <label class="column_label">개발 Port</label>
           <input
             v-model="onlineInfo.devPort"
-            type="text"
+            type="number"
             class="add_text on"
           >
         </div>
@@ -296,7 +239,7 @@
           <label class="column_label">운영 Port</label>
           <input
             v-model="onlineInfo.prodPort"
-            type="text"
+            type="number"
             class="add_text on"
           >
         </div>
@@ -472,12 +415,6 @@
                 운영포트
               </li>
               <li class="th_cell">
-                송수신
-              </li>
-              <li class="th_cell">
-                진행상태
-              </li>
-              <li class="th_cell">
                 삭제
               </li>
             </ul>
@@ -511,12 +448,6 @@
                 {{ row.prodPort }}
               </li>
               <li class="td_cell">
-                {{ row.srFlag }}
-              </li>
-              <li class="td_cell">
-                <label class="label-default color-black">반려</label>
-              </li>
-              <li class="td_cell">
                 <i
                   class="ico-del"
                   @click="delFileInfo(i)"
@@ -530,7 +461,7 @@
 
       <div class="row_contain type-2">
         <div class="column w-1">
-          <label class="column_label">I/F ID(명)</label>
+          <label class="column_label">I/F ID</label>
           <div class="search_group">
             <input
               v-model="fileInfo.eigwIfId"
@@ -540,7 +471,7 @@
           </div>
         </div>
         <div class="column w-1">
-          <label class="column_label">&nbsp;</label>
+          <label class="column_label">I/F명</label>
           <div class="search_group">
             <input
               v-model="fileInfo.eigwIfNm"
@@ -637,7 +568,7 @@
           <label class="column_label">개발 Port</label>
           <input
             v-model="fileInfo.devPort"
-            type="text"
+            type="number"
             class="add_text on"
           >
         </div>
@@ -645,7 +576,7 @@
           <label class="column_label">운영 REAL IP</label>
           <input
             v-model="fileInfo.prodRealIp"
-            type="text"
+            type="number"
             class="add_text on"
           >
         </div>
@@ -788,6 +719,8 @@ import InstListPopup from '@/components/popup/bizcomm/InstListPopup.vue';
 import ChrgrListPopup from '@/components/popup/bizcomm/ChrgrListPopup.vue';
 import EigwChrgrListPopup from '@/components/popup/meta/eigw/EigwChrgrListPopup.vue';
 import eventBus from '@/utils/eventBus';
+import { fetchEigwReqList, fetchEigwReqSave } from '@/api/eigwApi';
+
 
 export default {
   name: 'RegStep2EIGW',
@@ -811,7 +744,7 @@ export default {
         message: '', // 사용방법 예시 데이터
       },
 
-      reqNum: 1,
+      reqNum: '',
       eigwReqNum: '',
       eigwType: '',
       procSt: '',
@@ -889,16 +822,24 @@ export default {
     ...mapState('ccCdLst', ['ccCdList']),
   },
   created() {
+    eventBus.$on('Step2GetEIGWReqMst', (params) => {
+      console.log(`event Bus 통해 Step1 조회 params: ${params.reqNum}`);
+      if (params.reqNum != null) {
+        this.reqNum = params.reqNum;
+      }
+      this.searchList(params.reqNum);
+    });
     eventBus.$on('Step2EigwSave', (params) => {
       console.log('event Bus 통해 eigw 저장');
       if (params.reqNum != null) {
         this.reqNum = params.reqNum;
       }
-      this.saveTest();
+      this.saveEigwTemp(params.reqNum);
     });
   },
   destroyed() {
     eventBus.$off('Step2EigwSave');
+    eventBus.$off('Step2GetEIGWReqMst');
   },
   mounted() {
     this.setCcCdList({
@@ -908,11 +849,11 @@ export default {
   methods: {
     ...mapActions('frameSet', ['setResetPopOn']),
     ...mapActions('ccCdLst', ['setCcCdList']),
-    searchList() {
-      this.$axios.get('/api/eigw/ifReqList', {
+    searchList(paramReqNum) {
+      fetchEigwReqList({
         params: {
-          reqNum: '1',
-          procSt: '1',
+          reqNum: paramReqNum,
+          procSt: 1,
         },
       })
         .then((res) => {
@@ -948,6 +889,11 @@ export default {
         this.$gf.alertOn('인터페이스 목록에서 수정할 대상을 선택하세요');
         return;
       }
+
+      if (this.checkOnlineFields() === 0) {
+        return;
+      }
+
       this.onlineList[this.currRow].eigwIfNm = this.onlineInfo.eigwIfNm;
       this.onlineList[this.currRow].eigwIfId = this.onlineInfo.eigwIfId;
       this.onlineList[this.currRow].instNm = this.onlineInfo.instNm;
@@ -967,6 +913,7 @@ export default {
       if (this.checkOnlineFields() === 0) {
         return;
       }
+      console.log(`인터페이스 추가: ${this.reqNum}`);
 
       this.onlineList.push({
         reqNum: this.reqNum,
@@ -991,22 +938,25 @@ export default {
 
       this.emptyOnlineIfFields();
     },
-    saveTest() {
+    saveEigwTemp(saveReqNum) {
+      this.$gf.alertOn(saveReqNum);
+
       if (this.onlineList.length === 0) {
         this.$gf.alertOn('신청정보를 입력하세요');
         return;
       }
 
-      if (this.onlineUserList.length === '') {
+      if (this.onlineUserList.length < 1) {
         this.$gf.alertOn('담당자를 입력하세요');
         return;
       }
       this.saveData = {
+        reqNum: this.reqNum,
         onlineList: this.onlineList,
         fileList: this.fileList,
-        reqNum: this.reqNum,
       };
-      this.$axios.post('/api/eigw/ifReqInfo', this.saveData)
+
+      fetchEigwReqSave(this.saveData)
         .then((res) => {
           console.log(res);
           this.$gf.alertOn('저장 되었습니다');
@@ -1103,6 +1053,7 @@ export default {
       for (let i = 0; i < this.onlineUserList.length; i++) {
         if (this.onlineUserList[i].chrgrTyp === '' || this.onlineUserList[i].instNm === ''
         || this.onlineUserList[i].instCd === '' || this.onlineUserList[i].hanNm === ''
+        || this.onlineUserList[i].ofcLvlCd === ''
         || this.onlineUserList[i].mblPhonNum === '' || this.onlineUserList[i].emailAddr === '') {
           this.$gf.alertOn('담당자 정보를 입력하세요');
           return 0;
@@ -1133,6 +1084,11 @@ export default {
         this.$gf.alertOn('인터페이스 목록에서 수정할 대상을 선택하세요');
         return;
       }
+
+      if (this.checkFileFields() === 0) {
+        return;
+      }
+
       this.fileList[this.currRow].eigwIfNm = this.fileInfo.eigwIfNm;
       this.fileList[this.currRow].eigwIfId = this.fileInfo.eigwIfId;
       this.fileList[this.currRow].instNm = this.fileInfo.instNm;
@@ -1228,6 +1184,8 @@ export default {
       this.fileInfo.prodRealIp = '';
       this.fileInfo.prodPort = '';
       this.fileInfo.eigwRmk = '';
+      this.fileInfo.id = '';
+      this.fileInfo.pwd = '';
       this.fileUserList = [
         {
           chrgrTyp: '',
@@ -1265,6 +1223,7 @@ export default {
       for (let i = 0; i < this.fileUserList.length; i++) {
         if (this.fileUserList[i].chrgrTyp === '' || this.fileUserList[i].instNm === ''
         || this.fileUserList[i].instCd === '' || this.fileUserList[i].hanNm === ''
+        || this.fileUserList[i].ofcLvlCd === ''
         || this.fileUserList[i].mblPhonNum === '' || this.fileUserList[i].emailAddr === '') {
           this.$gf.alertOn('담당자 정보를 입력하세요');
           return 0;
