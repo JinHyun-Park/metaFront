@@ -24,26 +24,26 @@
     </section>
 
     <section class="info_title small">
-      <em class="sub_tit">EAI 신청내용</em>
+      <em class="sub_tit">EAI</em>
     </section>
     <section class="form_area border_group">
       <div class="table_grid">
         <div class="table_head w-auto">
           <ul>
             <li class="th_cell">
-              신청번호
+              인터페이스ID
             </li>
             <li class="th_cell">
-              신청제목
+              인터페이스명
             </li>
             <li class="th_cell">
               진행상태
             </li>
             <li class="th_cell">
-              등록일
+              송신MID
             </li>
             <li class="th_cell">
-              신청자
+              수신MID
             </li>
           </ul>
         </div>
@@ -74,112 +74,49 @@
     </section>
 
     <section class="info_title small">
-      <em class="sub_tit">EIGW(온라인)</em>
-      <i class="ico-remove" />
+      <em class="sub_tit">EIGW</em>
     </section>
     <section class="form_area border_group">
-      <div class="row_contain odd type-1">
-        <div class="column on w-1">
-          <label class="column_label">I/F ID</label>
-          <div class="search_group">
-            <input
-              type="text"
-              value="0945OIK2S"
-            >
-            <span class="search">
-              <i class="ico-search" />
-            </span>
-          </div>
+      <div class="table_grid">
+        <div class="table_head w-auto">
+          <ul>
+            <li class="th_cell">
+              연동구분
+            </li>
+            <li class="th_cell">
+              인터페이스ID
+            </li>
+            <li class="th_cell">
+              인터페이스명
+            </li>
+            <li class="th_cell">
+              대외기관
+            </li>
+            <li class="th_cell">
+              -
+            </li>
+          </ul>
         </div>
-        <div class="column w-1">
-          <label class="column_label">송수신</label>
-          <input
-            type="text"
-            value="FILE_0945OIK2S"
+        <div class="table_body">
+          <ul
+            v-for="(row, i) in eigwList"
+            :key="i"
+            class="table_row w-auto"
           >
-        </div>
-        <div class="column w-1">
-          <label class="column_label">대외기간</label>
-          <input
-            type="text"
-            value="OPGROUP"
-          >
-        </div>
-        <div class="column w-1">
-          <label class="column_label">채널유형</label>
-          <input
-            type="text"
-            value="channeltype_01"
-          >
-        </div>
-        <div class="column w-1">
-          <label class="column_label">전송방식</label>
-          <div class="select_group disabled">
-            <select disabled>
-              <option value="">
-                Y
-              </option>
-              <option
-                value=""
-                selected
-              >
-                N
-              </option>
-            </select>
-            <span class="select" />
-          </div>
-        </div>
-      </div>
-      <div class="row_contain odd type-1">
-        <div class="column on w-1">
-          <label class="column_label">담당자1</label>
-          <div class="search_group">
-            <input
-              type="text"
-              value="유영준"
-            >
-            <span class="search">
-              <i class="ico-search" />
-            </span>
-          </div>
-        </div>
-        <div class="column w-1">
-          <label class="column_label">담당자2</label>
-          <div class="search_group">
-            <input
-              type="text"
-              value=""
-            >
-            <span class="search">
-              <i class="ico-search" />
-            </span>
-          </div>
-        </div>
-        <div class="column w-1">
-          <label class="column_label">담당자3</label>
-          <div class="search_group">
-            <input
-              type="text"
-              value=""
-            >
-            <span class="search">
-              <i class="ico-search" />
-            </span>
-          </div>
-        </div>
-        <div class="column w-1">
-          <label class="column_label">개발 IP</label>
-          <input
-            type="text"
-            value="OPGROUP"
-          >
-        </div>
-        <div class="column w-1">
-          <label class="column_label">개발 Port</label>
-          <input
-            type="text"
-            value="channeltype_01"
-          >
+            <li class="td_cell">
+              {{ row.eigwType }}
+            </li>
+            <li class="td_cell">
+              {{ row.eigwIfId }}
+            </li>
+            <li class="td_cell">
+              {{ row.eigwIfNm }}
+            </li>
+            <li class="td_cell">
+              {{ row.instNm }}({{ row.instCd }})
+            </li>
+            <li class="td_cell" />
+          </ul>
         </div>
       </div>
     </section>
@@ -405,8 +342,10 @@ export default {
     return {
       svrOnChrgr: false,
       reqNum: '',
+      aprvInfo: [],
+
       eaiList: [],
-      aprvInfo: {},
+      eigwList: [],
     };
   },
   created() {
@@ -445,7 +384,7 @@ export default {
         },
       })
         .then((res) => {
-          if (res.data.rstData.aprvInfo.length > 0) {
+          if (res.data.rstData.aprvInfo != null) {
             console.log(res);
             this.aprvInfo = res.data.rstData.aprvInfo;
           }
@@ -462,6 +401,7 @@ export default {
         .then((res) => {
           console.log(res);
           this.eaiList = res.data.rstData.ifReqEaiList;
+          this.eigwList = res.data.rstData.ifReqEigwList;
           console.log(this.eaiList.length);
         })
         .catch((ex) => {

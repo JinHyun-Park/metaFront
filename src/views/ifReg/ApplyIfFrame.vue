@@ -25,6 +25,7 @@
           2. 인터페이스 상세정보 입력
         </li>
         <li
+          v-if="procSt === '1'"
           class="step"
           :class="{on: isActive(3)}"
           @click="tabChange(3)"
@@ -32,11 +33,12 @@
           3. 신청 내용 확인 및 승인요청
         </li>
         <li
+          v-if="procSt != '0' && procSt != '1'"
           class="step"
           :class="{on: isActive(4)}"
           @click="tabChange(4)"
         >
-          4. 승인화면(추후삭제)
+          3. 승인화면
         </li>
       </ul>
     </section>
@@ -71,7 +73,7 @@
         다음
       </button>
       <button
-        v-if="tabNum !== 4"
+        v-if="tabNum !== 4 && procSt === '1'"
         type="button"
         class="default_button on"
         @click="tempSave"
@@ -79,20 +81,28 @@
         임시저장
       </button>
       <button
-        v-if="tabNum === 3"
+        v-if="tabNum === 3 && procSt === '1'"
         type="button"
         class="default_button on"
-        @click="aprvReq()"
+        @click="aprvReq(2)"
       >
         승인요청
       </button>
       <button
-        v-if="tabNum === 4"
+        v-if="tabNum === 4 && procSt === '2'"
         type="button"
         class="default_button on"
-        @click="aprv"
+        @click="aprvReq(3)"
       >
         승인
+      </button>
+      <button
+        v-if="tabNum === 4 && procSt === '2'"
+        type="button"
+        class="default_button on"
+        @click="aprvReq(1)"
+      >
+        반려
       </button>
     </section>
   </div>
@@ -115,9 +125,11 @@ export default {
   },
   data() {
     return {
+      procSt: '',
       callType: 'new',
-      tabNum: '',
       reqNum: '',
+
+      tabNum: '',
     };
   },
   created() {
@@ -129,17 +141,16 @@ export default {
     // this.reqNum = '12381237128492879734';
   },
   mounted() {
+    this.procSt = this.$route.params.procSt;
+
     if (this.$route.params.reqNum != null) {
+      this.reqNum = this.$route.params.reqNum;
+
       eventBus.$emit('Step1GetIfReqMst', { reqNum: this.$route.params.reqNum });
       eventBus.$emit('Step2GetEAIReqMst', { reqNum: this.$route.params.reqNum });
       eventBus.$emit('Step2GetEIGWReqMst', { reqNum: this.$route.params.reqNum });
       eventBus.$emit('Step3GetAprvReqMst', { reqNum: this.$route.params.reqNum });
-      // if (this.tabNum === 1) {
-      //   // this.getIfReqMst(this.$route.params.reqNum);
-      //   eventBus.$emit('Step1GetIfReqMst', { reqNum: this.$route.params.reqNum });
-      // } else if (this.tabNum === 2) {
-      //   eventBus.$emit('Step2GetEAIReqMst', { reqNum: this.$route.params.reqNum });
-      // }
+      eventBus.$emit('Step4GetAprvReqMst', { reqNum: this.$route.params.reqNum });
     }
 
     if (this.$route.params.callType != null) {
@@ -160,13 +171,17 @@ export default {
     },
     toNextTab() {
       window.scrollTo(0, 0);
-      this.tempSave();
+      if (this.procSt === '1') {
+        this.tempSave();
+      }
       this.tabNum = this.tabNum + 1;
       localStorage.setItem('APPLY_TABNUM', this.tabNum);
     },
     toBeforeTab() {
       window.scrollTo(0, 0);
-      this.tempSave();
+      if (this.procSt === '1') {
+        this.tempSave();
+      }
       this.tabNum = this.tabNum - 1;
       localStorage.setItem('APPLY_TABNUM', this.tabNum);
     },
@@ -191,9 +206,11 @@ export default {
       // eventBus.$emit('tempSave2', { dat: 'data1111' });
       // eventBus.$emit('tempSave3', 'data222222');
     },
-    aprvReq() {
+    aprvReq(tgtProcSt) {
       if (this.tabNum === 3) {
-        eventBus.$emit('Step3AprvReq', { reqNum: this.reqNum });
+        eventBus.$emit('Step3AprvReq', { reqNum: this.reqNum, procSt: tgtProcSt });
+      } else if (this.tabNum === 4) {
+        eventBus.$emit('Step4AprvReq', { reqNum: this.reqNum, procSt: tgtProcSt });
       }
     },
   },

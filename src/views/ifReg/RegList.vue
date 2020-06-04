@@ -102,6 +102,9 @@
             <li class="th_cell">
               신청자
             </li>
+            <li class="th_cell">
+              승인자
+            </li>
           </ul>
         </div>
         <div class="table_body">
@@ -123,33 +126,23 @@
                 @click="detail(i)"
               >
                 {{ row.reqTitle }}
+
               </label>
             </li>
             <li class="td_cell">
               <label
-                v-if="row.procSt === '0'"
-                class="label-default color-black"
+                :class="setClass(row.procSt)"
+                @mouseover="tooltipActive(i)"
+                @mouseleave="tooltipActive(i)"
               >
                 {{ row.procNm }}
               </label>
-              <label
-                v-else-if="row.procSt === '1'"
-                class="label-default color-blue"
+              <span
+                v-if="tooltip[i]"
+                class="tooltips ov right"
               >
-                {{ row.procNm }}
-              </label>
-              <label
-                v-else-if="row.procSt === '2'"
-                class="label-default color-yellow"
-              >
-                {{ row.procNm }}
-              </label>
-              <label
-                v-else
-                class="label-default color-gray"
-              >
-                {{ row.procNm }}
-              </label>
+                <i class="tip_contn"><em class="tip_text">진행이력</em></i>
+              </span>
             </li>
             <li
               class="td_cell"
@@ -160,6 +153,11 @@
               class="td_cell"
             >
               {{ row.reqrNm }}({{ row.reqrId }})
+            </li>
+            <li
+              class="td_cell"
+            >
+              {{ row.aprvNm }}({{ row.aprvId }})
             </li>
           </ul>
         </div>
@@ -202,6 +200,8 @@ export default {
           type: Object,
         },
       },
+
+      tooltip : [false,false,false,false,false,false,false,false,false,false,false],
     };
   },
   computed: {
@@ -214,6 +214,33 @@ export default {
   },
   methods: {
     ...mapActions('frameSet', ['setResetPopOn']),
+    tooltipYn(row) {
+      console.log(row ,this.tooltip[row]);
+      return this.tooltip[row];
+    },
+    tooltipActive(row) {
+      this.tooltip[row] = !this.tooltip[row];
+      console.log(`tooltips on ${row} ${this.tooltip[row]}`);
+    },
+
+    setClass(procSt) {
+      let rtnClass = "";
+      console.log(`set class!! : ${procSt}`);
+      switch(procSt) {
+        case '1':
+          rtnClass = 'label-default color-blue';
+          break;
+        case '2':
+          rtnClass = 'label-default color-yellow';
+          break;
+        case '3':
+          rtnClass = 'label-default color-gray';
+          break;
+        default:
+          rtnClass = 'label-default color-black';
+      }
+      return rtnClass;
+    },
     searchList(pageNo) {
       //this.tgtUrl = '/api/ifreq/list';
       //this.$axios.get(this.tgtUrl, {
@@ -257,7 +284,7 @@ export default {
       this.$router.push({ name: 'applyIf' });
     },
     detail(i) {
-      this.$router.push({ name: 'applyIf', params: { reqNum: this.ifReqList[i].reqNum, callType:'update' }})
+      this.$router.push({ name: 'applyIf', params: { reqNum: this.ifReqList[i].reqNum, callType:'update', procSt: this.ifReqList[i].procSt }})
     }
   },
 }
