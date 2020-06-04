@@ -265,17 +265,15 @@
       <div class="table_body">
         <ul class="table_row form_type">
           <li
-            class="td_cell on"
+            class="td_cell"
           >
             <div class="search_group">
               <input
                 v-model="aprvInfo.aprvNm"
                 type="text"
                 value=""
+                disabled
               >
-              <span class="search">
-                <i class="ico-search" />
-              </span>
             </div>
           </li>
           <li class="td_cell">
