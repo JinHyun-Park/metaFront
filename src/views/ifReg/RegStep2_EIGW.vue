@@ -834,7 +834,7 @@ export default {
       if (params.reqNum != null) {
         this.reqNum = params.reqNum;
       }
-      this.saveEigwTemp(params.reqNum);
+      this.saveEigwTemp();
     });
   },
   destroyed() {
@@ -938,9 +938,7 @@ export default {
 
       this.emptyOnlineIfFields();
     },
-    saveEigwTemp(saveReqNum) {
-      this.$gf.alertOn(saveReqNum);
-
+    saveEigwTemp() {
       if (this.onlineList.length === 0) {
         this.$gf.alertOn('신청정보를 입력하세요');
         return;
@@ -977,6 +975,7 @@ export default {
         this.onlineUserList.splice(idx, 1);
       } else {
         this.onlineUserList[0].chrgrTyp = '';
+        this.onlineUserList[0].userId = '';
         this.onlineUserList[0].instNm = '';
         this.onlineUserList[0].instCd = '';
         this.onlineUserList[0].hanNm = '';
@@ -1051,12 +1050,27 @@ export default {
       }
 
       for (let i = 0; i < this.onlineUserList.length; i++) {
-        if (this.onlineUserList[i].chrgrTyp === '' || this.onlineUserList[i].instNm === ''
-        || this.onlineUserList[i].instCd === '' || this.onlineUserList[i].hanNm === ''
-        || this.onlineUserList[i].ofcLvlCd === ''
-        || this.onlineUserList[i].mblPhonNum === '' || this.onlineUserList[i].emailAddr === '') {
-          this.$gf.alertOn('담당자 정보를 입력하세요');
+        if (this.onlineUserList[i].chrgrTyp === '' || this.onlineUserList[i].chrgrTyp === undefined) {
+          this.$gf.alertOn('담당자 구분을 선택하세요');
           return 0;
+        } if (this.onlineUserList[i].chrgrTyp === 'new') {
+          if (this.onlineUserList[i].ofcLvlCd === '' || this.onlineUserList[i].instNm === ''
+          || this.onlineUserList[i].instCd === '' || this.onlineUserList[i].hanNm === ''
+          || this.onlineUserList[i].instCd === undefined
+          || this.onlineUserList[i].hanNm === undefined
+          || this.onlineUserList[i].ofcLvlCd === undefined
+          || this.onlineUserList[i].instNm === undefined
+          || this.onlineUserList[i].mblPhonNum === undefined
+          || this.onlineUserList[i].emailAddr === undefined
+          || this.onlineUserList[i].mblPhonNum === '' || this.onlineUserList[i].emailAddr === '') {
+            this.$gf.alertOn('담당자 정보를 입력하세요');
+            return 0;
+          }
+        } else {
+          if (this.onlineUserList[i].userId === undefined || this.onlineUserList[i].userId === '') {
+            this.$gf.alertOn('담당자 정보를 입력하세요');
+            return 0;
+          }
         }
       }
       return 1;
@@ -1221,12 +1235,27 @@ export default {
       }
 
       for (let i = 0; i < this.fileUserList.length; i++) {
-        if (this.fileUserList[i].chrgrTyp === '' || this.fileUserList[i].instNm === ''
-        || this.fileUserList[i].instCd === '' || this.fileUserList[i].hanNm === ''
-        || this.fileUserList[i].ofcLvlCd === ''
-        || this.fileUserList[i].mblPhonNum === '' || this.fileUserList[i].emailAddr === '') {
-          this.$gf.alertOn('담당자 정보를 입력하세요');
+        if (this.fileUserList[i].chrgrTyp === '' || this.fileUserList[i].chrgrTyp === undefined) {
+          this.$gf.alertOn('담당자 구분을 선택하세요');
           return 0;
+        } if (this.fileUserList[i].chrgrTyp === 'new') {
+          if (this.fileUserList[i].ofcLvlCd === '' || this.fileUserList[i].instNm === ''
+          || this.fileUserList[i].instCd === '' || this.fileUserList[i].hanNm === ''
+          || this.fileUserList[i].instCd === undefined
+          || this.fileUserList[i].hanNm === undefined
+          || this.fileUserList[i].ofcLvlCd === undefined
+          || this.fileUserList[i].instNm === undefined
+          || this.fileUserList[i].mblPhonNum === undefined
+          || this.fileUserList[i].emailAddr === undefined
+          || this.fileUserList[i].mblPhonNum === '' || this.fileUserList[i].emailAddr === '') {
+            this.$gf.alertOn('담당자 정보를 입력하세요');
+            return 0;
+          }
+       } else {
+          if (this.fileUserList[i].userId === undefined || this.fileUserList[i].userId === '') {
+            this.$gf.alertOn('담당자 정보를 입력하세요');
+            return 0;
+          }
         }
       }
       return 1;
