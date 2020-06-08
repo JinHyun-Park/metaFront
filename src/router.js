@@ -129,6 +129,11 @@ const router = new Router({
       path: '/meta/eai/eaiServer',
       name: 'eaiServer',
       component: () => import('@/views/meta/eai/EaiServer.vue'),
+    },
+    {
+      path: '/meta/eai/ifIdListAdmin',
+      name: 'ifIdListAdmin',
+      component: () => import('@/views/meta/eai/IfIdListAdmin.vue'),
     }, // EAI 끝
     {
       path: '/meta/eigw/onlineList',
@@ -213,9 +218,9 @@ const router = new Router({
       component: () => import('@/views/admin/ifMgmt/mcg/McgServer.vue'),
     },
     {
-      path: '/admin/ifMgmt/eai/ifIdListAdmin',
-      name: 'ifIdListAdmin',
-      component: () => import('@/views/admin/ifMgmt/eai/IfIdListAdmin.vue'),
+      path: '/admin/ifMgmt/eai/ifIdListAdminMgmt',
+      name: 'ifIdListAdminMgmt',
+      component: () => import('@/views/admin/ifMgmt/eai/IfIdListAdminMgmt.vue'),
     },
     {
       path: '/admin/portalMgmt/opsAccList',

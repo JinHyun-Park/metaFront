@@ -79,7 +79,7 @@
               <button
                 type="button"
                 class="default_button on"
-                @click="getRowData(eaiIf);movePage('ifIdListAdmin', 1)"
+                @click="getRowData(eaiIf);movePage('ifIdListAdminMgmt', 1)"
               >
                 등록
               </button>
@@ -105,7 +105,7 @@
       <button
         type="button"
         class="default_button on"
-        @click="movePage('ifIdListAdmin', 0)"
+        @click="movePage('ifIdListAdminMgmt', 0)"
       >
         신규 등록
       </button>
