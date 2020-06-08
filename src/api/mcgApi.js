@@ -113,6 +113,21 @@ function fetchPutMcgSvrList(param) {
   return axios.put(`${preUrl}/server/put`, param);
 }
 
+function fetchGetMcgReqList(param) {
+  return axios.get(`${preUrl}/req/list`, param);
+}
+
+function fetchPutMcgReq(param) {
+  return axios.post(`${preUrl}/req/put`, param);
+}
+
+function fetchPutMcgReqChrgr(param) {
+  return axios.post(`${preUrl}/req/chrgr/put`, param);
+}
+
+function fetchPutMcgReqServer(param) {
+  return axios.post(`${preUrl}/req/server/put`, param);
+}
 
 export {
   fetchGetMcgChnlList,
@@ -143,4 +158,8 @@ export {
   fetchGetMcgSvrList,
   fetchPostMcgSvrList,
   fetchPutMcgSvrList,
+  fetchGetMcgReqList,
+  fetchPutMcgReq,
+  fetchPutMcgReqChrgr,
+  fetchPutMcgReqServer,
 };

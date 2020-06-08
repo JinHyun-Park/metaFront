@@ -149,6 +149,7 @@ export default {
       eventBus.$emit('Step1GetIfReqMst', { reqNum: this.$route.params.reqNum });
       eventBus.$emit('Step2GetEAIReqMst', { reqNum: this.$route.params.reqNum });
       eventBus.$emit('Step2GetEIGWReqMst', { reqNum: this.$route.params.reqNum });
+      eventBus.$emit('Step2GetMCGReqMst', { reqNum: this.$route.params.reqNum });
       eventBus.$emit('Step3GetAprvReqMst', { reqNum: this.$route.params.reqNum });
       eventBus.$emit('Step4GetAprvReqMst', { reqNum: this.$route.params.reqNum });
     }
@@ -197,7 +198,7 @@ export default {
       } else if (this.tabNum === 2) { // 각단계 별 신청 데이터
         eventBus.$emit('Step2EaiSave', { reqNum: this.reqNum });
         eventBus.$emit('Step2EigwSave', { reqNum: this.reqNum });
-        // eventBus.$emit('Step2McgSave', { reqNum: this.reqNum });
+        eventBus.$emit('Step2McgSave', { reqNum: this.reqNum });
       } else if (this.tabNum === 3) { // 최종 승인요청 화면
         eventBus.$emit('Step3AprvSave', { reqNum: this.reqNum });
       }

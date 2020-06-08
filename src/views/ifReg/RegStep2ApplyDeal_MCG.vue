@@ -1,28 +1,13 @@
 <template>
   <div>
-    <section class="title style-1">
-      <h2>
-        <div>
-          <i class="ico-bar" />MCG 거래 신청
-        </div>
-        <div class="breadcrumb">
-          <span>EGIW</span><em class="on">EAI</em>
-        </div>
-      </h2>
-    </section>
-
-    <!--
-                <section class="small_tabs">
-                    <ul>
-                        <li class="ov">온라인</li>
-                        <li>파일</li>
-                    </ul>
-                </section>
--->
-
+    <ChnlListPopup
+      v-if="chnlpopupstate"
+      @closePop="turOffPopChnl"
+      @addData="addDataChnl"
+    />
     <section class="form_area border_group several_table">
       <h5 class="s_tit type-2">
-        기본 정보
+        MCG 거래 추가
         <div class="right_button_area">
           <button
             type="button"
@@ -33,35 +18,6 @@
           <!--<button type="button" class="default_button extend on">가상 사용자 추가</button>-->
         </div>
       </h5>
-      <div class="row_contain type-2">
-        <div class="column w-2">
-          <label class="column_label">신청하고자 하는 인터페이스를 선택해주세요.</label>
-          <div class="radio_group">
-            <span class="default_radio">
-              <input
-                id="radio_1"
-                type="radio"
-                name="radio_1"
-              >채널추가<label
-                class="border-brickpink"
-                for="radio_1"
-              ><span /></label>
-            </span>
-            <span class="default_radio on">
-              <input
-                id="radio_2"
-                type="radio"
-                name="radio_1"
-              >거래추가<label
-                class="border-brickpink"
-                for="radio_2"
-              ><span /></label>
-            </span>
-          </div>
-        </div>
-        <div class="column w-1" />
-      </div>
-
       <div class="row_contain type-2">
         <div class="column on w-3">
           <label class="column_label">채널명</label>
@@ -457,7 +413,63 @@
 </template>
 
 <script>
+import ChnlListPopup from '@/components/popup/meta/mcg/ChnListPopup.vue';
+
+
 export default {
   name: 'RegStep2ApplyDealMCG',
+  components: {
+    ChnlListPopup,
+  },
+  data() {
+    return {
+      index: 0,
+      vuserList: [],
+      vuserdtl: [],
+      pageSet: { pageNo: 1, pageCount: 0, size: 10 },
+      chnlId: '',
+      chnlIdin: '',
+      vUserId: '',
+      chnlCl: '',
+      supOrg: '',
+      supOrgin: '',
+      chnlNm: '',
+      postTeamNm: '',
+      chnlNmin: '',
+      postTeamNmin: '',
+      loginId: '',
+      chrgrNm: '',
+      chrgrNmin: '',
+      orgId: '',
+      coCl: '',
+      vUserRmk: '',
+      isStatusOn: '',
+      chnlpopupstate: false,
+    };
+  },
+  methods: {
+    noshow() {
+      this.isStatusOn = false;
+      console.log(this.isStatusOn);
+    },
+    chnlpopon() {
+      this.chnlpopupstate = true;
+    },
+
+    turOffPopChnl(val) {
+      console.log(`Popup에서 받아온 Data : ${val}`);
+      this.chnlpopupstate = false;
+    },
+
+    addDataChnl(val) {
+      console.log(`Popup에서 받아온 Data : ${val}`);
+      this.chnlpopupstate = false;
+      this.chnlIdin = val.chnlId;
+      this.chnlNmin = val.chnlNm;
+
+      console.log();
+    },
+
+  },
 };
 </script>
