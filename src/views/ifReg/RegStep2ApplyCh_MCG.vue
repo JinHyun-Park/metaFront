@@ -1,14 +1,10 @@
 <template>
   <div>
-    <!--
-                <section class="small_tabs">
-                    <ul>
-                        <li class="ov">온라인</li>
-                        <li>파일</li>
-                    </ul>
-                </section>
--->
-
+    <VirtualUserApplyPopup
+      v-if="virtualpopupstate"
+      @closePop="turOffPopVitual"
+      @addData="addDataVirtual"
+    />
     <section class="form_area border_group several_table">
       <h5 class="s_tit type-2">
         MCG 채널 추가
@@ -17,6 +13,7 @@
             v-if="virtual"
             type="button"
             class="default_button extend on"
+            @click="virtualpopon()"
           >
             가상 사용자 추가
           </button>
@@ -139,7 +136,7 @@
         </div>
       </div>
 
-
+      <div class="row_contain type-2" />
       <div class="row_contain type-3">
         <div class="column on w-3">
           <label class="column_label">채널명</label>
@@ -239,119 +236,152 @@
         </div>
         <div class="column w-1" />
       </div>
-      <div class="row_contain type-2 except-2">
-        <div class="column w-1">
-          <label class="column_label">서버 정보 추가</label>
-          <div class="search_group">
-            <input
-              type="text"
-              value=""
+      <h5 class="s_tit type-2">
+        MCG 채널 서버 정보
+      </h5>
+
+      <div class="table_colgroup">
+        <div class="table_grid">
+          <div class="table_head w-auto">
+            <ul>
+              <li class="th_cell">
+                서버유형<i class="ico-sort-down" />
+              </li>
+              <li class="th_cell">
+                HOST명<i class="ico-sort-down" />
+              </li>
+              <li class="th_cell">
+                IP<i class="ico-sort-down" />
+              </li>
+              <li class="th_cell">
+                Port<i class="ico-sort-down" />
+              </li>
+              <li class="th_cell">
+                OS<i class="ico-sort-down" />
+              </li>
+              <li class="th_cell">
+                IP유형<i class="ico-sort-up" />
+              </li>
+              <li class="th_cell">
+                담당자<i class="ico-sort-up" />
+              </li>
+              <li class="th_cell">
+                추가/수정
+              </li>
+            </ul>
+          </div>
+          <div class="table_body">
+            <ul class="table_row w-auto">
+              <li class="td_cell">
+                <input
+                  v-model="svrTyp"
+                  type="text"
+                >
+              </li>
+              <li class="td_cell">
+                <input
+                  v-model="hostNm"
+                  type="text"
+                >
+              </li>
+              <li class="td_cell">
+                <input
+                  v-model="ip"
+                  type="text"
+                >
+              </li>
+              <li class="td_cell">
+                <input
+                  v-model="port"
+                  type="text"
+                >
+              </li>
+              <li class="td_cell">
+                <input
+                  v-model="os"
+                  type="text"
+                >
+              </li>
+              <li class="td_cell">
+                <input
+                  v-model="ipTyp"
+                  type="text"
+                >
+              </li>
+              <li class="td_cell">
+                <input
+                  v-model="hanNm"
+                  type="text"
+                >
+              </li>
+              <li class="td_cell">
+                <i
+                  class="ico-add"
+                  @click="save()"
+                />
+              </li>
+            </ul>
+            <ul
+              v-for="msvr in svrList"
+              :key="msvr.index"
+              class="table_row w-auto"
             >
-            <span class="search">
-              <i class="ico-search" />
-            </span>
+              <li class="td_cell">
+                <input
+                  v-model="msvr.opCd"
+                  type="text"
+                >
+              </li>
+              <li class="td_cell">
+                <input
+                  v-model="msvr.dealCd"
+                  type="text"
+                >
+              </li>
+              <li class="td_cell">
+                <input
+                  v-model="msvr.svrTyp"
+                  type="text"
+                >
+              </li>
+              <li class="td_cell">
+                <input
+                  v-model="msvr.svrIp"
+                  type="text"
+                >
+              </li>
+              <li class="td_cell">
+                <input
+                  v-model="msvr.svrPort"
+                  type="text"
+                >
+              </li>
+              <li class="td_cell">
+                <input
+                  v-model="msvr.ipTyp"
+                  type="text"
+                >
+              </li>
+              <li class="td_cell">
+                <input
+                  v-model="msvr.hanNm"
+                  type="text"
+                >
+              </li>
+              <li class="td_cell">
+                <i
+                  class="ico-edit"
+                  @click="modify(msvr)"
+                />
+              </li>
+            </ul>
           </div>
         </div>
-        <div class="column w-3" />
       </div>
-      <div class="table_grid">
-        <div class="table_head">
-          <ul>
-            <li class="th_cell">
-              시스템명<i class="ico-sort-down" />
-            </li>
-            <li class="th_cell">
-              호스트명<i class="ico-sort-up" />
-            </li>
-            <li class="th_cell">
-              IP(VIP)<i class="ico-sort-down" />
-            </li>
-            <li class="th_cell">
-              IP(NAT)<i class="ico-sort-down" />
-            </li>
-            <li class="th_cell">
-              OS<i class="ico-sort-up" />
-            </li>
-            <li class="th_cell">
-              고객사<i class="ico-sort-up" />
-            </li>
-            <li class="th_cell">
-              방향<i class="ico-sort-down" />
-            </li>
-          </ul>
-        </div>
-        <div class="table_body">
-          <ul class="table_row">
-            <li class="td_cell">
-              Mywolrd
-            </li>
-            <li class="td_cell">
-              MWD
-            </li>
-            <li class="td_cell">
-              Inbound
-            </li>
-            <li class="td_cell">
-              2 documents
-            </li>
-            <li class="td_cell">
-              2 documents
-            </li>
-            <li class="td_cell">
-              2 documents
-            </li>
-            <li class="td_cell">
-              송신지
-            </li>
-          </ul>
-          <ul class="table_row">
-            <li class="td_cell">
-              Yourworld
-            </li>
-            <li class="td_cell">
-              YWD
-            </li>
-            <li class="td_cell">
-              Outbound
-            </li>
-            <li class="td_cell">
-              q sign
-            </li>
-            <li class="td_cell">
-              q sign
-            </li>
-            <li class="td_cell">
-              q sign
-            </li>
-            <li class="td_cell">
-              수신지
-            </li>
-          </ul>
-          <ul class="table_row">
-            <li class="td_cell">
-              Tworld
-            </li>
-            <li class="td_cell">
-              TWD
-            </li>
-            <li class="td_cell">
-              Ch to Ch
-            </li>
-            <li class="td_cell">
-              q sign
-            </li>
-            <li class="td_cell">
-              q sign
-            </li>
-            <li class="td_cell">
-              q sign
-            </li>
-            <li class="td_cell">
-              q sign
-            </li>
-          </ul>
-        </div>
-      </div>
+      <div class="row_contain type-2" />
+      <h5 class="s_tit type-2">
+        MCG 채널 담당자 정보
+      </h5>
       <div class="row_contain type-2 except-2">
         <div class="column w-1">
           <label class="column_label">담당자 추가</label>
@@ -367,200 +397,118 @@
         </div>
         <div class="column w-3" />
       </div>
-      <div class="table_grid">
-        <div class="table_head">
-          <ul>
-            <li class="th_cell">
-              OPS ID<i class="ico-sort-down" />
-            </li>
-            <li class="th_cell">
-              담당자명<i class="ico-sort-up" />
-            </li>
-            <li class="th_cell">
-              부서<i class="ico-sort-down" />
-            </li>
-            <li class="th_cell">
-              고객사<i class="ico-sort-down" />
-            </li>
-            <li class="th_cell">
-              이메일<i class="ico-sort-up" />
-            </li>
-            <li class="th_cell">
-              연락처<i class="ico-sort-up" />
-            </li>
-            <li class="th_cell">
-              role<i class="ico-sort-down" />
-            </li>
-          </ul>
-        </div>
-        <div class="table_body">
-          <ul class="table_row">
-            <li class="td_cell">
-              Mywolrd
-            </li>
-            <li class="td_cell">
-              MWD
-            </li>
-            <li class="td_cell">
-              Inbound
-            </li>
-            <li class="td_cell">
-              2 documents
-            </li>
-            <li class="td_cell">
-              2 documents
-            </li>
-            <li class="td_cell">
-              2 documents
-            </li>
-            <li class="td_cell">
-              채널
-            </li>
-          </ul>
-          <ul class="table_row">
-            <li class="td_cell">
-              Yourworld
-            </li>
-            <li class="td_cell">
-              YWD
-            </li>
-            <li class="td_cell">
-              Outbound
-            </li>
-            <li class="td_cell">
-              q sign
-            </li>
-            <li class="td_cell">
-              q sign
-            </li>
-            <li class="td_cell">
-              q sign
-            </li>
-            <li class="td_cell">
-              송신지
-            </li>
-          </ul>
-          <ul class="table_row">
-            <li class="td_cell">
-              Tworld
-            </li>
-            <li class="td_cell">
-              TWD
-            </li>
-            <li class="td_cell">
-              Ch to Ch
-            </li>
-            <li class="td_cell">
-              q sign
-            </li>
-            <li class="td_cell">
-              q sign
-            </li>
-            <li class="td_cell">
-              q sign
-            </li>
-            <li class="td_cell">
-              매니저
-            </li>
-          </ul>
-        </div>
-      </div>
-      <div class="table_grid">
-        <div class="table_head">
-          <ul>
-            <li class="th_cell">
-              채널명<i class="ico-sort-down" />
-            </li>
-            <li class="th_cell">
-              채널ID<i class="ico-sort-up" />
-            </li>
-            <li class="th_cell">
-              채널유형<i class="ico-sort-down" />
-            </li>
-            <li class="th_cell">
-              연동방식<i class="ico-sort-down" />
-            </li>
-            <li class="th_cell">
-              요청일자<i class="ico-sort-up" />
-            </li>
-            <li class="th_cell">
-              채널 담당자<i class="ico-sort-up" />
-            </li>
-            <li class="th_cell">
-              신청자<i class="ico-sort-down" />
-            </li>
-          </ul>
-        </div>
-        <div class="table_body">
-          <ul class="table_row">
-            <li class="td_cell">
-              Mywolrd
-            </li>
-            <li class="td_cell">
-              MWD
-            </li>
-            <li class="td_cell">
-              Inbound
-            </li>
-            <li class="td_cell">
-              2 documents
-            </li>
-            <li class="td_cell">
-              2 documents
-            </li>
-            <li class="td_cell">
-              2 documents
-            </li>
-            <li class="td_cell">
-              2 documents
-            </li>
-          </ul>
-          <ul class="table_row">
-            <li class="td_cell">
-              Yourworld
-            </li>
-            <li class="td_cell">
-              YWD
-            </li>
-            <li class="td_cell">
-              Outbound
-            </li>
-            <li class="td_cell">
-              q sign
-            </li>
-            <li class="td_cell">
-              q sign
-            </li>
-            <li class="td_cell">
-              q sign
-            </li>
-            <li class="td_cell">
-              q sign
-            </li>
-          </ul>
-          <ul class="table_row">
-            <li class="td_cell">
-              Tworld
-            </li>
-            <li class="td_cell">
-              TWD
-            </li>
-            <li class="td_cell">
-              Ch to Ch
-            </li>
-            <li class="td_cell">
-              q sign
-            </li>
-            <li class="td_cell">
-              q sign
-            </li>
-            <li class="td_cell">
-              q sign
-            </li>
-            <li class="td_cell">
-              q sign
-            </li>
-          </ul>
+      <div class="table_colgroup">
+        <div class="table_grid">
+          <div class="table_head w-auto">
+            <ul>
+              <li class="th_cell">
+                이름<i class="ico-sort-down" />
+              </li>
+              <li class="th_cell">
+                회사<i class="ico-sort-up" />
+              </li>
+              <li class="th_cell">
+                연락처<i class="ico-sort-down" />
+              </li>
+              <li class="th_cell">
+                이메일<i class="ico-sort-down" />
+              </li>
+              <li class="th_cell">
+                역할<i class="ico-sort-down" />
+              </li>
+              <li class="th_cell">
+                수정
+              </li>
+            </ul>
+          </div>
+          <div class="table_body">
+            <ul class="table_row w-auto">
+              <li class="td_cell">
+                <input
+                  v-model="name"
+                  type="text"
+                >
+              </li>
+              <li class="td_cell">
+                <input
+                  v-model="company"
+                  type="text"
+                >
+              </li>
+              <li class="td_cell">
+                <input
+                  v-model="phonNum"
+                  type="text"
+                >
+              </li>
+              <li class="td_cell">
+                <input
+                  v-model="email"
+                  type="text"
+                >
+              </li>
+              <li class="td_cell">
+                <input
+                  v-model="role"
+                  type="text"
+                >
+              </li>
+              <li class="td_cell">
+                <i
+                  class="ico-add"
+                  @click="save()"
+                />
+              </li>
+            </ul>
+            <ul
+              v-for="mcgr in chrgrList"
+              :key="mcgr.index"
+              class="table_row w-auto"
+            >
+              <li class="td_cell">
+                <input
+                  v-model="mcgr.opCd"
+                  type="text"
+                >
+              </li>
+              <li class="td_cell">
+                <input
+                  v-model="mcgr.dealCd"
+                  type="text"
+                >
+              </li>
+              <li class="td_cell">
+                <input
+                  v-model="mcgr.chrgrTyp"
+                  type="text"
+                >
+              </li>
+              <li class="td_cell">
+                <input
+                  v-model="mcgr.hanNm"
+                  type="text"
+                >
+              </li>
+              <li class="td_cell">
+                <input
+                  v-model="mcgr.orgCd"
+                  type="text"
+                >
+              </li>
+              <li class="td_cell">
+                <input
+                  v-model="mcgr.mblPhonNum"
+                  type="text"
+                >
+              </li>
+              <li class="td_cell">
+                <i
+                  class="ico-edit"
+                  @click="modify(mcgr)"
+                />
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </section>
@@ -575,9 +523,13 @@ import {
   fetchPutMcgReqServer,
 } from '@/api/mcgApi';
 import eventBus from '@/utils/eventBus';
+import VirtualUserApplyPopup from '@/components/popup/meta/mcg/VirtualUserApplyPopup.vue';
+
 
 export default {
   name: 'RegStep2ApplyChMCG',
+
+  components: { VirtualUserApplyPopup },
 
   data() {
     return {
@@ -630,6 +582,7 @@ export default {
       crole: '',
       chnlCom: '',
       useYn: '',
+      virtualpopupstate: false,
 
     };
   },
@@ -670,6 +623,18 @@ export default {
     virtualhide() {
       this.virtual = false;
       this.chnlTyp = 'Outbound';
+    },
+
+    virtualpopon() {
+      this.virtualpopupstate = true;
+    },
+
+    turOffPopVitual() {
+      this.virtualpopupstate = false;
+    },
+
+    addDataVirtual() {
+      this.virtualpopupstate = false;
     },
 
 
