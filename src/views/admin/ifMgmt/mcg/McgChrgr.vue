@@ -83,6 +83,9 @@
                 연락처<i class="ico-sort-up" />
               </li>
               <li class="th_cell">
+                EMAIL<i class="ico-sort-up" />
+              </li>
+              <li class="th_cell">
                 수정
               </li>
             </ul>
@@ -126,6 +129,12 @@
                 >
               </li>
               <li class="td_cell">
+                <input
+                  v-model="email"
+                  type="text"
+                >
+              </li>
+              <li class="td_cell">
                 <i
                   class="ico-add"
                   @click="save()"
@@ -157,19 +166,25 @@
               </li>
               <li class="td_cell">
                 <input
-                  v-model="mcgr.hanNm"
+                  v-model="mcgr.name"
                   type="text"
                 >
               </li>
               <li class="td_cell">
                 <input
-                  v-model="mcgr.orgCd"
+                  v-model="mcgr.company"
                   type="text"
                 >
               </li>
               <li class="td_cell">
                 <input
-                  v-model="mcgr.mblPhonNum"
+                  v-model="mcgr.phonNum"
+                  type="text"
+                >
+              </li>
+              <li class="td_cell">
+                <input
+                  v-model="mcgr.mEmail"
                   type="text"
                 >
               </li>
@@ -228,6 +243,11 @@ export default {
       orgCd: '',
       hanNm: '',
       chrgrId: '',
+      email: '',
+      mEmail: '',
+      company: '',
+      phonNum: '',
+
       chnlpopupstate: false,
       chrgrpopupstate: false,
     };
@@ -252,6 +272,7 @@ export default {
           orgCd: this.orgCd,
           hanNm: this.hanNm,
           chrgrId: this.chrgrId,
+          email: this.email,
         },
       })
 
@@ -302,6 +323,10 @@ export default {
         orgCd: this.orgCd,
         hanNm: this.hanNm,
         chrgrId: this.chrgrId,
+        name: this.name,
+        mEmail: this.mEmail,
+        company: this.company,
+        phonNum: this.phonNum,
       })
         .then((res) => {
           console.log(res);
