@@ -1050,13 +1050,36 @@ export default {
         this.$gf.alertOn('I/F ID를 입력해주세요.');
         return;
       }
-      if (this.inChrgrList.length < 2) {
-        this.$gf.alertOn('담당자 정보를 입력해주세요.');
-        return;
+      for (let i = 0; i < this.inChrgrList.length; i++) {
+        if (this.inChrgrList[i].userId === '' || this.outChrgrList[i].userId === undefined) {
+          this.$gf.alertOn('담당자 정보를 입력하세요');
+          return;
+        }
       }
-      if (this.outChrgrList.length < 2) {
-        this.$gf.alertOn('대외기관 담당자 정보를 입력해주세요.');
-        return;
+
+      for (let i = 0; i < this.outChrgrList.length; i++) {
+        if (this.outChrgrList[i].chrgrTyp === '' || this.outChrgrList[i].chrgrTyp === undefined) {
+          this.$gf.alertOn('대외기관 담당자 구분을 선택하세요');
+          return;
+        } if (this.outChrgrList[i].chrgrTyp === 'new') {
+          if (this.outChrgrList[i].ofcLvlCd === '' || this.outChrgrList[i].instNm === ''
+          || this.outChrgrList[i].instCd === '' || this.outChrgrList[i].hanNm === ''
+          || this.outChrgrList[i].instCd === undefined
+          || this.outChrgrList[i].hanNm === undefined
+          || this.outChrgrList[i].ofcLvlCd === undefined
+          || this.outChrgrList[i].instNm === undefined
+          || this.outChrgrList[i].mblPhonNum === undefined
+          || this.outChrgrList[i].emailAddr === undefined
+          || this.outChrgrList[i].mblPhonNum === '' || this.outChrgrList[i].emailAddr === '') {
+            this.$gf.alertOn('대외기관 담당자 정보를 입력하세요');
+            return;
+          }
+       } else {
+          if (this.outChrgrList[i].userId === undefined || this.outChrgrList[i].userId === '') {
+            this.$gf.alertOn('대외기관 담당자 정보를 입력하세요');
+            return;
+          }
+        }
       }
 
       console.log('I/F 정보 등록');
@@ -1080,13 +1103,36 @@ export default {
         });
     },
     update() {
-      if (this.inChrgrList.length < 2) {
-        this.$gf.alertOn('담당자 정보를 입력해주세요.');
-        return;
+      for (let i = 0; i < this.inChrgrList.length; i++) {
+        if (this.inChrgrList[i].userId === '' || this.outChrgrList[i].userId === undefined) {
+          this.$gf.alertOn('담당자 정보를 입력하세요');
+          return;
+        }
       }
-      if (this.outChrgrList.length < 2) {
-        this.$gf.alertOn('대외기관 담당자 정보를 입력해주세요.');
-        return;
+
+      for (let i = 0; i < this.outChrgrList.length; i++) {
+        if (this.outChrgrList[i].chrgrTyp === '' || this.outChrgrList[i].chrgrTyp === undefined) {
+          this.$gf.alertOn('대외기관 담당자 구분을 선택하세요');
+          return;
+        } if (this.outChrgrList[i].chrgrTyp === 'new') {
+          if (this.outChrgrList[i].ofcLvlCd === '' || this.outChrgrList[i].instNm === ''
+          || this.outChrgrList[i].instCd === '' || this.outChrgrList[i].hanNm === ''
+          || this.outChrgrList[i].instCd === undefined
+          || this.outChrgrList[i].hanNm === undefined
+          || this.outChrgrList[i].ofcLvlCd === undefined
+          || this.outChrgrList[i].instNm === undefined
+          || this.outChrgrList[i].mblPhonNum === undefined
+          || this.outChrgrList[i].emailAddr === undefined
+          || this.outChrgrList[i].mblPhonNum === '' || this.outChrgrList[i].emailAddr === '') {
+            this.$gf.alertOn('대외기관 담당자 정보를 입력하세요');
+            return;
+          }
+       } else {
+          if (this.outChrgrList[i].userId === undefined || this.outChrgrList[i].userId === '') {
+            this.$gf.alertOn('대외기관 담당자 정보를 입력하세요');
+            return;
+          }
+        }
       }
       this.saveInfo = {
         mstFileNum: this.fileIfMst.mstFileNum,
@@ -1120,6 +1166,7 @@ export default {
         this.inChrgrList.splice(idx, 1);
       } else {
         this.inChrgrList[0].chrgrTyp = '';
+        this.inChrgrList[0].userId = '';
         this.inChrgrList[0].instNm = '';
         this.inChrgrList[0].instCd = '';
         this.inChrgrList[0].orgNm = '';
@@ -1140,6 +1187,7 @@ export default {
         this.outChrgrList.splice(idx, 1);
       } else {
         this.outChrgrList[0].chrgrTyp = '';
+        this.outChrgrList[0].userId = '';
         this.outChrgrList[0].category = '';
         this.outChrgrList[0].instNm = '';
         this.outChrgrList[0].instCd = '';
