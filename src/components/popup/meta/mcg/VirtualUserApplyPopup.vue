@@ -81,8 +81,10 @@ import { mapState, mapActions } from 'vuex';
 import {
   fetchPutMcgReqVirtual,
 } from '@/api/mcgApi';
+import eventBus from '@/utils/eventBus';
 
 export default {
+
   data() {
     return {
       chnlId: '',
@@ -90,12 +92,21 @@ export default {
       vTeam: '',
       vHanNm: '',
       vOrg: '',
+      reqNum: '',
     };
   },
   computed: {
     // ...mapState('frameSet', ['resetPopOn']),
     ...mapState('ccCdLst', ['ccCdList']),
   },
+  created() {
+    eventBus.$on('VirtualReqNum', (params) => {
+      console.log(`event Bus 통해 MCG Chnl에서 조회 params: ${params.reqNum}`);
+      this.reqNum = params.reqNum;
+    });
+  },
+
+
   methods: {
     ...mapActions('ccCdLst', ['setCcCdList']),
 
@@ -108,6 +119,7 @@ export default {
         vTeam: this.vTeam,
         vHanNm: this.vHanNm,
         vOrg: this.vOrg,
+        reqNum: this.reqNum,
       })
         .then((res) => {
           console.log(res);

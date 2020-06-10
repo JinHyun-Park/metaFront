@@ -5,6 +5,11 @@
       @closePop="turOffPopVitual"
       @addData="addDataVirtual"
     />
+    <ChrgrListPopup
+      v-if="chrgrpopupstate"
+      @closePop="turOffPopChrgr"
+      @addData="addDataChrgr"
+    />
     <section class="form_area border_group several_table">
       <h5 class="s_tit type-2">
         MCG 채널 추가
@@ -248,6 +253,9 @@
                 서버유형<i class="ico-sort-down" />
               </li>
               <li class="th_cell">
+                시스템명<i class="ico-sort-up" />
+              </li>
+              <li class="th_cell">
                 HOST명<i class="ico-sort-down" />
               </li>
               <li class="th_cell">
@@ -263,115 +271,66 @@
                 IP유형<i class="ico-sort-up" />
               </li>
               <li class="th_cell">
-                담당자<i class="ico-sort-up" />
-              </li>
-              <li class="th_cell">
                 추가/수정
               </li>
             </ul>
           </div>
           <div class="table_body">
-            <ul class="table_row w-auto">
+            <ul
+              v-for="(svrdtl,idx) in svrRows"
+              :key="idx"
+              class="table_row w-auto"
+            >
               <li class="td_cell">
                 <input
-                  v-model="svrTyp"
+                  v-model="svrdtl.svrTyp"
                   type="text"
                 >
               </li>
               <li class="td_cell">
                 <input
-                  v-model="hostNm"
+                  v-model="svrdtl.sysNm"
                   type="text"
                 >
               </li>
               <li class="td_cell">
                 <input
-                  v-model="ip"
+                  v-model="svrdtl.hostNm"
                   type="text"
                 >
               </li>
               <li class="td_cell">
                 <input
-                  v-model="port"
+                  v-model="svrdtl.ip"
                   type="text"
                 >
               </li>
               <li class="td_cell">
                 <input
-                  v-model="os"
+                  v-model="svrdtl.port"
                   type="text"
                 >
               </li>
               <li class="td_cell">
                 <input
-                  v-model="ipTyp"
+                  v-model="svrdtl.os"
                   type="text"
                 >
               </li>
               <li class="td_cell">
                 <input
-                  v-model="hanNm"
+                  v-model="svrdtl.ipTyp"
                   type="text"
                 >
               </li>
               <li class="td_cell">
                 <i
                   class="ico-add"
-                  @click="save()"
+                  @click="addsRow()"
                 />
-              </li>
-            </ul>
-            <ul
-              v-for="msvr in svrList"
-              :key="msvr.index"
-              class="table_row w-auto"
-            >
-              <li class="td_cell">
-                <input
-                  v-model="msvr.opCd"
-                  type="text"
-                >
-              </li>
-              <li class="td_cell">
-                <input
-                  v-model="msvr.dealCd"
-                  type="text"
-                >
-              </li>
-              <li class="td_cell">
-                <input
-                  v-model="msvr.svrTyp"
-                  type="text"
-                >
-              </li>
-              <li class="td_cell">
-                <input
-                  v-model="msvr.svrIp"
-                  type="text"
-                >
-              </li>
-              <li class="td_cell">
-                <input
-                  v-model="msvr.svrPort"
-                  type="text"
-                >
-              </li>
-              <li class="td_cell">
-                <input
-                  v-model="msvr.ipTyp"
-                  type="text"
-                >
-              </li>
-              <li class="td_cell">
-                <input
-                  v-model="msvr.hanNm"
-                  type="text"
-                >
-              </li>
-              <li class="td_cell">
                 <i
-                  class="ico-edit"
-                  @click="modify(msvr)"
+                  class="ico-del"
+                  @click="removesRow(idx)"
                 />
               </li>
             </ul>
@@ -384,14 +343,17 @@
       </h5>
       <div class="row_contain type-2 except-2">
         <div class="column w-1">
-          <label class="column_label">담당자 추가</label>
+          <label class="column_label">담당자 조회</label>
           <div class="search_group">
             <input
               type="text"
-              value="유영준"
+              @click="chrgrpopon()"
             >
             <span class="search">
-              <i class="ico-search" />
+              <i
+                class="ico-search"
+                @click="chrgrpopon()"
+              />
             </span>
           </div>
         </div>
@@ -422,89 +384,49 @@
             </ul>
           </div>
           <div class="table_body">
-            <ul class="table_row w-auto">
+            <ul
+              v-for="(chrgrdtl,idx) in chrgrRows"
+              :key="idx"
+              class="table_row w-auto"
+            >
               <li class="td_cell">
                 <input
-                  v-model="name"
+                  v-model="chrgrdtl.name"
                   type="text"
                 >
               </li>
               <li class="td_cell">
                 <input
-                  v-model="company"
+                  v-model="chrgrdtl.company"
                   type="text"
                 >
               </li>
               <li class="td_cell">
                 <input
-                  v-model="phonNum"
+                  v-model="chrgrdtl.phonNum"
                   type="text"
                 >
               </li>
               <li class="td_cell">
                 <input
-                  v-model="email"
+                  v-model="chrgrdtl.email"
                   type="text"
                 >
               </li>
               <li class="td_cell">
                 <input
-                  v-model="role"
+                  v-model="chrgrdtl.role"
                   type="text"
                 >
               </li>
               <li class="td_cell">
                 <i
                   class="ico-add"
-                  @click="save()"
+                  @click="addcRow()"
                 />
-              </li>
-            </ul>
-            <ul
-              v-for="mcgr in chrgrList"
-              :key="mcgr.index"
-              class="table_row w-auto"
-            >
-              <li class="td_cell">
-                <input
-                  v-model="mcgr.opCd"
-                  type="text"
-                >
-              </li>
-              <li class="td_cell">
-                <input
-                  v-model="mcgr.dealCd"
-                  type="text"
-                >
-              </li>
-              <li class="td_cell">
-                <input
-                  v-model="mcgr.chrgrTyp"
-                  type="text"
-                >
-              </li>
-              <li class="td_cell">
-                <input
-                  v-model="mcgr.hanNm"
-                  type="text"
-                >
-              </li>
-              <li class="td_cell">
-                <input
-                  v-model="mcgr.orgCd"
-                  type="text"
-                >
-              </li>
-              <li class="td_cell">
-                <input
-                  v-model="mcgr.mblPhonNum"
-                  type="text"
-                >
-              </li>
-              <li class="td_cell">
                 <i
-                  class="ico-edit"
-                  @click="modify(mcgr)"
+                  class="ico-del"
+                  @click="removecRow(idx)"
                 />
               </li>
             </ul>
@@ -516,6 +438,7 @@
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex';
 import {
   fetchGetMcgReqList,
   fetchPutMcgReq,
@@ -524,12 +447,12 @@ import {
 } from '@/api/mcgApi';
 import eventBus from '@/utils/eventBus';
 import VirtualUserApplyPopup from '@/components/popup/meta/mcg/VirtualUserApplyPopup.vue';
-
+import ChrgrListPopup from '@/components/popup/bizcomm/ChrgrListPopup.vue';
 
 export default {
   name: 'RegStep2ApplyChMCG',
 
-  components: { VirtualUserApplyPopup },
+  components: { VirtualUserApplyPopup, ChrgrListPopup },
 
   data() {
     return {
@@ -546,7 +469,7 @@ export default {
       mcgReqNum: '',
       procSt: '',
       reqNum: '',
-      mcgType: '',
+      mcgType: '채널',
       opCd: '',
       chnlNm: '',
       chnlId: '',
@@ -565,6 +488,8 @@ export default {
       mcgRmk: '',
       reqDt: '',
       mcgReqSvrNum: '',
+      svrTyp: '',
+      ipTyp: '',
       sysNm: '',
       hostNm: '',
       ip: '',
@@ -574,23 +499,50 @@ export default {
       dir: '',
       srole: '',
       mcgReqChrgrNum: '',
+      hanNm: '',
       userId: '',
       name: '',
-      ccompany: '',
+      company: '',
       phonNum: '',
       email: '',
-      crole: '',
+      role: '',
       chnlCom: '',
       useYn: '',
       virtualpopupstate: false,
+      svrRows: [
+        {
+          svrTyp: '',
+          hostNm: '',
+          ip: '',
+          port: '',
+          os: '',
+          ipTyp: '',
+          hanNm: '',
+          chrgrId: '',
+        },
+      ],
+      chrgrRows: [
+        {
+          name: '',
+          company: '',
+          phonNum: '',
+          email: '',
+          role: '',
+          chrgrId: '',
+        },
+      ],
 
     };
   },
-
+  computed: {
+    // ...mapState('frameSet', ['resetPopOn']),
+    ...mapState('ccCdLst', ['ccCdList']),
+  },
   created() {
     eventBus.$on('Step2GetMCGReqMst', (params) => {
       console.log(`event Bus 통해 Step1 조회 params: ${params.reqNum}`);
       this.listing(params.reqNum);
+      this.reqNum = params.reqNum;
     });
     eventBus.$on('Step2McgSave', (params) => {
       console.log('event Bus 통해 mcg 저장');
@@ -609,6 +561,10 @@ export default {
   // mounted() {
   //   eventBus.$emit('MCGREQTEMP', this.reqsendList);
   // },
+
+  mounted() {
+    eventBus.$emit('VirtualReqNum', this.reqsendList);
+  },
   destroyed() {
     eventBus.$off('Step2McgSave');
     eventBus.$off('Step2GetMcgReqMst');
@@ -616,6 +572,7 @@ export default {
 
 
   methods: {
+    ...mapActions('ccCdLst', ['setCcCdList']),
     virtualshow() {
       this.virtual = true;
       this.chnlTyp = 'Inbound';
@@ -635,6 +592,47 @@ export default {
 
     addDataVirtual() {
       this.virtualpopupstate = false;
+    },
+
+    chrgrpopon() {
+      this.chrgrpopupstate = true;
+    },
+
+    turOffPopChrgr(val) {
+      console.log(`Popup에서 받아온 Data : ${val}`);
+      this.chrgrpopupstate = false;
+    },
+
+    addDataChrgr(val) {
+      console.log(`Popup에서 받아온 Data : ${val}`);
+
+      this.chrgrRows[this.chrgrRows.length - 1].name = val.hanNm;
+      this.chrgrRows[this.chrgrRows.length - 1].company = val.orgCd;
+      this.chrgrRows[this.chrgrRows.length - 1].chrgrId = val.userId;
+      this.chrgrRows[this.chrgrRows.length - 1].phonNum = val.mblPhonNum;
+      this.chrgrRows[this.chrgrRows.length - 1].email = val.emailAddr;
+
+      this.chrgrpopupstate = false;
+    },
+
+    addsRow() {
+      console.log('서버 목록 추가!');
+      this.svrRows.push({});
+    },
+    addcRow() {
+      console.log('담당자 목록 추가!');
+      this.chrgrRows.push({});
+    },
+
+    removesRow(idx) {
+      console.log('서버 목록에서 삭제!');
+      this.svrRows.splice(idx, 1);
+      if (idx === 0) { this.svrRows.push({}); }
+    },
+    removecRow(idx) {
+      console.log('담당자 목록에서 삭제!');
+      this.chrgrRows.splice(idx, 1);
+      if (idx === 0) { this.chrgrRows.push({}); }
     },
 
 
@@ -749,27 +747,29 @@ export default {
         this.reqList[i].procSt = '1';
       }
 
+      for (let i = 0; i < this.svrRows.length; i++) {
+        this.svrRows[i].reqNum = this.reqNum;
+        this.svrRows[i].useYn = 'Y';
+      }
+
+      for (let i = 0; i < this.chrgrRows.length; i++) {
+        this.chrgrRows[i].reqNum = this.reqNum;
+        this.chrgrRows[i].useYn = 'Y';
+      }
+
       fetchPutMcgReq(this.reqList)
         .then((res) => {
           console.log(res);
           this.$gf.alertOn('채널 신청 완료!');
+          this.savereqchrgr(this.chrgrRows);
+          this.savereqserver(this.svrRows);
         })
         .catch((ex) => {
           console.log(`error occur!! : ${ex}`);
         });
     },
-    savereqchrgr() {
-      fetchPutMcgReqChrgr({
-        mcgReqNum: this.mcgReqNum,
-        reqNum: this.reqNum,
-        mcgReqChrgrNum: this.mcgReqChrgrNum,
-        userId: this.userId,
-        name: this.name,
-        company: this.ccompany,
-        phonNum: this.phonNum,
-        email: this.email,
-        role: this.crole,
-      })
+    savereqchrgr(chrgrList) {
+      fetchPutMcgReqChrgr(chrgrList)
         .then((res) => {
           console.log(res);
           this.$gf.alertOn('채널 담당자 신청 완료!');
@@ -785,20 +785,8 @@ export default {
       this.dtlshow(req);
       console.log(this.reqdtl);
     },
-    savereqserver() {
-      fetchPutMcgReqServer({
-        mcgReqNum: this.mcgReqNum,
-        reqNum: this.reqNum,
-        mcgReqSvrNum: this.mcgReqSvrNum,
-        sysNm: this.sysNm,
-        hostNm: this.hostNm,
-        ip: this.ip,
-        port: this.port,
-        os: this.os,
-        company: this.scompany,
-        dir: this.dir,
-        role: this.srole,
-      })
+    savereqserver(svrList) {
+      fetchPutMcgReqServer(svrList)
         .then((res) => {
           console.log(res);
           this.$gf.alertOn('채널 서버 신청 완료!');

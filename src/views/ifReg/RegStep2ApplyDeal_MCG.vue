@@ -5,6 +5,11 @@
       @closePop="turOffPopChnl"
       @addData="addDataChnl"
     />
+    <ChrgrListPopup
+      v-if="chrgrpopupstate"
+      @closePop="turOffPopChrgr"
+      @addData="addDataChrgr"
+    />
     <section class="form_area border_group several_table">
       <h5 class="s_tit type-2">
         MCG 거래 추가
@@ -104,9 +109,13 @@
               v-model="chnlNm"
               type="text"
               value=""
+              @click="chnlpopon()"
             >
             <span class="search">
-              <i class="ico-search" />
+              <i
+                class="ico-search"
+                @click="chnlpopon()"
+              />
             </span>
           </div>
         </div>
@@ -236,18 +245,21 @@
         <div class="column w-1" />
       </div>
       <h5 class="s_tit type-2">
-        MCG 거래 담당자 정보
+        MCG 채널 담당자 정보
       </h5>
       <div class="row_contain type-2 except-2">
         <div class="column w-1">
-          <label class="column_label">담당자 추가</label>
+          <label class="column_label">담당자 조회</label>
           <div class="search_group">
             <input
               type="text"
-              value="유영준"
+              @click="chrgrpopon()"
             >
             <span class="search">
-              <i class="ico-search" />
+              <i
+                class="ico-search"
+                @click="chrgrpopon()"
+              />
             </span>
           </div>
         </div>
@@ -278,89 +290,49 @@
             </ul>
           </div>
           <div class="table_body">
-            <ul class="table_row w-auto">
+            <ul
+              v-for="(chrgrdtl,idx) in chrgrRows"
+              :key="idx"
+              class="table_row w-auto"
+            >
               <li class="td_cell">
                 <input
-                  v-model="name"
+                  v-model="chrgrdtl.name"
                   type="text"
                 >
               </li>
               <li class="td_cell">
                 <input
-                  v-model="company"
+                  v-model="chrgrdtl.company"
                   type="text"
                 >
               </li>
               <li class="td_cell">
                 <input
-                  v-model="phonNum"
+                  v-model="chrgrdtl.phonNum"
                   type="text"
                 >
               </li>
               <li class="td_cell">
                 <input
-                  v-model="email"
+                  v-model="chrgrdtl.email"
                   type="text"
                 >
               </li>
               <li class="td_cell">
                 <input
-                  v-model="role"
+                  v-model="chrgrdtl.role"
                   type="text"
                 >
               </li>
               <li class="td_cell">
                 <i
                   class="ico-add"
-                  @click="save()"
+                  @click="addcRow()"
                 />
-              </li>
-            </ul>
-            <ul
-              v-for="mcgr in chrgrList"
-              :key="mcgr.index"
-              class="table_row w-auto"
-            >
-              <li class="td_cell">
-                <input
-                  v-model="mcgr.opCd"
-                  type="text"
-                >
-              </li>
-              <li class="td_cell">
-                <input
-                  v-model="mcgr.dealCd"
-                  type="text"
-                >
-              </li>
-              <li class="td_cell">
-                <input
-                  v-model="mcgr.chrgrTyp"
-                  type="text"
-                >
-              </li>
-              <li class="td_cell">
-                <input
-                  v-model="mcgr.hanNm"
-                  type="text"
-                >
-              </li>
-              <li class="td_cell">
-                <input
-                  v-model="mcgr.orgCd"
-                  type="text"
-                >
-              </li>
-              <li class="td_cell">
-                <input
-                  v-model="mcgr.mblPhonNum"
-                  type="text"
-                >
-              </li>
-              <li class="td_cell">
                 <i
-                  class="ico-edit"
-                  @click="modify(mcgr)"
+                  class="ico-del"
+                  @click="removecRow(idx)"
                 />
               </li>
             </ul>
@@ -380,11 +352,13 @@ import {
   fetchPutMcgReqServer,
 } from '@/api/mcgApi';
 import eventBus from '@/utils/eventBus';
+import ChrgrListPopup from '@/components/popup/bizcomm/ChrgrListPopup.vue';
+
 
 export default {
   name: 'RegStep2ApplyDealMCG',
   components: {
-    ChnlListPopup,
+    ChnlListPopup, ChrgrListPopup,
   },
   data() {
     return {
@@ -421,7 +395,7 @@ export default {
       mcgReqNum: '',
       procSt: '',
       reqNum: '',
-      mcgType: '',
+      mcgType: '거래',
       opCd: '',
       lnkMthd: '',
       chnlTyp: '',
@@ -449,12 +423,22 @@ export default {
       mcgReqChrgrNum: '',
       userId: '',
       name: '',
-      ccompany: '',
+      company: '',
       phonNum: '',
       email: '',
-      crole: '',
+      role: '',
       chnlCom: '',
       useYn: '',
+      chrgrRows: [
+        {
+          name: '',
+          company: '',
+          phonNum: '',
+          email: '',
+          role: '',
+          chrgrId: '',
+        },
+      ],
 
     };
   },
@@ -491,13 +475,49 @@ export default {
       this.chnlpopupstate = false;
     },
 
+
     addDataChnl(val) {
       console.log(`Popup에서 받아온 Data : ${val}`);
       this.chnlpopupstate = false;
-      this.chnlIdin = val.chnlId;
-      this.chnlNmin = val.chnlNm;
+      this.chnlId = val.chnlId;
+      this.chnlNm = val.chnlNm;
+      this.chnlTyp = val.chnlTyp;
+      this.lnkMthd = val.lnkMthd;
 
       console.log();
+    },
+
+    chrgrpopon() {
+      this.chrgrpopupstate = true;
+    },
+
+    turOffPopChrgr(val) {
+      console.log(`Popup에서 받아온 Data : ${val}`);
+      this.chrgrpopupstate = false;
+    },
+
+    addcRow() {
+      console.log('담당자 목록 추가!');
+      this.chrgrRows.push({});
+    },
+
+    removecRow(idx) {
+      console.log('담당자 목록에서 삭제!');
+      this.chrgrRows.splice(idx, 1);
+      if (idx === 0) { this.chrgrRows.push({}); }
+    },
+
+
+    addDataChrgr(val) {
+      console.log(`Popup에서 받아온 Data : ${val}`);
+
+      this.chrgrRows[this.chrgrRows.length - 1].name = val.hanNm;
+      this.chrgrRows[this.chrgrRows.length - 1].company = val.orgCd;
+      this.chrgrRows[this.chrgrRows.length - 1].chrgrId = val.userId;
+      this.chrgrRows[this.chrgrRows.length - 1].phonNum = val.mblPhonNum;
+      this.chrgrRows[this.chrgrRows.length - 1].email = val.emailAddr;
+
+      this.chrgrpopupstate = false;
     },
 
     listing(req) {
@@ -611,27 +631,23 @@ export default {
         this.reqList[i].procSt = '1';
       }
 
+      for (let i = 0; i < this.chrgrRows.length; i++) {
+        this.chrgrRows[i].reqNum = this.reqNum;
+        this.chrgrRows[i].useYn = 'Y';
+      }
+
       fetchPutMcgReq(this.reqList)
         .then((res) => {
           console.log(res);
-          this.$gf.alertOn('채널 신청 완료!');
+          this.$gf.alertOn('거래 신청 완료!');
+          this.savereqchrgr(this.chrgrRows);
         })
         .catch((ex) => {
           console.log(`error occur!! : ${ex}`);
         });
     },
-    savereqchrgr() {
-      fetchPutMcgReqChrgr({
-        mcgReqNum: this.mcgReqNum,
-        reqNum: this.reqNum,
-        mcgReqChrgrNum: this.mcgReqChrgrNum,
-        userId: this.userId,
-        name: this.name,
-        company: this.ccompany,
-        phonNum: this.phonNum,
-        email: this.email,
-        role: this.crole,
-      })
+    savereqchrgr(chrgrList) {
+      fetchPutMcgReqChrgr(chrgrList)
         .then((res) => {
           console.log(res);
           this.$gf.alertOn('채널 담당자 신청 완료!');
@@ -640,7 +656,6 @@ export default {
           console.log(`error occur!! : ${ex}`);
         });
     },
-
     dtlReq(req) {
       // let svrinfotemp = [];
       console.log('상세신청정보조회!');
