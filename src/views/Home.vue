@@ -114,14 +114,62 @@
             <div class="table_grid radio_group">
               <div class="table_head w-auto">
                 <ul>
+                  <li class="th_cell">
+                    Num
+                  </li>
+                  <li class="th_cell">
+                    제목
+                  </li>
+                  <li class="th_cell">
+                    게시상태
+                  </li>
+                  <li class="th_cell">
+                    작성자
+                  </li>
+                  <li class="th_cell">
+                    작성일자
+                  </li>
+                </ul>
+              </div>
+              <div class="table_body">
+                <ul
+                  v-for="board in boardList"
+                  :key="board.BOARD_NUM"
+                  class="table_row w-auto"
+                >
+                  <li class="td_cell">
+                    {{ board.BOARD_NUM }}
+                  </li>
+                  <li
+                    class="td_cell"
+                    @click="moveToView(board.BOARD_NUM)"
+                  >
+                    {{ board.TITLE }}
+                  </li>
+                  <li class="td_cell">
+                    {{ setBoardStName(board.BOARD_ST) }}
+                  </li>
+                  <li class="td_cell">
+                    {{ board.CHG_ID }}
+                  </li>
+                  <li class="td_cell">
+                    {{ board.formatChgDt }}
+                  </li>
+                </ul>
+              </div>
+
+              <!--
+              <div class="table_head w-auto">
+                <ul>
                   <li class="th_cell" />
                   <li class="th_cell">
-                    제목<i class="ico-sort-up" />
+                    제목
                   </li>
-                  <!--<li class="th_cell">등록일<i class="ico-sort-up"></i></li>-->
+
                   <li class="th_cell" />
                 </ul>
               </div>
+
               <div class="table_body">
                 <ul class="table_row w-auto">
                   <li class="td_cell">
@@ -237,7 +285,7 @@
                     <i class="ico-edit" />
                   </li>
                 </ul>
-              </div>
+              </div> -->
             </div>
           </div>
         </section>
@@ -541,6 +589,7 @@ import LineChart from './chart/LineChart.vue';
 import BarChart from './chart/BarChart.vue';
 import ReactiveBarChart from './chart/ReactiveBarChart.vue';
 import RadarChart from './chart/RadarChart.vue';
+import { fetchGetBoardList } from '@/api/bizCommApi';
 
 export default {
   name: 'Home',
@@ -553,10 +602,25 @@ export default {
   data() {
     return {
       datacollection: null,
+      startReqDtm: '',
+      endReqDtm: '',
+      datePickerSet: {
+        dayStr: this.$gf.getCalDaySet(),
+        popperProps: {
+          type: Object,
+        },
+      },
+      pageSet: { pageNo: 1, pageCount: 0, size: 10 },
+      boardList: [],
     };
   },
   created() {
     this.fillData();
+  },
+  mounted() {
+    this.startReqDtm = this.$gf.dateToString(new Date(), '-7d', 'Y');
+    this.endReqDtm = this.$gf.dateToString(new Date(), '', 'Y');
+    this.searchList();
   },
   methods: {
     fillData() {
@@ -579,6 +643,54 @@ export default {
     },
     getRandomInt() {
       return Math.floor(Math.random() * 100) + 1;
+    },
+    moveToView(boardNum) {
+      this.$router.push({ name: 'noticeView', params: { boardNum } });
+    },
+    // eslint-disable-next-line consistent-return
+    setBoardStName(boardState) {
+      // eslint-disable-next-line default-case
+      switch (boardState) {
+        case '0': return '유효(0)';
+        case '1': return '기간만료(1)';
+        case '2': return '완료(2)';
+        case '9': return '삭제(9)';
+      }
+    },
+    searchList() {
+      // this.tgtUrl = '/api/bizcomm/board';
+      // this.$axios.get(this.tgtUrl, {
+      fetchGetBoardList({
+        params: {
+          pageNo: this.pageSet.pageNo,
+          pageCount: this.pageSet.pageCount,
+          size: this.pageSet.size,
+          boardSt: '', // 0:정상
+          boardTyp: 'NOTI',
+          title: '',
+          content: '',
+          boardNum: '',
+          // eslint-disable-next-line no-useless-escape
+          startReqDtm: this.startReqDtm.replace(/\-/g, ''),
+          // eslint-disable-next-line no-useless-escape
+          endReqDtm: this.endReqDtm.replace(/\-/g, ''),
+        },
+      })
+        .then((res) => {
+          console.log(res);
+          if (res.data.rstCd === 'S') {
+            // this.boardList = this.$gf.parseRtnData(this.pageSet, res.data.rstData.board, 'Y')
+            this.boardList = res.data.rstData.board;
+            this.pageSet = res.data.rstData.pageSet;
+            console.log(this.pageSet);
+          } else {
+            // eslint-disable-next-line no-alert
+            alert('failed');
+          }
+        })
+        .catch((ex) => {
+          console.log(`error occur!! : ${ex}`);
+        });
     },
   },
 };
