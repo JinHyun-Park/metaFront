@@ -941,15 +941,6 @@ export default {
       this.emptyOnlineIfFields();
     },
     saveEigwTemp() {
-      if (this.onlineList.length === 0) {
-        this.$gf.alertOn('신청정보를 입력하세요');
-        return;
-      }
-
-      if (this.onlineUserList.length < 1) {
-        this.$gf.alertOn('담당자를 입력하세요');
-        return;
-      }
       this.saveData = {
         reqNum: this.reqNum,
         onlineList: this.onlineList,
