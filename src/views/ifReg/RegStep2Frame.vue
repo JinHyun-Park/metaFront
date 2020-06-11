@@ -33,8 +33,6 @@ import RegStep2eai from '@/views/ifReg/RegStep2_EAI.vue'; // 2단계 EAI
 import RegStep2eigw from '@/views/ifReg/RegStep2_EIGW.vue'; // 2단계 EiGW
 import RegStep2ChMcg from '@/views/ifReg/RegStep2McgFrame.vue'; // 2단계 MCG 채널
 
-import { fetchPostIfStep2Reg } from '@/api/ifRegApi';
-
 export default {
   name: 'ApplyFrame',
   components: {
@@ -64,23 +62,6 @@ export default {
     },
     isActive(val) {
       return this.subTabNum === val;
-    },
-    saveTemp() {
-      this.regList = {
-        eaiInfo: this.eaiInfo,
-        eigwInfo: this.eigwInfo,
-        mcgInfo: this.mcgInfo,
-      };
-
-      // this.$axios.post('/api/ifReq/', this.svrList)
-      fetchPostIfStep2Reg(this.regList)
-        .then((res) => {
-          console.log(res);
-          this.$gf.alertOn('작성하신 내용이 임시저장 되었습니다');
-        })
-        .catch((ex) => {
-          console.log(`오류가 발생하였습니다 : ${ex}`);
-        });
     },
   },
 };
