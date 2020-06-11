@@ -394,7 +394,6 @@ export default {
       currRow: [],
       mcgReqNum: '',
       procSt: '',
-      reqNum: '',
       mcgType: '거래',
       opCd: '',
       lnkMthd: '',
@@ -442,28 +441,22 @@ export default {
       mcgReqList: {},
       mcgChrgrList: {},
 
-
     };
   },
+  computed: {
+    ...mapState('ifRegInfo', ['reqNum']),
+  },
   created() {
-    eventBus.$on('Step2GetMCGReqMst', (params) => {
-      console.log(`event Bus 통해 Step1 조회 params: ${params.reqNum}`);
-      this.listing(params.reqNum);
-    });
-    eventBus.$on('Step2McgSave', (params) => {
+    this.listing(this.reqNum);
+    eventBus.$on('Step2McgSave', () => {
       console.log('event Bus 통해 mcg 저장');
-      if (params.reqNum != null) {
-        this.reqNum = params.reqNum;
-      }
       this.savereq();
     });
     console.log(`parent reqNum : ${this.$parent.reqNum}`);
   },
   destroyed() {
     eventBus.$off('Step2McgSave');
-    eventBus.$off('Step2GetMcgReqMst');
   },
-
   methods: {
     ...mapActions('ifRegInfo', ['setTempSaveFlag']),
 
@@ -651,8 +644,12 @@ export default {
       fetchPutMcgReq(this.mcgReqList)
         .then((res) => {
           console.log(res);
-          this.setTempSave(true);
-          this.savereqchrgr(this.mcgChrgrList);
+          if (res.data.rstCd === 'E') {
+            this.setTempSave(false);
+          } else {
+            this.setTempSave(true);
+            this.savereqchrgr(this.mcgChrgrList);
+          }
         })
         .catch((ex) => {
           console.log(`error occur!! : ${ex}`);

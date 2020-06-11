@@ -327,6 +327,7 @@
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex';
 import ChrgrListPopup from '@/components/popup/bizcomm/ChrgrListPopup.vue';
 import {
   fetchPostIfStep3AprvId, fetchPutIfStepAprvReq, fetchGetIfStep3Reg, fetchGetIfReqDetailInfo,
@@ -341,43 +342,36 @@ export default {
   data() {
     return {
       svrOnChrgr: false,
-      reqNum: '',
       aprvInfo: [],
 
       eaiList: [],
       eigwList: [],
     };
   },
+  computed: {
+    ...mapState('ifRegInfo', ['reqNum']),
+  },
   created() {
-    eventBus.$on('Step3GetAprvReqMst', (params) => {
-      console.log(`event Bus 통해 Step3 조회 params: ${params.reqNum}`);
-      this.getStep3AprvReqList(params.reqNum);
-    });
-    eventBus.$on('Step3AprvSave', (params) => {
+    eventBus.$on('Step3AprvSave', () => {
       console.log('event Bus 통해 step3 저장');
-      if (this.reqNum == null) {
-        this.reqNum = params.reqNum;
-      }
       this.saveStep3AprvId();
     });
-    eventBus.$on('Step3AprvReq', (params) => {
+    eventBus.$on('Step3AprvReq', () => {
       console.log('event Bus 통해 step3 승인요청');
-      if (this.reqNum == null) {
-        this.reqNum = params.reqNum;
-      }
       this.saveStep3AprvReq();
     });
-    console.log(`parent reqNum : ${this.$parent.reqNum}`);
+  },
+
+  mounted() {
+    this.getStep3AprvReqList();
   },
   destroyed() {
-    eventBus.$off('Step3GetAprvReqMst');
     eventBus.$off('Step3AprvSave');
     eventBus.$off('Step3AprvReq');
   },
   methods: {
-    getStep3AprvReqList(tgtReqNum) {
+    getStep3AprvReqList() {
       // 승인번호3 데이터 조회
-      this.reqNum = tgtReqNum;
       fetchGetIfStep3Reg({
         params: {
           reqNum: this.reqNum,

@@ -5,6 +5,6 @@ export default {
     isStep1SaveYn: 'N',
     isStep2EaiSaveYn: 'N',
     isStep2EigwSaveYn: 'N',
-    isStep2McgaveYn: 'N',
+    isStep2McgSaveYn: 'N',
   },
 };

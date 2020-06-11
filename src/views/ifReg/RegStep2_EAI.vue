@@ -872,7 +872,6 @@ export default {
   },
   data() {
     return {
-      reqNum: 1,
       eaiSeqNum: '',
       svrOnChrgr: false,
       callChrgr: '',
@@ -1021,26 +1020,19 @@ export default {
   },
   computed: {
     ...mapState('ccCdLst', ['ccCdList']),
-    ...mapState('ifRegInfo', ['saveFlag']),
+    ...mapState('ifRegInfo', ['saveFlag', 'reqNum']),
   },
 
   created() {
-    eventBus.$on('Step2GetEAIReqMst', (params) => {
-      console.log(`event Bus 통해 Step1 조회 params: ${params.reqNum}`);
-      this.getEaiRegTempList(params.reqNum);
-    });
-    eventBus.$on('Step2EaiSave', (params) => {
+    this.getEaiRegTempList(this.reqNum);
+
+    eventBus.$on('Step2EaiSave', () => {
       console.log('event Bus 통해 eai 저장');
-      if (params.reqNum != null) {
-        this.reqNum = params.reqNum;
-      }
       this.saveEaiRegTemp();
     });
-    console.log(`parent reqNum : ${this.$parent.reqNum}`);
   },
   destroyed() {
     eventBus.$off('Step2EaiSave');
-    eventBus.$off('Step2GetEAIReqMst');
   },
 
   mounted() {
@@ -1152,7 +1144,11 @@ export default {
       this.$axios.post('/api/eai/regTemp', this.regList)
         .then((res) => {
           console.log(res);
-          this.setTempSave(true);
+          if (res.rstCd === 'E') {
+            this.setTempSave(false);
+          } else {
+            this.setTempSave(true);
+          }
         })
         .catch((ex) => {
           console.log(`오류가 발생하였습니다 : ${ex}`);

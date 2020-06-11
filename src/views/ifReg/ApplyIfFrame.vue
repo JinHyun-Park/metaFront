@@ -44,13 +44,12 @@
     </section>
     <reg-step1-apply-if
       v-show="tabNum === 1"
-      @afterSave="setRegNum"
     />
     <reg-step2-frame
       v-show="tabNum === 2"
     />
     <reg-step3-applicant
-      v-show="tabNum === 3"
+      v-if="tabNum === 3"
     />
     <reg-step3-approver
       v-show="tabNum === 4"
@@ -128,7 +127,6 @@ export default {
     return {
       procSt: '',
       callType: 'new',
-      reqNum: '',
 
       tabNum: '',
 
@@ -142,7 +140,7 @@ export default {
     };
   },
   computed: {
-    ...mapState('ifRegInfo', ['saveFlag']),
+    ...mapState('ifRegInfo', ['reqNum', 'saveFlag']),
   },
   watch: {
     tabNum() {
@@ -155,33 +153,39 @@ export default {
     } else {
       this.tabNum = Number(localStorage.getItem('APPLY_TABNUM'));
     }
-    // this.reqNum = '12381237128492879734';
+    this.setParams();
   },
   mounted() {
-    this.procSt = this.$route.params.procSt;
 
-    if (this.$route.params.reqNum != null) {
-      this.reqNum = this.$route.params.reqNum;
 
-      eventBus.$emit('Step1GetIfReqMst', { reqNum: this.$route.params.reqNum });
-      eventBus.$emit('Step2GetEAIReqMst', { reqNum: this.$route.params.reqNum });
-      eventBus.$emit('Step2GetEIGWReqMst', { reqNum: this.$route.params.reqNum });
-      eventBus.$emit('Step2GetMCGReqMst', { reqNum: this.$route.params.reqNum });
-      eventBus.$emit('Step3GetAprvReqMst', { reqNum: this.$route.params.reqNum });
-      eventBus.$emit('Step4GetAprvReqMst', { reqNum: this.$route.params.reqNum });
-    }
+    // if (this.$route.params.reqNum != null) {
+    //   this.setReqNum(this.$route.params.reqNum);
 
-    if (this.$route.params.callType != null) {
-      this.callType = this.$route.params.callType;
-    }
+    //   // eventBus.$emit('Step1GetIfReqMst', { reqNum: this.$route.params.reqNum });
+    //   // eventBus.$emit('Step2GetEAIReqMst', { reqNum: this.$route.params.reqNum });
+    //   // eventBus.$emit('Step2GetEIGWReqMst', { reqNum: this.$route.params.reqNum });
+    //   // eventBus.$emit('Step2GetMCGReqMst', { reqNum: this.$route.params.reqNum });
+    //   // eventBus.$emit('Step3GetAprvReqMst', { reqNum: this.$route.params.reqNum });
+    //   // eventBus.$emit('Step4GetAprvReqMst', { reqNum: this.$route.params.reqNum });
+    // }
   },
   destroyed() {
     localStorage.setItem('APPLY_TABNUM', '');
   },
   methods: {
-    ...mapActions('ifRegInfo', ['resetTempSaveFlag']),
+    ...mapActions('ifRegInfo', ['setReqNum', 'resetTempSaveFlag']),
 
+    setParams() {
+      if (this.$route.params.reqNum != null) {
+        this.setReqNum({ reqNum: this.$route.params.reqNum });
+      }
+      if (this.$route.params.callType != null) {
+        this.callType = this.$route.params.callType;
+      }
+      this.procSt = this.$route.params.procSt;
+    },
     tabChange(val) {
+      console.log(`tabChange : [${this.reqNum}]`);
       if (this.reqNum != null && this.reqNum !== '') {
         window.scrollTo(0, 0);
         this.tabNum = val;
@@ -222,11 +226,6 @@ export default {
       }
       this.tabNum = this.tabNum - 1;
       localStorage.setItem('APPLY_TABNUM', this.tabNum);
-    },
-    setRegNum(reqNum) {
-      console.log(`reqNum: ${reqNum}`);
-      this.reqNum = reqNum;
-      // alert(this.reqNum);
     },
     tempSave(callMeth) {
       console.log('tempSave');

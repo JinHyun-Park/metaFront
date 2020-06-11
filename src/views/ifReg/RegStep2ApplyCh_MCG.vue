@@ -467,7 +467,6 @@ export default {
       currRow: [],
       mcgReqNum: '',
       procSt: '',
-      reqNum: '',
       mcgType: '채널',
       opCd: '',
       chnlNm: '',
@@ -559,22 +558,14 @@ export default {
   computed: {
     // ...mapState('frameSet', ['resetPopOn']),
     ...mapState('ccCdLst', ['ccCdList']),
+    ...mapState('ifRegInfo', ['reqNum']),
   },
   created() {
-    eventBus.$on('Step2GetMCGReqMst', (params) => {
-      console.log(`event Bus 통해 Step1 조회 params: ${params.reqNum}`);
-      this.listing(params.reqNum);
-      this.reqNum = params.reqNum;
-    });
-    eventBus.$on('Step2McgSave', (params) => {
+    this.listing(this.reqNum);
+    eventBus.$on('Step2McgSave', () => {
       console.log('event Bus 통해 mcg 저장');
-      if (params.reqNum != null) {
-        this.reqNum = params.reqNum;
-      }
       this.savereq();
     });
-    console.log(`parent reqNum : ${this.$parent.reqNum}`);
-
     // eventBus.$on('MCGREQDTL', (params) => {
     //   console.log('event Bus를 통해 mcg 상세정보 가져옴');
     //   this.dtlshow(params);
@@ -589,10 +580,7 @@ export default {
   },
   destroyed() {
     eventBus.$off('Step2McgSave');
-    eventBus.$off('Step2GetMcgReqMst');
   },
-
-
   methods: {
     ...mapActions('ccCdLst', ['setCcCdList']),
     ...mapActions('ifRegInfo', ['setTempSaveFlag']),
@@ -812,9 +800,13 @@ export default {
       fetchPutMcgReq(this.mcgReqList)
         .then((res) => {
           console.log(res);
-          this.setTempSave(true);
-          this.savereqchrgr(this.mcgChrgrList);
-          this.savereqserver(this.mcgSvrList);
+          if (res.data.rstCd === 'E') {
+            this.setTempSave(false);
+          } else {
+            this.setTempSave(true);
+            this.savereqchrgr(this.mcgChrgrList);
+            this.savereqserver(this.mcgSvrList);
+          }
         })
         .catch((ex) => {
           console.log(`error occur!! : ${ex}`);

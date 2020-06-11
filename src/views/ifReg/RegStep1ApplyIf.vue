@@ -232,28 +232,20 @@ export default {
   },
   mounted() {
     this.today = this.$gf.dateToString(new Date(), '', 'Y');
+    this.getIfReqMst(this.reqNum);
   },
   created() {
-    eventBus.$on('Step1GetIfReqMst', (params) => {
-      console.log(`event Bus 통해 Step1 조회 params: ${params.reqNum}`);
-      this.getIfReqMst(params.reqNum);
-    });
-
     eventBus.$on('Step1ReqMstSave', (params) => {
       console.log('event Bus 통해 Step1 저장');
       this.saveIfReqMst(params.callType);
-      console.log(`step1 reqnum : ${this.ifReqMstInfo.reqNum}`);
-      this.$emit('afterSave', this.ifReqMstInfo.reqNum);
     });
     console.log(`parent reqNum : ${this.$parent.reqNum}`);
   },
   destroyed() {
     eventBus.$off('Step1ReqMstSave');
-    eventBus.$off('Step1GetIfReqMst');
   },
   methods: {
-    ...mapActions('ifRegInfo', ['setReqNum']),
-    ...mapActions('ifRegInfo', ['setTempSaveFlag']),
+    ...mapActions('ifRegInfo', ['setReqNum', 'setTempSaveFlag']),
 
     setTempSave(rtn) {
       this.setTempSaveFlag({

@@ -316,7 +316,7 @@
 </template>
 
 <script>
-import ChrgrListPopup from '@/components/popup/bizcomm/ChrgrListPopup.vue';
+import { mapState, mapActions } from 'vuex';
 import {
   fetchPutIfStepAprvReq, fetchGetIfStep3Reg, fetchGetIfReqDetailInfo,
 } from '@/api/ifRegApi';
@@ -324,13 +324,9 @@ import eventBus from '@/utils/eventBus';
 
 export default {
   name: 'RegStep4Applicant',
-  components: {
-    ChrgrListPopup,
-  },
   data() {
     return {
       svrOnChrgr: false,
-      reqNum: '',
       procSt: 1,
       aprvInfo: [],
 
@@ -338,11 +334,10 @@ export default {
       eigwList: [],
     };
   },
+  computed: {
+    ...mapState('ifRegInfo', ['reqNum']),
+  },
   created() {
-    eventBus.$on('Step4GetAprvReqMst', (params) => {
-      console.log(`event Bus 통해 Step3 조회 params: ${params.reqNum}`);
-      this.getStep4AprvReqList(params.reqNum);
-    });
     eventBus.$on('Step4AprvReq', (params) => {
       console.log('event Bus 통해 step4 승인');
       this.procSt = params.procSt;
@@ -351,16 +346,16 @@ export default {
       }
       this.saveStep4AprvReq();
     });
-    console.log(`parent reqNum : ${this.$parent.reqNum}`);
+  },
+  mounted() {
+    this.getStep4AprvReqList();
   },
   destroyed() {
-    eventBus.$off('Step4GetAprvReqMst');
     eventBus.$off('Step4AprvReq');
   },
   methods: {
-    getStep4AprvReqList(tgtReqNum) {
+    getStep4AprvReqList() {
       // 승인4 데이터 조회
-      this.reqNum = tgtReqNum;
       fetchGetIfStep3Reg({
         params: {
           reqNum: this.reqNum,

@@ -744,7 +744,6 @@ export default {
         message: '', // 사용방법 예시 데이터
       },
 
-      reqNum: '',
       eigwReqNum: '',
       eigwType: '',
       procSt: '',
@@ -820,31 +819,23 @@ export default {
   computed: {
     ...mapState('frameSet', ['resetPopOn']),
     ...mapState('ccCdLst', ['ccCdList']),
+    ...mapState('ifRegInfo', ['reqNum']),
   },
   created() {
-    eventBus.$on('Step2GetEIGWReqMst', (params) => {
-      console.log(`event Bus 통해 Step1 조회 params: ${params.reqNum}`);
-      if (params.reqNum != null) {
-        this.reqNum = params.reqNum;
-      }
-      this.searchList(params.reqNum);
-    });
-    eventBus.$on('Step2EigwSave', (params) => {
-      console.log('event Bus 통해 eigw 저장');
-      if (params.reqNum != null) {
-        this.reqNum = params.reqNum;
-      }
+    this.searchList(this.reqNum);
+
+    eventBus.$on('Step2EigwSave', () => {
       this.saveEigwTemp();
     });
   },
   destroyed() {
     eventBus.$off('Step2EigwSave');
-    eventBus.$off('Step2GetEIGWReqMst');
   },
   mounted() {
     this.setCcCdList({
       opClCd: 'EIGW', cdId: 'OFC_LVL_CD', allYn: 'Y', listNm: 'ofcLvlCd',
     });
+    console.log('step2eigw mounted');
   },
   methods: {
     ...mapActions('frameSet', ['setResetPopOn']),
