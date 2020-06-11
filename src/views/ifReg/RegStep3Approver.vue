@@ -25,19 +25,19 @@
         <div class="table_head w-auto">
           <ul>
             <li class="th_cell">
-              인터페이스ID
+              인터페이스명(영문)
             </li>
             <li class="th_cell">
-              인터페이스명
+              인터페이스명(한글)
             </li>
             <li class="th_cell">
-              진행상태
+              송신업무
             </li>
             <li class="th_cell">
-              송신MID
+              수신업무
             </li>
             <li class="th_cell">
-              수신MID
+              연동방식
             </li>
           </ul>
         </div>
@@ -54,7 +54,7 @@
               {{ row.eaiIfNmKor }}
             </li>
             <li class="td_cell">
-              {{ row.ifTypCd }}
+              {{ row.ifTypNm }}
             </li>
             <li class="td_cell">
               {{ row.sndMid }}
