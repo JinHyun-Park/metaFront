@@ -440,6 +440,9 @@ export default {
           chrgrId: '',
         },
       ],
+      mcgReqList: {},
+      mcgChrgrList: {},
+
 
     };
   },
@@ -631,19 +634,21 @@ export default {
         this.reqList[i].reqNum = this.reqNum;
         this.reqList[i].procSt = '1';
       }
+      this.mcgReqList = { reqList: this.reqList };
 
       for (let i = 0; i < this.chrgrRows.length; i++) {
         this.chrgrRows[i].reqNum = this.reqNum;
         this.chrgrRows[i].useYn = 'Y';
       }
+      this.mcgChrgrList = { chrgrRows: this.chrgrRows };
 
-      fetchPutMcgReq(this.reqList)
+      fetchPutMcgReq(this.mcgReqList)
         .then((res) => {
           console.log(res);
           if (this.alertYn) {
             this.$gf.alertOn('거래 신청 완료!');
           }
-          this.savereqchrgr(this.chrgrRows);
+          this.savereqchrgr(this.mcgChrgrList);
         })
         .catch((ex) => {
           console.log(`error occur!! : ${ex}`);
