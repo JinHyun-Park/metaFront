@@ -461,7 +461,6 @@ export default {
       chrgrpopupstate: false,
       chrgrn: '',
       chrgropCd: '',
-      reqList: [],
       reqsendList: [],
       svrList: [],
       chrgrList: [],
@@ -529,6 +528,26 @@ export default {
           email: '',
           role: '',
           chrgrId: '',
+        },
+      ],
+      reqList: [
+        {
+          chnlNm: '',
+          chnlId: '',
+          lnkMthd: '',
+          chnlTyp: '',
+          reqPurp: '',
+          chnlCnt: '',
+          maxTps: '',
+          serviceId: '',
+          serviceNm: '',
+          servletUrl: '',
+          tcpIdPort: '',
+          dailyTps: '',
+          dablInflu: '',
+          mcgRmk: '',
+          reqDt: '',
+          chnlCom: '',
         },
       ],
 
@@ -635,6 +654,22 @@ export default {
       if (idx === 0) { this.chrgrRows.push({}); }
     },
 
+    checksave() {
+      if (this.chnlNm === '') {
+        this.$gf.alertOn('채널명을 입력 해주세요.');
+        return 0;
+      }
+      if (this.chnlId === '') {
+        this.$gf.alertOn('채널ID를 입력 해주세요.');
+        return 0;
+      }
+      if (this.chnlTyp === '') {
+        this.$gf.alertOn('채널타입을 선택 해주세요.');
+        return 0;
+      }
+      return 1;
+    },
+
 
     listing(req) {
       console.log('채널 신청 목록 조회!');
@@ -680,6 +715,9 @@ export default {
     },
 
     addMcgReq() {
+      if (this.checksave() === 0) {
+        return;
+      }
       this.reqList.push({
         mcgReqNum: this.mcgReqNum,
         reqNum: this.reqNum,
@@ -706,6 +744,7 @@ export default {
       });
 
       this.emptyMcgFields();
+      this.savereq();
     },
 
     remove(req) {
@@ -719,7 +758,6 @@ export default {
 
     emptyMcgFields() {
       this.mcgReqNum = '';
-      this.mcgType = '';
       this.chnlNm = '';
       this.chnlId = '';
       this.lnkMthd = '';

@@ -603,7 +603,6 @@ export default {
 
     emptyMcgFields() {
       this.mcgReqNum = '';
-      this.mcgType = '';
       this.chnlNm = '';
       this.chnlId = '';
       this.lnkMthd = '';
