@@ -468,7 +468,6 @@ export default {
       mcgReqNum: '',
       procSt: '',
       reqNum: '',
-      alertYn: false,
       mcgType: '채널',
       opCd: '',
       chnlNm: '',
@@ -572,7 +571,6 @@ export default {
       if (params.reqNum != null) {
         this.reqNum = params.reqNum;
       }
-      this.alertYn = params.alertYn;
       this.savereq();
     });
     console.log(`parent reqNum : ${this.$parent.reqNum}`);
@@ -597,6 +595,14 @@ export default {
 
   methods: {
     ...mapActions('ccCdLst', ['setCcCdList']),
+    ...mapActions('ifRegInfo', ['setTempSaveFlag']),
+
+    setTempSaveFlag(rtn) {
+      this.setTempSaveFlag({
+        step: 'STEP2MCG', rstCd: rtn,
+      });
+    },
+
     virtualshow() {
       this.virtual = true;
       this.chnlTyp = 'Inbound';
@@ -806,26 +812,24 @@ export default {
       fetchPutMcgReq(this.mcgReqList)
         .then((res) => {
           console.log(res);
-          if (this.alertYn) {
-            this.$gf.alertOn('채널 신청 완료!');
-          }
+          this.setTempSaveFlag(true);
           this.savereqchrgr(this.mcgChrgrList);
           this.savereqserver(this.mcgSvrList);
         })
         .catch((ex) => {
           console.log(`error occur!! : ${ex}`);
+          this.setTempSaveFlag(false);
         });
     },
     savereqchrgr(chrgrList) {
       fetchPutMcgReqChrgr(chrgrList)
         .then((res) => {
           console.log(res);
-          if (this.alertYn) {
-            this.$gf.alertOn('채널 담당자 신청 완료!');
-          }
+          this.setTempSaveFlag(true);
         })
         .catch((ex) => {
           console.log(`error occur!! : ${ex}`);
+          this.setTempSaveFlag(false);
         });
     },
 
@@ -839,12 +843,11 @@ export default {
       fetchPutMcgReqServer(svrList)
         .then((res) => {
           console.log(res);
-          if (this.alertYn) {
-            this.$gf.alertOn('채널 서버 신청 완료!');
-          }
+          this.setTempSaveFlag(true);
         })
         .catch((ex) => {
           console.log(`error occur!! : ${ex}`);
+          this.setTempSaveFlag(false);
         });
     },
   },

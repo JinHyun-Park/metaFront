@@ -344,6 +344,7 @@
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex';
 import ChnlListPopup from '@/components/popup/meta/mcg/ChnListPopup.vue';
 import {
   fetchGetMcgReqList,
@@ -353,7 +354,6 @@ import {
 } from '@/api/mcgApi';
 import eventBus from '@/utils/eventBus';
 import ChrgrListPopup from '@/components/popup/bizcomm/ChrgrListPopup.vue';
-
 
 export default {
   name: 'RegStep2ApplyDealMCG',
@@ -395,7 +395,6 @@ export default {
       mcgReqNum: '',
       procSt: '',
       reqNum: '',
-      alertYn: false,
       mcgType: '거래',
       opCd: '',
       lnkMthd: '',
@@ -456,7 +455,6 @@ export default {
       if (params.reqNum != null) {
         this.reqNum = params.reqNum;
       }
-      this.alertYn = params.alertYn;
       this.savereq();
     });
     console.log(`parent reqNum : ${this.$parent.reqNum}`);
@@ -467,6 +465,14 @@ export default {
   },
 
   methods: {
+    ...mapActions('ifRegInfo', ['setTempSaveFlag']),
+
+    setTempSaveFlag(rtn) {
+      this.setTempSaveFlag({
+        step: 'STEP2MCG', rstCd: rtn,
+      });
+    },
+
     noshow() {
       this.isStatusOn = false;
       console.log(this.isStatusOn);
@@ -645,25 +651,23 @@ export default {
       fetchPutMcgReq(this.mcgReqList)
         .then((res) => {
           console.log(res);
-          if (this.alertYn) {
-            this.$gf.alertOn('거래 신청 완료!');
-          }
+          this.setTempSaveFlag(true);
           this.savereqchrgr(this.mcgChrgrList);
         })
         .catch((ex) => {
           console.log(`error occur!! : ${ex}`);
+          this.setTempSaveFlag(false);
         });
     },
     savereqchrgr(chrgrList) {
       fetchPutMcgReqChrgr(chrgrList)
         .then((res) => {
           console.log(res);
-          if (this.alertYn) {
-            this.$gf.alertOn('채널 담당자 신청 완료!');
-          }
+          this.setTempSaveFlag(true);
         })
         .catch((ex) => {
           console.log(`error occur!! : ${ex}`);
+          this.setTempSaveFlag(false);
         });
     },
     dtlReq(req) {
@@ -688,9 +692,6 @@ export default {
       })
         .then((res) => {
           console.log(res);
-          if (this.alertYn) {
-            this.$gf.alertOn('채널 서버 신청 완료!');
-          }
         })
         .catch((ex) => {
           console.log(`error occur!! : ${ex}`);

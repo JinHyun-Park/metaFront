@@ -873,7 +873,6 @@ export default {
   data() {
     return {
       reqNum: 1,
-      alertYn: false,
       eaiSeqNum: '',
       svrOnChrgr: false,
       callChrgr: '',
@@ -1022,6 +1021,7 @@ export default {
   },
   computed: {
     ...mapState('ccCdLst', ['ccCdList']),
+    ...mapState('ifRegInfo', ['saveFlag']),
   },
 
   created() {
@@ -1034,7 +1034,6 @@ export default {
       if (params.reqNum != null) {
         this.reqNum = params.reqNum;
       }
-      this.alertYn = params.alertYn;
       this.saveEaiRegTemp();
     });
     console.log(`parent reqNum : ${this.$parent.reqNum}`);
@@ -1073,6 +1072,13 @@ export default {
   },
   methods: {
     ...mapActions('ccCdLst', ['setCcCdList']),
+    ...mapActions('ifRegInfo', ['setTempSaveFlag']),
+
+    setTempSaveFlag(rtn) {
+      this.setTempSaveFlag({
+        step: 'STEP2EAI', rstCd: rtn,
+      });
+    },
 
     getEaiRegTempList(tgtReqNum) {
       console.log('EAI 신청 정보 조회');
@@ -1146,12 +1152,11 @@ export default {
       this.$axios.post('/api/eai/regTemp', this.regList)
         .then((res) => {
           console.log(res);
-          if (this.alertYn) {
-            this.$gf.alertOn('작성하신 EAI 내용이 임시저장 되었습니다');
-          }
+          this.setTempSaveFlag(true);
         })
         .catch((ex) => {
           console.log(`오류가 발생하였습니다 : ${ex}`);
+          this.setTempSaveFlag(false);
         });
     },
     addSndRow(n) {

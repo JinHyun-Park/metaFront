@@ -745,7 +745,6 @@ export default {
       },
 
       reqNum: '',
-      alertYn: false,
       eigwReqNum: '',
       eigwType: '',
       procSt: '',
@@ -835,7 +834,6 @@ export default {
       if (params.reqNum != null) {
         this.reqNum = params.reqNum;
       }
-      this.alertYn = params.alertYn;
       this.saveEigwTemp();
     });
   },
@@ -851,6 +849,14 @@ export default {
   methods: {
     ...mapActions('frameSet', ['setResetPopOn']),
     ...mapActions('ccCdLst', ['setCcCdList']),
+    ...mapActions('ifRegInfo', ['setTempSaveFlag']),
+
+    setTempSaveFlag(rtn) {
+      this.setTempSaveFlag({
+        step: 'STEP2EIGW', rstCd: rtn,
+      });
+    },
+
     searchList(paramReqNum) {
       fetchEigwReqList({
         params: {
@@ -940,7 +946,7 @@ export default {
 
       this.emptyOnlineIfFields();
     },
-    saveEigwTemp() { 
+    saveEigwTemp() {
       this.saveData = {
         reqNum: this.reqNum,
         onlineList: this.onlineList,
@@ -950,12 +956,11 @@ export default {
       fetchEigwReqSave(this.saveData)
         .then((res) => {
           console.log(res);
-          if (this.alertYn) {
-            this.$gf.alertOn('저장 되었습니다');
-          }
+          this.setTempSaveFlag(true);
         })
         .catch((ex) => {
           console.log(`오류가 발생하였습니다 : ${ex}`);
+          this.setTempSaveFlag(true);
         });
     },
     addOnlineUser(i) {

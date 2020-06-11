@@ -109,6 +109,7 @@
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex';
 import RegStep1ApplyIf from '@/views/ifReg/RegStep1ApplyIf.vue'; // 1단계
 import RegStep2Frame from '@/views/ifReg/RegStep2Frame.vue'; // 2단계 EAI
 import RegStep3Applicant from '@/views/ifReg/RegStep3Applicant.vue'; // 3단계 신청자
@@ -135,10 +136,13 @@ export default {
       isBtnForw: false,
       isBtnTempSave: false,
       isBtnApprReq: false,
-      ifBtnAppr: false,
-      ifBtnReject: false,
+      isBtnAppr: false,
+      isBtnReject: false,
 
     };
+  },
+  computed: {
+    ...mapState('ifRegInfo', ['saveFlag']),
   },
   watch: {
     tabNum() {
@@ -200,7 +204,9 @@ export default {
     toNextTab() {
       window.scrollTo(0, 0);
       if (this.procSt === '1') {
-        this.tempSave('btnTab');
+        if (!this.tempSave('btnTab')) {
+          return;
+        }
       }
       this.tabNum = this.tabNum + 1;
       localStorage.setItem('APPLY_TABNUM', this.tabNum);
@@ -208,7 +214,9 @@ export default {
     toBeforeTab() {
       window.scrollTo(0, 0);
       if (this.procSt === '1') {
-        this.tempSave('btnTab');
+        if (!this.tempSave('btnTab')) {
+          return;
+        }
       }
       this.tabNum = this.tabNum - 1;
       localStorage.setItem('APPLY_TABNUM', this.tabNum);
@@ -230,6 +238,25 @@ export default {
       } else if (this.tabNum === 3) { // 최종 승인요청 화면
         eventBus.$emit('Step3AprvSave', { reqNum: this.reqNum });
       }
+
+      if (this.tabNum === 1) {
+        if (this.saveFlag.isStep1SaveYn !== false) {
+          if (alert) {
+            this.$gf.alertOn('저장되었습니다.');
+          }
+          return true;
+        }
+      } else if (this.tabNum === 2) {
+        if (this.saveFlag.isStep2EaiSaveYn !== false && this.saveFlag.isStep2EigwSaveYn !== false && this.saveFlag.isStep2McgSaveYn !== false) {
+          if (alert) {
+            this.$gf.alertOn('저장되었습니다.');
+          }
+          return true;
+        }
+      } else {
+        return true;
+      }
+      return false;
     },
     aprvReq(tgtProcSt) {
       if (this.tabNum === 3) {

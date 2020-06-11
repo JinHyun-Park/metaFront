@@ -225,7 +225,6 @@ export default {
         },
       },
 
-      alertYn: false,
     };
   },
   computed: {
@@ -243,7 +242,6 @@ export default {
     eventBus.$on('Step1ReqMstSave', (params) => {
       console.log('event Bus 통해 Step1 저장');
       this.saveIfReqMst(params.callType);
-      this.alertYn = params.alertYn;
       console.log(`step1 reqnum : ${this.ifReqMstInfo.reqNum}`);
       this.$emit('afterSave', this.ifReqMstInfo.reqNum);
     });
@@ -255,6 +253,14 @@ export default {
   },
   methods: {
     ...mapActions('ifRegInfo', ['setReqNum']),
+    ...mapActions('ifRegInfo', ['setTempSaveFlag']),
+
+    setTempSaveFlag(rtn) {
+      this.setTempSaveFlag({
+        step: 'STEP1', rstCd: rtn,
+      });
+    },
+
     saveIfReqMst(callType) {
       this.ifReqMstInfo.dvlpAplyReqDt = this.ifReqMstInfo.dvlpAplyReqDt.replace(/\-/g, '');
       this.ifReqMstInfo.operAplyReqDt = this.ifReqMstInfo.operAplyReqDt.replace(/\-/g, '');
@@ -264,12 +270,11 @@ export default {
         fetchPutIfStep1Reg(this.ifReqMstInfo)
           .then((res) => {
             console.log(res);
-            if (this.alertYn) {
-              this.$gf.alertOn('저장되었습니다.');
-            }
+            this.setTempSaveFlag(true);
           })
           .catch((ex) => {
             console.log(`오류가 발생하였습니다 : ${ex}`);
+            this.setTempSaveFlag(false);
           });
       } else {
         // this.$axios.post('/api/eai/regTemp', this.regList)
@@ -278,12 +283,11 @@ export default {
             console.log(res);
             this.ifReqMstInfo = res.data.rstData.reqInfo;
             this.setReqNum(this.ifReqMstInfo.reqNum);
-            if (this.alertYn) {
-              this.$gf.alertOn('작성하신 내용이 저장 되었습니다.');
-            }
+            this.setTempSaveFlag(true);
           })
           .catch((ex) => {
             console.log(`오류가 발생하였습니다 : ${ex}`);
+            this.setTempSaveFlag(false);
           });
       }
     },
