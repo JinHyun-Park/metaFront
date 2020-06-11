@@ -1101,7 +1101,7 @@ export default {
 
       fetchGetEaiRegIfList({
         params: {
-          reqNum: this.reqNum,
+          reqNum: tgtReqNum,
           procSt: 1,
         },
       })
