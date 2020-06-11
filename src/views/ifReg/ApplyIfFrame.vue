@@ -52,7 +52,7 @@
       v-if="tabNum === 3"
     />
     <reg-step3-approver
-      v-show="tabNum === 4"
+      v-if="tabNum === 4"
     />
     <section class="btm_button_area">
       <button
