@@ -851,7 +851,7 @@ export default {
     ...mapActions('ccCdLst', ['setCcCdList']),
     ...mapActions('ifRegInfo', ['setTempSaveFlag']),
 
-    setTempSaveFlag(rtn) {
+    setTempSave(rtn) {
       this.setTempSaveFlag({
         step: 'STEP2EIGW', rstCd: rtn,
       });
@@ -956,11 +956,11 @@ export default {
       fetchEigwReqSave(this.saveData)
         .then((res) => {
           console.log(res);
-          this.setTempSaveFlag(true);
+          this.setTempSave(true);
         })
         .catch((ex) => {
           console.log(`오류가 발생하였습니다 : ${ex}`);
-          this.setTempSaveFlag(true);
+          this.setTempSave(true);
         });
     },
     addOnlineUser(i) {

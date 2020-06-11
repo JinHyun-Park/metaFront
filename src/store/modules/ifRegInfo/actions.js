@@ -6,4 +6,8 @@ export default {
   setTempSaveFlag: (store, payload) => {
     store.commit('setTempSaveFlag', payload);
   },
+
+  resetTempSaveFlag: (store, payload) => {
+    store.commit('resetTempSaveFlag', payload);
+  },
 };

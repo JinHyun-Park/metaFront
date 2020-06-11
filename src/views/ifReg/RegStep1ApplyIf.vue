@@ -255,7 +255,7 @@ export default {
     ...mapActions('ifRegInfo', ['setReqNum']),
     ...mapActions('ifRegInfo', ['setTempSaveFlag']),
 
-    setTempSaveFlag(rtn) {
+    setTempSave(rtn) {
       this.setTempSaveFlag({
         step: 'STEP1', rstCd: rtn,
       });
@@ -270,11 +270,11 @@ export default {
         fetchPutIfStep1Reg(this.ifReqMstInfo)
           .then((res) => {
             console.log(res);
-            this.setTempSaveFlag(true);
+            this.setTempSave(true);
           })
           .catch((ex) => {
             console.log(`오류가 발생하였습니다 : ${ex}`);
-            this.setTempSaveFlag(false);
+            this.setTempSave(false);
           });
       } else {
         // this.$axios.post('/api/eai/regTemp', this.regList)
@@ -283,11 +283,11 @@ export default {
             console.log(res);
             this.ifReqMstInfo = res.data.rstData.reqInfo;
             this.setReqNum(this.ifReqMstInfo.reqNum);
-            this.setTempSaveFlag(true);
+            this.setTempSave(true);
           })
           .catch((ex) => {
             console.log(`오류가 발생하였습니다 : ${ex}`);
-            this.setTempSaveFlag(false);
+            this.setTempSave(false);
           });
       }
     },

@@ -597,7 +597,7 @@ export default {
     ...mapActions('ccCdLst', ['setCcCdList']),
     ...mapActions('ifRegInfo', ['setTempSaveFlag']),
 
-    setTempSaveFlag(rtn) {
+    setTempSave(rtn) {
       this.setTempSaveFlag({
         step: 'STEP2MCG', rstCd: rtn,
       });
@@ -812,24 +812,24 @@ export default {
       fetchPutMcgReq(this.mcgReqList)
         .then((res) => {
           console.log(res);
-          this.setTempSaveFlag(true);
+          this.setTempSave(true);
           this.savereqchrgr(this.mcgChrgrList);
           this.savereqserver(this.mcgSvrList);
         })
         .catch((ex) => {
           console.log(`error occur!! : ${ex}`);
-          this.setTempSaveFlag(false);
+          this.setTempSave(false);
         });
     },
     savereqchrgr(chrgrList) {
       fetchPutMcgReqChrgr(chrgrList)
         .then((res) => {
           console.log(res);
-          this.setTempSaveFlag(true);
+          this.setTempSave(true);
         })
         .catch((ex) => {
           console.log(`error occur!! : ${ex}`);
-          this.setTempSaveFlag(false);
+          this.setTempSave(false);
         });
     },
 
@@ -843,11 +843,11 @@ export default {
       fetchPutMcgReqServer(svrList)
         .then((res) => {
           console.log(res);
-          this.setTempSaveFlag(true);
+          this.setTempSave(true);
         })
         .catch((ex) => {
           console.log(`error occur!! : ${ex}`);
-          this.setTempSaveFlag(false);
+          this.setTempSave(false);
         });
     },
   },

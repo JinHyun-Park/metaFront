@@ -179,6 +179,8 @@ export default {
     localStorage.setItem('APPLY_TABNUM', '');
   },
   methods: {
+    ...mapActions('ifRegInfo', ['resetTempSaveFlag']),
+
     tabChange(val) {
       if (this.reqNum != null && this.reqNum !== '') {
         window.scrollTo(0, 0);
@@ -244,6 +246,7 @@ export default {
           if (alert) {
             this.$gf.alertOn('저장되었습니다.');
           }
+          this.resetTempSaveFlag();
           return true;
         }
       } else if (this.tabNum === 2) {
@@ -251,11 +254,15 @@ export default {
           if (alert) {
             this.$gf.alertOn('저장되었습니다.');
           }
+          this.resetTempSaveFlag();
           return true;
         }
       } else {
+        this.resetTempSaveFlag();
         return true;
       }
+
+      this.resetTempSaveFlag();
       return false;
     },
     aprvReq(tgtProcSt) {

@@ -14,4 +14,11 @@ export default {
       state.saveFlag.isStep2McgSaveYn = payload.rstCd;
     }
   },
+
+  resetTempSaveFlag: (state) => {
+    state.saveFlag.isStep1SaveYn = false;
+    state.saveFlag.isStep2EaiSaveYn = false;
+    state.saveFlag.isStep2EigwSaveYn = false;
+    state.saveFlag.isStep2McgaveYn = false;
+  },
 };
