@@ -395,6 +395,7 @@ export default {
       mcgReqNum: '',
       procSt: '',
       reqNum: '',
+      alertYn: false,
       mcgType: '거래',
       opCd: '',
       lnkMthd: '',
@@ -452,6 +453,7 @@ export default {
       if (params.reqNum != null) {
         this.reqNum = params.reqNum;
       }
+      this.alertYn = params.alertYn;
       this.savereq();
     });
     console.log(`parent reqNum : ${this.$parent.reqNum}`);
@@ -638,7 +640,9 @@ export default {
       fetchPutMcgReq(this.reqList)
         .then((res) => {
           console.log(res);
-          this.$gf.alertOn('거래 신청 완료!');
+          if (this.alertYn) {
+            this.$gf.alertOn('거래 신청 완료!');
+          }
           this.savereqchrgr(this.chrgrRows);
         })
         .catch((ex) => {
@@ -649,7 +653,9 @@ export default {
       fetchPutMcgReqChrgr(chrgrList)
         .then((res) => {
           console.log(res);
-          this.$gf.alertOn('채널 담당자 신청 완료!');
+          if (this.alertYn) {
+            this.$gf.alertOn('채널 담당자 신청 완료!');
+          }
         })
         .catch((ex) => {
           console.log(`error occur!! : ${ex}`);
@@ -677,7 +683,9 @@ export default {
       })
         .then((res) => {
           console.log(res);
-          this.$gf.alertOn('채널 서버 신청 완료!');
+          if (this.alertYn) {
+            this.$gf.alertOn('채널 서버 신청 완료!');
+          }
         })
         .catch((ex) => {
           console.log(`error occur!! : ${ex}`);

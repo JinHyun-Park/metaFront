@@ -224,6 +224,8 @@ export default {
           type: Object,
         },
       },
+
+      alertYn: false,
     };
   },
   computed: {
@@ -241,6 +243,7 @@ export default {
     eventBus.$on('Step1ReqMstSave', (params) => {
       console.log('event Bus 통해 Step1 저장');
       this.saveIfReqMst(params.callType);
+      this.alertYn = params.alertYn;
       console.log(`step1 reqnum : ${this.ifReqMstInfo.reqNum}`);
       this.$emit('afterSave', this.ifReqMstInfo.reqNum);
     });
@@ -261,7 +264,9 @@ export default {
         fetchPutIfStep1Reg(this.ifReqMstInfo)
           .then((res) => {
             console.log(res);
-            this.$gf.alertOn('저장되었습니다.');
+            if (this.alertYn) {
+              this.$gf.alertOn('저장되었습니다.');
+            }
           })
           .catch((ex) => {
             console.log(`오류가 발생하였습니다 : ${ex}`);
@@ -273,7 +278,9 @@ export default {
             console.log(res);
             this.ifReqMstInfo = res.data.rstData.reqInfo;
             this.setReqNum(this.ifReqMstInfo.reqNum);
-            this.$gf.alertOn('작성하신 내용이 저장 되었습니다.');
+            if (this.alertYn) {
+              this.$gf.alertOn('작성하신 내용이 저장 되었습니다.');
+            }
           })
           .catch((ex) => {
             console.log(`오류가 발생하였습니다 : ${ex}`);

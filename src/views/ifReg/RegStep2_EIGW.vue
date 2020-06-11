@@ -745,6 +745,7 @@ export default {
       },
 
       reqNum: '',
+      alertYn: false,
       eigwReqNum: '',
       eigwType: '',
       procSt: '',
@@ -834,6 +835,7 @@ export default {
       if (params.reqNum != null) {
         this.reqNum = params.reqNum;
       }
+      this.alertYn = params.alertYn;
       this.saveEigwTemp();
     });
   },
@@ -957,7 +959,9 @@ export default {
       fetchEigwReqSave(this.saveData)
         .then((res) => {
           console.log(res);
-          this.$gf.alertOn('저장 되었습니다');
+          if (this.alertYn) {
+            this.$gf.alertOn('저장 되었습니다');
+          }
         })
         .catch((ex) => {
           console.log(`오류가 발생하였습니다 : ${ex}`);
@@ -1066,11 +1070,9 @@ export default {
             this.$gf.alertOn('담당자 정보를 입력하세요');
             return 0;
           }
-        } else {
-          if (this.onlineUserList[i].userId === undefined || this.onlineUserList[i].userId === '') {
-            this.$gf.alertOn('담당자 정보를 입력하세요');
-            return 0;
-          }
+        } else if (this.onlineUserList[i].userId === undefined || this.onlineUserList[i].userId === '') {
+          this.$gf.alertOn('담당자 정보를 입력하세요');
+          return 0;
         }
       }
       return 1;
@@ -1251,11 +1253,9 @@ export default {
             this.$gf.alertOn('담당자 정보를 입력하세요');
             return 0;
           }
-       } else {
-          if (this.fileUserList[i].userId === undefined || this.fileUserList[i].userId === '') {
-            this.$gf.alertOn('담당자 정보를 입력하세요');
-            return 0;
-          }
+        } else if (this.fileUserList[i].userId === undefined || this.fileUserList[i].userId === '') {
+          this.$gf.alertOn('담당자 정보를 입력하세요');
+          return 0;
         }
       }
       return 1;

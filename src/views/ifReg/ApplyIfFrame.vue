@@ -57,7 +57,7 @@
     />
     <section class="btm_button_area">
       <button
-        v-if="tabNum !== 1"
+        v-if="isBtnPrev"
         type="button"
         class="default_button btn_prev disabled"
         @click="toBeforeTab"
@@ -65,7 +65,7 @@
         이전
       </button>
       <button
-        v-if="tabNum !== 4"
+        v-if="isBtnForw"
         type="button"
         class="default_button btn_next"
         @click="toNextTab"
@@ -73,15 +73,15 @@
         다음
       </button>
       <button
-        v-if="tabNum !== 4 && (procSt == null || procSt === '1')"
+        v-if="isBtnTempSave"
         type="button"
         class="default_button on"
-        @click="tempSave"
+        @click="tempSave('btnTemp')"
       >
         임시저장
       </button>
       <button
-        v-if="tabNum === 3 && (procSt == null || procSt === '1')"
+        v-if="isBtnApprReq"
         type="button"
         class="default_button on"
         @click="aprvReq(2)"
@@ -89,7 +89,7 @@
         승인요청
       </button>
       <button
-        v-if="tabNum === 4 && procSt === '2'"
+        v-if="isBtnAppr"
         type="button"
         class="default_button on"
         @click="aprvReq(3)"
@@ -97,7 +97,7 @@
         승인
       </button>
       <button
-        v-if="tabNum === 4 && procSt === '2'"
+        v-if="isBtnReject"
         type="button"
         class="default_button on"
         @click="aprvReq(1)"
@@ -130,7 +130,20 @@ export default {
       reqNum: '',
 
       tabNum: '',
+
+      isBtnPrev: false,
+      isBtnForw: false,
+      isBtnTempSave: false,
+      isBtnApprReq: false,
+      ifBtnAppr: false,
+      ifBtnReject: false,
+
     };
+  },
+  watch: {
+    tabNum() {
+      this.setBtnShow();
+    },
   },
   created() {
     if (this.$gf.isEmpty(localStorage.getItem('APPLY_TABNUM'))) {
@@ -163,9 +176,23 @@ export default {
   },
   methods: {
     tabChange(val) {
-      window.scrollTo(0, 0);
-      this.tabNum = val;
-      localStorage.setItem('APPLY_TABNUM', this.tabNum);
+      if (this.reqNum != null && this.reqNum !== '') {
+        window.scrollTo(0, 0);
+        this.tabNum = val;
+        localStorage.setItem('APPLY_TABNUM', this.tabNum);
+      } else {
+        this.$gf.alertOn('기본정보 입력 후에 이동 가능합니다.');
+      }
+    },
+    setBtnShow() {
+      // tabNum : 1(기본정보입력) / 2(인터페이스 상세) / 3(승인요청) / 4(승인)
+      // procSt : 1(임시저장) / 2(승인요청)
+      this.isBtnPrev = (this.tabNum > 1);
+      this.isBtnForw = (this.tabNum < 3);
+      this.isBtnTempSave = (this.tabNum < 4 && (this.procSt == null || this.procSt === '1'));
+      this.isBtnApprReq = (this.tabNum === 3 && (this.procSt == null || this.procSt === '1'));
+      this.isBtnAppr = (this.tabNum === 4 && this.procSt === '2');
+      this.isBtnReject = (this.tabNum === 4 && this.procSt === '2');
     },
     isActive(val) {
       return this.tabNum === val;
@@ -173,7 +200,7 @@ export default {
     toNextTab() {
       window.scrollTo(0, 0);
       if (this.procSt === '1') {
-        this.tempSave();
+        this.tempSave('btnTab');
       }
       this.tabNum = this.tabNum + 1;
       localStorage.setItem('APPLY_TABNUM', this.tabNum);
@@ -181,7 +208,7 @@ export default {
     toBeforeTab() {
       window.scrollTo(0, 0);
       if (this.procSt === '1') {
-        this.tempSave();
+        this.tempSave('btnTab');
       }
       this.tabNum = this.tabNum - 1;
       localStorage.setItem('APPLY_TABNUM', this.tabNum);
@@ -191,21 +218,18 @@ export default {
       this.reqNum = reqNum;
       // alert(this.reqNum);
     },
-    tempSave() {
+    tempSave(callMeth) {
       console.log('tempSave');
+      const alert = (callMeth === 'btnTemp');
       if (this.tabNum === 1) { // 신청 개요 데이터
-        eventBus.$emit('Step1ReqMstSave', { reqNum: this.reqNum, callType: this.callType });
+        eventBus.$emit('Step1ReqMstSave', { reqNum: this.reqNum, callType: this.callType, alertYn: alert });
       } else if (this.tabNum === 2) { // 각단계 별 신청 데이터
-        eventBus.$emit('Step2EaiSave', { reqNum: this.reqNum });
-        eventBus.$emit('Step2EigwSave', { reqNum: this.reqNum });
-        eventBus.$emit('Step2McgSave', { reqNum: this.reqNum });
+        eventBus.$emit('Step2EaiSave', { reqNum: this.reqNum, alertYn: alert });
+        eventBus.$emit('Step2EigwSave', { reqNum: this.reqNum, alertYn: alert });
+        eventBus.$emit('Step2McgSave', { reqNum: this.reqNum, alertYn: alert });
       } else if (this.tabNum === 3) { // 최종 승인요청 화면
         eventBus.$emit('Step3AprvSave', { reqNum: this.reqNum });
       }
-
-      // eventBus.$emit('tempSave1');
-      // eventBus.$emit('tempSave2', { dat: 'data1111' });
-      // eventBus.$emit('tempSave3', 'data222222');
     },
     aprvReq(tgtProcSt) {
       if (this.tabNum === 3) {
