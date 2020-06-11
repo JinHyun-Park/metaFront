@@ -25,7 +25,7 @@
           2. 인터페이스 상세정보 입력
         </li>
         <li
-          v-if="procSt === '1'"
+          v-if="procSt === '1' || procSt == null"
           class="step"
           :class="{on: isActive(3)}"
           @click="tabChange(3)"
@@ -33,7 +33,7 @@
           3. 신청 내용 확인 및 승인요청
         </li>
         <li
-          v-if="procSt != '0' && procSt != '1'"
+          v-if="procSt != null && procSt != '0' && procSt != '1'"
           class="step"
           :class="{on: isActive(4)}"
           @click="tabChange(4)"
@@ -73,7 +73,7 @@
         다음
       </button>
       <button
-        v-if="tabNum !== 4 && procSt === '1'"
+        v-if="tabNum !== 4 && (procSt == null || procSt === '1')"
         type="button"
         class="default_button on"
         @click="tempSave"
@@ -81,7 +81,7 @@
         임시저장
       </button>
       <button
-        v-if="tabNum === 3 && procSt === '1'"
+        v-if="tabNum === 3 && (procSt == null || procSt === '1')"
         type="button"
         class="default_button on"
         @click="aprvReq(2)"
