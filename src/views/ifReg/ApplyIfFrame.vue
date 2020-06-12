@@ -148,6 +148,7 @@ export default {
     },
   },
   created() {
+    this.setReqNum({ reqNum: null });
     if (this.$gf.isEmpty(localStorage.getItem('APPLY_TABNUM'))) {
       this.tabNum = 1;
     } else {

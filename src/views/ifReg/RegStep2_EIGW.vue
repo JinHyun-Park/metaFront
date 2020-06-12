@@ -822,7 +822,9 @@ export default {
     ...mapState('ifRegInfo', ['reqNum']),
   },
   created() {
-    this.searchList(this.reqNum);
+    if (this.$route.params.callType === 'update') {
+      this.searchList(this.reqNum);
+    }
 
     eventBus.$on('Step2EigwSave', () => {
       this.saveEigwTemp();
