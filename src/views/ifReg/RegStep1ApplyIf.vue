@@ -232,7 +232,10 @@ export default {
   },
   mounted() {
     this.today = this.$gf.dateToString(new Date(), '', 'Y');
-    this.getIfReqMst(this.reqNum);
+    console.log(`callType : ${this.$route.params.callType}]`);
+    if (this.$route.params.callType === 'update') {
+      this.getIfReqMst(this.reqNum);
+    }
   },
   created() {
     eventBus.$on('Step1ReqMstSave', (params) => {
@@ -284,10 +287,10 @@ export default {
       }
     },
     getIfReqMst(value) {
-      if (value === null) {
-        this.$gf.alertOn('작성하신 내용이 저장 되었습니다.');
-        return;
-      }
+      // if (value === null) {
+      //   this.$gf.alertOn('작성하신 내용이 저장 되었습니다.');
+      //   return;
+      // }
       fetchGetIfReqMst({
         params: {
           reqNum: value,
@@ -295,7 +298,9 @@ export default {
       })
         .then((res) => {
           console.log(res);
-          this.ifReqMstInfo = res.data.rstData.ifReqMst;
+          if (res.data.rstCd === 'S') {
+            this.ifReqMstInfo = res.data.rstData.ifReqMst;
+          }
           // this.setReqNum(this.ifReqMstInfo.reqNum);
           // this.$gf.alertOn('작성하신 내용이 저장 되었습니다.');
         })
