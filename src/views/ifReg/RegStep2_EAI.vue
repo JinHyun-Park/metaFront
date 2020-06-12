@@ -1024,7 +1024,9 @@ export default {
   },
 
   created() {
-    this.getEaiRegTempList(this.reqNum);
+    if (this.$route.params.callType === 'update') {
+      this.getEaiRegTempList(this.reqNum);
+    }
 
     eventBus.$on('Step2EaiSave', () => {
       console.log('event Bus 통해 eai 저장');

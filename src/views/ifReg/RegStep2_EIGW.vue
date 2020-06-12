@@ -112,7 +112,7 @@
               <li class="td_cell">
                 <i
                   class="ico-del"
-                  @click="delOnlineInfo(i)"
+                  @click="delOnlineInfo(row)"
                 />
               </li>
             </ul>
@@ -450,7 +450,7 @@
               <li class="td_cell">
                 <i
                   class="ico-del"
-                  @click="delFileInfo(i)"
+                  @click="delFileInfo(row)"
                 />
               </li>
             </ul>
@@ -822,7 +822,9 @@ export default {
     ...mapState('ifRegInfo', ['reqNum']),
   },
   created() {
-    this.searchList(this.reqNum);
+    if (this.$route.params.callType === 'update') {
+      this.searchList(this.reqNum);
+    }
 
     eventBus.$on('Step2EigwSave', () => {
       this.saveEigwTemp();
@@ -974,25 +976,13 @@ export default {
         this.onlineUserList[0].emailAddr = '';
       }
     },
-    delOnlineInfo(i) {
+    delOnlineInfo(row) {
       console.log('행 삭제!');
-      if (this.onlineList.length > 1) {
-        console.log('행 삭제!');
-        const idx = this.onlineList.indexOf(i);
-        this.onlineList.splice(idx, 1);
-      } else {
-        this.onlineList[0].eigwIfId = '';
-        this.onlineList[0].eigwIfNm = '';
-        this.onlineList[0].instNm = '';
-        this.onlineList[0].instCd = '';
-        this.onlineList[0].eigwRmk = '';
-        this.onlineList[0].pgmTyp = '';
-        this.onlineList[0].linkTyp = '';
-        this.onlineList[0].devRealIp = '';
-        this.onlineList[0].devPort = '';
-        this.onlineList[0].prodRealIp = '';
-        this.onlineList[0].prodPort = '';
-      }
+      const idx = this.onlineList.indexOf(row);
+      this.onlineList.splice(idx, 1);
+
+      this.emptyOnlineIfFields();
+
     },
     emptyOnlineIfFields() {
       this.onlineInfo.eigwIfId = '';
@@ -1154,25 +1144,14 @@ export default {
         this.fileUserList[0].emailAddr = '';
       }
     },
-    delFileInfo(i) {
+    delFileInfo(row) {
       console.log('행 삭제!');
-      if (this.fileList.length > 1) {
-        console.log('행 삭제!');
-        const idx = this.fileList.indexOf(i);
-        this.fileList.splice(idx, 1);
-      } else {
-        this.fileList[0].eigwIfId = '';
-        this.fileList[0].eigwIfNm = '';
-        this.fileList[0].instNm = '';
-        this.fileList[0].instCd = '';
-        this.fileList[0].eigwRmk = '';
-        this.fileList[0].srFlag = '';
-        this.fileList[0].fileNm = '';
-        this.fileList[0].devRealIp = '';
-        this.fileList[0].devPort = '';
-        this.fileList[0].prodRealIp = '';
-        this.fileList[0].prodPort = '';
-      }
+
+      const idx = this.fileList.indexOf(row);
+      this.fileList.splice(idx, 1);
+      
+      this.emptyFileIfFields();
+
     },
     emptyFileIfFields() {
       this.fileInfo.eigwIfId = '';

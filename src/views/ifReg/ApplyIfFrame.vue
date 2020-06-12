@@ -148,6 +148,7 @@ export default {
     },
   },
   created() {
+    this.setReqNum({ reqNum: null });
     if (this.$gf.isEmpty(localStorage.getItem('APPLY_TABNUM'))) {
       this.tabNum = 1;
     } else {
@@ -209,7 +210,7 @@ export default {
     },
     toNextTab() {
       window.scrollTo(0, 0);
-      if (this.procSt === '1') {
+      if (this.procSt === '1' || this.procSt == null) {
         if (!this.tempSave('btnTab')) {
           return;
         }
@@ -219,7 +220,7 @@ export default {
     },
     toBeforeTab() {
       window.scrollTo(0, 0);
-      if (this.procSt === '1') {
+      if (this.procSt === '1' || this.procSt == null) {
         if (!this.tempSave('btnTab')) {
           return;
         }

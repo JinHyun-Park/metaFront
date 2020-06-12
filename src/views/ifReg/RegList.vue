@@ -281,7 +281,7 @@ export default {
     },
     newApply() {
       //ifReg/applyIf
-      this.$router.push({ name: 'applyIf' });
+      this.$router.push({ name: 'applyIf', callType: 'insert' });
     },
     detail(i) {
       this.$router.push({ name: 'applyIf', params: { reqNum: this.ifReqList[i].reqNum, callType:'update', procSt: this.ifReqList[i].procSt }})

@@ -464,7 +464,9 @@ export default {
     this.today = this.$gf.dateToString(new Date(), '', 'Y');
   },
   created() {
-    this.listing(this.reqNum);
+    if (this.$route.params.callType === 'update') {
+      this.listing(this.reqNum);
+    }
     eventBus.$on('Step2McgSave', () => {
       console.log('event Bus 통해 mcg 저장');
       this.savereq();
