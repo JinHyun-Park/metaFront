@@ -1074,7 +1074,7 @@ export default {
             this.$gf.alertOn('대외기관 담당자 정보를 입력하세요');
             return;
           }
-       } else {
+        } else {
           if (this.outChrgrList[i].userId === undefined || this.outChrgrList[i].userId === '') {
             this.$gf.alertOn('대외기관 담당자 정보를 입력하세요');
             return;
@@ -1127,7 +1127,7 @@ export default {
             this.$gf.alertOn('대외기관 담당자 정보를 입력하세요');
             return;
           }
-       } else {
+        } else {
           if (this.outChrgrList[i].userId === undefined || this.outChrgrList[i].userId === '') {
             this.$gf.alertOn('대외기관 담당자 정보를 입력하세요');
             return;
