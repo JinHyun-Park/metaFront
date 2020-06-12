@@ -100,10 +100,10 @@
           </div>
           <div class="table_body">
             <ul
-              v-for="req in reqList"
-              :key="req.index"
+              v-for="(req, idx) in reqList"
+              :key="idx"
               class="table_row w-auto"
-              @click="dtlReq(req)"
+              @click="dtlReq(req, idx)"
             >
               <li
                 class="td_cell"
@@ -217,7 +217,7 @@
         </div>
         <div class="column on w-2">
           <label class="column_label">요청일자</label>
-          <div class="calander_group first_cal">
+          <div class="calander_group">
             <input
               v-model="reqDt"
               type="text"
@@ -225,18 +225,13 @@
             <span class="calander">
               <i class="ico-cal" />
             </span>
-          </div>
-        </div>
-        <div class="column w-2">
-          <label class="column_label">&nbsp;</label>
-          <div class="calander_group">
-            <input
-              type="text"
-              value="2019-08-07"
-            >
-            <span class="calander">
-              <i class="ico-cal" />
-            </span>
+            <datepicker
+              :value="reqDt"
+              :min="today"
+              :day-str="datePickerSet.dayStr"
+              :popper-props="datePickerSet.popperProps"
+              @input="inputreqDt"
+            />
           </div>
         </div>
         <div class="column w-1" />
@@ -444,6 +439,7 @@ import {
   fetchPutMcgReq,
   fetchPutMcgReqChrgr,
   fetchPutMcgReqServer,
+  fetchGetMcgReqNum,
 } from '@/api/mcgApi';
 import eventBus from '@/utils/eventBus';
 import VirtualUserApplyPopup from '@/components/popup/meta/mcg/VirtualUserApplyPopup.vue';
@@ -552,6 +548,13 @@ export default {
       mcgReqList: {},
       mcgSvrList: {},
       mcgChrgrList: {},
+      datePickerSet: {
+        dayStr: this.$gf.getCalDaySet(),
+        popperProps: {
+          type: Object,
+        },
+      },
+      today: '',
 
     };
   },
@@ -576,6 +579,7 @@ export default {
   // },
 
   mounted() {
+    this.today = this.$gf.dateToString(new Date(), '', 'Y');
     eventBus.$emit('VirtualReqNum', this.reqsendList);
   },
   destroyed() {
@@ -589,6 +593,13 @@ export default {
       this.setTempSaveFlag({
         step: 'STEP2MCG', rstCd: rtn,
       });
+    },
+
+    reqsetting() {
+      this.mcgReqNum = fetchGetMcgReqNum();
+    },
+    inputreqDt(val) {
+      this.reqDt = val;
     },
 
     virtualshow() {
@@ -672,6 +683,7 @@ export default {
 
     listing(req) {
       console.log('채널 신청 목록 조회!');
+      this.reqList.splice(0, 1);
       // this.$axios.get('/api/mcg/chnl', {
       fetchGetMcgReqList({
         params: {
@@ -717,6 +729,7 @@ export default {
       if (this.checksave() === 0) {
         return;
       }
+      this.reqsetting();
       this.reqList.push({
         mcgReqNum: this.mcgReqNum,
         reqNum: this.reqNum,
@@ -743,7 +756,7 @@ export default {
       });
 
       this.emptyMcgFields();
-      // this.savereq();
+      this.savereq();
     },
 
     remove(req) {
@@ -825,9 +838,9 @@ export default {
         });
     },
 
-    dtlReq(req) {
+    dtlReq(req, idx) {
       // let svrinfotemp = [];
-      console.log('상세신청정보조회!');
+      console.log('상세신청정보조회!', idx);
       this.dtlshow(req);
       console.log(this.reqdtl);
     },

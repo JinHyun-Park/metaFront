@@ -231,15 +231,22 @@
         </div>
         <div class="column w-1">
           <label class="column_label">요청일자</label>
-          <div class="calander_group disabled">
+          <div class="calander_group">
             <input
+              v-model="reqDt"
               type="text"
-              value="2019-07-08"
-              disabled
+              value=""
             >
             <span class="calander">
               <i class="ico-cal" />
             </span>
+            <datepicker
+              :value="reqDt"
+              :min="today"
+              :day-str="datePickerSet.dayStr"
+              :popper-props="datePickerSet.popperProps"
+              @input="inputreqDt"
+            />
           </div>
         </div>
         <div class="column w-1" />
@@ -440,11 +447,21 @@ export default {
       ],
       mcgReqList: {},
       mcgChrgrList: {},
+      datePickerSet: {
+        dayStr: this.$gf.getCalDaySet(),
+        popperProps: {
+          type: Object,
+        },
+      },
+      today: '',
 
     };
   },
   computed: {
     ...mapState('ifRegInfo', ['reqNum']),
+  },
+  mounted() {
+    this.today = this.$gf.dateToString(new Date(), '', 'Y');
   },
   created() {
     this.listing(this.reqNum);
@@ -511,7 +528,9 @@ export default {
       if (idx === 0) { this.chrgrRows.push({}); }
     },
 
-
+    inputreqDt(val) {
+      this.reqDt = val;
+    },
     addDataChrgr(val) {
       console.log(`Popup에서 받아온 Data : ${val}`);
 
