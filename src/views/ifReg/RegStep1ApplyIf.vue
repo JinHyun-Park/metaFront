@@ -277,7 +277,7 @@ export default {
           .then((res) => {
             console.log(res);
             this.ifReqMstInfo = res.data.rstData.reqInfo;
-            this.setReqNum(this.ifReqMstInfo.reqNum);
+            this.setReqNum({ reqNum: this.ifReqMstInfo.reqNum });
             this.setTempSave(true);
           })
           .catch((ex) => {

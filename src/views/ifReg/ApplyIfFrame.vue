@@ -210,7 +210,7 @@ export default {
     },
     toNextTab() {
       window.scrollTo(0, 0);
-      if (this.procSt === '1') {
+      if (this.procSt === '1' || this.procSt == null) {
         if (!this.tempSave('btnTab')) {
           return;
         }
@@ -220,7 +220,7 @@ export default {
     },
     toBeforeTab() {
       window.scrollTo(0, 0);
-      if (this.procSt === '1') {
+      if (this.procSt === '1' || this.procSt == null) {
         if (!this.tempSave('btnTab')) {
           return;
         }
