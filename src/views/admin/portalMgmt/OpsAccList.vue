@@ -21,6 +21,7 @@
             v-model="userId"
             type="text"
             value=""
+            @keyup.enter="searchList()"
           >
         </div>
         <div class="column on w-2">
@@ -29,6 +30,7 @@
             v-model="hanNm"
             type="text"
             value=""
+            @keyup.enter="searchList()"
           >
         </div>
         <div class="column w-1">

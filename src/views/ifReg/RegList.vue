@@ -80,6 +80,7 @@
               v-model="reqTitle"
               type="text"
               value=""
+              @keyup.enter="searchList(1)"
             >
           </div>
         </div>
