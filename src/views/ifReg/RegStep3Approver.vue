@@ -117,123 +117,50 @@
 
     <section class="info_title small">
       <em class="sub_tit">MCG</em>
-      <i class="ico-remove" />
     </section>
     <section class="form_area border_group">
-      <div class="row_contain odd type-1">
-        <div class="column on w-1">
-          <label class="column_label">업무코드</label>
-          <input
-            type="text"
-            value="FILE_0945OIK2S"
+      <div class="table_grid">
+        <div class="table_head w-auto">
+          <ul>
+            <li class="th_cell">
+              구분
+            </li>
+            <li class="th_cell">
+              채널ID
+            </li>
+            <li class="th_cell">
+              연동방식
+            </li>
+            <li class="th_cell">
+              채널유형
+            </li>
+            <li class="th_cell">
+              거래명
+            </li>
+          </ul>
+        </div>
+        <div class="table_body">
+          <ul
+            v-for="(row, i) in mcgList"
+            :key="i"
+            class="table_row w-auto"
           >
-        </div>
-        <div class="column w-1">
-          <label class="column_label">기관코드</label>
-          <input
-            type="text"
-            value="JOP369"
-          >
-        </div>
-        <div class="column w-1">
-          <label class="column_label">채널그룹</label>
-          <input
-            type="text"
-            value="OPGROUP"
-          >
-        </div>
-        <div class="column w-1">
-          <label class="column_label">채널유형</label>
-          <input
-            type="text"
-            value="channeltype_01"
-          >
-        </div>
-        <div class="column w-1">
-          <label class="column_label">연동방식</label>
-          <div class="select_group disabled">
-            <select disabled>
-              <option value="">
-                Y
-              </option>
-              <option
-                value=""
-                selected
-              >
-                N
-              </option>
-            </select>
-            <span class="select" />
-          </div>
-        </div>
-      </div>
-      <div class="row_contain odd type-3">
-        <div class="column on w-1">
-          <label class="column_label">채널담당자1</label>
-          <div class="search_group">
-            <input
-              type="text"
-              value="유영준"
-            >
-            <span class="search">
-              <i class="ico-search" />
-            </span>
-          </div>
-        </div>
-        <div class="column w-1">
-          <label class="column_label">채널담당자2</label>
-          <div class="search_group">
-            <input
-              type="text"
-              value=""
-            >
-            <span class="search">
-              <i class="ico-search" />
-            </span>
-          </div>
-        </div>
-        <div class="column w-1">
-          <label class="column_label">채널담당자3</label>
-          <div class="search_group">
-            <input
-              type="text"
-              value=""
-            >
-            <span class="search">
-              <i class="ico-search" />
-            </span>
-          </div>
-        </div>
-        <div class="column w-1">
-          <label class="column_label">적용서버</label>
-          <input
-            type="text"
-            value="OPGROUP"
-          >
-        </div>
-        <div class="column w-1">
-          <label class="column_label">개발언어</label>
-          <input
-            type="text"
-            value="channeltype_01"
-          >
-        </div>
-        <div class="column w-1">
-          <label class="column_label">Java Container</label>
-          <div class="select_group">
-            <select>
-              <option
-                value=""
-                selected
-              >
-                Y
-              </option>
-              <option value="">
-                N
-              </option>
-            </select>
-            <span class="select" />
-          </div>
+            <li class="td_cell">
+              {{ row.mcgType }}
+            </li>
+            <li class="td_cell">
+              {{ row.chnlId }}
+            </li>
+            <li class="td_cell">
+              {{ row.lnkMthd }}
+            </li>
+            <li class="td_cell">
+              {{ row.chnlTyp }}
+            </li>
+            <li class="td_cell">
+              {{ row.tp }}
+            </li>
+          </ul>
         </div>
       </div>
     </section>
@@ -332,6 +259,7 @@ export default {
 
       eaiList: [],
       eigwList: [],
+      mcgList: [],
     };
   },
   computed: {
@@ -380,6 +308,7 @@ export default {
           console.log(res);
           this.eaiList = res.data.rstData.ifReqEaiList;
           this.eigwList = res.data.rstData.ifReqEigwList;
+          this.mcgList = res.data.rstData.ifReqMcgList;
           console.log(this.eaiList.length);
         })
         .catch((ex) => {

@@ -157,18 +157,6 @@ export default {
     this.setParams();
   },
   mounted() {
-
-
-    // if (this.$route.params.reqNum != null) {
-    //   this.setReqNum(this.$route.params.reqNum);
-
-    //   // eventBus.$emit('Step1GetIfReqMst', { reqNum: this.$route.params.reqNum });
-    //   // eventBus.$emit('Step2GetEAIReqMst', { reqNum: this.$route.params.reqNum });
-    //   // eventBus.$emit('Step2GetEIGWReqMst', { reqNum: this.$route.params.reqNum });
-    //   // eventBus.$emit('Step2GetMCGReqMst', { reqNum: this.$route.params.reqNum });
-    //   // eventBus.$emit('Step3GetAprvReqMst', { reqNum: this.$route.params.reqNum });
-    //   // eventBus.$emit('Step4GetAprvReqMst', { reqNum: this.$route.params.reqNum });
-    // }
   },
   destroyed() {
     localStorage.setItem('APPLY_TABNUM', '');
@@ -200,7 +188,7 @@ export default {
       // procSt : 1(임시저장) / 2(승인요청)
       this.isBtnPrev = (this.tabNum > 1);
       this.isBtnForw = (this.tabNum < 3);
-      this.isBtnTempSave = (this.tabNum < 4 && (this.procSt == null || this.procSt === '1'));
+      this.isBtnTempSave = (this.tabNum < 3 && (this.procSt == null || this.procSt === '1'));
       this.isBtnApprReq = (this.tabNum === 3 && (this.procSt == null || this.procSt === '1'));
       this.isBtnAppr = (this.tabNum === 4 && this.procSt === '2');
       this.isBtnReject = (this.tabNum === 4 && this.procSt === '2');
