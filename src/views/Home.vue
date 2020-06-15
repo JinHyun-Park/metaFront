@@ -618,7 +618,8 @@ export default {
     this.fillData();
   },
   mounted() {
-    this.startReqDtm = this.$gf.dateToString(new Date(), '-7d', 'Y');
+    // 3달 전 보기
+    this.startReqDtm = this.$gf.dateToString(new Date(), '-3m', 'Y');
     this.endReqDtm = this.$gf.dateToString(new Date(), '', 'Y');
     this.searchList();
   },
@@ -682,7 +683,6 @@ export default {
             // this.boardList = this.$gf.parseRtnData(this.pageSet, res.data.rstData.board, 'Y')
             this.boardList = res.data.rstData.board;
             this.pageSet = res.data.rstData.pageSet;
-            console.log(this.pageSet);
           } else {
             // eslint-disable-next-line no-alert
             alert('failed');

@@ -261,6 +261,7 @@
           목록
         </button>
         <button
+          v-if="(`${auth}` == 'ADMIN')"
           type="button"
           class="default_button"
           @click="moveToWrite(boardNum)"
@@ -268,6 +269,7 @@
           수정
         </button>
         <button
+          v-if="(`${auth}` == 'ADMIN')"
           type="button"
           class="default_button on"
           @click="deleteBoard(boardNum)"
@@ -281,6 +283,7 @@
 
 <script>
 import { fetchGetBoard, fetchDeleteBoard } from '@/api/bizCommApi';
+import { fetchGetUserAuth } from '@/api/loginApi';
 
 export default {
   name: 'NoticeView',
@@ -302,6 +305,7 @@ export default {
       creDt: '',
       chgDt: '',
       boardStName: '',
+      auth: '',
     };
   },
   computed: {
@@ -312,6 +316,7 @@ export default {
   created() {
     this.boardNum = this.$route.params.boardNum;
     this.searchBoard();
+    this.getUserAuth();
   },
   methods: {
     moveToNotiMain() {
@@ -386,6 +391,21 @@ export default {
             this.$gf.alertOn(res.data.rstMsg);
           }
         })
+        .catch((ex) => {
+          console.log(`error occur!! : ${ex}`);
+        });
+    },
+    getUserAuth() {
+      fetchGetUserAuth({
+
+      }).then((res) => {
+        console.log(res);
+        if (res.data.rstCd === 'S') {
+          // 대괄호 제거
+          this.auth = res.data.rstData.auth.replace(/[\[\]]/gi, '');
+          console.log(this.auth);
+        }
+      })
         .catch((ex) => {
           console.log(`error occur!! : ${ex}`);
         });

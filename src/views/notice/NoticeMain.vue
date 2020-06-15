@@ -127,10 +127,12 @@
               </li>
               <li class="td_cell">
                 <i
+                  v-if="(`${auth}` == 'ADMIN')"
                   class="ico-edit"
                   @click="moveToWrite(board.BOARD_NUM)"
                 />
                 <i
+                  v-if="(`${auth}` == 'ADMIN')"
                   class="ico-del"
                   @click="deleteBoard(board.BOARD_NUM)"
                 />
@@ -156,6 +158,7 @@
 
     <section class="btm_button_area">
       <button
+        v-if="(`${auth}` == 'ADMIN')"
         type="button"
         class="default_button on"
         @click="moveToCreate()"
@@ -168,6 +171,7 @@
 
 <script>
 import { fetchGetBoardList, fetchDeleteBoard } from '@/api/bizCommApi';
+import { fetchGetUserAuth } from '@/api/loginApi';
 
 export default {
   name: 'NoticeMain',
@@ -183,12 +187,15 @@ export default {
       },
       pageSet: { pageNo: 1, pageCount: 0, size: 10 },
       boardList: [],
+      auth: '',
     };
   },
   mounted() {
-    this.startReqDtm = this.$gf.dateToString(new Date(), '-7d', 'Y');
+    // 3달 전 보기
+    this.startReqDtm = this.$gf.dateToString(new Date(), '-3m', 'Y');
     this.endReqDtm = this.$gf.dateToString(new Date(), '', 'Y');
     this.searchList();
+    this.getUserAuth();
   },
   methods: {
     moveToView(boardNum) {
@@ -241,7 +248,6 @@ export default {
             // this.boardList = this.$gf.parseRtnData(this.pageSet, res.data.rstData.board, 'Y')
             this.boardList = res.data.rstData.board;
             this.pageSet = res.data.rstData.pageSet;
-            console.log(this.pageSet);
           } else {
             // eslint-disable-next-line no-alert
             alert('failed');
@@ -267,6 +273,22 @@ export default {
             this.$gf.alertOn(res.data.rstMsg);
           }
         })
+        .catch((ex) => {
+          console.log(`error occur!! : ${ex}`);
+        });
+    },
+
+    getUserAuth() {
+      fetchGetUserAuth({
+
+      }).then((res) => {
+        console.log(res);
+        if (res.data.rstCd === 'S') {
+          // 대괄호 제거
+          this.auth = res.data.rstData.auth.replace(/[\[\]]/gi, '');
+          console.log(this.auth);
+        }
+      })
         .catch((ex) => {
           console.log(`error occur!! : ${ex}`);
         });

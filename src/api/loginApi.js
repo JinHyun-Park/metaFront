@@ -27,6 +27,10 @@ function fetchGetLogout(param) {
   return axios.get(`${preUrl}/logout`, param);
 }
 
+function fetchGetUserAuth() {
+  return axios.get(`${preUrl}/user/auth`);
+}
+
 export {
   fetchResetPasswd,
   fetchLoginProc,
@@ -34,4 +38,5 @@ export {
   fetchGetUserInfoList,
   fetchGetLogout,
   fetchResetPasswdAdmin,
+  fetchGetUserAuth,
 };
