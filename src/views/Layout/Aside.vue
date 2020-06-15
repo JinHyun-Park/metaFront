@@ -90,6 +90,9 @@ export default {
       } else if (path.indexOf('/meta/') > -1) {
         this.subNm = 'META';
         this.menuLists = this.menuAllList.filter(item => item.menuLcl === 'META');
+      } else if (path.indexOf('/stat/') > -1) {
+        this.subNm = '통계';
+        this.menuLists = this.menuAllList.filter(item => item.menuLcl === 'STAT');
       } else if (path.indexOf('/admin/ifMgmt/comm/') > -1) {
         this.subNm = '공통';
         this.menuLists = this.menuAllList.filter(item => item.menuLcl === 'MGMT_COMM');

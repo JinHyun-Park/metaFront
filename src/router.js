@@ -157,6 +157,29 @@ const router = new Router({
     },
     ],
   },
+  // 4. 통계
+  {
+    path: '/stat',
+    name: 'statForm',
+    component: () => import('@/views/stat/StatForm.vue'),
+    children: [
+      { // EAI 시작
+        path: '/stat/eai',
+        name: 'statEai',
+        component: () => import('@/views/stat/eai/eaiDailyStat.vue'),
+      },
+      {
+        path: '/stat/eigw',
+        name: 'statEigw',
+        component: () => import('@/views/stat/eigw/eigwDailyStat.vue'),
+      },
+      {
+        path: '/stat/mcg',
+        name: 'statMcg',
+        component: () => import('@/views/stat/mcg/mcgDailyStat.vue'),
+      },
+    ],
+  },
   // 4. 메타정보 관리
   {
     path: '/admin',
