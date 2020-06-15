@@ -45,6 +45,9 @@
           </div>
         </div>
       </div>
+      <div class="row_contain chart_area dashboard">
+        <reactive-bar-chart :chart-data="datacollection" />
+      </div>
       <div class="table_colgroup">
         <div class="table_grid radio_group">
           <div class="table_head w-auto">
@@ -169,17 +172,27 @@
 <script>
 import { mapState, mapActions } from 'vuex';
 import { fetchGetUserInfoList } from '@/api/loginApi';
+import LineChart from '../../chart/LineChart.vue';
+import BarChart from '../../chart/BarChart.vue';
+import ReactiveBarChart from '../../chart/ReactiveBarChart.vue';
+import RadarChart from '../../chart/RadarChart.vue';
 
 export default {
   /* eslint-disable */
+  components: {
+    'line-chart': LineChart,
+    'bar-chart': BarChart,
+    'reactive-bar-chart': ReactiveBarChart,
+    'radar-chart': RadarChart,
+  },
   data() {
     return {
       sample: [
-        {ifId: 'KTOA.SEND_MIR', ifNm : 'KTOA 번호이동 송신', mqMngrNm: 'EIGW1P', instCd: 'KTOA', conf: 'KTOA1011', statDate: '20200615', t0:'0', t1: '1',
-        t2:'2',t3:'3',t4:'4',t5:'6',t6:'334',t7:'1546',t8:'16954',
+        {ifId: 'KTOA.SEND_MIR', ifNm : 'KTOA 번호이동 송신', mqMngrNm: 'EIGW1P', instCd: 'KTOA', conf: 'KTOA1011', statDate: '20200615', t0:0, t1: 1,
+        t2:232,t3:3,t4:4,t5:6,t6:334,t7:546,t8:754,
         },
-        {ifId: 'KTOA.RECV_MIR', ifNm : 'KTOA 번호이동 수신', mqMngrNm: 'EIGW1P', instCd: 'KTOA', conf: 'KTOA1021', statDate: '20200615', t0:'6',t1: '51',
-        t2:'52',t3:'63',t4:'4',t5:'16',t6:'3344',t7:'15446',t8:'16954',
+        {ifId: 'KTOA.RECV_MIR', ifNm : 'KTOA 번호이동 수신', mqMngrNm: 'EIGW1P', instCd: 'KTOA', conf: 'KTOA1021', statDate: '20200615', t0:6,t1: 51,
+        t2:52,t3:63,t4:4,t5:16,t6:344,t7:546,t8:695,
         },
 
       ],
@@ -191,6 +204,8 @@ export default {
           type: Object,
         },
       },
+
+      datacollection: null,
 
       statList: [],
     };
@@ -204,6 +219,30 @@ export default {
   },
   methods: {
     ...mapActions('frameSet', ['setResetPopOn']),
+    computeGraphTotValue() {
+      const a = {t0:0, t1:0, t2:0, t3: 0, t4:0};
+      a.t0 +=this.sample[i].t0;
+      a.t1 +=this.sample[i].t1;
+      a.t2 +=this.sample[i].t2;
+      a.t3 +=this.sample[i].t3;
+      a.t4 +=this.sample[i].t4;
+
+      return Object.values(a);
+    },
+    computeGraphRowValue(index) {
+      const a = {};
+      a.t0 = this.sample[index].t0;
+      a.t1 = this.sample[index].t1;
+      a.t2 = this.sample[index].t2;
+      a.t3 = this.sample[index].t3;
+      a.t4 = this.sample[index].t4;
+      a.t5 = this.sample[index].t5;
+      a.t6 = this.sample[index].t6;
+      a.t7 = this.sample[index].t7;
+      a.t8 = this.sample[index].t8;
+
+      return Object.values(a);
+    },
     setReqDtm(val) {
       this.reqDtm = val;
     },
@@ -214,6 +253,8 @@ export default {
       }
 
       this.statList = this.sample;
+
+      this.drawGraph();
       // fetchGetUserInfoList({  
       //   params: {
       //     reqDtm: this.reqDtm,
@@ -230,6 +271,34 @@ export default {
       //     console.log(`error occur!! : ${ex}`);
       //   });
     },
+    drawGraph() {
+      this.datacollection = {
+        // Data for the y-axis of the chart
+        labels: ['0시', '1시', '2시', '3시', '4시', '5시', '6시', '7시', '8시', '9시'],
+
+        datasets: [
+          {
+            label: 'Data One',
+            backgroundColor: this.dynamicColors(),
+            // Data for the x-axis of the chart
+            data: this.computeGraphRowValue(0),
+          },
+          {
+            label: 'Data One',
+            backgroundColor: this.dynamicColors(),
+            // Data for the x-axis of the chart
+            data: this.computeGraphRowValue(1),
+          },
+        ],
+      };
+    },
+    dynamicColors() {
+    var r = Math.floor(Math.random() * 255);
+    var g = Math.floor(Math.random() * 255);
+    var b = Math.floor(Math.random() * 255);
+    return "rgb(" + r + "," + g + "," + b + ")";
+}
   },
+  
 };
 </script>
