@@ -256,6 +256,7 @@
 <script>
 import { mapState, mapActions } from 'vuex';
 import ChrgrListPopup from '@/components/popup/bizcomm/ChrgrListPopup.vue';
+
 import {
   fetchPostIfStep3AprvId, fetchPutIfStepAprvReq, fetchGetIfStep3Reg, fetchGetIfReqDetailInfo,
 } from '@/api/ifRegApi';
@@ -284,8 +285,9 @@ export default {
       console.log('event Bus 통해 step3 저장');
       this.saveStep3AprvId();
     });
-    eventBus.$on('Step3AprvReq', () => {
+    eventBus.$on('Step3AprvReq', (params) => {
       console.log('event Bus 통해 step3 승인요청');
+      this.hstRmk = params.hstRmk;
       this.saveStep3AprvReq();
     });
   },
@@ -355,10 +357,12 @@ export default {
         this.$gf.alertOn('승인자 지정은 필수입니다.');
         return;
       }
+
       fetchPutIfStepAprvReq({
         reqNum: this.reqNum,
         aprvId: this.aprvInfo.aprvId,
         procSt: '2', // 승인요청
+        hstRmk: this.hstRmk,
       })
         .then((res) => {
           console.log(res);

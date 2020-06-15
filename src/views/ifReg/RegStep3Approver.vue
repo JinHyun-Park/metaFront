@@ -260,6 +260,8 @@ export default {
       eaiList: [],
       eigwList: [],
       mcgList: [],
+
+      hstRmk: '',
     };
   },
   computed: {
@@ -268,10 +270,7 @@ export default {
   created() {
     eventBus.$on('Step4AprvReq', (params) => {
       console.log('event Bus 통해 step4 승인');
-      this.procSt = params.procSt;
-      if (this.reqNum == null) {
-        this.reqNum = params.reqNum;
-      }
+      this.hstRmk = params.hstRmk;
       this.saveStep4AprvReq();
     });
   },
@@ -287,6 +286,7 @@ export default {
       fetchGetIfStep3Reg({
         params: {
           reqNum: this.reqNum,
+          hstRmk: this.hstRmk,
         },
       })
         .then((res) => {
@@ -319,6 +319,7 @@ export default {
       fetchPutIfStepAprvReq({
         reqNum: this.reqNum,
         procSt: this.procSt,
+        hstRmk: this.hstRmk,
       })
         .then((res) => {
           console.log(res);

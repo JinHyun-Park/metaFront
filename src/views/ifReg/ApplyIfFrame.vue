@@ -1,5 +1,11 @@
 <template>
   <div class="right_space">
+    <ProcMsgPopup
+      v-if="procMsgPopup"
+      v-bind="popupProp"
+      @closePop="turnOffProcMsg"
+      @addData="addProcMsg"
+    />
     <section class="title style-1">
       <h2>
         <div>
@@ -83,7 +89,7 @@
         v-if="isBtnApprReq"
         type="button"
         class="default_button on"
-        @click="aprvReq(2)"
+        @click="aprvMsgReq(2)"
       >
         승인요청
       </button>
@@ -91,7 +97,7 @@
         v-if="isBtnAppr"
         type="button"
         class="default_button on"
-        @click="aprvReq(3)"
+        @click="aprvMsgReq(3)"
       >
         승인
       </button>
@@ -99,7 +105,7 @@
         v-if="isBtnReject"
         type="button"
         class="default_button on"
-        @click="aprvReq(1)"
+        @click="aprvMsgReq(1)"
       >
         반려
       </button>
@@ -114,6 +120,7 @@ import RegStep2Frame from '@/views/ifReg/RegStep2Frame.vue'; // 2단계 EAI
 import RegStep3Applicant from '@/views/ifReg/RegStep3Applicant.vue'; // 3단계 신청자
 import RegStep3Approver from '@/views/ifReg/RegStep3Approver.vue'; // 3단계 승인자
 import eventBus from '@/utils/eventBus';
+import ProcMsgPopup from '@/components/popup/ifRegInfo/ProcMsgPopup.vue';
 
 export default {
   name: 'ApplyFrame',
@@ -122,6 +129,7 @@ export default {
     RegStep2Frame,
     RegStep3Applicant,
     RegStep3Approver,
+    ProcMsgPopup,
   },
   data() {
     return {
@@ -137,6 +145,12 @@ export default {
       isBtnAppr: false,
       isBtnReject: false,
 
+      procMsgPopup: false,
+      hstRmk: '',
+      popupProp: {
+        procSt: '',
+      },
+      tgtProcSt: 0,
     };
   },
   computed: {
@@ -219,6 +233,8 @@ export default {
     tempSave(callMeth) {
       console.log('tempSave');
       const alert = (callMeth === 'btnTemp');
+
+      // 저장을 위한 각 화면 별 eventbus 호출
       if (this.tabNum === 1) { // 신청 개요 데이터
         eventBus.$emit('Step1ReqMstSave', { reqNum: this.reqNum, callType: this.callType, alertYn: alert });
       } else if (this.tabNum === 2) { // 각단계 별 신청 데이터
@@ -228,7 +244,7 @@ export default {
       } else if (this.tabNum === 3) { // 최종 승인요청 화면
         eventBus.$emit('Step3AprvSave', { reqNum: this.reqNum });
       }
-
+      // 신청 후 저장 alert 처리
       if (this.tabNum === 1) {
         if (this.saveFlag.isStep1SaveYn !== false) {
           if (alert) {
@@ -249,16 +265,32 @@ export default {
         this.resetTempSaveFlag();
         return true;
       }
-
       this.resetTempSaveFlag();
       return false;
     },
-    aprvReq(tgtProcSt) {
+    aprvMsgReq(tgtProcSt) {
+      this.tgtProcSt = tgtProcSt;
+      this.turnOnProcMsg();
+    },
+    aprvReq() {
       if (this.tabNum === 3) {
-        eventBus.$emit('Step3AprvReq', { reqNum: this.reqNum, procSt: tgtProcSt });
+        eventBus.$emit('Step3AprvReq', { reqNum: this.reqNum, procSt: this.tgtProcSt, hstRmk: this.hstRmk });
       } else if (this.tabNum === 4) {
-        eventBus.$emit('Step4AprvReq', { reqNum: this.reqNum, procSt: tgtProcSt });
+        eventBus.$emit('Step4AprvReq', { reqNum: this.reqNum, procSt: this.tgtProcSt, hstRmk: this.hstRmk });
       }
+    },
+    turnOnProcMsg() {
+      this.popupProp.procSt = this.tgtProcSt;
+      this.procMsgPopup = true;
+    },
+    turnOffProcMsg(val) {
+      console.log(`Popup에서 받아온 Data : ${val}`);
+      this.procMsgPopup = false;
+    },
+    addProcMsg(val) {
+      this.procMsgPopup = false;
+      this.hstRmk = val;
+      this.aprvReq();
     },
   },
 };
