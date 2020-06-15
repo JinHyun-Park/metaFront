@@ -91,6 +91,20 @@
               </ul>
             </li>
             <li class="n">
+              <span>통계</span>
+              <ul class="sub_menu">
+                <li @click="movePage('statEai')">
+                  EAI
+                </li>
+                <li @click="movePage('statEigw')">
+                  EiGW
+                </li>
+                <li @click="movePage('statMcg')">
+                  MCG
+                </li>
+              </ul>
+            </li>
+            <li class="n">
               <span>포탈 관리</span>
               <ul class="sub_menu">
                 <li @click="movePage('accList')">
