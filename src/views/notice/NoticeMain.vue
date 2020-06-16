@@ -70,12 +70,15 @@
           <label class="column_label">검색어</label>
           <div class="search_group">
             <input
+              v-model="titleKeyword"
               type="text"
               value="Searching"
             >
+            <!--
             <span class="search">
               <i class="ico-search" />
             </span>
+            -->
           </div>
         </div>
       </div>
@@ -147,7 +150,7 @@
           :page-count="pageSet.pageCount"
           :page-range="3"
           :margin-pages="1"
-          :click-handler="searchList"
+          :click-handler="pageMove"
           :prev-text="'이전'"
           :next-text="'다음'"
           :container-class="'pagination'"
@@ -179,6 +182,7 @@ export default {
     return {
       startReqDtm: '',
       endReqDtm: '',
+      titleKeyword: '',
       datePickerSet: {
         dayStr: this.$gf.getCalDaySet(),
         popperProps: {
@@ -188,6 +192,7 @@ export default {
       pageSet: { pageNo: 1, pageCount: 0, size: 10 },
       boardList: [],
       auth: '',
+      pageMoveChk: 0,
     };
   },
   mounted() {
@@ -223,14 +228,19 @@ export default {
         case '9': return '삭제(9)';
       }
     },
+    pageMove() {
+      this.pageMoveChk = 1;
+      this.searchList();
+      this.pageMoveChk = 0;
+    },
     searchList() {
       // this.tgtUrl = '/api/bizcomm/board';
       // this.$axios.get(this.tgtUrl, {
       fetchGetBoardList({
         params: {
-          pageNo: this.pageSet.pageNo,
-          pageCount: this.pageSet.pageCount,
-          size: this.pageSet.size,
+          pageNo: this.pageMoveChk === 1 ? this.pageSet.pageNo : 1,
+          pageCount: this.pageMoveChk === 1 ? this.pageSet.pageCount : 0,
+          size: 10,
           boardSt: '', // 0:정상
           boardTyp: 'NOTI',
           title: '',
@@ -240,6 +250,7 @@ export default {
           startReqDtm: this.startReqDtm.replace(/\-/g, ''),
           // eslint-disable-next-line no-useless-escape
           endReqDtm: this.endReqDtm.replace(/\-/g, ''),
+          titleKeyword: this.titleKeyword,
         },
       })
         .then((res) => {
