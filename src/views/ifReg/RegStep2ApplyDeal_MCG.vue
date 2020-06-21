@@ -358,6 +358,7 @@ import {
   fetchPutMcgReq,
   fetchPutMcgReqChrgr,
   fetchPutMcgReqServer,
+  fetchGetMcgReqNum,
 } from '@/api/mcgApi';
 import eventBus from '@/utils/eventBus';
 import ChrgrListPopup from '@/components/popup/bizcomm/ChrgrListPopup.vue';
@@ -462,6 +463,7 @@ export default {
   },
   mounted() {
     this.today = this.$gf.dateToString(new Date(), '', 'Y');
+    this.reqsetting();
   },
   created() {
     if (this.$route.params.callType === 'update') {
@@ -627,7 +629,7 @@ export default {
 
 
     emptyMcgFields() {
-      this.mcgReqNum = '';
+      this.reqsetting();
       this.chnlNm = '';
       this.chnlId = '';
       this.lnkMthd = '';
@@ -647,6 +649,22 @@ export default {
       this.chnlCom = '';
 
       this.currRow = [];
+    },
+
+    reqsetting() {
+      fetchGetMcgReqNum({
+        params: {
+        },
+      })
+        .then((res) => {
+          this.mcgReqNum = res.data.rstData.mcgReqNum;
+          // this.svrList = res.data.rstData.searchSvrList;
+          // this.chrgrList = res.data.rstData.searchChrgrList;
+          console.log(this.mcgReqNum);
+        })
+        .catch((ex) => {
+          console.log(`error occur!! : ${ex}`);
+        });
     },
 
     savereq() {

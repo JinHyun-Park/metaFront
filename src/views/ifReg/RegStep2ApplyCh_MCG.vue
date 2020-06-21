@@ -168,15 +168,13 @@
         <div class="column w-2">
           <label class="column_label">연동방식</label>
           <div class="select_group disabled">
-            <select disabled>
-              <option value="">
-                Y
-              </option>
+            <select v-model="lnkMthd">
               <option
-                value=""
-                selected
+                v-for="(code, m) in ccCdList.mcgChnlLnkgMthdR"
+                :key="m"
+                :value="code.cdDtlId"
               >
-                N
+                {{ code.cdNm }}
               </option>
             </select>
             <span class="select" />
@@ -584,6 +582,13 @@ export default {
     this.today = this.$gf.dateToString(new Date(), '', 'Y');
     eventBus.$emit('VirtualReqNum', this.reqsendList);
     this.reqsetting();
+
+    this.setCcCdList({
+      opClCd: 'MCG', cdId: 'LNKG_MTHD', allYn: 'Y', listNm: 'mcgChnlLnkgMthd',
+    });
+    this.setCcCdList({
+      opClCd: 'MCG', cdId: 'LNKG_MTHD', allYn: 'N', listNm: 'mcgChnlLnkgMthdR',
+    });
   },
   destroyed() {
     eventBus.$off('Step2McgSave');
@@ -690,6 +695,10 @@ export default {
       }
       if (this.chnlTyp === '') {
         this.$gf.alertOn('채널타입을 선택 해주세요.');
+        return 0;
+      }
+      if (this.lnkMthd === '') {
+        this.$gf.alertOn('연동방식을 선택 해주세요.');
         return 0;
       }
       return 1;

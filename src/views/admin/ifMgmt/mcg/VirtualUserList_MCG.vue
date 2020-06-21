@@ -121,31 +121,31 @@
           <div class="table_head w-auto">
             <ul>
               <li class="th_cell">
-                채널ID<i class="ico-sort-down" />
+                채널ID
               </li>
               <li class="th_cell">
-                채널명<i class="ico-sort-up" />
+                채널명
               </li>
               <li class="th_cell">
-                상위조직<i class="ico-sort-down" />
+                상위조직
               </li>
               <li class="th_cell">
-                소속팀명<i class="ico-sort-down" />
+                소속팀명
               </li>
               <li class="th_cell">
-                담당자<i class="ico-sort-down" />
+                담당자
               </li>
               <li class="th_cell">
-                USER_ID<i class="ico-sort-up" />
+                USER_ID
               </li>
               <li class="th_cell">
-                LOGIN_ID<i class="ico-sort-up" />
+                LOGIN_ID
               </li>
               <li class="th_cell">
-                회사구분<i class="ico-sort-down" />
+                회사구분
               </li>
               <li class="th_cell">
-                비고<i class="ico-sort-down" />
+                비고
               </li>
               <li class="th_cell">
                 수정
@@ -275,6 +275,7 @@ export default {
       orgId: '',
       coCl: '',
       vUserRmk: '',
+      vUserNum: '',
       isStatusOn: '',
       chnlpopupstate: false,
     };
@@ -303,6 +304,7 @@ export default {
           orgId: this.orgId,
           coCl: this.coCl,
           vUserRmk: this.vUserRmk,
+          vUserNum: this.vUserNum,
         },
       })
 
@@ -339,8 +341,35 @@ export default {
       console.log();
     },
 
+    checksave() {
+      if (this.chnlIdin === '') {
+        this.$gf.alertOn('채널ID를 입력 해주세요.');
+        return 0;
+      }
+      if (this.chnlNmin === '') {
+        this.$gf.alertOn('채널명을 입력 해주세요.');
+        return 0;
+      }
+      if (this.postTeamNmin === '') {
+        this.$gf.alertOn('소속팀명을 입력 해주세요.');
+        return 0;
+      }
+      if (this.supOrgin === '') {
+        this.$gf.alertOn('상위조직을 입력 해주세요.');
+        return 0;
+      }
+      if (this.chrgrNmin === '') {
+        this.$gf.alertOn('담당자명을 입력 해주세요.');
+        return 0;
+      }
+      return 1;
+    },
+
     save() {
       console.log('가상사용자 정보 등록!');
+      if (this.checksave() === 0) {
+        return;
+      }
       // this.$axios.post('/api/mcg/chnl/post', {
       fetchPutVirtualUserList({
         chnlId: this.chnlIdin,
