@@ -583,6 +583,7 @@ export default {
   mounted() {
     this.today = this.$gf.dateToString(new Date(), '', 'Y');
     eventBus.$emit('VirtualReqNum', this.reqsendList);
+    this.reqsetting();
   },
   destroyed() {
     eventBus.$off('Step2McgSave');
@@ -598,7 +599,19 @@ export default {
     },
 
     reqsetting() {
-      this.mcgReqNum = fetchGetMcgReqNum();
+      fetchGetMcgReqNum({
+        params: {
+        },
+      })
+        .then((res) => {
+          this.mcgReqNum = res.data.rstData.mcgReqNum;
+          // this.svrList = res.data.rstData.searchSvrList;
+          // this.chrgrList = res.data.rstData.searchChrgrList;
+          console.log(this.mcgReqNum);
+        })
+        .catch((ex) => {
+          console.log(`error occur!! : ${ex}`);
+        });
     },
     inputreqDt(val) {
       this.reqDt = val;
@@ -731,7 +744,7 @@ export default {
       if (this.checksave() === 0) {
         return;
       }
-      this.reqsetting();
+      // this.reqsetting();
       this.reqList.push({
         mcgReqNum: this.mcgReqNum,
         reqNum: this.reqNum,
@@ -758,7 +771,8 @@ export default {
       });
 
       this.emptyMcgFields();
-      this.savereq();
+      // this.reqsetting();
+      // this.savereq();
     },
 
     remove(req) {
@@ -771,7 +785,8 @@ export default {
 
 
     emptyMcgFields() {
-      this.mcgReqNum = '';
+      // this.mcgReqNum = '';
+      this.reqsetting();
       this.chnlNm = '';
       this.chnlId = '';
       this.lnkMthd = '';
