@@ -674,26 +674,30 @@ export default {
       }
       this.mcgReqList = { reqList: this.reqList };
 
+
       for (let i = 0; i < this.chrgrRows.length; i++) {
         this.chrgrRows[i].reqNum = this.reqNum;
         this.chrgrRows[i].useYn = 'Y';
       }
       this.mcgChrgrList = { chrgrRows: this.chrgrRows };
 
-      fetchPutMcgReq(this.mcgReqList)
-        .then((res) => {
-          console.log(res);
-          if (res.data.rstCd === 'E') {
+
+      if (!this.mcgReqList) {
+        fetchPutMcgReq(this.mcgReqList)
+          .then((res) => {
+            console.log(res);
+            if (res.data.rstCd === 'E') {
+              this.setTempSave(false);
+            } else {
+              this.setTempSave(true);
+              this.savereqchrgr(this.mcgChrgrList);
+            }
+          })
+          .catch((ex) => {
+            console.log(`error occur!! : ${ex}`);
             this.setTempSave(false);
-          } else {
-            this.setTempSave(true);
-            this.savereqchrgr(this.mcgChrgrList);
-          }
-        })
-        .catch((ex) => {
-          console.log(`error occur!! : ${ex}`);
-          this.setTempSave(false);
-        });
+          });
+      }
     },
     savereqchrgr(chrgrList) {
       fetchPutMcgReqChrgr(chrgrList)
