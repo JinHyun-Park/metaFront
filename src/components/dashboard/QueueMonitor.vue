@@ -8,6 +8,12 @@
         큐 적체량(EAI)
       </h5>
       <div class="right_button_area">
+        <input
+          v-model="chkAutoRefresh"
+          type="checkbox"
+        >
+        Auto Refresh
+        </input>
         <button
           class="button is-primary"
           @click="searchQueueDepth()"
@@ -35,22 +41,29 @@ export default {
     return {
       datacollection: null,
       queueDepthList: [],
-      remainTime: 3,
+      remainTime: 5,
+      chkAutoRefresh: false,
     };
   },
+  watch: {
+    chkAutoRefresh() {
+      if (this.chkAutoRefresh) {
+        this.setAutoRefresh();
+      } else {
+        clearInterval(this.intervalFuc);
+        clearInterval(this.remainTimeFuc);
+        this.remainTime = 5;
+      }
+    },
+  },
   created() {
-    this.intervalFuc = setInterval(() => {
-      this.searchQueueDepth();
-      this.remainTime = 6;
-    }, 5000);
-    this.remainTimeFuc = setInterval(() => {
-      this.remainTime -= 1;
-    }, 1000);
+    this.searchQueueDepth();
   },
   mounted() {
     // this.fillData();
     // this.searchQueueDepth();
   },
+
   destroyed() {
     clearInterval(this.intervalFuc);
     clearInterval(this.remainTimeFuc);
@@ -113,6 +126,15 @@ export default {
         a.push(`rgb(${r},${g},${b})`);
       }
       return a;
+    },
+    setAutoRefresh() {
+      this.intervalFuc = setInterval(() => {
+        this.searchQueueDepth();
+        this.remainTime = 6;
+      }, 5000);
+      this.remainTimeFuc = setInterval(() => {
+        this.remainTime -= 1;
+      }, 1000);
     },
   },
 };
