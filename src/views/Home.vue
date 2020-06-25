@@ -23,6 +23,8 @@
           </div> -->
         </h2>
       </section>
+      <queue-monitor />
+      <!--
       <section class="form_area border_group dashboard">
         <h4 class="l_tit">
           모니터링
@@ -47,7 +49,7 @@
           </div>
         </div>
       </section>
-
+-->
       <div class="board_area">
         <section class="form_area border_group dashboard">
           <h4 class="l_tit">
@@ -401,184 +403,7 @@
             </div>
           </div>
         </section>
-        <section class="form_area border_group dashboard">
-          <h5 class="s_tit type-2">
-            가이드
-            <i class="ico-set" />
-          </h5>
-          <div class="table_colgroup">
-            <div class="table_grid">
-              <div class="table_head w-auto">
-                <ul>
-                  <li class="th_cell">
-                    업무코드<i class="ico-sort-down" />
-                  </li>
-                  <li class="th_cell">
-                    채널ID<i class="ico-sort-up" />
-                  </li>
-                  <li class="th_cell">
-                    등록일<i class="ico-sort-up" />
-                  </li>
-                  <li class="th_cell">
-                    신청자<i class="ico-sort-down" />
-                  </li>
-                </ul>
-              </div>
-              <div class="table_body">
-                <ul class="table_row w-auto">
-                  <li class="td_cell">
-                    1011
-                  </li>
-                  <li class="td_cell">
-                    2 documents2 documents2 documents2 documents2
-                  </li>
-                  <li class="td_cell">
-                    2019-08-07
-                  </li>
-                  <li class="td_cell">
-                    Mywolrd
-                  </li>
-                </ul>
-                <ul class="table_row w-auto">
-                  <li class="td_cell">
-                    1012
-                  </li>
-                  <li class="td_cell">
-                    q sign
-                  </li>
-                  <li class="td_cell">
-                    2019-08-07
-                  </li>
-                  <li class="td_cell">
-                    Yourworld
-                  </li>
-                </ul>
-                <ul class="table_row w-auto">
-                  <li class="td_cell">
-                    1013
-                  </li>
-                  <li class="td_cell">
-                    Ch to Ch
-                  </li>
-                  <li class="td_cell">
-                    2019-08-07
-                  </li>
-                  <li class="td_cell">
-                    Tworld
-                  </li>
-                </ul>
-                <ul class="table_row w-auto">
-                  <li class="td_cell">
-                    1011
-                  </li>
-                  <li class="td_cell">
-                    2 documents2 documents2 documents2
-                  </li>
-                  <li class="td_cell">
-                    2019-08-07
-                  </li>
-                  <li class="td_cell">
-                    Mywolrd
-                  </li>
-                </ul>
-                <ul class="table_row w-auto">
-                  <li class="td_cell">
-                    1012
-                  </li>
-                  <li class="td_cell">
-                    q sign
-                  </li>
-                  <li class="td_cell">
-                    2019-08-07
-                  </li>
-                  <li class="td_cell">
-                    Yourworld
-                  </li>
-                </ul>
-                <ul class="table_row w-auto">
-                  <li class="td_cell">
-                    1013
-                  </li>
-                  <li class="td_cell">
-                    Ch to Ch
-                  </li>
-                  <li class="td_cell">
-                    2019-08-07
-                  </li>
-                  <li class="td_cell">
-                    Tworld
-                  </li>
-                </ul>
-                <ul class="table_row w-auto">
-                  <li class="td_cell">
-                    1011
-                  </li>
-                  <li class="td_cell">
-                    2 documents2
-                  </li>
-                  <li class="td_cell">
-                    2019-08-07
-                  </li>
-                  <li class="td_cell">
-                    Mywolrd
-                  </li>
-                </ul><ul class="table_row w-auto">
-                  <li class="td_cell">
-                    1011
-                  </li>
-                  <li class="td_cell">
-                    2 documents2
-                  </li>
-                  <li class="td_cell">
-                    2019-08-07
-                  </li>
-                  <li class="td_cell">
-                    Mywolrd
-                  </li>
-                </ul><ul class="table_row w-auto">
-                  <li class="td_cell">
-                    1011
-                  </li>
-                  <li class="td_cell">
-                    2 documents2
-                  </li>
-                  <li class="td_cell">
-                    2019-08-07
-                  </li>
-                  <li class="td_cell">
-                    Mywolrd
-                  </li>
-                </ul><ul class="table_row w-auto">
-                  <li class="td_cell">
-                    1011
-                  </li>
-                  <li class="td_cell">
-                    2 documents2
-                  </li>
-                  <li class="td_cell">
-                    2019-08-07
-                  </li>
-                  <li class="td_cell">
-                    Mywolrd
-                  </li>
-                </ul><ul class="table_row w-auto">
-                  <li class="td_cell">
-                    1011
-                  </li>
-                  <li class="td_cell">
-                    2 documents2
-                  </li>
-                  <li class="td_cell">
-                    2019-08-07
-                  </li>
-                  <li class="td_cell">
-                    Mywolrd
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </section>
+        <noti-board />
       </div>
     </div>
   </article>
@@ -589,6 +414,10 @@ import LineChart from './chart/LineChart.vue';
 import BarChart from './chart/BarChart.vue';
 import ReactiveBarChart from './chart/ReactiveBarChart.vue';
 import RadarChart from './chart/RadarChart.vue';
+
+import NotiBoard from '../components/dashboard/NotiBoard.vue';
+import QueueMonitor from '../components/dashboard/QueueMonitor.vue';
+
 import { fetchGetBoardList } from '@/api/bizCommApi';
 
 export default {
@@ -598,6 +427,8 @@ export default {
     'bar-chart': BarChart,
     'reactive-bar-chart': ReactiveBarChart,
     'radar-chart': RadarChart,
+    'noti-board': NotiBoard,
+    'queue-monitor': QueueMonitor,
   },
   data() {
     return {
