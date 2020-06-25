@@ -12,7 +12,7 @@
           class="button is-primary"
           @click="searchQueueDepth()"
         >
-          새로고침
+          새로고침 : {{ remainTime }}s
         </button>
       </div>
     </div>
@@ -35,11 +35,25 @@ export default {
     return {
       datacollection: null,
       queueDepthList: [],
+      remainTime: 3,
     };
+  },
+  created() {
+    this.intervalFuc = setInterval(() => {
+      this.searchQueueDepth();
+      this.remainTime = 6;
+    }, 5000);
+    this.remainTimeFuc = setInterval(() => {
+      this.remainTime -= 1;
+    }, 1000);
   },
   mounted() {
     // this.fillData();
-    this.searchQueueDepth();
+    // this.searchQueueDepth();
+  },
+  destroyed() {
+    clearInterval(this.intervalFuc);
+    clearInterval(this.remainTimeFuc);
   },
   methods: {
     searchQueueDepth() {
