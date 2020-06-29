@@ -25,36 +25,45 @@
         </div>
       </h5>
       <div class="table_colgroup">
+        탭 변경시(채널추가) 임시저장 해주세요.
         <div class="table_grid tb_layout">
           <div class="table_head w-auto">
             <ul>
               <li
                 class="th_cell"
+                style="width:10%;"
               >
                 구분
               </li>
               <li
                 class="th_cell"
+                style="width:20%;"
               >
                 채널ID
               </li>
               <li
                 class="th_cell"
+                style="width:15%;"
               >
                 연동방식
               </li>
               <li
                 class="th_cell"
+                style="width:15%;"
               >
                 채널유형
               </li>
               <li
                 class="th_cell"
+                style="width:25%;"
               >
                 TP명
               </li>
-              <li class="th_cell">
-                삭제
+              <li
+                class="th_cell"
+                style="width:15%;"
+              >
+                변경
               </li>
             </ul>
           </div>
@@ -91,6 +100,10 @@
                 {{ req.tp }}
               </li>
               <li class="td_cell">
+                <i
+                  class="ico-edit"
+                  @click="dtlupdate(idx)"
+                />
                 <i
                   class="ico-del"
                   @click="remove(req)"
@@ -588,6 +601,35 @@ export default {
       this.mcgRmk = dtl.mcgRmk;
       this.reqDt = dtl.reqDt;
       this.chnlCom = dtl.chnlCom;
+    },
+
+    dtlupdate(idx) {
+      if (this.checksave() === 0) {
+        return;
+      }
+      this.reqList[idx].mcgReqNum = this.mcgReqNum;
+      this.reqList[idx].mcgType = this.mcgType;
+      this.reqList[idx].chnlNm = this.chnlNm;
+      this.reqList[idx].chnlId = this.chnlId;
+      this.reqList[idx].lnkMthd = this.lnkMthd;
+      this.reqList[idx].chnlTyp = this.chnlTyp;
+      this.reqList[idx].reqPurp = this.reqPurp;
+      this.reqList[idx].chnlCnt = this.chnlCnt;
+      this.reqList[idx].maxTps = this.maxTps;
+      this.reqList[idx].tp = this.tp;
+      this.reqList[idx].serviceId = this.serviceId;
+      this.reqList[idx].serviceNm = this.serviceNm;
+      this.reqList[idx].servletUrl = this.servletUrl;
+      this.reqList[idx].tcpIdPort = this.tcpIdPort;
+      this.reqList[idx].dailyTps = this.dailyTps;
+      this.reqList[idx].dablInflu = this.dablInflu;
+      this.reqList[idx].mcgRmk = this.mcgRmk;
+      this.reqList[idx].reqDt = this.reqDt;
+      this.reqList[idx].chnlCom = this.chnlCom;
+
+
+      this.$gf.alertOn(`${this.chnlNm}의 거래 정보가 수정되었습니다.`);
+      this.emptyMcgFields();
     },
 
     addMcgReq() {

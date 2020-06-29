@@ -137,6 +137,14 @@ function fetchGetMcgReqNum(param) {
   return axios.get(`${preUrl}/req/num`, param);
 }
 
+function fetchGetMcgReqChrgrList(param) {
+  return axios.get(`${preUrl}/req/chrgr/lst`, param);
+}
+
+function fetchGetMcgReqSvrList(param) {
+  return axios.get(`${preUrl}/req/svr/lst`, param);
+}
+
 
 export {
   fetchGetMcgChnlList,
@@ -173,4 +181,6 @@ export {
   fetchPutMcgReqServer,
   fetchPutMcgReqVirtual,
   fetchGetMcgReqNum,
+  fetchGetMcgReqChrgrList,
+  fetchGetMcgReqSvrList,
 };

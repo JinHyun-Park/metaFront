@@ -27,7 +27,7 @@
             class="default_button extend on"
             @click="addMcgReq()"
           >
-            인터페이스 추가
+            채널 추가
           </button>
         </div>
       </h5>
@@ -65,36 +65,45 @@
         <div class="column w-1" />
       </div>
       <div class="table_colgroup">
+        탭 변경시(거래추가) 임시저장 해주세요.
         <div class="table_grid tb_layout">
           <div class="table_head w-auto">
             <ul>
               <li
                 class="th_cell"
+                style="width:10%;"
               >
                 구분
               </li>
               <li
                 class="th_cell"
+                style="width:20%;"
               >
                 채널ID
               </li>
               <li
                 class="th_cell"
+                style="width:15%;"
               >
                 연동방식
               </li>
               <li
                 class="th_cell"
+                style="width:15%;"
               >
                 채널유형
               </li>
               <li
                 class="th_cell"
+                style="width:25%;"
               >
                 TP명
               </li>
-              <li class="th_cell">
-                삭제
+              <li
+                class="th_cell"
+                style="width:15%;"
+              >
+                변경
               </li>
             </ul>
           </div>
@@ -131,6 +140,10 @@
                 {{ req.tp }}
               </li>
               <li class="td_cell">
+                <i
+                  class="ico-edit"
+                  @click="dtlupdate(idx)"
+                />
                 <i
                   class="ico-del"
                   @click="remove(req)"
@@ -434,6 +447,8 @@
 import { mapState, mapActions } from 'vuex';
 import {
   fetchGetMcgReqList,
+  fetchGetMcgReqChrgrList,
+  fetchGetMcgReqSvrList,
   fetchPutMcgReq,
   fetchPutMcgReqChrgr,
   fetchPutMcgReqServer,
@@ -503,6 +518,7 @@ export default {
       virtualpopupstate: false,
       svrRows: [
         {
+          mcgReqNum: '',
           svrTyp: '',
           hostNm: '',
           ip: '',
@@ -515,6 +531,7 @@ export default {
       ],
       chrgrRows: [
         {
+          mcgReqNum: '',
           name: '',
           company: '',
           phonNum: '',
@@ -717,10 +734,63 @@ export default {
       })
         .then((res) => {
           this.reqList = res.data.rstData.searchReqList;
-          // this.svrList = res.data.rstData.searchSvrList;
-          // this.chrgrList = res.data.rstData.searchChrgrList;
+          // this.svrRowsrcv = res.data.rstData.searchSvrList;
+          // this.chrgrRowsrcv = res.data.rstData.searchChrgrList;
+
+
           console.log(res.data.rstData.searchReqList);
           console.log(this.reqList);
+        })
+        .catch((ex) => {
+          console.log(`error occur!! : ${ex}`);
+        });
+    },
+
+    listchrgr(Num) {
+      console.log('채널 담당자 목록 조회!');
+      this.chrgrList.splice(0, 1);
+      // this.$axios.get('/api/mcg/chnl', {
+      fetchGetMcgReqChrgrList({
+        params: {
+          mcgReqNum: Num,
+        },
+      })
+        .then((res) => {
+          this.chrgrList = res.data.rstData.searchChrgrList;
+          // this.svrRowsrcv = res.data.rstData.searchSvrList;
+          // this.chrgrRowsrcv = res.data.rstData.searchChrgrList;
+          this.chrgrRows.splice(0, this.chrgrRows.length);
+
+          for (let i = 0; i < this.chrgrList.length; i++) {
+            this.chrgrRows.push(this.chrgrList[i]);
+          }
+          console.log(res.data.rstData.searchChrgrList);
+          console.log(this.chrgrList);
+        })
+        .catch((ex) => {
+          console.log(`error occur!! : ${ex}`);
+        });
+    },
+    listingsvr(Num) {
+      console.log('채널 서버 목록 조회!');
+      this.svrList.splice(0, 1);
+      // this.$axios.get('/api/mcg/chnl', {
+      fetchGetMcgReqSvrList({
+        params: {
+          mcgReqNum: Num,
+        },
+      })
+        .then((res) => {
+          this.svrList = res.data.rstData.searchSvrList;
+          // this.svrRowsrcv = res.data.rstData.searchSvrList;
+          // this.chrgrRowsrcv = res.data.rstData.searchChrgrList;
+          this.svrRows.splice(0, this.svrRows.length);
+          for (let i = 0; i < this.svrList.length; i++) {
+            this.svrRows.push(this.svrList[i]);
+          }
+
+          console.log(res.data.rstData.searchSvrList);
+          console.log(this.svrList);
         })
         .catch((ex) => {
           console.log(`error occur!! : ${ex}`);
@@ -747,6 +817,38 @@ export default {
       this.mcgRmk = dtl.mcgRmk;
       this.reqDt = dtl.reqDt;
       this.chnlCom = dtl.chnlCom;
+
+      this.listingsvr(dtl.mcgReqNum);
+      this.listchrgr(dtl.mcgReqNum);
+    },
+
+    dtlupdate(idx) {
+      if (this.checksave() === 0) {
+        return;
+      }
+      this.reqList[idx].mcgReqNum = this.mcgReqNum;
+      this.reqList[idx].mcgType = this.mcgType;
+      this.reqList[idx].chnlNm = this.chnlNm;
+      this.reqList[idx].chnlId = this.chnlId;
+      this.reqList[idx].lnkMthd = this.lnkMthd;
+      this.reqList[idx].chnlTyp = this.chnlTyp;
+      this.reqList[idx].reqPurp = this.reqPurp;
+      this.reqList[idx].chnlCnt = this.chnlCnt;
+      this.reqList[idx].maxTps = this.maxTps;
+      this.reqList[idx].tp = this.tp;
+      this.reqList[idx].serviceId = this.serviceId;
+      this.reqList[idx].serviceNm = this.serviceNm;
+      this.reqList[idx].servletUrl = this.servletUrl;
+      this.reqList[idx].tcpIdPort = this.tcpIdPort;
+      this.reqList[idx].dailyTps = this.dailyTps;
+      this.reqList[idx].dablInflu = this.dablInflu;
+      this.reqList[idx].mcgRmk = this.mcgRmk;
+      this.reqList[idx].reqDt = this.reqDt;
+      this.reqList[idx].chnlCom = this.chnlCom;
+
+
+      this.$gf.alertOn(`${this.chnlNm}의 채널 정보가 수정되었습니다.`);
+      this.emptyMcgFields();
     },
 
     addMcgReq() {
@@ -779,6 +881,14 @@ export default {
 
       });
 
+      for (let i = 0; i < this.chrgrRows.length; i++) {
+        this.chrgrRows[i].mcgReqNum = this.mcgReqNum;
+      }
+
+      for (let i = 0; i < this.svrRows.length; i++) {
+        this.svrRows[i].mcgReqNum = this.mcgReqNum;
+      }
+
       this.emptyMcgFields();
       // this.reqsetting();
       // this.savereq();
@@ -795,7 +905,7 @@ export default {
 
     emptyMcgFields() {
       // this.mcgReqNum = '';
-      this.reqsetting();
+      // this.reqsetting();
       this.chnlNm = '';
       this.chnlId = '';
       this.lnkMthd = '';
@@ -815,9 +925,13 @@ export default {
       this.chnlCom = '';
 
       this.currRow = [];
+      this.svrRows = [];
+      this.chrgrRows = [];
+      this.reqsetting();
     },
 
     savereq() {
+      console.log('채널 저장!');
       for (let i = 0; i < this.reqList.length; i++) {
         this.reqList[i].reqNum = this.reqNum;
         this.reqList[i].procSt = '1';
@@ -836,7 +950,8 @@ export default {
       }
       this.mcgChrgrList = { chrgrRows: this.chrgrRows };
 
-      if (!this.mcgReqList) {
+      if (this.mcgReqList != null) {
+        console.log('채널 저장!');
         fetchPutMcgReq(this.mcgReqList)
           .then((res) => {
             console.log(res);

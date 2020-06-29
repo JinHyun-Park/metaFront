@@ -16,12 +16,6 @@
           <div class="right_button_area">
             <button
               type="button"
-              class="default_button"
-            >
-              임시추가
-            </button>
-            <button
-              type="button"
               class="default_button on"
               @click="listing()"
             >
