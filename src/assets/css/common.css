@@ -2954,6 +2954,7 @@ display: table-column
 }
 
 .table_grid .table_row .td_cell input[type=text],
+.table_grid .table_row .td_cell input[type=number],
 .table_grid .table_row .td_cell .select_group select {
     padding: 3px 0 4px 9px;
     /* height: 30px; */
@@ -2979,7 +2980,9 @@ display: table-column
 }
 
 .table_grid .table_row .td_cell.on input[type=text],
+.table_grid .table_row .td_cell.on input[type=number],
 .table_grid .table_row .td_cell:hover input[type=text],
+.table_grid .table_row .td_cell:hover input[type=number],
 .table_grid .table_row .td_cell.on .select_group select,
 .table_grid .table_row .td_cell:hover .select_group select {
     padding: 4px 0 3px 9px;

@@ -6,7 +6,7 @@
           <i class="ico-bar" />사용자 계정 관리
         </div>
         <div class="breadcrumb">
-          <span>EGIW</span><em class="on">EAI</em>
+          <span>포탈관리</span><em class="on">사용자 계정 관리</em>
         </div>
       </h2>
     </section>
@@ -184,6 +184,9 @@ export default {
   },
   computed: {
     ...mapState('frameSet', ['resetPopOn']),
+  },
+  mounted() {
+    this.searchList();
   },
   methods: {
     ...mapActions('frameSet', ['setResetPopOn']),

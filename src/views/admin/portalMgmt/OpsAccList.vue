@@ -6,7 +6,7 @@
           <i class="ico-bar" />OPS 계정 정보 조회
         </div>
         <div class="breadcrumb">
-          <span>EGIW</span><em class="on">EAI</em>
+          <span>포탈관리</span><em class="on">OPS계정 정보조회</em>
         </div>
       </h2>
     </section>
@@ -189,6 +189,9 @@ export default {
   },
   computed: {
     ...mapState('frameSet', ['resetPopOn']),
+  },
+  mounted() {
+    this.searchList();
   },
   methods: {
     ...mapActions('frameSet', ['setResetPopOn']),

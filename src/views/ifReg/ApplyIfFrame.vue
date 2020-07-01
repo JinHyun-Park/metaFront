@@ -144,6 +144,7 @@ export default {
       isBtnApprReq: false,
       isBtnAppr: false,
       isBtnReject: false,
+      clickBtn: true,
 
       procMsgPopup: false,
       hstRmk: '',
@@ -230,8 +231,15 @@ export default {
       this.tabNum = this.tabNum - 1;
       localStorage.setItem('APPLY_TABNUM', this.tabNum);
     },
+    clickPrevent() {
+      if (this.clickBtn) {
+        this.clickBtn = !this.clickBtn;
+      }
+    },
     tempSave(callMeth) {
       console.log('tempSave');
+      this.clickPrevent();
+
       const alert = (callMeth === 'btnTemp');
 
       // 저장을 위한 각 화면 별 eventbus 호출
@@ -244,11 +252,17 @@ export default {
       } else if (this.tabNum === 3) { // 최종 승인요청 화면
         eventBus.$emit('Step3AprvSave', { reqNum: this.reqNum });
       }
+
+      // 중복 클릭 방지
+      this.clickBtn = true;
+
       // 신청 후 저장 alert 처리
       if (this.tabNum === 1) {
         if (this.saveFlag.isStep1SaveYn !== false) {
           if (alert) {
             this.$gf.alertOn('저장되었습니다.');
+            // 신규->변경으로 임시저장 이벤트 변경
+            this.callType = 'update';
           }
           this.resetTempSaveFlag();
           return true;

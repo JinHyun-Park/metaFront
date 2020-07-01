@@ -232,9 +232,12 @@ export default {
   },
   mounted() {
     this.today = this.$gf.dateToString(new Date(), '', 'Y');
-    console.log(`callType : ${this.$route.params.callType}]`);
-    if (this.$route.params.callType === 'update') {
-      this.getIfReqMst(this.reqNum);
+    // console.log(`callType : ${this.$route.params.callType}]`);
+    // if (this.$route.params.callType === 'update') {
+    //   this.getIfReqMst(this.reqNum);
+    // }
+    if (this.$route.params.reqNum != null) {
+      this.getIfReqMst(this.$route.params.reqNum);
     }
   },
   created() {
@@ -255,10 +258,29 @@ export default {
         step: 'STEP1', rstCd: rtn,
       });
     },
-
+    checkParams() {
+      if (this.ifReqMstInfo.reqTitle === null) {
+        this.$gf.alertOn('제목은 필수입력입니다.');
+        return false;
+      }
+      if (this.ifReqMstInfo.dvlpAplyReqDt === null || this.ifReqMstInfo.dvlpAplyReqDt === '') {
+        this.$gf.alertOn('개발 반영 예정일은 필수입력입니다.');
+        return false;
+      }
+      if (this.ifReqMstInfo.operAplyReqDt === null || this.ifReqMstInfo.operAplyReqDt === '') {
+        this.$gf.alertOn('운영 반영 예정일은 필수입력입니다.');
+        return false;
+      }
+      return true;
+    },
     saveIfReqMst(callType) {
       this.ifReqMstInfo.dvlpAplyReqDt = this.ifReqMstInfo.dvlpAplyReqDt.replace(/\-/g, '');
       this.ifReqMstInfo.operAplyReqDt = this.ifReqMstInfo.operAplyReqDt.replace(/\-/g, '');
+
+      if (!this.checkParams()) {
+        this.setTempSave(false);
+        return;
+      }
 
       if (callType === 'update') {
         console.log('Step1 수정');
@@ -279,6 +301,7 @@ export default {
             this.ifReqMstInfo = res.data.rstData.reqInfo;
             this.setReqNum({ reqNum: this.ifReqMstInfo.reqNum });
             this.setTempSave(true);
+            this.getIfReqMst(this.reqNum);
           })
           .catch((ex) => {
             console.log(`오류가 발생하였습니다 : ${ex}`);

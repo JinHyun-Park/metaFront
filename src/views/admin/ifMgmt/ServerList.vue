@@ -3,10 +3,10 @@
     <section class="title style-1">
       <h2>
         <div>
-          <i class="ico-bar" />서버 정보 조회
+          <i class="ico-bar" />서버 정보 관리
         </div>
         <div class="breadcrumb">
-          <span>EIGW</span><em class="on">EAI</em>
+          <span>메타정보 관리</span><em class="on">서버 정보 관리</em>
         </div>
       </h2>
     </section>
@@ -59,7 +59,7 @@
           <label class="column_label">Port</label>
           <input
             v-model="svrPort"
-            type="text"
+            type="number"
             value=""
           >
         </div>
@@ -159,7 +159,7 @@
               <li class="td_cell on">
                 <input
                   v-model="server.svrPort"
-                  type="text"
+                  type="number"
                 >
               </li>
               <li class="td_cell on">
@@ -292,7 +292,7 @@ export default {
           .then((res) => {
             console.log(res);
             if (res.data.rstCd === 'S') {
-              this.$gf.alertOn('반영되었습니다.');
+              this.$gf.alertOn('생성되었습니다.');
               this.searchList();
             }
           })
@@ -305,7 +305,7 @@ export default {
           .then((res) => {
             console.log(res);
             if (res.data.rstCd === 'S') {
-              this.$gf.alertOn('반영되었습니다.');
+              this.$gf.alertOn('수정되었습니다.');
               this.searchList();
             }
           })
