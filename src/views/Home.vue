@@ -24,6 +24,7 @@
         </h2>
       </section>
       <queue-monitor />
+      <queue-stat />
       <!--
       <section class="form_area border_group dashboard">
         <h4 class="l_tit">
@@ -417,6 +418,7 @@ import RadarChart from './chart/RadarChart.vue';
 
 import NotiBoard from '../components/dashboard/NotiBoard.vue';
 import QueueMonitor from '../components/dashboard/QueueMonitor.vue';
+import QueueTransStat from '../components/dashboard/QueueTransStat.vue';
 
 import { fetchGetBoardList } from '@/api/bizCommApi';
 
@@ -428,6 +430,7 @@ export default {
     'reactive-bar-chart': ReactiveBarChart,
     'radar-chart': RadarChart,
     'noti-board': NotiBoard,
+    'queue-stat': QueueTransStat,
     'queue-monitor': QueueMonitor,
   },
   data() {

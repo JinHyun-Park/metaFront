@@ -1,24 +1,12 @@
 <script>
-import { Line } from 'vue-chartjs';
+import { Line, mixins } from 'vue-chartjs';
 
+const { reactiveProp } = mixins;
 export default {
   extends: Line,
+  mixins: [reactiveProp],
   data() {
     return {
-      datacollection: {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July',
-          'August', 'September', 'October', 'November', 'December'],
-        datasets: [
-          {
-            label: 'Data One',
-            backgroundColor: '#f87979',
-            pointBackgroundColor: 'white',
-            borderWidth: 1,
-            pointBorderColor: '#249EBF',
-            data: [40, 20, 30, 50, 90, 10, 20, 40, 50, 70, 90, 100],
-          },
-        ],
-      },
       options: {
         scales: {
           yAxes: [{
@@ -27,6 +15,9 @@ export default {
               beginAtZero: true,
             },
             gridLines: {
+              display: true,
+            },
+            scaleLabel: {
               display: true,
             },
           }],
@@ -45,7 +36,7 @@ export default {
     };
   },
   mounted() {
-    this.renderChart(this.datacollection, this.options);
+    this.renderChart(this.chartData, this.options);
   },
 };
 </script>
