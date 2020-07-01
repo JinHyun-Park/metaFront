@@ -21,7 +21,7 @@
       <article class="contents">
         <Aside v-if="asideOn" />
         <router-view />
-        <RightSide v-if="asideOn" />
+        <!-- <RightSide v-if="asideOn" /> -->
       </article>
       <Footer v-if="footerOn" />
     </div>
@@ -33,7 +33,7 @@ import { mapState } from 'vuex';
 import Header from '@/views/Layout/Header.vue';
 import Footer from '@/views/Layout/Footer.vue';
 import Aside from '@/views/Layout/Aside.vue';
-import RightSide from '@/views/Layout/RightSide.vue';
+// import RightSide from '@/views/Layout/RightSide.vue';
 
 import CommAlert from '@/components/popup/common/CommAlert.vue';
 import CommConfirm from '@/components/popup/common/CommConfirm.vue';
@@ -41,7 +41,7 @@ import CommConfirm from '@/components/popup/common/CommConfirm.vue';
 export default {
   name: 'App',
   components: {
-    Header, Footer, Aside, RightSide, CommAlert, CommConfirm,
+    Header, Footer, Aside, CommAlert, CommConfirm, // RightSide,
   },
   data() {
     return {
