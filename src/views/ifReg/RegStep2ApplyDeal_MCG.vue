@@ -113,6 +113,15 @@
           </div>
         </div>
       </div>
+      <div class="right_button_area">
+        <button
+          type="button"
+          class="default_button"
+          @click="emptyMcgFields"
+        >
+          항목 비우기
+        </button>
+      </div>
       <div class="row_contain type-2" />
       <div class="row_contain type-2">
         <div class="column on w-3">
@@ -121,7 +130,7 @@
             <input
               v-model="chnlNm"
               type="text"
-              value=""
+
               @click="chnlpopon()"
             >
             <span class="search">
@@ -137,7 +146,6 @@
           <input
             v-model="chnlId"
             type="text"
-            value="JOP369"
           >
         </div>
         <div class="column w-2">
@@ -145,7 +153,6 @@
           <input
             v-model="chnlTyp"
             type="text"
-            value="JOP369"
           >
         </div>
         <div class="column w-2">
@@ -153,17 +160,15 @@
           <input
             v-model="lnkMthd"
             type="text"
-            value="JOP369"
           >
         </div>
       </div>
       <div class="row_contain">
         <div class="column w-3">
-          <label class="column_label">업무명</label>
+          <label class="column_label">모듈명</label>
           <input
-
+            v-model="moduleNm"
             type="text"
-            value="Interface1Interface1Interface1Interface1Interface1Interface1"
           >
         </div>
         <div class="column w-3">
@@ -171,7 +176,6 @@
           <input
             v-model="tp"
             type="text"
-            value="Interface1Interface1Interface1Interface1Interface1Interface1"
           >
         </div>
       </div>
@@ -189,7 +193,6 @@
           <input
             v-model="serviceNm"
             type="text"
-            value="Interface1Interface"
           >
         </div>
         <div class="column w-2">
@@ -197,21 +200,20 @@
           <input
             v-model="servletUrl"
             type="text"
-            value="https://www.ccc.vue"
           >
         </div>
         <div class="column w-1">
-          <label class="column_label">TCP IP/PORT</label>
+          <label class="column_label">TCP IP</label>
           <input
-            v-model="tcpIdPort"
+            v-model="tcpIp"
             type="text"
-            value="10.10.4.10"
           >
         </div>
         <div class="column w-1">
-          <label class="column_label">&nbsp;</label>
+          <label class="column_label">TCP PORT</label>
           <input
-            type="text"
+            v-model="tcpPort"
+            type="number"
             value=""
           >
         </div>
@@ -408,7 +410,29 @@ export default {
       chrgrpopupstate: false,
       chrgrn: '',
       chrgropCd: '',
-      reqList: [],
+      reqList: [
+        {
+          chnlNm: '',
+          chnlId: '',
+          lnkMthd: '',
+          chnlTyp: '',
+          reqPurp: '',
+          chnlCnt: '',
+          maxTps: '',
+          tp: '',
+          moduleNm: '',
+          serviceId: '',
+          serviceNm: '',
+          servletUrl: '',
+          tcpIp: '',
+          tcpPort: '',
+          dailyTps: '',
+          dablInflu: '',
+          mcgRmk: '',
+          reqDt: '',
+          chnlCom: '',
+        },
+      ],
       reqsendList: [],
       svrList: [],
       chrgrList: [],
@@ -423,10 +447,12 @@ export default {
       chnlCnt: '',
       maxTps: '',
       tp: '',
+      moduleNm: '',
       serviceId: '',
       serviceNm: '',
       servletUrl: '',
-      tcpIdPort: '',
+      tcpPort: '',
+      tcpIp: '',
       dailyTps: '',
       dablInflu: '',
       mcgRmk: '',
@@ -476,7 +502,7 @@ export default {
   },
   mounted() {
     this.today = this.$gf.dateToString(new Date(), '', 'Y');
-    this.reqsetting();
+    // this.reqsetting();
   },
   created() {
     if (this.$route.params.callType === 'update') {
@@ -592,15 +618,23 @@ export default {
       this.chnlCnt = dtl.chnlCnt;
       this.maxTps = dtl.maxTps;
       this.tp = dtl.tp;
+      this.moduleNm = dtl.moduleNm;
       this.serviceId = dtl.serviceId;
       this.serviceNm = dtl.serviceNm;
       this.servletUrl = dtl.servletUrl;
-      this.tcpIdPort = dtl.tcpIdPort;
+      this.tcpIp = dtl.tcpIp;
+      this.tcpPort = dtl.tcpPort;
       this.dailyTps = dtl.dailyTps;
       this.dablInflu = dtl.dablInflu;
       this.mcgRmk = dtl.mcgRmk;
       this.reqDt = dtl.reqDt;
       this.chnlCom = dtl.chnlCom;
+
+      this.chrgrRows = dtl.chrgrList;
+
+      if (this.chrgrRows.length === 0) {
+        this.chrgrRows.push({});
+      }
     },
 
     dtlupdate(idx) {
@@ -617,10 +651,12 @@ export default {
       this.reqList[idx].chnlCnt = this.chnlCnt;
       this.reqList[idx].maxTps = this.maxTps;
       this.reqList[idx].tp = this.tp;
+      this.reqList[idx].moduleNm = this.moduleNm;
       this.reqList[idx].serviceId = this.serviceId;
       this.reqList[idx].serviceNm = this.serviceNm;
       this.reqList[idx].servletUrl = this.servletUrl;
-      this.reqList[idx].tcpIdPort = this.tcpIdPort;
+      this.reqList[idx].tcpIp = this.tcpIp;
+      this.reqList[idx].tcpPort = this.tcpPort;
       this.reqList[idx].dailyTps = this.dailyTps;
       this.reqList[idx].dablInflu = this.dablInflu;
       this.reqList[idx].mcgRmk = this.mcgRmk;
@@ -633,6 +669,11 @@ export default {
     },
 
     addMcgReq() {
+      if (this.checksave() === 0) {
+        return;
+      }
+      this.mcgReqNum = this.reqList.length;
+      console.log(this.mcgReqNum);
       this.reqList.push({
         mcgReqNum: this.mcgReqNum,
         reqNum: this.reqNum,
@@ -646,15 +687,18 @@ export default {
         chnlCnt: this.chnlCnt,
         maxTps: this.maxTps,
         tp: this.tp,
+        moduleNm: this.moduleNm,
         serviceId: this.serviceId,
         serviceNm: this.serviceNm,
         servletUrl: this.servletUrl,
-        tcpIdPort: this.tcpIdPort,
+        tcpIp: this.tcpIp,
+        tcpPort: this.tcpPort,
         dailyTps: this.dailyTps,
         dablInflu: this.dablInflu,
         mcgRmk: this.mcgRmk,
         reqDt: this.reqDt,
         chnlCom: this.chnlCom,
+        chrgrList: this.chrgrRows,
 
       });
 
@@ -669,9 +713,28 @@ export default {
       this.emptyMcgFields();
     },
 
+    checksave() {
+      if (this.chnlNm === '') {
+        this.$gf.alertOn('채널명을 입력 해주세요.');
+        return 0;
+      }
+      if (this.chnlId === '') {
+        this.$gf.alertOn('채널ID를 입력 해주세요.');
+        return 0;
+      }
+      if (this.chnlTyp === '') {
+        this.$gf.alertOn('채널타입을 선택 해주세요.');
+        return 0;
+      }
+      if (this.lnkMthd === '') {
+        this.$gf.alertOn('연동방식을 선택 해주세요.');
+        return 0;
+      }
+      return 1;
+    },
 
     emptyMcgFields() {
-      this.reqsetting();
+      // this.reqsetting();
       this.chnlNm = '';
       this.chnlId = '';
       this.lnkMthd = '';
@@ -680,16 +743,21 @@ export default {
       this.chnlCnt = '';
       this.maxTps = '';
       this.tp = '';
+      this.moduleNm = '';
       this.serviceId = '';
       this.serviceNm = '';
       this.servletUrl = '';
-      this.tcpIdPort = '';
+      this.tcpIp = '';
+      this.tcpPort = '';
       this.dailyTps = '';
       this.dablInflu = '';
       this.mcgRmk = '';
       this.reqDt = '';
       this.chnlCom = '';
-
+      this.chrgrRows = [];
+      // this.svrRows = [];
+      this.chrgrRows.push({});
+      // this.svrRows.push({});
       this.currRow = [];
     },
 
@@ -713,33 +781,31 @@ export default {
       for (let i = 0; i < this.reqList.length; i++) {
         this.reqList[i].reqNum = this.reqNum;
         this.reqList[i].procSt = '1';
+        for (let ic = 0; i < this.chrgrRows.length; ic++) {
+          this.chrgrRows[ic].reqNum = this.reqList[i].mcgReqNum;
+          this.chrgrRows[i].useYn = 'Y';
+        }
       }
       this.mcgReqList = { reqList: this.reqList };
 
 
-      for (let i = 0; i < this.chrgrRows.length; i++) {
-        this.chrgrRows[i].reqNum = this.reqNum;
-        this.chrgrRows[i].useYn = 'Y';
-      }
       this.mcgChrgrList = { chrgrRows: this.chrgrRows };
 
 
-      if (!this.mcgReqList) {
-        fetchPutMcgReq(this.mcgReqList)
-          .then((res) => {
-            console.log(res);
-            if (res.data.rstCd === 'E') {
-              this.setTempSave(false);
-            } else {
-              this.setTempSave(true);
-              this.savereqchrgr(this.mcgChrgrList);
-            }
-          })
-          .catch((ex) => {
-            console.log(`error occur!! : ${ex}`);
+      fetchPutMcgReq(this.mcgReqList)
+        .then((res) => {
+          console.log(res);
+          if (res.data.rstCd === 'E') {
             this.setTempSave(false);
-          });
-      }
+          } else {
+            this.setTempSave(true);
+            this.savereqchrgr(this.mcgChrgrList);
+          }
+        })
+        .catch((ex) => {
+          console.log(`error occur!! : ${ex}`);
+          this.setTempSave(false);
+        });
     },
     savereqchrgr(chrgrList) {
       fetchPutMcgReqChrgr(chrgrList)
