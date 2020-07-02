@@ -77,24 +77,30 @@
         <div class="column w-2">
           <label class="column_label">인터페이스</label>
           <div class="radio_group">
-            <span class="default_radio on">
+            <span class="default_radio">
               <input
                 id="radio_1"
+                v-model="ddd"
                 type="radio"
+                value="1"
                 name="radio_1"
               >EAI<label for="radio_1"><span /></label>
             </span>
             <span class="default_radio">
               <input
                 id="radio_2"
+                v-model="ddd"
                 type="radio"
+                value="2"
                 name="radio_1"
               >EIGW<label for="radio_2"><span /></label>
             </span>
             <span class="default_radio">
               <input
                 id="radio_3"
+                v-model="ddd"
                 type="radio"
+                value="3"
                 name="radio_1"
               >MCG<label for="radio_3"><span /></label>
             </span>
@@ -139,5 +145,13 @@
 <script>
 export default {
   name: 'RegStep1ApplyChgIf',
+  data() {
+    return {
+      ddd: '1',
+    };
+  },
+  created() {
+
+  },
 };
 </script>
