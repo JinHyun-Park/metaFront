@@ -6,7 +6,7 @@
           :class="{on: isActive(1)}"
           @click="tabChange(1)"
         >
-          EIGW
+          EiGW
         </li>
         <li
           :class="{on: isActive(2)}"

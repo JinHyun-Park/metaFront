@@ -12,7 +12,7 @@
           <i class="ico-bar" />대외기관 서버 정보(EiGW)
         </div>
         <div class="breadcrumb">
-          <span>EIGW</span><em class="on">EAI</em>
+          <span>EiGW</span><em class="on">EAI</em>
         </div>
       </h2>
     </section>

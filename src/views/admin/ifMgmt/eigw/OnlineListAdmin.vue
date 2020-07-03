@@ -76,7 +76,7 @@
       </h5>
       <div class="row_contain type-2">
         <div class="column on w-1">
-          <label class="column_label">EIGW구분</label>
+          <label class="column_label">EiGW구분</label>
           <div class="select_group">
             <select v-model="mqMngrNm">
               <option value="">
@@ -85,7 +85,7 @@
               <option value="EIGW1P">
                 1호기
               </option>
-              <option value="EIGW1P">
+              <option value="EIGW2P">
                 2호기
               </option>
             </select>
@@ -260,7 +260,7 @@
           >
         </div>
         <div class="column w-1">
-          <label class="column_label">EIGW구분</label>
+          <label class="column_label">EiGW구분</label>
           <select v-model="onlineMst.mqMngrNm">
             <option value="EIGW1P">
               1호기

@@ -9,10 +9,10 @@
     <section class="title style-1">
       <h2>
         <div>
-          <i class="ico-bar" />EiGW 메타 정보
+          <i class="ico-bar" />EiGW 메타 정보(파일)
         </div>
         <div class="breadcrumb">
-          <span>EIGW</span><em class="on">EAI</em>
+          <span>EiGW</span><em class="on">EAI</em>
         </div>
       </h2>
     </section>

@@ -174,13 +174,13 @@
               <li class="td_cell">
                 <input
                   v-model="row.offcPhonNum"
-                  type="text"
+                  type="number"
                 >
               </li>
               <li class="td_cell">
                 <input
                   v-model="row.mblPhonNum"
-                  type="text"
+                  type="number"
                 >
               </li>
               <li class="td_cell">

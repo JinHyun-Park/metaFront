@@ -76,7 +76,7 @@
       </h5>
       <div class="row_contain type-2">
         <div class="column on w-1">
-          <label class="column_label">EIGW구분</label>
+          <label class="column_label">EiGW구분</label>
           <div class="select_group">
             <select v-model="mqMngrNm">
               <option value="">
@@ -286,8 +286,8 @@
         </div>
       </div>
       <div class="row_contain">
-        <div class="column on w-1">
-          <label class="column_label">EIGW구분</label>
+        <div class="column w-1">
+          <label class="column_label">EiGW구분</label>
           <select v-model="fileIfMst.mqMngrNm">
             <option value="EIGW1P">
               1호기
@@ -348,7 +348,7 @@
     </section>
     <section class="form_area border_group">
       <h5 class="s_tit">
-        SKT_EIGW 정보
+        SKT_EiGW 정보
       </h5>
       <div class="row_contain">
         <div class="column w-1">
@@ -448,10 +448,10 @@
     </section>
     <section class="form_area border_group">
       <h5 class="s_tit">
-        EIGW_EIGW 정보
+        EiGW_EiGW 정보
       </h5>
       <div class="row_contain">
-        <div class="column on w-1">
+        <div class="column w-1">
           <label class="column_label">프로세스ID</label>
           <input
             v-model="fileEigwConf.svcId"
@@ -488,10 +488,10 @@
 
     <section class="form_area border_group">
       <h5 class="s_tit">
-        EIGW_AGENCY 정보
+        EiGW_AGENCY 정보
       </h5>
       <div class="row_contain">
-        <div class="column on w-2">
+        <div class="column w-2">
           <label class="column_label">프로세스ID</label>
           <input
             v-model="fileAgencyConf.svcId"

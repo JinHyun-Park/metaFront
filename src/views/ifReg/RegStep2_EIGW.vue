@@ -982,7 +982,6 @@ export default {
       this.onlineList.splice(idx, 1);
 
       this.emptyOnlineIfFields();
-
     },
     emptyOnlineIfFields() {
       this.onlineInfo.eigwIfId = '';
@@ -1149,9 +1148,7 @@ export default {
 
       const idx = this.fileList.indexOf(row);
       this.fileList.splice(idx, 1);
-      
       this.emptyFileIfFields();
-
     },
     emptyFileIfFields() {
       this.fileInfo.eigwIfId = '';
