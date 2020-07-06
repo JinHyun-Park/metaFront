@@ -1141,7 +1141,7 @@ export default {
         this.eaiIfList[i].procSt = '1';
       }
 
-      this.regList = { svrList: this.svrRows, ifList: this.eaiIfList };
+      this.regList = { reqNum: this.reqNum, svrList: this.svrRows, ifList: this.eaiIfList };
 
       this.$axios.post('/api/eai/regTemp', this.regList)
         .then((res) => {
