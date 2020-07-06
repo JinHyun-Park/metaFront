@@ -16,7 +16,7 @@
           <label class="column_label">조회일</label>
           <div class="calander_group">
             <input
-              v-model="reqDtm"
+              v-model="statDate"
               type="text"
               value=""
             >
@@ -24,11 +24,11 @@
               <i class="ico-cal" />
             </span>
             <datepicker
-              :value="reqDtm"
+              :value="statDate"
               min="2020-6-1"
               :day-str="datePickerSet.dayStr"
               :popper-props="datePickerSet.popperProps"
-              @input="setReqDtm"
+              @input="setStatDate"
             />
           </div>
         </div>
@@ -180,6 +180,7 @@ import LineChart from '../../chart/LineChart.vue';
 import BarChart from '../../chart/BarChart.vue';
 import ReactiveBarChart from '../../chart/ReactiveBarChart.vue';
 import RadarChart from '../../chart/RadarChart.vue';
+import { fetchGetStatEigwDailyTrms } from '@/api/statApi';
 
 export default {
   /* eslint-disable */
@@ -201,7 +202,8 @@ export default {
 
       ],
 
-      reqDtm: '',
+      statDate: '',
+
       datePickerSet: {
         dayStr: this.$gf.getCalDaySet(),
         popperProps: {
@@ -215,60 +217,58 @@ export default {
     };
   },
   mounted() {
-    this.reqDtm = this.$gf.dateToString(new Date(), '', 'Y');
+    this.statDate = this.$gf.dateToString(new Date(), '', 'Y');
   },
   methods: {
     computeGraphTotValue() {
       const a = {t0:0, t1:0, t2:0, t3: 0, t4:0};
-      a.t0 +=this.sample[i].t0;
-      a.t1 +=this.sample[i].t1;
-      a.t2 +=this.sample[i].t2;
-      a.t3 +=this.sample[i].t3;
-      a.t4 +=this.sample[i].t4;
+      a.t0 +=this.statList[i].t0;
+      a.t1 +=this.statList[i].t1;
+      a.t2 +=this.statList[i].t2;
+      a.t3 +=this.statList[i].t3;
+      a.t4 +=this.statList[i].t4;
 
       return Object.values(a);
     },
     computeGraphRowValue(index) {
       const a = {};
-      a.t0 = this.sample[index].t0;
-      a.t1 = this.sample[index].t1;
-      a.t2 = this.sample[index].t2;
-      a.t3 = this.sample[index].t3;
-      a.t4 = this.sample[index].t4;
-      a.t5 = this.sample[index].t5;
-      a.t6 = this.sample[index].t6;
-      a.t7 = this.sample[index].t7;
-      a.t8 = this.sample[index].t8;
+      a.t0 = this.statList[index].t0;
+      a.t1 = this.statList[index].t1;
+      a.t2 = this.statList[index].t2;
+      a.t3 = this.statList[index].t3;
+      a.t4 = this.statList[index].t4;
+      a.t5 = this.statList[index].t5;
+      a.t6 = this.statList[index].t6;
+      a.t7 = this.statList[index].t7;
+      a.t8 = this.statList[index].t8;
 
       return Object.values(a);
     },
-    setReqDtm(val) {
-      this.reqDtm = val;
+    setStatDate(val) {
+      this.statDate = val;
     },
     searchList() {
-      if(this.reqDtm == null || this.reqDtm === "") {
+      if(this.statDate == null || this.statDate === "") {
         this.$gf.alertOn('조회일 입력 바랍니다.');
         return;
       }
 
-      this.statList = this.sample;
-
-      this.drawGraph();
-      // fetchGetUserInfoList({  
-      //   params: {
-      //     reqDtm: this.reqDtm,
-      //   },
-      // })
-      //   .then((res) => {
-      //     console.log(res);
-      //     if (res.data.rstCd === 'S') {
-      //       //this.userList = this.$gf.parseRtnData(this.pageSet, res.data.rstData.userList, 'Y');
-      //       this.statList = res.data.rstData.statList;
-      //     }
-      //   })
-      //   .catch((ex) => {
-      //     console.log(`error occur!! : ${ex}`);
-      //   });
+      fetchGetStatEigwDailyTrms({
+        params: {
+          //statDate: this.statDate.replace(/\-/g, ''),
+          statDate: '20200705',
+        }
+      })
+        .then((res) => {
+          console.log(res);
+          if(res.data.rstCd === 'S'){
+            this.statList = res.data.rstData.dailyTrmsList;
+            this.drawGraph();
+          }
+        })
+        .catch((ex) => {
+          console.log(`error occur!! : ${ex}`);
+        })
     },
     drawGraph() {
       this.datacollection = {
@@ -277,27 +277,26 @@ export default {
 
         datasets: [
           {
-            label: 'Data One',
-            backgroundColor: this.dynamicColors(),
-            // Data for the x-axis of the chart
+            label: this.statList[0].ifId,
+            // Data for the x-axis of the chart/
             data: this.computeGraphRowValue(0),
+            backgroundColor: this.dynamicColors(),
           },
           {
-            label: 'Data One',
-            backgroundColor: this.dynamicColors(),
+            label: this.statList[1].ifId,
             // Data for the x-axis of the chart
             data: this.computeGraphRowValue(1),
+            backgroundColor: this.dynamicColors(),
           },
         ],
       };
     },
     dynamicColors() {
-    var r = Math.floor(Math.random() * 255);
-    var g = Math.floor(Math.random() * 255);
-    var b = Math.floor(Math.random() * 255);
-    return "rgb(" + r + "," + g + "," + b + ")";
-}
+      var r = Math.floor(Math.random() * 255);
+      var g = Math.floor(Math.random() * 255);
+      var b = Math.floor(Math.random() * 255);
+      return "rgb(" + r + "," + g + "," + b + ")";
+    }
   },
-  
 };
 </script>
