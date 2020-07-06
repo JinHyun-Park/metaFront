@@ -6,21 +6,21 @@
       </h4>
       <h5 class="s_tit type-2">
         큐 적체량(EAI)
+        <div class="right_button_area">
+          <input
+            v-model="chkAutoRefresh"
+            type="checkbox"
+          >
+          Auto Refresh
+          </input>
+          <button
+            class="button is-primary"
+            @click="searchQueueDepth()"
+          >
+            새로고침 : {{ remainTime }}s
+          </button>
+        </div>
       </h5>
-      <div class="right_button_area">
-        <input
-          v-model="chkAutoRefresh"
-          type="checkbox"
-        >
-        Auto Refresh
-        </input>
-        <button
-          class="button is-primary"
-          @click="searchQueueDepth()"
-        >
-          새로고침 : {{ remainTime }}s
-        </button>
-      </div>
     </div>
     <div
       class="table_colgroup"
@@ -89,7 +89,7 @@
 <script>
 import ReactiveBarChart from '@/views/chart/ReactiveBarChart.vue';
 import LineChart from '@/views/chart/LineChart.vue';
-import { fetchGetQueueDepthList, fetchGetQueueDepthByQueueNmList } from '@/api/dashboardApi';
+import { fetchGetQueueDepthList, fetchGetQueueDepthByQueueNmList } from '@/api/monitoringApi';
 
 export default {
   name: 'QueueTransStat',

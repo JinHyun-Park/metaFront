@@ -30,7 +30,7 @@
 
 <script>
 import ReactiveBarChart from '@/views/chart/ReactiveBarChart.vue';
-import { fetchGetQueueDepthList } from '@/api/dashboardApi';
+import { fetchGetQueueDepthList } from '@/api/monitoringApi';
 
 export default {
   name: 'QueueTransStat',

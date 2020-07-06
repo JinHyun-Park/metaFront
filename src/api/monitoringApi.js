@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-const preUrl = '/api/dashboard';
+const preUrl = '/api/monitoring';
 
 function fetchGetQueueDepthList(param) {
   return axios.get(`${preUrl}/queueDepth`, param);

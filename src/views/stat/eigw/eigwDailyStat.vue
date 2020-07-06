@@ -32,7 +32,13 @@
             />
           </div>
         </div>
-        <div class="column on w-3" />
+        <div class="column on w-3">
+          <div class="label_space">
+            <label class="label-default on">EAI</label>
+            <label class="label-default">EiGW</label>
+            <label class="label-default">MCG</label>
+          </div>
+        </div>
         <div class="column on w-1">
           <div class="right_button_area">
             <button
