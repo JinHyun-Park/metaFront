@@ -271,6 +271,7 @@ export default {
     eventBus.$on('Step4AprvReq', (params) => {
       console.log('event Bus 통해 step4 승인');
       this.hstRmk = params.hstRmk;
+      this.procSt = params.procSt;
       this.saveStep4AprvReq();
     });
   },
