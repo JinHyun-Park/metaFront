@@ -170,8 +170,6 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
-import { fetchGetUserInfoList } from '@/api/loginApi';
 import LineChart from '../../chart/LineChart.vue';
 import BarChart from '../../chart/BarChart.vue';
 import ReactiveBarChart from '../../chart/ReactiveBarChart.vue';
@@ -210,15 +208,10 @@ export default {
       statList: [],
     };
   },
-  computed: {
-    ...mapState('frameSet', ['resetPopOn']),
-
-  },
   mounted() {
     this.reqDtm = this.$gf.dateToString(new Date(), '', 'Y');
   },
   methods: {
-    ...mapActions('frameSet', ['setResetPopOn']),
     computeGraphTotValue() {
       const a = {t0:0, t1:0, t2:0, t3: 0, t4:0};
       a.t0 +=this.sample[i].t0;

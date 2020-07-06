@@ -2,10 +2,10 @@
   <section class="form_area border_group dashboard">
     <div>
       <h4 class="l_tit">
-        모니터링
+        통계
       </h4>
       <h5 class="s_tit type-2">
-        큐 적체량(EAI)
+        EAI 연동량
       </h5>
       <div class="right_button_area">
         <input
