@@ -504,15 +504,20 @@ export default {
   mounted() {
     this.today = this.$gf.dateToString(new Date(), '', 'Y');
     // this.reqsetting();
+
+    eventBus.$on('Step2McgSave', () => {
+      console.log('event Bus 통해 mcg 저장');
+      this.savereq();
+    });
   },
   created() {
     if (this.$route.params.callType === 'update') {
       this.listing(this.reqNum);
     }
-    eventBus.$on('Step2McgSave', () => {
-      console.log('event Bus 통해 mcg 저장');
-      this.savereq();
-    });
+    // eventBus.$on('Step2McgSave', () => {
+    //   console.log('event Bus 통해 mcg 저장');
+    //   this.savereq();
+    // });
     console.log(`parent reqNum : ${this.$parent.reqNum}`);
   },
   destroyed() {
@@ -520,6 +525,7 @@ export default {
   },
   methods: {
     ...mapActions('ifRegInfo', ['setTempSaveFlag']),
+
 
     setTempSave(rtn) {
       this.setTempSaveFlag({
@@ -644,7 +650,7 @@ export default {
         return;
       }
       this.reqList[idx].mcgReqNum = this.mcgReqNum;
-      this.reqList[idx].mcgType = this.mcgType;
+      this.reqList[idx].mcgType = '거래';
       this.reqList[idx].chnlNm = this.chnlNm;
       this.reqList[idx].chnlId = this.chnlId;
       this.reqList[idx].lnkMthd = this.lnkMthd;
@@ -681,7 +687,7 @@ export default {
       this.reqList.push({
         mcgReqNum: this.mcgReqNum,
         reqNum: this.reqNum,
-        mcgType: this.mcgType,
+        mcgType: '거래',
         opCd: this.opCd,
         chnlNm: this.chnlNm,
         chnlId: this.chnlId,
@@ -732,6 +738,10 @@ export default {
       }
       if (this.lnkMthd === '') {
         this.$gf.alertOn('연동방식을 선택 해주세요.');
+        return 0;
+      }
+      if (this.chrgrRows.length === 0) {
+        this.$gf.alertOn('채널 담당자를 1명 이상 입력 해주세요.');
         return 0;
       }
       return 1;
@@ -794,7 +804,11 @@ export default {
           this.reqList[i].chrgrList[ic].useYn = 'Y';
         }
       }
-      this.mcgReqList = { reqList: this.reqList };
+      if (this.reqList.length === 0) {
+        this.mcgReqList = { reqList: this.reqNum };
+      } else {
+        this.mcgReqList = { reqList: this.reqList };
+      }
 
 
       this.mcgChrgrList = { chrgrRows: this.reqList.chrgrList };

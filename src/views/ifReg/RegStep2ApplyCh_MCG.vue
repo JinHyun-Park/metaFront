@@ -597,10 +597,10 @@ export default {
     if (this.$route.params.callType === 'update') {
       this.listing(this.reqNum);
     }
-    eventBus.$on('Step2McgSave', () => {
-      console.log('event Bus 통해 mcg 저장');
-      this.savereq();
-    });
+    // eventBus.$on('Step2McgSave', () => {
+    //   console.log('event Bus 통해 mcg 저장');
+    //   this.savereq();
+    // });
     // eventBus.$on('MCGREQDTL', (params) => {
     //   console.log('event Bus를 통해 mcg 상세정보 가져옴');
     //   this.dtlshow(params);
@@ -616,6 +616,11 @@ export default {
     this.chrgrRows.push({});
     eventBus.$emit('VirtualReqNum', this.reqsendList);
     // this.reqsetting();
+
+    eventBus.$on('Step2McgSave', () => {
+      console.log('event Bus 통해 mcg 저장');
+      this.savereq();
+    });
 
     this.setCcCdList({
       opClCd: 'MCG', cdId: 'LNKG_MTHD', allYn: 'Y', listNm: 'mcgChnlLnkgMthd',
@@ -733,6 +738,14 @@ export default {
       }
       if (this.lnkMthd === '') {
         this.$gf.alertOn('연동방식을 선택 해주세요.');
+        return 0;
+      }
+      if (this.chrgrRows.name === '') {
+        this.$gf.alertOn('채널 담당자를 1명 이상 입력 해주세요.');
+        return 0;
+      }
+      if (this.svrRows.ip === '') {
+        this.$gf.alertOn('서버를 1개 이상 입력 해주세요.');
         return 0;
       }
       return 1;
@@ -1018,20 +1031,26 @@ export default {
         this.reqList[i].reqNum = this.reqNum;
         this.reqList[i].procSt = '1';
 
-        for (let is = 0; is < this.svrRows.length; is++) {
-          this.svrRows[is].mcgReqNum = this.reqList[i].mcgReqNum;
-          this.svrRows[is].reqNum = this.reqNum;
-          this.svrRows[is].useYn = 'Y';
+        for (let is = 0; is < this.reqList[i].svrList.length; is++) {
+          console.log('서버 저장!');
+          this.reqList[i].svrList[is].mcgReqNum = this.reqList[i].mcgReqNum;
+          this.reqList[i].svrList[is].reqNum = this.reqNum;
+          this.reqList[i].svrList[is].useYn = 'Y';
         }
         // this.mcgSvrList = { svrRows: this.svrRows };
 
-        for (let ic = 0; ic < this.chrgrRows.length; ic++) {
-          this.chrgrRows[ic].mcgReqNum = this.reqList[i].mcgReqNum;
-          this.chrgrRows[ic].reqNum = this.reqNum;
-          this.chrgrRows[ic].useYn = 'Y';
+        for (let ic = 0; ic < this.reqList[i].chrgrList.length; ic++) {
+          console.log('담당자 저장!');
+          this.reqList[i].chrgrList[ic].mcgReqNum = this.reqList[i].mcgReqNum;
+          this.reqList[i].chrgrList[ic].reqNum = this.reqNum;
+          this.reqList[i].chrgrList[ic].useYn = 'Y';
         }
       }
-      this.mcgReqList = { reqList: this.reqList };
+      if (this.reqList.length === 0) {
+        this.mcgReqList = { reqList: this.reqNum };
+      } else {
+        this.mcgReqList = { reqList: this.reqList };
+      }
 
       // for (let i = 0; i < this.svrRows.length; i++) {
       //   this.svrRows[i].reqNum = this.reqNum;
@@ -1055,8 +1074,8 @@ export default {
             this.setTempSave(false);
           } else {
             this.setTempSave(true);
-            this.savereqchrgr(this.mcgChrgrList);
-            this.savereqserver(this.mcgSvrList);
+            // this.savereqchrgr(this.mcgChrgrList);
+            // this.savereqserver(this.mcgSvrList);
           }
         })
         .catch((ex) => {
