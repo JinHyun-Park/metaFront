@@ -477,6 +477,7 @@ export default {
       useYn: '',
       chrgrRows: [
         {
+          mcgReqNum: '',
           name: '',
           company: '',
           phonNum: '',
@@ -663,6 +664,8 @@ export default {
       this.reqList[idx].reqDt = this.reqDt;
       this.reqList[idx].chnlCom = this.chnlCom;
 
+      this.reqList[idx].chrgrList = this.chrgrRows;
+
 
       this.$gf.alertOn(`${this.chnlNm}의 거래 정보가 수정되었습니다.`);
       this.emptyMcgFields();
@@ -778,18 +781,22 @@ export default {
     },
 
     savereq() {
+      console.log('거래 저장!');
       for (let i = 0; i < this.reqList.length; i++) {
+        console.log('거래 저장!');
         this.reqList[i].reqNum = this.reqNum;
         this.reqList[i].procSt = '1';
-        for (let ic = 0; i < this.chrgrRows.length; ic++) {
-          this.chrgrRows[ic].reqNum = this.reqList[i].mcgReqNum;
-          this.chrgrRows[i].useYn = 'Y';
+        for (let ic = 0; ic < this.reqList[i].chrgrList.length; ic++) {
+          console.log('담당자 저장!');
+          this.reqList[i].chrgrList[ic].mcgReqNum = this.reqList[i].mcgReqNum;
+          this.reqList[i].chrgrList[ic].reqNum = this.reqNum;
+          this.reqList[i].chrgrList[ic].useYn = 'Y';
         }
       }
       this.mcgReqList = { reqList: this.reqList };
 
 
-      this.mcgChrgrList = { chrgrRows: this.chrgrRows };
+      this.mcgChrgrList = { chrgrRows: this.reqList.chrgrList };
 
 
       fetchPutMcgReq(this.mcgReqList)
@@ -799,7 +806,7 @@ export default {
             this.setTempSave(false);
           } else {
             this.setTempSave(true);
-            this.savereqchrgr(this.mcgChrgrList);
+            // this.savereqchrgr(this.mcgChrgrList);
           }
         })
         .catch((ex) => {

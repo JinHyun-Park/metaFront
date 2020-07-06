@@ -1019,13 +1019,15 @@ export default {
         this.reqList[i].procSt = '1';
 
         for (let is = 0; is < this.svrRows.length; is++) {
-          this.svrRows[is].reqNum = this.reqList[i].mcgReqNum;
-          this.svrRows[isSecureContext].useYn = 'Y';
+          this.svrRows[is].mcgReqNum = this.reqList[i].mcgReqNum;
+          this.svrRows[is].reqNum = this.reqNum;
+          this.svrRows[is].useYn = 'Y';
         }
-        this.mcgSvrList = { svrRows: this.svrRows };
+        // this.mcgSvrList = { svrRows: this.svrRows };
 
         for (let ic = 0; ic < this.chrgrRows.length; ic++) {
-          this.chrgrRows[ic].reqNum = this.reqList[i].mcgReqNum;
+          this.chrgrRows[ic].mcgReqNum = this.reqList[i].mcgReqNum;
+          this.chrgrRows[ic].reqNum = this.reqNum;
           this.chrgrRows[ic].useYn = 'Y';
         }
       }
@@ -1045,6 +1047,7 @@ export default {
 
 
       console.log('채널 저장!');
+
       fetchPutMcgReq(this.mcgReqList)
         .then((res) => {
           console.log(res);
