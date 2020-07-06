@@ -105,7 +105,7 @@ export default {
       remainTime: 5,
       chkAutoRefresh: false,
 
-      isChartOn: false,
+      isChartOn: true,
       tgtQueueNm: '',
       tgtIfNm: '',
       tgtQueueManager: '',
@@ -143,6 +143,11 @@ export default {
       this.searchQueueDepthByQueueNm();
     },
     searchQueueDepthByQueueNm() {
+      if (this.tgtQueueNm === '') {
+        this.tgtQueueNm = this.queueDepthList[0].queueNm;
+        this.tgtIfNm = this.queueDepthList[0].ifNm;
+        this.tgtQueueManager = this.queueDepthList[0].queueManager;
+      }
       fetchGetQueueDepthByQueueNmList({
         params: {
           // date, time은 추후 데이터가 들어올때 다시 추가(back-end todo)
