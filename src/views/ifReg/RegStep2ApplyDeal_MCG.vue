@@ -805,7 +805,7 @@ export default {
         }
       }
       if (this.reqList.length === 0) {
-        this.mcgReqList = { reqList: this.reqNum };
+        this.mcgReqList = { reqNum: this.reqNum };
       } else {
         this.mcgReqList = { reqList: this.reqList };
       }
