@@ -34,7 +34,7 @@
             <button
               type="button"
               class="default_button on"
-              @click="searchList()"
+              @click="searchList(1)"
             >
               검색
             </button>
@@ -81,7 +81,7 @@
               class="table_row w-auto"
             >
               <li class="td_cell">
-                {{ i+1 }}
+                {{ (i+1)+((pageSet.pageNo-1)*pageSet.size) }}
               </li>
               <li class="td_cell">
                 {{ instRow.instCd }}
@@ -148,14 +148,17 @@ export default {
   computed: {
     ...mapState('frameSet', ['resetPopOn']),
   },
+  mounted() {
+    this.searchList(1);
+  },
   methods: {
     ...mapActions('frameSet', ['setResetPopOn']),
-    searchList() {
+    searchList(page) {
       // this.tgtUrl = '/api/bizcomm/inst_cd';
       // this.$axios.get(this.tgtUrl, {
       fetchGetInstCdList({
         params: {
-          pageNo: this.pageSet.pageNo,
+          pageNo: page,
           size: this.pageSet.size,
           pageCount: this.pageSet.pageCount,
           instCd: this.instCd,
@@ -197,7 +200,7 @@ export default {
             console.log(res);
             if (res.data.rstCd === 'S') {
               this.$gf.alertOn('반영되었습니다.');
-              this.searchList();
+              this.searchList(1);
             }
           })
           .catch((ex) => {
@@ -210,7 +213,7 @@ export default {
             console.log(res);
             if (res.data.rstCd === 'S') {
               this.$gf.alertOn('반영되었습니다.');
-              this.searchList();
+              this.searchList(1);
             }
           })
           .catch((ex) => {
@@ -228,7 +231,7 @@ export default {
           console.log(res);
           if (res.data.rstCd === 'S') {
             this.$gf.alertOn('처리되었습니다.');
-            this.searchList();
+            this.searchList(1);
           } else {
             this.$gf.alertOn(res.data.rstMsg);
           }

@@ -212,6 +212,7 @@ export default {
   mounted() {
     this.startReqDtm = this.$gf.dateToString(new Date(), '-7d', 'Y');
     this.endReqDtm = this.$gf.dateToString(new Date(), '', 'Y');
+    this.searchList(1);
   },
   methods: {
     ...mapActions('frameSet', ['setResetPopOn']),

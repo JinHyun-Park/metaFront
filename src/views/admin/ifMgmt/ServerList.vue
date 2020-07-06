@@ -69,7 +69,7 @@
             <button
               type="button"
               class="default_button on"
-              @click="searchList()"
+              @click="searchList(1)"
             >
               검색
             </button>
@@ -234,17 +234,18 @@ export default {
     this.setCcCdList({
       opClCd: 'COMM', cdId: 'IP_TYP', allYn: 'Y', listNm: 'ipTyp',
     });
+    this.searchList(1);
   },
   methods: {
     ...mapActions('frameSet', ['setResetPopOn']),
     ...mapActions('ccCdLst', ['setCcCdList']),
-    searchList() {
+    searchList(page) {
       // this.tgtUrl = '/api/bizcomm/server';
       // this.$axios.get(this.tgtUrl, {
       fetchServerList({
         params: {
           // pageSet: this.pageSet,
-          pageNo: this.pageSet.pageNo,
+          pageNo: page,
           size: this.pageSet.size,
           svrIp: this.svrIp,
           svrPort: this.svrPort,
@@ -293,7 +294,7 @@ export default {
             console.log(res);
             if (res.data.rstCd === 'S') {
               this.$gf.alertOn('생성되었습니다.');
-              this.searchList();
+              this.searchList(1);
             }
           })
           .catch((ex) => {
@@ -306,7 +307,7 @@ export default {
             console.log(res);
             if (res.data.rstCd === 'S') {
               this.$gf.alertOn('수정되었습니다.');
-              this.searchList();
+              this.searchList(1);
             }
           })
           .catch((ex) => {
@@ -324,7 +325,7 @@ export default {
           console.log(res);
           if (res.data.rstCd === 'S') {
             this.$gf.alertOn('처리되었습니다.');
-            this.searchList();
+            this.searchList(1);
           } else {
             this.$gf.alertOn(res.data.rstMsg);
           }

@@ -11,54 +11,9 @@
       <queue-monitor />
       <!--<queue-stat />-->
       <div class="board_area">
-        <section class="form_area border_group dashboard">
-          <h4 class="l_tit">
-            모니터링
-          </h4>
-          <h5 class="s_tit type-2">
-            거래량
-            <div class="label_space">
-              <label class="label-default on">EAI</label>
-              <label class="label-default">EiGW</label>
-              <label class="label-default">MCG</label>
-            </div>
-          </h5>
-          <div class="row_contain type-2 chart_area">
-            <radar-chart />
-          </div>
-        </section>
-        <section class="form_area border_group dashboard">
-          <h4 class="l_tit">
-            모니터링
-          </h4>
-          <h5 class="s_tit type-2">
-            거래량
-            <div class="label_space">
-              <label class="label-default">EAI</label>
-              <label class="label-default on">EiGW</label>
-              <label class="label-default">MCG</label>
-            </div>
-          </h5>
-          <div class="row_contain type-2 chart_area">
-            <bar-chart />
-          </div>
-        </section>
-        <section class="form_area border_group dashboard">
-          <h4 class="l_tit">
-            모니터링
-          </h4>
-          <h5 class="s_tit type-2">
-            거래량
-            <div class="label_space">
-              <label class="label-default">EAI</label>
-              <label class="label-default">EiGW</label>
-              <label class="label-default on">MCG</label>
-            </div>
-          </h5>
-          <div class="row_contain type-2 chart_area">
-            <line-chart />
-          </div>
-        </section>
+        <eai-daily-trms-stat />
+        <mcg-daily-trms-stat />
+        <eigw-daily-trms-stat />
       </div>
 
       <div class="board_area">
@@ -191,6 +146,9 @@ import NotiBoard from '../components/dashboard/NotiBoard.vue';
 import QueueMonitor from '../components/dashboard/QueueMonitor.vue';
 import QueueTransStat from '../components/dashboard/QueueTransStat.vue';
 import RegList from '../components/dashboard/RegList.vue';
+import McgDailyTrmsStat from '../components/dashboard/McgDailyTrmsStat.vue';
+import EigwDailyTrmsStat from '../components/dashboard/EigwDailyTrmsStat.vue';
+import EaiDailyTrmsStat from '../components/dashboard/EaiDailyTrmsStat.vue';
 
 import { fetchGetBoardList } from '@/api/bizCommApi';
 
@@ -205,6 +163,9 @@ export default {
     'queue-stat': QueueTransStat,
     'queue-monitor': QueueMonitor,
     'reg-list': RegList,
+    'mcg-daily-trms-stat': McgDailyTrmsStat,
+    'eigw-daily-trms-stat': EigwDailyTrmsStat,
+    'eai-daily-trms-stat': EaiDailyTrmsStat,
   },
   data() {
     return {

@@ -89,7 +89,7 @@
               class="table_row w-auto"
             >
               <li class="td_cell">
-                {{ i+1 }}
+                {{ (i+1)+((pageSet.pageNo-1)*pageSet.size) }}
               </li>
               <li class="td_cell">
                 {{ ccCd.opClCd }}
@@ -185,6 +185,7 @@ export default {
     this.setCcCdList({
       opClCd: 'COMM', cdId: 'OP_CL_CD', allYn: 'Y', listNm: 'opClCd',
     });
+    this.searchList(1);
   },
   methods: {
     ...mapActions('frameSet', ['setResetPopOn']),
