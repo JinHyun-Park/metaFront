@@ -69,10 +69,10 @@
           </div>
           <div class="table_body">
             <ul
-              v-for="req in reqList"
-              :key="req.index"
+              v-for="(req,idx) in reqList"
+              :key="idx"
               class="table_row w-auto"
-              @click="dtlReq(req)"
+              @click="dtlReq(req,idx)"
             >
               <li
                 class="td_cell"
@@ -609,6 +609,7 @@ export default {
     },
 
     dtlshow(dtl) {
+      this.emptyMcgFields();
       this.mcgReqNum = dtl.mcgReqNum;
       this.mcgType = dtl.mcgType;
       this.chnlNm = dtl.chnlNm;
@@ -825,9 +826,9 @@ export default {
           this.setTempSave(false);
         });
     },
-    dtlReq(req) {
+    dtlReq(req, idx) {
       // let svrinfotemp = [];
-      console.log('상세신청정보조회!');
+      console.log('상세신청정보조회!', idx);
       this.dtlshow(req);
       console.log(this.reqdtl);
     },
