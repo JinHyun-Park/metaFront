@@ -613,6 +613,7 @@ export default {
 
   mounted() {
     this.today = this.$gf.dateToString(new Date(), '', 'Y');
+    this.reqList.splice(0, 1);
     this.svrRows.push({});
     this.chrgrRows.push({});
     eventBus.$emit('VirtualReqNum', this.reqsendList);
@@ -1032,6 +1033,7 @@ export default {
         this.reqList.push({ reqNum: this.reqNum });
         this.notInsert = 'Y';
       } else {
+        this.notInsert = 'N';
         for (let i = 0; i < this.reqList.length; i++) {
           this.reqList[i].reqNum = this.reqNum;
           this.reqList[i].procSt = '1';

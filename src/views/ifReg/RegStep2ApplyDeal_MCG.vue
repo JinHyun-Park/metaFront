@@ -504,8 +504,9 @@ export default {
   },
   mounted() {
     this.today = this.$gf.dateToString(new Date(), '', 'Y');
+    this.reqList.splice(0, 1);
     // this.reqsetting();
-
+    this.chrgrRows.push({});
     eventBus.$on('Step2McgSave', () => {
       console.log('event Bus 통해 mcg 저장');
       this.savereq();
