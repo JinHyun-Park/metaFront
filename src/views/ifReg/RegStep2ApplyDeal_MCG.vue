@@ -805,10 +805,9 @@ export default {
         }
       }
       if (this.reqList.length === 0) {
-        this.mcgReqList = { reqNum: this.reqNum };
-      } else {
-        this.mcgReqList = { reqList: this.reqList };
+        this.reqList.push({ reqNum: this.reqNum });
       }
+      this.mcgReqList = { reqList: this.reqList };
 
 
       this.mcgChrgrList = { chrgrRows: this.reqList.chrgrList };
