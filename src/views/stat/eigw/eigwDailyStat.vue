@@ -192,6 +192,7 @@ export default {
   },
   data() {
     return {
+      /*
       sample: [
         {ifId: 'KTOA.SEND_MIR', ifNm : 'KTOA 번호이동 송신', mqMngrNm: 'EIGW1P', instCd: 'KTOA', conf: 'KTOA1011', statDate: '20200615', t0:0, t1: 1,
         t2:232,t3:3,t4:4,t5:6,t6:334,t7:546,t8:754,
@@ -201,6 +202,7 @@ export default {
         },
 
       ],
+      */
 
       statDate: '',
 
