@@ -793,20 +793,22 @@ export default {
 
     savereq() {
       console.log('거래 저장!');
-      for (let i = 0; i < this.reqList.length; i++) {
-        console.log('거래 저장!');
-        this.reqList[i].reqNum = this.reqNum;
-        this.reqList[i].procSt = '1';
-        for (let ic = 0; ic < this.reqList[i].chrgrList.length; ic++) {
-          console.log('담당자 저장!');
-          this.reqList[i].chrgrList[ic].mcgReqNum = this.reqList[i].mcgReqNum;
-          this.reqList[i].chrgrList[ic].reqNum = this.reqNum;
-          this.reqList[i].chrgrList[ic].useYn = 'Y';
-        }
-      }
       if (this.reqList.length === 0) {
         this.reqList.push({ reqNum: this.reqNum });
+      } else {
+        for (let i = 0; i < this.reqList.length; i++) {
+          console.log('거래 저장!');
+          this.reqList[i].reqNum = this.reqNum;
+          this.reqList[i].procSt = '1';
+          for (let ic = 0; ic < this.reqList[i].chrgrList.length; ic++) {
+            console.log('담당자 저장!');
+            this.reqList[i].chrgrList[ic].mcgReqNum = this.reqList[i].mcgReqNum;
+            this.reqList[i].chrgrList[ic].reqNum = this.reqNum;
+            this.reqList[i].chrgrList[ic].useYn = 'Y';
+          }
+        }
       }
+
       this.mcgReqList = { reqList: this.reqList };
 
 

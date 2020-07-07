@@ -1027,28 +1027,30 @@ export default {
 
     savereq() {
       console.log('채널 저장!');
-      for (let i = 0; i < this.reqList.length; i++) {
-        this.reqList[i].reqNum = this.reqNum;
-        this.reqList[i].procSt = '1';
-
-        for (let is = 0; is < this.reqList[i].svrList.length; is++) {
-          console.log('서버 저장!');
-          this.reqList[i].svrList[is].mcgReqNum = this.reqList[i].mcgReqNum;
-          this.reqList[i].svrList[is].reqNum = this.reqNum;
-          this.reqList[i].svrList[is].useYn = 'Y';
-        }
-        // this.mcgSvrList = { svrRows: this.svrRows };
-
-        for (let ic = 0; ic < this.reqList[i].chrgrList.length; ic++) {
-          console.log('담당자 저장!');
-          this.reqList[i].chrgrList[ic].mcgReqNum = this.reqList[i].mcgReqNum;
-          this.reqList[i].chrgrList[ic].reqNum = this.reqNum;
-          this.reqList[i].chrgrList[ic].useYn = 'Y';
-        }
-      }
       if (this.reqList.length === 0) {
         this.reqList.push({ reqNum: this.reqNum });
+      } else {
+        for (let i = 0; i < this.reqList.length; i++) {
+          this.reqList[i].reqNum = this.reqNum;
+          this.reqList[i].procSt = '1';
+
+          for (let is = 0; is < this.reqList[i].svrList.length; is++) {
+            console.log('서버 저장!');
+            this.reqList[i].svrList[is].mcgReqNum = this.reqList[i].mcgReqNum;
+            this.reqList[i].svrList[is].reqNum = this.reqNum;
+            this.reqList[i].svrList[is].useYn = 'Y';
+          }
+          // this.mcgSvrList = { svrRows: this.svrRows };
+
+          for (let ic = 0; ic < this.reqList[i].chrgrList.length; ic++) {
+            console.log('담당자 저장!');
+            this.reqList[i].chrgrList[ic].mcgReqNum = this.reqList[i].mcgReqNum;
+            this.reqList[i].chrgrList[ic].reqNum = this.reqNum;
+            this.reqList[i].chrgrList[ic].useYn = 'Y';
+          }
+        }
       }
+
       this.mcgReqList = { reqList: this.reqList };
 
 
