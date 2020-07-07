@@ -585,6 +585,7 @@ export default {
         },
       },
       today: '',
+      notInsert: '',
 
     };
   },
@@ -1029,6 +1030,7 @@ export default {
       console.log('채널 저장!');
       if (this.reqList.length === 0) {
         this.reqList.push({ reqNum: this.reqNum });
+        this.notInsert = 'Y';
       } else {
         for (let i = 0; i < this.reqList.length; i++) {
           this.reqList[i].reqNum = this.reqNum;
@@ -1078,6 +1080,9 @@ export default {
             this.setTempSave(true);
             // this.savereqchrgr(this.mcgChrgrList);
             // this.savereqserver(this.mcgSvrList);
+            if (this.notInsert === 'Y') {
+              this.reqList.splice(0, 1);
+            }
           }
         })
         .catch((ex) => {

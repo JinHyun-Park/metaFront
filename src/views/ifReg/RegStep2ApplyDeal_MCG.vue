@@ -495,6 +495,7 @@ export default {
         },
       },
       today: '',
+      notInsert: '',
 
     };
   },
@@ -595,6 +596,8 @@ export default {
 
     listing(req) {
       console.log('채널 신청 목록 조회!');
+      this.reqList.splice(0, 1);
+      this.chrgrRows.splice(0, 1);
       // this.$axios.get('/api/mcg/chnl', {
       fetchGetMcgReqList({
         params: {
@@ -795,7 +798,9 @@ export default {
       console.log('거래 저장!');
       if (this.reqList.length === 0) {
         this.reqList.push({ reqNum: this.reqNum });
+        this.notInsert = 'Y';
       } else {
+        this.notInsert = 'N';
         for (let i = 0; i < this.reqList.length; i++) {
           console.log('거래 저장!');
           this.reqList[i].reqNum = this.reqNum;
@@ -822,6 +827,9 @@ export default {
             this.setTempSave(false);
           } else {
             this.setTempSave(true);
+            if (this.notInsert === 'Y') {
+              this.reqList.splice(0, 1);
+            }
             // this.savereqchrgr(this.mcgChrgrList);
           }
         })
