@@ -137,9 +137,7 @@
 </template>
 
 <script>
-import LineChart from './chart/LineChart.vue';
-import BarChart from './chart/BarChart.vue';
-import ReactiveBarChart from './chart/ReactiveBarChart.vue';
+import { fetchGetBoardList } from '@/api/bizCommApi';
 import RadarChart from './chart/RadarChart.vue';
 
 import NotiBoard from '../components/dashboard/NotiBoard.vue';
@@ -150,14 +148,10 @@ import McgDailyTrmsStat from '../components/dashboard/McgDailyTrmsStat.vue';
 import EigwDailyTrmsStat from '../components/dashboard/EigwDailyTrmsStat.vue';
 import EaiDailyTrmsStat from '../components/dashboard/EaiDailyTrmsStat.vue';
 
-import { fetchGetBoardList } from '@/api/bizCommApi';
 
 export default {
   name: 'Home',
   components: {
-    'line-chart': LineChart,
-    'bar-chart': BarChart,
-    'reactive-bar-chart': ReactiveBarChart,
     'radar-chart': RadarChart,
     'noti-board': NotiBoard,
     'queue-stat': QueueTransStat,

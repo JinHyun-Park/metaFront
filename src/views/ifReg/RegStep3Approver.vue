@@ -325,7 +325,7 @@ export default {
         .then((res) => {
           console.log(res);
           let rstMsg = '';
-          if (this.procSt === '3') {
+          if (this.procSt === 3) {
             rstMsg = '승인되었습니다.';
           } else {
             rstMsg = '반려되었습니다.';

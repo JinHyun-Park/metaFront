@@ -69,10 +69,10 @@
           </div>
           <div class="table_body">
             <ul
-              v-for="req in reqList"
-              :key="req.index"
+              v-for="(req,idx) in reqList"
+              :key="idx"
               class="table_row w-auto"
-              @click="dtlReq(req)"
+              @click="dtlReq(req,idx)"
             >
               <li
                 class="td_cell"
@@ -477,6 +477,7 @@ export default {
       useYn: '',
       chrgrRows: [
         {
+          mcgReqNum: '',
           name: '',
           company: '',
           phonNum: '',
@@ -494,6 +495,7 @@ export default {
         },
       },
       today: '',
+      notInsert: '',
 
     };
   },
@@ -503,15 +505,20 @@ export default {
   mounted() {
     this.today = this.$gf.dateToString(new Date(), '', 'Y');
     // this.reqsetting();
+
+    eventBus.$on('Step2McgSave', () => {
+      console.log('event Bus 통해 mcg 저장');
+      this.savereq();
+    });
   },
   created() {
     if (this.$route.params.callType === 'update') {
       this.listing(this.reqNum);
     }
-    eventBus.$on('Step2McgSave', () => {
-      console.log('event Bus 통해 mcg 저장');
-      this.savereq();
-    });
+    // eventBus.$on('Step2McgSave', () => {
+    //   console.log('event Bus 통해 mcg 저장');
+    //   this.savereq();
+    // });
     console.log(`parent reqNum : ${this.$parent.reqNum}`);
   },
   destroyed() {
@@ -519,6 +526,7 @@ export default {
   },
   methods: {
     ...mapActions('ifRegInfo', ['setTempSaveFlag']),
+
 
     setTempSave(rtn) {
       this.setTempSaveFlag({
@@ -588,6 +596,8 @@ export default {
 
     listing(req) {
       console.log('채널 신청 목록 조회!');
+      this.reqList.splice(0, 1);
+      this.chrgrRows.splice(0, 1);
       // this.$axios.get('/api/mcg/chnl', {
       fetchGetMcgReqList({
         params: {
@@ -608,6 +618,7 @@ export default {
     },
 
     dtlshow(dtl) {
+      this.emptyMcgFields();
       this.mcgReqNum = dtl.mcgReqNum;
       this.mcgType = dtl.mcgType;
       this.chnlNm = dtl.chnlNm;
@@ -642,7 +653,7 @@ export default {
         return;
       }
       this.reqList[idx].mcgReqNum = this.mcgReqNum;
-      this.reqList[idx].mcgType = this.mcgType;
+      this.reqList[idx].mcgType = '거래';
       this.reqList[idx].chnlNm = this.chnlNm;
       this.reqList[idx].chnlId = this.chnlId;
       this.reqList[idx].lnkMthd = this.lnkMthd;
@@ -663,6 +674,8 @@ export default {
       this.reqList[idx].reqDt = this.reqDt;
       this.reqList[idx].chnlCom = this.chnlCom;
 
+      this.reqList[idx].chrgrList = this.chrgrRows;
+
 
       this.$gf.alertOn(`${this.chnlNm}의 거래 정보가 수정되었습니다.`);
       this.emptyMcgFields();
@@ -677,7 +690,7 @@ export default {
       this.reqList.push({
         mcgReqNum: this.mcgReqNum,
         reqNum: this.reqNum,
-        mcgType: this.mcgType,
+        mcgType: '거래',
         opCd: this.opCd,
         chnlNm: this.chnlNm,
         chnlId: this.chnlId,
@@ -730,6 +743,10 @@ export default {
         this.$gf.alertOn('연동방식을 선택 해주세요.');
         return 0;
       }
+      if (this.chrgrRows.length === 0) {
+        this.$gf.alertOn('채널 담당자를 1명 이상 입력 해주세요.');
+        return 0;
+      }
       return 1;
     },
 
@@ -778,18 +795,29 @@ export default {
     },
 
     savereq() {
-      for (let i = 0; i < this.reqList.length; i++) {
-        this.reqList[i].reqNum = this.reqNum;
-        this.reqList[i].procSt = '1';
-        for (let ic = 0; i < this.chrgrRows.length; ic++) {
-          this.chrgrRows[ic].reqNum = this.reqList[i].mcgReqNum;
-          this.chrgrRows[i].useYn = 'Y';
+      console.log('거래 저장!');
+      if (this.reqList.length === 0) {
+        this.reqList.push({ reqNum: this.reqNum });
+        this.notInsert = 'Y';
+      } else {
+        this.notInsert = 'N';
+        for (let i = 0; i < this.reqList.length; i++) {
+          console.log('거래 저장!');
+          this.reqList[i].reqNum = this.reqNum;
+          this.reqList[i].procSt = '1';
+          for (let ic = 0; ic < this.reqList[i].chrgrList.length; ic++) {
+            console.log('담당자 저장!');
+            this.reqList[i].chrgrList[ic].mcgReqNum = this.reqList[i].mcgReqNum;
+            this.reqList[i].chrgrList[ic].reqNum = this.reqNum;
+            this.reqList[i].chrgrList[ic].useYn = 'Y';
+          }
         }
       }
+
       this.mcgReqList = { reqList: this.reqList };
 
 
-      this.mcgChrgrList = { chrgrRows: this.chrgrRows };
+      this.mcgChrgrList = { chrgrRows: this.reqList.chrgrList };
 
 
       fetchPutMcgReq(this.mcgReqList)
@@ -799,7 +827,10 @@ export default {
             this.setTempSave(false);
           } else {
             this.setTempSave(true);
-            this.savereqchrgr(this.mcgChrgrList);
+            if (this.notInsert === 'Y') {
+              this.reqList.splice(0, 1);
+            }
+            // this.savereqchrgr(this.mcgChrgrList);
           }
         })
         .catch((ex) => {
@@ -818,9 +849,9 @@ export default {
           this.setTempSave(false);
         });
     },
-    dtlReq(req) {
+    dtlReq(req, idx) {
       // let svrinfotemp = [];
-      console.log('상세신청정보조회!');
+      console.log('상세신청정보조회!', idx);
       this.dtlshow(req);
       console.log(this.reqdtl);
     },
