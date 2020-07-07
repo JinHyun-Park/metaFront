@@ -99,7 +99,7 @@ export default {
   },
   data() {
     return {
-      datacollection: null,
+      datacollection: {},
       queueDepthList: [],
       queueDepthForQueueNmList: [],
       remainTime: 5,
