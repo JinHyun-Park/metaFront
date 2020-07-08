@@ -3,10 +3,10 @@
     <section class="title style-1">
       <h2>
         <div>
-          <i class="ico-bar" />MCG 일일 연동량
+          <i class="ico-bar" />EAI 일일 연동량
         </div>
         <div class="breadcrumb">
-          <span>통계</span><em class="on">EIGW</em>
+          <span>통계</span><em class="on">MCG</em>
         </div>
       </h2>
     </section>
@@ -16,7 +16,7 @@
           <label class="column_label">조회일</label>
           <div class="calander_group">
             <input
-              v-model="reqDtm"
+              v-model="statDate"
               type="text"
               value=""
             >
@@ -24,15 +24,14 @@
               <i class="ico-cal" />
             </span>
             <datepicker
-              :value="reqDtm"
+              :value="statDate"
               min="2020-6-1"
               :day-str="datePickerSet.dayStr"
               :popper-props="datePickerSet.popperProps"
-              @input="setReqDtm"
+              @input="setStatDate"
             />
           </div>
         </div>
-        <div class="column on w-3" />
         <div class="column on w-1">
           <div class="right_button_area">
             <button
@@ -45,25 +44,25 @@
           </div>
         </div>
       </div>
+      <div class="row_contain chart_area dashboard">
+        <reactive-bar-chart :chart-data="datacollection" />
+      </div>
       <div class="table_colgroup">
         <div class="table_grid radio_group">
           <div class="table_head w-auto">
             <tr>
               <td class="th_cell" />
               <td class="th_cell">
-                대외기관
+                업무코드
               </td>
               <td class="th_cell">
-                구분
+                채널명(업무명)
               </td>
               <td class="th_cell">
-                인터페이스ID
+                거래코드
               </td>
               <td class="th_cell">
-                인터페이스(한글)
-              </td>
-              <td class="th_cell">
-                설정파일
+                거래명
               </td>
               <td class="th_cell">
                 0시
@@ -85,6 +84,12 @@
               </td>
               <td class="th_cell">
                 6시
+              </td>
+              <td class="th_cell">
+                7시
+              </td>
+              <td class="th_cell">
+                8시
               </td>
               <td class="th_cell" />
             </tr>
@@ -110,19 +115,16 @@
                   {{ i+1 }}
                 </td>
                 <td class="td_cell">
-                  {{ stat.instCd }}
+                  {{ stat.opCd }}
                 </td>
                 <td class="td_cell">
-                  {{ stat.mqMngrNm }}
+                  {{ stat.opNm }}
                 </td>
                 <td class="td_cell">
-                  {{ stat.ifId }}
+                  {{ stat.tx }}
                 </td>
                 <td class="td_cell">
-                  {{ stat.ifNm }}
-                </td>
-                <td class="td_cell">
-                  {{ stat.conf }}
+                  {{ stat.txNm }}
                 </td>
                 <td class="td_cell">
                   {{ stat.t1 }}
@@ -136,6 +138,18 @@
                 <td class="td_cell">
                   {{ stat.t4 }}
                 </td>
+                <td class="td_cell">
+                  {{ stat.t5 }}
+                </td>
+                <td class="td_cell">
+                  {{ stat.t6 }}
+                </td>
+                <td class="td_cell">
+                  {{ stat.t7 }}
+                </td>
+                <td class="td_cell">
+                  {{ stat.t8 }}
+                </td>
               </tr>
             </template>
           </div>
@@ -146,69 +160,114 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
-import { fetchGetUserInfoList } from '@/api/loginApi';
+import LineChart from '../../chart/LineChart.vue';
+import BarChart from '../../chart/BarChart.vue';
+import ReactiveBarChart from '../../chart/ReactiveBarChart.vue';
+import RadarChart from '../../chart/RadarChart.vue';
+import { fetchGetStatMcgDailyTrms } from '@/api/statApi';
 
 export default {
   /* eslint-disable */
+  components: {
+    'line-chart': LineChart,
+    'bar-chart': BarChart,
+    'reactive-bar-chart': ReactiveBarChart,
+    'radar-chart': RadarChart,
+  },
   data() {
     return {
-      sample: [
-        {ifId: 'KTOA.SEND_MIR', ifNm : 'KTOA 번호이동 송신', mqMngrNm: 'EIGW1P', instCd: 'KTOA', conf: 'KTOA1011', statDate: '20200615', t1: '1',
-        t2:'2',t3:'3',t4:'4',t5:'6',
-        },
-        {ifId: 'KTOA.RECV_MIR', ifNm : 'KTOA 번호이동 수신', mqMngrNm: 'EIGW1P', instCd: 'KTOA', conf: 'KTOA1021', statDate: '20200615', 1: '1',
-        2:'2',3:'3',4:'4',
-        },
-
-      ],
-
-      reqDtm: '',
       datePickerSet: {
         dayStr: this.$gf.getCalDaySet(),
         popperProps: {
           type: Object,
         },
       },
-
+      statDate: '',
+      datacollection: null,
       statList: [],
     };
   },
-  computed: {
-    ...mapState('frameSet', ['resetPopOn']),
-
-  },
   mounted() {
-    this.reqDtm = this.$gf.dateToString(new Date(), '', 'Y');
+    this.statDate = this.$gf.dateToString(new Date(), '', 'Y');
   },
   methods: {
-    ...mapActions('frameSet', ['setResetPopOn']),
-    setReqDtm(val) {
-      this.reqDtm = val;
+    computeGraphTotValue() {
+      const a = {t0:0, t1:0, t2:0, t3: 0, t4:0};
+      a.t0 +=this.statList[i].t0;
+      a.t1 +=this.statList[i].t1;
+      a.t2 +=this.statList[i].t2;
+      a.t3 +=this.statList[i].t3;
+      a.t4 +=this.statList[i].t4;
+
+      return Object.values(a);
+    },
+    computeGraphRowValue(index) {
+      const a = {};
+      a.t0 = this.statList[index].t0;
+      a.t1 = this.statList[index].t1;
+      a.t2 = this.statList[index].t2;
+      a.t3 = this.statList[index].t3;
+      a.t4 = this.statList[index].t4;
+      a.t5 = this.statList[index].t5;
+      a.t6 = this.statList[index].t6;
+      a.t7 = this.statList[index].t7;
+      a.t8 = this.statList[index].t8;
+
+      return Object.values(a);
+    },
+    setStatDate(val) {
+      this.statDate = val;
     },
     searchList() {
-      if(this.reqDtm == null || this.reqDtm === "") {
+      if(this.statDate == null || this.statDate === "") {
         this.$gf.alertOn('조회일 입력 바랍니다.');
         return;
       }
 
-      this.statList = this.sample;
-      // fetchGetUserInfoList({  
-      //   params: {
-      //     reqDtm: this.reqDtm,
-      //   },
-      // })
-      //   .then((res) => {
-      //     console.log(res);
-      //     if (res.data.rstCd === 'S') {
-      //       //this.userList = this.$gf.parseRtnData(this.pageSet, res.data.rstData.userList, 'Y');
-      //       this.statList = res.data.rstData.statList;
-      //     }
-      //   })
-      //   .catch((ex) => {
-      //     console.log(`error occur!! : ${ex}`);
-      //   });
+      fetchGetStatMcgDailyTrms({
+        params: {
+          //statDate: this.statDate.replace(/\-/g, ''),
+          statDate: '20200705',
+        }
+      })
+        .then((res) => {
+          console.log(res);
+          if(res.data.rstCd === 'S'){
+            this.statList = res.data.rstData.dailyTrmsList;
+            this.drawGraph();
+          }
+        })
+        .catch((ex) => {
+          console.log(`error occur!! : ${ex}`);
+        })
     },
+    drawGraph() {
+      this.datacollection = {
+        // Data for the y-axis of the chart
+        labels: ['0시', '1시', '2시', '3시', '4시', '5시', '6시', '7시', '8시', '9시'],
+
+        datasets: [
+          {
+            label: this.statList[0].opCd + ' - ' + this.statList[0].tx,
+            // Data for the x-axis of the chart/
+            data: this.computeGraphRowValue(0),
+            backgroundColor: this.dynamicColors(),
+          },
+          {
+            label: this.statList[1].opCd + ' - ' + this.statList[1].tx,
+            // Data for the x-axis of the chart
+            data: this.computeGraphRowValue(1),
+            backgroundColor: this.dynamicColors(),
+          },
+        ],
+      };
+    },
+    dynamicColors() {
+      var r = Math.floor(Math.random() * 255);
+      var g = Math.floor(Math.random() * 255);
+      var b = Math.floor(Math.random() * 255);
+      return "rgb(" + r + "," + g + "," + b + ")";
+    }
   },
 };
 </script>

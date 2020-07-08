@@ -32,13 +32,6 @@
             />
           </div>
         </div>
-        <div class="column on w-3">
-          <div class="label_space">
-            <label class="label-default on">EAI</label>
-            <label class="label-default">EiGW</label>
-            <label class="label-default">MCG</label>
-          </div>
-        </div>
         <div class="column on w-1">
           <div class="right_button_area">
             <button
@@ -192,29 +185,14 @@ export default {
   },
   data() {
     return {
-      /*
-      sample: [
-        {ifId: 'KTOA.SEND_MIR', ifNm : 'KTOA 번호이동 송신', mqMngrNm: 'EIGW1P', instCd: 'KTOA', conf: 'KTOA1011', statDate: '20200615', t0:0, t1: 1,
-        t2:232,t3:3,t4:4,t5:6,t6:334,t7:546,t8:754,
-        },
-        {ifId: 'KTOA.RECV_MIR', ifNm : 'KTOA 번호이동 수신', mqMngrNm: 'EIGW1P', instCd: 'KTOA', conf: 'KTOA1021', statDate: '20200615', t0:6,t1: 51,
-        t2:52,t3:63,t4:4,t5:16,t6:344,t7:546,t8:695,
-        },
-
-      ],
-      */
-
-      statDate: '',
-
       datePickerSet: {
         dayStr: this.$gf.getCalDaySet(),
         popperProps: {
           type: Object,
         },
       },
-
+      statDate: '',
       datacollection: null,
-
       statList: [],
     };
   },
