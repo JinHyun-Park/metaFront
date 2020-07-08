@@ -32,6 +32,7 @@
             />
           </div>
         </div>
+        <div class="column on w-2" />
         <div class="column on w-1">
           <div class="right_button_area">
             <button
