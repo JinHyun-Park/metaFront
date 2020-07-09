@@ -20,6 +20,8 @@ body {
     color: #555;
     letter-spacing: -.2px
 }
+
+
 /* #app::-webkit-scrollbar,
 #app>div {
 width: 0;
@@ -40,6 +42,8 @@ overflow: hidden
     /* position: relative;
 overflow: auto */
 }
+
+
 /* html::-webkit-scrollbar,
 body::-webkit-scrollbar, */
 
@@ -51,6 +55,8 @@ body::-webkit-scrollbar, */
     position: fixed;
     overflow: hidden
 }
+
+
 /* #app,
 #app>div {
 display: flex;
@@ -258,6 +264,8 @@ select::-ms-expand {
     font-weight: bold;
     font-style: normal
 }
+
+
 /* NAVIGATION */
 
 header .gnb {
@@ -352,7 +360,9 @@ header .gnb>div .util_space .log .ico-logout {
     background-size: 100%
 }
 
+
 /* click event */
+
 .click_btn.on,
 .click_btn:hover {
     cursor: pointer;
@@ -459,6 +469,8 @@ nav .menu li .sub_menu li:hover {
     font-family: Moebius_Bold_kor, Moebius_Bold_eng;
     color: #626262
 }
+
+
 /* MOVE FORM */
 
 .contents .move_form {
@@ -513,6 +525,8 @@ nav .menu li .sub_menu li:hover {
 .contents .move_form .form_area h5.s_tit:before {
     content: none
 }
+
+
 /* RIGHT SPACE */
 
 .contents .right_space {
@@ -615,6 +629,8 @@ left: 0px; */
     padding-left: 7px;
     color: #333
 }
+
+
 /* LNB */
 
 aside>h3 {
@@ -659,7 +675,11 @@ aside .lnb li.on,
 aside .lnb li:hover {
     color: #A55463
 }
+
+
 /*aside .lnb li.on:after, aside .lnb li:hover:after {content:''; display:inline-flex; position:absolute; left:0; bottom:0; width:100%; height:1px; background:#5275e8}*/
+
+
 /* LOGIN */
 
 .contents.index {
@@ -716,6 +736,8 @@ aside .lnb li:hover {
     min-height: 0;
     z-index: 11
 }
+
+
 /* .contents.index .login_contn+.contents.index .login_contn.layer_popup {
 position: absolute;
 right:0
@@ -825,6 +847,8 @@ right:0
     background: url(../images/ico-reset.png) center center no-repeat;
     background-size: 100%
 }
+
+
 /* HOME */
 
 .contents .home {
@@ -839,6 +863,8 @@ right:0
 .contents .home>img {
     margin-bottom: 26px
 }
+
+
 /* PROGRESS */
 
 .contents .right_space .progress {
@@ -911,6 +937,8 @@ right:0
 .contents .right_space .progress ul li:last-child:after {
     content: none
 }
+
+
 /* TABS */
 
 .contents .right_space .big_tabs {
@@ -947,6 +975,8 @@ right:0
 .contents .right_space .big_tabs ul li.on:first-child {
     border-radius: 0 5px 0 0
 }
+
+
 /*
 .contents .right_space .big_tabs_contents, .contents .right_space .big_tabs_contents .tab_contn {
 display:flex;
@@ -1002,6 +1032,8 @@ flex-direction: column
 .contents .right_space .small_tabs ul li:first-child:before {
     content: none
 }
+
+
 /* SUB TITLE INFO */
 
 .contents .sub_info {
@@ -1047,6 +1079,8 @@ flex-direction: column
     background: #777;
     border-radius: 50%
 }
+
+
 /* INFO TITLE */
 
 .contents .info_title {
@@ -1086,6 +1120,8 @@ flex-direction: column
     background-size: 100%;
     cursor: pointer
 }
+
+
 /* ADD INFO TEXT */
 
 .add_info {
@@ -1119,6 +1155,8 @@ flex-direction: column
     font-family: Moebius_Regular_kor, Moebius_Regular_eng;
     border-color: #ababab
 }
+
+
 /* BORDER GROUP */
 
 .contents .border_group {
@@ -1139,6 +1177,8 @@ flex-direction: column
     padding-bottom: 0;
     box-shadow: none
 }
+
+
 /* FORM */
 
 .contents .form_area {
@@ -1152,7 +1192,11 @@ flex-direction: column
     /* _box-shadow: 1px 1px 4px 2px rgba(0, 0, 0, .14); */
     box-sizing: border-box
 }
+
+
 /* Dashboard Chart Board */
+
+
 /*
 .contents .form_area.dashboard,
 .contents .board_area .form_area {
@@ -1321,6 +1365,8 @@ background:#fcfcfc
 .contents .form_area.style-3 {
     background: #fff
 }
+
+
 /* .contents .form_area.style-3 .row_contain {
 border-bottom: 1px solid #d9eae0
 } */
@@ -1386,6 +1432,8 @@ border-bottom: 1px solid #d9eae0
     padding-top: 8px;
     padding-bottom: 28px
 }
+
+
 /* .contents .form_area .table_grid+h5.s_tit.type-2 {
 margin-top: 63px
 } */
@@ -1535,6 +1583,8 @@ margin-top: 63px
 .contents .form_area .row_contain .column:last-child {
     padding-right: 0
 }
+
+
 /* RADIO BUTTON */
 
 .contents .form_area .row_contain .column .radio_group {
@@ -1673,6 +1723,8 @@ input[type=radio]+label.border-brickpink {
 .default_radio.on input[type=radio]+label span {
     background: #82BEA3
 }
+
+
 /* CHECK BOX BUTTON */
 
 .contents .form_area .row_contain .column .checkbox_group {
@@ -1870,6 +1922,8 @@ input[type=radio]+label.border-brickpink {
 .contents .form_area.style-3 .row_contain.subject .column .view_text input[type=text] {
     font-size: 14px
 }
+
+
 /*
 .contents .form_area.style-3 .row_contain .column .view_text input[type=text],
 .contents .form_area.style-3 .row_contain .column .view_text input[type=password],
@@ -1887,6 +1941,8 @@ border-bottom:2px dotted #dfdfdf
     border-radius: 3px 3px 0 0;
     box-sizing: border-box
 }
+
+
 /* .contents .form_area.style-2 .row_contain .column.on .quill-editor .ql-toolbar.ql-snow,
 .contents .form_area.style-2 .row_contain .column:hover .quill-editor .ql-toolbar.ql-snow {
 border-bottom: none
@@ -2093,6 +2149,8 @@ select {
     border-left: none;
     background: #e2e2e2
 }
+
+
 /*
 .contents .form_area .row_contain .column .select_group .select,
 .select_group .select {
@@ -2172,6 +2230,8 @@ width: 24px
 .calander_group .calander .datetime-picker .picker {
     display: block
 }
+
+
 /* .contents .form_area .row_contain .column .calander_group .calander .datepicker .picker,
 .contents .form_area .row_contain .column .calander_group .calander .timepicker .picker,
 .contents .form_area .row_contain .column .calander_group .calander .datetime-picker .picker,
@@ -2190,6 +2250,8 @@ right: calc(100% - 276%)
 .calander_group .datetime-picker .vue-popper {
     margin-top: .35em
 }
+
+
 /* .contents .form_area .row_contain .column .calander_group .datepicker .picker .arrow,
 .contents .form_area .row_contain .column .calander_group .timepicker .picker .arrow,
 .contents .form_area .row_contain .column .calander_group .datetime-picker .picker .arrow,
@@ -2303,6 +2365,8 @@ right: 15.9%
 .table_grid .table_row .td_cell:hover .select_group.disabled .select {
     background: transparent
 }
+
+
 /* GRID FORM */
 
 .contents .grid_form {
@@ -2348,12 +2412,16 @@ right: 15.9%
     /* grid-column-gap: 10px; */
     padding: 0 0px 0 0
 }
+
+
 /*.contents .grid_form > div .item-a {grid-area:1 / col1-start / last-line / 6;}*/
 
 .contents .grid_form .column_label,
 .contents .grid_form .search_group {
     justify-content: stretch
 }
+
+
 /* .contents .grid_form .column_label {
 margin-bottom: 23px
 } */
@@ -2469,6 +2537,8 @@ margin-bottom: 23px
 .contents .grid_form .search_group {
     -ms-grid-column: 2
 }
+
+
 /*.contents .grid_form .search_group input[type=text] {margin-left:0px}*/
 
 .contents .grid_form .search_group:nth-of-type(2) {
@@ -2525,6 +2595,8 @@ margin-bottom: 23px
     background: url(../images/ico-search-on.png) center center no-repeat;
     background-size: 100%
 }
+
+
 /* TABLE */
 
 .table_colgroup {
@@ -2550,6 +2622,8 @@ margin-bottom: 23px
 .contents .form_area .table_colgroup.first {
     margin-bottom: 36px
 }
+
+
 /*
 colgroup {
 display: table-column-group
@@ -2894,6 +2968,8 @@ display: table-column
 .table_grid .table_row:last-child .td_cell {
     border-bottom-color: #bbb
 }
+
+
 /* LABEL COLORS */
 
 .table_grid .table_row .td_cell label.label-default {
@@ -3055,6 +3131,8 @@ display: table-column
     background: url(../images/ico-add.png) center center no-repeat;
     background-size: 100%
 }
+
+
 /* TABLE REPLY SPACE */
 
 .contents .form_area.reply_space {
@@ -3166,6 +3244,8 @@ height:12px;
 .contents .form_area.reply_space .table_grid .table_row .td_cell .reply_btn.del {
     padding-left: 13px
 }
+
+
 /* .contents .form_area.reply_space .table_grid .table_row .td_cell .reply_btn.del.on,
 .contents .form_area.reply_space .table_grid .table_row .td_cell .reply_btn.del:hover {
 color: inherit
@@ -3215,6 +3295,8 @@ color: inherit
 .contents .form_area.reply_space .table_grid .table_row .td_cell.right_button_area .default_button:first-child {
     margin-top: 15px
 }
+
+
 /* TOOLTIP */
 
 .tooltips {
@@ -3348,6 +3430,8 @@ span:hover.tooltips.right .tip_contn {
     margin-left: 8px;
     z-index: 9
 }
+
+
 /* POPUP */
 
 .dim {
@@ -3400,6 +3484,8 @@ span:hover.tooltips.right .tip_contn {
     box-sizing: border-box;
     z-index: 12
 }
+
+
 /* .contents.popup .layer_popup+.layer_popup {
 position: absolute
 } */
@@ -3544,6 +3630,8 @@ position: absolute
 .contents.index .login_contn.layer_popup .btm_button_area .default_button:first-child {
     margin-left: 0
 }
+
+
 /* BUTTON */
 
 .btm_button_area,
@@ -3623,6 +3711,8 @@ position: absolute
     padding: 0 10px;
     box-sizing: content-box
 }
+
+
 /* PAGINATION */
 
 .pagination_space {
@@ -3744,6 +3834,8 @@ position: absolute
     border-top-right-radius: 3px;
     border-bottom-right-radius: 3px;
 }
+
+
 /* FOOTER */
 
 footer {
@@ -3965,4 +4057,79 @@ body {
         /* width: 17% */
         width: 15%
     }
+}
+
+.contents .form_area.border_group .row_contain.type-3.last {
+    flex-direction: row;
+    justify-items: flex-start;
+    align-items: center;
+    position: relative;
+    /* margin-top: 13px; */
+    margin-top: 11px;
+    padding: 0;
+    padding-bottom: 26px;
+    width: 100%;
+    height: auto;
+    line-height: 1;
+    font-size: 15px;
+    color: #46576b;
+    font-family: Moebius_Regular_kor, Moebius_Regular_eng;
+    letter-spacing: -.4px
+}
+
+.contents .form_area.border_group .row_contain.type-3.last .label_space {
+    display: flex;
+    display: -ms-flexbox;
+    width: auto
+}
+
+.contents .form_area.border_group .row_contain.type-3.last .label_space label.label-default {
+    padding: 5px 19px;
+    font-size: 13px;
+    color: #666;
+    font-weight: normal;
+    border-style: solid;
+    border-color: rgba(196, 105, 121, .4) #c46979 #c46979 rgba(196, 105, 121, .4);
+    border-width: 1px 1px 1px 0px;
+    border-radius: 0px;
+    background: #fff;
+    cursor: pointer
+}
+
+.contents .form_area.border_group .row_contain.type-3.last .label_space label.label-default:first-child {
+    padding: 5px 24px;
+    border-radius: 3px 0 0 3px;
+    border-width: 1px 1px 1px 1px
+}
+
+.contents .form_area.border_group .row_contain.type-3.last .label_space label.label-default:last-child {
+    border-radius: 0 3px 3px 0;
+    border-width: 1px 1px 1px 0
+}
+
+.contents .form_area.border_group .row_contain.type-3.last .label_space label.label-default.on:first-child,
+.contents .form_area.border_group .row_contain.type-3.last .label_space label.label-default:first-child:hover {
+    padding: 5px 23px 4px 24px
+}
+
+.contents .form_area.border_group .row_contain.type-3.last .label_space label.label-default.on,
+.contents .form_area.border_group .row_contain.type-3.last .label_space label.label-default:hover {
+    padding: 5px 18px 4px 19px;
+    color: #46576b;
+    border-color: #bd6776;
+    border-width: 1px 2px 2px 0px
+}
+
+.contents .form_area.border_group .row_contain.type-3.last .label_space label.label-default.on:first-child,
+.contents .form_area.border_group .row_contain.type-3.last .label_space label.label-default:first-child:hover {
+    border-width: 1px 2px 2px 1px
+}
+
+.contents .form_area.border_group .row_contain.type-3.last .label_space label.label-default.on:last-child,
+.contents .form_area.border_group .row_contain.type-3.last .label_space label.label-default:last-child:hover {
+    border-width: 1px 2px 2px 0px
+}
+
+.contents .form_area.border_group ..row_contain.type-3.last label_space label.label-default.color-green {
+    border-color: #82BEA3
 }
