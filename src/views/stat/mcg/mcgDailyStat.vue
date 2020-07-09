@@ -3,7 +3,7 @@
     <section class="title style-1">
       <h2>
         <div>
-          <i class="ico-bar" />EAI 일일 연동량
+          <i class="ico-bar" />MCG 일일 연동량
         </div>
         <div class="breadcrumb">
           <span>통계</span><em class="on">MCG</em>
