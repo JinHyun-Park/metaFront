@@ -74,6 +74,12 @@ export default {
         case 3:
           this.btnMsg = '승인';
           break;
+        case 4:
+          this.btnMsg = '개발반영 완료';
+          break;
+        case 5:
+          this.btnMsg = '최종완료';
+          break;
         default:
           this.btnMsg = '저장';
           break;

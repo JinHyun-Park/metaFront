@@ -260,7 +260,16 @@ const router = new Router({
       name: 'approEaiList',
       component: () => import('@/views/admin/ifMgmt/eai/ApproEaiList.vue'),
     },
-
+    {
+      path: '/admin/ifreg/regListAdmin',
+      name: 'regListAdmin',
+      component: () => import('@/views/admin/ifReg/RegListAdmin.vue'),
+    },
+    {
+      path: '/admin/ifreg/RegStep4Admin',
+      name: 'regStepAdmin',
+      component: () => import('@/views/admin/ifReg/RegStep4Admin.vue'),
+    },
     ],
   },
   {

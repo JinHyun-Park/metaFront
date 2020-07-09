@@ -135,6 +135,7 @@ export default {
     return {
       procSt: '',
       callType: 'new',
+      eventTabMove: '',
 
       tabNum: '',
 
@@ -161,6 +162,56 @@ export default {
     tabNum() {
       this.setBtnShow();
     },
+    // // saveFlag: {
+    //   deep: true,
+    //   handler() {
+    //     if (this.procSt === '1' || this.procSt == null) {
+    //       console.log(`22 isStep2Eai : ${this.saveFlag.isStep2EaiSaveYn} / isStep2Eigw : ${this.saveFlag.isStep2EigwSaveYn} / isStep2Mcg : ${this.saveFlag.isStep2McgSaveYn}`);
+    //       if (this.tabNum === 1) {
+    //         if (this.saveFlag.isStep1SaveYn !== false) {
+    //           if (alert) {
+    //             this.$gf.alertOn('저장되었습니다.');
+    //             // 신규->변경으로 임시저장 이벤트 변경
+    //             this.callType = 'update';
+    //           }
+    //           this.resetTempSaveFlag();
+    //           if (this.eventTabMove === 'PREV') {
+    //             this.toNextTab();
+    //             this.eventTabMove = '';
+    //           } else if (this.eventTabMove === 'FORW') {
+    //             this.toBeforeTab();
+    //             this.eventTabMove = '';
+    //           }
+    //         }
+    //       } else if (this.tabNum === 2) {
+    //         if (this.saveFlag.isStep2EaiSaveYn !== false && this.saveFlag.isStep2EigwSaveYn !== false && this.saveFlag.isStep2McgSaveYn !== false) {
+    //           if (alert) {
+    //             this.$gf.alertOn('저장되었습니다.');
+    //           }
+    //           this.resetTempSaveFlag();
+    //           if (this.eventTabMove === 'PREV') {
+    //             this.toNextTab();
+    //             this.eventTabMove = '';
+    //           } else if (this.eventTabMove === 'FORW') {
+    //             this.toBeforeTab();
+    //             this.eventTabMove = '';
+    //           }
+    //         }
+    //       } else {
+    //       // 바꾸지마라
+    //         if (this.eventTabMove === 'PREV') {
+    //           this.toNextTab();
+    //           this.eventTabMove = '';
+    //         } else if (this.eventTabMove === 'FORW') {
+    //           this.toBeforeTab();
+    //           this.eventTabMove = '';
+    //         } else {
+
+    //         }
+    //       }
+    //     }
+    //   },
+    // },
   },
   created() {
     this.setReqNum({ reqNum: null });
@@ -172,6 +223,7 @@ export default {
     this.setParams();
   },
   mounted() {
+    this.resetTempSaveFlag();
   },
   destroyed() {
     localStorage.setItem('APPLY_TABNUM', '');
@@ -190,6 +242,9 @@ export default {
     },
     tabChange(val) {
       console.log(`tabChange : [${this.reqNum}]`);
+      if (this.procSt == null || this.procSt === '1') {
+        return;
+      }
       if (this.reqNum != null && this.reqNum !== '') {
         window.scrollTo(0, 0);
         this.tabNum = val;
@@ -203,7 +258,7 @@ export default {
       // procSt : 1(임시저장) / 2(승인요청)
       this.isBtnPrev = (this.tabNum > 1);
       this.isBtnForw = (this.tabNum < 3);
-      this.isBtnTempSave = (this.tabNum < 3 && (this.procSt == null || this.procSt === '1'));
+      this.isBtnTempSave = (this.tabNum < 4 && (this.procSt == null || this.procSt === '1'));
       this.isBtnApprReq = (this.tabNum === 3 && (this.procSt == null || this.procSt === '1'));
       this.isBtnAppr = (this.tabNum === 4 && this.procSt === '2');
       this.isBtnReject = (this.tabNum === 4 && this.procSt === '2');
@@ -212,22 +267,40 @@ export default {
       return this.tabNum === val;
     },
     toNextTab() {
-      window.scrollTo(0, 0);
+      // if (this.procSt === '1' || this.procSt == null) {
+      //   if (!this.tempSave('btnTab')) {
+      //     console.log('nextTab > temeSave false');
+      //     return;
+      //   }
+      // }
       if (this.procSt === '1' || this.procSt == null) {
-        if (!this.tempSave('btnTab')) {
-          return;
+        if (this.tabNum === 1) {
+          console.log(`22 isStep1SaveYn : ${this.saveFlag.isStep1SaveYn}`);
+          if (this.saveFlag.isStep1SaveYn !== 'F') {
+            window.scrollTo(0, 0);
+            this.tabNum = this.tabNum + 1;
+            localStorage.setItem('APPLY_TABNUM', this.tabNum);
+          }
+        } else if (this.tabNum === 2) {
+          console.log(`22 isStep2Eai : ${this.saveFlag.isStep2EaiSaveYn} / isStep2Eigw : ${this.saveFlag.isStep2EigwSaveYn} / isStep2Mcg : ${this.saveFlag.isStep2McgSaveYn}`);
+          if (this.saveFlag.isStep2EaiSaveYn === 'T' || this.saveFlag.isStep2EigwSaveYn === 'T' || this.saveFlag.isStep2McgSaveYn === 'T') {
+            window.scrollTo(0, 0);
+            this.tabNum = this.tabNum + 1;
+            localStorage.setItem('APPLY_TABNUM', this.tabNum);
+          } else {
+            this.$gf.alertOn('임시저장 후 이동 부탁드립니다.');
+          }
         }
       }
-      this.tabNum = this.tabNum + 1;
-      localStorage.setItem('APPLY_TABNUM', this.tabNum);
+      this.resetTempSaveFlag();
     },
     toBeforeTab() {
+      // if (this.procSt === '1' || this.procSt == null) {
+      //   if (!this.tempSave('btnTab')) {
+      //     return;
+      //   }
+      // }
       window.scrollTo(0, 0);
-      if (this.procSt === '1' || this.procSt == null) {
-        if (!this.tempSave('btnTab')) {
-          return;
-        }
-      }
       this.tabNum = this.tabNum - 1;
       localStorage.setItem('APPLY_TABNUM', this.tabNum);
     },
@@ -256,6 +329,12 @@ export default {
       // 중복 클릭 방지
       this.clickBtn = true;
 
+      if (callMeth === 'tabForw') {
+        this.eventTabMove = 'PREV';
+      } else if (callMeth === 'tabPrev') {
+        this.eventTabMove = 'FORW';
+      }
+
       // 신청 후 저장 alert 처리
       if (this.tabNum === 1) {
         if (this.saveFlag.isStep1SaveYn !== false) {
@@ -264,23 +343,25 @@ export default {
             // 신규->변경으로 임시저장 이벤트 변경
             this.callType = 'update';
           }
-          this.resetTempSaveFlag();
-          return true;
+          // this.resetTempSaveFlag();
+          // return true;
         }
       } else if (this.tabNum === 2) {
+        console.log(`22 isStep2Eai : ${this.saveFlag.isStep2EaiSaveYn} / isStep2Eigw : ${this.saveFlag.isStep2EigwSaveYn} / isStep2Mcg : ${this.saveFlag.isStep2McgSaveYn}`);
         if (this.saveFlag.isStep2EaiSaveYn !== false && this.saveFlag.isStep2EigwSaveYn !== false && this.saveFlag.isStep2McgSaveYn !== false) {
           if (alert) {
             this.$gf.alertOn('저장되었습니다.');
           }
-          this.resetTempSaveFlag();
-          return true;
+          // this.resetTempSaveFlag();
+          // return true;
         }
       } else {
-        this.resetTempSaveFlag();
-        return true;
+        // this.resetTempSaveFlag();
+        // return true;
       }
-      this.resetTempSaveFlag();
-      return false;
+      console.log(`33 isStep2Eai : ${this.saveFlag.isStep2EaiSaveYn} / isStep2Eigw : ${this.saveFlag.isStep2EigwSaveYn} / isStep2Mcg : ${this.saveFlag.isStep2McgSaveYn}`);
+      // this.resetTempSaveFlag();
+      // return false;
     },
     aprvMsgReq(tgtProcSt) {
       this.tgtProcSt = tgtProcSt;

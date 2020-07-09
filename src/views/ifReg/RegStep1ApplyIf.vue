@@ -278,7 +278,7 @@ export default {
       this.ifReqMstInfo.operAplyReqDt = this.ifReqMstInfo.operAplyReqDt.replace(/\-/g, '');
 
       if (!this.checkParams()) {
-        this.setTempSave(false);
+        this.setTempSave('F');
         return;
       }
 
@@ -287,11 +287,11 @@ export default {
         fetchPutIfStep1Reg(this.ifReqMstInfo)
           .then((res) => {
             console.log(res);
-            this.setTempSave(true);
+            this.setTempSave('T');
           })
           .catch((ex) => {
             console.log(`오류가 발생하였습니다 : ${ex}`);
-            this.setTempSave(false);
+            this.setTempSave('F');
           });
       } else {
         // this.$axios.post('/api/eai/regTemp', this.regList)
@@ -300,12 +300,12 @@ export default {
             console.log(res);
             this.ifReqMstInfo = res.data.rstData.reqInfo;
             this.setReqNum({ reqNum: this.ifReqMstInfo.reqNum });
-            this.setTempSave(true);
+            this.setTempSave('T');
             this.getIfReqMst(this.reqNum);
           })
           .catch((ex) => {
             console.log(`오류가 발생하였습니다 : ${ex}`);
-            this.setTempSave(false);
+            this.setTempSave('F');
           });
       }
     },

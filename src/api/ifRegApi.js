@@ -37,6 +37,18 @@ function fetchGetIfReqDetailInfo(param) {
   return axios.get(`${preUrl}/detail/allList`, param);
 }
 
+function fetchGetIfRegListAdmin(param) {
+  return axios.get(`${preUrl}/admin/list`, param);
+}
+
+function fetchGetIfStep4Admin(param) {
+  return axios.get(`${preUrl}/admin/allList`, param);
+}
+
+function fetchPutIfStepAprvReqAdmin(param) {
+  return axios.put(`${preUrl}/admin/aprvReq`, param);
+}
+
 
 export {
   fetchGetIfRegList,
@@ -48,4 +60,8 @@ export {
   fetchPutIfStepAprvReq,
   fetchGetIfStep3Reg,
   fetchGetIfReqDetailInfo,
+  fetchGetIfRegListAdmin,
+  fetchGetIfStep4Admin,
+  fetchPutIfStepAprvReqAdmin,
+
 };
