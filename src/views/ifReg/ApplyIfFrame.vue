@@ -276,10 +276,12 @@ export default {
       if (this.procSt === '1' || this.procSt == null) {
         if (this.tabNum === 1) {
           console.log(`22 isStep1SaveYn : ${this.saveFlag.isStep1SaveYn}`);
-          if (this.saveFlag.isStep1SaveYn !== 'F') {
+          if (this.saveFlag.isStep1SaveYn === 'T') {
             window.scrollTo(0, 0);
             this.tabNum = this.tabNum + 1;
             localStorage.setItem('APPLY_TABNUM', this.tabNum);
+          } else {
+            this.$gf.alertOn('임시저장 후 이동 부탁드립니다.');
           }
         } else if (this.tabNum === 2) {
           console.log(`22 isStep2Eai : ${this.saveFlag.isStep2EaiSaveYn} / isStep2Eigw : ${this.saveFlag.isStep2EigwSaveYn} / isStep2Mcg : ${this.saveFlag.isStep2McgSaveYn}`);
