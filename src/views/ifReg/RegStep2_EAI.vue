@@ -1122,18 +1122,22 @@ export default {
       console.log('eai 임시저장 함수 시작');
       this.svrRows.splice(0, this.svrRows.length);
 
-      for (let i = 0; i < this.sndRows.length; i++) {
-        this.sndRows[i].sndRcvCl = 'S';
-        this.sndRows[i].reqNum = this.reqNum;
-        this.sndRows[i].procSt = '1';
-        this.svrRows.push(this.sndRows[i]);
+      if (this.sndRows[0].sysNm.length > 0 && this.sndRows[0].hostNm.length > 0) {
+        for (let i = 0; i < this.sndRows.length; i++) {
+          this.sndRows[i].sndRcvCl = 'S';
+          this.sndRows[i].reqNum = this.reqNum;
+          this.sndRows[i].procSt = '1';
+          this.svrRows.push(this.sndRows[i]);
+        }
       }
 
-      for (let i = 0; i < this.rcvRows.length; i++) {
-        this.rcvRows[i].sndRcvCl = 'R';
-        this.rcvRows[i].reqNum = this.reqNum;
-        this.rcvRows[i].procSt = '1';
-        this.svrRows.push(this.rcvRows[i]);
+      if (this.rcvRows[0].sysNm.length > 0 && this.rcvRows[0].hostNm.length > 0) {
+        for (let i = 0; i < this.rcvRows.length; i++) {
+          this.rcvRows[i].sndRcvCl = 'R';
+          this.rcvRows[i].reqNum = this.reqNum;
+          this.rcvRows[i].procSt = '1';
+          this.svrRows.push(this.rcvRows[i]);
+        }
       }
 
       for (let i = 0; i < this.eaiIfList.length; i++) {
