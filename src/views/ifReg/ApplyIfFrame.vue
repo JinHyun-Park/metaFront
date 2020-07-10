@@ -291,18 +291,35 @@ export default {
             this.$gf.alertOn('임시저장 후 이동 부탁드립니다.');
           }
         }
+      } else {
+        window.scrollTo(0, 0);
+        this.tabNum = this.tabNum + 1;
+        localStorage.setItem('APPLY_TABNUM', this.tabNum);
       }
       this.resetTempSaveFlag();
     },
     toBeforeTab() {
-      // if (this.procSt === '1' || this.procSt == null) {
-      //   if (!this.tempSave('btnTab')) {
-      //     return;
-      //   }
-      // }
-      window.scrollTo(0, 0);
-      this.tabNum = this.tabNum - 1;
-      localStorage.setItem('APPLY_TABNUM', this.tabNum);
+      if (this.procSt === '1' || this.procSt == null) {
+        if (this.tabNum === 2) {
+          console.log(`22 isStep2Eai : ${this.saveFlag.isStep2EaiSaveYn} / isStep2Eigw : ${this.saveFlag.isStep2EigwSaveYn} / isStep2Mcg : ${this.saveFlag.isStep2McgSaveYn}`);
+          if (this.saveFlag.isStep2EaiSaveYn === 'T' || this.saveFlag.isStep2EigwSaveYn === 'T' || this.saveFlag.isStep2McgSaveYn === 'T') {
+            window.scrollTo(0, 0);
+            this.tabNum = this.tabNum - 1;
+            localStorage.setItem('APPLY_TABNUM', this.tabNum);
+          } else {
+            this.$gf.alertOn('임시저장 후 이동 부탁드립니다.');
+          }
+        } else {
+          window.scrollTo(0, 0);
+          this.tabNum = this.tabNum - 1;
+          localStorage.setItem('APPLY_TABNUM', this.tabNum);
+        }
+      } else {
+        window.scrollTo(0, 0);
+        this.tabNum = this.tabNum - 1;
+        localStorage.setItem('APPLY_TABNUM', this.tabNum);
+      }
+      this.resetTempSaveFlag();
     },
     clickPrevent() {
       if (this.clickBtn) {
