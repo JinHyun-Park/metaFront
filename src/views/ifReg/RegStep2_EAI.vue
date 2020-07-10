@@ -1151,14 +1151,14 @@ export default {
         .then((res) => {
           console.log(res);
           if (res.rstCd === 'E') {
-            this.setTempSave(false);
+            this.setTempSave('F');
           } else {
-            this.setTempSave(true);
+            this.setTempSave('S');
           }
         })
         .catch((ex) => {
           console.log(`오류가 발생하였습니다 : ${ex}`);
-          this.setTempSave(false);
+          this.setTempSave('F');
         });
     },
     addSndRow(n) {

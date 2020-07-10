@@ -1,15 +1,15 @@
 <template>
-  <div>
-    <ChrgrListPopup
-      v-if="svrOnChrgr"
-      v-bind="aprvInfo"
-      @closePop="turOffSvrPopChrgr"
-      @addData="addDataChrgr"
+  <div class="right_space">
+    <ProcMsgPopup
+      v-if="procMsgPopup"
+      v-bind="popupProp"
+      @closePop="turnOffProcMsg"
+      @addData="addProcMsg"
     />
     <section class="title style-1">
       <h2>
         <div>
-          <i class="ico-bar" />신청 최종 요청 (신청자용)
+          <i class="ico-bar" />신청 정보(관리자)
         </div>
         <div class="breadcrumb">
           <span>EGIW</span><em class="on">EAI</em>
@@ -198,20 +198,17 @@
       <div class="table_body">
         <ul class="table_row form_type">
           <li
-            class="td_cell on"
+            class="td_cell"
           >
             <div
               class="search_group"
-              @click="turnOnSvrPopChrgr"
             >
               <input
                 v-model="aprvInfo.aprvNm"
                 type="text"
                 value=""
+                disabled
               >
-              <span class="search">
-                <i class="ico-search" />
-              </span>
             </div>
           </li>
           <li class="td_cell">
@@ -250,58 +247,96 @@
         </ul>
       </div>
     </section>
+    <section class="btm_button_area">
+      <button
+        v-if="isOperBtn"
+        type="button"
+        class="default_button on"
+        @click="aprvMsgReq(5)"
+      >
+        운영반영 완료
+      </button>
+      <button
+        v-if="isDevBtn"
+        type="button"
+        class="default_button on"
+        @click="aprvMsgReq(4)"
+      >
+        개발반영 완료
+      </button>
+      <button
+        v-if="isDevBtnReject"
+        type="button"
+        class="default_button"
+        @click="aprvMsgReq(3)"
+      >
+        접수중
+      </button>
+      <button
+        v-if="isBtnReject"
+        type="button"
+        class="default_button"
+        @click="aprvMsgReq(1)"
+      >
+        반려
+      </button>
+    </section>
   </div>
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex';
-import ChrgrListPopup from '@/components/popup/bizcomm/ChrgrListPopup.vue';
-
 import {
-  fetchPostIfStep3AprvId, fetchPutIfStepAprvReq, fetchGetIfStep3Reg, fetchGetIfReqDetailInfo,
+  fetchGetIfStep4Admin, fetchPutIfStepAprvReqAdmin, fetchGetIfReqDetailInfo,
 } from '@/api/ifRegApi';
-import eventBus from '@/utils/eventBus';
+import ProcMsgPopup from '@/components/popup/ifRegInfo/ProcMsgPopup.vue';
 
 export default {
-  name: 'RegStep3Applicant',
+  name: 'RegStep4Admin',
   components: {
-    ChrgrListPopup,
+    ProcMsgPopup,
   },
   data() {
     return {
-      svrOnChrgr: false,
       aprvInfo: [],
+      reqNum: '',
+      procSt: '',
+      tgtProcSt: '',
+      hstRmk: '',
+
+      isDevBtn: false,
+      isOperBtn: false,
+      isBtnReject: false,
+      isDevBtnReject: false,
+
+      procMsgPopup: false,
+      popupProp: {
+        procSt: '',
+      },
 
       eaiList: [],
       eigwList: [],
       mcgList: [],
     };
   },
-  computed: {
-    ...mapState('ifRegInfo', ['reqNum']),
-  },
   created() {
-    eventBus.$on('Step3AprvSave', () => {
-      console.log('event Bus 통해 step3 저장');
-      this.saveStep3AprvId();
-    });
-    eventBus.$on('Step3AprvReq', (params) => {
-      console.log('event Bus 통해 step3 승인요청');
-      this.hstRmk = params.hstRmk;
-      this.saveStep3AprvReq();
-    });
+    this.reqNum = this.$route.params.reqNum;
+    this.procSt = this.$route.params.procSt;
   },
   mounted() {
-    this.getStep3AprvReqList();
-  },
-  destroyed() {
-    eventBus.$off('Step3AprvSave');
-    eventBus.$off('Step3AprvReq');
+    this.getIfReqList();
+    this.setBtnShow();
   },
   methods: {
-    getStep3AprvReqList() {
+    setBtnShow() {
+      this.isDevBtn = (this.procSt === '3');
+      this.isDevBtnReject = (this.procSt === '4');
+      this.isOperBtn = (this.procSt === '4');
+      this.isBtnReject = true;
+    },
+    getIfReqList() {
       // 승인번호3 데이터 조회
-      fetchGetIfStep3Reg({
+      fetchGetIfStep4Admin({
         params: {
           reqNum: this.reqNum,
         },
@@ -332,68 +367,41 @@ export default {
           console.log(`error occur!! : ${ex}`);
         });
     },
-    saveStep3AprvId() {
-      // 승인자 정보 등록
-      if (this.aprvInfo.aprvId === '') {
-        this.$gf.alertOn('승인자 지정은 필수입니다.');
-        return;
-      }
-      fetchPostIfStep3AprvId({
-        reqNum: this.reqNum,
-        aprvId: this.aprvInfo.aprvId,
-      })
-        .then((res) => {
-          console.log(res);
-          this.$gf.alertOn('저장 되었습니다');
-        })
-        .catch((ex) => {
-          console.log(`error occur!! : ${ex}`);
-        });
+    aprvMsgReq(tgtProcSt) {
+      this.tgtProcSt = tgtProcSt;
+      this.turnOnProcMsg();
     },
     saveStep3AprvReq() {
-      // 승인요청
-      if (this.aprvInfo.aprvId === '') {
-        this.$gf.alertOn('승인자 지정은 필수입니다.');
-        return;
-      }
-
-      fetchPutIfStepAprvReq({
+      fetchPutIfStepAprvReqAdmin({
         reqNum: this.reqNum,
-        aprvId: this.aprvInfo.aprvId,
-        procSt: '2', // 승인요청
+        procSt: this.tgtProcSt,
         hstRmk: this.hstRmk,
       })
         .then((res) => {
           console.log(res);
-          this.$gf.alertOn('승인 요청되었습니다');
-          this.movePage('regList');
+          this.$gf.alertOn('처리되었습니다');
+          this.movePage('regListAdmin');
         })
         .catch((ex) => {
           console.log(`error occur!! : ${ex}`);
         });
     },
-    turnOnSvrPopChrgr(callChrgr) {
-      this.callChrgr = callChrgr;
-      this.svrOnChrgr = true;
-    },
-    turOffSvrPopChrgr(val) {
-      console.log(`Popup에서 받아온 Data : ${val}`);
-      this.svrOnChrgr = false;
-    },
-    addDataChrgr(val) {
-      console.log(`Popup에서 받아온 Data : ${val}`);
-      this.svrOnChrgr = false;
-
-      this.aprvInfo.aprvId = val.userId;
-      this.aprvInfo.aprvNm = val.hanNm;
-      this.aprvInfo.orgNm = val.orgNm;
-      this.aprvInfo.ofcLvlNm = val.ofcLvlNm;
-      this.aprvInfo.mblPhonNum = val.mblPhonNum;
-      this.aprvInfo.emailAddr = val.emailAddr;
-    },
     movePage(page) { // 페이지 이동
       this.activeItem = page; // 헤더에서 내려오는 바에 현 위치 표시
       this.$router.push({ name: page });
+    },
+    turnOnProcMsg() {
+      this.popupProp.procSt = this.tgtProcSt;
+      this.procMsgPopup = true;
+    },
+    turnOffProcMsg(val) {
+      console.log(`Popup에서 받아온 Data : ${val}`);
+      this.procMsgPopup = false;
+    },
+    addProcMsg(val) {
+      this.procMsgPopup = false;
+      this.hstRmk = val;
+      this.saveStep3AprvReq();
     },
   },
 };

@@ -32,6 +32,24 @@
             />
           </div>
         </div>
+        <div class="column on w-2" />
+        <div class="label_space">
+          <label
+            class="label-default"
+            :class="{'on': dayOnClass}"
+            @click="dayOn"
+          >day</label>
+          <label
+            class="label-default"
+            :class="{'on': weekOnClass}"
+            @click="weekOn"
+          >week</label>
+          <label
+            class="label-default"
+            :class="{'on': monthOnClass}"
+            @click="monthOn"
+          >month</label>
+        </div>
         <div class="column on w-1">
           <div class="right_button_area">
             <button
@@ -182,6 +200,9 @@ export default {
       statDate: '',
       datacollection: null,
       statList: [],
+      dayOnClass: true,
+      weekOnClass: false,
+      monthOnClass: false,
     };
   },
   mounted() {
@@ -264,7 +285,22 @@ export default {
       var g = Math.floor(Math.random() * 255);
       var b = Math.floor(Math.random() * 255);
       return "rgb(" + r + "," + g + "," + b + ")";
-    }
+    },
+    dayOn(){
+      this.dayOnClass = true;
+      this.monthOnClass = this.weekOnClass = false;
+      this.searchList();
+    },
+    weekOn(){
+      this.weekOnClass = true;
+      this.dayOnClass = this.monthOnClass = false;
+      this.searchList();
+    },
+    monthOn(){
+      this.monthOnClass = true;
+      this.dayOnClass = this.weekOnClass = false;
+      this.searchList();
+    },
   },
 };
 </script>

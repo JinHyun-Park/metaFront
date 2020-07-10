@@ -21,13 +21,6 @@
           >
             검색
           </button>
-          <button
-            type="button"
-            class="default_button on"
-            @click="newApply"
-          >
-            신규신청
-          </button>
         </div>
       </h5>
       <div class="row_contain type-3">
@@ -196,7 +189,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex';
-import { fetchGetIfRegList } from '@/api/ifRegApi';
+import { fetchGetIfRegListAdmin } from '@/api/ifRegApi';
 
 export default {
   /* eslint-disable */
@@ -205,7 +198,7 @@ export default {
       ifReqList: [],
       procStCd: '',
       tgtUrl: '',
-      tgtProcSt: '',
+      tgtProcSt: '3',
       startReqDtm: '',
       endReqDtm: '',
       reqTitle: '',
@@ -268,7 +261,7 @@ export default {
     searchList(pageNo) {
       //this.tgtUrl = '/api/ifreq/list';
       //this.$axios.get(this.tgtUrl, {
-      fetchGetIfRegList({
+      fetchGetIfRegListAdmin({
         params: {
           pageNo: pageNo,
           size: this.pageSet.size,
@@ -304,12 +297,8 @@ export default {
       this.endReqDtm = val;
       console.log(val);
     },
-    newApply() {
-      //ifReg/applyIf
-      this.$router.push({ name: 'applyIf', params: { reqNum: null, callType:'insert' }})
-    },
     detail(i) {
-      this.$router.push({ name: 'applyIf', params: { reqNum: this.ifReqList[i].reqNum, callType:'update', procSt: this.ifReqList[i].procSt }})
+      this.$router.push({ name: 'regStepAdmin', params: { reqNum: this.ifReqList[i].reqNum, procSt: this.ifReqList[i].procSt }})
     }
   },
 }

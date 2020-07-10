@@ -949,11 +949,11 @@ export default {
       fetchEigwReqSave(this.saveData)
         .then((res) => {
           console.log(res);
-          this.setTempSave(true);
+          this.setTempSave('T');
         })
         .catch((ex) => {
           console.log(`오류가 발생하였습니다 : ${ex}`);
-          this.setTempSave(true);
+          this.setTempSave('F');
         });
     },
     addOnlineUser(i) {

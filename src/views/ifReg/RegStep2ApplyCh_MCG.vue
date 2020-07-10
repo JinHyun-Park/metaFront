@@ -1039,7 +1039,6 @@ export default {
           this.reqList[i].procSt = '1';
 
           for (let is = 0; is < this.reqList[i].svrList.length; is++) {
-            console.log('서버 저장!');
             this.reqList[i].svrList[is].mcgReqNum = this.reqList[i].mcgReqNum;
             this.reqList[i].svrList[is].reqNum = this.reqNum;
             this.reqList[i].svrList[is].useYn = 'Y';
@@ -1047,7 +1046,6 @@ export default {
           // this.mcgSvrList = { svrRows: this.svrRows };
 
           for (let ic = 0; ic < this.reqList[i].chrgrList.length; ic++) {
-            console.log('담당자 저장!');
             this.reqList[i].chrgrList[ic].mcgReqNum = this.reqList[i].mcgReqNum;
             this.reqList[i].chrgrList[ic].reqNum = this.reqNum;
             this.reqList[i].chrgrList[ic].useYn = 'Y';
@@ -1077,9 +1075,9 @@ export default {
         .then((res) => {
           console.log(res);
           if (res.data.rstCd === 'E') {
-            this.setTempSave(false);
+            this.setTempSave('F');
           } else {
-            this.setTempSave(true);
+            this.setTempSave('T');
             // this.savereqchrgr(this.mcgChrgrList);
             // this.savereqserver(this.mcgSvrList);
             if (this.notInsert === 'Y') {
@@ -1089,18 +1087,18 @@ export default {
         })
         .catch((ex) => {
           console.log(`error occur!! : ${ex}`);
-          this.setTempSave(false);
+          this.setTempSave('F');
         });
     },
     savereqchrgr(chrgrList) {
       fetchPutMcgReqChrgr(chrgrList)
         .then((res) => {
           console.log(res);
-          this.setTempSave(true);
+          this.setTempSave('T');
         })
         .catch((ex) => {
           console.log(`error occur!! : ${ex}`);
-          this.setTempSave(false);
+          this.setTempSave('F');
         });
     },
 
@@ -1114,11 +1112,11 @@ export default {
       fetchPutMcgReqServer(svrList)
         .then((res) => {
           console.log(res);
-          this.setTempSave(true);
+          this.setTempSave('T');
         })
         .catch((ex) => {
           console.log(`error occur!! : ${ex}`);
-          this.setTempSave(false);
+          this.setTempSave('F');
         });
     },
   },

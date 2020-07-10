@@ -803,11 +803,9 @@ export default {
       } else {
         this.notInsert = 'N';
         for (let i = 0; i < this.reqList.length; i++) {
-          console.log('거래 저장!');
           this.reqList[i].reqNum = this.reqNum;
           this.reqList[i].procSt = '1';
           for (let ic = 0; ic < this.reqList[i].chrgrList.length; ic++) {
-            console.log('담당자 저장!');
             this.reqList[i].chrgrList[ic].mcgReqNum = this.reqList[i].mcgReqNum;
             this.reqList[i].chrgrList[ic].reqNum = this.reqNum;
             this.reqList[i].chrgrList[ic].useYn = 'Y';
@@ -825,9 +823,9 @@ export default {
         .then((res) => {
           console.log(res);
           if (res.data.rstCd === 'E') {
-            this.setTempSave(false);
+            this.setTempSave('F');
           } else {
-            this.setTempSave(true);
+            this.setTempSave('T');
             if (this.notInsert === 'Y') {
               this.reqList.splice(0, 1);
             }
@@ -843,11 +841,11 @@ export default {
       fetchPutMcgReqChrgr(chrgrList)
         .then((res) => {
           console.log(res);
-          this.setTempSave(true);
+          this.setTempSave('T');
         })
         .catch((ex) => {
           console.log(`error occur!! : ${ex}`);
-          this.setTempSave(false);
+          this.setTempSave('F');
         });
     },
     dtlReq(req, idx) {
@@ -872,9 +870,11 @@ export default {
       })
         .then((res) => {
           console.log(res);
+          this.setTempSave('T');
         })
         .catch((ex) => {
           console.log(`error occur!! : ${ex}`);
+          this.setTempSave('F');
         });
     },
 

@@ -76,6 +76,9 @@
             <li class="n">
               <span>메타정보 관리</span>
               <ul class="sub_menu">
+                <li @click="movePage('regListAdmin')">
+                  신청관리
+                </li>
                 <li @click="movePage('ccCdList')">
                   공통
                 </li>

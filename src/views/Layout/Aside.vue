@@ -108,6 +108,9 @@ export default {
       } else if (path.indexOf('/admin/portalMgmt/') > -1) {
         this.subNm = '포탈 관리';
         this.menuLists = this.menuAllList.filter(item => item.menuLcl === 'PORTAL_MGMT');
+      } else if (path.indexOf('/admin/ifreg/') > -1) {
+        this.subNm = '인터페이스 신청 관리';
+        this.menuLists = this.menuAllList.filter(item => item.menuLcl === 'MGMT_IFREG');
       }
     },
   },
