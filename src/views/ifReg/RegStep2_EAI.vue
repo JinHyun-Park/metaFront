@@ -872,8 +872,11 @@ export default {
   },
   data() {
     return {
-      eaiSeqNum: '',
       svrOnChrgr: false,
+      propsChrgr: {
+        message: '',
+      },
+      eaiSeqNum: '',
       callChrgr: '',
       svrTypCd: '',
       ifTypCd: '',
