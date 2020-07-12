@@ -1099,6 +1099,13 @@ export default {
               this.rcvRows.push(this.svrRows[i]);
             }
           }
+
+          if (this.sndRows.length === 0) {
+            this.sndRows.push({ sysNm: '', hostNm: '' });
+          }
+          if (this.rcvRows.length === 0) {
+            this.rcvRows.push({ sysNm: '', hostNm: '' });
+          }
         })
         .catch((ex) => {
           console.log(`error occur!! : ${ex}`);

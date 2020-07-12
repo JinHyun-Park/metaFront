@@ -356,7 +356,7 @@ export default {
 
       // 신청 후 저장 alert 처리
       if (this.tabNum === 1) {
-        if (this.saveFlag.isStep1SaveYn !== false) {
+        if (this.saveFlag.isStep1SaveYn !== 'F') {
           if (alert) {
             this.$gf.alertOn('저장되었습니다.');
             // 신규->변경으로 임시저장 이벤트 변경
@@ -367,7 +367,7 @@ export default {
         }
       } else if (this.tabNum === 2) {
         console.log(`22 isStep2Eai : ${this.saveFlag.isStep2EaiSaveYn} / isStep2Eigw : ${this.saveFlag.isStep2EigwSaveYn} / isStep2Mcg : ${this.saveFlag.isStep2McgSaveYn}`);
-        if (this.saveFlag.isStep2EaiSaveYn !== false && this.saveFlag.isStep2EigwSaveYn !== false && this.saveFlag.isStep2McgSaveYn !== false) {
+        if (this.saveFlag.isStep2EaiSaveYn !== 'F' && this.saveFlag.isStep2EigwSaveYn !== 'F' && this.saveFlag.isStep2McgSaveYn !== 'F') {
           if (alert) {
             this.$gf.alertOn('저장되었습니다.');
           }
