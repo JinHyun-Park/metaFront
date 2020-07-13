@@ -239,7 +239,7 @@ export default {
             this.pageSet = res.data.rstData.pageSet;
           } else {
           // eslint-disable-next-line no-alert
-            alert('failed');
+            // alert('failed');
           }
         })
         .catch((ex) => {

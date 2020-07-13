@@ -369,7 +369,7 @@ export default {
             this.chgDt = boardOne.formatChgDt;
           } else {
             // eslint-disable-next-line no-alert
-            alert('select board failed');
+            // alert('select board failed');
           }
         })
         .catch((ex) => {

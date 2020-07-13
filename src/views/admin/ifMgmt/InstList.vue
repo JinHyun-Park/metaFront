@@ -175,7 +175,7 @@ export default {
             }
           } else {
             // eslint-disable-next-line no-alert
-            alert('failed');
+            // alert('failed');
           }
         })
         .catch((ex) => {
