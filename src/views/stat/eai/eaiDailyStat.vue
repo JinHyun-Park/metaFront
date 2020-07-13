@@ -41,14 +41,14 @@
           >day</label>
           <label
             class="label-default"
-            :class="{'on': weekOnClass}"
-            @click="weekOn"
-          >week</label>
-          <label
-            class="label-default"
             :class="{'on': monthOnClass}"
             @click="monthOn"
           >month</label>
+          <label
+            class="label-default"
+            :class="{'on': yearOnClass}"
+            @click="yearOn"
+          >year</label>
         </div>
         <div class="column on w-1">
           <div class="right_button_area">
@@ -201,8 +201,8 @@ export default {
       datacollection: null,
       statList: [],
       dayOnClass: true,
-      weekOnClass: false,
       monthOnClass: false,
+      yearOnClass: false,
     };
   },
   mounted() {
@@ -288,17 +288,17 @@ export default {
     },
     dayOn(){
       this.dayOnClass = true;
-      this.monthOnClass = this.weekOnClass = false;
-      this.searchList();
-    },
-    weekOn(){
-      this.weekOnClass = true;
-      this.dayOnClass = this.monthOnClass = false;
+      this.monthOnClass = this.yearOnClass = false;
       this.searchList();
     },
     monthOn(){
       this.monthOnClass = true;
-      this.dayOnClass = this.weekOnClass = false;
+      this.dayOnClass = this.yearOnClass = false;
+      this.searchList();
+    },
+    yearOn(){
+      this.yearOnClass = true;
+      this.dayOnClass = this.monthOnClass = false;
       this.searchList();
     },
   },
