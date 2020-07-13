@@ -267,7 +267,7 @@ export default {
             this.content = boardOne.CONTENT;
           } else {
             // eslint-disable-next-line no-alert
-            alert('select board failed');
+            // alert('select board failed');
           }
         })
         .catch((ex) => {
@@ -290,7 +290,7 @@ export default {
             console.log('insert board Success');
           } else {
           // eslint-disable-next-line no-alert
-            alert('insert board failed');
+            // alert('insert board failed');
           }
           this.moveToNotiMain();
         })
@@ -314,7 +314,7 @@ export default {
             console.log('update board Success');
           } else {
             // eslint-disable-next-line no-alert
-            alert('update board failed');
+            // alert('update board failed');
           }
           this.moveToView(this.boardNum);
         })

@@ -400,7 +400,7 @@ export default {
             console.log(this.serverList);
           } else {
             // eslint-disable-next-line no-alert
-            alert('failed');
+            // alert('failed');
           }
         })
         .catch((ex) => {
