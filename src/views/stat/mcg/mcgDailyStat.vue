@@ -36,18 +36,18 @@
         <div class="label_space">
           <label
             class="label-default"
+            :class="{'on': hourOnClass}"
+            @click="hourOn"
+          >day</label>
+          <label
+            class="label-default"
             :class="{'on': dayOnClass}"
             @click="dayOn"
-          >day</label>
+          >month</label>
           <label
             class="label-default"
             :class="{'on': monthOnClass}"
             @click="monthOn"
-          >month</label>
-          <label
-            class="label-default"
-            :class="{'on': yearOnClass}"
-            @click="yearOn"
           >year</label>
         </div>
         <div class="column on w-1">
@@ -63,7 +63,8 @@
         </div>
       </div>
       <div class="row_contain chart_area dashboard">
-        <reactive-bar-chart :chart-data="datacollection" />
+        <!-- <reactive-bar-chart :chart-data="datacollection" /> -->
+        <reactive-line-chart :chart-data="datacollection" />
       </div>
       <div class="table_colgroup">
         <div class="table_grid radio_group">
@@ -181,6 +182,7 @@
 import LineChart from '../../chart/LineChart.vue';
 import BarChart from '../../chart/BarChart.vue';
 import ReactiveBarChart from '../../chart/ReactiveBarChart.vue';
+import ReactiveLineChart from '../../chart/ReactiveLineChart.vue';
 import RadarChart from '../../chart/RadarChart.vue';
 import { fetchGetStatMcgDailyTrms } from '@/api/statApi';
 
@@ -190,6 +192,7 @@ export default {
     'line-chart': LineChart,
     'bar-chart': BarChart,
     'reactive-bar-chart': ReactiveBarChart,
+    'reactive-line-chart': ReactiveLineChart,
     'radar-chart': RadarChart,
   },
   data() {
@@ -203,9 +206,9 @@ export default {
       statDate: '',
       datacollection: null,
       statList: [],
+      hourOnClass: false,
       dayOnClass: true,
       monthOnClass: false,
-      yearOnClass: false,
     };
   },
   mounted() {
@@ -266,22 +269,23 @@ export default {
       this.datacollection = {
         // Data for the y-axis of the chart
         labels: ['0시', '1시', '2시', '3시', '4시', '5시', '6시', '7시', '8시', '9시'],
-
-        datasets: [
-          {
-            label: this.statList[0].opCd + ' - ' + this.statList[0].tx,
-            // Data for the x-axis of the chart/
-            data: this.computeGraphRowValue(0),
-            backgroundColor: this.dynamicColors(),
-          },
-          {
-            label: this.statList[1].opCd + ' - ' + this.statList[1].tx,
-            // Data for the x-axis of the chart
-            data: this.computeGraphRowValue(1),
-            backgroundColor: this.dynamicColors(),
-          },
-        ],
+        datasets: this.setDatasets(),
       };
+    },
+    setDatasets(){
+      var datasets = [];
+      for(var i=0; i<this.statList.length; i++){
+        var dataset = {
+          label: this.statList[i].ifId,
+          data: this.computeGraphRowValue(i),
+          backgroundColor: this.dynamicColors(),
+          borderColor: this.dynamicColors(),
+          lineTension: 0.2,
+          fill: false,
+        };
+        datasets[i] = dataset;
+      }
+      return datasets;
     },
     dynamicColors() {
       var r = Math.floor(Math.random() * 255);
@@ -289,19 +293,19 @@ export default {
       var b = Math.floor(Math.random() * 255);
       return "rgb(" + r + "," + g + "," + b + ")";
     },
+    hourOn(){
+      this.hourOnClass = true;
+      this.dayOnClass = this.monthOnClass = false;
+      this.searchList();
+    },
     dayOn(){
       this.dayOnClass = true;
-      this.monthOnClass = this.yearOnClass = false;
+      this.hourOnClass = this.monthOnClass = false;
       this.searchList();
     },
     monthOn(){
       this.monthOnClass = true;
-      this.dayOnClass = this.yearOnClass = false;
-      this.searchList();
-    },
-    yearOn(){
-      this.yearOnClass = true;
-      this.dayOnClass = this.monthOnClass = false;
+      this.hourOnClass = this.dayOnClass = false;
       this.searchList();
     },
   },
