@@ -15,7 +15,8 @@ export default {
   },
   setLoginInfo: (state, payload) => {
     // 로그인한 한글 이름
-    state.loginHanNm = payload.loginHanNm;
+    state.hanNm = payload.hanNm;
+    state.adminYn = payload.adminYn;
   },
 
 };

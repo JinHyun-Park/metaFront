@@ -73,7 +73,10 @@
                 </li>
               </ul>
             </li>
-            <li class="n">
+            <li
+              v-show="(adminYn==='Y')"
+              class="n"
+            >
               <span>메타정보 관리</span>
               <ul class="sub_menu">
                 <li @click="movePage('regListAdmin')">
@@ -107,7 +110,10 @@
                 </li>
               </ul>
             </li>
-            <li class="n">
+            <li
+              v-show="(adminYn==='Y')"
+              class="n"
+            >
               <span>포탈 관리</span>
               <ul class="sub_menu">
                 <li @click="movePage('accList')">
@@ -139,17 +145,18 @@ export default {
       alertMsgText: '123333',
       userHanNm: '',
       hanNm: '',
+      adminYn: 'N',
       remainTime: ':  :  ',
       intervalFuc: '',
     };
   },
   computed: {
-    ...mapState('login', ['loginHanNm']),
+    ...mapState('login', ['hanNm']),
   },
   created() {
     this.setActiveItem();
     this.getMyInfo();
-    this.setMenuAllList(); // 서버로부터 menu 내 left list 수신
+    this.setMenuAllList({ adminYn: this.adminYn }); // 서버로부터 menu 내 left list 수신
     this.$gf.resetCount();
     this.intervalFuc = setInterval(() => {
       this.remainTime = this.$gf.getSessionCount(1);
@@ -163,6 +170,8 @@ export default {
   },
   methods: {
     ...mapActions('frameSet', ['setMenuAllList']),
+    ...mapActions('login', ['setLoginInfo']),
+
     isActive(page) {
       return this.activeItem === page;
     },
@@ -171,6 +180,9 @@ export default {
         .then((res) => {
           if (res.status === 200) {
             this.hanNm = res.data.rstData.myInfo.hanNm;
+            this.adminYn = res.data.rstData.myInfo.adminYn;
+
+            this.setLoginInfo({ hanNm: this.hanNm, adminYn: this.adminYn });
             // eslint-disable-next-line no-alert
             // this.$gf.alertOn(`${this.hanNm}님 환영합니다.`);
           }

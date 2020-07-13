@@ -1,5 +1,6 @@
 export default {
   token: '',
   role: '',
-  loginHanNm: '',
+  hanNm: '',
+  adminYn: '',
 };
