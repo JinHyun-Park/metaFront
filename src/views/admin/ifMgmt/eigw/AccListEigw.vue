@@ -12,7 +12,7 @@
           <i class="ico-bar" />대외 담당자 조회
         </div>
         <div class="breadcrumb">
-          <span>EGIW</span><em class="on">EAI</em>
+          <span>EiGW</span><em class="on">대외 담당자</em>
         </div>
       </h2>
     </section>

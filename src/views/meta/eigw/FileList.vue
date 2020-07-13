@@ -12,7 +12,7 @@
           <i class="ico-bar" />EiGW 메타 정보(파일)
         </div>
         <div class="breadcrumb">
-          <span>EiGW</span><em class="on">EAI</em>
+          <span>EiGW</span><em class="on">메타정보(파일)</em>
         </div>
       </h2>
     </section>

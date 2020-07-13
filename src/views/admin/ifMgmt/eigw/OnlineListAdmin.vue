@@ -33,10 +33,10 @@
     <section class="title style-1">
       <h2>
         <div>
-          <i class="ico-bar" />EiGW 메타 정보(실시간)
+          <i class="ico-bar" />EiGW 메타 정보(온라인)
         </div>
         <div class="breadcrumb">
-          <span>EGIW</span><em class="on">EAI</em>
+          <span>EiGW</span><em class="on">메타정보(온라인)</em>
         </div>
       </h2>
     </section>
@@ -871,11 +871,9 @@ export default {
             this.$gf.alertOn('대외기관 담당자 정보를 입력하세요');
             return;
           }
-        } else {
-          if (this.outChrgrList[i].userId === undefined || this.outChrgrList[i].userId === '') {
-            this.$gf.alertOn('대외기관 담당자 정보를 입력하세요');
-            return;
-          }
+        } else if (this.outChrgrList[i].userId === undefined || this.outChrgrList[i].userId === '') {
+          this.$gf.alertOn('대외기관 담당자 정보를 입력하세요');
+          return;
         }
       }
 
@@ -923,11 +921,9 @@ export default {
             this.$gf.alertOn('대외기관 담당자 정보를 입력하세요');
             return;
           }
-        } else {
-          if (this.outChrgrList[i].userId === undefined || this.outChrgrList[i].userId === '') {
-            this.$gf.alertOn('대외기관 담당자 정보를 입력하세요');
-            return;
-          }
+        } else if (this.outChrgrList[i].userId === undefined || this.outChrgrList[i].userId === '') {
+          this.$gf.alertOn('대외기관 담당자 정보를 입력하세요');
+          return;
         }
       }
       this.saveInfo = {

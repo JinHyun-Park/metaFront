@@ -3,10 +3,10 @@
     <section class="title style-1">
       <h2>
         <div>
-          <i class="ico-bar" />EIGW 일일 연동량
+          <i class="ico-bar" />EiGW 일일 연동량
         </div>
         <div class="breadcrumb">
-          <span>통계</span><em class="on">EIGW</em>
+          <span>통계</span><em class="on">EiGW</em>
         </div>
       </h2>
     </section>

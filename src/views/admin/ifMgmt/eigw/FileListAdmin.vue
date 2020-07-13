@@ -36,7 +36,7 @@
           <i class="ico-bar" />EiGW 메타 정보(파일)
         </div>
         <div class="breadcrumb">
-          <span>EIGW</span><em class="on">EAI</em>
+          <span>EiGW</span><em class="on">메타정보(파일)</em>
         </div>
       </h2>
     </section>
@@ -1074,11 +1074,9 @@ export default {
             this.$gf.alertOn('대외기관 담당자 정보를 입력하세요');
             return;
           }
-        } else {
-          if (this.outChrgrList[i].userId === undefined || this.outChrgrList[i].userId === '') {
-            this.$gf.alertOn('대외기관 담당자 정보를 입력하세요');
-            return;
-          }
+        } else if (this.outChrgrList[i].userId === undefined || this.outChrgrList[i].userId === '') {
+          this.$gf.alertOn('대외기관 담당자 정보를 입력하세요');
+          return;
         }
       }
 
@@ -1127,11 +1125,9 @@ export default {
             this.$gf.alertOn('대외기관 담당자 정보를 입력하세요');
             return;
           }
-        } else {
-          if (this.outChrgrList[i].userId === undefined || this.outChrgrList[i].userId === '') {
-            this.$gf.alertOn('대외기관 담당자 정보를 입력하세요');
-            return;
-          }
+        } else if (this.outChrgrList[i].userId === undefined || this.outChrgrList[i].userId === '') {
+          this.$gf.alertOn('대외기관 담당자 정보를 입력하세요');
+          return;
         }
       }
       this.saveInfo = {

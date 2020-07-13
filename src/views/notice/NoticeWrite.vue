@@ -9,7 +9,7 @@
           <i class="ico-bar" /> 공지사항 등록
         </div>
         <div class="breadcrumb">
-          <span>EGIW</span><em class="on">EAI</em>
+          <span>커뮤니티</span><em class="on">공지사항</em>
         </div>
       </h2>
     </section>
