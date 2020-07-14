@@ -193,7 +193,7 @@ import BarChart from '../../chart/BarChart.vue';
 import ReactiveBarChart from '../../chart/ReactiveBarChart.vue';
 import ReactiveLineChart from '../../chart/ReactiveLineChart.vue';
 import RadarChart from '../../chart/RadarChart.vue';
-import { fetchGetStatEigwDailyTrms } from '@/api/statApi';
+import { fetchGetStatEigwHourlyTrms } from '@/api/statApi';
 
 export default {
   /* eslint-disable */
@@ -257,7 +257,7 @@ export default {
         return;
       }
 
-      fetchGetStatEigwDailyTrms({
+      fetchGetStatEigwHourlyTrms({
         params: {
           //statDate: this.statDate.replace(/\-/g, ''),
           statDate: '20200705',
