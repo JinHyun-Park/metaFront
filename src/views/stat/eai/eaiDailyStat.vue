@@ -38,17 +38,17 @@
             class="label-default"
             :class="{'on': hourOnClass}"
             @click="hourOn"
-          >day</label>
+          >hour</label>
           <label
             class="label-default"
             :class="{'on': dayOnClass}"
             @click="dayOn"
-          >month</label>
+          >day</label>
           <label
             class="label-default"
             :class="{'on': monthOnClass}"
             @click="monthOn"
-          >year</label>
+          >month</label>
         </div>
         <div class="column on w-1">
           <div class="right_button_area">
