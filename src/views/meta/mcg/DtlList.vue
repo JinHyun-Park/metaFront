@@ -128,8 +128,11 @@
       </div>
       <div class="table_colgroup">
         <div class="table_grid">
-          <div class="table_head w-auto">
-            <ul>
+          <div
+            class="table_head w-auto"
+            style="background-color: rgb(223, 219, 219);"
+          >
+            <ul style="background-color: rgb(223, 219, 219);">
               <li class="th_cell">
                 업무코드<i class="ico-sort-down" />
               </li>
@@ -158,10 +161,13 @@
           </div>
           <div class="table_body">
             <ul
-              v-for="chn in chnList"
+              v-for="(chn, idx) in chnList"
               :key="chn.index"
-              class="table_row w-auto"
-              @click="dtlChnl(chn), Serverinfodtl(chn.opCd), Chrgrinfodtl(chn.opCd)"
+              :class="checkCurLine(idx)"
+              class="table_row w-auto click_btn"
+
+              @click="dtlChnl(chn), Serverinfodtl(chn.opCd), Chrgrinfodtl(chn.opCd),
+                      setCurLine(idx)"
             >
               <li class="td_cell">
                 {{ chn.opCd }}
@@ -457,11 +463,6 @@
     </section>
   </div>
 </template>
-<style scoped>
-ul:hover{
-background-color: rgb(223, 219, 219);
-}
-</style>
 
 <script>
 import { mapState, mapActions } from 'vuex';
@@ -480,6 +481,7 @@ import ChrgrListPopup from '@/components/popup/bizcomm/ChrgrListPopup.vue';
 
 
 export default {
+  name: 'McgDtlList',
   components: {
     ChrgrListPopup,
   },
@@ -566,6 +568,7 @@ export default {
       chrgrpopupstate: false,
       chrgrn: '',
       chrgropCd: '',
+      curLine: '',
     };
   },
   computed: {
@@ -749,6 +752,7 @@ export default {
     dtlChnl(chn) {
       // let svrinfotemp = [];
       console.log('상세채널조회!');
+      console.log(chn);
       this.chnldtl = chn;
       console.log(this.chnldtl);
       this.isStatusOn = true;
@@ -846,6 +850,23 @@ export default {
           console.log(`error occur!! : ${ex}`);
         });
     },
+    setCurLine(val) {
+      this.curLine = val;
+    },
+    checkCurLine(idx) {
+      // this.curLine = idx;
+      // console.log('curLine');
+      // console.log(this.curLine);
+      if (this.curLine === idx) {
+        return 'on';
+      }
+      return '';
+    },
   },
 };
 </script>
+
+<style scoped>
+
+
+</style>
