@@ -22,14 +22,13 @@
             연장
           </button>
           <em />
-          <em><i class="ico-user" />[{{ hanNm }}] 님 환영합니다!</em>
+          <em><i class="ico-user" />[{{ lv_hanNm }}] 님 환영합니다!</em>
           <button
             class="log"
             @click="logout()"
           >
             로그아웃<i class="ico-logout" />
           </button>
-          </basetimer>
         </div>
         <nav>
           <ul class="menu">
@@ -144,7 +143,7 @@ export default {
       activeItem: '',
       alertMsgText: '123333',
       userHanNm: '',
-      hanNm: '',
+      lv_hanNm: '',
       adminYn: 'N',
       remainTime: ':  :  ',
       intervalFuc: '',
@@ -179,10 +178,10 @@ export default {
       fetchGetMyChrgrInfo()
         .then((res) => {
           if (res.status === 200) {
-            this.hanNm = res.data.rstData.myInfo.hanNm;
+            this.lv_hanNm = res.data.rstData.myInfo.hanNm;
             this.adminYn = res.data.rstData.myInfo.adminYn;
 
-            this.setLoginInfo({ hanNm: this.hanNm, adminYn: this.adminYn });
+            this.setLoginInfo({ hanNm: this.lv_hanNm, adminYn: this.adminYn });
             // eslint-disable-next-line no-alert
             // this.$gf.alertOn(`${this.hanNm}님 환영합니다.`);
           }
@@ -233,7 +232,7 @@ export default {
             this.movePage('login');
           }
         })
-        .catch((ex) => {
+        .catch(() => {
           // console.log(`error occur!! : ${ex}`);
           // todo : 오류니까 무조건 logout하자!!
           this.logoutCall();
