@@ -294,6 +294,13 @@ export default {
             this.$gf.alertOn('임시저장 후 이동 부탁드립니다.');
           }
         }
+      } else if (this.procSt === '2') {
+        window.scrollTo(0, 0);
+        if (this.tabNum === 2) {
+          this.tabNum = this.tabNum + 1;
+        }
+        this.tabNum = this.tabNum + 1;
+        localStorage.setItem('APPLY_TABNUM', this.tabNum);
       } else {
         window.scrollTo(0, 0);
         this.tabNum = this.tabNum + 1;
@@ -317,6 +324,13 @@ export default {
           this.tabNum = this.tabNum - 1;
           localStorage.setItem('APPLY_TABNUM', this.tabNum);
         }
+      } else if (this.procSt === '2') {
+        window.scrollTo(0, 0);
+        if (this.tabNum === 4) {
+          this.tabNum = this.tabNum - 1;
+        }
+        this.tabNum = this.tabNum - 1;
+        localStorage.setItem('APPLY_TABNUM', this.tabNum);
       } else {
         window.scrollTo(0, 0);
         this.tabNum = this.tabNum - 1;
