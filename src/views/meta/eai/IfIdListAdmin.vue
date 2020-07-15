@@ -707,12 +707,14 @@
       <div class="division_row">
         <div>
           <label class="column_label">요청 송신 OUT</label>
-          <div class="search_group">
+          <div
+            class="search_group"
+            @click="turnOnSvrPop(1)"
+          >
             <input
               v-model="qInfo.qType01Mngr"
               type="text"
               value=""
-              @click="turnOnSvrPop(1)"
             >
             <span class="search">
               <i class="ico-search" />
@@ -1614,3 +1616,15 @@ export default {
 };
 
 </script>
+
+<style scoped>
+.contents .grid_form .search_group input[type=text] {
+    width: 108px
+}
+.contents .grid_form .division_row>div {
+    grid-template-columns: 106px 116px 373px;
+    -ms-grid-colsumns: 106px 116px 373px;
+    grid-template-rows: 53px 53px 53px 53px 53px 30px;
+    -ms-grid-rows: 53px 53px 53px 53px 53px 30px;
+}
+</style>

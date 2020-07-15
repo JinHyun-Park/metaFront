@@ -128,11 +128,8 @@
       </div>
       <div class="table_colgroup">
         <div class="table_grid">
-          <div
-            class="table_head w-auto"
-            style="background-color: rgb(223, 219, 219);"
-          >
-            <ul style="background-color: rgb(223, 219, 219);">
+          <div class="table_head w-auto">
+            <ul>
               <li class="th_cell">
                 업무코드<i class="ico-sort-down" />
               </li>
@@ -854,9 +851,6 @@ export default {
       this.curLine = val;
     },
     checkCurLine(idx) {
-      // this.curLine = idx;
-      // console.log('curLine');
-      // console.log(this.curLine);
       if (this.curLine === idx) {
         return 'on';
       }
