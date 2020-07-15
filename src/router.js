@@ -266,9 +266,14 @@ const router = new Router({
       component: () => import('@/views/admin/ifReg/RegListAdmin.vue'),
     },
     {
-      path: '/admin/ifreg/RegStep4Admin',
-      name: 'regStepAdmin',
-      component: () => import('@/views/admin/ifReg/RegStep4Admin.vue'),
+      path: '/admin/ifreg/RegStepAdminAll',
+      name: 'regStepAdminAll',
+      component: () => import('@/views/admin/ifReg/RegStepAdminAll.vue'),
+    },
+    {
+      path: '/admin/ifreg/RegStepAdminEai',
+      name: 'regStepAdminEai',
+      component: () => import('@/views/admin/ifReg/RegStepAdminEai.vue'),
     },
     ],
   },
