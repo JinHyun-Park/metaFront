@@ -138,11 +138,11 @@
 
 <script>
 import { fetchGetBoardList } from '@/api/bizCommApi';
-import RadarChart from './chart/RadarChart.vue';
+// import RadarChart from './chart/RadarChart.vue';
 
 import NotiBoard from '../components/dashboard/NotiBoard.vue';
 import QueueMonitor from '../components/dashboard/QueueMonitor.vue';
-import QueueTransStat from '../components/dashboard/QueueTransStat.vue';
+// import QueueTransStat from '../components/dashboard/QueueTransStat.vue';
 import RegList from '../components/dashboard/RegList.vue';
 import McgDailyTrmsStat from '../components/dashboard/McgDailyTrmsStat.vue';
 import EigwDailyTrmsStat from '../components/dashboard/EigwDailyTrmsStat.vue';
@@ -152,9 +152,9 @@ import EaiDailyTrmsStat from '../components/dashboard/EaiDailyTrmsStat.vue';
 export default {
   name: 'Home',
   components: {
-    'radar-chart': RadarChart,
+    // 'radar-chart': RadarChart,
     'noti-board': NotiBoard,
-    'queue-stat': QueueTransStat,
+    // 'queue-stat': QueueTransStat,
     'queue-monitor': QueueMonitor,
     'reg-list': RegList,
     'mcg-daily-trms-stat': McgDailyTrmsStat,

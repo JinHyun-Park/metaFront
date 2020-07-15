@@ -12,7 +12,6 @@
             type="checkbox"
           >
           Auto Refresh
-          </input>
           <button
             class="button is-primary"
             @click="searchQueueDepth()"
@@ -50,7 +49,9 @@
           <tr
             v-for="(queueDepth, i) in queueDepthList"
             :key="i"
-            class="table_row w-auto"
+            class="table_row w-auto click_btn"
+            :class="checkCurLine(i)"
+            @click="showChart(i), setCurLine(i)"
           >
             <td class="td_cell">
               {{ i+1 }}
@@ -58,10 +59,7 @@
             <td class="td_cell">
               {{ queueDepth.ifNm }}
             </td>
-            <td
-              class="td_cell"
-              @click="showChart(i)"
-            >
+            <td class="td_cell">
               {{ queueDepth.depthCnt }}
             </td>
             <td class="td_cell">
@@ -87,14 +85,14 @@
 </template>
 
 <script>
-import ReactiveBarChart from '@/views/chart/ReactiveBarChart.vue';
+// import ReactiveBarChart from '@/views/chart/ReactiveBarChart.vue';
 import LineChart from '@/views/chart/LineChart.vue';
 import { fetchGetQueueDepthList, fetchGetQueueDepthByQueueNmList } from '@/api/monitoringApi';
 
 export default {
   name: 'QueueTransStat',
   components: {
-    'reactive-bar-chart': ReactiveBarChart,
+    // 'reactive-bar-chart': ReactiveBarChart,
     'line-chart': LineChart,
   },
   data() {
@@ -109,6 +107,7 @@ export default {
       tgtQueueNm: '',
       tgtIfNm: '',
       tgtQueueManager: '',
+      curLine: '0',
     };
   },
   watch: {
@@ -242,6 +241,15 @@ export default {
       this.remainTimeFuc = setInterval(() => {
         this.remainTime -= 1;
       }, 1000);
+    },
+    setCurLine(val) {
+      this.curLine = val;
+    },
+    checkCurLine(idx) {
+      if (this.curLine === idx) {
+        return 'on';
+      }
+      return '';
     },
   },
 };

@@ -120,9 +120,9 @@
                 <div class="select_group">
                   <select v-model="server.svrTypCd">
                     <option
-                      v-for="(code, i) in ccCdList.syrTypCd"
+                      v-for="(code, j) in ccCdList.syrTypCd"
                       v-if="code.cdNm != '전체'"
-                      :key="i"
+                      :key="j"
                       :value="code.cdDtlId"
                     >
                       {{ code.cdNm }}
@@ -134,9 +134,9 @@
                 <div class="select_group">
                   <select v-model="server.ipTyp">
                     <option
-                      v-for="(code, i) in ccCdList.ipTyp"
+                      v-for="(code, j) in ccCdList.ipTyp"
                       v-if="code.cdNm != '전체'"
-                      :key="i"
+                      :key="j"
                       :value="code.cdDtlId"
                     >
                       {{ code.cdNm }}

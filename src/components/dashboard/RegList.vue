@@ -122,14 +122,13 @@ export default {
           pageNo,
           size: this.pageSet.size,
           reqTitle: this.reqTitle,
-          startReqDtm: this.startReqDtm.replace(/\-/g, ''),
-          endReqDtm: this.endReqDtm.replace(/\-/g, ''),
+          startReqDtm: this.startReqDtm.replace(/-/g, ''),
+          endReqDtm: this.endReqDtm.replace(/-/g, ''),
         },
       })
         .then((res) => {
           console.log(res);
           if (res.data.rstCd === 'S') {
-            // this.ifReqList = this.$gf.parseRtnData(this.pageSet, res.data.rstData.ifReqMstList, 'Y');
             this.ifReqList = res.data.rstData.ifReqMstList;
             this.pageSet = res.data.rstData.pageSet;
           } else {

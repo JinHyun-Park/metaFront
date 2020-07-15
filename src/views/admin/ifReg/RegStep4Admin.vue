@@ -285,7 +285,6 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
 import {
   fetchGetIfStep4Admin, fetchPutIfStepAprvReqAdmin, fetchGetIfReqDetailInfo,
 } from '@/api/ifRegApi';

@@ -166,7 +166,6 @@ export default {
     //   deep: true,
     //   handler() {
     //     if (this.procSt === '1' || this.procSt == null) {
-    //       console.log(`22 isStep2Eai : ${this.saveFlag.isStep2EaiSaveYn} / isStep2Eigw : ${this.saveFlag.isStep2EigwSaveYn} / isStep2Mcg : ${this.saveFlag.isStep2McgSaveYn}`);
     //       if (this.tabNum === 1) {
     //         if (this.saveFlag.isStep1SaveYn !== false) {
     //           if (alert) {
@@ -184,7 +183,9 @@ export default {
     //           }
     //         }
     //       } else if (this.tabNum === 2) {
-    //         if (this.saveFlag.isStep2EaiSaveYn !== false && this.saveFlag.isStep2EigwSaveYn !== false && this.saveFlag.isStep2McgSaveYn !== false) {
+    //         if (this.saveFlag.isStep2EaiSaveYn !== false
+    //          && this.saveFlag.isStep2EigwSaveYn !== false
+    //          && this.saveFlag.isStep2McgSaveYn !== false) {
     //           if (alert) {
     //             this.$gf.alertOn('저장되었습니다.');
     //           }

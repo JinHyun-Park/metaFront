@@ -274,8 +274,8 @@ export default {
       return true;
     },
     saveIfReqMst(callType) {
-      this.ifReqMstInfo.dvlpAplyReqDt = this.ifReqMstInfo.dvlpAplyReqDt.replace(/\-/g, '');
-      this.ifReqMstInfo.operAplyReqDt = this.ifReqMstInfo.operAplyReqDt.replace(/\-/g, '');
+      this.ifReqMstInfo.dvlpAplyReqDt = this.ifReqMstInfo.dvlpAplyReqDt.replace(/-/g, '');
+      this.ifReqMstInfo.operAplyReqDt = this.ifReqMstInfo.operAplyReqDt.replace(/-/g, '');
 
       if (!this.checkParams()) {
         this.setTempSave('F');

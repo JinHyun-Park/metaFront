@@ -176,7 +176,6 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
 import { fetchGetAllMetaList } from '@/api/bizCommApi';
 
 export default {
