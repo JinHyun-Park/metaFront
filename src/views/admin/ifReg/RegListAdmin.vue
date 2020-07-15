@@ -113,6 +113,7 @@
             <li class="th_cell">
               승인자
             </li>
+            <li class="th_cell" />
           </ul>
         </div>
         <div class="table_body">
@@ -166,6 +167,17 @@
               class="td_cell"
             >
               {{ row.aprvNm }}({{ row.aprvId }})
+            </li>
+            <li class="td_cell">
+              <label :class="setIfBtnClass(row.eaiCnt)">
+                EAI({{ row.eaiCnt }})
+              </label>&nbsp;
+              <label :class="setIfBtnClass(row.eigwCnt)">
+                EIGW({{ row.eigwCnt }})
+              </label>&nbsp;
+              <label :class="setIfBtnClass(row.mcgCnt)">
+                MCG({{ row.mcgCnt }})
+              </label>
             </li>
           </ul>
         </div>
@@ -256,6 +268,16 @@ export default {
         default:
           rtnClass = 'label-default color-black';
       }
+      return rtnClass;
+    },
+    setIfBtnClass(cnt) {
+      let rtnClass = "";
+      if (cnt > 0) {
+        rtnClass = 'label-default color-black';
+      } else {
+        rtnClass = 'label-default color-gray';
+      }
+
       return rtnClass;
     },
     searchList(pageNo) {
