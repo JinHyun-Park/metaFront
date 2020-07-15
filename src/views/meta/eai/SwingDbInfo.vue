@@ -35,13 +35,13 @@
             </li>
             <li
               class="th_cell"
-              style="width:20%;"
+              style="width:13%;"
             >
               수신 테이블
             </li>
             <li
               class="th_cell"
-              style="width:10%;"
+              style="width:15%;"
             >
               수신 TR
             </li>
@@ -59,19 +59,19 @@
             </li>
             <li
               class="th_cell"
-              style="width:10%;"
+              style="width:12%;"
             >
               수신큐
             </li>
             <li
               class="th_cell"
-              style="width:10%;"
+              style="width:5%;"
             >
               사용 여부
             </li>
             <li
               class="th_cell"
-              style="width:10%;"
+              style="width:5%;"
             >
               EDIT
             </li>

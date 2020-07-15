@@ -1130,6 +1130,18 @@ export default {
 
     saveEaiRegTemp() {
       console.log('eai 임시저장 함수 시작');
+
+      /*
+      if (this.eaiIfNmEng.length > 0 || this.eaiIfNmKor.length > 0) {
+        for (let i = 0; i < this.eaiIfList.length; i++) {
+          if (this.eaiIfList[i].eaiIfNmEng !== this.eaiIfNmEng) {
+
+          }
+        }
+      }
+      */
+
+
       this.svrRows.splice(0, this.svrRows.length);
 
       if (this.sndRows[0].sysNm.length > 0 && this.sndRows[0].hostNm.length > 0) {

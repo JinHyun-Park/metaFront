@@ -726,12 +726,14 @@
             value=""
           >
           <label class="column_label">요청 송신 XQ</label>
-          <div class="search_group">
+          <div
+            class="search_group"
+            @click="turnOnSvrPop(2)"
+          >
             <input
               v-model="qInfo.qType02Mngr"
               type="text"
               value=""
-              @click="turnOnSvrPop(2)"
             >
             <span class="search">
               <i class="ico-search" />
@@ -743,12 +745,14 @@
             value=""
           >
           <label class="column_label">HUB 요청 수신 IN</label>
-          <div class="search_group">
+          <div
+            class="search_group"
+            @click="turnOnSvrPop(3)"
+          >
             <input
               v-model="qInfo.qType03Mngr"
               type="text"
               value=""
-              @click="turnOnSvrPop(3)"
             >
             <span class="search">
               <i class="ico-search" />
@@ -760,12 +764,14 @@
             value=""
           >
           <label class="column_label">HUB 요청 송신 OUT</label>
-          <div class="search_group">
+          <div
+            class="search_group"
+            @click="turnOnSvrPop(4)"
+          >
             <input
               v-model="qInfo.qType04Mngr"
               type="text"
               value=""
-              @click="turnOnSvrPop(4)"
             >
             <span class="search">
               <i class="ico-search" />
@@ -777,12 +783,14 @@
             value=""
           >
           <label class="column_label">HUB 요청 XQ</label>
-          <div class="search_group">
+          <div
+            class="search_group"
+            @click="turnOnSvrPop(5)"
+          >
             <input
               v-model="qInfo.qType05Mngr"
               type="text"
               value=""
-              @click="turnOnSvrPop(5)"
             >
             <span class="search">
               <i class="ico-search" />
@@ -794,12 +802,14 @@
             value=""
           >
           <label class="column_label">요청 수신 IN</label>
-          <div class="search_group">
+          <div
+            class="search_group"
+            @click="turnOnSvrPop(6)"
+          >
             <input
               v-model="qInfo.qType06Mngr"
               type="text"
               value=""
-              @click="turnOnSvrPop(6)"
             >
             <span class="search">
               <i class="ico-search" />
@@ -813,12 +823,14 @@
         </div>
         <div>
           <label class="column_label">응답 회신 OUT</label>
-          <div class="search_group">
+          <div
+            class="search_group"
+            @click="turnOnSvrPop(7)"
+          >
             <input
               v-model="qInfo.qType07Mngr"
               type="text"
               value=""
-              @click="turnOnSvrPop(7)"
             >
             <span class="search">
               <i class="ico-search" />
@@ -830,12 +842,14 @@
             value=""
           >
           <label class="column_label">응답 회신 XQ</label>
-          <div class="search_group">
+          <div
+            class="search_group"
+            @click="turnOnSvrPop(8)"
+          >
             <input
               v-model="qInfo.qType08Mngr"
               type="text"
               value=""
-              @click="turnOnSvrPop(8)"
             >
             <span class="search">
               <i class="ico-search" />
@@ -847,12 +861,14 @@
             value=""
           >
           <label class="column_label">HUB 응답 회신 IN</label>
-          <div class="search_group">
+          <div
+            class="search_group"
+            @click="turnOnSvrPop(9)"
+          >
             <input
               v-model="qInfo.qType09Mngr"
               type="text"
               value=""
-              @click="turnOnSvrPop(9)"
             >
             <span class="search">
               <i class="ico-search" />
@@ -864,12 +880,14 @@
             value=""
           >
           <label class="column_label">HUB 응답 회신 OUT</label>
-          <div class="search_group">
+          <div
+            class="search_group"
+            @click="turnOnSvrPop(10)"
+          >
             <input
               v-model="qInfo.qType10Mngr"
               type="text"
               value=""
-              @click="turnOnSvrPop(10)"
             >
             <span class="search">
               <i class="ico-search" />
@@ -881,12 +899,14 @@
             value=""
           >
           <label class="column_label">HUB 응답 회신 XQ</label>
-          <div class="search_group">
+          <div
+            class="search_group"
+            @click="turnOnSvrPop(11)"
+          >
             <input
               v-model="qInfo.qType11Mngr"
               type="text"
               value=""
-              @click="turnOnSvrPop(11)"
             >
             <span class="search">
               <i class="ico-search" />
@@ -898,12 +918,14 @@
             value=""
           >
           <label class="column_label">응답 수신 IN</label>
-          <div class="search_group">
+          <div
+            class="search_group"
+            @click="turnOnSvrPop(12)"
+          >
             <input
               v-model="qInfo.qType12Mngr"
               type="text"
               value=""
-              @click="turnOnSvrPop(12)"
             >
             <span class="search">
               <i class="ico-search" />
@@ -1619,11 +1641,11 @@ export default {
 
 <style scoped>
 .contents .grid_form .search_group input[type=text] {
-    width: 108px
+    width: 122px
 }
 .contents .grid_form .division_row>div {
-    grid-template-columns: 106px 116px 373px;
-    -ms-grid-colsumns: 106px 116px 373px;
+    grid-template-columns: 130px 130px 373px;
+    -ms-grid-colsumns: 130x 130px 373px;
     grid-template-rows: 53px 53px 53px 53px 53px 30px;
     -ms-grid-rows: 53px 53px 53px 53px 53px 30px;
 }
