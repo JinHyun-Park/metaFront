@@ -76,6 +76,9 @@
               <td class="th_cell">
                 거래코드
               </td>
+              <td class="th_cell">
+                합계
+              </td>
               <td
                 v-for="time in maxTime"
                 :key="time"
