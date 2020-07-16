@@ -146,18 +146,29 @@
             </li>
             <li class="td_cell">
               <label
+                class="tooltips right"
                 :class="setClass(row.procSt)"
-                @mouseover="tooltipActive(i)"
-                @mouseleave="tooltipActive(i)"
               >
                 {{ row.procNm }}
+                <span
+                  v-if="(row.eaiCnt+row.eigwCnt+row.mcgCnt > 0)"
+                  class="tip_contn"
+                >
+                  <em class="tip_text">
+                    <div class="table_grid">
+                      <div class="table_body">
+                        <ul v-if="(row.eaiCnt > 0)">
+                          EAI({{ row.eaiCnt }}) : {{ procNmList[row.eaiProcSt] }}
+                        </ul>
+                        <ul v-if="(row.eigwCnt > 0)">
+                          EIGW({{ row.eigwCnt }}) : {{ procNmList[row.eigwProcSt] }}
+                        </ul>
+                        <ul v-if="(row.mcgCnt > 0)">
+                          MCG({{ row.mcgCnt }}) : {{ procNmList[row.mcgProcSt] }}
+                        </ul>
+                      </div>
+                    </div></em></span>
               </label>
-              <span
-                v-if="tooltip[i]"
-                class="tooltips ov right"
-              >
-                <i class="tip_contn"><em class="tip_text">진행이력</em></i>
-              </span>
             </li>
             <li
               class="td_cell"
@@ -218,7 +229,13 @@ export default {
         },
       },
 
-      tooltip : [false,false,false,false,false,false,false,false,false,false,false],
+      procNmList: {
+        '1': '임시저장',
+        '2': '승인요청',
+        '3': '접수중',
+        '4': '개발적용완료',
+        '5': '운영반영완료', 
+      }
     };
   },
   computed: {
@@ -242,17 +259,11 @@ export default {
       console.log(row ,this.tooltip[row]);
       return this.tooltip[row];
     },
-    tooltipActive(row) {
-      this.tooltip[row] = !this.tooltip[row];
-      console.log(`tooltips on ${row} ${this.tooltip[row]}`);
-    },
-
     setClass(procSt) {
       let rtnClass = "";
-      console.log(`set class!! : ${procSt}`);
       switch(procSt) {
         case '1':
-          rtnClass = 'label-default color-glay';
+          rtnClass = 'label-default color-gray';
           break;
         case '2':
           rtnClass = 'label-default color-yellow';
