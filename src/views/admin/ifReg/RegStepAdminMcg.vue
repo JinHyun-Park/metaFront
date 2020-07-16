@@ -701,11 +701,11 @@
               <li class="td_cell">
                 <i
                   class="ico-add"
-                  @click="addcRow()"
+                  @click="addDealChrgrRow()"
                 />
                 <i
                   class="ico-del"
-                  @click="removecRow(idx)"
+                  @click="removeDealChrgrRow(idx)"
                 />
               </li>
             </ul>
@@ -890,6 +890,18 @@ export default {
         chnlCom: '',
         chrgrList: '',
 
+        chrgrRows: [
+          {
+            mcgReqNum: '',
+            name: '',
+            company: '',
+            phonNum: '',
+            email: '',
+            role: '',
+            chrgrId: '',
+          },
+        ],
+
       },
 
       opCd: '',
@@ -954,6 +966,7 @@ export default {
       ],
       reqList: [
         {
+          reqNum: '',
           chnlNm: '',
           chnlId: '',
           lnkMthd: '',
@@ -961,6 +974,8 @@ export default {
           reqPurp: '',
           chnlCnt: '',
           maxTps: '',
+          tp: '',
+          moduleNm: '',
           serviceId: '',
           serviceNm: '',
           servletUrl: '',
@@ -974,8 +989,6 @@ export default {
         },
       ],
       mcgReqList: {},
-      mcgSvrList: {},
-      mcgChrgrList: {},
 
       reqListDeal: [
         {
@@ -1025,12 +1038,10 @@ export default {
   created() {
     this.reqNum = this.$route.params.reqNum;
     this.listing(this.reqNum);
-    this.listingDeal(this.reqNum);
   },
   mounted() {
     this.today = this.$gf.dateToString(new Date(), '', 'Y');
     this.reqList.splice(0, 1);
-    this.reqListDeal.splice(0, 1);
     this.svrRows.push({});
     this.chrgrRows.push({});
     this.chrgrRowsDeal.push({});
@@ -1119,33 +1130,52 @@ export default {
     addDataChrgr(val) {
       console.log(`Popup에서 받아온 Data : ${val}`);
 
-      this.chrgrRows[this.chrgrRows.length - 1].name = val.hanNm;
-      this.chrgrRows[this.chrgrRows.length - 1].company = val.orgCd;
-      this.chrgrRows[this.chrgrRows.length - 1].chrgrId = val.userId;
-      this.chrgrRows[this.chrgrRows.length - 1].phonNum = val.mblPhonNum;
-      this.chrgrRows[this.chrgrRows.length - 1].email = val.emailAddr;
+      if (this.isChnlShow) {
+        this.mcgChnlRowData.chrgrRows[this.mcgChnlRowData.chrgrRows.length - 1].name = val.hanNm;
+        this.mcgChnlRowData.chrgrRows[this.mcgChnlRowData.chrgrRows.length - 1].company = val.orgCd;
+        this.mcgChnlRowData.chrgrRows[this.mcgChnlRowData.chrgrRows.length - 1].chrgrId = val.userId;
+        this.mcgChnlRowData.chrgrRows[this.mcgChnlRowData.chrgrRows.length - 1].phonNum = val.mblPhonNum;
+        this.mcgChnlRowData.chrgrRows[this.mcgChnlRowData.chrgrRows.length - 1].email = val.emailAddr;
+      } else {
+        this.mcgDealRowData.chrgrRows[this.mcgDealRowData.chrgrRows.length - 1].name = val.hanNm;
+        this.mcgDealRowData.chrgrRows[this.mcgDealRowData.chrgrRows.length - 1].company = val.orgCd;
+        this.mcgDealRowData.chrgrRows[this.mcgDealRowData.chrgrRows.length - 1].chrgrId = val.userId;
+        this.mcgDealRowData.chrgrRows[this.mcgDealRowData.chrgrRows.length - 1].phonNum = val.mblPhonNum;
+        this.mcgDealRowData.chrgrRows[this.mcgDealRowData.chrgrRows.length - 1].email = val.emailAddr;
+      }
 
       this.chrgrpopupstate = false;
     },
 
     addsRow() {
-      console.log('서버 목록 추가!');
-      this.svrRows.push({});
+      console.log('채널 서버 목록 추가!');
+      this.mcgChnlRowData.svrRows.push({});
     },
     addcRow() {
-      console.log('담당자 목록 추가!');
-      this.chrgrRows.push({});
+      console.log('채널 담당자 목록 추가!');
+      this.mcgChnlRowData.chrgrRows.push({});
+    },
+
+    addDealChrgrRow() {
+      console.log('거래 담당자 목록 추가!');
+      this.mcgDealRowData.chrgrRows.push({});
     },
 
     removesRow(idx) {
       console.log('서버 목록에서 삭제!');
-      this.svrRows.splice(idx, 1);
-      if (idx === 0) { this.svrRows.push({}); }
+      this.mcgChnlRowData.svrRows.splice(idx, 1);
+      if (idx === 0) { this.mcgChnlRowData.svrRows.push({}); }
     },
     removecRow(idx) {
       console.log('담당자 목록에서 삭제!');
-      this.chrgrRows.splice(idx, 1);
-      if (idx === 0) { this.chrgrRows.push({}); }
+      this.mcgChnlRowData.chrgrRows.splice(idx, 1);
+      if (idx === 0) { this.mcgChnlRowData.chrgrRows.push({}); }
+    },
+
+    removeDealChrgrRow(idx) {
+      console.log('담당자 목록에서 삭제!');
+      this.mcgDealRowData.chrgrRows.splice(idx, 1);
+      if (idx === 0) { this.mcgDealRowData.chrgrRows.push({}); }
     },
 
     checkChnlSave() {
@@ -1199,52 +1229,6 @@ export default {
         });
     },
 
-    listingDeal(req) {
-      console.log('채널 신청 목록 조회!');
-      this.reqListDeal.splice(0, 1);
-      this.chrgrRowsDeal.splice(0, 1);
-      fetchGetMcgReqList({
-        params: {
-          reqNum: req,
-          procSt: 1,
-        },
-      })
-        .then((res) => {
-          this.reqListDeal = res.data.rstData.searchReqList;
-          console.log(res.data.rstData.searchReqList);
-          console.log(this.reqListDeal);
-        })
-        .catch((ex) => {
-          console.log(`error occur!! : ${ex}`);
-        });
-    },
-
-    listchrgr(Num) {
-      console.log('채널 담당자 목록 조회!');
-      // this.chrgrList.splice(0, 1);
-      // this.$axios.get('/api/mcg/chnl', {
-      fetchGetMcgReqChrgrList({
-        params: {
-          mcgReqNum: Num,
-        },
-      })
-        .then((res) => {
-          this.chrgrList = res.data.rstData.searchChrgrList;
-          // this.svrRowsrcv = res.data.rstData.searchSvrList;
-          // this.chrgrRowsrcv = res.data.rstData.searchChrgrList;
-          this.chrgrRows.splice(0, this.chrgrRows.length);
-
-          for (let i = 0; i < this.chrgrList.length; i++) {
-            this.chrgrRows.push(this.chrgrList[i]);
-          }
-          console.log(res.data.rstData.searchChrgrList);
-          console.log(this.chrgrList);
-          console.log(this.chrgrRows);
-        })
-        .catch((ex) => {
-          console.log(`error occur!! : ${ex}`);
-        });
-    },
     listingsvr(Num) {
       console.log('채널 서버 목록 조회!');
       // this.svrList.splice(0, 1);
@@ -1527,7 +1511,7 @@ export default {
     },
 
     savereq() {
-      console.log('채널 저장!');
+      console.log(`채널 저장! length : ${this.reqList.length}`);
       if (this.reqList.length === 0) {
         this.reqList.push({ reqNum: this.reqNum });
         this.notInsert = 'Y';
@@ -1535,38 +1519,27 @@ export default {
         this.notInsert = 'N';
         for (let i = 0; i < this.reqList.length; i++) {
           this.reqList[i].reqNum = this.reqNum;
-          this.reqList[i].procSt = '1';
+          this.reqList[i].procSt = '3';
 
-          for (let is = 0; is < this.reqList[i].svrList.length; is++) {
-            this.reqList[i].svrList[is].mcgReqNum = this.reqList[i].mcgReqNum;
-            this.reqList[i].svrList[is].reqNum = this.reqNum;
-            this.reqList[i].svrList[is].useYn = 'Y';
+          if (this.reqList[i].svrList != null && this.reqList[i].svrList.length > 0) {
+            for (let is = 0; is < this.reqList[i].svrList.length; is++) {
+              this.reqList[i].svrList[is].mcgReqNum = this.reqList[i].mcgReqNum;
+              this.reqList[i].svrList[is].reqNum = this.reqNum;
+              this.reqList[i].svrList[is].useYn = 'Y';
+            }
           }
-          // this.mcgSvrList = { svrRows: this.svrRows };
 
-          for (let ic = 0; ic < this.reqList[i].chrgrList.length; ic++) {
-            this.reqList[i].chrgrList[ic].mcgReqNum = this.reqList[i].mcgReqNum;
-            this.reqList[i].chrgrList[ic].reqNum = this.reqNum;
-            this.reqList[i].chrgrList[ic].useYn = 'Y';
+          if (this.reqList[i].chrgrList != null && this.reqList[i].chrgrList.length > 0) {
+            for (let ic = 0; ic < this.reqList[i].chrgrList.length; ic++) {
+              this.reqList[i].chrgrList[ic].mcgReqNum = this.reqList[i].mcgReqNum;
+              this.reqList[i].chrgrList[ic].reqNum = this.reqNum;
+              this.reqList[i].chrgrList[ic].useYn = 'Y';
+            }
           }
         }
       }
 
       this.mcgReqList = { reqList: this.reqList };
-
-
-      // for (let i = 0; i < this.svrRows.length; i++) {
-      //   this.svrRows[i].reqNum = this.reqNum;
-      //   this.svrRows[i].useYn = 'Y';
-      // }
-      this.mcgSvrList = { svrRows: this.svrRows };
-
-      // for (let i = 0; i < this.chrgrRows.length; i++) {
-      //   this.chrgrRows[i].reqNum = this.reqNum;
-      //   this.chrgrRows[i].useYn = 'Y';
-      // }
-      this.mcgChrgrList = { chrgrRows: this.chrgrRows };
-
 
       console.log('채널 저장!');
 
@@ -1576,6 +1549,7 @@ export default {
           if (this.notInsert === 'Y') {
             this.reqList.splice(0, 1);
           }
+          this.$gf.alertOn('저장되었습니다.');
         })
         .catch((ex) => {
           console.log(`error occur!! : ${ex}`);
@@ -1594,24 +1568,6 @@ export default {
       }
 
       console.log(this.reqdtl);
-    },
-    savereqchrgr(chrgrList) {
-      fetchPutMcgReqChrgr(chrgrList)
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((ex) => {
-          console.log(`error occur!! : ${ex}`);
-        });
-    },
-    savereqserver(svrList) {
-      fetchPutMcgReqServer(svrList)
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((ex) => {
-          console.log(`error occur!! : ${ex}`);
-        });
     },
     aprvMsgReq(tgtProcSt) {
       this.tgtProcSt = tgtProcSt;
