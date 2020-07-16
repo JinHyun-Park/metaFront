@@ -162,22 +162,46 @@
             </li>
             <li class="td_cell">
               <label
+                class="tooltips right"
                 :class="setIfBtnClass(row.eaiCnt, row.eaiProcSt)"
                 @click="detail('EAI',i)"
               >
                 EAI({{ row.eaiCnt }})
+                <span
+                  v-if="(row.eaiCnt > 0)"
+                  class="tip_contn"
+                >
+                  <em class="tip_text">
+                    {{ procNmList[row.eaiProcSt] }}
+                  </em></span>
               </label>&nbsp;
               <label
+                class="tooltips right"
                 :class="setIfBtnClass(row.eigwCnt, row.eigwProcSt)"
                 @click="detail('EIGW',i)"
               >
                 EIGW({{ row.eigwCnt }})
+                <span
+                  v-if="(row.eigwCnt > 0)"
+                  class="tip_contn"
+                >
+                  <em class="tip_text">
+                    {{ procNmList[row.eigwProcSt] }}
+                  </em></span>
               </label>&nbsp;
               <label
+                class="tooltips right"
                 :class="setIfBtnClass(row.mcgCnt, row.mcgProcSt)"
                 @click="detail('MCG',i)"
               >
                 MCG({{ row.mcgCnt }})
+                <span
+                  v-if="(row.mcgCnt > 0)"
+                  class="tip_contn"
+                >
+                  <em class="tip_text">
+                    {{ procNmList[row.mcgProcSt] }}
+                  </em></span>
               </label>
             </li>
           </ul>
@@ -223,6 +247,14 @@ export default {
           type: Object,
         },
       },
+
+      procNmList: {
+        '1': '임시저장',
+        '2': '승인요청',
+        '3': '접수중',
+        '4': '개발적용완료',
+        '5': '운영반영완료', 
+      }
     };
   },
   computed: {
@@ -246,7 +278,7 @@ export default {
       console.log(`set class!! : ${procSt}`);
       switch(procSt) {
         case '1':
-          rtnClass = 'label-default color-glay';
+          rtnClass = 'label-default color-gray';
           break;
         case '2':
           rtnClass = 'label-default color-yellow';

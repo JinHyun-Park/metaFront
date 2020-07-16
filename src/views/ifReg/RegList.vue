@@ -150,14 +150,24 @@
                 :class="setClass(row.procSt)"
               >
                 {{ row.procNm }}
-                <span class="tip_contn">
+                <span
+                  v-if="(row.eaiCnt+row.eigwCnt+row.mcgCnt > 0)"
+                  class="tip_contn"
+                >
                   <em class="tip_text">
-                    <label
-                      :class="setClass(row.procSt)"
-                    >
-                      {{ row.procNm }}
-                    </label>
-                  </em></span>
+                    <div class="table_grid">
+                      <div class="table_body">
+                        <ul v-if="(row.eaiCnt > 0)">
+                          EAI({{ row.eaiCnt }}) : {{ procNmList[row.eaiProcSt] }}
+                        </ul>
+                        <ul v-if="(row.eigwCnt > 0)">
+                          EIGW({{ row.eigwCnt }}) : {{ procNmList[row.eigwProcSt] }}
+                        </ul>
+                        <ul v-if="(row.mcgCnt > 0)">
+                          MCG({{ row.mcgCnt }}) : {{ procNmList[row.mcgProcSt] }}
+                        </ul>
+                      </div>
+                    </div></em></span>
               </label>
             </li>
             <li
@@ -218,6 +228,14 @@ export default {
           type: Object,
         },
       },
+
+      procNmList: {
+        '1': '임시저장',
+        '2': '승인요청',
+        '3': '접수중',
+        '4': '개발적용완료',
+        '5': '운영반영완료', 
+      }
     };
   },
   computed: {
@@ -243,7 +261,6 @@ export default {
     },
     setClass(procSt) {
       let rtnClass = "";
-      console.log(`set class!! : ${procSt}`);
       switch(procSt) {
         case '1':
           rtnClass = 'label-default color-gray';
