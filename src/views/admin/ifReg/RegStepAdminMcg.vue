@@ -28,7 +28,7 @@
     />
     <section class="form_area border_group several_table">
       <h5 class="s_tit type-2">
-        MCG 채널 추가
+        MCG 신청
         <div class="right_button_area">
           <button
             v-if="virtual"
@@ -41,9 +41,16 @@
           <button
             type="button"
             class="default_button extend on"
-            @click="addMcgReq()"
+            @click="showAddView('CHNL')"
           >
             채널 추가
+          </button>
+          <button
+            type="button"
+            class="default_button extend on"
+            @click="showAddView('DEAL')"
+          >
+            거래 추가
           </button>
         </div>
       </h5>
@@ -135,42 +142,56 @@
           </div>
         </div>
       </div>
-      <div class="right_button_area">
-        <button
-          type="button"
-          class="default_button"
-          @click="emptyMcgFields"
-        >
-          항목 비우기
-        </button>
-      </div>
-      <div class="row_contain type-2" />
+    </section>
+    <section
+      v-if="isChnlShow"
+      class="form_area border_group several_table"
+    >
+      <h5 class="s_tit type-2">
+        MCG 채널 추가
+        <div class="right_button_area">
+          <button
+            type="button"
+            class="default_button"
+            @click="emptyMcgChnlFields"
+          >
+            항목 비우기
+          </button>
+          <button
+            type="button"
+            class="default_button on"
+            @click="addMcgChnlReq"
+          >
+            채널 추가
+          </button>
+        </div>
+      </h5>
       <div class="row_contain type-3">
         <div class="column on w-3">
           <label class="column_label">채널명</label>
           <input
-            v-model="chnlNm"
+            v-model="mcgChnlRowData.chnlNm"
             type="text"
           >
         </div>
         <div class="column w-3">
           <label class="column_label">채널ID</label>
           <input
-            v-model="chnlId"
+            v-model="mcgChnlRowData.chnlId"
             type="text"
           >
         </div>
         <div class="column w-2">
           <label class="column_label">채널유형</label>
           <input
-            v-model="chnlTyp"
+            v-model="mcgChnlRowData.chnlTyp"
             type="text"
           >
         </div>
         <div class="column w-2">
           <label class="column_label">연동방식</label>
           <div class="select_group disabled">
-            <select v-model="lnkMthd">
+            <select v-model="mcgChnlRowData.lnkMthd">
               <option
                 v-for="(code, m) in ccCdList.mcgChnlLnkgMthdR"
                 :key="m"
@@ -188,14 +209,14 @@
         <div class="column w-3">
           <label class="column_label">용도</label>
           <input
-            v-model="reqPurp"
+            v-model="mcgChnlRowData.reqPurp"
             type="text"
           >
         </div>
         <div class="column w-3">
           <label class="column_label">내용</label>
           <input
-            v-model="chnlCnt"
+            v-model="mcgChnlRowData.chnlCnt"
             type="text"
           >
         </div>
@@ -204,7 +225,7 @@
         <div class="column on w-2">
           <label class="column_label">예상 일일 건수</label>
           <input
-            v-model="dailyTps"
+            v-model="mcgChnlRowData.dailyTps"
             type="number"
             min="0"
           >
@@ -212,7 +233,7 @@
         <div class="column w-2">
           <label class="column_label">예상 MAX TPS</label>
           <input
-            v-model="maxTps"
+            v-model="mcgChnlRowData.maxTps"
             type="number"
             min="0"
           >
@@ -221,14 +242,14 @@
           <label class="column_label">요청일자</label>
           <div class="calander_group">
             <input
-              v-model="reqDt"
+              v-model="mcgChnlRowData.reqDt"
               type="text"
             >
             <span class="calander">
               <i class="ico-cal" />
             </span>
             <datepicker
-              :value="reqDt"
+              :value="mcgChnlRowData.reqDt"
               :min="today"
               :day-str="datePickerSet.dayStr"
               :popper-props="datePickerSet.popperProps"
@@ -241,7 +262,6 @@
       <h5 class="s_tit type-2">
         MCG 채널 서버 정보
       </h5>
-
       <div class="table_colgroup">
         <div class="table_grid">
           <div class="table_head w-auto">
@@ -274,7 +294,7 @@
           </div>
           <div class="table_body">
             <ul
-              v-for="(svrdtl,idx) in svrRows"
+              v-for="(svrdtl,idx) in mcgChnlRowData.svrRows"
               :key="idx"
               class="table_row w-auto"
             >
@@ -333,358 +353,6 @@
             </ul>
           </div>
         </div>
-      </div>
-      <div class="row_contain type-2" />
-      <h5 class="s_tit type-2">
-        MCG 채널 담당자 정보
-      </h5>
-      <div class="row_contain type-2 except-2">
-        <div class="column w-1">
-          <label class="column_label">담당자 조회</label>
-          <div class="search_group">
-            <input
-              type="text"
-              @click="chrgrpopon()"
-            >
-            <span class="search">
-              <i
-                class="ico-search"
-                @click="chrgrpopon()"
-              />
-            </span>
-          </div>
-        </div>
-        <div class="column w-3" />
-      </div>
-      <div class="table_colgroup">
-        <div class="table_grid">
-          <div class="table_head w-auto">
-            <ul>
-              <li class="th_cell">
-                이름<i class="ico-sort-down" />
-              </li>
-              <li class="th_cell">
-                회사<i class="ico-sort-up" />
-              </li>
-              <li class="th_cell">
-                연락처<i class="ico-sort-down" />
-              </li>
-              <li class="th_cell">
-                이메일<i class="ico-sort-down" />
-              </li>
-              <li class="th_cell">
-                역할<i class="ico-sort-down" />
-              </li>
-              <li class="th_cell">
-                수정
-              </li>
-            </ul>
-          </div>
-          <div class="table_body">
-            <ul
-              v-for="(chrgrdtl,idx) in chrgrRows"
-              :key="idx"
-              class="table_row w-auto"
-            >
-              <li class="td_cell">
-                <input
-                  v-model="chrgrdtl.name"
-                  type="text"
-                >
-              </li>
-              <li class="td_cell">
-                <input
-                  v-model="chrgrdtl.company"
-                  type="text"
-                >
-              </li>
-              <li class="td_cell">
-                <input
-                  v-model="chrgrdtl.phonNum"
-                  type="text"
-                >
-              </li>
-              <li class="td_cell">
-                <input
-                  v-model="chrgrdtl.email"
-                  type="text"
-                >
-              </li>
-              <li class="td_cell">
-                <input
-                  v-model="chrgrdtl.role"
-                  type="text"
-                >
-              </li>
-              <li class="td_cell">
-                <i
-                  class="ico-add"
-                  @click="addcRow()"
-                />
-                <i
-                  class="ico-del"
-                  @click="removecRow(idx)"
-                />
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-    <section class="form_area border_group several_table">
-      <h5 class="s_tit type-2">
-        MCG 거래 추가
-        <div class="right_button_area">
-          <button
-            type="button"
-            class="default_button on"
-            @click="addMcgReq()"
-          >
-            추가
-          </button>
-          <!--<button type="button" class="default_button extend on">가상 사용자 추가</button>-->
-        </div>
-      </h5>
-      <div class="table_colgroup">
-        탭 변경시(채널추가) 임시저장 해주세요.
-        <div class="table_grid tb_layout">
-          <div class="table_head w-auto">
-            <ul>
-              <li
-                class="th_cell"
-                style="width:10%;"
-              >
-                구분
-              </li>
-              <li
-                class="th_cell"
-                style="width:20%;"
-              >
-                채널ID
-              </li>
-              <li
-                class="th_cell"
-                style="width:15%;"
-              >
-                연동방식
-              </li>
-              <li
-                class="th_cell"
-                style="width:15%;"
-              >
-                채널유형
-              </li>
-              <li
-                class="th_cell"
-                style="width:25%;"
-              >
-                TP명
-              </li>
-              <li
-                class="th_cell"
-                style="width:15%;"
-              >
-                변경
-              </li>
-            </ul>
-          </div>
-          <div class="table_body">
-            <ul
-              v-for="(req,idx) in reqList2"
-              :key="idx"
-              class="table_row w-auto"
-              @click="dtlReq(req,idx)"
-            >
-              <li
-                class="td_cell"
-              >
-                {{ req.mcgType }}
-              </li>
-              <li
-                class="td_cell"
-              >
-                {{ req.chnlId }}
-              </li>
-              <li
-                class="td_cell"
-              >
-                {{ req.lnkMthd }}
-              </li>
-              <li
-                class="td_cell"
-              >
-                {{ req.chnlTyp }}
-              </li>
-              <li
-                class="td_cell"
-              >
-                {{ req.tp }}
-              </li>
-              <li class="td_cell">
-                <i
-                  class="ico-edit"
-                  @click="dtlupdate(idx)"
-                />
-                <i
-                  class="ico-del"
-                  @click="remove(req)"
-                />
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="right_button_area">
-        <button
-          type="button"
-          class="default_button"
-          @click="emptyMcgFields"
-        >
-          항목 비우기
-        </button>
-      </div>
-      <div class="row_contain type-2" />
-      <div class="row_contain type-2">
-        <div class="column on w-3">
-          <label class="column_label">채널명</label>
-          <div class="search_group">
-            <input
-              v-model="chnlNm"
-              type="text"
-
-              @click="chnlpopon()"
-            >
-            <span class="search">
-              <i
-                class="ico-search"
-                @click="chnlpopon()"
-              />
-            </span>
-          </div>
-        </div>
-        <div class="column w-3">
-          <label class="column_label">채널ID</label>
-          <input
-            v-model="chnlId"
-            type="text"
-          >
-        </div>
-        <div class="column w-2">
-          <label class="column_label">채널유형</label>
-          <input
-            v-model="chnlTyp"
-            type="text"
-          >
-        </div>
-        <div class="column w-2">
-          <label class="column_label">연동방식</label>
-          <input
-            v-model="lnkMthd"
-            type="text"
-          >
-        </div>
-      </div>
-      <div class="row_contain">
-        <div class="column w-3">
-          <label class="column_label">모듈명</label>
-          <input
-            v-model="moduleNm"
-            type="text"
-          >
-        </div>
-        <div class="column w-3">
-          <label class="column_label">호출서비스</label>
-          <input
-            v-model="tp"
-            type="text"
-          >
-        </div>
-      </div>
-      <div class="row_contain odd">
-        <div class="column w-1">
-          <label class="column_label">서비스ID</label>
-          <input
-            v-model="serviceId"
-            type="text"
-            value="Interface1"
-          >
-        </div>
-        <div class="column w-1">
-          <label class="column_label">서비스명</label>
-          <input
-            v-model="serviceNm"
-            type="text"
-          >
-        </div>
-        <div class="column w-2">
-          <label class="column_label">Servlet URL</label>
-          <input
-            v-model="servletUrl"
-            type="text"
-          >
-        </div>
-        <div class="column w-1">
-          <label class="column_label">TCP IP</label>
-          <input
-            v-model="tcpIp"
-            type="text"
-          >
-        </div>
-        <div class="column w-1">
-          <label class="column_label">TCP PORT</label>
-          <input
-            v-model="tcpPort"
-            type="number"
-            value=""
-          >
-        </div>
-      </div>
-      <div class="row_contain">
-        <div class="column w-1">
-          <label class="column_label">연동주기</label>
-          <div class="select_group">
-            <select>
-              <option
-                value=""
-                selected
-              >
-                Y
-              </option>
-              <option value="">
-                N
-              </option>
-            </select>
-            <span class="select" />
-          </div>
-        </div>
-        <div class="column w-1">
-          <label class="column_label">타임아웃</label>
-          <input
-
-            type="text"
-            value=""
-          >
-        </div>
-        <div class="column w-1">
-          <label class="column_label">요청일자</label>
-          <div class="calander_group">
-            <input
-              v-model="reqDt"
-              type="text"
-              value=""
-            >
-            <span class="calander">
-              <i class="ico-cal" />
-            </span>
-            <datepicker
-              :value="reqDt"
-              :min="today"
-              :day-str="datePickerSet.dayStr"
-              :popper-props="datePickerSet.popperProps"
-              @input="inputreqDt"
-            />
-          </div>
-        </div>
         <div class="column w-1" />
       </div>
       <h5 class="s_tit type-2">
@@ -734,7 +402,269 @@
           </div>
           <div class="table_body">
             <ul
-              v-for="(chrgrdtl,idx) in chrgrRows"
+              v-for="(chrgrdtl,idx) in mcgChnlRowData.chrgrRows"
+              :key="idx"
+              class="table_row w-auto"
+            >
+              <li class="td_cell">
+                <input
+                  v-model="chrgrdtl.name"
+                  type="text"
+                >
+              </li>
+              <li class="td_cell">
+                <input
+                  v-model="chrgrdtl.company"
+                  type="text"
+                >
+              </li>
+              <li class="td_cell">
+                <input
+                  v-model="chrgrdtl.phonNum"
+                  type="text"
+                >
+              </li>
+              <li class="td_cell">
+                <input
+                  v-model="chrgrdtl.email"
+                  type="text"
+                >
+              </li>
+              <li class="td_cell">
+                <input
+                  v-model="chrgrdtl.role"
+                  type="text"
+                >
+              </li>
+              <li class="td_cell">
+                <i
+                  class="ico-add"
+                  @click="addcRow()"
+                />
+                <i
+                  class="ico-del"
+                  @click="removecRow(idx)"
+                />
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section
+      v-if="isDealShow"
+      class="form_area border_group several_table"
+    >
+      <h5 class="s_tit type-2">
+        MCG 거래 추가
+        <div class="right_button_area">
+          <button
+            type="button"
+            class="default_button"
+            @click="emptyMcgDealFields"
+          >
+            항목 비우기
+          </button>
+          <button
+            type="button"
+            class="default_button on"
+            @click="addMcgDealReq"
+          >
+            거래 추가
+          </button>
+        </div>
+      </h5>
+      <div class="row_contain type-2">
+        <div class="column on w-3">
+          <label class="column_label">채널명</label>
+          <div class="search_group">
+            <input
+              v-model="mcgDealRowData.chnlNm"
+              type="text"
+
+              @click="chnlpopon()"
+            >
+            <span class="search">
+              <i
+                class="ico-search"
+                @click="chnlpopon()"
+              />
+            </span>
+          </div>
+        </div>
+        <div class="column w-3">
+          <label class="column_label">채널ID</label>
+          <input
+            v-model="mcgDealRowData.chnlId"
+            type="text"
+          >
+        </div>
+        <div class="column w-2">
+          <label class="column_label">채널유형</label>
+          <input
+            v-model="mcgDealRowData.chnlTyp"
+            type="text"
+          >
+        </div>
+        <div class="column w-2">
+          <label class="column_label">연동방식</label>
+          <input
+            v-model="mcgDealRowData.lnkMthd"
+            type="text"
+          >
+        </div>
+      </div>
+      <div class="row_contain">
+        <div class="column w-3">
+          <label class="column_label">모듈명</label>
+          <input
+            v-model="mcgDealRowData.moduleNm"
+            type="text"
+          >
+        </div>
+        <div class="column w-3">
+          <label class="column_label">호출서비스</label>
+          <input
+            v-model="mcgDealRowData.tp"
+            type="text"
+          >
+        </div>
+      </div>
+      <div class="row_contain odd">
+        <div class="column w-1">
+          <label class="column_label">서비스ID</label>
+          <input
+            v-model="mcgDealRowData.serviceId"
+            type="text"
+            value="Interface1"
+          >
+        </div>
+        <div class="column w-1">
+          <label class="column_label">서비스명</label>
+          <input
+            v-model="mcgDealRowData.serviceNm"
+            type="text"
+          >
+        </div>
+        <div class="column w-2">
+          <label class="column_label">Servlet URL</label>
+          <input
+            v-model="mcgDealRowData.servletUrl"
+            type="text"
+          >
+        </div>
+        <div class="column w-1">
+          <label class="column_label">TCP IP</label>
+          <input
+            v-model="mcgDealRowData.tcpIp"
+            type="text"
+          >
+        </div>
+        <div class="column w-1">
+          <label class="column_label">TCP PORT</label>
+          <input
+            v-model="mcgDealRowData.tcpPort"
+            type="number"
+            value=""
+          >
+        </div>
+      </div>
+      <div class="row_contain">
+        <div class="column w-1">
+          <label class="column_label">연동주기</label>
+          <div class="select_group">
+            <select>
+              <option
+                value=""
+                selected
+              >
+                Y
+              </option>
+              <option value="">
+                N
+              </option>
+            </select>
+            <span class="select" />
+          </div>
+        </div>
+        <div class="column w-1">
+          <label class="column_label">타임아웃</label>
+          <input
+
+            type="text"
+            value=""
+          >
+        </div>
+        <div class="column w-1">
+          <label class="column_label">요청일자</label>
+          <div class="calander_group">
+            <input
+              v-model="mcgDealRowData.reqDt"
+              type="text"
+              value=""
+            >
+            <span class="calander">
+              <i class="ico-cal" />
+            </span>
+            <datepicker
+              :value="mcgDealRowData.reqDt"
+              :min="today"
+              :day-str="datePickerSet.dayStr"
+              :popper-props="datePickerSet.popperProps"
+              @input="inputreqDt"
+            />
+          </div>
+        </div>
+        <div class="column w-1" />
+      </div>
+      <h5 class="s_tit type-2">
+        MCG 거래 담당자 정보
+      </h5>
+      <div class="row_contain type-2 except-2">
+        <div class="column w-1">
+          <label class="column_label">담당자 조회</label>
+          <div class="search_group">
+            <input
+              type="text"
+              @click="chrgrpopon()"
+            >
+            <span class="search">
+              <i
+                class="ico-search"
+                @click="chrgrpopon()"
+              />
+            </span>
+          </div>
+        </div>
+        <div class="column w-3" />
+      </div>
+      <div class="table_colgroup">
+        <div class="table_grid">
+          <div class="table_head w-auto">
+            <ul>
+              <li class="th_cell">
+                이름<i class="ico-sort-down" />
+              </li>
+              <li class="th_cell">
+                회사<i class="ico-sort-up" />
+              </li>
+              <li class="th_cell">
+                연락처<i class="ico-sort-down" />
+              </li>
+              <li class="th_cell">
+                이메일<i class="ico-sort-down" />
+              </li>
+              <li class="th_cell">
+                역할<i class="ico-sort-down" />
+              </li>
+              <li class="th_cell">
+                수정
+              </li>
+            </ul>
+          </div>
+          <div class="table_body">
+            <ul
+              v-for="(chrgrdtl,idx) in mcgDealRowData.chrgrRows"
               :key="idx"
               class="table_row w-auto"
             >
@@ -841,13 +771,16 @@ import {
 import eventBus from '@/utils/eventBus';
 import VirtualUserApplyPopup from '@/components/popup/meta/mcg/VirtualUserApplyPopup.vue';
 import ChrgrListPopup from '@/components/popup/bizcomm/ChrgrListPopup.vue';
+import ChnlListPopup from '@/components/popup/meta/mcg/ChnListPopup.vue';
 import ProcMsgPopup from '@/components/popup/ifRegInfo/ProcMsgPopup.vue';
 import { fetchPutIfStepAprvReqAdmin } from '@/api/ifRegApi';
 
 export default {
   name: 'RegStep2ApplyChMCG',
 
-  components: { VirtualUserApplyPopup, ChrgrListPopup, ProcMsgPopup },
+  components: {
+    VirtualUserApplyPopup, ChrgrListPopup, ProcMsgPopup, ChnlListPopup,
+  },
 
   data() {
     return {
@@ -858,6 +791,9 @@ export default {
       isBtnReject: false,
       isDevBtnReject: false,
 
+      isChnlShow: false,
+      isDealShow: false,
+
       procMsgPopup: false,
       popupProp: {
         procSt: '',
@@ -866,36 +802,99 @@ export default {
 
       virtual: true,
       isStatusOn: '',
+      chnlpopupstate: false,
       chrgrpopupstate: false,
       chrgrn: '',
       chrgropCd: '',
       reqsendList: [],
       svrList: [],
       chrgrList: [],
-      currRow: [],
       svrShow: [],
       chrgrShow: [],
-      mcgReqNum: '',
+
       procSt: '',
-      mcgType: '채널',
+
+      // 채널 row data
+      mcgChnlRowData: {
+        mcgReqNum: '',
+        mcgType: '채널',
+        chnlNm: '',
+        chnlId: '',
+        lnkMthd: '',
+        chnlTyp: '',
+        reqPurp: '',
+        chnlCnt: '',
+        maxTps: '',
+        tp: '',
+        serviceId: '',
+        serviceNm: '',
+        servletUrl: '',
+        tcpIp: '',
+        tcpPort: '',
+        dailyTps: '',
+        dablInflu: '',
+        mcgRmk: '',
+        reqDt: '',
+        chnlCom: '',
+
+        svrRows: [
+          {
+            mcgReqNum: '',
+            svrTyp: '',
+            hostNm: '',
+            ip: '',
+            port: '',
+            os: '',
+            ipTyp: '',
+            hanNm: '',
+            chrgrId: '',
+          },
+        ],
+        chrgrRows: [
+          {
+            mcgReqNum: '',
+            name: '',
+            company: '',
+            phonNum: '',
+            email: '',
+            role: '',
+            chrgrId: '',
+          },
+        ],
+      },
+
+      // / 거래정보
+      mcgDealRowData: {
+        mcgReqNum: '',
+        reqNum: '',
+        mcgType: '',
+        opCd: '',
+        chnlNm: '',
+        chnlId: '',
+        lnkMthd: '',
+        chnlTyp: '',
+        reqPurp: '',
+        chnlCnt: '',
+        maxTps: '',
+        tp: '',
+        moduleNm: '',
+        serviceId: '',
+        serviceNm: '',
+        servletUrl: '',
+        tcpIp: '',
+        tcpPort: '',
+        dailyTps: '',
+        dablInflu: '',
+        mcgRmk: '',
+        reqDt: '',
+        chnlCom: '',
+        chrgrList: '',
+
+      },
+
       opCd: '',
-      chnlNm: '',
-      chnlId: '',
-      lnkMthd: '',
-      chnlTyp: '',
-      reqPurp: '',
-      chnlCnt: '',
-      maxTps: '',
-      tp: '',
-      serviceId: '',
-      serviceNm: '',
-      servletUrl: '',
-      tcpIp: '',
-      tcpPort: '',
-      dailyTps: '',
-      dablInflu: '',
-      mcgRmk: '',
-      reqDt: '',
+
+
       mcgReqSvrNum: '',
       svrTyp: '',
       ipTyp: '',
@@ -915,7 +914,7 @@ export default {
       phonNum: '',
       email: '',
       role: '',
-      chnlCom: '',
+
       useYn: '',
       virtualpopupstate: false,
       svrRows: [
@@ -1053,6 +1052,17 @@ export default {
       this.isOperBtn = (this.procSt === '4');
       this.isBtnReject = true;
     },
+    showAddView(type) {
+      this.emptyMcgChnlFields();
+      this.emptyMcgDealFields();
+      if (type === 'CHNL') {
+        this.isDealShow = false;
+        this.isChnlShow = true;
+      } else if (type === 'DEAL') {
+        this.isChnlShow = false;
+        this.isDealShow = true;
+      }
+    },
     save() {
       const confirmText = '신청정보를 진짜 수정하시겠습니까??';
       this.$gf.confirmOn(confirmText, this.savereq);
@@ -1138,28 +1148,28 @@ export default {
       if (idx === 0) { this.chrgrRows.push({}); }
     },
 
-    checksave() {
-      if (this.chnlNm === '') {
+    checkChnlSave() {
+      if (this.mcgChnlRowData.chnlNm === '') {
         this.$gf.alertOn('채널명을 입력 해주세요.');
         return 0;
       }
-      if (this.chnlId === '') {
+      if (this.mcgChnlRowData.chnlId === '') {
         this.$gf.alertOn('채널ID를 입력 해주세요.');
         return 0;
       }
-      if (this.chnlTyp === '') {
+      if (this.mcgChnlRowData.chnlTyp === '') {
         this.$gf.alertOn('채널타입을 선택 해주세요.');
         return 0;
       }
-      if (this.lnkMthd === '') {
+      if (this.mcgChnlRowData.lnkMthd === '') {
         this.$gf.alertOn('연동방식을 선택 해주세요.');
         return 0;
       }
-      if (this.chrgrRows.name === '') {
+      if (this.mcgChnlRowData.chrgrRows.name === '') {
         this.$gf.alertOn('채널 담당자를 1명 이상 입력 해주세요.');
         return 0;
       }
-      if (this.svrRows.ip === '') {
+      if (this.mcgChnlRowData.svrRows.ip === '') {
         this.$gf.alertOn('서버를 1개 이상 입력 해주세요.');
         return 0;
       }
@@ -1262,57 +1272,73 @@ export default {
         });
     },
 
-    dtlshow(dtl) {
-      this.emptyMcgFields();
-      this.mcgReqNum = dtl.mcgReqNum;
-      this.mcgType = dtl.mcgType;
-      this.chnlNm = dtl.chnlNm;
-      this.chnlId = dtl.chnlId;
-      this.lnkMthd = dtl.lnkMthd;
-      this.chnlTyp = dtl.chnlTyp;
-      this.reqPurp = dtl.reqPurp;
-      this.chnlCnt = dtl.chnlCnt;
-      this.maxTps = dtl.maxTps;
-      this.tp = dtl.tp;
-      this.serviceId = dtl.serviceId;
-      this.serviceNm = dtl.serviceNm;
-      this.servletUrl = dtl.servletUrl;
-      this.tcpIp = dtl.tcpIp;
-      this.tcpPort = dtl.tcpPort;
-      this.dailyTps = dtl.dailyTps;
-      this.dablInflu = dtl.dablInflu;
-      this.mcgRmk = dtl.mcgRmk;
-      this.reqDt = dtl.reqDt;
-      this.chnlCom = dtl.chnlCom;
+    dtlChnlShow(dtl) {
+      this.emptyMcgChnlFields();
+      this.mcgChnlRowData.mcgReqNum = dtl.mcgReqNum;
+      this.mcgChnlRowData.mcgType = dtl.mcgType;
+      this.mcgChnlRowData.chnlNm = dtl.chnlNm;
+      this.mcgChnlRowData.chnlId = dtl.chnlId;
+      this.mcgChnlRowData.lnkMthd = dtl.lnkMthd;
+      this.mcgChnlRowData.chnlTyp = dtl.chnlTyp;
+      this.mcgChnlRowData.reqPurp = dtl.reqPurp;
+      this.mcgChnlRowData.chnlCnt = dtl.chnlCnt;
+      this.mcgChnlRowData.maxTps = dtl.maxTps;
+      this.mcgChnlRowData.tp = dtl.tp;
+      this.mcgChnlRowData.serviceId = dtl.serviceId;
+      this.mcgChnlRowData.serviceNm = dtl.serviceNm;
+      this.mcgChnlRowData.servletUrl = dtl.servletUrl;
+      this.mcgChnlRowData.tcpIp = dtl.tcpIp;
+      this.mcgChnlRowData.tcpPort = dtl.tcpPort;
+      this.mcgChnlRowData.dailyTps = dtl.dailyTps;
+      this.mcgChnlRowData.dablInflu = dtl.dablInflu;
+      this.mcgChnlRowData.mcgRmk = dtl.mcgRmk;
+      this.mcgChnlRowData.reqDt = dtl.reqDt;
+      this.mcgChnlRowData.chnlCom = dtl.chnlCom;
 
-      this.svrRows = dtl.svrList;
-      this.chrgrRows = dtl.chrgrList;
-      if (this.svrRows.length === 0) {
-        this.svrRows.push({});
+      this.mcgChnlRowData.svrRows = dtl.svrList;
+      this.mcgChnlRowData.chrgrRows = dtl.chrgrList;
+      if (this.mcgChnlRowData.svrRows.length === 0) {
+        this.mcgChnlRowData.svrRows.push({});
       }
 
-      if (this.chrgrRows.length === 0) {
-        this.chrgrRows.push({});
+      if (this.mcgChnlRowData.chrgrRows.length === 0) {
+        this.mcgChnlRowData.chrgrRows.push({});
       }
+    },
 
-      // this.listingsvr(dtl.mcgReqNum);
-      // this.listchrgr(dtl.mcgReqNum);
+    dtlDealShow(dtl) {
+      this.emptyMcgDealFields();
+      this.mcgDealRowData.mcgReqNum = dtl.mcgReqNum;
+      this.mcgDealRowData.mcgType = dtl.mcgType;
+      this.mcgDealRowData.chnlNm = dtl.chnlNm;
+      this.mcgDealRowData.chnlId = dtl.chnlId;
+      this.mcgDealRowData.lnkMthd = dtl.lnkMthd;
+      this.mcgDealRowData.chnlTyp = dtl.chnlTyp;
+      this.mcgDealRowData.reqPurp = dtl.reqPurp;
+      this.mcgDealRowData.chnlCnt = dtl.chnlCnt;
+      this.mcgDealRowData.maxTps = dtl.maxTps;
+      this.mcgDealRowData.tp = dtl.tp;
+      this.mcgDealRowData.moduleNm = dtl.moduleNm;
+      this.mcgDealRowData.serviceId = dtl.serviceId;
+      this.mcgDealRowData.serviceNm = dtl.serviceNm;
+      this.mcgDealRowData.servletUrl = dtl.servletUrl;
+      this.mcgDealRowData.tcpIp = dtl.tcpIp;
+      this.mcgDealRowData.tcpPort = dtl.tcpPort;
+      this.mcgDealRowData.dailyTps = dtl.dailyTps;
+      this.mcgDealRowData.dablInflu = dtl.dablInflu;
+      this.mcgDealRowData.mcgRmk = dtl.mcgRmk;
+      this.mcgDealRowData.reqDt = dtl.reqDt;
+      this.mcgDealRowData.chnlCom = dtl.chnlCom;
 
-      // for (let i = 0; i < this.svrList.length; i++) {
-      //   if (this.svrList[i].mcgReqNum === dtl.mcgReqNum) {
-      //     this.svrRows.push(this.svrList[i]);
-      //   }
-      // }
+      this.mcgDealRowData.chrgrRows = dtl.chrgrList;
 
-      // for (let i = 0; i < this.chrgrList.length; i++) {
-      //   if (this.chrgrList[i].mcgReqNum === dtl.mcgReqNum) {
-      //     this.chrgrRows.push(this.chrgrList[i]);
-      //   }
-      // }
+      if (this.mcgDealRowData.chrgrRows.length === 0) {
+        this.mcgDealRowData.chrgrRows.push({});
+      }
     },
 
     dtlupdate(idx) {
-      if (this.checksave() === 0) {
+      if (this.checkChnlSave() === 0) {
         return;
       }
       this.reqList[idx].mcgReqNum = this.mcgReqNum;
@@ -1341,54 +1367,77 @@ export default {
 
 
       this.$gf.alertOn(`${this.chnlNm}의 채널 정보가 수정되었습니다.`);
-      this.emptyMcgFields();
+      this.emptyMcgChnlFields();
     },
 
-    addMcgReq() {
-      if (this.checksave() === 0) {
+    addMcgChnlReq() {
+      if (this.checkChnlSave() === 0) {
         return;
       }
-      this.mcgReqNum = this.reqList.length;
+      this.mcgChnlRowData.mcgReqNum = this.reqList.length;
       console.log(this.mcgReqNum);
-      // this.reqsetting();
       this.reqList.push({
-        mcgReqNum: this.mcgReqNum,
+        mcgReqNum: this.mcgChnlRowData.mcgReqNum,
         reqNum: this.reqNum,
-        mcgType: this.mcgType,
-        opCd: this.opCd,
-        chnlNm: this.chnlNm,
-        chnlId: this.chnlId,
-        lnkMthd: this.lnkMthd,
-        chnlTyp: this.chnlTyp,
-        reqPurp: this.reqPurp,
-        chnlCnt: this.chnlCnt,
-        maxTps: this.maxTps,
-        tp: this.tp,
-        serviceId: this.serviceId,
-        serviceNm: this.serviceNm,
-        servletUrl: this.servletUrl,
-        tcpIpPort: this.tcpIpPort,
-        dailyTps: this.dailyTps,
-        dablInflu: this.dablInflu,
-        mcgRmk: this.mcgRmk,
-        reqDt: this.reqDt,
-        chnlCom: this.chnlCom,
-        svrList: this.svrRows,
-        chrgrList: this.chrgrRows,
+        mcgType: this.mcgChnlRowData.mcgType,
+        opCd: this.mcgChnlRowData.opCd,
+        chnlNm: this.mcgChnlRowData.chnlNm,
+        chnlId: this.mcgChnlRowData.chnlId,
+        lnkMthd: this.mcgChnlRowData.lnkMthd,
+        chnlTyp: this.mcgChnlRowData.chnlTyp,
+        reqPurp: this.mcgChnlRowData.reqPurp,
+        chnlCnt: this.mcgChnlRowData.chnlCnt,
+        maxTps: this.mcgChnlRowData.maxTps,
+        tp: this.mcgChnlRowData.tp,
+        serviceId: this.mcgChnlRowData.serviceId,
+        serviceNm: this.mcgChnlRowData.serviceNm,
+        servletUrl: this.mcgChnlRowData.servletUrl,
+        tcpIpPort: this.mcgChnlRowData.tcpIpPort,
+        dailyTps: this.mcgChnlRowData.dailyTps,
+        dablInflu: this.mcgChnlRowData.dablInflu,
+        mcgRmk: this.mcgChnlRowData.mcgRmk,
+        reqDt: this.mcgChnlRowData.reqDt,
+        chnlCom: this.mcgChnlRowData.chnlCom,
+        svrList: this.mcgChnlRowData.svrRows,
+        chrgrList: this.mcgChnlRowData.chrgrRows,
+      });
+      this.emptyMcgChnlFields();
+    },
 
+    addMcgDealReq() {
+      if (this.checkDealSave() === 0) {
+        return;
+      }
+      this.mcgDealRowData.mcgReqNum = this.reqList.length;
+      console.log(this.mcgDealRowData.mcgReqNum);
+      this.reqList.push({
+        mcgReqNum: this.mcgDealRowData.mcgReqNum,
+        reqNum: this.reqNum,
+        mcgType: '거래',
+        opCd: this.mcgDealRowData.opCd,
+        chnlNm: this.mcgDealRowData.chnlNm,
+        chnlId: this.mcgDealRowData.chnlId,
+        lnkMthd: this.mcgDealRowData.lnkMthd,
+        chnlTyp: this.mcgDealRowData.chnlTyp,
+        reqPurp: this.mcgDealRowData.reqPurp,
+        chnlCnt: this.mcgDealRowData.chnlCnt,
+        maxTps: this.mcgDealRowData.maxTps,
+        tp: this.mcgDealRowData.tp,
+        moduleNm: this.mcgDealRowData.moduleNm,
+        serviceId: this.mcgDealRowData.serviceId,
+        serviceNm: this.mcgDealRowData.serviceNm,
+        servletUrl: this.mcgDealRowData.servletUrl,
+        tcpIp: this.mcgDealRowData.tcpIp,
+        tcpPort: this.mcgDealRowData.tcpPort,
+        dailyTps: this.mcgDealRowData.dailyTps,
+        dablInflu: this.mcgDealRowData.dablInflu,
+        mcgRmk: this.mcgDealRowData.mcgRmk,
+        reqDt: this.mcgDealRowData.reqDt,
+        chnlCom: this.mcgDealRowData.chnlCom,
+        chrgrList: this.mcgDealRowData.chrgrRows,
       });
 
-      // for (let i = 0; i < this.chrgrRows.length; i++) {
-      //   this.chrgrList.push(this.chrgrRows[i]);
-      // }
-
-      // for (let i = 0; i < this.svrRows.length; i++) {
-      //   this.svrList.push(this.svrRows[i]);
-      // }
-
-      this.emptyMcgFields();
-      // this.reqsetting();
-      // this.savereq();
+      this.emptyMcgDealFields();
     },
 
     remove(req) {
@@ -1396,35 +1445,85 @@ export default {
       const idx = this.reqList.indexOf(req);
       this.reqList.splice(idx, 1);
 
-      this.emptyMcgFields();
+      this.emptyMcgChnlFields();
     },
 
+    checkDealSave() {
+      if (this.mcgDealRowData.chnlNm === '') {
+        this.$gf.alertOn('채널명을 입력 해주세요.');
+        return 0;
+      }
+      if (this.mcgDealRowData.chnlId === '') {
+        this.$gf.alertOn('채널ID를 입력 해주세요.');
+        return 0;
+      }
+      if (this.mcgDealRowData.chnlTyp === '') {
+        this.$gf.alertOn('채널타입을 선택 해주세요.');
+        return 0;
+      }
+      if (this.mcgDealRowData.lnkMthd === '') {
+        this.$gf.alertOn('연동방식을 선택 해주세요.');
+        return 0;
+      }
+      if (this.mcgDealRowData.chrgrRows.length === 0) {
+        this.$gf.alertOn('채널 담당자를 1명 이상 입력 해주세요.');
+        return 0;
+      }
+      return 1;
+    },
 
-    emptyMcgFields() {
+    emptyMcgDealFields() {
+      // this.reqsetting();
+      this.mcgDealRowData.chnlNm = '';
+      this.mcgDealRowData.chnlId = '';
+      this.mcgDealRowData.lnkMthd = '';
+      this.mcgDealRowData.chnlTyp = '';
+      this.mcgDealRowData.reqPurp = '';
+      this.mcgDealRowData.chnlCnt = '';
+      this.mcgDealRowData.maxTps = '';
+      this.mcgDealRowData.tp = '';
+      this.mcgDealRowData.moduleNm = '';
+      this.mcgDealRowData.serviceId = '';
+      this.mcgDealRowData.serviceNm = '';
+      this.mcgDealRowData.servletUrl = '';
+      this.mcgDealRowData.tcpIp = '';
+      this.mcgDealRowData.tcpPort = '';
+      this.mcgDealRowData.dailyTps = '';
+      this.mcgDealRowData.dablInflu = '';
+      this.mcgDealRowData.mcgRmk = '';
+      this.mcgDealRowData.reqDt = '';
+      this.mcgDealRowData.chnlCom = '';
+      this.mcgDealRowData.chrgrRows = [];
+      // this.svrRows = [];
+      this.mcgDealRowData.chrgrRows.push({});
+      // this.svrRows.push({});
+    },
+
+    emptyMcgChnlFields() {
       // this.mcgReqNum = '';
       // this.reqsetting();
-      this.chnlNm = '';
-      this.chnlId = '';
-      this.lnkMthd = '';
-      this.chnlTyp = '';
-      this.reqPurp = '';
-      this.chnlCnt = '';
-      this.maxTps = '';
-      this.tp = '';
-      this.serviceId = '';
-      this.serviceNm = '';
-      this.servletUrl = '';
-      this.tcpIp = '';
-      this.tcpPort = '';
-      this.dailyTps = '';
-      this.dablInflu = '';
-      this.mcgRmk = '';
-      this.reqDt = '';
-      this.chnlCom = '';
-      this.chrgrRows = [];
-      this.svrRows = [];
-      this.chrgrRows.push({});
-      this.svrRows.push({});
+      this.mcgChnlRowData.chnlNm = '';
+      this.mcgChnlRowData.chnlId = '';
+      this.mcgChnlRowData.lnkMthd = '';
+      this.mcgChnlRowData.chnlTyp = '';
+      this.mcgChnlRowData.reqPurp = '';
+      this.mcgChnlRowData.chnlCnt = '';
+      this.mcgChnlRowData.maxTps = '';
+      this.mcgChnlRowData.tp = '';
+      this.mcgChnlRowData.serviceId = '';
+      this.mcgChnlRowData.serviceNm = '';
+      this.mcgChnlRowData.servletUrl = '';
+      this.mcgChnlRowData.tcpIp = '';
+      this.mcgChnlRowData.tcpPort = '';
+      this.mcgChnlRowData.dailyTps = '';
+      this.mcgChnlRowData.dablInflu = '';
+      this.mcgChnlRowData.mcgRmk = '';
+      this.mcgChnlRowData.reqDt = '';
+      this.mcgChnlRowData.chnlCom = '';
+      this.mcgChnlRowData.chrgrRows = [];
+      this.mcgChnlRowData.svrRows = [];
+      this.mcgChnlRowData.chrgrRows.push({});
+      this.mcgChnlRowData.svrRows.push({});
     },
 
     savereq() {
@@ -1482,6 +1581,20 @@ export default {
           console.log(`error occur!! : ${ex}`);
         });
     },
+    dtlReq(req, idx) {
+      console.log('상세신청정보조회!', idx);
+      if (req.mcgType === '채널') {
+        this.isDealShow = false;
+        this.isChnlShow = true;
+        this.dtlChnlShow(req);
+      } else if (req.mcgType === '거래') {
+        this.isChnlShow = false;
+        this.isDealShow = true;
+        this.dtlDealShow(req);
+      }
+
+      console.log(this.reqdtl);
+    },
     savereqchrgr(chrgrList) {
       fetchPutMcgReqChrgr(chrgrList)
         .then((res) => {
@@ -1490,13 +1603,6 @@ export default {
         .catch((ex) => {
           console.log(`error occur!! : ${ex}`);
         });
-    },
-
-    dtlReq(req, idx) {
-      // let svrinfotemp = [];
-      console.log('상세신청정보조회!', idx);
-      this.dtlshow(req);
-      console.log(this.reqdtl);
     },
     savereqserver(svrList) {
       fetchPutMcgReqServer(svrList)
@@ -1543,6 +1649,25 @@ export default {
     movePage(page) { // 페이지 이동
       this.activeItem = page; // 헤더에서 내려오는 바에 현 위치 표시
       this.$router.push({ name: page });
+    },
+    chnlpopon() {
+      this.chnlpopupstate = true;
+    },
+    turOffPopChnl(val) {
+      console.log(`Popup에서 받아온 Data : ${val}`);
+      this.chnlpopupstate = false;
+    },
+
+
+    addDataChnl(val) {
+      console.log(`Popup에서 받아온 Data : ${val}`);
+      this.chnlpopupstate = false;
+      this.mcgDealRowData.chnlId = val.chnlId;
+      this.mcgDealRowData.chnlNm = val.chnlNm;
+      this.mcgDealRowData.chnlTyp = val.chnlTyp;
+      this.mcgDealRowData.lnkMthd = val.lnkMthd;
+
+      console.log();
     },
   },
 };
