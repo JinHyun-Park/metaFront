@@ -263,7 +263,7 @@ export default {
       } else {
         switch(procSt) {
           case '1':
-            rtnClass = 'label-default color-glay';
+            rtnClass = 'label-default color-gray';
             break;
           case '2':
             rtnClass = 'label-default color-yellow';

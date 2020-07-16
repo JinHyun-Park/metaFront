@@ -2986,23 +2986,28 @@ display: table-column
 }
 
 .table_grid .table_row .td_cell label.label-default.color-green {
-    border-color: #82BEA3
+    border-color: #82BEA3;
+    color: black;
 }
 
 .table_grid .table_row .td_cell label.label-default.color-blue {
-    border-color: #4075b8
+    border-color: #4075b8;
+    color: black;
 }
 
 .table_grid .table_row .td_cell label.label-default.color-gray {
-    border-color: #9d9d9d
+    border-color: #9d9d9d;
+    color: black;
 }
 
 .table_grid .table_row .td_cell label.label-default.color-black {
-    border-color: #5c5c5c
+    border-color: #5c5c5c;
+    color: black;
 }
 
 .table_grid .table_row .td_cell label.label-default.color-yellow {
-    border-color: #ffc529
+    border-color: #ffc529;
+    color: black;
 }
 
 .table_grid .table_row .td_cell.reply label.label-default {
@@ -3316,7 +3321,7 @@ color: inherit
 .tooltips.right .tip_contn {
     position: absolute;
     padding: 4px 3px 5px 9px;
-    min-width: 140px;
+    min-width: 80px;
     max-width: 247px;
     font-size: 12px;
     color: #fff;
@@ -3428,6 +3433,8 @@ span:hover.tooltips.left .tip_contn {
     z-index: 9
 }
 
+label.ov.tooltips.right .tip_contn,
+label:hover.tooltips.right .tip_contn,
 span.ov.tooltips.right .tip_contn,
 span:hover.tooltips.right .tip_contn {
     visibility: visible;
