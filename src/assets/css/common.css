@@ -2655,13 +2655,14 @@ display: table-column
     height: 35px;
     font-size: 14px;
     font-family: Moebius_Regular_kor, Moebius_Regular_eng;
-    color: #555;
+    color: white;
     vertical-align: middle;
     letter-spacing: -.4px;
     border-top: 1px solid #565656;
     border-bottom: 1px solid #dfdfdf;
     background: #fff;
-    box-sizing: border-box
+    box-sizing: border-box;
+    background-color: darkgray;
 }
 
 .table_grid .table_head.w-auto .th_cell {
@@ -3748,7 +3749,7 @@ position: absolute
     margin-left: -1px;
     line-height: 1.42857143;
     font-family: Moebius_Regular_kor, Moebius_Regular_eng;
-    color: #337ab7;
+    color: black;
     text-decoration: none;
     background-color: #fff;
     border: 1px solid #ddd;
@@ -3772,7 +3773,7 @@ position: absolute
 .pagination_space .pagination>li>a:focus,
 .pagination_space .pagination>li>span:focus {
     z-index: 2;
-    color: #23527c;
+    color: grey;
     background-color: #eee;
     border-color: #ddd;
 }
@@ -3786,8 +3787,8 @@ position: absolute
     z-index: 3;
     color: #fff;
     cursor: default;
-    background-color: #337ab7;
-    border-color: #337ab7;
+    background-color: #c46979;
+    border-color: #bd6776;
 }
 
 .pagination_space .pagination>.disabled>span,

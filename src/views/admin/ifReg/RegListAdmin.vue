@@ -141,17 +141,9 @@
             <li class="td_cell">
               <label
                 :class="setClass(row.procSt)"
-                @mouseover="tooltipActive(i)"
-                @mouseleave="tooltipActive(i)"
               >
                 {{ row.procNm }}
               </label>
-              <span
-                v-if="tooltip[i]"
-                class="tooltips ov right"
-              >
-                <i class="tip_contn"><em class="tip_text">진행이력</em></i>
-              </span>
             </li>
             <li
               class="td_cell"
@@ -169,13 +161,16 @@
               {{ row.aprvNm }}({{ row.aprvId }})
             </li>
             <li class="td_cell">
-              <label :class="setIfBtnClass(row.eaiCnt)">
+              <label
+                :class="setIfBtnClass(row.eaiCnt, row.eaiProcSt)"
+                @click="detail('EAI',i)"
+              >
                 EAI({{ row.eaiCnt }})
               </label>&nbsp;
-              <label :class="setIfBtnClass(row.eigwCnt)">
+              <label :class="setIfBtnClass(row.eigwCnt, row.eigwProcSt)">
                 EIGW({{ row.eigwCnt }})
               </label>&nbsp;
-              <label :class="setIfBtnClass(row.mcgCnt)">
+              <label :class="setIfBtnClass(row.mcgCnt, row.mcgProcSt)">
                 MCG({{ row.mcgCnt }})
               </label>
             </li>
@@ -222,8 +217,6 @@ export default {
           type: Object,
         },
       },
-
-      tooltip : [false,false,false,false,false,false,false,false,false,false,false],
     };
   },
   computed: {
@@ -242,40 +235,48 @@ export default {
   methods: {
     ...mapActions('frameSet', ['setResetPopOn']),
     ...mapActions('ccCdLst', ['setCcCdList']),
-
-    tooltipYn(row) {
-      console.log(row ,this.tooltip[row]);
-      return this.tooltip[row];
-    },
-    tooltipActive(row) {
-      this.tooltip[row] = !this.tooltip[row];
-      console.log(`tooltips on ${row} ${this.tooltip[row]}`);
-    },
-
     setClass(procSt) {
       let rtnClass = "";
       console.log(`set class!! : ${procSt}`);
       switch(procSt) {
         case '1':
-          rtnClass = 'label-default color-blue';
+          rtnClass = 'label-default color-glay';
           break;
         case '2':
           rtnClass = 'label-default color-yellow';
           break;
         case '3':
-          rtnClass = 'label-default color-gray';
+          rtnClass = 'label-default color-green';
+          break;
+        case '4':
+          rtnClass = 'label-default color-black';
           break;
         default:
-          rtnClass = 'label-default color-black';
+          rtnClass = 'label-default color-blue';
       }
       return rtnClass;
     },
-    setIfBtnClass(cnt) {
+    setIfBtnClass(cnt, procSt) {
       let rtnClass = "";
       if (cnt > 0) {
-        rtnClass = 'label-default color-black';
-      } else {
         rtnClass = 'label-default color-gray';
+      } else {
+        switch(procSt) {
+          case '1':
+            rtnClass = 'label-default color-glay';
+            break;
+          case '2':
+            rtnClass = 'label-default color-yellow';
+            break;
+          case '3':
+            rtnClass = 'label-default color-green';
+            break;
+          case '4':
+            rtnClass = 'label-default color-black';
+            break;
+          default:
+            rtnClass = 'label-default color-blue';
+        }
       }
 
       return rtnClass;
@@ -319,8 +320,16 @@ export default {
       this.endReqDtm = val;
       console.log(val);
     },
-    detail(i) {
-      this.$router.push({ name: 'regStepAdmin', params: { reqNum: this.ifReqList[i].reqNum, procSt: this.ifReqList[i].procSt }})
+    detail(option,i) {
+      if (option === 'EAI') {
+        this.$router.push({ name: 'regStepAdminEai', params: { reqNum: this.ifReqList[i].reqNum, procSt: this.ifReqList[i].procSt }})
+      } else if (option === 'EIGW') {
+
+      } else if (option === 'MCG') {
+
+      } else {
+        this.$router.push({ name: 'regStepAdminAll', params: { reqNum: this.ifReqList[i].reqNum, procSt: this.ifReqList[i].procSt }})
+      } 
     }
   },
 }

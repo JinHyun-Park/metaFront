@@ -252,16 +252,19 @@ export default {
       console.log(`set class!! : ${procSt}`);
       switch(procSt) {
         case '1':
-          rtnClass = 'label-default color-blue';
+          rtnClass = 'label-default color-glay';
           break;
         case '2':
           rtnClass = 'label-default color-yellow';
           break;
         case '3':
-          rtnClass = 'label-default color-gray';
+          rtnClass = 'label-default color-green';
+          break;
+        case '4':
+          rtnClass = 'label-default color-black';
           break;
         default:
-          rtnClass = 'label-default color-black';
+          rtnClass = 'label-default color-blue';
       }
       return rtnClass;
     },

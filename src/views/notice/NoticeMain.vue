@@ -296,7 +296,7 @@ export default {
         console.log(res);
         if (res.data.rstCd === 'S') {
           // 대괄호 제거
-          this.auth = res.data.rstData.auth.replace(/[\[\]]/gi, '');
+          this.auth = res.data.rstData.auth.replace(/[[\]]/gi, '');
           console.log(this.auth);
         }
       })

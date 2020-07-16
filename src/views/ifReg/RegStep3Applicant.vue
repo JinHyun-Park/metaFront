@@ -254,7 +254,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
+import { mapState } from 'vuex';
 import ChrgrListPopup from '@/components/popup/bizcomm/ChrgrListPopup.vue';
 
 import {

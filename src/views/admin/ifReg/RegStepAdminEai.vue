@@ -1,5 +1,11 @@
 <template>
-  <div>
+  <div class="right_space">
+    <ProcMsgPopup
+      v-if="procMsgPopup"
+      v-bind="popupProp"
+      @closePop="turnOffProcMsg"
+      @addData="addProcMsg"
+    />
     <ChrgrListPopup
       v-if="svrOnChrgr"
       v-bind="propsChrgr"
@@ -72,12 +78,6 @@
               >
                 담당 회사
               </li>
-              <li
-                class="th_cell"
-                style="width:10%"
-              >
-                Edit
-              </li>
             </ul>
           </div>
           <div class="table_body">
@@ -143,16 +143,6 @@
                   type="text"
                 >
               </li>
-              <li class="td_cell">
-                <i
-                  class="ico-add"
-                  @click="addSndRow(n)"
-                />
-                <i
-                  class="ico-del"
-                  @click="removeSndRow(sndRow)"
-                />
-              </li>
             </ul>
           </div>
         </div>
@@ -211,12 +201,6 @@
                 style="width:8%"
               >
                 담당 회사
-              </li>
-              <li
-                class="th_cell"
-                style="width:10%"
-              >
-                Edit
               </li>
             </ul>
           </div>
@@ -281,16 +265,6 @@
                   type="text"
                 >
               </li>
-              <li class="td_cell">
-                <i
-                  class="ico-add"
-                  @click="addRcvRow(i)"
-                />
-                <i
-                  class="ico-del"
-                  @click="removeRcvRow(rcvRow)"
-                />
-              </li>
             </ul>
           </div>
         </div>
@@ -347,12 +321,6 @@
               >
                 요청 처리 방식
               </li>
-              <li
-                class="th_cell"
-                style="width:5%"
-              >
-                삭제
-              </li>
             </ul>
           </div>
           <div class="table_body">
@@ -403,12 +371,6 @@
               >
                 {{ eaiIf.syncTypNm }}
               </li>
-              <li class="td_cell">
-                <i
-                  class="ico-del"
-                  @click="removeIf(eaiIf)"
-                />
-              </li>
             </ul>
           </div>
         </div>
@@ -418,22 +380,6 @@
     <section class="form_area border_group">
       <h5 class="s_tit type-2">
         기본 정보
-        <div class="right_button_area">
-          <button
-            type="button"
-            class="default_button"
-            @click="updateIf()"
-          >
-            수정
-          </button>
-          <button
-            type="button"
-            class="default_button extend on"
-            @click="addNewIf()"
-          >
-            인터페이스 추가
-          </button>
-        </div>
       </h5>
       <div class="row_contain">
         <div class="column w-2">
@@ -442,7 +388,6 @@
             v-model="eaiIfId"
             type="text"
             oninput="this.value = this.value.toUpperCase()"
-            placeholder="신청 승인 후 발급되며 별도로 희망하는 ID가 있는 경우만 기입 바랍니다."
           >
         </div>
         <div class="column w-2">
@@ -460,7 +405,6 @@
             type="text"
             maxlength="25"
             oninput="this.value = this.value.toUpperCase()"
-            placeholder="CUST_ADDR_INFO  (예시)"
           >
         </div>
         <div class="column w-3">
@@ -618,7 +562,6 @@
             ref="rcvShNmInput"
             v-model="rcvShNm"
             type="text"
-            placeholder="파일 수신 후 자동 실행이 필요한 Shell 기입(경로 포함)"
           >
         </div>
         <div class="column w-2">
@@ -629,7 +572,6 @@
             type="text"
             maxlength="10"
             oninput="this.value = this.value.toUpperCase()"
-            placeholder="Shell 등록을 위한 구분 값 (영문/숫자)"
           >
         </div>
       </div>
@@ -642,7 +584,6 @@
           <input
             v-model="sndMid"
             type="text"
-            placeholder="MID 없는 경우 시스템명 약자 입력"
             oninput="this.value = this.value.toUpperCase()"
           >
         </div>
@@ -734,7 +675,6 @@
           <input
             v-model="rcvMid"
             type="text"
-            placeholder="MID 없는 경우 시스템명 약자 입력"
             oninput="this.value = this.value.toUpperCase()"
           >
         </div>
@@ -824,7 +764,6 @@
             v-model="svcImpt"
             cols="20"
             rows="3"
-            placeholder="연동 장애가 발생하였을 경우 서비스 영향도에 대해 최대한 상세하게 기술 바랍니다."
           />
         </div>
         <div class="column w-4">
@@ -836,6 +775,40 @@
           />
         </div>
       </div>
+    </section>
+    <section class="btm_button_area">
+      <button
+        v-if="isOperBtn"
+        type="button"
+        class="default_button on"
+        @click="aprvMsgReq(5)"
+      >
+        운영반영 완료
+      </button>
+      <button
+        v-if="isDevBtn"
+        type="button"
+        class="default_button on"
+        @click="aprvMsgReq(4)"
+      >
+        개발반영 완료
+      </button>
+      <button
+        v-if="isDevBtnReject"
+        type="button"
+        class="default_button"
+        @click="aprvMsgReq(3)"
+      >
+        접수중
+      </button>
+      <button
+        v-if="isBtnReject"
+        type="button"
+        class="default_button"
+        @click="aprvMsgReq(1)"
+      >
+        반려
+      </button>
     </section>
     <!--
     <button
@@ -861,14 +834,17 @@ ul:hover { background-color: #F9F9F9}
 <script>
 import { mapState, mapActions } from 'vuex';
 import { fetchGetEaiRegSvrList, fetchGetEaiRegIfList } from '@/api/eaiApi';
+import { fetchPutIfStepAprvReqAdmin } from '@/api/ifRegApi';
 
 import ChrgrListPopup from '@/components/popup/bizcomm/ChrgrListPopup.vue';
-import eventBus from '@/utils/eventBus';
+import ProcMsgPopup from '@/components/popup/ifRegInfo/ProcMsgPopup.vue';
+
 
 export default {
   name: 'RegStep2EAI',
   components: {
     ChrgrListPopup,
+    ProcMsgPopup,
   },
   data() {
     return {
@@ -876,6 +852,18 @@ export default {
       propsChrgr: {
         message: '',
       },
+      popupProp: {
+        procSt: '',
+      },
+      procMsgPopup: false,
+      reqNum: '',
+      procSt: '',
+
+      isDevBtn: false,
+      isOperBtn: false,
+      isBtnReject: false,
+      isDevBtnReject: false,
+
       eaiSeqNum: '',
       callChrgr: '',
       svrTypCd: '',
@@ -931,7 +919,7 @@ export default {
       rcvMid: '',
       svcImpt: '',
       eaiRmk: '',
-      procSt: '',
+
       bSndRows: [],
       bRcvRows: [],
       bEaiIfList: [],
@@ -1023,24 +1011,20 @@ export default {
   },
   computed: {
     ...mapState('ccCdLst', ['ccCdList']),
-    ...mapState('ifRegInfo', ['saveFlag', 'reqNum']),
-  },
 
+  },
+  watch: {
+    procSt() {
+      console.log(`procst changed : ${this.procSt}`);
+      this.setBtnShow();
+    },
+  },
   created() {
-    if (this.$route.params.callType === 'update') {
-      this.getEaiRegTempList(this.reqNum);
-    }
-
-    eventBus.$on('Step2EaiSave', () => {
-      console.log('event Bus 통해 eai 저장');
-      this.saveEaiRegTemp();
-    });
+    this.reqNum = this.$route.params.reqNum;
+    this.getEaiRegList(this.reqNum);
   },
-  destroyed() {
-    eventBus.$off('Step2EaiSave');
-  },
-
   mounted() {
+    this.setBtnShow();
     this.eaiIfList.splice(this.eaiIfList.indexOf(0), 1);
     this.setCcCdList({
       opClCd: 'COMM', cdId: 'SVR_TYP_CD', allYn: 'N', listNm: 'svrTypCd',
@@ -1077,7 +1061,14 @@ export default {
       });
     },
 
-    getEaiRegTempList(tgtReqNum) {
+    setBtnShow() {
+      this.isDevBtn = (this.procSt === '3');
+      this.isDevBtnReject = (this.procSt === '4');
+      this.isOperBtn = (this.procSt === '4');
+      this.isBtnReject = true;
+    },
+
+    getEaiRegList(tgtReqNum) {
       console.log('EAI 신청 정보 조회');
 
       fetchGetEaiRegSvrList({
@@ -1119,68 +1110,12 @@ export default {
       })
         .then((res) => {
           this.eaiIfList = res.data.rstData.searchList;
+          this.procSt = this.eaiIfList[0].procSt;
 
           console.log(this.eaiIfList);
         })
         .catch((ex) => {
           console.log(`error occur!! : ${ex}`);
-        });
-    },
-
-
-    saveEaiRegTemp() {
-      console.log('eai 임시저장 함수 시작');
-
-      /*
-      if (this.eaiIfNmEng.length > 0 || this.eaiIfNmKor.length > 0) {
-        for (let i = 0; i < this.eaiIfList.length; i++) {
-          if (this.eaiIfList[i].eaiIfNmEng !== this.eaiIfNmEng) {
-
-          }
-        }
-      }
-      */
-
-
-      this.svrRows.splice(0, this.svrRows.length);
-
-      if (this.sndRows[0].sysNm.length > 0 && this.sndRows[0].hostNm.length > 0) {
-        for (let i = 0; i < this.sndRows.length; i++) {
-          this.sndRows[i].sndRcvCl = 'S';
-          this.sndRows[i].reqNum = this.reqNum;
-          this.sndRows[i].procSt = '1';
-          this.svrRows.push(this.sndRows[i]);
-        }
-      }
-
-      if (this.rcvRows[0].sysNm.length > 0 && this.rcvRows[0].hostNm.length > 0) {
-        for (let i = 0; i < this.rcvRows.length; i++) {
-          this.rcvRows[i].sndRcvCl = 'R';
-          this.rcvRows[i].reqNum = this.reqNum;
-          this.rcvRows[i].procSt = '1';
-          this.svrRows.push(this.rcvRows[i]);
-        }
-      }
-
-      for (let i = 0; i < this.eaiIfList.length; i++) {
-        this.eaiIfList[i].reqNum = this.reqNum;
-        this.eaiIfList[i].procSt = '1';
-      }
-
-      this.regList = { reqNum: this.reqNum, svrList: this.svrRows, ifList: this.eaiIfList };
-
-      this.$axios.post('/api/eai/regTemp', this.regList)
-        .then((res) => {
-          console.log(res);
-          if (res.rstCd === 'E') {
-            this.setTempSave('F');
-          } else {
-            this.setTempSave('S');
-          }
-        })
-        .catch((ex) => {
-          console.log(`오류가 발생하였습니다 : ${ex}`);
-          this.setTempSave('F');
         });
     },
     addSndRow(n) {
@@ -1406,74 +1341,6 @@ export default {
 
       this.emptyIfFields();
     },
-    removeIf(eaiIf) {
-      console.log('행 삭제!');
-
-      const idx = this.eaiIfList.indexOf(eaiIf);
-      this.eaiIfList.splice(idx, 1);
-
-      this.emptyIfFields();
-
-      // this.$gf.alertOn(`인터페이스명 : ${this.eaiIfNmKor}`);
-    },
-    updateIf() {
-      if (this.currRow.length === 0) {
-        this.$gf.alertOn('인터페이스 신청 목록에서 수정할 대상을 선택하세요');
-        return;
-      }
-      if (this.checkFields() === 0) {
-        return;
-      }
-      this.currRow.eaiIfId = this.eaiIfId;
-      this.currRow.eaiIfNmKor = this.eaiIfNmKor;
-      this.currRow.eaiIfNmEng = this.eaiIfNmEng;
-      this.currRow.ifDesc = this.ifDesc;
-      this.currRow.drctnCd = this.drctnCd;
-      this.currRow.ifTypCd = this.ifTypCd;
-      this.currRow.roundTypCd = this.roundTypCd;
-      this.currRow.syncTypCd = this.syncTypCd;
-      this.currRow.rcvOpCd = this.rcvOpCd;
-      this.currRow.rcvTr = this.rcvTr;
-      this.currRow.syncTypCd = this.syncTypCd;
-      this.currRow.rcvOpCd = this.rcvOpCd;
-      this.currRow.rcvTr = this.rcvTr;
-      this.currRow.drctnNm = this.drctnNm;
-      this.currRow.ifTypNm = this.ifTypNm;
-      this.currRow.roundTypNm = this.roundTypNm;
-      this.currRow.syncTypNm = this.syncTypNm;
-      this.currRow.fileIfTypCd = this.fileIfTypCd;
-      this.currRow.fileIfTypNm = this.fileIfTypNm;
-      this.currRow.sndDir = this.sndDir;
-      this.currRow.rcvDir = this.rcvDir;
-      this.currRow.rcvShNm = this.rcvShNm;
-      this.currRow.fileOpCode = this.fileOpCode;
-      this.currRow.sndMid = this.sndMid;
-      this.currRow.sndChrgrId1 = this.sndChrgrId1;
-      this.currRow.sndChrgrNm1 = this.sndChrgrNm1;
-      this.currRow.sndChrgrId2 = this.sndChrgrId2;
-      this.currRow.sndChrgrNm2 = this.sndChrgrNm2;
-      this.currRow.sndChrgrMngrId = this.sndChrgrMngrId;
-      this.currRow.sndChrgrMngrNm = this.sndChrgrMngrNm;
-      this.currRow.rcvMid = this.rcvMid;
-      this.currRow.rcvChrgrId1 = this.rcvChrgrId1;
-      this.currRow.rcvChrgrNm1 = this.rcvChrgrNm1;
-      this.currRow.rcvChrgrId2 = this.rcvChrgrId2;
-      this.currRow.rcvChrgrNm2 = this.rcvChrgrNm2;
-      this.currRow.rcvChrgrMngrId = this.rcvChrgrMngrId;
-      this.currRow.rcvChrgrMngrNm = this.rcvChrgrMngrNm;
-
-      this.currRow.sndChrgrOrgNm1 = this.sndChrgrOrgNm1;
-      this.currRow.sndChrgrOrgNm2 = this.sndChrgrOrgNm2;
-      this.currRow.sndChrgrMngrOrgNm = this.sndChrgrMngrOrgNm;
-      this.currRow.rcvChrgrOrgNm1 = this.rcvChrgrOrgNm1;
-      this.currRow.rcvChrgrOrgNm2 = this.rcvChrgrOrgNm2;
-      this.currRow.rcvChrgrMngrOrgNm = this.rcvChrgrMngrOrgNm;
-
-      this.currRow.svcImpt = this.svcImpt;
-      this.currRow.eaiRmk = this.eaiRmk;
-
-      this.emptyIfFields();
-    },
     getDetailInfo(eaiIf) {
       this.eaiIfId = eaiIf.eaiIfId;
       this.eaiIfNmKor = eaiIf.eaiIfNmKor;
@@ -1661,6 +1528,43 @@ export default {
       this.eaiRmk = '';
 
       this.currRow = [];
+    },
+    aprvMsgReq(tgtProcSt) {
+      this.tgtProcSt = tgtProcSt;
+      this.turnOnProcMsg();
+    },
+    saveAprvReq() {
+      fetchPutIfStepAprvReqAdmin({
+        reqNum: this.reqNum,
+        ifTyp: 'EAI',
+        procSt: this.tgtProcSt,
+        hstRmk: this.hstRmk,
+      })
+        .then((res) => {
+          console.log(res);
+          this.$gf.alertOn('처리되었습니다');
+          this.movePage('regListAdmin');
+        })
+        .catch((ex) => {
+          console.log(`error occur!! : ${ex}`);
+        });
+    },
+    movePage(page) { // 페이지 이동
+      this.activeItem = page; // 헤더에서 내려오는 바에 현 위치 표시
+      this.$router.push({ name: page });
+    },
+    turnOnProcMsg() {
+      this.popupProp.procSt = this.tgtProcSt;
+      this.procMsgPopup = true;
+    },
+    turnOffProcMsg(val) {
+      console.log(`Popup에서 받아온 Data : ${val}`);
+      this.procMsgPopup = false;
+    },
+    addProcMsg(val) {
+      this.procMsgPopup = false;
+      this.hstRmk = val;
+      this.saveAprvReq();
     },
     turnOnSvrPopChrgr(callChrgr) {
       this.callChrgr = callChrgr;
