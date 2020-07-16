@@ -57,7 +57,7 @@
               class="default_button on"
               @click="hourOn()"
             >
-              일일 조회
+              검색
             </button>
           </div>
         </div>
@@ -147,8 +147,8 @@ export default {
       statDate: '',
       datacollection: null,
       statList: [],
-      hourOnClass: false,
-      dayOnClass: true,
+      hourOnClass: true,
+      dayOnClass: false,
       monthOnClass: false,
       statItemList: [],
       statHourlyItemList: ['ifId', 'totCnt', 't0', 't1', 't2', 't3', 't4', 't5', 't6', 't7', 't8', 't9', 't10', 't11', 

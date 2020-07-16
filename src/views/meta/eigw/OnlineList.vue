@@ -12,7 +12,7 @@
           <i class="ico-bar" />EiGW 메타 정보(실시간)
         </div>
         <div class="breadcrumb">
-          <span>EGIW</span><em class="on">EAI</em>
+          <span>EiGW</span><em class="on">메타 정보(실시간)</em>
         </div>
       </h2>
     </section>
