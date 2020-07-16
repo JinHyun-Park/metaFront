@@ -167,10 +167,16 @@
               >
                 EAI({{ row.eaiCnt }})
               </label>&nbsp;
-              <label :class="setIfBtnClass(row.eigwCnt, row.eigwProcSt)">
+              <label
+                :class="setIfBtnClass(row.eigwCnt, row.eigwProcSt)"
+                @click="detail('EIGW',i)"
+              >
                 EIGW({{ row.eigwCnt }})
               </label>&nbsp;
-              <label :class="setIfBtnClass(row.mcgCnt, row.mcgProcSt)">
+              <label
+                :class="setIfBtnClass(row.mcgCnt, row.mcgProcSt)"
+                @click="detail('MCG',i)"
+              >
                 MCG({{ row.mcgCnt }})
               </label>
             </li>
@@ -322,11 +328,17 @@ export default {
     },
     detail(option,i) {
       if (option === 'EAI') {
-        this.$router.push({ name: 'regStepAdminEai', params: { reqNum: this.ifReqList[i].reqNum, procSt: this.ifReqList[i].procSt }})
+        if (this.ifReqList[i].eaiCnt > 0) {
+          this.$router.push({ name: 'regStepAdminEai', params: { reqNum: this.ifReqList[i].reqNum, procSt: this.ifReqList[i].procSt }})
+        }
       } else if (option === 'EIGW') {
-
+        if (this.ifReqList[i].eigwCnt > 0) {
+          this.$router.push({ name: 'regStepAdminEigw', params: { reqNum: this.ifReqList[i].reqNum, procSt: this.ifReqList[i].procSt }})
+        }
       } else if (option === 'MCG') {
-
+        if (this.ifReqList[i].mcgCnt > 0) {
+          this.$router.push({ name: 'regStepAdminMcg', params: { reqNum: this.ifReqList[i].reqNum, procSt: this.ifReqList[i].procSt }})
+        }
       } else {
         this.$router.push({ name: 'regStepAdminAll', params: { reqNum: this.ifReqList[i].reqNum, procSt: this.ifReqList[i].procSt }})
       } 
