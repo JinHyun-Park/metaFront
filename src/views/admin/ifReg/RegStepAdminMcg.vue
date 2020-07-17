@@ -288,7 +288,7 @@
                 IP유형<i class="ico-sort-up" />
               </li>
               <li class="th_cell">
-                추가/수정
+                추가/삭제
               </li>
             </ul>
           </div>
@@ -1322,36 +1322,75 @@ export default {
     },
 
     dtlupdate(idx) {
+      if (this.reqList[idx].mcgType === '채널') {
+        this.dtlChnlUpdate(idx);
+      } else if (this.reqList[idx].mcgType === '거래') {
+        this.dtlDealUpdate(idx);
+      }
+    },
+
+    dtlChnlUpdate(idx) {
       if (this.checkChnlSave() === 0) {
         return;
       }
-      this.reqList[idx].mcgReqNum = this.mcgReqNum;
-      this.reqList[idx].mcgType = this.mcgType;
-      this.reqList[idx].chnlNm = this.chnlNm;
-      this.reqList[idx].chnlId = this.chnlId;
-      this.reqList[idx].lnkMthd = this.lnkMthd;
-      this.reqList[idx].chnlTyp = this.chnlTyp;
-      this.reqList[idx].reqPurp = this.reqPurp;
-      this.reqList[idx].chnlCnt = this.chnlCnt;
-      this.reqList[idx].maxTps = this.maxTps;
-      this.reqList[idx].tp = this.tp;
-      this.reqList[idx].serviceId = this.serviceId;
-      this.reqList[idx].serviceNm = this.serviceNm;
-      this.reqList[idx].servletUrl = this.servletUrl;
-      this.reqList[idx].tcpIp = this.tcpIp;
-      this.reqList[idx].tcpPort = this.tcpPort;
-      this.reqList[idx].dailyTps = this.dailyTps;
-      this.reqList[idx].dablInflu = this.dablInflu;
-      this.reqList[idx].mcgRmk = this.mcgRmk;
-      this.reqList[idx].reqDt = this.reqDt;
-      this.reqList[idx].chnlCom = this.chnlCom;
+      this.reqList[idx].mcgReqNum = this.mcgChnlRowData.mcgReqNum;
+      this.reqList[idx].mcgType = this.mcgChnlRowData.mcgType;
+      this.reqList[idx].chnlNm = this.mcgChnlRowData.chnlNm;
+      this.reqList[idx].chnlId = this.mcgChnlRowData.chnlId;
+      this.reqList[idx].lnkMthd = this.mcgChnlRowData.lnkMthd;
+      this.reqList[idx].chnlTyp = this.mcgChnlRowData.chnlTyp;
+      this.reqList[idx].reqPurp = this.mcgChnlRowData.reqPurp;
+      this.reqList[idx].chnlCnt = this.mcgChnlRowData.chnlCnt;
+      this.reqList[idx].maxTps = this.mcgChnlRowData.maxTps;
+      this.reqList[idx].tp = this.mcgChnlRowData.tp;
+      this.reqList[idx].serviceId = this.mcgChnlRowData.serviceId;
+      this.reqList[idx].serviceNm = this.mcgChnlRowData.serviceNm;
+      this.reqList[idx].servletUrl = this.mcgChnlRowData.servletUrl;
+      this.reqList[idx].tcpIp = this.mcgChnlRowData.tcpIp;
+      this.reqList[idx].tcpPort = this.mcgChnlRowData.tcpPort;
+      this.reqList[idx].dailyTps = this.mcgChnlRowData.dailyTps;
+      this.reqList[idx].dablInflu = this.mcgChnlRowData.dablInflu;
+      this.reqList[idx].mcgRmk = this.mcgChnlRowData.mcgRmk;
+      this.reqList[idx].reqDt = this.mcgChnlRowData.reqDt;
+      this.reqList[idx].chnlCom = this.mcgChnlRowData.chnlCom;
 
-      this.reqList[idx].svrList = this.svrRows;
-      this.reqList[idx].chrgrList = this.chrgrRows;
+      this.reqList[idx].svrList = this.mcgChnlRowData.svrRows;
+      this.reqList[idx].chrgrList = this.mcgChnlRowData.chrgrRows;
 
-
-      this.$gf.alertOn(`${this.chnlNm}의 채널 정보가 수정되었습니다.`);
+      this.$gf.alertOn(`${this.mcgChnlRowData.chnlNm}의 채널 정보가 수정되었습니다.`);
       this.emptyMcgChnlFields();
+    },
+
+    dtlDealUpdate(idx) {
+      if (this.checkDealSave() === 0) {
+        return;
+      }
+      this.reqList[idx].mcgReqNum = this.mcgDealRowData.mcgReqNum;
+      this.reqList[idx].mcgType = '거래';
+      this.reqList[idx].chnlNm = this.mcgDealRowData.chnlNm;
+      this.reqList[idx].chnlId = this.mcgDealRowData.chnlId;
+      this.reqList[idx].lnkMthd = this.mcgDealRowData.lnkMthd;
+      this.reqList[idx].chnlTyp = this.mcgDealRowData.chnlTyp;
+      this.reqList[idx].reqPurp = this.mcgDealRowData.reqPurp;
+      this.reqList[idx].chnlCnt = this.mcgDealRowData.chnlCnt;
+      this.reqList[idx].maxTps = this.mcgDealRowData.maxTps;
+      this.reqList[idx].tp = this.mcgDealRowData.tp;
+      this.reqList[idx].moduleNm = this.mcgDealRowData.moduleNm;
+      this.reqList[idx].serviceId = this.mcgDealRowData.serviceId;
+      this.reqList[idx].serviceNm = this.mcgDealRowData.serviceNm;
+      this.reqList[idx].servletUrl = this.mcgDealRowData.servletUrl;
+      this.reqList[idx].tcpIp = this.mcgDealRowData.tcpIp;
+      this.reqList[idx].tcpPort = this.mcgDealRowData.tcpPort;
+      this.reqList[idx].dailyTps = this.mcgDealRowData.dailyTps;
+      this.reqList[idx].dablInflu = this.mcgDealRowData.dablInflu;
+      this.reqList[idx].mcgRmk = this.mcgDealRowData.mcgRmk;
+      this.reqList[idx].reqDt = this.mcgDealRowData.reqDt;
+      this.reqList[idx].chnlCom = this.mcgDealRowData.chnlCom;
+
+      this.reqList[idx].chrgrList = this.mcgDealRowData.chrgrRows;
+
+      this.$gf.alertOn(`${this.mcgDealRowData.chnlNm}의 거래 정보가 수정되었습니다.`);
+      this.emptyMcgDealFields();
     },
 
     addMcgChnlReq() {
