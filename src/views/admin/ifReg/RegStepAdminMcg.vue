@@ -1609,6 +1609,10 @@ export default {
       console.log(this.reqdtl);
     },
     aprvMsgReq(tgtProcSt) {
+      if (tgtProcSt === 1) {
+        this.$gf.alertOn('반려는 아직 지원하지 않습니다.');
+        return;
+      }
       this.tgtProcSt = tgtProcSt;
       this.turnOnProcMsg();
     },
