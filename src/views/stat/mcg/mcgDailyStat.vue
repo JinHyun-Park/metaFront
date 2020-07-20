@@ -155,7 +155,7 @@ export default {
         },
       },
       statDate: '',
-      datacollection: null,
+      datacollection: {labels:[], datasets: []},
       statList: [],
       hourOnClass: true,
       dayOnClass: false,
@@ -169,7 +169,7 @@ export default {
       statMonthlyItemList: ['ifId', 'totCnt', 'm1', 'm2', 'm3', 'm4', 'm5', 'm6', 'm7', 'm8', 'm9', 'm10', 'm11', 'm12'],
       maxTime: 24,
       timeUnit: '시',
-      inputTimeLabel:'일자 조회',
+      inputTimeLabel: '날짜 입력 (YYYY-MM-DD)',
       inputKeyword:'',
     };
   },
