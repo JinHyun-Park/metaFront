@@ -11,51 +11,58 @@
       </h2>
     </section>
     <section class="form_area border_group">
+      <h5 class="s_tit type-2">
+        기본 정보
+      </h5>
       <div class="row_contain type-3 last">
-        <div class="column on w-2">
-          <label class="column_label">조회일</label>
-          <div class="calander_group">
+        <div class="column on w-1">
+          <label class="column_label">조회기준</label>
+          <div class="label_space">
+            <label
+              class="label-default"
+              :class="{'on': hourOnClass}"
+              @click="hourOn"
+            >hour</label>
+            <label
+              class="label-default"
+              :class="{'on': dayOnClass}"
+              @click="dayOn"
+            >day</label>
+            <label
+              class="label-default"
+              :class="{'on': monthOnClass}"
+              @click="monthOn"
+            >month</label>
+          </div>
+        </div>
+        <div class="column w-1">
+          <label class="column_label">{{ inputTimeLabel }}</label>
+          <div class="search_group">
             <input
               v-model="statDate"
               type="text"
               value=""
+              @keyup.enter="searchList()"
             >
-            <span class="calander">
-              <i class="ico-cal" />
-            </span>
-            <datepicker
-              :value="statDate"
-              min="2020-6-1"
-              :day-str="datePickerSet.dayStr"
-              :popper-props="datePickerSet.popperProps"
-              @input="setStatDate"
-            />
           </div>
         </div>
-        <div class="column on w-2" />
-        <div class="label_space">
-          <label
-            class="label-default"
-            :class="{'on': hourOnClass}"
-            @click="hourOn"
-          >hour</label>
-          <label
-            class="label-default"
-            :class="{'on': dayOnClass}"
-            @click="dayOn"
-          >day</label>
-          <label
-            class="label-default"
-            :class="{'on': monthOnClass}"
-            @click="monthOn"
-          >month</label>
+        <div class="column w-1">
+          <label class="column_label">거래코드</label>
+          <div class="search_grroup">
+            <input
+              v-model="inputKeyword"
+              type="text"
+              value=""
+              @keyup.enter="searchList()"
+            >
+          </div>
         </div>
         <div class="column on w-1">
           <div class="right_button_area">
             <button
               type="button"
               class="default_button on"
-              @click="hourOn()"
+              @click="searchList()"
             >
               검색
             </button>
@@ -161,6 +168,8 @@ export default {
       'd21', 'd22', 'd23', 'd24', 'd25', 'd26', 'd27', 'd28', 'd29', 'd30', 'd31'],
       maxTime: 24,
       timeUnit: '시',
+      inputTimeLabel:'일자 조회',
+      inputKeyword:'',
     };
   },
   mounted() {
@@ -174,13 +183,22 @@ export default {
       var b = Math.floor(Math.random() * 255);
       return "rgb(" + r + "," + g + "," + b + ")";
     },
+    searchList(){
+      if(this.hourOnClass)
+        this.searchHourlyList();
+      else if(this.dayOnClass)
+        this.searchDailyList();
+      else if(this.monthOnClass)
+        this.searchHourylyList();
+    },
     hourOn(){
       this.hourOnClass = true;
       this.dayOnClass = this.monthOnClass = false;
       this.statItemList = this.statHourlyItemList;
       this.maxTime = 24;
       this.timeUnit = '시',
-      this.searchHourlyList();
+      this.inputTimeLabel = '날짜 입력';
+      this.statDate = this.$gf.dateToString(new Date(), '', 'Y');
     },
     dayOn(){
       this.dayOnClass = true;
@@ -188,14 +206,16 @@ export default {
       this.statItemList = this.statDailyItemList;
       this.maxTime = 31;
       this.timeUnit = '일',
-      this.searchDailyList();
+      this.inputTimeLabel = '연월 입력';
+      this.statDate = this.$gf.dateToString(new Date(), '', 'Y').slice(0, 7);
     },
     monthOn(){
       this.monthOnClass = true;
       this.hourOnClass = this.dayOnClass = false;
       this.maxTime = 12;
       this.timeUnit = '월';
-      this.searchHourlyList();
+      this.inputTimeLabel = '연 입력';
+      this.statDate = this.$gf.dateToString(new Date(), '', 'Y').slice(0, 4);
     },
     setStatDate(val) {
       this.statDate = val;
@@ -207,8 +227,9 @@ export default {
       }
       fetchGetStatMcgHourlyTrms({
         params: {
-          //statDate: this.statDate.replace(/\-/g, ''),
-          statDate: '20200705',
+          statDate: this.statDate.replace(/\-/g, ''),
+          inputKeyword: this.inputKeyword,
+          //statDate: '20200705',
         }
       })
         .then((res) => {
@@ -277,7 +298,9 @@ export default {
     searchDailyList() {
       fetchGetStatMcgDailyTrms({
         params: {
-          statDate: '20200520',
+          statDate: this.statDate.replace(/\-/g, ''),
+          inputKeyword: this.inputKeyword,
+          //statDate: '20200520',
         },
       })
         .then((res) => {
