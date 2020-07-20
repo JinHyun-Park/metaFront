@@ -363,6 +363,7 @@ export default {
       outChrgrList: '',
       onlineMst: {},
       procInfo: {},
+      reqIp: '',
     };
   },
   methods: {
