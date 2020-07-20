@@ -388,7 +388,7 @@ export default {
         this.$gf.alertOn('조회할 연도를 입력 바랍니다.(YYYY)');
         return;
       }
-      fetchGetStatEaiMonthlyTrms({
+      fetchGetStatMcgMonthlyTrms({
         params: {
           statDate: this.statDate,
           inputKeyword: this.inputKeyword,
