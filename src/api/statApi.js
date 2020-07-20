@@ -1,6 +1,18 @@
 /* eslint-disable no-undef */
 const preUrl = '/api/statistic';
 
+function fetchGetStatEaiMonthlyTrms(param) {
+  return axios.get(`${preUrl}/monthly/eai`, param);
+}
+
+function fetchGetStatEigwMonthlyTrms(param) {
+  return axios.get(`${preUrl}/monthly/eigw`, param);
+}
+
+function fetchGetStatMcgMonthlyTrms(param) {
+  return axios.get(`${preUrl}/monthly/mcg`, param);
+}
+
 function fetchGetStatEaiDailyTrms(param) {
   return axios.get(`${preUrl}/daily/eai`, param);
 }
@@ -26,6 +38,9 @@ function fetchGetStatMcgHourlyTrms(param) {
 }
 
 export {
+  fetchGetStatEaiMonthlyTrms,
+  fetchGetStatEigwMonthlyTrms,
+  fetchGetStatMcgMonthlyTrms,
   fetchGetStatEaiDailyTrms,
   fetchGetStatEigwDailyTrms,
   fetchGetStatMcgDailyTrms,

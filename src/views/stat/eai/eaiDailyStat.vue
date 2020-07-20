@@ -136,7 +136,7 @@
 
 <script>
 import ReactiveLineChart from '../../chart/ReactiveLineChart.vue';
-import { fetchGetStatEaiHourlyTrms, fetchGetStatEaiDailyTrms } from '@/api/statApi';
+import { fetchGetStatEaiHourlyTrms, fetchGetStatEaiDailyTrms, fetchGetStatEaiMonthlyTrms } from '@/api/statApi';
 
 export default {
   /* eslint-disable */
@@ -163,6 +163,7 @@ export default {
       statDailyItemList: ['ifId', 'totCnt', 'd1', 'd2', 'd3', 'd4', 'd5', 'd6', 'd7', 'd8', 'd9', 'd10',
       'd11', 'd12', 'd13', 'd14', 'd15', 'd16', 'd17', 'd18', 'd19', 'd20',
       'd21', 'd22', 'd23', 'd24', 'd25', 'd26', 'd27', 'd28', 'd29', 'd30', 'd31'],
+      statMonthlyItemList: ['ifId', 'totCnt', 'm1', 'm2', 'm3', 'm4', 'm5', 'm6', 'm7', 'm8', 'm9', 'm10', 'm11', 'm12'],
       maxTime: 24,
       timeUnit: '시',
       inputTimeLabel:'일자 조회',
@@ -181,45 +182,47 @@ export default {
       return "rgb(" + r + "," + g + "," + b + ")";
     },
     searchList(){
-      if(this.hourOnClass)
+      if(this.hourOnClass){
         this.searchHourlyList();
-      else if(this.dayOnClass)
+        this.statItemList = this.statHourlyItemList;
+        this.maxTime = 24;
+        this.timeUnit = '시';
+      }
+      else if(this.dayOnClass){
         this.searchDailyList();
-      else if(this.monthOnClass)
-        this.searchHourylyList();
+        this.statItemList = this.statDailyItemList;
+        this.maxTime = 31;
+        this.timeUnit = '일';
+      }
+      else if(this.monthOnClass){
+        this.searchMonthlyList();
+        this.statItemList = this.statMontlyItemList;
+        this.maxTime = 12;
+        this.timeUnit = '월';
+      }
     },
     hourOn(){
       this.hourOnClass = true;
       this.dayOnClass = this.monthOnClass = false;
-      this.statItemList = this.statHourlyItemList;
-      this.maxTime = 24;
-      this.timeUnit = '시';
-      this.inputTimeLabel = '날짜 입력';
-      this.statDate = this.$gf.dateToString(new Date(), '', 'Y');
+      this.inputTimeLabel = '날짜 입력 (YYYY-MM-DD)';
+      this.statDate = '';
     },
     dayOn(){
       this.dayOnClass = true;
       this.hourOnClass = this.monthOnClass = false;
-      this.statItemList = this.statDailyItemList;
-      this.maxTime = 31;
-      this.timeUnit = '일';
-      this.inputTimeLabel = '연월 입력';
-      this.statDate = this.$gf.dateToString(new Date(), '', 'Y').slice(0, 7);
+      this.inputTimeLabel = '연월 입력 (YYYY-MM)';
+      this.statDate = '';
     },
     monthOn(){
       this.monthOnClass = true;
       this.hourOnClass = this.dayOnClass = false;
-      this.maxTime = 12;
-      this.timeUnit = '월';
-      this.inputTimeLabel = '연 입력';
-      this.statDate = this.$gf.dateToString(new Date(), '', 'Y').slice(0, 4);
+      this.inputTimeLabel = '연 입력 (YYYY)';
+      this.statDate = '';
     },
-    setStatDate(val) {
-      this.statDate = val;
-    },
+
     searchHourlyList() {
       if(this.statDate == null || this.statDate === "") {
-        this.$gf.alertOn('조회일 입력 바랍니다.');
+        this.$gf.alertOn('조회할 일자를 입력 바랍니다.(YYYY-MM-DD)');
         return;
       }
 
@@ -233,7 +236,7 @@ export default {
         .then((res) => {
           console.log(res);
           if(res.data.rstCd === 'S'){
-            this.statList = res.data.rstData.dailyTrmsList;
+            this.statList = res.data.rstData.hourlyTrmsList;
             this.makeHourlyChartData();
           }
         })
@@ -295,10 +298,9 @@ export default {
 
     searchDailyList() {
       if(this.statDate == null || this.statDate === "") {
-        this.$gf.alertOn('조회월 입력 바랍니다.');
+        this.$gf.alertOn('조회할 달을 입력 바랍니다.(YYYY-MM)');
         return;
       }
-      
       fetchGetStatEaiDailyTrms({
         params: {
           statDate: this.statDate.replace(/\-/g, ''),
@@ -375,6 +377,69 @@ export default {
       a.d29 = this.statList[index].d29;
       a.d30 = this.statList[index].d30;
       a.d31 = this.statList[index].d31;
+      return Object.values(a);
+    },
+
+    searchMonthlyList() {
+      if(this.statDate == null || this.statDate === "") {
+        this.$gf.alertOn('조회할 연도를 입력 바랍니다.(YYYY)');
+        return;
+      }
+      fetchGetStatEaiMonthlyTrms({
+        params: {
+          statDate: this.statDate,
+          inputKeyword: this.inputKeyword,
+          //statDate: '20200520',
+        },
+      })
+        .then((res) => {
+          console.log(res);
+          if (res.data.rstCd === 'S') {
+            this.statList = res.data.rstData.monthlyTrmsList;
+            this.makeMonthlyChartData();
+          } else {
+          // eslint-disable-next-line no-alert
+          }
+        })
+        .catch((ex) => {
+          console.log(`error occur!! : ${ex}`);
+        });
+    },
+    makeMonthlyChartData() {
+      this.datacollection = {
+        labels: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+        datasets: this.setMonthlyChartData(),
+      };
+    },
+    setMonthlyChartData(){
+      var datasets = [];
+      for(var i=0; i<this.statList.length; i++){
+        var dataset = {
+          label: this.statList[i].ifId,
+          data: this.computeMonthlyGraphRowValue(i),
+          backgroundColor: this.dynamicColors(),
+          borderColor: this.dynamicColors(),
+          lineTension: 0.2,
+          fill: false,
+        };
+        datasets[i] = dataset;
+      }
+      return datasets;
+    },
+    computeMonthlyGraphRowValue(index) {
+      const a = {};
+      a.m1 = this.statList[index].m1;
+      a.m2 = this.statList[index].m2;
+      a.m3 = this.statList[index].m3;
+      a.m4 = this.statList[index].m4;
+      a.m5 = this.statList[index].m5;
+      a.m6 = this.statList[index].m6;
+      a.m7 = this.statList[index].m7;
+      a.m8 = this.statList[index].m8;
+      a.m9 = this.statList[index].m9;
+      a.m10 = this.statList[index].m10;
+      a.m11 = this.statList[index].m11;
+      a.m12 = this.statList[index].m12;
       return Object.values(a);
     },
   },
