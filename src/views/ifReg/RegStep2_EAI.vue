@@ -1069,7 +1069,7 @@ export default {
   },
   methods: {
     ...mapActions('ccCdLst', ['setCcCdList']),
-    ...mapActions('ifRegInfo', ['setTempSaveFlag']),
+    ...mapActions('ifRegInfo', ['setTempSaveFlag', 'setMovePossible']),
 
     setTempSave(rtn) {
       this.setTempSaveFlag({
@@ -1129,8 +1129,8 @@ export default {
 
 
     saveEaiRegTemp() {
-      console.log('eai 임시저장 함수 시작');
-
+      this.$gf.alertOn('eai에서 발생시킨 alert.');
+      this.setMovePossible({ movePossible: 'N' });
       /*
       if (this.eaiIfNmEng.length > 0 || this.eaiIfNmKor.length > 0) {
         for (let i = 0; i < this.eaiIfList.length; i++) {

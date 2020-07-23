@@ -156,7 +156,7 @@ export default {
     };
   },
   computed: {
-    ...mapState('ifRegInfo', ['reqNum', 'saveFlag']),
+    ...mapState('ifRegInfo', ['reqNum', 'saveFlag', 'movePossible']),
   },
   watch: {
     tabNum() {
@@ -368,6 +368,8 @@ export default {
       } else if (callMeth === 'tabPrev') {
         this.eventTabMove = 'FORW';
       }
+
+      if (this.movePossible === 'N') return;
 
       // 신청 후 저장 alert 처리
       if (this.tabNum === 1) {

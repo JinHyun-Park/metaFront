@@ -21,4 +21,8 @@ export default {
     state.saveFlag.isStep2EigwSaveYn = 'N';
     state.saveFlag.isStep2McgSaveYn = 'N';
   },
+  setMovePossible: (state, payload) => {
+    console.log(`state : ----${payload.movePossible}`);
+    state.movePossible = payload.movePossible;
+  },
 };
