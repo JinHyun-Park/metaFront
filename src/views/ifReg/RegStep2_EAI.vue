@@ -1130,7 +1130,8 @@ export default {
 
     saveEaiRegTemp() {
       this.$gf.alertOn('eai에서 발생시킨 alert.');
-      this.setMovePossible({ movePossible: 'N' });
+      this.setMovePossible({ movePossible: 'N' }); // 실패 시
+      // this.setMovePossible({ movePossible: 'Y' });  // 성공 시 주석 내용 처리 해줘야 이후 단계 진행 가능
       /*
       if (this.eaiIfNmEng.length > 0 || this.eaiIfNmKor.length > 0) {
         for (let i = 0; i < this.eaiIfList.length; i++) {
