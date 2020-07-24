@@ -836,6 +836,14 @@
           />
         </div>
       </div>
+      <div align="right">
+        <label
+          class="column_label"
+          style="color: red;font-size: 13px;"
+        >
+          [중요] 인터페이스 정보를 신규로 입력하신 후에는 "인터페이스 추가",
+          기존 정보를 수정한 후에는 "수정" 버튼을 누르시기 바랍니다. </label>
+      </div>
     </section>
     <!--
     <button
@@ -876,6 +884,8 @@ export default {
       propsChrgr: {
         message: '',
       },
+      checkIfEng: '',
+      checkIfKor: '',
       eaiSeqNum: '',
       callChrgr: '',
       svrTypCd: '',
@@ -1127,20 +1137,39 @@ export default {
         });
     },
 
+    checkAddedInfo() {
+      this.checkIfEng = 0;
+      this.checkIfEng = 0;
+
+      if (this.eaiIfNmEng.length > 0 || this.eaiIfNmKor.length > 0) {
+        console.log(` 인터페이스 추가 목록 길이 : ${this.eaiIfList.length}`);
+        if (this.eaiIfList.length > 0) {
+          for (let i = 0; i < this.eaiIfList.length; i++) {
+            if (this.eaiIfList[i].eaiIfNmEng !== this.eaiIfNmEng) {
+              this.checkIfEng = 1;
+            }
+            if (this.eaiIfList[i].eaiIfNmKor !== this.eaiIfNmKor) {
+              this.checkIfKor = 1;
+            }
+          }
+        } else {
+          console.log(' 추가 된 인터페이스가 없음 ');
+          this.checkIfEng = 1;
+          this.checkIfEng = 1;
+        }
+      }
+
+      if (this.checkIfEng === 1 || this.checkIfKor === 1) {
+        console.log(' 여기 안 들어오나? ');
+        this.$gf.alertOn('작성 중 추가하지 않은 인터페이스 정보가 있습니다.\n정보 입력 후 반드시 인터페이스 추가 버튼을 누르고 저장하시기 바랍니다.');
+      }
+    },
+
 
     saveEaiRegTemp() {
       console.log('eai 임시저장 함수 시작');
 
-      /*
-      if (this.eaiIfNmEng.length > 0 || this.eaiIfNmKor.length > 0) {
-        for (let i = 0; i < this.eaiIfList.length; i++) {
-          if (this.eaiIfList[i].eaiIfNmEng !== this.eaiIfNmEng) {
-
-          }
-        }
-      }
-      */
-
+      // this.checkAddedInfo();
 
       this.svrRows.splice(0, this.svrRows.length);
 
