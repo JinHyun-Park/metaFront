@@ -1105,7 +1105,12 @@ export default {
     dtlReq(req, idx) {
       // let svrinfotemp = [];
       console.log('상세신청정보조회!', idx);
-      this.dtlshow(req);
+      if (req.mcgType === '채널') {
+        this.dtlshow(req);
+      } else if (req.mcgType === '거래') {
+        this.emptyMcgFields();
+        this.$gf.alertOn('거래 신청 화면에서 확인해주세요.');
+      }
       console.log(this.reqdtl);
     },
     savereqserver(svrList) {
