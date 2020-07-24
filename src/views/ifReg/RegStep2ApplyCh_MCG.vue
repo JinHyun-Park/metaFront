@@ -267,25 +267,25 @@
           <div class="table_head w-auto">
             <ul>
               <li class="th_cell">
-                서버유형<i class="ico-sort-down" />
+                서버유형
               </li>
               <li class="th_cell">
-                시스템명<i class="ico-sort-up" />
+                시스템명
               </li>
               <li class="th_cell">
-                HOST명<i class="ico-sort-down" />
+                HOST명
               </li>
               <li class="th_cell">
-                IP<i class="ico-sort-down" />
+                IP
               </li>
               <li class="th_cell">
-                Port<i class="ico-sort-down" />
+                Port
               </li>
               <li class="th_cell">
-                OS<i class="ico-sort-down" />
+                OS
               </li>
               <li class="th_cell">
-                IP유형<i class="ico-sort-up" />
+                IP유형
               </li>
               <li class="th_cell">
                 추가/수정
@@ -381,19 +381,19 @@
           <div class="table_head w-auto">
             <ul>
               <li class="th_cell">
-                이름<i class="ico-sort-down" />
+                이름
               </li>
               <li class="th_cell">
-                회사<i class="ico-sort-up" />
+                회사
               </li>
               <li class="th_cell">
-                연락처<i class="ico-sort-down" />
+                연락처
               </li>
               <li class="th_cell">
-                이메일<i class="ico-sort-down" />
+                이메일
               </li>
               <li class="th_cell">
-                역할<i class="ico-sort-down" />
+                역할
               </li>
               <li class="th_cell">
                 수정

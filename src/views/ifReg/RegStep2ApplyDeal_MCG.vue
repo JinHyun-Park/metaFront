@@ -124,7 +124,7 @@
       </div>
       <div class="row_contain type-2" />
       <div class="row_contain type-2">
-        <div class="column on w-3">
+        <div class="column on w-1">
           <label class="column_label">채널명</label>
           <div class="search_group">
             <input
@@ -141,21 +141,21 @@
             </span>
           </div>
         </div>
-        <div class="column w-3">
+        <div class="column w-1">
           <label class="column_label">채널ID</label>
           <input
             v-model="chnlId"
             type="text"
           >
         </div>
-        <div class="column w-2">
+        <div class="column w-1">
           <label class="column_label">채널유형</label>
           <input
             v-model="chnlTyp"
             type="text"
           >
         </div>
-        <div class="column w-2">
+        <div class="column w-1">
           <label class="column_label">연동방식</label>
           <input
             v-model="lnkMthd"
@@ -164,22 +164,20 @@
         </div>
       </div>
       <div class="row_contain">
-        <div class="column w-3">
+        <div class="column w-1">
           <label class="column_label">모듈명</label>
           <input
             v-model="moduleNm"
             type="text"
           >
         </div>
-        <div class="column w-3">
+        <div class="column w-2">
           <label class="column_label">호출서비스</label>
           <input
             v-model="tp"
             type="text"
           >
         </div>
-      </div>
-      <div class="row_contain odd">
         <div class="column w-1">
           <label class="column_label">서비스ID</label>
           <input
@@ -188,21 +186,23 @@
             value="Interface1"
           >
         </div>
-        <div class="column w-1">
+        <div class="column w-2">
           <label class="column_label">서비스명</label>
           <input
             v-model="serviceNm"
             type="text"
           >
         </div>
-        <div class="column w-2">
+      </div>
+      <div class="row_contain odd">
+        <div class="column w-3">
           <label class="column_label">Servlet URL</label>
           <input
             v-model="servletUrl"
             type="text"
           >
         </div>
-        <div class="column w-1">
+        <div class="column w-2">
           <label class="column_label">TCP IP</label>
           <input
             v-model="tcpIp"
@@ -216,25 +216,6 @@
             type="number"
             value=""
           >
-        </div>
-      </div>
-      <div class="row_contain">
-        <div class="column w-1">
-          <label class="column_label">연동주기</label>
-          <div class="select_group">
-            <select>
-              <option
-                value=""
-                selected
-              >
-                Y
-              </option>
-              <option value="">
-                N
-              </option>
-            </select>
-            <span class="select" />
-          </div>
         </div>
         <div class="column w-1">
           <label class="column_label">타임아웃</label>
@@ -264,10 +245,10 @@
             />
           </div>
         </div>
-        <div class="column w-1" />
       </div>
+
       <h5 class="s_tit type-2">
-        MCG 채널 담당자 정보
+        MCG 거래 담당자 정보
       </h5>
       <div class="row_contain type-2 except-2">
         <div class="column w-1">
@@ -292,19 +273,19 @@
           <div class="table_head w-auto">
             <ul>
               <li class="th_cell">
-                이름<i class="ico-sort-down" />
+                이름
               </li>
               <li class="th_cell">
-                회사<i class="ico-sort-up" />
+                회사
               </li>
               <li class="th_cell">
-                연락처<i class="ico-sort-down" />
+                연락처
               </li>
               <li class="th_cell">
-                이메일<i class="ico-sort-down" />
+                이메일
               </li>
               <li class="th_cell">
-                역할<i class="ico-sort-down" />
+                역할
               </li>
               <li class="th_cell">
                 수정
