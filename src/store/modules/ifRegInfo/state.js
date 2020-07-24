@@ -7,4 +7,5 @@ export default {
     isStep2EigwSaveYn: 'N',
     isStep2McgSaveYn: 'N',
   },
+  movePossible: 'Y',
 };

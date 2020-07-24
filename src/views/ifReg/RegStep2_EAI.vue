@@ -1079,7 +1079,7 @@ export default {
   },
   methods: {
     ...mapActions('ccCdLst', ['setCcCdList']),
-    ...mapActions('ifRegInfo', ['setTempSaveFlag']),
+    ...mapActions('ifRegInfo', ['setTempSaveFlag', 'setMovePossible']),
 
     setTempSave(rtn) {
       this.setTempSaveFlag({

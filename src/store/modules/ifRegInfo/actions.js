@@ -10,4 +10,7 @@ export default {
   resetTempSaveFlag: (store, payload) => {
     store.commit('resetTempSaveFlag', payload);
   },
+  setMovePossible: (store, payload) => {
+    store.commit('setMovePossible', payload);
+  },
 };

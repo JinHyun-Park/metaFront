@@ -156,7 +156,7 @@ export default {
     };
   },
   computed: {
-    ...mapState('ifRegInfo', ['reqNum', 'saveFlag']),
+    ...mapState('ifRegInfo', ['reqNum', 'saveFlag', 'movePossible']),
   },
   watch: {
     tabNum() {
@@ -222,6 +222,7 @@ export default {
       this.tabNum = Number(localStorage.getItem('APPLY_TABNUM'));
     }
     this.setParams();
+    this.setMovePossible({ movePossible: 'Y' });
   },
   mounted() {
     this.resetTempSaveFlag();
@@ -230,7 +231,7 @@ export default {
     localStorage.setItem('APPLY_TABNUM', '');
   },
   methods: {
-    ...mapActions('ifRegInfo', ['setReqNum', 'resetTempSaveFlag']),
+    ...mapActions('ifRegInfo', ['setReqNum', 'resetTempSaveFlag', 'setMovePossible']),
 
     setParams() {
       if (this.$route.params.reqNum != null) {
@@ -368,6 +369,8 @@ export default {
       } else if (callMeth === 'tabPrev') {
         this.eventTabMove = 'FORW';
       }
+
+      if (this.movePossible === 'N') return;
 
       // 신청 후 저장 alert 처리
       if (this.tabNum === 1) {
