@@ -297,8 +297,10 @@
       </div>
     </section>
 
-
     <section class="form_area border_group">
+      <h5 class="s_tit type-2">
+        기본 정보
+      </h5>
       <div class="row_contain">
         <div class="column w-2">
           <label class="column_label"> EAI 인터페이스ID</label>
