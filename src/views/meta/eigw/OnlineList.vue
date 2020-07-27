@@ -374,7 +374,6 @@ export default {
       this.pageMoveChk = 0;
     },
     searchList() {
-      console.log(this.pageMoveChk);
       fetchEigwAdOnlineList({
         params: {
           eaiIfId: this.eaiIfId,
