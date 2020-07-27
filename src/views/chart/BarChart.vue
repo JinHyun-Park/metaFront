@@ -20,6 +20,9 @@ export default {
             },
           }],
           xAxes: [{
+            ticks: {
+              display: true
+            },
             gridLines: {
               display: false,
             },

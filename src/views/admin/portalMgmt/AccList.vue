@@ -96,7 +96,7 @@
                 class="table_row w-auto"
               >
                 <td class="td_cell">
-                  {{ i+1 }}
+                  {{ (i+1)+((pageSet.pageNo-1)*pageSet.size) }}
                 </td>
                 <td class="td_cell">
                   {{ user.userId }}

@@ -113,48 +113,76 @@
       </div>
 
       <div class="table_colgroup">
-        <div class="table_grid radio_group extend-1">
+        <div class="table_grid radio_group extend-2">
           <div class="table_head w-auto">
-            <ul>
-              <li class="th_cell" />
-              <li class="th_cell">
+            <tr>
+              <td class="th_cell" />
+              <td class="th_cell on">
                 IF ID
-              </li>
-              <li class="th_cell">
+              </td>
+              <td class="th_cell">
                 인터페이스명
-              </li>
-              <li class="th_cell">
+              </td>
+              <td class="th_cell">
+                수신TR(SWING)
+              </td>
+              <td class="th_cell">
+                단/양방향
+              </td>
+              <td class="th_cell">
+                송신담당
+              </td>
+              <td class="th_cell">
+                수신담당
+              </td>
+              <td class="th_cell">
                 기관코드
-              </li>
-              <li class="th_cell" />
-              <li class="th_cell" />
-            </ul>
+              </td>
+              <td class="th_cell">
+                대외개발
+              </td>
+              <td class="th_cell">
+                대외운영
+              </td>
+            </tr>
           </div>
           <div class="table_body">
-            <ul
+            <tr
               v-for="(row, i) in allMetaList"
               :key="i"
               class="table_row w-auto"
             >
-              <li class="td_cell">
-                {{ i+1 }}
-              </li>
-              <li class="td_cell">
+              <td class="td_cell on">
+                {{ (i+1)+((pageSet.pageNo-1)*pageSet.size) }}
+              </td>
+              <td class="td_cell on">
                 {{ row.eaiIfId }}
-              </li>
-              <li class="td_cell on">
+              </td>
+              <td class="td_cell on">
                 {{ row.eaiIfNmKor }}
-              </li>
-              <li class="td_cell on">
+              </td>
+              <td class="td_cell on">
+                {{ row.rcvTr }}
+              </td>
+              <td class="td_cell on">
+                {{ row.roundTypNm }}
+              </td>
+              <td class="td_cell on">
+                {{ row.sndChrgrId1 }}
+              </td>
+              <td class="td_cell on">
+                {{ row.rcvChrgrId1 }}
+              </td>
+              <td class="td_cell on">
                 {{ row.eigwInstCd }}
-              </li>
-              <li class="td_cell on">
+              </td>
+              <td class="td_cell on">
                 {{ row.eigwDvpSvrRealIp }} ({{ row.eigwDvpSvrPort }})
-              </li>
-              <li class="td_cell on">
+              </td>
+              <td class="td_cell on">
                 {{ row.eigwOprSvrRealIp }} ({{ row.eigwProdSvrPort }})
-              </li>
-            </ul>
+              </td>
+            </tr>
           </div>
         </div>
       </div>

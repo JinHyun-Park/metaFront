@@ -182,9 +182,14 @@
             </li>
             <li
               class="td_cell"
+              v-if="row.aprvId !== null"
             >
               {{ row.aprvNm }}({{ row.aprvId }})
             </li>
+            <li
+              class="td_cell"
+              v-else
+            ></li>
           </ul>
         </div>
       </div>
