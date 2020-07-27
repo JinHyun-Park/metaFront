@@ -123,7 +123,7 @@
                 {{ setBoardStName(board.BOARD_ST) }}
               </li>
               <li class="td_cell">
-                {{ board.CHG_ID }}
+                {{ board.chgNm }}({{ board.CHG_ID }})
               </li>
               <li class="td_cell">
                 {{ board.formatChgDt }}
