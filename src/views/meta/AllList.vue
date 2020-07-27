@@ -168,10 +168,10 @@
                 {{ row.roundTypNm }}
               </td>
               <td class="td_cell on">
-                {{ row.sndChrgrId1 }}
+                {{ row.sndChrgrNm1 }}({{row.sndChrgr1OrgNm}})
               </td>
               <td class="td_cell on">
-                {{ row.rcvChrgrId1 }}
+                {{ row.rcvChrgrNm1 }}({{row.rcvChrgr1OrgNm}})
               </td>
               <td class="td_cell on">
                 {{ row.eigwInstCd }}
