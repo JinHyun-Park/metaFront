@@ -181,15 +181,15 @@
               {{ row.reqrNm }}({{ row.reqrId }})
             </li>
             <li
-              class="td_cell"
               v-if="row.aprvId !== null"
+              class="td_cell"
             >
               {{ row.aprvNm }}({{ row.aprvId }})
             </li>
             <li
-              class="td_cell"
               v-else
-            ></li>
+              class="td_cell"
+            />
           </ul>
         </div>
       </div>
