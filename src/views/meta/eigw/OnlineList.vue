@@ -130,7 +130,7 @@
           :page-count="pageSet.pageCount"
           :page-range="3"
           :margin-pages="1"
-          :click-handler="searchList"
+          :click-handler="pageMove"
           :prev-text="'이전'"
           :next-text="'다음'"
           :container-class="'pagination'"
@@ -355,6 +355,7 @@ export default {
         message: '', // 사용방법 예시 데이터
       },
       pageSet: { pageNo: 1, pageCount: 0, size: 5 },
+      pageMoveChk: 0,
       onlineIfList: '',
       eaiIfId: '',
       svrIp: '',
@@ -367,13 +368,20 @@ export default {
     };
   },
   methods: {
+    pageMove() {
+      this.pageMoveChk = 1;
+      this.searchList();
+      this.pageMoveChk = 0;
+    },
     searchList() {
+      console.log(this.pageMoveChk);
       fetchEigwAdOnlineList({
         params: {
           eaiIfId: this.eaiIfId,
           reqIp: this.reqIp,
           instNm: this.instNm,
-          pageNo: this.pageSet.pageNo,
+          pageNo: this.pageMoveChk === 1 ? this.pageSet.pageNo : 1,
+          pageCount: this.pageMoveChk === 1 ? this.pageSet.pageCount : 0,
           size: this.pageSet.size,
         },
       })
