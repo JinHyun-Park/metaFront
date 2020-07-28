@@ -8,6 +8,7 @@
           </div>
         </h2>
       </section>
+      <new-guide />
       <queue-monitor />
       <!--<queue-stat />-->
       <div class="board_area">
@@ -147,6 +148,7 @@ import RegList from '../components/dashboard/RegList.vue';
 import McgDailyTrmsStat from '../components/dashboard/McgDailyTrmsStat.vue';
 import EigwDailyTrmsStat from '../components/dashboard/EigwDailyTrmsStat.vue';
 import EaiDailyTrmsStat from '../components/dashboard/EaiDailyTrmsStat.vue';
+import NewGuide from '../components/dashboard/NewGuide.vue';
 
 
 export default {
@@ -160,6 +162,7 @@ export default {
     'mcg-daily-trms-stat': McgDailyTrmsStat,
     'eigw-daily-trms-stat': EigwDailyTrmsStat,
     'eai-daily-trms-stat': EaiDailyTrmsStat,
+    'new-guide': NewGuide,
   },
   data() {
     return {
