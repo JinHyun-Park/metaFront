@@ -5,46 +5,80 @@
         연동 가이드
       </h4>
       <h5 class="s_tit type-2">
-        신규 연동 가이드
+        첫 사용자를 위한 간단 Guide!!
       </h5>
     </div>
-    <div>
-      <h3>
-        연동이 처음이야??
-      </h3>
-      <h3>
-        내가 좀 알려줄까??
-      </h3>
-      <h2>
-        내가 좀 알려줄까??
-      </h2>
-      <h1>
-        혼자서는 못하겠어??
-      </h1>
-      <h5>
-        혼자서는 못하겠어??
-      </h5>
+    <div
+      class="table_colgroup"
+      style="display: flex; justify-content:space-between; align-content:center;"
+    >
+      &nbsp;
       <button
         type="button"
         class="click_btn"
+        aria-placeholder="인터페이스 신규 혹은 변경 신청이 궁금하십니까?"
         @click="aa"
       >
+        <label class="tooltips right">
+          <span
+            class="tip_contn"
+          >
+            <em class="tip_text">
+              인터페이스 신규 혹은 변경 신청이 궁금하십니까?
+            </em></span>
+
+          <h2>
+            신청프로세스
+          </h2>
+          <img
+            src="@/assets/images/img-eai-btn.png"
+            width="100"
+          >
+        </label>
+      </button>
+
+      <button
+        type="button"
+        class="click_btn"
+        style="background-color:white;"
+        @click="aa"
+      >
+        <h2>
+          EAI
+        </h2>
+        <img
+          src="@/assets/images/img-eai-btn.png"
+          width="100"
+        >
+      </button>
+      <button
+        type="button"
+        class="click_btn"
+        style="background-color:white;"
+        @click="aa"
+      >
+        <h2 style="text-align:center;">
+          EiGW
+        </h2>
         <img
           src="@/assets/images/img-eigw-btn.png"
           width="100"
         >
       </button>
-      <img
-        src="@/assets/images/img-eigw-btn.png"
-        width="100"
+      <button
+        type="button"
         class="click_btn"
         @click="aa"
       >
-    </div>
-    <div style="background: url('../../assets/images/multichannel_btn_icon.png');">
-      <h2>
-        응?
-      </h2>
+        <h2>
+          MCG
+        </h2>
+        <img
+          src="@/assets/images/img-mcg-btn.png"
+          width="100"
+        >
+      </button>
+      &nbsp;
     </div>
   </section>
 </template>

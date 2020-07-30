@@ -1,23 +1,13 @@
 <script>
-import { Doughnut } from 'vue-chartjs';
+import { Doughnut, mixins } from 'vue-chartjs';
+
+const { reactiveProp } = mixins;
 
 export default {
   extends: Doughnut,
+  mixins: [reactiveProp],
   data() {
     return {
-      datacollection: {
-        labels: ['임시저장', '승인요청', '접수중', '개발완료', '운영완료'],
-        datasets: [
-          {
-            label: 'Data One',
-            backgroundColor: '#f87979',
-            pointBackgroundColor: 'white',
-            borderWidth: 1,
-            pointBorderColor: '#249EBF',
-            data: [1, 1, 3, 0, 1],
-          },
-        ],
-      },
       options: {
         scales: {
           gridLines: {
@@ -44,7 +34,7 @@ export default {
     };
   },
   mounted() {
-    this.renderChart(this.datacollection, this.options);
+    this.renderChart(this.chartData, this.options);
   },
 };
 </script>

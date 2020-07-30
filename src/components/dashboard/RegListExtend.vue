@@ -8,12 +8,16 @@
       class="table_colgroup"
       style="display: flex; justify-content:space-between; align-content:center;"
     >
-      <div
-        class="row_contain type-2 chart_area"
-      >
-        <doughnut-chart />
+      <div style="width:70%">
+        <div
+          class="row_contain type-2 chart_area"
+        >
+          <doughnut-chart :chart-data="datacollection" />
+        </div>
       </div>
-      <div class="table_colgroup">
+      <div
+        class="table_colgroup"
+      >
         <div class="table_grid radio_group">
           <div class="table_head w-auto">
             <tr>
@@ -105,12 +109,15 @@ export default {
       endReqDtm: '',
       reqTitle: '',
       pageSet: { pageNo: 1, pageCount: 0, size: 10 },
+
+      datacollection: {},
     };
   },
   mounted() {
     this.startReqDtm = this.$gf.dateToString(new Date(), '-7d', 'Y');
     this.endReqDtm = this.$gf.dateToString(new Date(), '', 'Y');
     this.searchList(1);
+    this.makeChartData();
   },
   methods: {
     setClass(procSt) {
@@ -174,6 +181,29 @@ export default {
     },
     detail(i) {
       this.$router.push({ name: 'applyIf', params: { reqNum: this.ifReqList[i].reqNum, callType: 'update', procSt: this.ifReqList[i].procSt } });
+    },
+
+    makeChartData() {
+      this.datacollection = {
+        labels: ['임시저장', '승인요청', '접수중', '개발완료', '운영완료'],
+        datasets: [{
+          label: '일일연동량',
+          backgroundColor: this.dynamicColors(),
+          pointBackgroundColor: 'white',
+          borderWidth: 1,
+          data: [1, 1, 3, 0, 1],
+        }],
+      };
+    },
+    dynamicColors() {
+      const a = [];
+      for (let i = 0; i < 5; i++) {
+        const r = Math.floor(Math.random() * 255);
+        const g = Math.floor(Math.random() * 255);
+        const b = Math.floor(Math.random() * 255);
+        a.push(`rgb(${r},${g},${b})`);
+      }
+      return a;
     },
   },
 };
