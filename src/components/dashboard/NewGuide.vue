@@ -25,6 +25,11 @@
         혼자서는 못하겠어??
       </h5>
     </div>
+    <div style="background: url('../../assets/images/multichannel_btn_icon.png');">
+      <h2>
+        응?
+      </h2>
+    </div>
   </section>
 </template>
 

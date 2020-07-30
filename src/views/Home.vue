@@ -9,6 +9,7 @@
         </h2>
       </section>
       <new-guide />
+      <reg-list-extend />
       <queue-monitor />
       <!--<queue-stat />-->
       <div class="board_area">
@@ -145,6 +146,7 @@ import NotiBoard from '../components/dashboard/NotiBoard.vue';
 import QueueMonitor from '../components/dashboard/QueueMonitor.vue';
 // import QueueTransStat from '../components/dashboard/QueueTransStat.vue';
 import RegList from '../components/dashboard/RegList.vue';
+import RegListExtend from '../components/dashboard/RegListExtend.vue';
 import McgDailyTrmsStat from '../components/dashboard/McgDailyTrmsStat.vue';
 import EigwDailyTrmsStat from '../components/dashboard/EigwDailyTrmsStat.vue';
 import EaiDailyTrmsStat from '../components/dashboard/EaiDailyTrmsStat.vue';
@@ -159,6 +161,7 @@ export default {
     // 'queue-stat': QueueTransStat,
     'queue-monitor': QueueMonitor,
     'reg-list': RegList,
+    'reg-list-extend': RegListExtend,
     'mcg-daily-trms-stat': McgDailyTrmsStat,
     'eigw-daily-trms-stat': EigwDailyTrmsStat,
     'eai-daily-trms-stat': EaiDailyTrmsStat,
