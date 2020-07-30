@@ -24,6 +24,22 @@
       <h5>
         혼자서는 못하겠어??
       </h5>
+      <button
+        type="button"
+        class="click_btn"
+        @click="aa"
+      >
+        <img
+          src="@/assets/images/img-eigw-btn.png"
+          width="100"
+        >
+      </button>
+      <img
+        src="@/assets/images/img-eigw-btn.png"
+        width="100"
+        class="click_btn"
+        @click="aa"
+      >
     </div>
   </section>
 </template>
@@ -59,7 +75,9 @@ export default {
     // this.searchQueueDepth();
   },
   methods: {
-
+    aa() {
+      console.log('clicked');
+    },
   },
 };
 </script>
