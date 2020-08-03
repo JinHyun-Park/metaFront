@@ -11,9 +11,6 @@
         <div>
           <i class="ico-bar" />EAI 업무 요청서
         </div>
-        <div class="breadcrumb">
-          <span>EGIW</span><em class="on">EAI</em>
-        </div>
       </h2>
     </section>
     <section class="form_area border_group">

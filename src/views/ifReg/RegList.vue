@@ -6,7 +6,7 @@
           <i class="ico-bar" />인터페이스 신청 목록
         </div>
         <div class="breadcrumb">
-          <span>EGIW</span><em class="on">EAI</em>
+          <span>인터페이스 신청</span><em class="on">신청 목록</em>
         </div>
       </h2>
     </section>

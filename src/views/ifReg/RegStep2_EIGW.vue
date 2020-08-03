@@ -23,9 +23,6 @@
         <div>
           <i class="ico-bar" />EiGW 업무 요청서
         </div>
-        <div class="breadcrumb">
-          <span>EGIW</span><em class="on">EAI</em>
-        </div>
       </h2>
     </section>
 
