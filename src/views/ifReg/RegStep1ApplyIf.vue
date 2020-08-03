@@ -259,7 +259,7 @@ export default {
       });
     },
     checkParams() {
-      if (this.ifReqMstInfo.reqTitle === null) {
+      if (this.ifReqMstInfo.reqTitle === null || this.ifReqMstInfo.reqTitle === '') {
         this.$gf.alertOn('제목은 필수입력입니다.');
         return false;
       }

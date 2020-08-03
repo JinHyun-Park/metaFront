@@ -8,7 +8,12 @@
           </div>
         </h2>
       </section>
-      <new-guide />
+      <div class="board_area">
+        <new-guide style="width:50%" />
+        <new-cnt style="width:25%" />
+        <oper-cnt style="width:25%" />
+      </div>
+      <reg-list-extend />
       <queue-monitor />
       <!--<queue-stat />-->
       <div class="board_area">
@@ -145,10 +150,13 @@ import NotiBoard from '../components/dashboard/NotiBoard.vue';
 import QueueMonitor from '../components/dashboard/QueueMonitor.vue';
 // import QueueTransStat from '../components/dashboard/QueueTransStat.vue';
 import RegList from '../components/dashboard/RegList.vue';
+import RegListExtend from '../components/dashboard/RegListExtend.vue';
 import McgDailyTrmsStat from '../components/dashboard/McgDailyTrmsStat.vue';
 import EigwDailyTrmsStat from '../components/dashboard/EigwDailyTrmsStat.vue';
 import EaiDailyTrmsStat from '../components/dashboard/EaiDailyTrmsStat.vue';
 import NewGuide from '../components/dashboard/NewGuide.vue';
+import NewCnt from '../components/dashboard/NewCnt.vue';
+import OperCnt from '../components/dashboard/OperCnt.vue';
 
 
 export default {
@@ -159,10 +167,13 @@ export default {
     // 'queue-stat': QueueTransStat,
     'queue-monitor': QueueMonitor,
     'reg-list': RegList,
+    'reg-list-extend': RegListExtend,
     'mcg-daily-trms-stat': McgDailyTrmsStat,
     'eigw-daily-trms-stat': EigwDailyTrmsStat,
     'eai-daily-trms-stat': EaiDailyTrmsStat,
     'new-guide': NewGuide,
+    'new-cnt': NewCnt,
+    'oper-cnt': OperCnt,
   },
   data() {
     return {
