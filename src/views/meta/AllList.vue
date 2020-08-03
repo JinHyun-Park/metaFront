@@ -6,7 +6,7 @@
           <i class="ico-bar" />인터페이스 목록 조회
         </div>
         <div class="breadcrumb">
-          <span>EGIW</span><em class="on">EAI</em>
+          <span>메타정보 조회</span><em class="on">인터페이스 통합 조회</em>
         </div>
       </h2>
     </section>
@@ -192,7 +192,7 @@
           :page-count="pageSet.pageCount"
           :page-range="3"
           :margin-pages="1"
-          :click-handler="searchList"
+          :click-handler="pageMove"
           :prev-text="'이전'"
           :next-text="'다음'"
           :container-class="'pagination'"
@@ -211,6 +211,7 @@ export default {
   data() {
     return {
       pageSet: { pageNo: 1, pageCount: 0, size: 10 },
+      pageMoveChk: 0,
 
       ifKind: '',
       eaiIfId: '',
@@ -223,14 +224,19 @@ export default {
     };
   },
   methods: {
+    pageMove() {
+      this.pageMoveChk = 1;
+      this.searchList();
+      this.pageMoveChk = 0;
+    },
     searchList() {
       // this.tgtUrl = '/api/bizcomm/inst_cd';
       // this.$axios.get(this.tgtUrl, {
       fetchGetAllMetaList({
         params: {
-          pageNo: this.pageSet.pageNo,
+          pageNo: this.pageMoveChk === 1 ? this.pageSet.pageNo : 1,
+          pageCount: this.pageMoveChk === 1 ? this.pageSet.pageCount : 0,
           size: this.pageSet.size,
-          pageCount: this.pageSet.pageCount,
 
           eaiIfId: this.eaiIfId,
           hostNm: this.hostNm,
