@@ -114,7 +114,7 @@
             :page-count="pageSet.pageCount"
             :page-range="3"
             :margin-pages="1"
-            :click-handler="searchList"
+            :click-handler="pageMove"
             :prev-text="'이전'"
             :next-text="'다음'"
             :container-class="'pagination'"
@@ -151,7 +151,7 @@ export default {
     return {
       eigwChrgrInfoList: [],
       pageSet: { pageNo: 1, pageCount: 0, size: 5 },
-
+      pageMoveChk: 0,
       tgtUrl: '',
       instCd: '',
       hanNm: '',
@@ -175,11 +175,16 @@ export default {
   methods: {
     ...mapActions('frameSet', ['setResetPopOn']),
     ...mapActions('ccCdLst', ['setCcCdList']),
+    pageMove() {
+      this.pageMoveChk = 1;
+      this.searchList();
+      this.pageMoveChk = 0;
+    },
     searchList() {
       fetchGetEigwChrgrInfo({
         params: {
-          // pageSet: this.pageSet,
-          pageNo: this.pageSet.pageNo,
+          pageNo: this.pageMoveChk === 1 ? this.pageSet.pageNo : 1,
+          pageCount: this.pageMoveChk === 1 ? this.pageSet.pageCount : 0,
           size: this.pageSet.size,
           hanNm: this.hanNm,
           instCd: this.instCd,

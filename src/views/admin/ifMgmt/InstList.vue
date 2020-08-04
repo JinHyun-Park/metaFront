@@ -118,7 +118,7 @@
           :page-count="pageSet.pageCount"
           :page-range="3"
           :margin-pages="1"
-          :click-handler="searchList"
+          :click-handler="pageMove"
           :prev-text="'이전'"
           :next-text="'다음'"
           :container-class="'pagination'"
@@ -140,6 +140,7 @@ export default {
   data() {
     return {
       pageSet: { pageNo: 1, pageCount: 0, size: 10 },
+      pageMoveChk: 0,
       instList: [],
       instCd: '',
       instNm: '',
@@ -149,18 +150,23 @@ export default {
     ...mapState('frameSet', ['resetPopOn']),
   },
   mounted() {
-    this.searchList(1);
+    this.searchList();
   },
   methods: {
     ...mapActions('frameSet', ['setResetPopOn']),
-    searchList(page) {
+    pageMove() {
+      this.pageMoveChk = 1;
+      this.fetchGetInstCdList();
+      this.pageMoveChk = 0;
+    },
+    searchList() {
       // this.tgtUrl = '/api/bizcomm/inst_cd';
       // this.$axios.get(this.tgtUrl, {
       fetchGetInstCdList({
         params: {
-          pageNo: page,
+          pageNo: this.pageMoveChk === 1 ? this.pageSet.pageNo : 1,
+          pageCount: this.pageMoveChk === 1 ? this.pageSet.pageCount : 0,
           size: this.pageSet.size,
-          pageCount: this.pageSet.pageCount,
           instCd: this.instCd,
           instNm: this.instNm,
         },
@@ -200,7 +206,7 @@ export default {
             console.log(res);
             if (res.data.rstCd === 'S') {
               this.$gf.alertOn('반영되었습니다.');
-              this.searchList(1);
+              this.searchList();
             }
           })
           .catch((ex) => {
@@ -213,7 +219,7 @@ export default {
             console.log(res);
             if (res.data.rstCd === 'S') {
               this.$gf.alertOn('반영되었습니다.');
-              this.searchList(1);
+              this.searchList();
             }
           })
           .catch((ex) => {
@@ -231,7 +237,7 @@ export default {
           console.log(res);
           if (res.data.rstCd === 'S') {
             this.$gf.alertOn('처리되었습니다.');
-            this.searchList(1);
+            this.searchList();
           } else {
             this.$gf.alertOn(res.data.rstMsg);
           }

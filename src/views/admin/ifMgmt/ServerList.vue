@@ -69,7 +69,7 @@
             <button
               type="button"
               class="default_button on"
-              @click="searchList(1)"
+              @click="searchList()"
             >
               검색
             </button>
@@ -191,7 +191,7 @@
           :page-count="pageSet.pageCount"
           :page-range="3"
           :margin-pages="1"
-          :click-handler="searchList"
+          :click-handler="pageMove"
           :prev-text="'이전'"
           :next-text="'다음'"
           :container-class="'pagination'"
@@ -214,6 +214,7 @@ export default {
       serverList: '',
       svrTypCdList: [],
       pageSet: { pageNo: 1, pageCount: 0, size: 10 },
+      pageMoveChk: 0,
       tgtUrl: '',
       svrIp: '',
       svrPort: '',
@@ -234,18 +235,23 @@ export default {
     this.setCcCdList({
       opClCd: 'COMM', cdId: 'IP_TYP', allYn: 'Y', listNm: 'ipTyp',
     });
-    this.searchList(1);
+    this.searchList();
   },
   methods: {
     ...mapActions('frameSet', ['setResetPopOn']),
     ...mapActions('ccCdLst', ['setCcCdList']),
-    searchList(page) {
+    pageMove() {
+      this.pageMoveChk = 1;
+      this.searchList();
+      this.pageMoveChk = 0;
+    },
+    searchList() {
       // this.tgtUrl = '/api/bizcomm/server';
       // this.$axios.get(this.tgtUrl, {
       fetchServerList({
         params: {
-          // pageSet: this.pageSet,
-          pageNo: page,
+          pageNo: this.pageMoveChk === 1 ? this.pageSet.pageNo : 1,
+          pageCount: this.pageMoveChk === 1 ? this.pageSet.pageCount : 0,
           size: this.pageSet.size,
           svrIp: this.svrIp,
           svrPort: this.svrPort,
@@ -294,7 +300,7 @@ export default {
             console.log(res);
             if (res.data.rstCd === 'S') {
               this.$gf.alertOn('생성되었습니다.');
-              this.searchList(1);
+              this.searchList();
             }
           })
           .catch((ex) => {
@@ -307,7 +313,7 @@ export default {
             console.log(res);
             if (res.data.rstCd === 'S') {
               this.$gf.alertOn('수정되었습니다.');
-              this.searchList(1);
+              this.searchList();
             }
           })
           .catch((ex) => {
@@ -325,7 +331,7 @@ export default {
           console.log(res);
           if (res.data.rstCd === 'S') {
             this.$gf.alertOn('처리되었습니다.');
-            this.searchList(1);
+            this.searchList();
           } else {
             this.$gf.alertOn(res.data.rstMsg);
           }

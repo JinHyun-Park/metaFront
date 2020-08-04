@@ -93,7 +93,7 @@
           :page-count="pageSet.pageCount"
           :page-range="3"
           :margin-pages="1"
-          :click-handler="getApproList"
+          :click-handler="pageMove"
           :prev-text="'이전'"
           :next-text="'다음'"
           :container-class="'pagination'"
@@ -129,6 +129,7 @@ export default {
     return {
 
       pageSet: { pageNo: 1, pageCount: 0, size: 10 },
+      pageMoveChk: 0,
 
       reqNum: '',
       eaiIfSeq: '',
@@ -164,10 +165,18 @@ export default {
   methods: {
 
     ...mapActions('ccCdLst', ['setCcCdList']),
-
+    pageMove() {
+      this.pageMoveChk = 1;
+      this.getApproList();
+      this.pageMoveChk = 0;
+    },
     getApproList() {
       fetchGetEaiApproList({
-        params: {},
+        params: {
+          pageNo: this.pageMoveChk === 1 ? this.pageSet.pageNo : 1,
+          pageCount: this.pageMoveChk === 1 ? this.pageSet.pageCount : 0,
+          size: this.pageSet.size,
+        },
 
       })
         .then((res) => {

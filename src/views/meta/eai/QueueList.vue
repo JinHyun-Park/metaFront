@@ -241,7 +241,7 @@
           :page-count="pageSet.pageCount"
           :page-range="3"
           :margin-pages="1"
-          :click-handler="searchList"
+          :click-handler="pageMove"
           :prev-text="'이전'"
           :next-text="'다음'"
           :container-class="'pagination'"
@@ -282,6 +282,7 @@ export default {
       qTypeCd: '',
       op: '',
       pageSet: { pageNo: 1, pageCount: 0, size: 10 },
+      pageMoveChk: 0,
     };
   },
   computed: {
@@ -296,13 +297,18 @@ export default {
   methods: {
     // ...mapActions('frameSet', ['resetPopOn']),
     ...mapActions('ccCdLst', ['setCcCdList']),
+    pageMove() {
+      this.pageMoveChk = 1;
+      this.searchList();
+      this.pageMoveChk = 0;
+    },
     searchList() {
       console.log('큐 목록 조회!');
       // this.$axios.get('/api/eai/queue', {
       fetchGetEaiQueueList({
         params: {
-          pageNo: this.pageSet.pageNo,
-          pageCount: this.pageSet.pageCount,
+          pageNo: this.pageMoveChk === 1 ? this.pageSet.pageNo : 1,
+          pageCount: this.pageMoveChk === 1 ? this.pageSet.pageCount : 0,
           queueNm: this.queueNm,
           mqMngrNm: this.mqMngrNm,
           qTypeCd: this.qTypeCd,

@@ -204,7 +204,7 @@
           :page-count="pageSet.pageCount"
           :page-range="3"
           :margin-pages="1"
-          :click-handler="listing"
+          :click-handler="pageMove"
           :prev-text="'이전'"
           :next-text="'다음'"
           :container-class="'pagination'"
@@ -236,6 +236,7 @@ export default {
       index: 0,
       chrgrList: [],
       pageSet: { pageNo: 1, pageCount: 0, size: 10 },
+      pageMoveChk: 0,
       opCd: '',
       dealCd: '',
       chrgrTyp: '',
@@ -258,13 +259,19 @@ export default {
   },
   methods: {
     ...mapActions('ccCdLst', ['setCcCdList']),
+    pageMove() {
+      this.pageMoveChk = 1;
+      this.lisitng();
+      this.pageMoveChk = 0;
+    },
     listing() {
       console.log('담당자 목록 조회!');
       // this.$axios.get('/api/mcg/chnl', {
       fetchGetMcgChrgrList({
         params: {
-          pageNo: this.pageSet.pageNo,
-          pageCount: this.pageSet.pageCount,
+          pageNo: this.pageMoveChk === 1 ? this.pageSet.pageNo : 1,
+          pageCount: this.pageMoveChk === 1 ? this.pageSet.pageCount : 0,
+          size: this.pageSet.size,
           opCd: this.opCd,
           dealCd: this.dealCd,
           chrgrTyp: this.chrgrTyp,

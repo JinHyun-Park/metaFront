@@ -134,7 +134,7 @@
             :page-count="pageSet.pageCount"
             :page-range="3"
             :margin-pages="1"
-            :click-handler="searchList"
+            :click-handler="pageMove"
             :prev-text="'이전'"
             :next-text="'다음'"
             :container-class="'pagination'"
@@ -174,6 +174,7 @@ export default {
       eaiIfId: '',
       eaiIfNmKor: '',
       pageSet: { pageNo: 1, pageCount: 0, size: 5 },
+      pageMoveChk: 0,
     };
   },
   computed: {
@@ -194,12 +195,17 @@ export default {
   methods: {
     ...mapActions('frameSet', ['setResetPopOn']),
     ...mapActions('ccCdLst', ['setCcCdList']),
+    pageMove() {
+      this.pageMoveChk = 1;
+      this.searchList();
+      this.pageMoveChk = 0;
+    },
     searchList() {
       console.log('EAI I/F 목록 조회!');
       fetchGetEaiIfList({
         params: {
-          pageNo: this.pageSet.pageNo,
-          pageCount: this.pageSet.pageCount,
+          pageNo: this.pageMoveChk === 1 ? this.pageSet.pageNo : 1,
+          pageCount: this.pageMoveChk === 1 ? this.pageSet.pageCount : 0,
           eaiIfId: this.eaiIfId,
           eaiIfNmKor: this.eaiIfNmKor,
         },

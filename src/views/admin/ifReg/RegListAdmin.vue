@@ -17,7 +17,7 @@
           <button
             type="button"
             class="default_button"
-            @click="searchList(1)"
+            @click="searchList()"
           >
             검색
           </button>
@@ -87,7 +87,7 @@
               v-model="reqTitle"
               type="text"
               value=""
-              @keyup.enter="searchList(1)"
+              @keyup.enter="searchList()"
             >
           </div>
         </div>
@@ -213,7 +213,7 @@
           :page-count="pageSet.pageCount"
           :page-range="3"
           :margin-pages="1"
-          :click-handler="searchList"
+          :click-handler="pageMove"
           :prev-text="'이전'"
           :next-text="'다음'"
           :container-class="'pagination'"
@@ -240,7 +240,7 @@ export default {
       endReqDtm: '',
       reqTitle: '',
       pageSet: {pageNo: 1, pageCount:0, size:10},
-
+      pageMoveChk: 0,
       datePickerSet: {
         dayStr: this.$gf.getCalDaySet(),
         popperProps: {
@@ -268,7 +268,7 @@ export default {
     this.setCcCdList({
       opClCd: 'COMM', cdId: 'PROC_ST', allYn: 'Y', listNm: 'procStCd',
     });
-    this.searchList(1);
+    this.searchList();
   },
   methods: {
     ...mapActions('frameSet', ['setResetPopOn']),
@@ -319,12 +319,18 @@ export default {
 
       return rtnClass;
     },
-    searchList(pageNo) {
+    pageMove(){
+      this.pageMoveChk = 1;
+      this.searchList();
+      this.pageMoveChk = 0;
+    },
+    searchList() {
       //this.tgtUrl = '/api/ifreq/list';
       //this.$axios.get(this.tgtUrl, {
       fetchGetIfRegListAdmin({
         params: {
-          pageNo: pageNo,
+          pageNo: this.pageMoveChk === 1 ? this.pageSet.pageNo : 1,
+          pageCount: this.pageMoveChk === 1 ? this.pageSet.pageCount : 0,
           size: this.pageSet.size,
           reqTitle: this.reqTitle,
           procSt: this.tgtProcSt,

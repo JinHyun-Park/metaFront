@@ -139,7 +139,7 @@
             :page-count="pageSet.pageCount"
             :page-range="3"
             :margin-pages="1"
-            :click-handler="pageChanged"
+            :click-handler="pageMove"
             :prev-text="'이전'"
             :next-text="'다음'"
             :container-class="'pagination'"
@@ -185,6 +185,7 @@ export default {
       serverList: '',
       svrTypCdList: [],
       pageSet: { pageNo: 1, pageCount: 0, size: 5 },
+      pageMoveChk: 0,
       tgtUrl: '',
       svrIp: '',
       svrTypCd: '',
@@ -207,12 +208,18 @@ export default {
   },
   methods: {
     ...mapActions('ccCdLst', ['setCcCdList']),
+    pageMove() {
+      this.pageMoveChk = 1;
+      this.searchList();
+      this.pageMoveChk = 0;
+    },
     searchList() {
       // this.tgtUrl = '/api/bizcomm/server';
       // this.$axios.get(this.tgtUrl, {
       fetchServerList({
         params: {
-          pageNo: this.pageSet.pageNo,
+          pageNo: this.pageMoveChk === 1 ? this.pageSet.pageNo : 1,
+          pageCount: this.pageMoveChk === 1 ? this.pageSet.pageCount : 0,
           size: this.pageSet.size,
           svrIp: this.svrIp,
           svrTypCd: this.svrTypCd,
@@ -231,10 +238,6 @@ export default {
         .catch((ex) => {
           console.log(`error occur!! : ${ex}`);
         });
-    },
-    pageChanged() {
-      console.log();
-      this.searchList();
     },
     closePop() {
       this.$emit('closePop', 'Hellos');

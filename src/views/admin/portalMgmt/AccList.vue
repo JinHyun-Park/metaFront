@@ -156,7 +156,7 @@
           :page-count="pageSet.pageCount"
           :page-range="3"
           :margin-pages="1"
-          :click-handler="searchList"
+          :click-handler="pageMove"
           :prev-text="'이전'"
           :next-text="'다음'"
           :container-class="'pagination'"
@@ -180,6 +180,7 @@ export default {
       userId: '',
       hanNm: '',
       pageSet: {pageNo: 1, pageCount:0, size:10},
+      pageMove: 0,
     };
   },
   computed: {
@@ -190,12 +191,18 @@ export default {
   },
   methods: {
     ...mapActions('frameSet', ['setResetPopOn']),
+    pageMove(){
+      this.pageMoveChk = 1;
+      this.searchList();
+      this.pageMoveChk = 0;
+    },
     searchList() {
       //this.tgtUrl = '/api/user';
       //this.$axios.get(this.tgtUrl, {
       fetchGetUserInfoList({  
         params: {
-          pageNo: this.pageSet.pageNo,
+          pageNo: this.pageMoveChk === 1 ? this.pageSet.pageNo : 1,
+          pageCount: this.pageMoveChk === 1 ? this.pageSet.pageCount : 0,
           size: this.pageSet.size,
           userId: this.userId,
           hanNm: this.hanNm,

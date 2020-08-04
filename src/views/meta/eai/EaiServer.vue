@@ -326,7 +326,7 @@
           :page-count="pageSet.pageCount"
           :page-range="3"
           :margin-pages="1"
-          :click-handler="searchList"
+          :click-handler="pageMove"
           :prev-text="'이전'"
           :next-text="'다음'"
           :container-class="'pagination'"
@@ -347,6 +347,7 @@ export default {
       serverList: [],
       svrTypCdList: [],
       pageSet: { pageNo: 1, pageCount: 0, size: 10 },
+      pageMoveChk: 0,
       tgtUrl: '',
       svrNum: '',
       sysNm: '',
@@ -373,13 +374,18 @@ export default {
   methods: {
     ...mapActions('frameSet', ['setResetPopOn']),
     ...mapActions('ccCdLst', ['setCcCdList']),
+    pageMove() {
+      this.pageMoveChk = 1;
+      this.searchList();
+      this.pageMoveChk = 0;
+    },
     searchList() {
       // this.tgtUrl = '/api/bizcomm/server';
       // this.$axios.get(this.tgtUrl, {
       fetchEaiServerList({
         params: {
-          // pageSet: this.pageSet,
-          pageNo: this.pageSet.pageNo,
+          pageNo: this.pageMoveChk === 1 ? this.pageSet.pageNo : 1,
+          pageCount: this.pageMoveChk === 1 ? this.pageSet.pageCount : 0,
           size: this.pageSet.size,
           svrTypCd: this.svrTypCd,
           sysNm: this.sysNm,

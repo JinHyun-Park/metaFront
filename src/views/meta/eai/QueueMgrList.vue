@@ -289,7 +289,7 @@
           :page-count="pageSet.pageCount"
           :page-range="3"
           :margin-pages="1"
-          :click-handler="searchList"
+          :click-handler="pageMove"
           :prev-text="'이전'"
           :next-text="'다음'"
           :container-class="'pagination'"
@@ -325,12 +325,18 @@ export default {
       qmPort: '',
       useYn: '',
       pageSet: { pageNo: 1, pageCount: 0, size: 10 },
+      pageMoveChk: 0,
       mqMngrList: {},
       serverData: {},
       op: '',
     };
   },
   methods: {
+    pageMove() {
+      this.pageMoveChk = 1;
+      this.searchList();
+      this.pageMoveChk = 0;
+    },
     searchList() {
       // this.$axios.get('/api/eai/mqMngr', {
       fetchGetEaiMqMngrList({
@@ -339,7 +345,8 @@ export default {
           hostNm: this.hostNm,
           qmPort: this.qmPort,
           useYn: this.useYn,
-          pageNo: this.pageSet.pageNo,
+          pageNo: this.pageMoveChk === 1 ? this.pageSet.pageNo : 1,
+          pageCount: this.pageMoveChk === 1 ? this.pageSet.pageCount : 0,
           size: this.pageSet.size,
         },
       })

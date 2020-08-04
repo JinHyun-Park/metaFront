@@ -152,7 +152,7 @@
               :page-count="pageSet.pageCount"
               :page-range="3"
               :margin-pages="1"
-              :click-handler="listing"
+              :click-handler="pageMove"
               :prev-text="'이전'"
               :next-text="'다음'"
               :container-class="'pagination'"
@@ -194,6 +194,7 @@ export default {
       chnList: [],
       userId: '',
       pageSet: { pageNo: 1, pageCount: 0, size: 5 },
+      pageMoveChk: 0,
       opCd: null,
       opCdr: '',
       svrTypr: '',
@@ -257,13 +258,18 @@ export default {
   methods: {
     ...mapActions('ccCdLst', ['setCcCdList']),
     ...mapActions('frameSet', ['setResetPopOn']),
+    pageMove() {
+      this.pageMoveChk = 1;
+      this.listing();
+      this.pageMoveChk = 0;
+    },
     listing() {
       console.log('채널 목록 조회!');
       // this.$axios.get('/api/mcg/chnl', {
       fetchGetMcgChnlList({
         params: {
-          pageNo: this.pageSet.pageNo,
-          pageCount: this.pageSet.pageCount,
+          pageNo: this.pageMoveChk === 1 ? this.pageSet.pageNo : 1,
+          pageCount: this.pageMoveChk === 1 ? this.pageSet.pageCount : 0,
           size: this.pageSet.size,
           opCd: this.opCd,
           instCd: this.instCd,

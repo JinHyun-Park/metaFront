@@ -49,7 +49,7 @@
             <button
               type="button"
               class="default_button on"
-              @click="searchList(1)"
+              @click="searchList()"
             >
               검색
             </button>
@@ -148,7 +148,7 @@
           :page-count="pageSet.pageCount"
           :page-range="3"
           :margin-pages="1"
-          :click-handler="searchList"
+          :click-handler="pageMove"
           :prev-text="'이전'"
           :next-text="'다음'"
           :container-class="'pagination'"
@@ -175,6 +175,7 @@ export default {
       cdId: '',
       cdDtlId: '',
       pageSet: {pageNo: 1, pageCount:0, size:10},
+      pageMoveChk: 0,
     };
   },
   computed: {
@@ -185,19 +186,24 @@ export default {
     this.setCcCdList({
       opClCd: 'COMM', cdId: 'OP_CL_CD', allYn: 'Y', listNm: 'opClCd',
     });
-    this.searchList(1);
+    this.searchList();
   },
   methods: {
     ...mapActions('frameSet', ['setResetPopOn']),
     ...mapActions('ccCdLst', ['setCcCdList']),
-    searchList(page) {
+    pageMove() {
+      this.pageMoveChk = 1;
+      this.searchList();
+      this.pageMoveChk = 0;
+    },
+    searchList() {
       //this.tgtUrl = '/api/bizcomm/cccd';
       //this.$axios.get(this.tgtUrl, {
       fetchGetCcCdList({
         params: {
-          pageNo: page,
-          size: this.size,
-          pageCount: this.pageSet.pageCount,
+          pageNo: this.pageMoveChk === 1 ? this.pageSet.pageNo : 1,
+          pageCount: this.pageMoveChk === 1 ? this.pageSet.pageCount : 0,
+          size: this.pageSet.size,
           opClCd: this.opClCd,
           cdId: this.cdId,
           cdDtlId: this.cdDtlId,
@@ -239,7 +245,7 @@ export default {
               console.log(res);
               if (res.data.rstCd === 'S') {
                 this.$gf.alertOn(`삭제되었습니다.`);
-                this.searchList(this.pageSet.pageNo);
+                this.searchList();
               }
             })
             .catch((ex) => {
@@ -259,7 +265,7 @@ export default {
               console.log(res);
               if (res.data.rstCd === 'S') {
                 this.$gf.alertOn(`반영되었습니다.`);
-                this.searchList(this.pageSet.pageNo);
+                this.searchList();
               }
             })
             .catch((ex) => {
@@ -272,7 +278,7 @@ export default {
               console.log(res);
               if (res.data.rstCd === 'S') {
                 this.$gf.alertOn(`반영되었습니다.`);
-                this.searchList(this.pageSet.pageNo);
+                this.searchList();
               }
             })
             .catch((ex) => {

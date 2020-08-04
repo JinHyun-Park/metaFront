@@ -239,7 +239,7 @@
           :page-count="rPageSet.pageCount"
           :page-range="3"
           :margin-pages="1"
-          :click-handler="searchRcvList"
+          :click-handler="pageMoveRcvList"
           :prev-text="'이전'"
           :next-text="'다음'"
           :container-class="'pagination'"
@@ -431,7 +431,7 @@
           :page-count="pageSet.pageCount"
           :page-range="3"
           :margin-pages="1"
-          :click-handler="searchSndList"
+          :click-handler="pageMoveSndList"
           :prev-text="'이전'"
           :next-text="'다음'"
           :container-class="'pagination'"
@@ -456,7 +456,9 @@ export default {
       sndAdt: '',
       useYn: '',
       pageSet: { pageNo: 1, pageCount: 0, size: 10 },
+      pageMoveRcvListChk: 0,
       rPageSet: { pageNo: 1, pageCount: 0, size: 10 },
+      pageMoveSndListChk: 0,
       totalPages: 0,
       totalRows: 0,
       rcvList: [],
@@ -471,13 +473,18 @@ export default {
     };
   },
   methods: {
+    pageMoveSndList() {
+      this.pageMoveSndListChk = 1;
+      this.searchSndList();
+      this.pageMoveSndListChk = 0;
+    },
     searchSndList() {
       console.log('SWING 송신 정보 조회!');
       // this.$axios.get('/api/eai/swg/snd', {
       fetchGetEaiSwgSndList({
         params: {
-          pageNo: this.pageSet.pageNo,
-          pageCount: this.pageSet.pageCount,
+          pageNo: this.pageMoveSndListChk === 1 ? this.pageSet.pageNo : 1,
+          pageCount: this.pageMoveSndListChk === 1 ? this.pageSet.pageCount : 0,
           sndTbl: this.sndTbl,
           eaiIfId: this.eaiIfId,
           sndAdt: this.sndAdt,
@@ -494,13 +501,18 @@ export default {
           console.log(`error occur!! : ${ex}`);
         });
     },
+    pageMoveRcvList() {
+      this.pageMoveRcvListChk = 1;
+      this.searchRcvList();
+      this.pageMoveRcvListChk = 0;
+    },
     searchRcvList() {
       console.log('SWING 수신 정보 조회!');
       // /this.$axios.get('/api/eai/swg/rcv', {
       fetchGetEaiSwgRcvList({
         params: {
-          pageNo: this.rPageSet.pageNo,
-          pageCount: this.rPageSet.pageCount,
+          pageNo: this.pageMoveRcvListChk === 1 ? this.rPageSet.pageNo : 1,
+          pageCount: this.pageMoveRcvListChk === 1 ? this.rPageSet.pageCount : 0,
           rcvTbl: this.rcvTbl,
           eaiIfId: this.rEaiIfId,
           tr: this.rcvTr,
