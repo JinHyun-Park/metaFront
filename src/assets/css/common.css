@@ -3899,6 +3899,14 @@ font-family: Arial; */
 font-style: normal */
 }
 
+/* ETC */
+.verticalLine {
+    width: 1px;
+    border-left: 2px solid #ababab;
+    height: 85%;
+    margin-top: 25px;
+}
+
 @media (min-width:1537px) and (max-width:1919px) {
     .table_grid.tb_layout .table_head .th_cell,
     .table_grid.tb_layout .table_body .table_row .td_cell {

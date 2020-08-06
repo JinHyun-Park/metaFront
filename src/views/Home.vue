@@ -13,6 +13,9 @@
         <new-cnt style="width:25%" />
         <oper-cnt style="width:25%" />
       </div>
+      <div class="board_area">
+        <number-count style="width: 100%;" />
+      </div>
       <reg-list-extend />
       <queue-monitor />
       <!--<queue-stat />-->
@@ -146,17 +149,18 @@
 import { fetchGetBoardList } from '@/api/bizCommApi';
 // import RadarChart from './chart/RadarChart.vue';
 
-import NotiBoard from '../components/dashboard/NotiBoard.vue';
-import QueueMonitor from '../components/dashboard/QueueMonitor.vue';
+import NotiBoard from '@/components/dashboard/NotiBoard.vue';
+import QueueMonitor from '@/components/dashboard/QueueMonitor.vue';
 // import QueueTransStat from '../components/dashboard/QueueTransStat.vue';
-import RegList from '../components/dashboard/RegList.vue';
-import RegListExtend from '../components/dashboard/RegListExtend.vue';
-import McgDailyTrmsStat from '../components/dashboard/McgDailyTrmsStat.vue';
-import EigwDailyTrmsStat from '../components/dashboard/EigwDailyTrmsStat.vue';
-import EaiDailyTrmsStat from '../components/dashboard/EaiDailyTrmsStat.vue';
-import NewGuide from '../components/dashboard/NewGuide.vue';
-import NewCnt from '../components/dashboard/NewCnt.vue';
-import OperCnt from '../components/dashboard/OperCnt.vue';
+import RegList from '@/components/dashboard/RegList.vue';
+import RegListExtend from '@/components/dashboard/RegListExtend.vue';
+import McgDailyTrmsStat from '@/components/dashboard/McgDailyTrmsStat.vue';
+import EigwDailyTrmsStat from '@/components/dashboard/EigwDailyTrmsStat.vue';
+import EaiDailyTrmsStat from '@/components/dashboard/EaiDailyTrmsStat.vue';
+import NewGuide from '@/components/dashboard/NewGuide.vue';
+import NewCnt from '@/components/dashboard/NewCnt.vue';
+import OperCnt from '@/components/dashboard/OperCnt.vue';
+import NumberCount from '@/components/dashboard/NumberCount.vue';
 
 
 export default {
@@ -174,6 +178,7 @@ export default {
     'new-guide': NewGuide,
     'new-cnt': NewCnt,
     'oper-cnt': OperCnt,
+    NumberCount,
   },
   data() {
     return {
