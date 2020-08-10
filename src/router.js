@@ -31,6 +31,33 @@ const router = new Router({
     },
     ],
   },
+  // 0. 개요
+  {
+    path: '/guide',
+    name: 'guideForm',
+    component: () => import('@/views/guide/GuideForm.vue'),
+    children: [{
+      path: '/guide/ifSummary',
+      name: 'ifSummary',
+      component: () => import('@/views/guide/IfSummary.vue'),
+    },
+    {
+      path: '/guide/naruSummary',
+      name: 'naruSummary',
+      component: () => import('@/views/guide/NaruSummary.vue'),
+    },
+    {
+      path: '/guide/decideIf',
+      name: 'decideIf',
+      component: () => import('@/views/guide/DecideIf.vue'),
+    },
+    {
+      path: '/guide/procGuide',
+      name: 'procGuide',
+      component: () => import('@/views/guide/ProcGuide.vue'),
+    },
+    ],
+  },
   // 1. 공지사항
   {
     path: '/notice',

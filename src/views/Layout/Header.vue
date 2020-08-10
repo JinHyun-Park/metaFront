@@ -32,8 +32,11 @@
         </div>
         <nav>
           <ul class="menu">
+            <li @click="movePage('ifSummary')">
+              <span>개요</span>
+            </li>
             <li @click="movePage('noticeMain')">
-              <span>공지사항</span>
+              <span>게시판</span>
             </li>
             <li>
               <span>인터페이스 신청</span>

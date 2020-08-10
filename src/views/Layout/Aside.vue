@@ -69,6 +69,9 @@ export default {
       if (path.indexOf('/notice/') > -1) {
         this.subNm = 'NOTICE';
         this.menuLists = this.menuAllList.filter(item => item.menuLcl === 'NOTICE');
+      } else if (path.indexOf('/guide/') > -1) {
+        this.subNm = '개요';
+        this.menuLists = this.menuAllList.filter(item => item.menuLcl === 'GUIDE');
       } else if (path.indexOf('/ifReg/regList') > -1) {
         this.subNm = '신청목록';
         this.menuLists = this.menuAllList.filter(item => item.menuLcl === 'IFREGLIST');
