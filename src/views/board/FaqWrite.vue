@@ -3,13 +3,13 @@
     <section class="title style-1">
       <h2>
         <div v-if="boardNum">
-          <i class="ico-bar" /> 공지사항 수정
+          <i class="ico-bar" /> FAQ 수정
         </div>
         <div v-else>
-          <i class="ico-bar" /> 공지사항 등록
+          <i class="ico-bar" /> FAQ 등록
         </div>
         <div class="breadcrumb">
-          <span>커뮤니티</span><em class="on">공지사항</em>
+          <span>게시판</span><em class="on">FAQ</em>
         </div>
       </h2>
     </section>
@@ -121,7 +121,7 @@
       <button
         type="button"
         class="default_button"
-        @click="moveToNotiMain()"
+        @click="moveToFaqMain()"
       >
         목록
       </button>
@@ -158,7 +158,7 @@
 import { fetchGetBoard, fetchPostBoard, fetchPutBoard } from '@/api/bizCommApi';
 
 export default {
-  name: 'NoticeWrite',
+  name: 'FaqWrite',
   data() {
     return {
       editorOption: {
@@ -177,8 +177,8 @@ export default {
           value: 'NOTI',
         },
         {
-          id: 'qna',
-          value: 'QNA',
+          id: 'faq',
+          value: 'FAQ',
         },
       ],
       boardStOptions: [
@@ -215,8 +215,8 @@ export default {
     if (this.$route.params.boardNum) {
       this.boardNum = this.$route.params.boardNum;
       this.searchBoard();
-    } else { // 등록하는 경우 boardType 'NOTI', boardSt '0'으로 초기화
-      this.boardTyp = 'NOTI';
+    } else { // 등록하는 경우 boardType 'FAQ', boardSt '0'으로 초기화
+      this.boardTyp = 'FAQ';
       this.boardSt = '0';
     }
   },
@@ -228,11 +228,11 @@ export default {
     });
   },
   methods: {
-    moveToNotiMain() {
-      this.$router.push({ name: 'noticeMain' });
+    moveToFaqMain() {
+      this.$router.push({ name: 'faqMain' });
     },
-    moveToView(boardNum) {
-      this.$router.push({ name: 'noticeView', params: { boardNum } });
+    moveToFaqView(boardNum) {
+      this.$router.push({ name: 'faqView', params: { boardNum } });
     },
     moveToBack() {
       this.$router.push({ path: this.preRoute.path, params: this.preRoute.params });
@@ -292,7 +292,7 @@ export default {
           // eslint-disable-next-line no-alert
             // alert('insert board failed');
           }
-          this.moveToNotiMain();
+          this.moveToFaqMain();
         })
         .catch((ex) => {
           console.log(`error occur!! : ${ex}`);
@@ -316,7 +316,7 @@ export default {
             // eslint-disable-next-line no-alert
             // alert('update board failed');
           }
-          this.moveToView(this.boardNum);
+          this.moveToFaqView(this.boardNum);
         })
         .catch((ex) => {
           console.log(`error occur!! : ${ex}`);

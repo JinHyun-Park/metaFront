@@ -3,10 +3,10 @@
     <section class="title style-1">
       <h2>
         <div>
-          <i class="ico-bar" />{{ boardNum }}번 공지사항
+          <i class="ico-bar" />{{ boardNum }}번 FAQ
         </div>
         <div class="breadcrumb">
-          <span>커뮤니티</span><em class="on">공지사항</em>
+          <span>게시판</span><em class="on">FAQ</em>
         </div>
       </h2>
     </section>
@@ -256,7 +256,7 @@
         <button
           type="button"
           class="default_button"
-          @click="moveToNotiMain()"
+          @click="moveToFaqMain()"
         >
           목록
         </button>
@@ -264,7 +264,7 @@
           v-if="(`${auth}` == 'ADMIN')"
           type="button"
           class="default_button"
-          @click="moveToWrite(boardNum)"
+          @click="moveToFaqWrite(boardNum)"
         >
           수정
         </button>
@@ -286,7 +286,7 @@ import { fetchGetBoard, fetchDeleteBoard } from '@/api/bizCommApi';
 import { fetchGetUserAuth } from '@/api/loginApi';
 
 export default {
-  name: 'NoticeView',
+  name: 'FaqView',
   data() {
     return {
       editorOption: {
@@ -319,11 +319,11 @@ export default {
     this.getUserAuth();
   },
   methods: {
-    moveToNotiMain() {
-      this.$router.push({ name: 'noticeMain' });
+    moveToFaqMain() {
+      this.$router.push({ name: 'faqMain' });
     },
-    moveToWrite(boardNum) {
-      this.$router.push({ name: 'noticeWrite', params: { boardNum } });
+    moveToFaqWrite(boardNum) {
+      this.$router.push({ name: 'faqWrite', params: { boardNum } });
     },
     onEditorBlur(quill) {
       console.log('editor blur!', quill);
@@ -386,7 +386,7 @@ export default {
           console.log(res);
           if (res.data.rstCd === 'S') {
             this.$gf.alertOn('삭제되었습니다.');
-            this.moveToNotiMain();
+            this.moveToFaqMain();
           } else {
             this.$gf.alertOn(res.data.rstMsg);
           }

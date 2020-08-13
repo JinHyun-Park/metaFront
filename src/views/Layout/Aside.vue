@@ -66,9 +66,9 @@ export default {
     },
 
     setLeftItem(path) { // store를 이용하지 않는 방법
-      if (path.indexOf('/notice/') > -1) {
-        this.subNm = 'NOTICE';
-        this.menuLists = this.menuAllList.filter(item => item.menuLcl === 'NOTICE');
+      if (path.indexOf('/board/') > -1) {
+        this.subNm = '게시판';
+        this.menuLists = this.menuAllList.filter(item => item.menuLcl === 'BOARD');
       } else if (path.indexOf('/guide/') > -1) {
         this.subNm = '개요';
         this.menuLists = this.menuAllList.filter(item => item.menuLcl === 'GUIDE');

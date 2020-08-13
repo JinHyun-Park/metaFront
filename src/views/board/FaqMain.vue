@@ -3,10 +3,10 @@
     <section class="title style-1">
       <h2>
         <div>
-          <i class="ico-bar" />공지사항
+          <i class="ico-bar" />자주 하는 질문
         </div>
         <div class="breadcrumb">
-          <span>커뮤니티</span><em class="on">공지사항</em>
+          <span>게시판</span><em class="on">FAQ</em>
         </div>
       </h2>
     </section>
@@ -177,7 +177,7 @@ import { fetchGetBoardList, fetchDeleteBoard } from '@/api/bizCommApi';
 import { fetchGetUserAuth } from '@/api/loginApi';
 
 export default {
-  name: 'NoticeMain',
+  name: 'FaqMain',
   data() {
     return {
       startReqDtm: '',
@@ -204,13 +204,13 @@ export default {
   },
   methods: {
     moveToView(boardNum) {
-      this.$router.push({ name: 'noticeView', params: { boardNum } });
+      this.$router.push({ name: 'faqView', params: { boardNum } });
     },
     moveToWrite(boardNum) {
-      this.$router.push({ name: 'noticeWrite', params: { boardNum } });
+      this.$router.push({ name: 'faqWrite', params: { boardNum } });
     },
     moveToCreate() {
-      this.$router.push({ name: 'noticeCreate' });
+      this.$router.push({ name: 'faqCreate' });
     },
     log(val) {
       this.startReqDtm = val;
@@ -242,7 +242,7 @@ export default {
           pageCount: this.pageMoveChk === 1 ? this.pageSet.pageCount : 0,
           size: 10,
           boardSt: '', // 0:정상
-          boardTyp: 'NOTI',
+          boardTyp: 'FAQ',
           title: '',
           content: '',
           boardNum: '',

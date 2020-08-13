@@ -60,28 +60,48 @@ const router = new Router({
   },
   // 1. 공지사항
   {
-    path: '/notice',
-    name: 'noticeForm',
-    component: () => import('@/views/notice/NoticeForm.vue'),
+    path: '/board',
+    name: 'boardForm',
+    component: () => import('@/views/board/BoardForm.vue'),
     children: [{
-      path: '/notice/noticeMain',
+      path: '/board/noticeMain',
       name: 'noticeMain',
-      component: () => import('@/views/notice/NoticeMain.vue'),
+      component: () => import('@/views/board/NoticeMain.vue'),
     },
     {
-      path: '/notice/noticeView/:boardNum',
+      path: '/board/noticeView/:boardNum',
       name: 'noticeView',
-      component: () => import('@/views/notice/NoticeView.vue'),
+      component: () => import('@/views/board/NoticeView.vue'),
     },
     {
-      path: '/notice/noticeCreate',
+      path: '/board/noticeCreate',
       name: 'noticeCreate',
-      component: () => import('@/views/notice/NoticeWrite.vue'),
+      component: () => import('@/views/board/NoticeWrite.vue'),
     },
     {
-      path: '/notice/noticeWrite/:boardNum',
+      path: '/board/noticeWrite/:boardNum',
       name: 'noticeWrite',
-      component: () => import('@/views/notice/NoticeWrite.vue'),
+      component: () => import('@/views/board/NoticeWrite.vue'),
+    },
+    {
+      path: '/board/faqMain',
+      name: 'faqMain',
+      component: () => import('@/views/board/FaqMain.vue'),
+    },
+    {
+      path: '/board/faqView/:boardNum',
+      name: 'faqView',
+      component: () => import('@/views/board/FaqView.vue'),
+    },
+    {
+      path: '/board/faqCreate',
+      name: 'faqCreate',
+      component: () => import('@/views/board/FaqWrite.vue'),
+    },
+    {
+      path: '/board/faqWrite/:boardNum',
+      name: 'faqWrite',
+      component: () => import('@/views/board/FaqWrite.vue'),
     },
     ],
   },
@@ -189,22 +209,21 @@ const router = new Router({
     path: '/stat',
     name: 'statForm',
     component: () => import('@/views/stat/StatForm.vue'),
-    children: [
-      { // EAI 시작
-        path: '/stat/eai',
-        name: 'statEai',
-        component: () => import('@/views/stat/eai/eaiDailyStat.vue'),
-      },
-      {
-        path: '/stat/eigw',
-        name: 'statEigw',
-        component: () => import('@/views/stat/eigw/eigwDailyStat.vue'),
-      },
-      {
-        path: '/stat/mcg',
-        name: 'statMcg',
-        component: () => import('@/views/stat/mcg/mcgDailyStat.vue'),
-      },
+    children: [{ // EAI 시작
+      path: '/stat/eai',
+      name: 'statEai',
+      component: () => import('@/views/stat/eai/eaiDailyStat.vue'),
+    },
+    {
+      path: '/stat/eigw',
+      name: 'statEigw',
+      component: () => import('@/views/stat/eigw/eigwDailyStat.vue'),
+    },
+    {
+      path: '/stat/mcg',
+      name: 'statMcg',
+      component: () => import('@/views/stat/mcg/mcgDailyStat.vue'),
+    },
     ],
   },
   // 4. 메타정보 관리
