@@ -12,13 +12,13 @@
         SKT 인터페이스 구조는 아래와 같다. 생각보다 복잡하지 않다. 너도 할 수 있어!!
       </h5>
       <div />
-      <div>
+      <div align="center">
         <img
-          src="@/assets/images/ico-pencil.png"
-          width="1300"
-          height="500"
+          src="@/assets/images/interface_map_0.1.png"
+          width="1200"
         >
       </div>
+      &nbsp;
       <div class="table_grid">
         <div class="table_head w-auto">
           <ul>
