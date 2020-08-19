@@ -9,6 +9,67 @@
         <h2><i class="ico-bar" />가상 사용자 등록</h2>
       </section>
       <section class="form_area border_group">
+        <!-- <div class="table_colgroup">
+          <div class="table_grid">
+            <div class="table_head w-auto">
+              <ul>
+                <li class="th_cell">
+                  채널ID
+                </li>
+                <li class="th_cell">
+                  채널명
+                </li>
+                <li class="th_cell">
+                  상위조직
+                </li>
+                <li class="th_cell">
+                  소속팀명
+                </li>
+                <li class="th_cell">
+                  담당자
+                </li>
+              </ul>
+            </div>
+            <div class="table_body">
+              <ul
+                v-for="vuser in vuserList"
+                :key="vuser.index"
+                class="table_row w-auto"
+              >
+                <li class="td_cell">
+                  <input
+                    v-model="vuser.chnlId"
+                    type="text"
+                  >
+                </li>
+                <li class="td_cell">
+                  <input
+                    v-model="vuser.chnlNm"
+                    type="text"
+                  >
+                </li>
+                <li class="td_cell">
+                  <input
+                    v-model="vuser.supOrg"
+                    type="text"
+                  >
+                </li>
+                <li class="td_cell">
+                  <input
+                    v-model="vuser.postTeamNm"
+                    type="text"
+                  >
+                </li>
+                <li class="td_cell">
+                  <input
+                    v-model="vuser.chrgrNm"
+                    type="text"
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div> -->
         <h5 class="s_tit type-2">
           기본 정보
         </h5>
@@ -80,6 +141,7 @@
 import { mapState, mapActions } from 'vuex';
 import {
   fetchPutMcgReqVirtual,
+  fetchGetMcgReqVirtual,
 } from '@/api/mcgApi';
 import eventBus from '@/utils/eventBus';
 
@@ -92,7 +154,8 @@ export default {
       vTeam: '',
       vHanNm: '',
       vOrg: '',
-      reqNum: '',
+      mcgReqNum: '',
+      vuserList: {},
     };
   },
   computed: {
@@ -100,9 +163,11 @@ export default {
     ...mapState('ccCdLst', ['ccCdList']),
   },
   created() {
-    eventBus.$on('VirtualReqNum', (params) => {
-      console.log(`event Bus 통해 MCG Chnl에서 조회 params: ${params.reqNum}`);
-      this.reqNum = params.reqNum;
+    eventBus.$on('Virtualdtl', (params) => {
+      console.log(`event Bus 통해 MCG Chnl에서 조회 params: ${params.mcgReqNum}`);
+      this.mcgReqNum = params.mcgReqNum;
+      this.chnlId = params.chnlId;
+      this.chnlNm = params.chnlNm;
     });
   },
 
@@ -110,6 +175,32 @@ export default {
   methods: {
     ...mapActions('ccCdLst', ['setCcCdList']),
 
+    listing() {
+      console.log('가상사용자 신청목록 조회!');
+      // this.$axios.get('/api/mcg/chnl', {
+      fetchGetMcgReqVirtual({
+        params: {
+          pageNo: this.pageMoveChk === 1 ? this.pageSet.pageNo : 1,
+          pageCount: this.pageMoveChk === 1 ? this.pageSet.pageCount : 0,
+          chnlId: this.chnlId,
+          vUserId: this.vUserId,
+          chnlCl: this.chnlCl,
+          supOrg: this.supOrg,
+          chnlNm: this.chnlNm,
+          postTeamNm: this.postTeamNm,
+        },
+      })
+
+        .then((res) => {
+          this.vuserList = res.data.rstData.searchList;
+          this.pageSet = res.data.rstData.pageSet;
+          console.log(res.data.rstData.searchList);
+          console.log(this.vuserList);
+        })
+        .catch((ex) => {
+          console.log(`error occur!! : ${ex}`);
+        });
+    },
     save() {
       console.log('가상사용자 정보 등록!');
       // this.$axios.post('/api/mcg/chnl/post', {
@@ -119,12 +210,13 @@ export default {
         vTeam: this.vTeam,
         vHanNm: this.vHanNm,
         vOrg: this.vOrg,
-        reqNum: this.reqNum,
+        mcgReqNum: this.mcgReqNum,
       })
         .then((res) => {
           console.log(res);
           this.$gf.alertOn('가상사용자 추가 완료!');
           this.$emit('closePop', 'OK, Hellos');
+          this.listing();
         })
         .catch((ex) => {
           console.log(`error occur!! : ${ex}`);

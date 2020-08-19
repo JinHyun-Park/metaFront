@@ -133,6 +133,10 @@ function fetchPutMcgReqVirtual(param) {
   return axios.post(`${preUrl}/req/virtual/put`, param);
 }
 
+function fetchGetMcgReqVirtual(param) {
+  return axios.get(`${preUrl}/req/virtual/list`, param);
+}
+
 function fetchGetMcgReqNum(param) {
   return axios.get(`${preUrl}/req/num`, param);
 }
@@ -183,4 +187,5 @@ export {
   fetchGetMcgReqNum,
   fetchGetMcgReqChrgrList,
   fetchGetMcgReqSvrList,
+  fetchGetMcgReqVirtual,
 };
