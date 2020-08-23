@@ -82,6 +82,35 @@
           </div>
         </div>
       </div>
+      <div class="row_contain type-3">
+        <div class="column w-4">
+          <label class="column_label">게시글에 영향을 미치는 인터페이스</label>
+          <label>
+            <input
+              v-model="boardIF"
+              type="checkbox"
+              name="interface"
+              value="EAI"
+            > EAI
+          </label>
+          <label>
+            <input
+              v-model="boardIF"
+              type="checkbox"
+              name="interface"
+              value="EiGW"
+            > EiGW
+          </label>
+          <label>
+            <input
+              v-model="boardIF"
+              type="checkbox"
+              name="interface"
+              value="MCG"
+            > MCG
+          </label>
+        </div>
+      </div>
       <div class="table_colgroup">
         <div class="table_grid radio_group">
           <div class="table_head w-auto">
@@ -193,6 +222,10 @@ export default {
       boardList: [],
       auth: '',
       pageMoveChk: 0,
+      boardIF: [],
+      boardCtyp1: 'EAI',
+      boardCtyp2: 'EiGW',
+      boardCtyp3: 'MCG',
     };
   },
   mounted() {
@@ -246,6 +279,10 @@ export default {
           title: '',
           content: '',
           boardNum: '',
+          boardCtyp1: this.boardIF[0],
+          boardCtyp2: this.boardIF[1],
+          boardCtyp3: this.boardIF[2],
+          // boardIF: this.boardIF, // parmas에 object변수는 전달 시 에러??
           // eslint-disable-next-line no-useless-escape
           startReqDtm: this.startReqDtm.replace(/\-/g, ''),
           // eslint-disable-next-line no-useless-escape

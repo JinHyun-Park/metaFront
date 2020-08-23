@@ -64,28 +64,33 @@
 
       <div class="row_contain type-2">
         <div class="column w-4">
-          <label class="column_label">게시글에 영향을 미치는 인터페이스</label>
-          <label>
-            <input
-              type="checkbox"
-              name="interface"
-              value="EAI"
-            > EAI
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              name="interface"
-              value="EiGW"
-            > EiGW
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              name="interface"
-              value="MCG"
-            > MCG
-          </label>
+          <div v-if="!boardNum">
+            <label class="column_label">게시글에 영향을 미치는 인터페이스</label>
+            <label>
+              <input
+                v-model="boardIF"
+                type="checkbox"
+                name="interface"
+                value="EAI"
+              > EAI
+            </label>
+            <label>
+              <input
+                v-model="boardIF"
+                type="checkbox"
+                name="interface"
+                value="EiGW"
+              > EiGW
+            </label>
+            <label>
+              <input
+                v-model="boardIF"
+                type="checkbox"
+                name="interface"
+                value="MCG"
+              > MCG
+            </label>
+          </div>
         </div>
       </div>
 
@@ -186,6 +191,10 @@ export default {
       content: '',
       creId: '',
       chgId: '',
+      boardIF: [],
+      boardCtyp1: '',
+      boardCtyp2: '',
+      boardCtyp3: '',
       boardTypOptions: [
         {
           id: 'noti',
@@ -272,9 +281,7 @@ export default {
       })
         .then((res) => {
           console.log(res);
-          console.log('Search_board');
           if (res.data.rstCd === 'S') {
-            console.log('select board Success');
             const { boardOne } = res.data.rstData;
             this.boardTyp = boardOne.BOARD_TYP;
             this.boardSt = boardOne.BOARD_ST;
@@ -290,17 +297,18 @@ export default {
         });
     },
     addBoard() {
-      console.log(this.boardSt);
       fetchPostBoard({
         boardTyp: this.boardTyp,
         boardSt: this.boardSt,
+        boardCtyp1: this.boardIF[0],
+        boardCtyp2: this.boardIF[1],
+        boardCtyp3: this.boardIF[2],
         title: this.title,
         content: this.content,
         chgId: '',
       })
         .then((res) => {
           console.log(res);
-          console.log('Add_board');
           if (res.data.rstCd === 'S') {
             console.log('insert board Success');
           } else {
