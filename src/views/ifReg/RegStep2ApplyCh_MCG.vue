@@ -15,14 +15,6 @@
         MCG 채널 추가
         <div class="right_button_area">
           <button
-            v-if="virtual"
-            type="button"
-            class="default_button extend on"
-            @click="virtualpopon()"
-          >
-            가상 사용자 추가
-          </button>
-          <button
             type="button"
             class="default_button extend on"
             @click="addMcgReq()"
@@ -58,10 +50,6 @@
               ><span /></label>
             </span>
           </div>
-
-          <div v-if="virtual">
-            가상 사용자를 신청 해주세요.
-          </div>
         </div>
         <div class="column w-1" />
       </div>
@@ -90,13 +78,13 @@
               </li>
               <li
                 class="th_cell"
-                style="width:15%;"
+                style="width:20%;"
               >
                 채널유형
               </li>
               <li
                 class="th_cell"
-                style="width:25%;"
+                style="width:20%;"
               >
                 TP명
               </li>
@@ -134,6 +122,17 @@
                 class="td_cell"
               >
                 {{ req.chnlTyp }}
+                <label
+                  v-if="virtualOn(req)"
+                  class="label-default color-gray tooltips ov right"
+                  @click="virtualpopon()"
+                >
+                  가상 사용자 추가
+
+
+                  <span class="tip_contn">
+                    <em class="tip_text">가상 사용자를 추가 해주세요.
+                    </em></span></label>
               </li>
               <li
                 class="td_cell"
@@ -481,7 +480,7 @@ export default {
       chrgrpopupstate: false,
       chrgrn: '',
       chrgropCd: '',
-      reqsendList: [],
+      reqsendList: {},
       svrList: [],
       chrgrList: [],
       currRow: [],
@@ -616,9 +615,8 @@ export default {
     this.reqList.splice(0, 1);
     this.svrRows.push({});
     this.chrgrRows.push({});
-    eventBus.$emit('VirtualReqNum', this.reqsendList);
-    // this.reqsetting();
-
+    // eventBus.$emit('Virtualdtl', this.reqsendList);
+    // // this.reqsetting();
     eventBus.$on('Step2McgSave', () => {
       console.log('event Bus 통해 mcg 저장');
       this.savereq();
@@ -664,12 +662,24 @@ export default {
     },
 
     virtualshow() {
-      this.virtual = true;
+      // this.virtual = true;
       this.chnlTyp = 'Inbound';
     },
     virtualhide() {
-      this.virtual = false;
+      // this.virtual = false;
       this.chnlTyp = 'Outbound';
+    },
+
+    virtualOn(chnl) {
+      if (chnl.chnlTyp === 'Inbound') {
+        this.reqsendList.chnlId = chnl.chnlId;
+        this.reqsendList.chnlNm = chnl.chnlNm;
+        this.reqsendList.mcgReqNum = chnl.mcgReqNum;
+        console.log(this.reqsendList);
+        eventBus.$emit('Virtualdtl', this.reqsendList);
+        return true;
+      }
+      return false;
     },
 
     virtualpopon() {
