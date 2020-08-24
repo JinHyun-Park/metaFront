@@ -13,10 +13,10 @@
       </h5>
       <div />
       <div>
+        <!-- https://app.diagrams.net/ 다이어그램 생성 툴 사용 -->
         <img
-          src="@/assets/images/ico-pencil.png"
-          width="1300"
-          height="500"
+          src="@/assets/images/flow-chart-guide.png"
+          width="1350"
         >
       </div>
       <div class="table_grid">
@@ -29,6 +29,9 @@
               개요
             </li>
             <li class="th_cell">
+              특징
+            </li>
+            <li class="th_cell">
               담당자
             </li>
           </ul>
@@ -39,7 +42,10 @@
               EAI
             </li>
             <li class="td_cell">
-              EAI는 큐덩어리~!!
+              SKT내부 시스템 간 비동기 연동을 위한 시스템
+            </li>
+            <li class="td_cell">
+              비동기 / 메시지 전달 보장(큐 저장) / SWING외 시스템간 연동도 가능
             </li>
             <li class="td_cell">
               전창후 수석
@@ -50,7 +56,10 @@
               EiGW
             </li>
             <li class="td_cell">
-              대외기관 연동은 EiGW와 함께
+              SKT외부 시스템(대외기관, AWS등 Cloud 장비)간 연동을 위한 시스템
+            </li>
+            <li class="td_cell">
+              연동 시스템과 EiGW 간에는 EAI 연동이 필수 / 온라인(socket), 파일(ftp, sftp) 연동 가능
             </li>
             <li class="td_cell">
               강태훈 선임
@@ -61,7 +70,10 @@
               MCG
             </li>
             <li class="td_cell">
-              MCG는 멀티채널게이트웨이~
+              채널 관련 시스템 등 동기식 연동을 위한 시스템
+            </li>
+            <li class="td_cell">
+              SWING B0채널, Tworld, Tgate 등 실시간 동기식 연동 가능
             </li>
             <li class="td_cell">
               장호은 선임

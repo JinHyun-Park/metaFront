@@ -13,9 +13,10 @@
       </h5>
       <div />
       <div align="center">
+        &nbsp;
         <img
-          src="@/assets/images/interface_map_0.1.png"
-          width="1200"
+          src="@/assets/images/if-summary.png"
+          width="1100"
         >
       </div>
       &nbsp;
