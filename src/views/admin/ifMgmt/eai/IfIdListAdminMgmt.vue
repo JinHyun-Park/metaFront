@@ -1057,6 +1057,8 @@ export default {
 
 
       ifDetailInfo: {
+        reqNum: '',
+        eaiReqIfNum: '',
         eaiIfSeq: '',
         eaiIfId: '',
         eaiIfNmKor: '',
@@ -1262,6 +1264,8 @@ export default {
         console.log(this.sndRows.length);
         console.log(this.svrList.length);
         this.eaiIfInfo = {
+          reqNum: this.ifDetailInfo.reqNum,
+          eaiReqIfNum: this.ifDetailInfo.eaiReqIfNum,
           eaiIfSeq: '',
           ifDetail: this.ifDetailInfo,
           svrList: this.svrList,
@@ -1269,7 +1273,7 @@ export default {
         };
 
 
-        this.$axios.post('/api/eai/eaiDetail', this.eaiIfInfo)
+        this.$axios.post('/api/eai/eaiRegDetail', this.eaiIfInfo)
           .then((res) => {
             console.log(res);
             this.$gf.alertOn('EAI 정보가 정상 등록 되었습니다');
