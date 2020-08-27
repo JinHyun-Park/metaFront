@@ -419,7 +419,7 @@
       </div>
       <div class="row_contain">
         <div class="column w-2">
-          <label class="column_label">개발기 Real Ip</label>
+          <label class="column_label">개발기 REAL Ip</label>
           <input
             v-model="procInfo.dvpSvrRealIp"
             type="text"
@@ -454,7 +454,7 @@
       </div>
       <div class="row_contain">
         <div class="column w-2">
-          <label class="column_label">운영기 Real Ip</label>
+          <label class="column_label">운영기 REAL Ip</label>
           <input
             v-model="procInfo.prodSvrRealIp"
             type="text"

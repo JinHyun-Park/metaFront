@@ -59,7 +59,7 @@
           >
         </div>
         <div class="column on w-1">
-          <label class="column_label">Real IP</label>
+          <label class="column_label">REAL IP</label>
           <input
             v-model="svrRealIp"
             type="text"
@@ -67,7 +67,7 @@
           >
         </div>
         <div class="column on w-1">
-          <label class="column_label">Nat IP</label>
+          <label class="column_label">NAT IP</label>
           <input
             v-model="svrNatIp"
             type="text"
