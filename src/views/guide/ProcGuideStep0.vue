@@ -218,28 +218,10 @@
           <div class="table_body">
             <ul class="table_row w-auto">
               <li class="td_cell">
-                출발지 서버 정보(IP/PORT), 도착지 서버 정보(IP/PORT)
+                송수신 시스템의 서버 정보 (hostname, IP, SKT 시스템 여부)
               </li>
               <li class="td_cell">
-                EAI 설정을 위해서는 우선 서버 정보는 기본적으로 알아야한다.
-              </li>
-              <li class="td_cell">
-                <input
-                  type="checkbox"
-                  checked
-                  disabled
-                >
-              </li>
-              <li class="td_cell">
-                <input type="checkbox">
-              </li>
-            </ul>
-            <ul class="table_row w-auto">
-              <li class="td_cell">
-                T망 내에 연동 중인지??
-              </li>
-              <li class="td_cell">
-                우리 나와바리에 있어야 연동이 된다
+                대상 시스템이 SKT 내부망에 있어야하며, EAI HUB와 방화벽 오픈이 가능해야 합니다.
               </li>
               <li class="td_cell">
                 <input
@@ -254,14 +236,15 @@
             </ul>
             <ul class="table_row w-auto">
               <li class="td_cell">
-                기존에 연동 중인 시스템인지??
+                연동 데이터의 실시간 처리 대상 및 파일 전송 대상 여부
               </li>
               <li class="td_cell">
-                해본 적 있지?? 그치??
+                연동 방식(MQ, File)을 정하기 위해 데이터가 어떤식으로 발생하고 처리 되는지 검토 필요
               </li>
               <li class="td_cell">
                 <input
                   type="checkbox"
+                  checked
                   disabled
                 >
               </li>
