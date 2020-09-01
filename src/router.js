@@ -64,8 +64,8 @@ const router = new Router({
     name: 'boardForm',
     component: () => import('@/views/board/BoardForm.vue'),
     children: [{
-      path: '/board/noticeMain',
-      name: 'noticeMain',
+      path: '/board/notice',
+      name: 'notice',
       component: () => import('@/views/board/NoticeMain.vue'),
     },
     {
@@ -84,8 +84,8 @@ const router = new Router({
       component: () => import('@/views/board/NoticeWrite.vue'),
     },
     {
-      path: '/board/faqMain',
-      name: 'faqMain',
+      path: '/board/faq',
+      name: 'faq',
       component: () => import('@/views/board/FaqMain.vue'),
     },
     {

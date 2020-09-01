@@ -35,7 +35,7 @@
             <li @click="movePage('ifSummary')">
               <span>개요</span>
             </li>
-            <li @click="movePage('noticeMain')">
+            <li @click="movePage('notice')">
               <span>게시판</span>
             </li>
             <li>

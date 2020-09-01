@@ -64,10 +64,12 @@
         <button
           type="button"
           class="default_button sign"
+          @click="popResetPage"
         >
-          SIGN UP
+          Reset Password
         </button>
       </section>
+      <!--
       <section class="help">
         <em
           class="notice"
@@ -77,7 +79,7 @@
           class="notice"
           @click="movePage('changePwd')"
         >Change password<i class="ico-help" /></em>
-      </section>
+      </section>-->
     </article>
     <ResetPwdPopup :style="{display: resetPopOn}" />
   </div>

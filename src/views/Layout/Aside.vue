@@ -61,7 +61,13 @@ export default {
     },
 
     isActive(url) {
-      const ret = (this.nowPage === url);
+      let ret = false;
+      if (url.indexOf('faq') > -1 || url.indexOf('notice') > -1) {
+        ret = (this.nowPage.indexOf(url) > -1);
+      } else {
+        ret = (this.nowPage === url);
+      }
+
       return ret;
     },
 
