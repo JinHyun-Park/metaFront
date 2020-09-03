@@ -14,13 +14,6 @@
       </h2>
     </section>
     <section class="form_area border_group style-2">
-      <!--
-                    <h5 class="s_tit type-2">글쓰기
-                        <div class="right_button_area">
-                            <button type="button" class="default_button on">취소</button>
-                        </div>
-                    </h5>
--->
       <div class="row_contain type-2">
         <div class="column w-4">
           <label class="column_label">제목</label>
@@ -97,11 +90,6 @@
       <div class="row_contain type-2">
         <div class="column w-4">
           <label class="column_label">내용</label>
-          <!-- <textarea
-            cols="5"
-            row="10"
-            placeholder="내용을 입력해 주세요."
-          /> -->
           <quill-editor
             ref="myQuillEditor"
             v-model="content"
@@ -112,29 +100,6 @@
           />
         </div>
       </div>
-      <!-- 태그, 파일
-      <div class="row_contain type-2">
-        <div class="column w-4">
-          <label class="column_label">TAG</label>
-          <input
-            type="text"
-            value="TAG를 입력해 주세요."
-          >
-        </div>
-      </div>
-      <div class="row_contain type-2">
-        <div class="column w-4">
-          <label class="column_label">파일</label>
-          <div class="search_group">
-            <input
-              type="text"
-              value="파일을 선택해 주세요.(.doc, .hwp, .xlsx, .pptx, .jpg, .png, .gif)"
-            >
-            <span class="search"><i class="ico-search" /></span>
-          </div>
-        </div>
-      </div>
-      -->
     </section>
 
     <section class="btm_button_area">

@@ -353,10 +353,7 @@ export default {
         params: { boardNum: this.boardNum },
       })
         .then((res) => {
-          console.log(res);
-          console.log('Search_board');
           if (res.data.rstCd === 'S') {
-            console.log('select board Success');
             const { boardOne } = res.data.rstData;
             this.boardTyp = boardOne.BOARD_TYP;
             this.boardSt = boardOne.BOARD_ST;
@@ -368,8 +365,8 @@ export default {
             this.chgId = boardOne.CHG_ID;
             this.chgDt = boardOne.formatChgDt;
           } else {
-            // eslint-disable-next-line no-alert
-            // alert('select board failed');
+          // eslint-disable-next-line no-alert
+          // alert('select board failed');
           }
         })
         .catch((ex) => {
