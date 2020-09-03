@@ -14,8 +14,13 @@
 
       <div />
       <div align="center">
-        <img
+        <!--<img
           src="@/assets/images/naru-wide.png"
+          width="1000"
+          alt="나루는 예전 '나루'터를 의미하는 순 우리말에서 착안한 이름"
+        >-->
+        <img
+          src="@/assets/images/naru_intro.png"
           width="1000"
           alt="나루는 예전 '나루'터를 의미하는 순 우리말에서 착안한 이름"
         >

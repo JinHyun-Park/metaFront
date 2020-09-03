@@ -10,7 +10,7 @@
     <section>
       <div>
         <h3>
-          1. 개발 시 진행 프로세스
+          1. 개발 시 진행 프로세스(신규 연동 시스템 기준)
         </h3>
       </div>
           &nbsp;
@@ -39,10 +39,10 @@
               1
             </li>
             <li class="td_cell">
-              각 서버에 개발 component를 설치한다.
+              연동 대상 시스템과 EAI 시스템 간 방화벽 Open
             </li>
             <li class="td_cell">
-              여인진 차장(전창후 수석)
+              신청자
             </li>
             <li class="td_cell">
               <input type="checkbox">
@@ -53,10 +53,10 @@
               2
             </li>
             <li class="td_cell">
-              각 서버에 개발 component가 잘 됐는지 확인한다.
+              EAI 환경 설치를 위해 시스템 계정(eaiadmin) 생성 및 권한 부여와 파일 시스템 구성
             </li>
             <li class="td_cell">
-              여인진 차장(전창후 수석)
+              신청자
             </li>
             <li class="td_cell">
               <input type="checkbox">
@@ -67,10 +67,24 @@
               3
             </li>
             <li class="td_cell">
-              각 서버에 개발 component가 잘 돌아가는지 확인한다.
+              서버 접근 권한 신청 및 승인
             </li>
             <li class="td_cell">
-              여인진 차장(전창후 수석)
+              EAI 담당자(신청), 신청 시스템 담당 매니저(승인)
+            </li>
+            <li class="td_cell">
+              <input type="checkbox">
+            </li>
+          </ul>
+          <ul class="table_row w-auto">
+            <li class="td_cell">
+              4
+            </li>
+            <li class="td_cell">
+              EAI Component 설치 및 연동 설정
+            </li>
+            <li class="td_cell">
+              EAI 담당자
             </li>
             <li class="td_cell">
               <input type="checkbox">

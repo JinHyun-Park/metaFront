@@ -5,9 +5,6 @@
         <div>
           <i class="ico-bar" />공통 코드 관리
         </div>
-        <div class="breadcrumb">
-          <span>EGIW</span><em class="on">EAI</em>
-        </div>
       </h2>
     </section>
     <section class="form_area border_group">
@@ -215,7 +212,7 @@ export default {
             //this.ccCdLst = this.$gf.parseRtnData(this.pageSet, res.data.rstData.ccCdLst, 'Y');
             this.ccCdLst = res.data.rstData.ccCdLst;
             this.pageSet = res.data.rstData.pageSet;
-            if (this.ccCdLst.length === 0 && this.opClCd != "") {
+            if (this.ccCdLst.length === 0 && this.opClCd != "" && this.cdDtlId != "") {
               this.addList();
             }
           }

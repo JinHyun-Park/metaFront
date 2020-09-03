@@ -26,7 +26,6 @@
             </span>
             <datepicker
               :value="ifReqMstInfo.operAplyReqDt"
-              :min="today"
               :day-str="datePickerSet.dayStr"
               :popper-props="datePickerSet.popperProps"
               @input="setOperAplyReqDt"
@@ -56,7 +55,6 @@
             </span>
             <datepicker
               :value="ifReqMstInfo.dvlpAplyReqDt"
-              :min="today"
               :day-str="datePickerSet.dayStr"
               :popper-props="datePickerSet.popperProps"
               @input="setDvlpAplyReqDt"

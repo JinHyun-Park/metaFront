@@ -101,9 +101,6 @@
               <li class="th_cell">
                 담당자
               </li>
-              <li class="th_cell">
-                사용여부
-              </li>
               <li class="th_cell" />
             </ul>
           </div>
@@ -169,14 +166,12 @@
                 >
               </li>
               <li class="td_cell">
-                {{ server.useYn }}
-              </li>
-              <li class="td_cell">
                 <i
                   class="ico-edit"
                   @click="editList(i)"
                 />
                 <i
+                  v-if="server.svrNum != null"
                   class="ico-del"
                   @click="delList(i)"
                 />
@@ -288,9 +283,43 @@ export default {
       };
       this.serverList.push(a);
     },
+    checkValValid(i) {
+      if (this.serverList[i].svrTypCd == null || this.serverList[i].svrTypCd === '') {
+        this.$gf.alertOn('서버 타입이 누락되어 있습니다.');
+        return false;
+      }
+      if (this.serverList[i].ipTyp == null || this.serverList[i].ipTyp === '') {
+        this.$gf.alertOn('IP 타입이 누락되어 있습니다.');
+        return false;
+      }
+      if (this.serverList[i].hostNm == null || this.serverList[i].hostNm === '') {
+        this.$gf.alertOn('호스트 네임이 누락되어 있습니다.');
+        return false;
+      }
+      if (this.serverList[i].svrIp == null || this.serverList[i].svrIp === '') {
+        this.$gf.alertOn('IP가 누락되어 있습니다.');
+        return false;
+      }
+      if (/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/i.test(this.serverList[i].svrIp) === false) {
+        this.$gf.alertOn('유효한 IP가 아닙니다.');
+        return false;
+      }
+      if (this.serverList[i].svrPort == null || this.serverList[i].svrPort === '') {
+        this.$gf.alertOn('서비스포트가 누락되어 있습니다.');
+        return false;
+      }
+      if (this.serverList[i].svrPort < 0) {
+        this.$gf.alertOn('유효하지 않은 서비스포트입니다.');
+        return false;
+      }
+
+      return true;
+    },
     editList(i) {
-      const confirmText = `${this.serverList[i].svrIp}:${this.serverList[i].svrPort} 를 저장하십니까?`;
-      this.$gf.confirmOn(confirmText, this.editCall, i);
+      if (this.checkValValid(i)) {
+        const confirmText = `${this.serverList[i].svrIp}:${this.serverList[i].svrPort} 를 저장하십니까?`;
+        this.$gf.confirmOn(confirmText, this.editCall, i);
+      }
     },
     editCall(i) {
       this.tgtUrl = '/api/bizcomm/cccd';
@@ -331,6 +360,7 @@ export default {
           console.log(res);
           if (res.data.rstCd === 'S') {
             this.$gf.alertOn('처리되었습니다.');
+            this.resetCondValue();
             this.searchList();
           } else {
             this.$gf.alertOn(res.data.rstMsg);
@@ -339,6 +369,14 @@ export default {
         .catch((ex) => {
           console.log(`error occur!! : ${ex}`);
         });
+    },
+    resetCondValue() {
+      this.svrIp = '';
+      this.svrPort = '';
+      this.svrTypCd = '';
+      this.ipTyp = '';
+      this.hostNm = '';
+      this.userId = '';
     },
   },
 };

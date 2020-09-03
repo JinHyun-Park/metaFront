@@ -93,10 +93,12 @@ export default {
         .then((res) => {
           if (res.data.rstCd === 'S') {
             console.log(res.headers);
+            this.$gf.alertOn('초기화되었습니다.');
             this.popResetPage();
           } else {
             // eslint-disable-next-line no-alert
             // alert(res.data.rstMsg);
+            this.$gf.alertOn('초기화가 실패하였습니다. 담당자에게 문의하세요.');
           }
         })
         .catch((ex) => {

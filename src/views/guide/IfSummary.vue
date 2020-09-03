@@ -40,7 +40,7 @@
               EAI
             </li>
             <li class="td_cell">
-              EAI는 큐덩어리~!!
+              Message Queue 기반의 IBM WMQ를 사용하는 실시간 온라인 연동과 TCP 소켓 통신 기반의 파일 연동 인터페이스 환경을 제공합니다.
             </li>
             <li class="td_cell">
               전창후 수석
