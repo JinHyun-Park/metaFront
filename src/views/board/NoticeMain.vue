@@ -79,7 +79,7 @@
       </div>
       <div class="row_contain type-3">
         <div class="column w-4">
-          <label class="column_label">게시글에 영향을 미치는 인터페이스</label>
+          <label class="column_label">관련 인터페이스</label>
           <label>
             <input
               v-model="boardIF"
@@ -192,7 +192,6 @@ import { fetchGetBoardList, fetchDeleteBoard } from '@/api/bizCommApi';
 import { fetchGetUserAuth } from '@/api/loginApi';
 
 export default {
-  name: 'NoticeMain',
   data() {
     return {
       startReqDtm: '',
@@ -221,6 +220,7 @@ export default {
     this.endReqDtm = this.$gf.dateToString(new Date(), '', 'Y');
     this.searchList();
     this.getUserAuth();
+    this.boardIF.push('EAI', 'EiGW', 'MCG');
   },
   methods: {
     moveToView(boardNum) {
@@ -273,18 +273,20 @@ export default {
           endReqDtm: this.endReqDtm.replace(/\-/g, ''),
           titleKeyword: this.titleKeyword,
         },
-      }).then((res) => {
-        console.log(res);
-        if (res.data.rstCd === 'S') {
-          this.boardList = res.data.rstData.board;
-          this.pageSet = res.data.rstData.pageSet;
-        } else {
+      })
+        .then((res) => {
+          console.log(res);
+          if (res.data.rstCd === 'S') {
+            this.boardList = res.data.rstData.board;
+            this.pageSet = res.data.rstData.pageSet;
+          } else {
           // eslint-disable-next-line no-alert
-          alert('fetchGetBoardList failed');
-        }
-      }).catch((ex) => {
-        console.log(`error occur!! : ${ex}`);
-      });
+          // alert('fetchGetBoardList failed');
+          }
+        })
+        .catch((ex) => {
+          console.log(`error occur!! : ${ex}`);
+        });
     },
 
     deleteBoard(boardNum) {
@@ -309,14 +311,15 @@ export default {
 
     getUserAuth() {
       fetchGetUserAuth({
-      }).then((res) => {
-        console.log(res);
-        if (res.data.rstCd === 'S') {
-          // 대괄호 제거
-          this.auth = res.data.rstData.auth.replace(/[[\]]/gi, '');
-          console.log(this.auth);
-        }
       })
+        .then((res) => {
+          console.log(res);
+          if (res.data.rstCd === 'S') {
+          // 대괄호 제거
+            this.auth = res.data.rstData.auth.replace(/[[\]]/gi, '');
+            console.log(this.auth);
+          }
+        })
         .catch((ex) => {
           console.log(`getUserAuth() 에러 : ${ex}`);
         });

@@ -74,34 +74,49 @@
               type="text"
               value="Searching"
             >
-            <!--
-            <span class="search">
-              <i class="ico-search" />
-            </span>
-            -->
           </div>
+        </div>
+      </div>
+      <div class="row_contain type-3">
+        <div class="column w-4">
+          <label class="column_label">관련 인터페이스</label>
+          <label>
+            <input
+              v-model="boardIF"
+              type="checkbox"
+              name="interface"
+              value="EAI"
+            > EAI
+          </label>
+          <label>
+            <input
+              v-model="boardIF"
+              type="checkbox"
+              name="interface"
+              value="EiGW"
+            > EiGW
+          </label>
+          <label>
+            <input
+              v-model="boardIF"
+              type="checkbox"
+              name="interface"
+              value="MCG"
+            > MCG
+          </label>
         </div>
       </div>
       <div class="table_colgroup">
         <div class="table_grid radio_group">
           <div class="table_head w-auto">
             <ul>
-              <li class="th_cell">
-                Num
+              <li
+                v-for="tableHeadItem in tableHeadList"
+                :key="tableHeadItem"
+                class="th_cell"
+              >
+                {{ tableHeadItem }}
               </li>
-              <li class="th_cell">
-                제목
-              </li>
-              <li class="th_cell">
-                게시상태
-              </li>
-              <li class="th_cell">
-                작성자
-              </li>
-              <li class="th_cell">
-                작성일자
-              </li>
-              <li class="th_cell" />
             </ul>
           </div>
           <div class="table_body">
@@ -177,7 +192,6 @@ import { fetchGetBoardList, fetchDeleteBoard } from '@/api/bizCommApi';
 import { fetchGetUserAuth } from '@/api/loginApi';
 
 export default {
-  name: 'FaqMain',
   data() {
     return {
       startReqDtm: '',
@@ -193,6 +207,11 @@ export default {
       boardList: [],
       auth: '',
       pageMoveChk: 0,
+      boardIF: [],
+      boardCtyp1: 'EAI',
+      boardCtyp2: 'EiGW',
+      boardCtyp3: 'MCG',
+      tableHeadList: ['Num', '제목', '게시상태', '작성자', '작성일자', ''],
     };
   },
   mounted() {
@@ -201,6 +220,7 @@ export default {
     this.endReqDtm = this.$gf.dateToString(new Date(), '', 'Y');
     this.searchList();
     this.getUserAuth();
+    this.boardIF.push('EAI', 'EiGW', 'MCG');
   },
   methods: {
     moveToView(boardNum) {
@@ -234,8 +254,6 @@ export default {
       this.pageMoveChk = 0;
     },
     searchList() {
-      // this.tgtUrl = '/api/bizcomm/board';
-      // this.$axios.get(this.tgtUrl, {
       fetchGetBoardList({
         params: {
           pageNo: this.pageMoveChk === 1 ? this.pageSet.pageNo : 1,
@@ -246,6 +264,9 @@ export default {
           title: '',
           content: '',
           boardNum: '',
+          boardCtyp1: this.boardIF[0],
+          boardCtyp2: this.boardIF[1],
+          boardCtyp3: this.boardIF[2],
           // eslint-disable-next-line no-useless-escape
           startReqDtm: this.startReqDtm.replace(/\-/g, ''),
           // eslint-disable-next-line no-useless-escape
@@ -256,12 +277,12 @@ export default {
         .then((res) => {
           console.log(res);
           if (res.data.rstCd === 'S') {
-            // this.boardList = this.$gf.parseRtnData(this.pageSet, res.data.rstData.board, 'Y')
+          // this.boardList = this.$gf.parseRtnData(this.pageSet, res.data.rstData.board, 'Y')
             this.boardList = res.data.rstData.board;
             this.pageSet = res.data.rstData.pageSet;
           } else {
-            // eslint-disable-next-line no-alert
-            // alert('failed');
+          // eslint-disable-next-line no-alert
+          // alert('fetchGetBoardList failed');
           }
         })
         .catch((ex) => {
@@ -291,15 +312,15 @@ export default {
 
     getUserAuth() {
       fetchGetUserAuth({
-
-      }).then((res) => {
-        console.log(res);
-        if (res.data.rstCd === 'S') {
-          // 대괄호 제거
-          this.auth = res.data.rstData.auth.replace(/[[\]]/gi, '');
-          console.log(this.auth);
-        }
       })
+        .then((res) => {
+          console.log(res);
+          if (res.data.rstCd === 'S') {
+          // 대괄호 제거
+            this.auth = res.data.rstData.auth.replace(/[[\]]/gi, '');
+            console.log(this.auth);
+          }
+        })
         .catch((ex) => {
           console.log(`error occur!! : ${ex}`);
         });

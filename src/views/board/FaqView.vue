@@ -286,7 +286,6 @@ import { fetchGetBoard, fetchDeleteBoard } from '@/api/bizCommApi';
 import { fetchGetUserAuth } from '@/api/loginApi';
 
 export default {
-  name: 'FaqView',
   data() {
     return {
       editorOption: {
@@ -320,7 +319,7 @@ export default {
   },
   methods: {
     moveToFaqMain() {
-      this.$router.push({ name: 'faqMain' });
+      this.$router.push({ name: 'faq' });
     },
     moveToFaqWrite(boardNum) {
       this.$router.push({ name: 'faqWrite', params: { boardNum } });
@@ -353,8 +352,6 @@ export default {
         params: { boardNum: this.boardNum },
       })
         .then((res) => {
-          console.log(res);
-          console.log('Search_board');
           if (res.data.rstCd === 'S') {
             console.log('select board Success');
             const { boardOne } = res.data.rstData;

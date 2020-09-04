@@ -286,7 +286,6 @@ import { fetchGetBoard, fetchDeleteBoard } from '@/api/bizCommApi';
 import { fetchGetUserAuth } from '@/api/loginApi';
 
 export default {
-  name: 'NoticeView',
   data() {
     return {
       editorOption: {
@@ -320,7 +319,7 @@ export default {
   },
   methods: {
     moveToNotiMain() {
-      this.$router.push({ name: 'noticeMain' });
+      this.$router.push({ name: 'notice' });
     },
     moveToNotiWrite(boardNum) {
       this.$router.push({ name: 'noticeWrite', params: { boardNum } });
@@ -365,8 +364,8 @@ export default {
             this.chgId = boardOne.CHG_ID;
             this.chgDt = boardOne.formatChgDt;
           } else {
-          // eslint-disable-next-line no-alert
-          // alert('select board failed');
+            // eslint-disable-next-line no-alert
+            // alert('select board failed');
           }
         })
         .catch((ex) => {
@@ -394,15 +393,15 @@ export default {
     },
     getUserAuth() {
       fetchGetUserAuth({
-
-      }).then((res) => {
-        console.log(res);
-        if (res.data.rstCd === 'S') {
-          // 대괄호 제거
-          this.auth = res.data.rstData.auth.replace(/[[\]]/gi, '');
-          // console.log(this.auth);
-        }
       })
+        .then((res) => {
+          console.log(res);
+          if (res.data.rstCd === 'S') {
+          // 대괄호 제거
+            this.auth = res.data.rstData.auth.replace(/[[\]]/gi, '');
+          // console.log(this.auth);
+          }
+        })
         .catch((ex) => {
           console.log(`error occur!! : ${ex}`);
         });

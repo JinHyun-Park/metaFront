@@ -58,7 +58,7 @@
       <div class="row_contain type-2">
         <div class="column w-4">
           <div v-if="!boardNum">
-            <label class="column_label">게시글에 영향을 미치는 인터페이스</label>
+            <label class="column_label">관련 인터페이스</label>
             <label>
               <input
                 v-model="boardIF"
@@ -143,7 +143,6 @@
 import { fetchGetBoard, fetchPostBoard, fetchPutBoard } from '@/api/bizCommApi';
 
 export default {
-  name: 'NoticeWrite',
   data() {
     return {
       editorOption: {
@@ -218,7 +217,7 @@ export default {
   },
   methods: {
     moveToNotiMain() {
-      this.$router.push({ name: 'noticeMain' });
+      this.$router.push({ name: 'notice' });
     },
     moveToFaqView(boardNum) {
       this.$router.push({ name: 'noticeView', params: { boardNum } });
