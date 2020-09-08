@@ -25,7 +25,10 @@
       class="table_colgroup"
       style="display: flex; justify-content:space-between; align-content:center;"
     >
-      <div class="table_grid radio_group">
+      <div
+        class="table_grid radio_group"
+        style="width:60%"
+      >
         <div class="table_head w-auto">
           <tr>
             <td class="th_cell">
@@ -73,7 +76,7 @@
       </div>
       <div
         class="row_contain chart_area"
-        style="width:60%"
+        style="width:40%"
       >
         <line-chart
           v-show="isChartOn"
