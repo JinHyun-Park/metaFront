@@ -111,7 +111,7 @@
                   MCG
                 </li>
                 <li class="td_cell">
-                  MCG는 멀티채널게이트웨이~
+                  MCG 채널설계서, 거래 요청서 상세 가이드
                 </li>
                 <li class="td_cell">
                   장호은 선임

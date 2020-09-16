@@ -64,7 +64,7 @@
                 MCG
               </li>
               <li class="td_cell">
-                MCG는 멀티채널게이트웨이~
+                채널 - Swing 정기 PM 반영 가능 / 거래 - 매주 정기배포일 반영 가능
               </li>
               <li class="td_cell">
                 장호은 선임
@@ -376,7 +376,6 @@
       </div>
     </div>
   </section>
-  </div>
 </template>
 
 <script>
