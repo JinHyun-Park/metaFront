@@ -61,7 +61,7 @@
                 MCG
               </li>
               <li class="td_cell">
-                MCG는 멀티채널게이트웨이~
+                Swing 정보 조회성, 실시간성 (데이터 보장 되지 않음)
               </li>
               <li class="td_cell">
                 장호은 선임
@@ -277,28 +277,10 @@
           <div class="table_body">
             <ul class="table_row w-auto">
               <li class="td_cell">
-                MCG??
+                송수신 시스템의 서버 정보 (hostname, IP, SKT 시스템 여부)
               </li>
               <li class="td_cell">
-                EAI 설정을 위해서는 우선 서버 정보는 기본적으로 알아야한다.
-              </li>
-              <li class="td_cell">
-                <input
-                  type="checkbox"
-                  checked
-                  disabled
-                >
-              </li>
-              <li class="td_cell">
-                <input type="checkbox">
-              </li>
-            </ul>
-            <ul class="table_row w-auto">
-              <li class="td_cell">
-                T망 내에 연동 중인지??
-              </li>
-              <li class="td_cell">
-                우리 나와바리에 있어야 연동이 된다
+                대상 시스템이 SKT 내부망에 있어야하며, MCG와 방화벽 오픈이 가능해야 합니다.
               </li>
               <li class="td_cell">
                 <input
@@ -313,10 +295,29 @@
             </ul>
             <ul class="table_row w-auto">
               <li class="td_cell">
-                기존에 연동 중인 시스템인지??
+                채널, TP(거래) 정보
               </li>
               <li class="td_cell">
-                해본 적 있지?? 그치??
+                채널 - 같은 용도의 MCG 채널이 있을 경우, 기존 채널에 거래코드 추가 /
+                거래 - 송수신단에서 연동할 TP를 개발한 후 해당 TP로 거래코드 추가
+              </li>
+              <li class="td_cell">
+                <input
+                  type="checkbox"
+                  checked
+                  disabled
+                >
+              </li>
+              <li class="td_cell">
+                <input type="checkbox">
+              </li>
+            </ul>
+            <ul class="table_row w-auto">
+              <li class="td_cell">
+                연동 목적 검토
+              </li>
+              <li class="td_cell">
+                MCG는 실시간 조회성 인터페이스로, 즉각적으로 데이터 처리가 필요합니다.
               </li>
               <li class="td_cell">
                 <input

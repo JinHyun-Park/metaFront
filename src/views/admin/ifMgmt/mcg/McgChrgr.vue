@@ -65,25 +65,25 @@
           <div class="table_head w-auto">
             <ul>
               <li class="th_cell">
-                업무코드<i class="ico-sort-down" />
+                업무코드
               </li>
               <li class="th_cell">
-                거래코드<i class="ico-sort-up" />
+                거래코드
               </li>
               <li class="th_cell">
-                담당자유형<i class="ico-sort-down" />
+                담당자유형
               </li>
               <li class="th_cell">
-                담당자명<i class="ico-sort-down" />
+                담당자명
               </li>
               <li class="th_cell">
-                조직<i class="ico-sort-down" />
+                조직
               </li>
               <li class="th_cell">
-                연락처<i class="ico-sort-up" />
+                연락처
               </li>
               <li class="th_cell">
-                EMAIL<i class="ico-sort-up" />
+                EMAIL
               </li>
               <li class="th_cell">
                 수정
@@ -130,7 +130,7 @@
               </li>
               <li class="td_cell">
                 <input
-                  v-model="email"
+                  v-model="mEmail"
                   type="text"
                 >
               </li>
@@ -166,7 +166,7 @@
               </li>
               <li class="td_cell">
                 <input
-                  v-model="mcgr.name"
+                  v-model="mcgr.hanNm"
                   type="text"
                 >
               </li>
@@ -178,7 +178,7 @@
               </li>
               <li class="td_cell">
                 <input
-                  v-model="mcgr.phonNum"
+                  v-model="mcgr.mblPhonNum"
                   type="text"
                 >
               </li>
@@ -189,6 +189,10 @@
                 >
               </li>
               <li class="td_cell">
+                <i
+                  class="ico-search"
+                  @click="chnlpopon()"
+                />
                 <i
                   class="ico-edit"
                   @click="modify(mcgr)"
@@ -279,7 +283,7 @@ export default {
           orgCd: this.orgCd,
           hanNm: this.hanNm,
           chrgrId: this.chrgrId,
-          email: this.email,
+          mEmail: this.mEmail,
         },
       })
 
@@ -330,10 +334,8 @@ export default {
         orgCd: this.orgCd,
         hanNm: this.hanNm,
         chrgrId: this.chrgrId,
-        name: this.name,
         mEmail: this.mEmail,
         company: this.company,
-        phonNum: this.phonNum,
       })
         .then((res) => {
           console.log(res);

@@ -62,7 +62,7 @@
               MCG
             </li>
             <li class="td_cell">
-              MCG는 멀티채널게이트웨이~
+              Tmax Anylink 솔루션을 사용하여 Swing 조회성 실시간 동기식 연동을 위한 인터페이스 환경을 제공합니다.
             </li>
             <li class="td_cell">
               장호은 선임
