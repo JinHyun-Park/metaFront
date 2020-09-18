@@ -13,10 +13,9 @@
         <new-cnt style="width:25%" />
         <oper-cnt style="width:25%" />
       </div>
-      <div class="board_area">
+      <!-- <div class="board_area">
         <number-count style="width: 100%;" />
-      </div>
-      <reg-list-extend />
+      </div> -->
       <queue-monitor />
       <!--<queue-stat />-->
       <div class="board_area">
@@ -24,6 +23,7 @@
         <mcg-daily-trms-stat />
         <eigw-daily-trms-stat />
       </div>
+      <reg-list-extend />
 
       <div class="board_area">
         <noti-board />
@@ -160,7 +160,7 @@ import EaiDailyTrmsStat from '@/components/dashboard/EaiDailyTrmsStat.vue';
 import NewGuide from '@/components/dashboard/NewGuide.vue';
 import NewCnt from '@/components/dashboard/NewCnt.vue';
 import OperCnt from '@/components/dashboard/OperCnt.vue';
-import NumberCount from '@/components/dashboard/NumberCount.vue';
+// import NumberCount from '@/components/dashboard/NumberCount.vue';
 
 
 export default {
@@ -178,7 +178,7 @@ export default {
     'new-guide': NewGuide,
     'new-cnt': NewCnt,
     'oper-cnt': OperCnt,
-    NumberCount,
+    // NumberCount,
   },
   data() {
     return {
