@@ -5,9 +5,6 @@
         <div>
           <i class="ico-bar" />대외기관 조회
         </div>
-        <div class="breadcrumb">
-          <span>EIGW</span><em class="on">EAI</em>
-        </div>
       </h2>
     </section>
     <section class="form_area border_group">
@@ -156,7 +153,7 @@ export default {
     ...mapActions('frameSet', ['setResetPopOn']),
     pageMove() {
       this.pageMoveChk = 1;
-      this.fetchGetInstCdList();
+      this.searchList();
       this.pageMoveChk = 0;
     },
     searchList() {
