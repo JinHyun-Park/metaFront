@@ -14,28 +14,28 @@
       <section class="progress">
         <ul>
           <li
-            class="step"
+            class="step click_btn"
             :class="{on: isActive(0)}"
             @click="tabChange(0)"
           >
             0. 사전 작업
           </li>
           <li
-            class="step"
+            class="step click_btn"
             :class="{on: isActive(1)}"
             @click="tabChange(1)"
           >
             1. 인터페이스 신청
           </li>
           <li
-            class="step"
+            class="step click_btn"
             :class="{on: isActive(2)}"
             @click="tabChange(2)"
           >
             2. 개발 및 테스트
           </li>
           <li
-            class="step"
+            class="step click_btn"
             :class="{on: isActive(3)}"
             @click="tabChange(3)"
           >

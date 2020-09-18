@@ -2,24 +2,20 @@
   <section class="form_area border_group">
     <div>
       <section>
-          &nbsp;
         <div>
-          <h3>
+          <span class="subtitle1">
             1. [인터페이스 신청] 메뉴를 통해서 인터페이스를 신청한다.
-          </h3>
+          </span>
+          <span class="subtitle2">
+            인터페이스 신청 목록에서 오른쪽 상단의 "신규 신청" 버튼이나 작성 중인 신청 목록의 제목을 클릭하면 수정할 수 있다.
+          </span>
+          <span class="subtitle2">
+            인터페이스 신청 Top 메뉴의 "신청 등록" 메뉴를 직접 클릭한다.
+          </span>
             &nbsp;
-          <h4>
-            - 인터페이스 신청 목록에서 오른쪽 상단의 "신규 신청" 버튼이나 작성 중인 신청 목록의 제목을 클릭하면 수정할 수 있다.
-          </h4>
-          <h4>
-            - 인터페이스 신청 Top 메뉴의 "신청 등록" 메뉴를 직접 클릭한다.
-          </h4>
-            &nbsp;
-            &nbsp;
-          <h3>
+          <span class="subtitle1">
             2. 신청 단계별 주요 입력 항목
-          </h3>
-            &nbsp;
+          </span>
         </div>
       </section>
       <section class="small_tabs">

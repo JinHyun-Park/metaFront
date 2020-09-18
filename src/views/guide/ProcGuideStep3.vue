@@ -2,20 +2,16 @@
   <section class="form_area border_group">
     <div>
       <section>
-          &nbsp;
         <div>
-          <h3>
+          <span class="subtitle1">
             1. 운영 전환
-          </h3>
-        </div>
-          &nbsp;
-        <div>
-          <h4>
+          </span>
+          <span class="subtitle2">
             신청 프로세스가 "운영 반영 완료" 상태가 되면, 실제 인터페이스가 운영기에 반영된 상태이다.
-          </h4>
-          <h4>
+          </span>
+          <span class="subtitle2">
             운영 반영은 선 반영되는 경우도 있고, 업무 측 일정과 동일하게 진행될 수도 있다. 이는 담당자와 협의가 필요하다.
-          </h4>
+          </span>
         </div>
       </section>
       <section class="form_area">
@@ -75,11 +71,10 @@
       </section>
       <section>
         <div>
-          <h3>
+          <span class="subtitle1">
             2. 연동 완료 후 포탈 내에서 확인 가능한 정보는 하기와 같다.
-          </h3>
+          </span>
         </div>
-          &nbsp;
       </section>
       <section class="form_area">
         <div
@@ -246,13 +241,12 @@
       <section>
           &nbsp;
         <div>
-          <h3>
+          <span class="subtitle1">
             1. [인터페이스 신청] 메뉴를 통해서 인터페이스를 신청한다.
-          </h3>
-            &nbsp;
-          <h4>
+          </span>
+          <span class="subtitle2">
             - 인터페이스 신청 목록에서 오른쪽 상단의 "신규 신청" 버튼이나 작성 중인 신청 목록의 제목을 클릭하면 수정할 수 있다.
-          </h4>
+          </span>
           <h4>
             - 인터페이스 신청 Top 메뉴의 "신청 등록" 메뉴를 직접 클릭한다.
           </h4>

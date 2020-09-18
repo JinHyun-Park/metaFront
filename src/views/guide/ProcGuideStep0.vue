@@ -2,17 +2,16 @@
   <section class="form_area border_group">
     <div>
       <section>
-          &nbsp;
         <div>
-          <h3>
+          <span class="subtitle1">
             1. 어떤 인터페이스를 선택해야되는 지 결정한다.
-          </h3>
-        </div>
-          &nbsp;
-        <div>
-          <h4>
-            SKT 인터페이스는 많다. 여러 환경에 맞는 인터페이스를 우선 고민 후에 신청을 진행할 필요가 있다.
-          </h4>
+          </span>
+          <span class="subtitle2">
+            SKT 인터페이스는 많다.
+          </span>
+          <span class="subtitle2">
+            여러 환경에 맞는 인터페이스를 우선 고민 후에 신청을 진행할 필요가 있다.
+          </span>
         </div>
       </section>
       <section class="form_area">
@@ -72,9 +71,9 @@
       </section>
       <section>
         <div>
-          <h3>
+          <span class="subtitle1">
             2. 연동 협의를 위해 필요한 기본적인 정보가 있다.
-          </h3>
+          </span>
         </div>
           &nbsp;
       </section>

@@ -9,11 +9,10 @@
     </section>
     <section>
       <div>
-        <h3>
+        <span class="subtitle1">
           1. 개발 시 진행 프로세스(신규 연동 시스템 기준)
-        </h3>
+        </span>
       </div>
-          &nbsp;
     </section>
     <section class="form_area">
       <div class="table_grid">
@@ -95,11 +94,10 @@
     </section>
     <section>
       <div>
-        <h3>
+        <span class="subtitle1">
           2. 문제 발생 시 이슈별 해결 방안
-        </h3>
+        </span>
       </div>
-          &nbsp;
     </section>
     <section class="form_area">
       <div
