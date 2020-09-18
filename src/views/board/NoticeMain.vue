@@ -80,15 +80,43 @@
       <div class="row_contain type-3">
         <div class="column w-4">
           <label class="column_label">관련 인터페이스</label>
-          <label>
+          <div class="table_body">
+            <ul class="table_row w-auto">
+              <li class="td_cell">
+                <input
+                  v-model="boardIF"
+                  type="checkbox"
+                  name="interface"
+                  value="EAI"
+                > <label>EAI</label>
+              </li>
+              <li class="td_cell">
+                <input
+                  v-model="boardIF"
+                  type="checkbox"
+                  name="interface"
+                  value="EiGW"
+                > <label>EiGW</label>
+              </li>
+              <li class="td_cell">
+                <input
+                  v-model="boardIF"
+                  type="checkbox"
+                  name="interface"
+                  value="MCG"
+                > <label>MCG</label>
+              </li>
+            </ul>
+          </div>
+          <!-- <label>
             <input
               v-model="boardIF"
               type="checkbox"
               name="interface"
               value="EAI"
             > EAI
-          </label>
-          <label>
+          </label> -->
+          <!-- <label>
             <input
               v-model="boardIF"
               type="checkbox"
@@ -103,7 +131,7 @@
               name="interface"
               value="MCG"
             > MCG
-          </label>
+          </label> -->
         </div>
       </div>
       <div class="table_colgroup">
@@ -327,3 +355,9 @@ export default {
   },
 };
 </script>
+<style scoped>
+.td_cell {
+  font-size: 14px;
+  padding-right: 30px;
+}
+</style>
