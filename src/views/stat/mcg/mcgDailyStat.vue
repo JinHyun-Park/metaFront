@@ -199,7 +199,7 @@ export default {
       }
       else if(this.monthOnClass){
         this.searchMonthlyList();
-        this.statItemList = this.statMontlyItemList;
+        this.statItemList = this.statMonthlyItemList;
         this.maxTime = 12;
         this.timeUnit = '월';
       }
