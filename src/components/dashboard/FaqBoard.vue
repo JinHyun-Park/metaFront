@@ -1,7 +1,7 @@
 <template>
   <section class="form_area border_group dashboard">
     <h5 class="s_tit type-2">
-      공지사항
+      FAQ
       <i class="ico-set" />
     </h5>
     <div class="table_colgroup">
@@ -71,7 +71,7 @@ export default {
   },
   methods: {
     moveToView(boardNum) {
-      this.$router.push({ name: 'noticeView', params: { boardNum } });
+      this.$router.push({ name: 'faqView', params: { boardNum } });
     },
     setBoardStName(boardState) {
       switch (boardState) {
@@ -89,7 +89,7 @@ export default {
           pageCount: this.pageSet.pageCount,
           size: this.pageSet.size,
           boardSt: '', // 0:정상
-          boardTyp: 'NOTI',
+          boardTyp: 'FAQ',
           title: '',
           content: '',
           boardNum: '',

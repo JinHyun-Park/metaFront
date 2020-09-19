@@ -28,118 +28,7 @@
       <div class="board_area">
         <noti-board />
         <reg-list />
-        <section class="form_area border_group dashboard">
-          <h5 class="s_tit type-2">
-            Q&amp;A
-            <i class="ico-set" />
-          </h5>
-          <div class="table_colgroup">
-            <div class="table_grid">
-              <div class="table_head w-auto">
-                <ul>
-                  <li class="th_cell">
-&nbsp;
-                  </li>
-                  <li class="th_cell">
-                    채널ID<i class="ico-sort-up" />
-                  </li>
-                  <li class="th_cell">
-                    등록일<i class="ico-sort-up" />
-                  </li>
-                  <li class="th_cell">
-                    신청자<i class="ico-sort-down" />
-                  </li>
-                </ul>
-              </div>
-              <div class="table_body">
-                <ul class="table_row w-auto">
-                  <li class="td_cell reply">
-                    <label class="label-default color-green"><i class="ico-replying" />답변 중</label>
-                  </li>
-                  <li class="td_cell">
-                    2 documents2 documents2 documents2 documents
-                  </li>
-                  <li class="td_cell">
-                    2019-08-07
-                  </li>
-                  <li class="td_cell">
-                    Mywolrd
-                  </li>
-                </ul>
-                <ul class="table_row w-auto">
-                  <li class="td_cell reply">
-                    <label class="label-default color-green"><i class="ico-replying" />답변 중</label>
-                  </li>
-                  <li class="td_cell">
-                    q sign
-                  </li>
-                  <li class="td_cell">
-                    2019-08-07
-                  </li>
-                  <li class="td_cell">
-                    Yourworld
-                  </li>
-                </ul>
-                <ul class="table_row w-auto">
-                  <li class="td_cell reply">
-                    <label class="label-default color-green"><i class="ico-replying" />답변 중</label>
-                  </li>
-                  <li class="td_cell">
-                    Ch to Ch
-                  </li>
-                  <li class="td_cell">
-                    2019-08-07
-                  </li>
-                  <li class="td_cell">
-                    Tworld
-                  </li>
-                </ul>
-                <ul class="table_row w-auto">
-                  <li class="td_cell reply">
-                    <label class="label-default"><i class="ico-replyed" />답변완료</label>
-                  </li>
-                  <li class="td_cell">
-                    Ch to Ch
-                  </li>
-                  <li class="td_cell">
-                    2019-08-07
-                  </li>
-                  <li class="td_cell">
-                    Tworld
-                  </li>
-                </ul>
-                <ul class="table_row w-auto">
-                  <li class="td_cell reply">
-                    <label class="label-default"><i class="ico-replyed" />답변완료</label>
-                  </li>
-                  <li class="td_cell">
-                    2 documents2 documents2 documents2 documents2 documents
-                  </li>
-                  <li class="td_cell">
-                    2019-08-07
-                  </li>
-                  <li class="td_cell">
-                    Mywolrd
-                  </li>
-                </ul>
-                <ul class="table_row w-auto">
-                  <li class="td_cell reply">
-                    <label class="label-default"><i class="ico-replyed" />답변완료</label>
-                  </li>
-                  <li class="td_cell">
-                    q sign
-                  </li>
-                  <li class="td_cell">
-                    2019-08-07
-                  </li>
-                  <li class="td_cell">
-                    Yourworld
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </section>
+        <faq-board />
       </div>
     </div>
   </article>
@@ -150,6 +39,7 @@ import { fetchGetBoardList } from '@/api/bizCommApi';
 // import RadarChart from './chart/RadarChart.vue';
 
 import NotiBoard from '@/components/dashboard/NotiBoard.vue';
+import FaqBoard from '@/components/dashboard/FaqBoard.vue';
 import QueueMonitor from '@/components/dashboard/QueueMonitor.vue';
 // import QueueTransStat from '../components/dashboard/QueueTransStat.vue';
 import RegList from '@/components/dashboard/RegList.vue';
@@ -168,6 +58,7 @@ export default {
   components: {
     // 'radar-chart': RadarChart,
     'noti-board': NotiBoard,
+    'faq-board': FaqBoard,
     // 'queue-stat': QueueTransStat,
     'queue-monitor': QueueMonitor,
     'reg-list': RegList,
