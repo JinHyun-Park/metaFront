@@ -35,16 +35,19 @@
               Num
             </td>
             <td class="th_cell">
+              큐명
+            </td>
+            <td class="th_cell">
               인터페이스명
             </td>
             <td class="th_cell">
               적체량
             </td>
             <td class="th_cell">
-              SM
+              담당자(SM)
             </td>
             <td class="th_cell">
-              담당자
+              상세조회
             </td>
           </tr>
         </div>
@@ -60,17 +63,25 @@
               {{ i+1 }}
             </td>
             <td class="td_cell">
+              {{ queueDepth.queueNm }}
+            </td>
+            <td class="td_cell">
               {{ queueDepth.ifNm }}
             </td>
             <td class="td_cell">
               {{ queueDepth.depthCnt }}
             </td>
             <td class="td_cell">
-              {{ queueDepth.domainNm }}
+              {{ queueDepth.nm }}({{ queueDepth.domainNm }})
             </td>
-            <td class="td_cell">
-              {{ queueDepth.nm }}
-            </td>
+            <li class="td_cell">
+              <label
+                class="label-default color-gray"
+                @click="moveIfIdDetail(i)"
+              >
+                조회
+              </label>
+            </li>
           </tr>
         </div>
       </div>
@@ -91,6 +102,7 @@
 // import ReactiveBarChart from '@/views/chart/ReactiveBarChart.vue';
 import LineChart from '@/views/chart/LineChart.vue';
 import { fetchGetQueueDepthList, fetchGetQueueDepthByQueueNmList } from '@/api/monitoringApi';
+import { fetchGetEaiIfList } from '@/api/eaiApi';
 
 export default {
   name: 'QueueTransStat',
@@ -110,7 +122,10 @@ export default {
       tgtQueueNm: '',
       tgtIfNm: '',
       tgtQueueManager: '',
+      tgtIfId: '',
       curLine: '0',
+
+      eaiIfList: [],
     };
   },
   watch: {
@@ -143,6 +158,39 @@ export default {
       this.tgtIfNm = this.queueDepthList[idx].ifNm;
       this.tgtQueueManager = this.queueDepthList[idx].queueManager;
       this.searchQueueDepthByQueueNm();
+    },
+    // 시연용 : 큐 상세 정보 조회를 위한 임시 함수(나중에 바꾸자!!)
+    moveIfIdDetail(idx) {
+      this.tgtIfId = this.queueDepthList[idx].queueNm.replace('.IN', '');
+      this.searchEaiIfList(this.tgtIfId);
+    },
+    // 시연용 : 큐 상세 정보 조회를 위한 임시 함수(나중에 바꾸자!!)
+    searchEaiIfList(tgtIfId) {
+      fetchGetEaiIfList({
+        params: {
+          pageNo: 1,
+          pageCount: 0,
+          eaiIfId: tgtIfId,
+        },
+      })
+        .then((res) => {
+          console.log(res);
+          if (res.data.rstCd === 'S') {
+            this.eaiIfList = res.data.rstData.searchList;
+            this.$router.push({
+              name: 'ifIdListAdmin',
+              params: {
+                eaiIfSeq: this.eaiIfList[0].eaiIfSeq,
+                callType: 'update',
+              },
+            });
+          } else {
+            this.$gf.alertOn('오류가 발생하였습니다. 관리자에게 문의 하세요.');
+          }
+        })
+        .catch((ex) => {
+          console.log(`error occur!! : ${ex}`);
+        });
     },
     searchQueueDepthByQueueNm() {
       if (this.tgtQueueNm === '') {
