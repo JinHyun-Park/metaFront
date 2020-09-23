@@ -91,6 +91,16 @@
             v-model="eaiIfId"
             type="text"
             value=""
+            @keydown.enter="searchList()"
+          >
+        </div>
+        <div class="column on w-2">
+          <label class="column_label">업무구분(MID)</label>
+          <input
+            v-model="reqMid"
+            type="text"
+            value=""
+            @keydown.enter="searchList()"
           >
         </div>
         <div class="column on w-2">
@@ -99,6 +109,7 @@
             v-model="hostNm"
             type="text"
             value=""
+            @keydown.enter="searchList()"
           >
         </div>
         <div class="column on w-2">
@@ -107,6 +118,7 @@
             v-model="svrIp"
             type="text"
             value=""
+            @keydown.enter="searchList()"
           >
         </div>
         <div class="column w-2" />
@@ -124,16 +136,22 @@
                 인터페이스명
               </td>
               <td class="th_cell">
-                수신TR(SWING)
+                단/양방향
               </td>
               <td class="th_cell">
-                단/양방향
+                송신MID
               </td>
               <td class="th_cell">
                 송신담당
               </td>
               <td class="th_cell">
+                수신MID
+              </td>
+              <td class="th_cell">
                 수신담당
+              </td>
+              <td class="th_cell">
+                수신TR(SWING)
               </td>
               <td class="th_cell">
                 기관코드
@@ -162,26 +180,46 @@
                 {{ row.eaiIfNmKor }}
               </td>
               <td class="td_cell on">
-                {{ row.rcvTr }}
-              </td>
-              <td class="td_cell on">
                 {{ row.roundTypNm }}
               </td>
               <td class="td_cell on">
-                {{ row.sndChrgrNm1 }}({{ row.sndChrgr1OrgNm }})
+                {{ row.sndMid }}
               </td>
               <td class="td_cell on">
-                {{ row.rcvChrgrNm1 }}({{ row.rcvChrgr1OrgNm }})
+                {{ row.sndChrgrNm1 }}
+              </td>
+              <td class="td_cell on">
+                {{ row.rcvMid }}
+              </td>
+              <td class="td_cell on">
+                {{ row.rcvChrgrNm1 }}
+              </td>
+              <td class="td_cell on">
+                {{ row.rcvTr }}
               </td>
               <td class="td_cell on">
                 {{ row.eigwInstCd }}
               </td>
-              <td class="td_cell on">
+              <td
+                v-if="row.eigwInstCd != null && row.eigwInstCd != ''"
+                class="td_cell on"
+              >
                 {{ row.eigwDvpSvrRealIp }} ({{ row.eigwDvpSvrPort }})
               </td>
-              <td class="td_cell on">
+              <td
+                v-else
+                class="td_cell on"
+              />
+              <td
+                v-if="row.eigwInstCd != null && row.eigwInstCd != ''"
+                class="td_cell on"
+              >
                 {{ row.eigwOprSvrRealIp }} ({{ row.eigwProdSvrPort }})
               </td>
+              <td
+                v-else
+                class="td_cell on"
+              />
             </tr>
           </div>
         </div>
@@ -219,6 +257,7 @@ export default {
       svrIp: '',
       opCode: '',
       dealCd: '',
+      reqMid: '',
 
       allMetaList: [],
     };
@@ -240,6 +279,7 @@ export default {
 
           eaiIfId: this.eaiIfId,
           hostNm: this.hostNm,
+          reqMid: this.reqMid,
         },
       })
         .then((res) => {
