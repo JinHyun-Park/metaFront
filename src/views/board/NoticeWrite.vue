@@ -30,31 +30,32 @@
           <div class="select_group">
             <select v-model="boardTyp">
               <option
-                v-for="boardTypOption in boardTypOptions"
-                :key="boardTypOption.id"
+                v-for="code in ccCdList.boardTypList"
+                :key="code.cdDtlId"
+                :value="code.cdDtlId"
+                :selected="code.cdDtlId === `${ boardTyp }`"
               >
-                {{ boardTypOption.value }}
+                {{ code.cdNm }}
               </option>
             </select>
           </div>
         </div>
         <div class="column w-2">
-          <label class="column_label">게시글 상태코드</label>
+          <label class="column_label">게시글 상태</label>
           <div class="select_group">
             <select v-model="boardSt">
               <option
-                v-for="boardStOption in boardStOptions"
-                :key="boardStOption.id"
-                :value="boardStOption.value"
-                :selected="(boardStOption.value === `${boardSt}`)"
+                v-for="code in ccCdList.boardStList"
+                :key="code.cdDtlId"
+                :value="code.cdDtlId"
+                :selected="code.cdDtlId === `${boardSt}`"
               >
-                {{ boardStOption.name }}
+                {{ code.cdNm }}
               </option>
             </select>
           </div>
         </div>
       </div>
-
       <div class="row_contain type-2">
         <div class="column w-4">
           <div v-if="!boardNum">
@@ -86,7 +87,6 @@
           </div>
         </div>
       </div>
-
       <div class="row_contain type-2">
         <div class="column w-4">
           <label class="column_label">내용</label>
@@ -118,7 +118,6 @@
       >
         취소
       </button>
-
       <button
         v-if="boardNum"
         type="button"
@@ -140,6 +139,7 @@
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex';
 import { fetchGetBoard, fetchPostBoard, fetchPutBoard } from '@/api/bizCommApi';
 
 export default {
@@ -159,45 +159,25 @@ export default {
       boardCtyp1: '',
       boardCtyp2: '',
       boardCtyp3: '',
-      boardTypOptions: [
-        {
-          id: 'noti',
-          value: 'NOTI',
-        },
-        {
-          id: 'faq',
-          value: 'FAQ',
-        },
-      ],
-      boardStOptions: [
-        {
-          id: '0',
-          name: '유효(0)',
-          value: '0',
-        },
-        {
-          id: '1',
-          name: '기간만료(1)',
-          value: '1',
-        },
-        {
-          id: '2',
-          name: '완료(2)',
-          value: '2',
-        },
-        {
-          id: '9',
-          name: '삭제(9)',
-          value: '9',
-        },
-      ],
+
+      boardStList: [],
+      boardTypList: [],
       preRoute: null,
     };
   },
   computed: {
+    ...mapState('ccCdLst', ['ccCdList']),
     editor() {
       return this.$refs.myQuillEditor.quill;
     },
+  },
+  mounted() {
+    this.setCcCdList({
+      opClCd: 'COMM', cdId: 'BOARD_ST', allYn: 'N', listNm: 'boardStList',
+    });
+    this.setCcCdList({
+      opClCd: 'COMM', cdId: 'BOARD_TYP', allYn: 'N', listNm: 'boardTypList',
+    });
   },
   created() {
     if (this.$route.params.boardNum) {
@@ -206,6 +186,7 @@ export default {
     } else { // 등록하는 경우 boardType 'NOTI', boardSt '0'으로 초기화
       this.boardTyp = 'NOTI';
       this.boardSt = '0';
+      this.boardIF.push('EAI', 'EiGW', 'MCG');
     }
   },
   // 취소버튼을 위한 이전주소로 가기
@@ -216,6 +197,7 @@ export default {
     });
   },
   methods: {
+    ...mapActions('ccCdLst', ['setCcCdList']),
     moveToNotiMain() {
       this.$router.push({ name: 'notice' });
     },
@@ -244,7 +226,6 @@ export default {
         params: { boardNum: this.boardNum },
       })
         .then((res) => {
-          console.log(res);
           if (res.data.rstCd === 'S') {
             const { boardOne } = res.data.rstData;
             this.boardTyp = boardOne.BOARD_TYP;
@@ -272,9 +253,8 @@ export default {
         chgId: '',
       })
         .then((res) => {
-          console.log(res);
           if (res.data.rstCd === 'S') {
-            console.log('insert board Success');
+            // console.log('insert board Success');
           } else {
           // eslint-disable-next-line no-alert
             // alert('insert board failed');
@@ -295,10 +275,8 @@ export default {
         content: this.content,
       })
         .then((res) => {
-          console.log(res);
-          console.log('Edit_board');
           if (res.data.rstCd === 'S') {
-            console.log('update board Success');
+            // console.log('update board Success');
           } else {
             // eslint-disable-next-line no-alert
             // alert('update board failed');

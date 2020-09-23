@@ -108,82 +108,79 @@
               </li>
             </ul>
           </div>
-          <!-- <label>
-            <input
-              v-model="boardIF"
-              type="checkbox"
-              name="interface"
-              value="EAI"
-            > EAI
-          </label> -->
-          <!-- <label>
-            <input
-              v-model="boardIF"
-              type="checkbox"
-              name="interface"
-              value="EiGW"
-            > EiGW
-          </label>
-          <label>
-            <input
-              v-model="boardIF"
-              type="checkbox"
-              name="interface"
-              value="MCG"
-            > MCG
-          </label> -->
         </div>
       </div>
       <div class="table_colgroup">
         <div class="table_grid radio_group">
           <div class="table_head w-auto">
             <ul>
-              <li
-                v-for="tableHeadItem in tableHeadList"
-                :key="tableHeadItem"
-                class="th_cell"
-              >
-                {{ tableHeadItem }}
+              <li class="th_cell">
+                Num
               </li>
+              <li class="th_cell">
+                제목
+              </li>
+              <li class="th_cell">
+                게시상태
+              </li>
+              <li class="th_cell">
+                작성자
+              </li>
+              <li class="th_cell">
+                작성일자
+              </li>
+              <li class="th_cell" />
             </ul>
           </div>
           <div class="table_body">
-            <ul
-              v-for="board in boardList"
-              :key="board.BOARD_NUM"
-              class="table_row w-auto"
-            >
-              <li class="td_cell">
-                {{ board.BOARD_NUM }}
-              </li>
-              <li
-                class="td_cell"
-                @click="moveToView(board.BOARD_NUM)"
+            <template v-if="boardList === [] || boardList.length === 0">
+              <tr class="table_row w-auto">
+                <td
+                  colspan="10"
+                  class="td_cell"
+                >
+                  데이터가 없습니다.
+                </td>
+              </tr>
+            </template>
+            <template v-else>
+              <ul
+                v-for="board in boardList"
+                :key="board.BOARD_NUM"
+                class="table_row w-auto"
               >
-                {{ board.TITLE }}
-              </li>
-              <li class="td_cell">
-                {{ setBoardStName(board.BOARD_ST) }}
-              </li>
-              <li class="td_cell">
-                {{ board.chgNm }}({{ board.CHG_ID }})
-              </li>
-              <li class="td_cell">
-                {{ board.formatChgDt }}
-              </li>
-              <li class="td_cell">
-                <i
-                  v-if="(`${auth}` == 'ADMIN')"
-                  class="ico-edit"
-                  @click="moveToWrite(board.BOARD_NUM)"
-                />
-                <i
-                  v-if="(`${auth}` == 'ADMIN')"
-                  class="ico-del"
-                  @click="deleteBoard(board.BOARD_NUM)"
-                />
-              </li>
-            </ul>
+                <li class="td_cell">
+                  {{ board.BOARD_NUM }}
+                </li>
+                <li
+                  class="td_cell"
+                  @click="moveToView(board.BOARD_NUM)"
+                >
+                  {{ board.TITLE }}
+                </li>
+                <li class="td_cell">
+                  {{ setBoardStName(board.BOARD_ST) }}
+                </li>
+                <li class="td_cell">
+                  {{ board.chgNm }}({{ board.CHG_ID }})
+                </li>
+                <li class="td_cell">
+                  {{ board.formatChgDt }}
+                </li>
+                <li class="td_cell">
+                  <i
+                    v-if="(`${auth}` == 'ADMIN')"
+                    class="ico-edit"
+                    @click="moveToWrite(board.BOARD_NUM)"
+                  />
+                  <i
+                    v-if="(`${auth}` == 'ADMIN')"
+                    class="ico-del"
+                    @click="deleteBoard(board.BOARD_NUM)"
+                  />
+                </li>
+              </ul>
+            </template>
           </div>
         </div>
       </div>
@@ -216,6 +213,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import { fetchGetBoardList, fetchDeleteBoard } from '@/api/bizCommApi';
 import { fetchGetUserAuth } from '@/api/loginApi';
 
@@ -232,15 +230,17 @@ export default {
         },
       },
       pageSet: { pageNo: 1, pageCount: 0, size: 10 },
-      boardList: [],
-      auth: '',
       pageMoveChk: 0,
+      boardList: [],
       boardIF: [],
       boardCtyp1: 'EAI',
       boardCtyp2: 'EiGW',
       boardCtyp3: 'MCG',
-      tableHeadList: ['Num', '제목', '게시상태', '작성자', '작성일자', ''],
+      auth: '',
     };
+  },
+  computed: {
+    ...mapState('ccCdLst', ['ccCdList']),
   },
   mounted() {
     // 3달 전 보기
@@ -270,10 +270,10 @@ export default {
     setBoardStName(boardState) {
       // eslint-disable-next-line default-case
       switch (boardState) {
-        case '0': return '유효(0)';
-        case '1': return '기간만료(1)';
-        case '2': return '완료(2)';
-        case '9': return '삭제(9)';
+        case '0': return '유효';
+        case '1': return '기간만료';
+        case '2': return '완료';
+        case '9': return '삭제';
       }
     },
     pageMove() {
@@ -355,6 +355,7 @@ export default {
   },
 };
 </script>
+
 <style scoped>
 .td_cell {
   font-size: 14px;

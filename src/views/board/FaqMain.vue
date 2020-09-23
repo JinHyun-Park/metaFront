@@ -246,10 +246,10 @@ export default {
     setBoardStName(boardState) {
       // eslint-disable-next-line default-case
       switch (boardState) {
-        case '0': return '유효(0)';
-        case '1': return '기간만료(1)';
-        case '2': return '완료(2)';
-        case '9': return '삭제(9)';
+        case '0': return '유효';
+        case '1': return '기간만료';
+        case '2': return '완료';
+        case '9': return '삭제';
       }
     },
     pageMove() {
