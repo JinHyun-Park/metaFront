@@ -249,7 +249,7 @@ export default {
     
   },
   mounted() {
-    this.startReqDtm = this.$gf.dateToString(new Date(), '-7d', 'Y');
+    this.startReqDtm = this.$gf.dateToString(new Date(), '-90d', 'Y');
     this.endReqDtm = this.$gf.dateToString(new Date(), '', 'Y');
     this.setCcCdList({
       opClCd: 'COMM', cdId: 'PROC_ST', allYn: 'Y', listNm: 'procStCd',

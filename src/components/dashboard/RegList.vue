@@ -64,11 +64,6 @@
             >
               {{ row.reqrNm }}({{ row.reqrId }})
             </li>
-            <li
-              class="td_cell"
-            >
-              {{ row.aprvNm }}({{ row.aprvId }})
-            </li>
           </ul>
         </div>
       </div>
