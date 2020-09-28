@@ -3036,9 +3036,18 @@ display: table-column
     color: black;
 }
 
+.table_grid .table_row .td_cell label.label-default.color-green.on {
+    background: #82BEA3;
+}
+
 .table_grid .table_row .td_cell label.label-default.color-blue {
     border-color: #4075b8;
     color: black;
+}
+
+.table_grid .table_row .td_cell label.label-default.color-blue.on {
+    background: #4075b8;
+    color: white;
 }
 
 .table_grid .table_row .td_cell label.label-default.color-gray {
@@ -3054,6 +3063,10 @@ display: table-column
 .table_grid .table_row .td_cell label.label-default.color-yellow {
     border-color: #ffc529;
     color: black;
+}
+
+.table_grid .table_row .td_cell label.label-default.color-yellow.on {
+    background: #ffc529;
 }
 
 .table_grid .table_row .td_cell.reply label.label-default {

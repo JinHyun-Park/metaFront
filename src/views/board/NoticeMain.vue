@@ -80,7 +80,7 @@
       <div class="row_contain type-3">
         <div class="column w-4">
           <label class="column_label">관련 인터페이스</label>
-          <div class="table_body">
+          <div class="check_group">
             <ul class="table_row w-auto">
               <li class="td_cell">
                 <input
