@@ -169,6 +169,7 @@
               v-for="(row, i) in allMetaList"
               :key="i"
               class="table_row w-auto"
+              @dblclick="movePage(i)"
             >
               <td class="td_cell on">
                 {{ (i+1)+((pageSet.pageNo-1)*pageSet.size) }}
@@ -262,6 +263,9 @@ export default {
       allMetaList: [],
     };
   },
+  mounted() {
+    this.searchList();
+  },
   methods: {
     pageMove() {
       this.pageMoveChk = 1;
@@ -295,6 +299,15 @@ export default {
         .catch((ex) => {
           console.log(`error occur!! : ${ex}`);
         });
+    },
+    movePage(index) {
+      this.$router.push({
+        name: 'ifIdListAdmin',
+        params: {
+          eaiIfSeq: this.allMetaList[index].eaiIfSeq,
+          callType: 'update',
+        },
+      });
     },
   },
 
