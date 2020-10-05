@@ -23,7 +23,7 @@
           NARU란?
         </h2>
         <img
-          src="@/assets/images/img-eai-btn.png"
+          src="@/assets/images/businessman.png"
           width="100"
         >
       </button>
@@ -38,7 +38,7 @@
           Who??
         </h2>
         <img
-          src="@/assets/images/img-eai-btn.png"
+          src="@/assets/images/hierarchical-structure.png"
           width="100"
         >
       </button>
@@ -52,7 +52,7 @@
           What??
         </h2>
         <img
-          src="@/assets/images/img-eigw-btn.png"
+          src="@/assets/images/exchange.png"
           width="100"
         >
       </button>
@@ -66,7 +66,7 @@
           How??
         </h2>
         <img
-          src="@/assets/images/img-mcg-btn.png"
+          src="@/assets/images/clipboard.png"
           width="100"
         >
       </button>
