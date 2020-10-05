@@ -76,7 +76,7 @@
             </td>
             <li class="td_cell">
               <label
-                class="label-default color-gray"
+                class="label-default color-gray click_btn"
                 @click="moveIfIdDetail(i)"
               >
                 조회
