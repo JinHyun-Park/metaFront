@@ -113,9 +113,9 @@
           >
         </div>
         <div class="column on w-2">
-          <label class="column_label">IP</label>
+          <label class="column_label">대외기관</label>
           <input
-            v-model="svrIp"
+            v-model="reqInstCd"
             type="text"
             value=""
             @keydown.enter="searchList()"
@@ -269,6 +269,7 @@ export default {
       dealCd: '',
       reqMid: '',
       rcvTr: '',
+      reqInstCd: '',
 
       allMetaList: [],
     };
@@ -295,6 +296,7 @@ export default {
           hostNm: this.hostNm,
           reqMid: this.reqMid,
           rcvTr: this.rcvTr,
+          reqInstCd: this.reqInstCd,
         },
       })
         .then((res) => {
