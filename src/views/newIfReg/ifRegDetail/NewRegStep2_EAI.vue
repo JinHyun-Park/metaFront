@@ -11,135 +11,9 @@
       style="background:#efffef;"
     >
       <h5 class="s_tit type-2">
-        인터페이스 신청 목록
-        <button
-          type="button"
-          class="default_button extend on"
-          @click="saveEaiRegTemp()"
-        >
-          임시저장
-        </button>
-      </h5>
-      <div class="table_colgroup">
-        <div class="table_grid tb_layout">
-          <div class="table_head w-auto">
-            <ul>
-              <li
-                class="th_cell"
-                style="width:15%"
-              >
-                EAI 인터페이스ID
-              </li>
-              <li
-                class="th_cell"
-                style="width:15%"
-              >
-                인터페이스명
-              </li>
-              <li
-                class="th_cell"
-                style="width:15%"
-              >
-                인터페이스명(영문)
-              </li>
-              <li
-                class="th_cell"
-                style="width:10%"
-              >
-                방향
-              </li>
-              <li
-                class="th_cell"
-                style="width:5%"
-              >
-                방식
-              </li>
-              <li
-                class="th_cell"
-                style="width:7%"
-              >
-                단/양방향
-              </li>
-              <li
-                class="th_cell"
-                style="width:8%"
-              >
-                요청 처리 방식
-              </li>
-              <li
-                class="th_cell"
-                style="width:5%"
-              >
-                삭제
-              </li>
-            </ul>
-          </div>
-          <div class="table_body">
-            <ul
-              v-for="(eaiIf, i) in eaiIfList"
-              :key="i"
-              class="table_row w-auto"
-            >
-              <li
-                class="td_cell on"
-                @click="getDetailInfo(eaiIf)"
-              >
-                {{ eaiIf.eaiIfId }}
-              </li>
-              <li
-                class="td_cell on"
-                @click="getDetailInfo(eaiIf)"
-              >
-                {{ eaiIf.eaiIfNmKor }}
-              </li>
-              <li
-                class="td_cell on"
-                @click="getDetailInfo(eaiIf)"
-              >
-                {{ eaiIf.eaiIfNmEng }}
-              </li>
-              <li
-                class="td_cell"
-                @click="getDetailInfo(eaiIf)"
-              >
-                {{ eaiIf.drctnNm }}
-              </li>
-              <li
-                class="td_cell"
-                @click="getDetailInfo(eaiIf)"
-              >
-                {{ eaiIf.ifTypNm }}
-              </li>
-              <li
-                class="td_cell"
-                @click="getDetailInfo(eaiIf)"
-              >
-                {{ eaiIf.roundTypNm }}
-              </li>
-              <li
-                class="td_cell"
-                @click="getDetailInfo(eaiIf)"
-              >
-                {{ eaiIf.syncTypNm }}
-              </li>
-              <li class="td_cell">
-                <i
-                  class="ico-del"
-                  @click="removeIf(eaiIf)"
-                />
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-    <section
-      v-show="showDetailInfo"
-      class="form_area border_group"
-    >
-      <h5 class="s_tit type-2">
         송신 시스템 정보
       </h5>
+
       <div class="table_colgroup">
         <div class="table_grid tb_layout">
           <div class="table_head w-auto">
@@ -416,6 +290,143 @@
         </div>
       </div>
     </section>
+    <section
+      class="form_area border_group"
+      style="background:#efffef;"
+    >
+      <h5 class="s_tit type-2">
+        인터페이스 신청 목록
+        <div class="right_button_area">
+          <button
+            type="button"
+            class="default_button extend"
+            @click="addNewEmptyIf()"
+          >
+            인터페이스 추가
+          </button>
+          <button
+            type="button"
+            class="default_button extend on"
+            @click="saveEaiRegTemp()"
+          >
+            임시저장
+          </button>
+        </div>
+      </h5>
+      <div class="table_colgroup">
+        <div class="table_grid tb_layout">
+          <div class="table_head w-auto">
+            <ul>
+              <li
+                class="th_cell"
+                style="width:15%"
+              >
+                EAI 인터페이스ID
+              </li>
+              <li
+                class="th_cell"
+                style="width:15%"
+              >
+                인터페이스명
+              </li>
+              <li
+                class="th_cell"
+                style="width:15%"
+              >
+                인터페이스명(영문)
+              </li>
+              <li
+                class="th_cell"
+                style="width:10%"
+              >
+                방향
+              </li>
+              <li
+                class="th_cell"
+                style="width:5%"
+              >
+                방식
+              </li>
+              <li
+                class="th_cell"
+                style="width:7%"
+              >
+                단/양방향
+              </li>
+              <li
+                class="th_cell"
+                style="width:8%"
+              >
+                요청 처리 방식
+              </li>
+              <li
+                class="th_cell"
+                style="width:5%"
+              >
+                삭제
+              </li>
+            </ul>
+          </div>
+          <div class="table_body">
+            <ul
+              v-for="(eaiIf, i) in eaiIfList"
+              :key="i"
+              class="table_row w-auto"
+            >
+              <li
+                class="td_cell on"
+                @click="getDetailInfo(eaiIf)"
+              >
+                {{ eaiIf.eaiIfId }}
+              </li>
+              <li
+                class="td_cell on"
+                @click="getDetailInfo(eaiIf)"
+              >
+                {{ eaiIf.eaiIfNmKor }}
+              </li>
+              <li
+                class="td_cell on"
+                @click="getDetailInfo(eaiIf)"
+              >
+                {{ eaiIf.eaiIfNmEng }}
+              </li>
+              <li
+                class="td_cell"
+                @click="getDetailInfo(eaiIf)"
+              >
+                {{ eaiIf.drctnNm }}
+              </li>
+              <li
+                class="td_cell"
+                @click="getDetailInfo(eaiIf)"
+              >
+                {{ eaiIf.ifTypNm }}
+              </li>
+              <li
+                class="td_cell"
+                @click="getDetailInfo(eaiIf)"
+              >
+                {{ eaiIf.roundTypNm }}
+              </li>
+              <li
+                class="td_cell"
+                @click="getDetailInfo(eaiIf)"
+              >
+                {{ eaiIf.syncTypNm }}
+              </li>
+              <li class="td_cell">
+                <i
+                  class="ico-del"
+                  @click="removeIf(eaiIf)"
+                />
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
 
     <section
       v-if="showDetailInfo"
@@ -423,6 +434,15 @@
     >
       <h5 class="s_tit type-2">
         기본 정보
+        <div class="right_button_area">
+          <button
+            type="button"
+            class="default_button"
+            @click="updateIf()"
+          >
+            저장
+          </button>
+        </div>
       </h5>
       <div class="row_contain">
         <div class="column w-2">
@@ -834,22 +854,6 @@
             * 인터페이스 정보를 신규로 입력하신 후에는 "인터페이스 추가",
             기존 정보를 수정한 후에는 "수정" 버튼을 누르시기 바랍니다. </label>
         </div>
-        <div class="right_button_area">
-          <button
-            type="button"
-            class="default_button"
-            @click="updateIf()"
-          >
-            수정
-          </button>
-          <button
-            type="button"
-            class="default_button extend on"
-            @click="addNewIf()"
-          >
-            인터페이스 추가
-          </button>
-        </div>
       </div>
     </section>
 
@@ -1174,7 +1178,6 @@ export default {
       }
     },
 
-
     saveEaiRegTemp() {
       console.log('eai 임시저장 함수 시작');
       this.svrRows.splice(0, this.svrRows.length);
@@ -1396,6 +1399,10 @@ export default {
 
       return 1;
     },
+    addNewEmptyIf() {
+      this.eaiIfList.push({});
+      this.showDetailInfo = false;
+    },
     addNewIf() {
       if (this.checkFields() === 0) {
         return;
@@ -1516,6 +1523,7 @@ export default {
     },
     getDetailInfo(eaiIf) {
       this.showDetailInfo = true;
+
       this.eaiIfId = eaiIf.eaiIfId;
       this.eaiIfNmKor = eaiIf.eaiIfNmKor;
       this.eaiIfNmEng = eaiIf.eaiIfNmEng;

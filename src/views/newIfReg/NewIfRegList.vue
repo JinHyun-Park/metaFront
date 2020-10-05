@@ -383,7 +383,7 @@ export default {
     },
     detail(i) {
       //this.$router.push({ name: 'applyIf', params: { reqNum: this.ifReqList[i].reqNum, callType:'update', procSt: this.ifReqList[i].procSt }})
-      this.$router.push({ name: 'newApplyIf', params: { reqNum: this.ifReqList[i].reqNum, callType:'update', procSt: this.ifReqList[i].procSt, ifKind: 'EAI' }})
+      this.$router.push({ name: 'newApplyIf', params: { reqNum: this.ifReqList[i].reqNum, callType:'update', procSt: this.ifReqList[i].procSt, ifKind: 'EIGW' }})
     },
     turnOnNewIfRegChose() {
       //this.popupProp.procSt = this.tgtProcSt;
