@@ -13,6 +13,7 @@ export default {
             ticks: {
               suggestedMax: 5,
               beginAtZero: true,
+              // stepSize: 1,
             },
             gridLines: {
               display: true,

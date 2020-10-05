@@ -14,7 +14,7 @@
           Auto Refresh
           <button
             class="button is-primary"
-            @click="searchQueueDepth()"
+            @click="searchEigwTransError()"
           >
             새로고침 : {{ remainTime }}s
           </button>

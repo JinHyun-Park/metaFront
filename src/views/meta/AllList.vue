@@ -121,6 +121,15 @@
             @keydown.enter="searchList()"
           >
         </div>
+        <div class="column on w-2">
+          <label class="column_label">수신TR</label>
+          <input
+            v-model="rcvTr"
+            type="text"
+            value=""
+            @keydown.enter="searchList()"
+          >
+        </div>
         <div class="column w-2" />
       </div>
 
@@ -259,6 +268,7 @@ export default {
       opCode: '',
       dealCd: '',
       reqMid: '',
+      rcvTr: '',
 
       allMetaList: [],
     };
@@ -284,6 +294,7 @@ export default {
           eaiIfId: this.eaiIfId,
           hostNm: this.hostNm,
           reqMid: this.reqMid,
+          rcvTr: this.rcvTr,
         },
       })
         .then((res) => {
