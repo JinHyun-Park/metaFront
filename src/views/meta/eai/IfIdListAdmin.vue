@@ -322,10 +322,10 @@
           </div>
         </div>
         <div class="column w-2">
-          <label class="column_label">소속</label>
+          <label class="column_label">휴대번호</label>
           <div class="search_group">
             <input
-              v-model="ifDetailInfo.sndChrgrOrgNm1"
+              v-model="ifDetailInfo.sndChrgrMblPhonNum1"
               type="text"
               readonly
             >
@@ -348,10 +348,10 @@
           </div>
         </div>
         <div class="column w-2">
-          <label class="column_label">소속</label>
+          <label class="column_label">휴대번호</label>
           <div class="search_group">
             <input
-              v-model="ifDetailInfo.sndChrgrOrgNm2"
+              v-model="ifDetailInfo.sndChrgrMblPhonNum2"
               type="text"
               readonly
             >
@@ -414,10 +414,10 @@
           </div>
         </div>
         <div class="column w-2">
-          <label class="column_label">소속</label>
+          <label class="column_label">휴대번호</label>
           <div class="search_group">
             <input
-              v-model="ifDetailInfo.rcvChrgrOrgNm1"
+              v-model="ifDetailInfo.rcvChrgrMblPhonNum1"
               type="text"
               readonly
             >
@@ -440,10 +440,10 @@
           </div>
         </div>
         <div class="column w-2">
-          <label class="column_label">소속</label>
+          <label class="column_label">휴대번호</label>
           <div class="search_group">
             <input
-              v-model="ifDetailInfo.rcvChrgrOrgNm2"
+              v-model="ifDetailInfo.rcvChrgrMblPhonNum2"
               type="text"
               readonly
             >
@@ -1214,20 +1214,29 @@ export default {
 
           if (res.data.rstData.svrList) {
             this.svrList = res.data.rstData.svrList;
+            this.sndRows.splice(0, this.sndRows.length);
+            this.rcvRows.splice(0, this.rcvRows.length);
+
+            for (let i = 0; i < this.svrList.length; i++) {
+              if (this.svrList[i].sndRcvCl === 'S') {
+                this.sndRows.push(this.svrList[i]);
+              } else {
+                this.rcvRows.push(this.svrList[i]);
+              }
+            }
+
+            // 임시로 수정 나중에 좋은 방법 찾자!!
+            if (this.sndRows.length === 0) {
+              this.sndRows.push({});
+            }
+            if (this.rcvRows.length === 0) {
+              this.rcvRows.push({});
+            }
           }
           if (res.data.rstData.qInfo) {
             this.qInfo = res.data.rstData.qInfo;
           }
-          this.sndRows.splice(0, this.sndRows.length);
-          this.rcvRows.splice(0, this.rcvRows.length);
 
-          for (let i = 0; i < this.svrList.length; i++) {
-            if (this.svrList[i].sndRcvCl === 'S') {
-              this.sndRows.push(this.svrList[i]);
-            } else {
-              this.rcvRows.push(this.svrList[i]);
-            }
-          }
 
           this.changeRoundStatus(1);
           this.changeSyncStatus(1);

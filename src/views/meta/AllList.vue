@@ -297,6 +297,7 @@ export default {
           reqMid: this.reqMid,
           rcvTr: this.rcvTr,
           reqInstCd: this.reqInstCd,
+          useYn: 'Y',
         },
       })
         .then((res) => {
