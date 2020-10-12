@@ -4,15 +4,6 @@
       <div>
         <h5 class="s_tit type-2">
           신청 기본 정보
-          <div class="right_button_area">
-            <button
-              type="button"
-              class="default_button on"
-              @click="saveIfReqMst(callType)"
-            >
-              임시저장
-            </button>
-          </div>
         </h5>
       </div>
       <div class="row_contain type-2">
@@ -92,6 +83,7 @@
 
 import { mapState, mapActions } from 'vuex';
 import { fetchPostIfStep1Reg, fetchGetIfReqMst, fetchPutIfStep1Reg } from '@/api/ifRegApi';
+import eventBus from '@/utils/eventBus';
 
 export default {
   name: 'RegStep1ApplyIf',
@@ -126,6 +118,16 @@ export default {
   },
   computed: {
     ...mapState('ifRegInfo', ['reqNum']),
+  },
+  created() {
+    eventBus.$on('Step1ReqMstSave', (params) => {
+      console.log('event Bus 통해 Step1 저장');
+      this.saveIfReqMst(params.callType);
+    });
+    console.log(`parent reqNum : ${this.$parent.reqNum}`);
+  },
+  destroyed() {
+    eventBus.$off('Step1ReqMstSave');
   },
   mounted() {
     this.today = this.$gf.dateToString(new Date(), '', 'Y');

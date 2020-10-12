@@ -5,6 +5,7 @@
 function getIfRegBotBtnSet(tabNum, procSt) {
   // tabNum : 1(기본정보입력) / 2(인터페이스 상세) / 3(승인요청) / 4(승인)
   // procSt : 1(임시저장) / 2(승인요청)
+  console.log(`procSt : ${procSt} tabNum : ${tabNum}`);
   const ifRegBotBtnSet = [];
   ifRegBotBtnSet.isBtnPrev = (tabNum > 1);
   ifRegBotBtnSet.isBtnForw = (tabNum < 3);

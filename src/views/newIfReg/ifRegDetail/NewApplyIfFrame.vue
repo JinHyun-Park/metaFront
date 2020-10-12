@@ -66,6 +66,14 @@
         이전
       </button>
       <button
+        v-if="ifRegBotBtnSet.isBtnTempSave"
+        type="button"
+        class="default_button on"
+        @click="tempSave('btnTemp')"
+      >
+        임시저장
+      </button>
+      <button
         v-if="ifRegBotBtnSet.isBtnForw"
         type="button"
         class="default_button btn_next"
@@ -79,6 +87,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex';
+import eventBus from '@/utils/eventBus';
 import NewRegStep1 from '@/views/newIfReg/ifRegDetail/NewRegStep1.vue'; // 1단계
 import NewRegStep2Eai from '@/views/newIfReg/ifRegDetail/NewRegStep2_EAI.vue'; // 2단계 EAI
 import NewRegStep2Eigw from '@/views/newIfReg/ifRegDetail/NewRegStep2_EIGW.vue'; // 2단계 EAI
@@ -114,6 +123,7 @@ export default {
       ifRegBotBtnSet: {
         isBtnPrev: true,
         isBtnForw: true,
+        isBtnTempSave: true,
       },
     };
   },
@@ -178,6 +188,21 @@ export default {
     },
     isActive(val) {
       return this.tabNum === val;
+    },
+    tempSave() {
+      if (this.tabNum === 1) { // 신청 개요 데이터
+        eventBus.$emit('Step1ReqMstSave', { reqNum: this.reqNum, callType: this.callType, alertYn: alert });
+      } else if (this.tabNum === 2) { // 각단계 별 신청 데이터
+        if (this.ifKind === 'EAI') {
+          eventBus.$emit('Step2EaiSave', { reqNum: this.reqNum, alertYn: alert });
+        } else if (this.ifKind === 'EIGW') {
+          eventBus.$emit('Step2EigwSave', { reqNum: this.reqNum, alertYn: alert });
+        } else if (this.ifKind === 'MCG') {
+          eventBus.$emit('Step2McgSave', { reqNum: this.reqNum, alertYn: alert });
+        }
+      } else if (this.tabNum === 3) { // 최종 승인요청 화면
+        eventBus.$emit('Step3AprvSave', { reqNum: this.reqNum });
+      }
     },
     toNextTab() {
       if (this.procSt === '1' || this.procSt == null) {

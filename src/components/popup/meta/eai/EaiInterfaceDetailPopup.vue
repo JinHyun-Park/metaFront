@@ -1,5 +1,11 @@
 <template>
   <div class="contents popup">
+    <ChrgrListPopup
+      v-if="svrOnChrgr"
+      v-bind="propsChrgr"
+      @closePop="turOffSvrPopChrgr"
+      @addData="addDataChrgr"
+    />
     <i class="dim" />
     <article
       ref="queueListPop"
@@ -7,9 +13,9 @@
       tabindex="0"
       @keydown.prevent.esc="closePop"
     >
-      <section class="title style-2">
+      <!--<section class="title style-2">
         <h2><i class="ico-bar" />EAI 인터페이스 등록</h2>
-      </section>
+      </section>-->
       <section
         class="form_area border_group"
       >
@@ -441,11 +447,15 @@
 
 <script>
 import { mapState, mapActions } from 'vuex';
+import ChrgrListPopup from '@/components/popup/bizcomm/ChrgrListPopup.vue';
 
 export default {
   name: 'EaiIfDetailPopup',
+  components: {
+    ChrgrListPopup,
+  },
   props: {
-    eaiIfDetailProp: {
+    propData: {
       type: Object,
       default: null,
     },
@@ -462,39 +472,46 @@ export default {
       sysTypCd: '',
 
       eaiIfDetail:
-        {
-          eaiIfId: '',
-          eaiIfNmKor: '',
-          eaiIfNmEng: '',
-          ifDesc: '',
-          drctnCd: '',
-          ifTypCd: '',
-          roundTypCd: '',
-          syncTypCd: '',
-          rcvOpCd: '',
-          fileIfTypCd: '',
-          sndDir: '',
-          rcvDir: '',
-          rcvShNm: '',
-          fileOpCode: '',
-          sndMid: '',
-          sndChrgrNm1: '',
-          sndChrgrOrgNm1: '',
-          sndChrgrNm2: '',
-          sndChrgrOrgNm2: '',
-          sndChrgrMngrNm: '',
-          sndChrgrMngrOrgNm: '',
-          rcvMid: '',
-          rcvChrgrNm1: '',
-          rcvChrgrOrgNm1: '',
-          rcvChrgrNm2: '',
-          rcvChrgrOrgNm2: '',
-          rcvChrgrMngrNm: '',
-          rcvChrgrMngrOrgNm: '',
-          svcImpt: '',
-          eaiRmk: '',
-        },
+      {
+        eaiIfId: '',
+        eaiIfNmKor: '',
+        eaiIfNmEng: '',
+        ifDesc: '',
+        drctnCd: '',
+        ifTypCd: '',
+        roundTypCd: '',
+        roundTypNm: '',
+        syncTypCd: '',
+        syncTypNm: '',
+        rcvOpCd: '',
+        fileIfTypCd: '',
+        sndDir: '',
+        rcvDir: '',
+        rcvShNm: '',
+        fileOpCode: '',
+        sndMid: '',
+        sndChrgrNm1: '',
+        sndChrgrOrgNm1: '',
+        sndChrgrNm2: '',
+        sndChrgrOrgNm2: '',
+        sndChrgrMngrNm: '',
+        sndChrgrMngrOrgNm: '',
+        rcvMid: '',
+        rcvChrgrNm1: '',
+        rcvChrgrOrgNm1: '',
+        rcvChrgrNm2: '',
+        rcvChrgrOrgNm2: '',
+        rcvChrgrMngrNm: '',
+        rcvChrgrMngrOrgNm: '',
+        svcImpt: '',
+        eaiRmk: '',
+      },
 
+      svrOnChrgr: false,
+      propsChrgr: {
+        message: '',
+      },
+      callChrgr: '',
 
       pageSet: { pageNo: 1, pageCount: 0, size: 5 },
       pageMoveChk: 0,
@@ -505,7 +522,6 @@ export default {
     ...mapState('ccCdLst', ['ccCdList']),
   },
   mounted() {
-    this.eaiIfDetail = this.eaiIfDetailProp.eaiIfDetailProp;
     this.setCcCdList({
       opClCd: 'COMM', cdId: 'SVR_TYP_CD', allYn: 'N', listNm: 'svrTypCd',
     });
@@ -530,21 +546,25 @@ export default {
     this.setCcCdList({
       opClCd: 'EAI', cdId: 'SYS_TYP_CD', allYn: 'N', listNm: 'sysTypCd',
     });
-    this.$refs.queueListPop.focus(); // keyup 이벤트가 바로 적용될 수 있도록 focusing
+    // this.$refs.queueListPop.focus(); // keyup 이벤트가 바로 적용될 수 있도록 focusing
+
+    this.eaiIfDetail = this.propData;
+    this.changeRoundStatus(1);
+    this.changeSyncStatus(1);
   },
   methods: {
     ...mapActions('ccCdLst', ['setCcCdList']),
     onChangeDrctnCd() {
       for (let i = 0; i < this.ccCdList.drctnCd.length; i++) {
-        if (this.ccCdList.drctnCd[i].cdDtlId === this.drctnCd) {
-          this.drctnNm = this.ccCdList.drctnCd[i].cdNm;
+        if (this.ccCdList.drctnCd[i].cdDtlId === this.eaiIfDetail.drctnCd) {
+          this.eaiIfDetail.drctnNm = this.ccCdList.drctnCd[i].cdNm;
         }
       }
     },
     onChangeIfTypCd() {
       for (let i = 0; i < this.ccCdList.ifTypCd.length; i++) {
-        if (this.ccCdList.ifTypCd[i].cdDtlId === this.ifTypCd) {
-          this.ifTypNm = this.ccCdList.ifTypCd[i].cdNm;
+        if (this.ccCdList.ifTypCd[i].cdDtlId === this.eaiIfDetail.ifTypCd) {
+          this.eaiIfDetail.ifTypNm = this.ccCdList.ifTypCd[i].cdNm;
         }
       }
 
@@ -552,98 +572,205 @@ export default {
     },
     onChangeRoundTypCd() {
       for (let i = 0; i < this.ccCdList.roundTypCd.length; i++) {
-        if (this.ccCdList.roundTypCd[i].cdDtlId === this.roundTypCd) {
-          this.roundTypNm = this.ccCdList.roundTypCd[i].cdNm;
+        if (this.ccCdList.roundTypCd[i].cdDtlId === this.eaiIfDetail.roundTypCd) {
+          this.eaiIfDetail.roundTypNm = this.ccCdList.roundTypCd[i].cdNm;
         }
       }
       this.changeSyncStatus();
     },
     onChangeSyncTypCd() {
-      console.log(this.syncTypCd);
+      console.log(this.eaiIfDetail.syncTypCd);
       for (let i = 0; i < this.ccCdList.syncTypCd.length; i++) {
-        if (this.ccCdList.syncTypCd[i].cdDtlId === this.syncTypCd) {
-          this.syncTypNm = this.ccCdList.syncTypCd[i].cdNm;
+        if (this.ccCdList.syncTypCd[i].cdDtlId === this.eaiIfDetail.syncTypCd) {
+          this.eaiIfDetail.syncTypNm = this.ccCdList.syncTypCd[i].cdNm;
         }
       }
-      console.log(this.syncTypNm);
+      console.log(this.eaiIfDetail.syncTypNm);
     },
     checkDrctn() {
-      if (this.drctnCd === '') {
+      if (this.eaiIfDetail.drctnCd === '') {
         this.$gf.alertOn('연동 방향을 먼저 선택하세요');
       }
     },
     checkIfTyp() {
-      if (this.ifTypCd === '') {
+      if (this.eaiIfDetail.ifTypCd === '') {
         this.$gf.alertOn('연동 방식을 먼저 선택하세요');
       }
     },
     checkRoundTyp() {
-      if (this.ifTypCd === '') {
+      if (this.eaiIfDetail.ifTypCd === '') {
         this.$gf.alertOn('연동 방식을 먼저 선택하세요');
         return;
       }
-      if (this.roundTypCd === '') {
+      if (this.eaiIfDetail.roundTypCd === '') {
         this.$gf.alertOn('단/양방향을 먼저 선택하세요');
       }
     },
     checkFields() {
-      if (this.eaiIfDetail.eaiIfNmKor === '') {
+      if (this.$gf.isEmpty(this.eaiIfDetail.eaiIfNmKor)) {
         this.$gf.alertOn('인터페이스명을 입력하세요');
         return 0;
-      } if (this.eaiIfDetail.eaiIfNmEng === '') {
+      }
+      if (this.$gf.isEmpty(this.eaiIfDetail.eaiIfNmEng)) {
         this.$gf.alertOn('인터페이스 영문 약자를 입력하세요');
         return 0;
-      } if (this.eaiIfDetail.drctnCd === '') {
+      }
+      if (this.$gf.isEmpty(this.eaiIfDetail.drctnCd)) {
         this.$gf.alertOn('연동 방향을 선택하세요');
         return 0;
-      } if (this.eaiIfDetail.ifTypCd === '') {
+      }
+      if (this.$gf.isEmpty(this.eaiIfDetail.ifTypCd)) {
         this.$gf.alertOn('연동 방식을 선택하세요');
         return 0;
-      } if (this.eaiIfDetail.ifTypCd === '1' && this.eaiIfDetail.roundTypCd === '') {
+      }
+      if (this.eaiIfDetail.ifTypCd === '1' && this.$gf.isEmpty(this.eaiIfDetail.roundTypCd)) {
         this.$gf.alertOn('단/양방향을 선택하세요');
         return 0;
-      } if (this.eaiIfDetail.roundTypCd === '2' && this.eaiIfDetail.syncTypCd === '') {
+      }
+      if (this.eaiIfDetail.roundTypCd === '2' && this.$gf.isEmpty(this.eaiIfDetail.syncTypCd)) {
         this.$gf.alertOn('요청 처리 방식을 선택하세요');
         return 0;
-      } if (this.eaiIfDetail.rcvOpCd === '') {
+      }
+      if (this.$gf.isEmpty(this.eaiIfDetail.rcvOpCd)) {
         this.$gf.alertOn('수신 전문 처리 주기를 선택하세요');
         return 0;
-      } if (this.eaiIfDetail.ifTypCd === '2' && this.eaiIfDetail.fileIfTypCd === '') {
+      }
+      if (this.eaiIfDetail.ifTypCd === '2' && this.$gf.isEmpty(this.eaiIfDetail.fileIfTypCd)) {
         this.$gf.alertOn('파일 연동 방식을 선택하세요');
         return 0;
-      } if (this.eaiIfDetail.ifTypCd === '2' && this.eaiIfDetail.sndDir === '') {
+      }
+      if (this.eaiIfDetail.ifTypCd === '2' && this.$gf.isEmpty(this.eaiIfDetail.sndDir)) {
         this.$gf.alertOn('송신 디렉토리를 입력하세요');
         return 0;
-      } if (this.eaiIfDetail.ifTypCd === '2' && this.eaiIfDetail.rcvDir === '') {
+      }
+      if (this.eaiIfDetail.ifTypCd === '2' && this.$gf.isEmpty(this.eaiIfDetail.rcvDir)) {
         this.$gf.alertOn('수신 디렉토리를 입력하세요');
         return 0;
-      } if (this.eaiIfDetail.ifTypCd === '2' && this.eaiIfDetail.rcvShNm !== '' && this.eaiIfDetail.fileOpCode === '') {
+      }
+      if (this.eaiIfDetail.ifTypCd === '2' && !this.$gf.isEmpty(this.eaiIfDetail.rcvShNm) && this.$gf.isEmpty(this.eaiIfDetail.fileOpCode)) {
         this.$gf.alertOn('Shell을 매핑할 OP code를 입력하세요');
         return 0;
-      } if (this.eaiIfDetail.sndMid === '') {
+      }
+      if (this.$gf.isEmpty(this.eaiIfDetail.sndMid)) {
         this.$gf.alertOn('송신 업무의 MID를 입력하세요');
         return 0;
-      } if (this.eaiIfDetail.sndChrgrId1 === '') {
+      }
+      if (this.$gf.isEmpty(this.eaiIfDetail.sndChrgrId1)) {
         this.$gf.alertOn('송신 업무 운영 담당자1을 입력하세요');
         return 0;
-      } if (this.eaiIfDetail.sndChrgrMngrId === '') {
+      } if (this.$gf.isEmpty(this.eaiIfDetail.sndChrgrMngrId)) {
         this.$gf.alertOn('송신 업무 담당 매니저를 입력하세요');
         return 0;
-      } if (this.eaiIfDetail.rcvMid === '') {
+      } if (this.$gf.isEmpty(this.eaiIfDetail.rcvMid)) {
         this.$gf.alertOn('수신 업무의 MID를 입력하세요');
         return 0;
-      } if (this.eaiIfDetail.rcvChrgrId1 === '') {
+      } if (this.$gf.isEmpty(this.eaiIfDetail.rcvChrgrId1)) {
         this.$gf.alertOn('수신 업무 운영 담당자1을 입력하세요');
         return 0;
-      } if (this.eaiIfDetail.rcvChrgrMngrId === '') {
+      } if (this.$gf.isEmpty(this.eaiIfDetail.rcvChrgrMngrId)) {
         this.$gf.alertOn('수신 업무 담당 매니저를 입력하세요');
         return 0;
-      } if (this.eaiIfDetail.svcImpt === '') {
+      } if (this.$gf.isEmpty(this.eaiIfDetail.svcImpt)) {
         this.$gf.alertOn('장애 시 서비스 영향도를 상세히 입력하세요');
         return 0;
       }
 
       return 1;
+    },
+    changeRoundStatus(x) {
+      if (x === 1) {
+        if (this.ifTypCd === '1') {
+          this.$refs.selectRound.disabled = false;
+          this.$refs.selectSync.disabled = false;
+          this.$refs.rcvTrInput.disabled = false;
+
+          this.$refs.selectFileIfTypCd.disabled = true;
+          this.$refs.sndDirInput.disabled = true;
+          this.$refs.rcvDirInput.disabled = true;
+          this.$refs.rcvShNmInput.disabled = true;
+          this.$refs.fileOpCodeInput.disabled = true;
+        } if (this.ifTypCd === '2') {
+          this.$refs.selectRound.disabled = true;
+          this.$refs.selectSync.disabled = true;
+          this.$refs.rcvTrInput.disabled = true;
+
+          this.$refs.selectFileIfTypCd.disabled = false;
+          this.$refs.sndDirInput.disabled = false;
+          this.$refs.rcvDirInput.disabled = false;
+          this.$refs.rcvShNmInput.disabled = false;
+          this.$refs.fileOpCodeInput.disabled = false;
+        }
+      } else {
+        if (this.ifTypCd === '1') {
+          this.eaiIfDetail.roundTypCd = '';
+          this.eaiIfDetail.roundTypNm = '';
+          this.eaiIfDetail.syncTypCd = '';
+          this.eaiIfDetail.syncTypNm = '';
+          this.eaiIfDetail.rcvTr = '';
+          this.eaiIfDetail.rcvOpCd = '';
+          this.eaiIfDetail.fileIfTypCd = '';
+          this.eaiIfDetail.fileIfTypNm = '';
+          this.eaiIfDetail.sndDir = '';
+          this.eaiIfDetail.rcvDir = '';
+          this.eaiIfDetail.rcvShNm = '';
+          this.eaiIfDetail.fileOpCode = '';
+
+          this.$refs.selectRound.disabled = false;
+          this.$refs.selectSync.disabled = false;
+          this.$refs.rcvTrInput.disabled = false;
+
+          this.$refs.selectFileIfTypCd.disabled = true;
+          this.$refs.sndDirInput.disabled = true;
+          this.$refs.rcvDirInput.disabled = true;
+          this.$refs.rcvShNmInput.disabled = true;
+          this.$refs.fileOpCodeInput.disabled = true;
+        } if (this.ifTypCd === '2') {
+          this.eaiIfDetail.roundTypCd = '';
+          this.eaiIfDetail.roundTypNm = '';
+          this.eaiIfDetail.syncTypCd = '';
+          this.eaiIfDetail.syncTypNm = '';
+          this.eaiIfDetail.rcvTr = '';
+          this.eaiIfDetail.rcvOpCd = '';
+          this.eaiIfDetail.fileIfTypCd = '';
+          this.eaiIfDetail.fileIfTypNm = '';
+          this.eaiIfDetail.sndDir = '';
+          this.eaiIfDetail.rcvDir = '';
+          this.eaiIfDetail.rcvShNm = '';
+          this.eaiIfDetail.fileOpCode = '';
+
+          this.$refs.selectRound.disabled = true;
+          this.$refs.selectSync.disabled = true;
+          this.$refs.rcvTrInput.disabled = true;
+
+          this.$refs.selectFileIfTypCd.disabled = false;
+          this.$refs.sndDirInput.disabled = false;
+          this.$refs.rcvDirInput.disabled = false;
+          this.$refs.rcvShNmInput.disabled = false;
+          this.$refs.fileOpCodeInput.disabled = false;
+        }
+        console.log(`방향 값 : ${this.eaiIfDetail.roundTypCd}`);
+      }
+    },
+    changeSyncStatus(x) {
+      if (x === 1) {
+        if (this.eaiIfDetail.roundTypCd === '1') {
+          this.$refs.selectSync.disabled = true;
+        } else if (this.eaiIfDetail.roundTypCd === '2') {
+          this.$refs.selectSync.disabled = false;
+        }
+      } else {
+        if (this.eaiIfDetail.roundTypCd === '1') {
+          this.eaiIfDetail.syncTypCd = '';
+          this.eaiIfDetail.syncTypNm = '';
+
+          this.$refs.selectSync.disabled = true;
+        } if (this.eaiIfDetail.roundTypCd === '2') {
+          this.eaiIfDetail.syncTypCd = '';
+          this.eaiIfDetail.syncTypNm = '';
+
+          this.$refs.selectSync.disabled = false;
+        }
+      }
     },
     closePop() {
       this.$emit('closePop', 'Hellos');
@@ -653,6 +780,51 @@ export default {
         return;
       }
       this.$emit('addData', this.eaiIfDetail);
+    },
+
+    turnOnSvrPopChrgr(callChrgr) {
+      this.callChrgr = callChrgr;
+      this.svrOnChrgr = true;
+    },
+    turOffSvrPopChrgr(val) {
+      console.log(`Popup에서 받아온 Data : ${val}`);
+      this.svrOnChrgr = false;
+    },
+    addDataChrgr(val) {
+      console.log(`Popup에서 받아온 Data : ${val}`);
+      this.svrOnChrgr = false;
+
+      // this.chrgrId = val.userId;
+      if (this.callChrgr === 1) {
+        this.eaiIfDetail.sndChrgrId1 = val.userId;
+        this.eaiIfDetail.sndChrgrNm1 = val.hanNm;
+        this.eaiIfDetail.sndChrgrOrgNm1 = val.orgNm;
+      }
+      if (this.callChrgr === 2) {
+        this.eaiIfDetail.sndChrgrId2 = val.userId;
+        this.eaiIfDetail.sndChrgrNm2 = val.hanNm;
+        this.eaiIfDetail.sndChrgrOrgNm2 = val.orgNm;
+      }
+      if (this.callChrgr === 3) {
+        this.eaiIfDetail.sndChrgrMngrId = val.userId;
+        this.eaiIfDetail.sndChrgrMngrNm = val.hanNm;
+        this.eaiIfDetail.sndChrgrMngrOrgNm = val.orgNm;
+      }
+      if (this.callChrgr === 4) {
+        this.eaiIfDetail.rcvChrgrId1 = val.userId;
+        this.eaiIfDetail.rcvChrgrNm1 = val.hanNm;
+        this.eaiIfDetail.rcvChrgrOrgNm1 = val.orgNm;
+      }
+      if (this.callChrgr === 5) {
+        this.eaiIfDetail.rcvChrgrId2 = val.userId;
+        this.eaiIfDetail.rcvChrgrNm2 = val.hanNm;
+        this.eaiIfDetail.rcvChrgrOrgNm2 = val.orgNm;
+      }
+      if (this.callChrgr === 6) {
+        this.eaiIfDetail.rcvChrgrMngrId = val.userId;
+        this.eaiIfDetail.rcvChrgrMngrNm = val.hanNm;
+        this.eaiIfDetail.rcvChrgrMngrOrgNm = val.orgNm;
+      }
     },
   },
 };
