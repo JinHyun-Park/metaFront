@@ -49,7 +49,6 @@
                 </li>
               </ul>
             </li>
-            <!--
             <li>
               <span>New 인터페이스 신청</span>
               <ul class="sub_menu">
@@ -61,7 +60,6 @@
                 </li>
               </ul>
             </li>
-            -->
             <li>
               <span>메타정보 조회</span>
               <ul class="sub_menu">

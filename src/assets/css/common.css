@@ -3551,7 +3551,7 @@ span:hover.tooltips.right .tip_contn {
     border-radius: 3px;
     background: #fff;
     box-shadow: 2px 2px 8px 0 rgba(0, 0, 0, .18);
-    max-height: 700px;
+    max-height: 800px;
     overflow-y: auto;
     box-sizing: border-box;
     z-index: 12

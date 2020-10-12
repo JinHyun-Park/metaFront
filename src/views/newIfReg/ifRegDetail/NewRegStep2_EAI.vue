@@ -6,6 +6,12 @@
       @closePop="turOffSvrPopChrgr"
       @addData="addDataChrgr"
     />
+    <EaiIfDetailPopup
+      v-if="showDetailInfo"
+      v-bind="propsDetail"
+      @closePop="turOffIfDetail"
+      @addData="addDataIfDetail"
+    />
     <section
       class="form_area border_group"
       style="background:#efffef;"
@@ -429,7 +435,7 @@
 
 
     <section
-      v-if="showDetailInfo"
+      v-if="false"
       class="form_area border_group"
     >
       <h5 class="s_tit type-2">
@@ -883,12 +889,14 @@ import { mapState, mapActions } from 'vuex';
 import { fetchGetEaiRegSvrList, fetchGetEaiRegIfList } from '@/api/eaiApi';
 
 import ChrgrListPopup from '@/components/popup/bizcomm/ChrgrListPopup.vue';
+import EaiIfDetailPopup from '@/components/popup/meta/eai/EaiInterfaceDetailPopup.vue';
 import eventBus from '@/utils/eventBus';
 
 export default {
   name: 'RegStep2EAI',
   components: {
     ChrgrListPopup,
+    EaiIfDetailPopup,
   },
   data() {
     return {
@@ -896,6 +904,9 @@ export default {
       showDetailInfo: false,
       propsChrgr: {
         message: '',
+      },
+      propsDetail: {
+        eaiIfDetailProp: {},
       },
       checkIfEng: '',
       checkIfKor: '',
@@ -1573,6 +1584,8 @@ export default {
 
       this.currRow = eaiIf;
 
+      this.propsDetail = eaiIf;
+
       this.changeRoundStatus(1);
       this.changeSyncStatus(1);
     },
@@ -1718,6 +1731,19 @@ export default {
     turOffSvrPopChrgr(val) {
       console.log(`Popup에서 받아온 Data : ${val}`);
       this.svrOnChrgr = false;
+    },
+    turnOnIfDetail(callDetail) {
+      this.callChrgr = callDetail;
+      this.svrOnChrgr = true;
+    },
+    turOffIfDetail(val) {
+      console.log(`Popup에서 받아온 Data : ${val}`);
+      this.showDetailInfo = false;
+    },
+    addDataIfDetail(val) {
+      console.log(`Popup에서 받아온 Data : ${val}`);
+      this.showDetailInfo = false;
+      this.eaiIfList.push(val);
     },
     addDataChrgr(val) {
       console.log(`Popup에서 받아온 Data : ${val}`);
