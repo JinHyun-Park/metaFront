@@ -175,19 +175,19 @@
             </li>
             <li class="td_cell on">
               <label
-                v-if="(row.eaiCnt > 0)"
+                v-if="(row.ifKind === 'EAI')"
                 class="label-default color-green on"
               >
                 EAI
               </label>
               <label
-                v-else-if="(row.eigwCnt > 0)"
+                v-else-if="(row.ifKind === 'EIGW')"
                 class="label-default color-blue on"
               >
                 EiGW
               </label>
               <label
-                v-else
+                v-else-if="(row.ifKind === 'MCG')"
                 class="label-default color-yellow on"
               >
                 MCG
@@ -383,7 +383,7 @@ export default {
     },
     detail(i) {
       //this.$router.push({ name: 'applyIf', params: { reqNum: this.ifReqList[i].reqNum, callType:'update', procSt: this.ifReqList[i].procSt }})
-      this.$router.push({ name: 'newApplyIf', params: { reqNum: this.ifReqList[i].reqNum, callType:'update', procSt: this.ifReqList[i].procSt, ifKind: 'EAI' }})
+      this.$router.push({ name: 'newApplyIf', params: { reqNum: this.ifReqList[i].reqNum, callType:'update', procSt: this.ifReqList[i].procSt, ifKind:  this.ifReqList[i].ifKind }})
     },
     turnOnNewIfRegChose() {
       //this.popupProp.procSt = this.tgtProcSt;

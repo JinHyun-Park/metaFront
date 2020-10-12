@@ -106,6 +106,7 @@ export default {
         reqDtm: '',
         reqRmk: '',
         delYn: '',
+        ifKind: '',
       },
       datePickerSet: {
         dayStr: this.$gf.getCalDaySet(),
@@ -137,6 +138,7 @@ export default {
     }
     if (this.$route.params.callType != null) {
       this.callType = this.$route.params.callType;
+      this.ifKind = this.$route.params.ifKind;
     }
     this.procSt = this.$route.params.procSt;
   },
@@ -166,6 +168,7 @@ export default {
     saveIfReqMst(callType) {
       this.ifReqMstInfo.dvlpAplyReqDt = this.ifReqMstInfo.dvlpAplyReqDt.replace(/-/g, '');
       this.ifReqMstInfo.operAplyReqDt = this.ifReqMstInfo.operAplyReqDt.replace(/-/g, '');
+      this.ifReqMstInfo.ifKind = this.ifKind;
 
       if (!this.checkParams()) {
         this.setTempSave('F');

@@ -636,10 +636,6 @@ export default {
   },
 
   created() {
-    if (this.$route.params.callType === 'update') {
-      this.getEaiRegTempList(this.reqNum);
-    }
-
     eventBus.$on('Step2EaiSave', () => {
       console.log('event Bus 통해 eai 저장');
       this.saveEaiRegTemp();
@@ -650,6 +646,11 @@ export default {
   },
 
   mounted() {
+    if (this.$route.params.callType === 'update') {
+      if (this.$route.params.ifKind === 'EAI') {
+        this.getEaiRegTempList(this.reqNum);
+      }
+    }
     this.eaiIfList.splice(this.eaiIfList.indexOf(0), 1);
     this.setCcCdList({
       opClCd: 'COMM', cdId: 'SVR_TYP_CD', allYn: 'N', listNm: 'svrTypCd',

@@ -217,3 +217,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.popup {
+  z-index: 13;
+}
+</style>

@@ -50,6 +50,9 @@
     <new-reg-step2-eigw
       v-show="tabNum ===2 && ifKind==='EIGW'"
     />
+    <new-reg-step2-mcg
+      v-show="tabNum ===2 && ifKind==='MCG'"
+    />
     <new-reg-step3-applicant
       v-if="tabNum === 3"
     />
@@ -91,6 +94,7 @@ import eventBus from '@/utils/eventBus';
 import NewRegStep1 from '@/views/newIfReg/ifRegDetail/NewRegStep1.vue'; // 1단계
 import NewRegStep2Eai from '@/views/newIfReg/ifRegDetail/NewRegStep2_EAI.vue'; // 2단계 EAI
 import NewRegStep2Eigw from '@/views/newIfReg/ifRegDetail/NewRegStep2_EIGW.vue'; // 2단계 EAI
+import NewRegStep2Mcg from '@/views/newIfReg/ifRegDetail/NewRegStep2_MCG.vue'; // 2단계 EAI
 import NewRegStep3Applicant from '@/views/newIfReg/ifRegDetail/NewRegStep3Applicant.vue'; // 3단계 신청자
 import NewRegStep3Approver from '@/views/newIfReg/ifRegDetail/NewRegStep3Approver.vue'; // 3단계 승인자
 import { getIfRegBotBtnSet, tabChange } from '@/utils/ifRegComm';
@@ -101,6 +105,7 @@ export default {
     NewRegStep1,
     NewRegStep2Eai,
     NewRegStep2Eigw,
+    NewRegStep2Mcg,
     NewRegStep3Applicant,
     NewRegStep3Approver,
   },
@@ -136,17 +141,20 @@ export default {
     },
   },
   created() {
-    this.setReqNum({ reqNum: null });
+    if (this.$route.params.reqNum != null) {
+      this.setReqNum({ reqNum: this.$route.params.reqNum });
+    }
     if (this.$gf.isEmpty(localStorage.getItem('APPLY_TABNUM'))) {
       this.tabNum = 1;
     } else {
       this.tabNum = Number(localStorage.getItem('APPLY_TABNUM'));
     }
-    this.setParams();
+
     this.setMovePossible({ movePossible: 'Y' });
   },
   mounted() {
-    this.resetTempSaveFlag();
+    // this.resetTempSaveFlag();
+    this.setParams();
     this.setBottomBtn();
   },
   destroyed() {

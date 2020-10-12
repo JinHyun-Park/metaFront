@@ -1,22 +1,10 @@
 <template>
   <div>
-    <InstListPopup
-      v-if="svrOnInstList"
-      v-bind="propsInstList"
-      @closePop="turOffSvrPopInstList"
-      @addData="addDataInstList"
-    />
-    <ChrgrListPopup
-      v-if="svrOnChrgr"
-      v-bind="propsChrgr"
-      @closePop="turOffSvrPopChrgr"
-      @addData="addDataChrgr"
-    />
-    <EigwChrgrListPopup
-      v-if="svrOnEigwChrgr"
-      v-bind="propsEigwChrgr"
-      @closePop="turOffSvrPopChrgr"
-      @addData="addDataChrgr"
+    <EigwOnlineDetailPopup
+      v-if="showOnlineDetail"
+      v-bind="propsOnline"
+      @closePop="turOffSvrPopOnline"
+      @addData="addDataOnline"
     />
 
     <section class="form_area border_group">
@@ -33,7 +21,7 @@
           <button
             type="button"
             class="default_button on"
-            @click="addOnlineInfo()"
+            @click="turOnSvrPopOnline()"
           >
             인터페이스 추가
           </button>
@@ -110,251 +98,6 @@
         </div>
       </div>
       <!-- ONLINE //-->
-
-      <div class="row_contain type-2">
-        <div class="column w-1">
-          <label class="column_label">I/F ID</label>
-          <div class="search_group">
-            <input
-              v-model="onlineInfo.eigwIfId"
-              type="text"
-              class="add_text on"
-            >
-          </div>
-        </div>
-        <div class="column w-1">
-          <label class="column_label">I/F명</label>
-          <div class="search_group">
-            <input
-              v-model="onlineInfo.eigwIfNm"
-              type="text"
-              class="add_text on"
-            >
-            <span class="tooltips right ov">
-              <i class="tip_contn"><em class="tip_text">신규 I/F의 경우, EAI에서 등록 후 신청바랍니다.</em></i>
-            </span>
-          </div>
-        </div>
-      </div>
-
-      <!-- ONLINE -->
-      <div class="row_contain type-2">
-        <div class="column w-1">
-          <label class="column_label">대외기관</label>
-          <div class="search_group">
-            <input
-              v-model="onlineInfo.instNm"
-              type="text"
-              class="add_text on"
-              @click="turnOnSvrPopInstList(-1, 'on')"
-            >
-            <span class="search">
-              <i class="ico-search" />
-            </span>
-          </div>
-        </div>
-        <div class="column w-1">
-          <label class="column_label">프로그램유형</label>
-          <div class="select_group">
-            <select v-model="onlineInfo.pgmTyp">
-              <option
-                value="CLIENT"
-                selected
-              >
-                Client
-              </option>
-              <option value="SERVER">
-                Server
-              </option>
-            </select>
-            <span class="select" />
-          </div>
-        </div>
-        <div class="column w-1">
-          <label class="column_label">연결유형</label>
-          <div class="select_group">
-            <select v-model="onlineInfo.linkTyp">
-              <option
-                value="CONN"
-                selected
-              >
-                연결유지형
-              </option>
-              <option value="DISCONN">
-                비연결형
-              </option>
-            </select>
-            <span class="select" />
-          </div>
-        </div>
-        <div class="column w-1">
-          <div class="search_group">
-            <input
-              v-model="onlineInfo.instCd"
-              type="hidden"
-              class="add_text on"
-            >
-          </div>
-        </div>
-        <div class="column w-1" />
-      </div>
-      <!-- ONLINE //-->
-
-      <div class="row_contain type-2">
-        <div class="column w-1">
-          <label class="column_label">개발 REAL IP</label>
-          <input
-            v-model="onlineInfo.devRealIp"
-            type="text"
-            class="add_text on"
-          >
-        </div>
-        <div class="column w-1">
-          <label class="column_label">개발 Port</label>
-          <input
-            v-model="onlineInfo.devPort"
-            type="number"
-            class="add_text on"
-          >
-        </div>
-        <div class="column w-1">
-          <label class="column_label tooltips ov top">운영 REAL IP</label>
-          <input
-            v-model="onlineInfo.prodRealIp"
-            type="text"
-            class="add_text on"
-          >
-        </div>
-        <div class="column w-1">
-          <label class="column_label">운영 Port</label>
-          <input
-            v-model="onlineInfo.prodPort"
-            type="number"
-            class="add_text on"
-          >
-        </div>
-        <div class="column w-1" />
-      </div>
-      <div class="row_contain type-2">
-        <div class="column w-4">
-          <label class="column_label">기타 요청사항</label>
-          <input
-            v-model="onlineInfo.eigwRmk"
-            type="text"
-            class="add_text on"
-          >
-        </div>
-        <div class="column w-1" />
-      </div>
-      <h5 class="s_tit type-2">
-        담당자 정보
-      </h5>
-      <label class="column_label">검색이 되지 않는 신규인력은 구분에 '입력'을 선택하고 정보를 기입해주세요.</label>
-      <div class="table_colgroup">
-        <div class="table_grid">
-          <div class="table_head w-auto except">
-            <ul>
-              <li class="th_cell">
-                구분
-              </li>
-              <li class="th_cell">
-                기관
-              </li>
-              <li class="th_cell">
-                이름
-              </li>
-              <li class="th_cell">
-                직급
-              </li>
-              <li class="th_cell">
-                연락처
-              </li>
-              <li class="th_cell">
-                E-mail
-              </li>
-              <li class="th_cell">
-                삭제
-              </li>
-            </ul>
-          </div>
-          <div class="table_body">
-            <ul
-              v-for="(row, i) in onlineUserList"
-              :key="row.userId"
-              class="table_row form_type except w-auto"
-            >
-              <li class="td_cell">
-                <div class="select_group">
-                  <select v-model="row.chrgrTyp">
-                    <option value="">
-                      전체
-                    </option>
-                    <option value="in">
-                      내부운영
-                    </option>
-                    <option value="out">
-                      대외기관
-                    </option>
-                    <option value="new">
-                      입력
-                    </option>
-                  </select>
-                  <span class="select" />
-                </div>
-              </li>
-              <li class="td_cell">
-                <input
-                  v-model="row.instNm"
-                  type="text"
-                  @click="searchOnChrgr(i)"
-                >
-              </li>
-              <li class="td_cell">
-                <input
-                  v-model="row.hanNm"
-                  type="text"
-                >
-              </li>
-              <li class="td_cell">
-                <div class="select_group">
-                  <select v-model="row.ofcLvlCd">
-                    <option
-                      v-for="(code, n) in ccCdList.ofcLvlCd"
-                      :key="n"
-                      :value="code.cdDtlId"
-                    >
-                      {{ code.cdNm }}
-                    </option>
-                  </select>
-                  <span class="select" />
-                </div>
-              </li>
-              <li class="td_cell">
-                <input
-                  v-model="row.mblPhonNum"
-                  type="text"
-                >
-              </li>
-              <li class="td_cell">
-                <input
-                  v-model="row.emailAddr"
-                  type="text"
-                >
-              </li>
-              <td class="td_cell">
-                <i
-                  class="ico-add"
-                  @click="addOnlineUser(i)"
-                />
-                <i
-                  class="ico-del"
-                  @click="delOnlineUser(i)"
-                />
-              </td>
-            </ul>
-          </div>
-        </div>
-      </div>
     </section>
 
     <section class="form_area border_group">
@@ -705,9 +448,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex';
-import InstListPopup from '@/components/popup/bizcomm/InstListPopup.vue';
-import ChrgrListPopup from '@/components/popup/bizcomm/ChrgrListPopup.vue';
-import EigwChrgrListPopup from '@/components/popup/meta/eigw/EigwChrgrListPopup.vue';
+import EigwOnlineDetailPopup from '@/components/popup/meta/eigw/EigwOnlineDetailPopup.vue';
 import eventBus from '@/utils/eventBus';
 import { fetchEigwReqList, fetchEigwReqSave } from '@/api/eigwApi';
 
@@ -715,22 +456,16 @@ import { fetchEigwReqList, fetchEigwReqSave } from '@/api/eigwApi';
 export default {
   name: 'RegStep2EIGW',
   components: {
-    InstListPopup,
-    ChrgrListPopup,
-    EigwChrgrListPopup,
+    EigwOnlineDetailPopup,
   },
   data() {
     return {
-      svrOnInstList: false,
-      propsInstList: { // 조회 시 parameter에 사용자 정보를 담아주려면 여기를 통해 넘겨주세요.
+      showOnlineDetail: false,
+      propsOnline: { // 조회 시 parameter에 사용자 정보를 담아주려면 여기를 통해 넘겨주세요.
         message: '', // 사용방법 예시 데이터
       },
-      svrOnChrgr: false,
-      svrOnEigwChrgr: false,
-      propsChrgr: { // 조회 시 parameter에 사용자 정보를 담아주려면 여기를 통해 넘겨주세요.
-        message: '', // 사용방법 예시 데이터
-      },
-      propsEigwChrgr: { // 조회 시 parameter에 사용자 정보를 담아주려면 여기를 통해 넘겨주세요.
+      showFileDetail: false,
+      propsFile: { // 조회 시 parameter에 사용자 정보를 담아주려면 여기를 통해 넘겨주세요.
         message: '', // 사용방법 예시 데이터
       },
 
@@ -813,7 +548,9 @@ export default {
   },
   created() {
     if (this.$route.params.callType === 'update') {
-      this.searchList(this.reqNum);
+      if (this.$route.params.ifKind === 'EIGW') {
+        this.searchList(this.reqNum);
+      }
     }
 
     eventBus.$on('Step2EigwSave', () => {
@@ -1312,6 +1049,17 @@ export default {
         }
       }
       this.svrOnInstList = false;
+    },
+    turOnSvrPopOnline() {
+      this.showOnlineDetail = true;
+    },
+    turOffSvrPopOnline(val) {
+      console.log(`Popup에서 받아온 Data : ${val}`);
+      this.showOnlineDetail = false;
+    },
+    addDataOnline(val) {
+      console.log(`Popup에서 받아온 Data : ${val}`);
+      this.showOnlineDetail = false;
     },
   },
 };
