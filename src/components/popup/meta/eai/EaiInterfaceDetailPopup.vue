@@ -9,7 +9,7 @@
     <i class="dim" />
     <article
       ref="queueListPop"
-      class="layer_popup"
+      class="layer_popup large"
       tabindex="0"
       @keydown.prevent.esc="closePop"
     >
