@@ -990,66 +990,6 @@ export default {
         this.turnOnSvrPopInstList(row, 'file');
       }
     },
-    addDataChrgr(val) {
-      console.log(`Popup에서 받아온 Data : ${val}`);
-      if (this.type === 'on') {
-        this.onlineUserList[this.row].hanNm = val.hanNm;
-        this.onlineUserList[this.row].userId = val.userId;
-        this.onlineUserList[this.row].instCd = val.instCd;
-        this.onlineUserList[this.row].instNm = val.instNm;
-        this.onlineUserList[this.row].ofcLvlCd = val.ofcLvlCd;
-        this.onlineUserList[this.row].ofcLvlNm = val.ofcLvlNm;
-        this.onlineUserList[this.row].mblPhonNum = val.mblPhonNum;
-        this.onlineUserList[this.row].emailAddr = val.emailAddr;
-      } else {
-        this.fileUserList[this.row].hanNm = val.hanNm;
-        this.fileUserList[this.row].userId = val.userId;
-        this.fileUserList[this.row].instCd = val.instCd;
-        this.fileUserList[this.row].instNm = val.instNm;
-        this.fileUserList[this.row].ofcLvlCd = val.ofcLvlCd;
-        this.fileUserList[this.row].ofcLvlNm = val.ofcLvlNm;
-        this.fileUserList[this.row].mblPhonNum = val.mblPhonNum;
-        this.fileUserList[this.row].emailAddr = val.emailAddr;
-      }
-      this.svrOnChrgr = false;
-      this.svrOnEigwChrgr = false;
-    },
-    turOffSvrPopChrgr(val) {
-      console.log(`Popup에서 받아온 Data : ${val}`);
-      this.svrOnChrgr = false;
-      this.svrOnEigwChrgr = false;
-    },
-    turnOnSvrPopInstList(val, type) {
-      this.instPopupCase = val;
-      this.typeCase = type;
-      this.svrOnInstList = true;
-    },
-    turOffSvrPopInstList(val) {
-      console.log(`Popup에서 받아온 Data : ${val}`);
-      this.svrOnInstList = false;
-    },
-    addDataInstList(val) {
-      console.log(`Popup에서 받아온 Data : ${val}`);
-      if (this.typeCase === 'on') {
-        if (this.instPopupCase === -1) {
-          this.onlineInfo.instCd = val.instCd;
-          this.onlineInfo.instNm = val.instNm;
-        } else {
-          this.onlineUserList[this.instPopupCase].instCd = val.instCd;
-          this.onlineUserList[this.instPopupCase].instNm = val.instNm;
-        }
-      }
-      if (this.typeCase === 'file') {
-        if (this.instPopupCase === -2) {
-          this.fileInfo.instCd = val.instCd;
-          this.fileInfo.instNm = val.instNm;
-        } else {
-          this.fileUserList[this.instPopupCase].instCd = val.instCd;
-          this.fileUserList[this.instPopupCase].instNm = val.instNm;
-        }
-      }
-      this.svrOnInstList = false;
-    },
     turOnSvrPopOnline() {
       this.showOnlineDetail = true;
     },
@@ -1059,6 +999,9 @@ export default {
     },
     addDataOnline(val) {
       console.log(`Popup에서 받아온 Data : ${val}`);
+      this.onlineList.push(val);
+      // this.onlineInfo = val;
+      // this.addOnlineInfo();
       this.showOnlineDetail = false;
     },
   },

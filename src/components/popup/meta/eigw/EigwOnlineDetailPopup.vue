@@ -326,6 +326,7 @@ export default {
       propsInstList: { // 조회 시 parameter에 사용자 정보를 담아주려면 여기를 통해 넘겨주세요.
         message: '', // 사용방법 예시 데이터
       },
+      
       svrOnChrgr: false,
       svrOnEigwChrgr: false,
       propsChrgr: { // 조회 시 parameter에 사용자 정보를 담아주려면 여기를 통해 넘겨주세요.
@@ -365,11 +366,7 @@ export default {
         },
       ],
 
-      svrOnChrgr: false,
-      propsChrgr: {
-        message: '',
-      },
-      callChrgr: '',
+      
 
       pageSet: { pageNo: 1, pageCount: 0, size: 5 },
       pageMoveChk: 0,
@@ -391,55 +388,135 @@ export default {
       this.$emit('closePop', 'Hellos');
     },
     addData() {
-      if (this.checkFields() === 0) {
+      if (this.checkOnlineFields() === 0) {
         return;
       }
-      this.$emit('addData', this.eaiIfDetail);
+      this.$emit('addData', this.onlineInfo);
     },
+    checkOnlineFields() {
+      if (this.onlineInfo.eigwIfNm === '') {
+        this.$gf.alertOn('인터페이스명을 입력하세요');
+        return 0;
+      } if (this.onlineInfo.eigwIfId === '') {
+        this.$gf.alertOn('인터페이스 영문 약자를 입력하세요');
+        return 0;
+      } if (this.onlineInfo.instNm === '') {
+        this.$gf.alertOn('대외기관을 입력하세요');
+        return 0;
+      } if (this.onlineInfo.pgmTyp === '') {
+        this.$gf.alertOn('프로그램 유형을 선택하세요');
+        return 0;
+      } if (this.onlineInfo.linkTyp === '') {
+        this.$gf.alertOn('연결 유형을 선택하세요');
+        return 0;
+      } if (this.onlineInfo.devRealIp === '' || this.onlineInfo.devPort === '' || this.onlineInfo.prodRealIp === '' || this.onlineInfo.prodPort === '') {
+        this.$gf.alertOn('서버정보를 입력하세요');
+        return 0;
+      }
 
-    turnOnSvrPopChrgr(callChrgr) {
-      this.callChrgr = callChrgr;
-      this.svrOnChrgr = true;
+      for (let i = 0; i < this.onlineUserList.length; i++) {
+        if (this.onlineUserList[i].chrgrTyp === '' || this.onlineUserList[i].chrgrTyp === undefined) {
+          this.$gf.alertOn('담당자 구분을 선택하세요');
+          return 0;
+        } if (this.onlineUserList[i].chrgrTyp === 'new') {
+          if (this.onlineUserList[i].ofcLvlCd === '' || this.onlineUserList[i].instNm === ''
+          || this.onlineUserList[i].instCd === '' || this.onlineUserList[i].hanNm === ''
+          || this.onlineUserList[i].instCd === undefined
+          || this.onlineUserList[i].hanNm === undefined
+          || this.onlineUserList[i].ofcLvlCd === undefined
+          || this.onlineUserList[i].instNm === undefined
+          || this.onlineUserList[i].mblPhonNum === undefined
+          || this.onlineUserList[i].emailAddr === undefined
+          || this.onlineUserList[i].mblPhonNum === '' || this.onlineUserList[i].emailAddr === '') {
+            this.$gf.alertOn('담당자 정보를 입력하세요');
+            return 0;
+          }
+        } else if (this.onlineUserList[i].userId === undefined || this.onlineUserList[i].userId === '') {
+          this.$gf.alertOn('담당자 정보를 입력하세요');
+          return 0;
+        }
+      }
+      return 1;
+    },
+    turnOnSvrPopInstList(val, type) {
+      this.instPopupCase = val;
+      this.typeCase = type;
+      this.svrOnInstList = true;
+    },
+    turOffSvrPopInstList(val) {
+      console.log(`Popup에서 받아온 Data : ${val}`);
+      this.svrOnInstList = false;
+    },
+    addDataInstList(val) {
+      console.log(`Popup에서 받아온 Data : ${val}`);
+      if (this.typeCase === 'on') {
+        if (this.instPopupCase === -1) {
+          this.onlineInfo.instCd = val.instCd;
+          this.onlineInfo.instNm = val.instNm;
+        } else {
+          this.onlineUserList[this.instPopupCase].instCd = val.instCd;
+          this.onlineUserList[this.instPopupCase].instNm = val.instNm;
+        }
+      }
+      if (this.typeCase === 'file') {
+        if (this.instPopupCase === -2) {
+          this.fileInfo.instCd = val.instCd;
+          this.fileInfo.instNm = val.instNm;
+        } else {
+          this.fileUserList[this.instPopupCase].instCd = val.instCd;
+          this.fileUserList[this.instPopupCase].instNm = val.instNm;
+        }
+      }
+      this.svrOnInstList = false;
+    },
+    searchOnChrgr(row) {
+      this.row = row;
+      if (this.onlineUserList[row].chrgrTyp === '' || this.onlineUserList[row].chrgrTyp === undefined) {
+        this.$gf.alertOn('구분을 선택하세요');
+        return;
+      }
+      console.log('담당자 추가!');
+      this.addOnlineChrgrRow(row);
+    },
+    addDataChrgr(val) {
+      console.log(`Popup에서 받아온 Data : ${val}`);
+      if (this.type === 'on') {
+        this.onlineUserList[this.row].hanNm = val.hanNm;
+        this.onlineUserList[this.row].userId = val.userId;
+        this.onlineUserList[this.row].instCd = val.instCd;
+        this.onlineUserList[this.row].instNm = val.instNm;
+        this.onlineUserList[this.row].ofcLvlCd = val.ofcLvlCd;
+        this.onlineUserList[this.row].ofcLvlNm = val.ofcLvlNm;
+        this.onlineUserList[this.row].mblPhonNum = val.mblPhonNum;
+        this.onlineUserList[this.row].emailAddr = val.emailAddr;
+      } else {
+        this.fileUserList[this.row].hanNm = val.hanNm;
+        this.fileUserList[this.row].userId = val.userId;
+        this.fileUserList[this.row].instCd = val.instCd;
+        this.fileUserList[this.row].instNm = val.instNm;
+        this.fileUserList[this.row].ofcLvlCd = val.ofcLvlCd;
+        this.fileUserList[this.row].ofcLvlNm = val.ofcLvlNm;
+        this.fileUserList[this.row].mblPhonNum = val.mblPhonNum;
+        this.fileUserList[this.row].emailAddr = val.emailAddr;
+      }
+      this.svrOnChrgr = false;
+      this.svrOnEigwChrgr = false;
+    },
+    addOnlineChrgrRow(row) {
+      this.type = 'on';
+      console.log('행 추가!');
+      if (this.onlineUserList[row].chrgrTyp === 'in') {
+        this.svrOnChrgr = true;
+      } else if (this.onlineUserList[row].chrgrTyp === 'out') {
+        this.svrOnEigwChrgr = true;
+      } else {
+        this.turnOnSvrPopInstList(row, 'on');
+      }
     },
     turOffSvrPopChrgr(val) {
       console.log(`Popup에서 받아온 Data : ${val}`);
       this.svrOnChrgr = false;
-    },
-    addDataChrgr(val) {
-      console.log(`Popup에서 받아온 Data : ${val}`);
-      this.svrOnChrgr = false;
-
-      // this.chrgrId = val.userId;
-      if (this.callChrgr === 1) {
-        this.eaiIfDetail.sndChrgrId1 = val.userId;
-        this.eaiIfDetail.sndChrgrNm1 = val.hanNm;
-        this.eaiIfDetail.sndChrgrOrgNm1 = val.orgNm;
-      }
-      if (this.callChrgr === 2) {
-        this.eaiIfDetail.sndChrgrId2 = val.userId;
-        this.eaiIfDetail.sndChrgrNm2 = val.hanNm;
-        this.eaiIfDetail.sndChrgrOrgNm2 = val.orgNm;
-      }
-      if (this.callChrgr === 3) {
-        this.eaiIfDetail.sndChrgrMngrId = val.userId;
-        this.eaiIfDetail.sndChrgrMngrNm = val.hanNm;
-        this.eaiIfDetail.sndChrgrMngrOrgNm = val.orgNm;
-      }
-      if (this.callChrgr === 4) {
-        this.eaiIfDetail.rcvChrgrId1 = val.userId;
-        this.eaiIfDetail.rcvChrgrNm1 = val.hanNm;
-        this.eaiIfDetail.rcvChrgrOrgNm1 = val.orgNm;
-      }
-      if (this.callChrgr === 5) {
-        this.eaiIfDetail.rcvChrgrId2 = val.userId;
-        this.eaiIfDetail.rcvChrgrNm2 = val.hanNm;
-        this.eaiIfDetail.rcvChrgrOrgNm2 = val.orgNm;
-      }
-      if (this.callChrgr === 6) {
-        this.eaiIfDetail.rcvChrgrMngrId = val.userId;
-        this.eaiIfDetail.rcvChrgrMngrNm = val.hanNm;
-        this.eaiIfDetail.rcvChrgrMngrOrgNm = val.orgNm;
-      }
+      this.svrOnEigwChrgr = false;
     },
   },
 };
