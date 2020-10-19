@@ -520,6 +520,17 @@ export default {
       this.svrOnChrgr = false;
       this.svrOnEigwChrgr = false;
     },
+
+    addDataChnl(val) {
+      console.log(`Popup에서 받아온 Data : ${val}`);
+      this.chnlpopupstate = false;
+      this.mcgDealRowData.chnlId = val.chnlId;
+      this.mcgDealRowData.chnlNm = val.chnlNm;
+      this.mcgDealRowData.chnlTyp = val.chnlTyp;
+      this.mcgDealRowData.lnkMthd = val.lnkMthd;
+
+      console.log();
+    },
   },
 };
 </script>

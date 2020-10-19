@@ -40,7 +40,7 @@
             <label class="column_label">I/F ID</label>
             <div class="search_group">
               <input
-                v-model="onlineInfo.eigwIfId"
+                v-model="fileInfo.eigwIfId"
                 type="text"
                 class="add_text on"
               >
@@ -50,7 +50,7 @@
             <label class="column_label">I/F명</label>
             <div class="search_group">
               <input
-                v-model="onlineInfo.eigwIfNm"
+                v-model="fileInfo.eigwIfNm"
                 type="text"
                 class="add_text on"
               >
@@ -60,17 +60,15 @@
             </div>
           </div>
         </div>
-
-        <!-- ONLINE -->
-        <div class="row_contain type-2">
+        <div class="row_contain type-1">
           <div class="column w-1">
             <label class="column_label">대외기관</label>
             <div class="search_group">
               <input
-                v-model="onlineInfo.instNm"
+                v-model="fileInfo.instNm"
                 type="text"
                 class="add_text on"
-                @click="turnOnSvrPopInstList(-1, 'on')"
+                @click="turnOnSvrPopInstList(-2, 'file')"
               >
               <span class="search">
                 <i class="ico-search" />
@@ -78,57 +76,66 @@
             </div>
           </div>
           <div class="column w-1">
-            <label class="column_label">프로그램유형</label>
-            <div class="select_group">
-              <select v-model="onlineInfo.pgmTyp">
-                <option
-                  value="CLIENT"
-                  selected
-                >
-                  Client
-                </option>
-                <option value="SERVER">
-                  Server
-                </option>
-              </select>
-              <span class="select" />
-            </div>
+            <label class="column_label">파일명</label>
+            <input
+              v-model="fileInfo.fileNm"
+              type="text"
+              class="add_text on"
+            >
           </div>
           <div class="column w-1">
-            <label class="column_label">연결유형</label>
-            <div class="select_group">
-              <select v-model="onlineInfo.linkTyp">
-                <option
-                  value="CONN"
-                  selected
-                >
-                  연결유지형
-                </option>
-                <option value="DISCONN">
-                  비연결형
-                </option>
-              </select>
-              <span class="select" />
-            </div>
+            <label class="column_label">송수신</label>
+            <select v-model="fileInfo.srFlag">
+              <option value="S">
+                송신
+              </option>
+              <option value="R">
+                수신
+              </option>
+            </select>
           </div>
           <div class="column w-1">
-            <div class="search_group">
-              <input
-                v-model="onlineInfo.instCd"
-                type="hidden"
-                class="add_text on"
-              >
-            </div>
+            <input
+              v-model="fileInfo.instCd"
+              type="hidden"
+              class="add_text on"
+            >
+          </div>
+        </div>
+        <!-- FILE -->
+        <div class="row_contain">
+          <div class="column w-2">
+            <label class="column_label">파일경로</label>
+            <input
+              v-model="fileInfo.outPath"
+              type="text"
+              class="add_text on"
+            >
+          </div>
+          <div class="column w-1">
+            <label class="column_label">계정정보(ID/PW)</label>
+            <input
+              v-model="fileInfo.id"
+              type="text"
+              class="add_text on"
+            >
+          </div>
+          <div class="column w-1">
+            <label class="column_label">&nbsp;</label>
+            <input
+              v-model="fileInfo.pwd"
+              type="text"
+              class="add_text on"
+            >
           </div>
           <div class="column w-1" />
         </div>
-        <!-- ONLINE //-->
-
-        <div class="row_contain type-2">
+        <!-- FILE //-->
+        <div class="row_contain type-1">
           <div class="column w-1">
             <label class="column_label">개발 REAL IP</label>
             <input
-              v-model="onlineInfo.devRealIp"
+              v-model="fileInfo.devRealIp"
               type="text"
               class="add_text on"
             >
@@ -136,15 +143,15 @@
           <div class="column w-1">
             <label class="column_label">개발 Port</label>
             <input
-              v-model="onlineInfo.devPort"
+              v-model="fileInfo.devPort"
               type="number"
               class="add_text on"
             >
           </div>
           <div class="column w-1">
-            <label class="column_label tooltips ov top">운영 REAL IP</label>
+            <label class="column_label">운영 REAL IP</label>
             <input
-              v-model="onlineInfo.prodRealIp"
+              v-model="fileInfo.prodRealIp"
               type="text"
               class="add_text on"
             >
@@ -152,18 +159,17 @@
           <div class="column w-1">
             <label class="column_label">운영 Port</label>
             <input
-              v-model="onlineInfo.prodPort"
+              v-model="fileInfo.prodPort"
               type="number"
               class="add_text on"
             >
           </div>
-          <div class="column w-1" />
         </div>
         <div class="row_contain type-2">
           <div class="column w-4">
             <label class="column_label">기타 요청사항</label>
             <input
-              v-model="onlineInfo.eigwRmk"
+              v-model="fileInfo.eigwRmk"
               type="text"
               class="add_text on"
             >
@@ -203,7 +209,7 @@
             </div>
             <div class="table_body">
               <ul
-                v-for="(row, i) in onlineUserList"
+                v-for="(row, i) in fileUserList"
                 :key="row.userId"
                 class="table_row form_type except w-auto"
               >
@@ -230,7 +236,7 @@
                   <input
                     v-model="row.instNm"
                     type="text"
-                    @click="searchOnChrgr(i)"
+                    @click="searchFileChrgr(i)"
                   >
                 </li>
                 <li class="td_cell">
@@ -268,11 +274,11 @@
                 <td class="td_cell">
                   <i
                     class="ico-add"
-                    @click="addOnlineUser(i)"
+                    @click="addFileUser(i)"
                   />
                   <i
                     class="ico-del"
-                    @click="delOnlineUser(i)"
+                    @click="delFileUser(i)"
                   />
                 </td>
               </ul>
@@ -336,24 +342,27 @@ export default {
         message: '', // 사용방법 예시 데이터
       },
 
-      onlineInfo: {
+      fileInfo: {
         eigwIfId: '',
         eigwIfNm: '',
-        eigwType: 'online',
+        eigwType: 'file',
         dablInflu: '',
         procSt: 1,
         eigwRmk: '',
         instCd: '',
-        pgmTyp: '',
-        linkTyp: '',
         srFlag: '',
         instNm: '',
         devRealIp: '',
         devPort: '',
         prodRealIp: '',
         prodPort: '',
+        fileNm: '',
+        inPath: '',
+        outPath: '',
+        id: '',
+        pwd: '',
       },
-      onlineUserList: [
+      fileUserList: [
         {
           chrgrTyp: '',
           userId: '',
@@ -365,7 +374,6 @@ export default {
           emailAddr: '',
         },
       ],
-
 
       pageSet: { pageNo: 1, pageCount: 0, size: 5 },
       pageMoveChk: 0,
@@ -379,8 +387,8 @@ export default {
     this.setCcCdList({
       opClCd: 'EIGW', cdId: 'OFC_LVL_CD', allYn: 'Y', listNm: 'ofcLvlCd',
     });
-    this.onlineInfo = this.propData;
-    this.onlineUserList = this.propData.onlineUserList;
+    this.fileInfo = this.propData;
+    this.fileUserList = this.propData.fileUserList;
     // this.$refs.queueListPop.focus(); // keyup 이벤트가 바로 적용될 수 있도록 focusing
   },
   methods: {
@@ -389,51 +397,105 @@ export default {
       this.$emit('closePop', 'Hellos');
     },
     addData() {
-      if (this.checkOnlineFields() === 0) {
+      if (this.checkFileFields() === 0) {
         return;
       }
-      this.onlineInfo.onlineUserList = this.onlineUserList;
-      this.$emit('addData', this.onlineInfo);
+      this.fileInfo.fileUserList = this.fileUserList;
+      this.$emit('addData', this.fileInfo);
     },
-    checkOnlineFields() {
-      if (this.onlineInfo.eigwIfNm === '') {
+    addFileUser(i) {
+      console.log('행 추가!');
+      this.fileUserList.splice(i + 1, 0, {});
+    },
+    delFileUser(i) {
+      console.log('행 삭제!');
+      if (this.fileUserList.length > 1) {
+        console.log('행 삭제!');
+        const idx = this.fileUserList.indexOf(i);
+        this.fileUserList.splice(idx, 1);
+      } else {
+        this.fileUserList[0].chrgrTyp = '';
+        this.fileUserList[0].instNm = '';
+        this.fileUserList[0].instCd = '';
+        this.fileUserList[0].hanNm = '';
+        this.fileUserList[0].mblPhonNum = '';
+        this.fileUserList[0].emailAddr = '';
+      }
+    },
+    delFileInfo(row) {
+      console.log('행 삭제!');
+
+      const idx = this.fileList.indexOf(row);
+      this.fileList.splice(idx, 1);
+      this.emptyFileIfFields();
+    },
+    emptyFileIfFields() {
+      this.fileInfo.eigwIfId = '';
+      this.fileInfo.eigwIfNm = '';
+      this.fileInfo.instNm = '';
+      this.fileInfo.instCd = '';
+      this.fileInfo.fileNm = '';
+      this.fileInfo.srFlag = '';
+      this.fileInfo.outPath = '';
+      this.fileInfo.devRealIp = '';
+      this.fileInfo.devPort = '';
+      this.fileInfo.prodRealIp = '';
+      this.fileInfo.prodPort = '';
+      this.fileInfo.eigwRmk = '';
+      this.fileInfo.id = '';
+      this.fileInfo.pwd = '';
+      this.fileUserList = [
+        {
+          chrgrTyp: '',
+          userId: '',
+          instNm: '',
+          instCd: '',
+          hanNm: '',
+          ofcLvlCd: '',
+          mblPhonNum: '',
+          emailAddr: '',
+        },
+      ];
+    },
+    checkFileFields() {
+      if (this.fileInfo.eigwIfNm === '') {
         this.$gf.alertOn('인터페이스명을 입력하세요');
         return 0;
-      } if (this.onlineInfo.eigwIfId === '') {
+      } if (this.fileInfo.eigwIfId === '') {
         this.$gf.alertOn('인터페이스 영문 약자를 입력하세요');
         return 0;
-      } if (this.onlineInfo.instNm === '') {
+      } if (this.fileInfo.instNm === '') {
         this.$gf.alertOn('대외기관을 입력하세요');
         return 0;
-      } if (this.onlineInfo.pgmTyp === '') {
-        this.$gf.alertOn('프로그램 유형을 선택하세요');
+      } if (this.fileInfo.fileNm === '') {
+        this.$gf.alertOn('파일명을 입력하세요');
         return 0;
-      } if (this.onlineInfo.linkTyp === '') {
-        this.$gf.alertOn('연결 유형을 선택하세요');
+      } if (this.fileInfo.srFlag === '') {
+        this.$gf.alertOn('송수신 유형을 선택하세요');
         return 0;
-      } if (this.onlineInfo.devRealIp === '' || this.onlineInfo.devPort === '' || this.onlineInfo.prodRealIp === '' || this.onlineInfo.prodPort === '') {
+      } if (this.fileInfo.devRealIp === '' || this.fileInfo.devPort === '' || this.fileInfo.prodRealIp === '' || this.fileInfo.prodPort === '') {
         this.$gf.alertOn('서버정보를 입력하세요');
         return 0;
       }
 
-      for (let i = 0; i < this.onlineUserList.length; i++) {
-        if (this.onlineUserList[i].chrgrTyp === '' || this.onlineUserList[i].chrgrTyp === undefined) {
+      for (let i = 0; i < this.fileUserList.length; i++) {
+        if (this.fileUserList[i].chrgrTyp === '' || this.fileUserList[i].chrgrTyp === undefined) {
           this.$gf.alertOn('담당자 구분을 선택하세요');
           return 0;
-        } if (this.onlineUserList[i].chrgrTyp === 'new') {
-          if (this.onlineUserList[i].ofcLvlCd === '' || this.onlineUserList[i].instNm === ''
-          || this.onlineUserList[i].instCd === '' || this.onlineUserList[i].hanNm === ''
-          || this.onlineUserList[i].instCd === undefined
-          || this.onlineUserList[i].hanNm === undefined
-          || this.onlineUserList[i].ofcLvlCd === undefined
-          || this.onlineUserList[i].instNm === undefined
-          || this.onlineUserList[i].mblPhonNum === undefined
-          || this.onlineUserList[i].emailAddr === undefined
-          || this.onlineUserList[i].mblPhonNum === '' || this.onlineUserList[i].emailAddr === '') {
+        } if (this.fileUserList[i].chrgrTyp === 'new') {
+          if (this.fileUserList[i].ofcLvlCd === '' || this.fileUserList[i].instNm === ''
+          || this.fileUserList[i].instCd === '' || this.fileUserList[i].hanNm === ''
+          || this.fileUserList[i].instCd === undefined
+          || this.fileUserList[i].hanNm === undefined
+          || this.fileUserList[i].ofcLvlCd === undefined
+          || this.fileUserList[i].instNm === undefined
+          || this.fileUserList[i].mblPhonNum === undefined
+          || this.fileUserList[i].emailAddr === undefined
+          || this.fileUserList[i].mblPhonNum === '' || this.fileUserList[i].emailAddr === '') {
             this.$gf.alertOn('담당자 정보를 입력하세요');
             return 0;
           }
-        } else if (this.onlineUserList[i].userId === undefined || this.onlineUserList[i].userId === '') {
+        } else if (this.fileUserList[i].userId === undefined || this.fileUserList[i].userId === '') {
           this.$gf.alertOn('담당자 정보를 입력하세요');
           return 0;
         }
@@ -451,69 +513,49 @@ export default {
     },
     addDataInstList(val) {
       console.log(`Popup에서 받아온 Data : ${val}`);
-      if (this.typeCase === 'on') {
-        if (this.instPopupCase === -1) {
-          this.onlineInfo.instCd = val.instCd;
-          this.onlineInfo.instNm = val.instNm;
-        } else {
-          this.onlineUserList[this.instPopupCase].instCd = val.instCd;
-          this.onlineUserList[this.instPopupCase].instNm = val.instNm;
-        }
-      }
-      if (this.typeCase === 'file') {
-        if (this.instPopupCase === -2) {
-          this.fileInfo.instCd = val.instCd;
-          this.fileInfo.instNm = val.instNm;
-        } else {
-          this.fileUserList[this.instPopupCase].instCd = val.instCd;
-          this.fileUserList[this.instPopupCase].instNm = val.instNm;
-        }
+      if (this.instPopupCase === -2) {
+        this.fileInfo.instCd = val.instCd;
+        this.fileInfo.instNm = val.instNm;
+      } else {
+        this.fileUserList[this.instPopupCase].instCd = val.instCd;
+        this.fileUserList[this.instPopupCase].instNm = val.instNm;
       }
       this.svrOnInstList = false;
     },
-    searchOnChrgr(row) {
+    searchFileChrgr(row) {
       this.row = row;
-      if (this.onlineUserList[row].chrgrTyp === '' || this.onlineUserList[row].chrgrTyp === undefined) {
+      if (this.fileUserList[row].chrgrTyp === '' || this.fileUserList[row].chrgrTyp === undefined) {
         this.$gf.alertOn('구분을 선택하세요');
         return;
       }
       console.log('담당자 추가!');
-      this.addOnlineChrgrRow(row);
+      this.addFileChrgrRow(row);
+    },
+    addFileChrgrRow(row) {
+      this.type = 'file';
+      console.log('행 추가!');
+      if (this.fileUserList[row].chrgrTyp === 'in') {
+        this.svrOnChrgr = true;
+      } else if (this.fileUserList[row].chrgrTyp === 'out') {
+        this.svrOnEigwChrgr = true;
+      } else {
+        this.turnOnSvrPopInstList(row, 'file');
+      }
     },
     addDataChrgr(val) {
       console.log(`Popup에서 받아온 Data : ${val}`);
-      if (this.type === 'on') {
-        this.onlineUserList[this.row].hanNm = val.hanNm;
-        this.onlineUserList[this.row].userId = val.userId;
-        this.onlineUserList[this.row].instCd = val.instCd;
-        this.onlineUserList[this.row].instNm = val.instNm;
-        this.onlineUserList[this.row].ofcLvlCd = val.ofcLvlCd;
-        this.onlineUserList[this.row].ofcLvlNm = val.ofcLvlNm;
-        this.onlineUserList[this.row].mblPhonNum = val.mblPhonNum;
-        this.onlineUserList[this.row].emailAddr = val.emailAddr;
-      } else {
-        this.fileUserList[this.row].hanNm = val.hanNm;
-        this.fileUserList[this.row].userId = val.userId;
-        this.fileUserList[this.row].instCd = val.instCd;
-        this.fileUserList[this.row].instNm = val.instNm;
-        this.fileUserList[this.row].ofcLvlCd = val.ofcLvlCd;
-        this.fileUserList[this.row].ofcLvlNm = val.ofcLvlNm;
-        this.fileUserList[this.row].mblPhonNum = val.mblPhonNum;
-        this.fileUserList[this.row].emailAddr = val.emailAddr;
-      }
+
+      this.fileUserList[this.row].hanNm = val.hanNm;
+      this.fileUserList[this.row].userId = val.userId;
+      this.fileUserList[this.row].instCd = val.instCd;
+      this.fileUserList[this.row].instNm = val.instNm;
+      this.fileUserList[this.row].ofcLvlCd = val.ofcLvlCd;
+      this.fileUserList[this.row].ofcLvlNm = val.ofcLvlNm;
+      this.fileUserList[this.row].mblPhonNum = val.mblPhonNum;
+      this.fileUserList[this.row].emailAddr = val.emailAddr;
+
       this.svrOnChrgr = false;
       this.svrOnEigwChrgr = false;
-    },
-    addOnlineChrgrRow(row) {
-      this.type = 'on';
-      console.log('행 추가!');
-      if (this.onlineUserList[row].chrgrTyp === 'in') {
-        this.svrOnChrgr = true;
-      } else if (this.onlineUserList[row].chrgrTyp === 'out') {
-        this.svrOnEigwChrgr = true;
-      } else {
-        this.turnOnSvrPopInstList(row, 'on');
-      }
     },
     turOffSvrPopChrgr(val) {
       console.log(`Popup에서 받아온 Data : ${val}`);

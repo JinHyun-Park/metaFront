@@ -2,22 +2,21 @@
   <div>
     <EigwOnlineDetailPopup
       v-if="showOnlineDetail"
-      v-bind="propsOnline"
+      :prop-data="propsOnline"
       @closePop="turOffSvrPopOnline"
       @addData="addDataOnline"
+    />
+    <EigwFileDetailPopup
+      v-if="showFileDetail"
+      :prop-data="propsFile"
+      @closePop="turOffSvrPopFile"
+      @addData="addDataFile"
     />
 
     <section class="form_area border_group">
       <h5 class="s_tit type-2">
         온라인 인터페이스 정보
         <div class="right_button_area">
-          <button
-            type="button"
-            class="default_button on"
-            @click="updateOnlineInfo()"
-          >
-            수정
-          </button>
           <button
             type="button"
             class="default_button on"
@@ -107,14 +106,7 @@
           <button
             type="button"
             class="default_button on"
-            @click="updateFileInfo()"
-          >
-            수정
-          </button>
-          <button
-            type="button"
-            class="default_button on"
-            @click="addFileInfo()"
+            @click="turOnSvrPopFile()"
           >
             인터페이스 추가
           </button>
@@ -190,258 +182,6 @@
           </div>
         </div>
       </div>
-      <!-- FILE //-->
-
-      <div class="row_contain type-2">
-        <div class="column w-1">
-          <label class="column_label">I/F ID</label>
-          <div class="search_group">
-            <input
-              v-model="fileInfo.eigwIfId"
-              type="text"
-              class="add_text on"
-            >
-          </div>
-        </div>
-        <div class="column w-1">
-          <label class="column_label">I/F명</label>
-          <div class="search_group">
-            <input
-              v-model="fileInfo.eigwIfNm"
-              type="text"
-              class="add_text on"
-            >
-            <span class="tooltips right ov">
-              <i class="tip_contn"><em class="tip_text">신규 I/F의 경우, EAI에서 등록 후 신청바랍니다.</em></i>
-            </span>
-          </div>
-        </div>
-      </div>
-      <div class="row_contain type-1">
-        <div class="column w-1">
-          <label class="column_label">대외기관</label>
-          <div class="search_group">
-            <input
-              v-model="fileInfo.instNm"
-              type="text"
-              class="add_text on"
-              @click="turnOnSvrPopInstList(-2, 'file')"
-            >
-            <span class="search">
-              <i class="ico-search" />
-            </span>
-          </div>
-        </div>
-        <div class="column w-1">
-          <label class="column_label">파일명</label>
-          <input
-            v-model="fileInfo.fileNm"
-            type="text"
-            class="add_text on"
-          >
-        </div>
-        <div class="column w-1">
-          <label class="column_label">송수신</label>
-          <select v-model="fileInfo.srFlag">
-            <option value="S">
-              송신
-            </option>
-            <option value="R">
-              수신
-            </option>
-          </select>
-        </div>
-        <div class="column w-1">
-          <input
-            v-model="fileInfo.instCd"
-            type="hidden"
-            class="add_text on"
-          >
-        </div>
-      </div>
-      <!-- FILE -->
-      <div class="row_contain">
-        <div class="column w-2">
-          <label class="column_label">파일경로</label>
-          <input
-            v-model="fileInfo.outPath"
-            type="text"
-            class="add_text on"
-          >
-        </div>
-        <div class="column w-1">
-          <label class="column_label">계정정보(ID/PW)</label>
-          <input
-            v-model="fileInfo.id"
-            type="text"
-            class="add_text on"
-          >
-        </div>
-        <div class="column w-1">
-          <label class="column_label">&nbsp;</label>
-          <input
-            v-model="fileInfo.pwd"
-            type="text"
-            class="add_text on"
-          >
-        </div>
-        <div class="column w-1" />
-      </div>
-      <!-- FILE //-->
-      <div class="row_contain type-1">
-        <div class="column w-1">
-          <label class="column_label">개발 REAL IP</label>
-          <input
-            v-model="fileInfo.devRealIp"
-            type="text"
-            class="add_text on"
-          >
-        </div>
-        <div class="column w-1">
-          <label class="column_label">개발 Port</label>
-          <input
-            v-model="fileInfo.devPort"
-            type="number"
-            class="add_text on"
-          >
-        </div>
-        <div class="column w-1">
-          <label class="column_label">운영 REAL IP</label>
-          <input
-            v-model="fileInfo.prodRealIp"
-            type="text"
-            class="add_text on"
-          >
-        </div>
-        <div class="column w-1">
-          <label class="column_label">운영 Port</label>
-          <input
-            v-model="fileInfo.prodPort"
-            type="number"
-            class="add_text on"
-          >
-        </div>
-      </div>
-      <div class="row_contain type-2">
-        <div class="column w-4">
-          <label class="column_label">기타 요청사항</label>
-          <input
-            v-model="fileInfo.eigwRmk"
-            type="text"
-            class="add_text on"
-          >
-        </div>
-        <div class="column w-1" />
-      </div>
-      <h5 class="s_tit type-2">
-        담당자 정보
-      </h5>
-      <label class="column_label">검색이 되지 않는 신규인력은 구분에 '입력'을 선택하고 정보를 기입해주세요.</label>
-      <div class="table_colgroup">
-        <div class="table_grid">
-          <div class="table_head w-auto except">
-            <ul>
-              <li class="th_cell">
-                구분
-              </li>
-              <li class="th_cell">
-                기관
-              </li>
-              <li class="th_cell">
-                이름
-              </li>
-              <li class="th_cell">
-                직급
-              </li>
-              <li class="th_cell">
-                연락처
-              </li>
-              <li class="th_cell">
-                E-mail
-              </li>
-              <li class="th_cell">
-                삭제
-              </li>
-            </ul>
-          </div>
-          <div class="table_body">
-            <ul
-              v-for="(row, i) in fileUserList"
-              :key="row.userId"
-              class="table_row form_type except w-auto"
-            >
-              <li class="td_cell">
-                <div class="select_group">
-                  <select v-model="row.chrgrTyp">
-                    <option value="">
-                      전체
-                    </option>
-                    <option value="in">
-                      내부운영
-                    </option>
-                    <option value="out">
-                      대외기관
-                    </option>
-                    <option value="new">
-                      입력
-                    </option>
-                  </select>
-                  <span class="select" />
-                </div>
-              </li>
-              <li class="td_cell">
-                <input
-                  v-model="row.instNm"
-                  type="text"
-                  @click="searchFileChrgr(i)"
-                >
-              </li>
-              <li class="td_cell">
-                <input
-                  v-model="row.hanNm"
-                  type="text"
-                >
-              </li>
-              <li class="td_cell">
-                <div class="select_group">
-                  <select v-model="row.ofcLvlCd">
-                    <option
-                      v-for="(code, n) in ccCdList.ofcLvlCd"
-                      :key="n"
-                      :value="code.cdDtlId"
-                    >
-                      {{ code.cdNm }}
-                    </option>
-                  </select>
-                  <span class="select" />
-                </div>
-              </li>
-              <li class="td_cell">
-                <input
-                  v-model="row.mblPhonNum"
-                  type="text"
-                >
-              </li>
-              <li class="td_cell">
-                <input
-                  v-model="row.emailAddr"
-                  type="text"
-                >
-              </li>
-              <td class="td_cell">
-                <i
-                  class="ico-add"
-                  @click="addFileUser(i)"
-                />
-                <i
-                  class="ico-del"
-                  @click="delFileUser(i)"
-                />
-              </td>
-            </ul>
-          </div>
-        </div>
-      </div>
     </section>
   </div>
 </template>
@@ -449,6 +189,7 @@
 <script>
 import { mapState, mapActions } from 'vuex';
 import EigwOnlineDetailPopup from '@/components/popup/meta/eigw/EigwOnlineDetailPopup.vue';
+import EigwFileDetailPopup from '@/components/popup/meta/eigw/EigwFileDetailPopup.vue';
 import eventBus from '@/utils/eventBus';
 import { fetchEigwReqList, fetchEigwReqSave } from '@/api/eigwApi';
 
@@ -457,6 +198,7 @@ export default {
   name: 'RegStep2EIGW',
   components: {
     EigwOnlineDetailPopup,
+    EigwFileDetailPopup,
   },
   data() {
     return {
@@ -468,6 +210,8 @@ export default {
       propsFile: { // 조회 시 parameter에 사용자 정보를 담아주려면 여기를 통해 넘겨주세요.
         message: '', // 사용방법 예시 데이터
       },
+
+      popupType: '',
 
       eigwReqNum: '',
       eigwType: '',
@@ -610,32 +354,36 @@ export default {
       this.onlineInfo.prodRealIp = this.onlineList[i].prodRealIp;
       this.onlineInfo.prodPort = this.onlineList[i].prodPort;
       this.onlineInfo.eigwRmk = this.onlineList[i].eigwRmk;
-      this.onlineUserList = this.onlineList[i].onlineUserList;
+      this.onlineInfo.onlineUserList = this.onlineList[i].onlineUserList;
+
+      this.propsOnline = this.onlineInfo;
+      this.popupType = 'update';
+      this.showOnlineDetail = true;
     },
-    updateOnlineInfo() {
+    updateOnlineInfo(val) {
       if (this.currRow === '') {
         this.$gf.alertOn('인터페이스 목록에서 수정할 대상을 선택하세요');
         return;
       }
 
-      if (this.checkOnlineFields() === 0) {
-        return;
-      }
+      // if (this.checkOnlineFields() === 0) {
+      //   return;
+      // }
 
-      this.onlineList[this.currRow].eigwIfNm = this.onlineInfo.eigwIfNm;
-      this.onlineList[this.currRow].eigwIfId = this.onlineInfo.eigwIfId;
-      this.onlineList[this.currRow].instNm = this.onlineInfo.instNm;
-      this.onlineList[this.currRow].instCd = this.onlineInfo.instCd;
-      this.onlineList[this.currRow].pgmTyp = this.onlineInfo.pgmTyp;
-      this.onlineList[this.currRow].linkTyp = this.onlineInfo.linkTyp;
-      this.onlineList[this.currRow].eigwRmk = this.onlineInfo.eigwRmk;
-      this.onlineList[this.currRow].devRealIp = this.onlineInfo.devRealIp;
-      this.onlineList[this.currRow].devPort = this.onlineInfo.devPort;
-      this.onlineList[this.currRow].prodRealIp = this.onlineInfo.prodRealIp;
-      this.onlineList[this.currRow].prodPort = this.onlineInfo.prodPort;
-      this.onlineList[this.currRow].onlineUserList = this.onlineUserList;
+      this.onlineList[this.currRow].eigwIfNm = val.eigwIfNm;
+      this.onlineList[this.currRow].eigwIfId = val.eigwIfId;
+      this.onlineList[this.currRow].instNm = val.instNm;
+      this.onlineList[this.currRow].instCd = val.instCd;
+      this.onlineList[this.currRow].pgmTyp = val.pgmTyp;
+      this.onlineList[this.currRow].linkTyp = val.linkTyp;
+      this.onlineList[this.currRow].eigwRmk = val.eigwRmk;
+      this.onlineList[this.currRow].devRealIp = val.devRealIp;
+      this.onlineList[this.currRow].devPort = val.devPort;
+      this.onlineList[this.currRow].prodRealIp = val.prodRealIp;
+      this.onlineList[this.currRow].prodPort = val.prodPort;
+      this.onlineList[this.currRow].onlineUserList = val.onlineUserList;
 
-      this.emptyOnlineIfFields();
+      // this.emptyOnlineIfFields();
     },
     addOnlineInfo() {
       if (this.checkOnlineFields() === 0) {
@@ -677,10 +425,12 @@ export default {
         .then((res) => {
           console.log(res);
           this.setTempSave('T');
+          this.$gf.alertOn('저장되었습니다.');
         })
         .catch((ex) => {
           console.log(`오류가 발생하였습니다 : ${ex}`);
           this.setTempSave('F');
+          this.$gf.alertOn('실패하였습니다.');
         });
     },
     addOnlineUser(i) {
@@ -796,33 +546,37 @@ export default {
       this.fileInfo.prodRealIp = this.fileList[i].prodRealIp;
       this.fileInfo.prodPort = this.fileList[i].prodPort;
       this.fileInfo.eigwRmk = this.fileList[i].eigwRmk;
-      this.fileUserList = this.fileList[i].fileUserList;
+      this.fileInfo.fileUserList = this.fileList[i].fileUserList;
+
+      this.propsFile = this.fileInfo;
+      this.popupType = 'update';
+      this.showFileDetail = true;
     },
-    updateFileInfo() {
+    updateFileInfo(val) {
       if (this.currRow === '') {
         this.$gf.alertOn('인터페이스 목록에서 수정할 대상을 선택하세요');
         return;
       }
 
-      if (this.checkFileFields() === 0) {
-        return;
-      }
+      // if (this.checkFileFields() === 0) {
+      //   return;
+      // }
 
-      this.fileList[this.currRow].eigwIfNm = this.fileInfo.eigwIfNm;
-      this.fileList[this.currRow].eigwIfId = this.fileInfo.eigwIfId;
-      this.fileList[this.currRow].instNm = this.fileInfo.instNm;
-      this.fileList[this.currRow].instCd = this.fileInfo.instCd;
-      this.fileList[this.currRow].fileNm = this.fileInfo.fileNm;
-      this.fileList[this.currRow].outPath = this.fileInfo.outPath;
-      this.fileList[this.currRow].id = this.fileInfo.id;
-      this.fileList[this.currRow].pwd = this.fileInfo.pwd;
-      this.fileList[this.currRow].srFlag = this.fileInfo.srFlag;
-      this.fileList[this.currRow].eigwRmk = this.fileInfo.eigwRmk;
-      this.fileList[this.currRow].devRealIp = this.fileInfo.devRealIp;
-      this.fileList[this.currRow].devPort = this.fileInfo.devPort;
-      this.fileList[this.currRow].prodRealIp = this.fileInfo.prodRealIp;
-      this.fileList[this.currRow].prodPort = this.fileInfo.prodPort;
-      this.fileList[this.currRow].fileUserList = this.fileUserList;
+      this.fileList[this.currRow].eigwIfNm = val.eigwIfNm;
+      this.fileList[this.currRow].eigwIfId = val.eigwIfId;
+      this.fileList[this.currRow].instNm = val.instNm;
+      this.fileList[this.currRow].instCd = val.instCd;
+      this.fileList[this.currRow].fileNm = val.fileNm;
+      this.fileList[this.currRow].outPath = val.outPath;
+      this.fileList[this.currRow].id = val.id;
+      this.fileList[this.currRow].pwd = val.pwd;
+      this.fileList[this.currRow].srFlag = val.srFlag;
+      this.fileList[this.currRow].eigwRmk = val.eigwRmk;
+      this.fileList[this.currRow].devRealIp = val.devRealIp;
+      this.fileList[this.currRow].devPort = val.devPort;
+      this.fileList[this.currRow].prodRealIp = val.prodRealIp;
+      this.fileList[this.currRow].prodPort = val.prodPort;
+      this.fileList[this.currRow].fileUserList = val.fileUserList;
 
       this.emptyFileIfFields();
     },
@@ -991,6 +745,7 @@ export default {
       }
     },
     turOnSvrPopOnline() {
+      this.popupType = 'new';
       this.showOnlineDetail = true;
     },
     turOffSvrPopOnline(val) {
@@ -999,10 +754,36 @@ export default {
     },
     addDataOnline(val) {
       console.log(`Popup에서 받아온 Data : ${val}`);
-      this.onlineList.push(val);
+      val.reqNum = this.reqNum;
+      if (this.popupType === 'update') {
+        this.updateOnlineInfo(val);
+      } else {
+        this.onlineList.push(val);
+      }
       // this.onlineInfo = val;
       // this.addOnlineInfo();
       this.showOnlineDetail = false;
+    },
+    turOnSvrPopFile() {
+      this.popupType = 'new';
+      this.showFileDetail = true;
+    },
+    turOffSvrPopFile(val) {
+      console.log(`Popup에서 받아온 Data : ${val}`);
+      this.showFileDetail = false;
+    },
+    addDataFile(val) {
+      console.log(`Popup에서 받아온 Data : ${val}`);
+      val.reqNum = this.reqNum;
+      if (this.popupType === 'update') {
+        this.updateFileInfo(val);
+      } else {
+        this.fileList.push(val);
+      }
+
+      // this.onlineInfo = val;
+      // this.addOnlineInfo();
+      this.showFileDetail = false;
     },
   },
 };

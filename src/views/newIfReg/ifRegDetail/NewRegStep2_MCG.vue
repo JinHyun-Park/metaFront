@@ -1,30 +1,16 @@
 <template>
   <div>
-    <ProcMsgPopup
-      v-if="procMsgPopup"
-      v-bind="popupProp"
-      @closePop="turnOffProcMsg"
-      @addData="addProcMsg"
-    />
-    <VirtualUserApplyPopup
-      v-if="virtualpopupstate"
-      @closePop="turOffPopVitual"
-      @addData="addDataVirtual"
-    />
-    <ChrgrListPopup
-      v-if="chrgrpopupstate"
-      @closePop="turOffPopChrgr"
-      @addData="addDataChrgr"
-    />
-    <ChnlListPopup
-      v-if="chnlpopupstate"
-      @closePop="turOffPopChnl"
+    <McgChnlDetailPopup
+      v-if="showChnlDetail"
+      :prop-data="propsChnl"
+      @closePop="turOffSvrPopChnl"
       @addData="addDataChnl"
     />
-    <ChrgrListPopup
-      v-if="chrgrpopupstate"
-      @closePop="turOffPopChrgr"
-      @addData="addDataChrgr"
+    <McgDealDetailPopup
+      v-if="showDealDetail"
+      :prop-data="propsDeal"
+      @closePop="turOffSvrPopDeal"
+      @addData="addDataDeal"
     />
     <section class="form_area border_group several_table">
       <h5 class="s_tit type-2">
@@ -713,40 +699,6 @@
         </div>
       </div>
     </section>
-    <section class="btm_button_area">
-      <button
-        v-if="isOperBtn"
-        type="button"
-        class="default_button on"
-        @click="aprvMsgReq(5)"
-      >
-        운영반영 완료
-      </button>
-      <button
-        v-if="isDevBtn"
-        type="button"
-        class="default_button on"
-        @click="aprvMsgReq(4)"
-      >
-        개발반영 완료
-      </button>
-      <button
-        v-if="isDevBtnReject"
-        type="button"
-        class="default_button"
-        @click="aprvMsgReq(3)"
-      >
-        접수중
-      </button>
-      <button
-        v-if="isBtnReject"
-        type="button"
-        class="default_button"
-        @click="aprvMsgReq(1)"
-      >
-        반려
-      </button>
-    </section>
   </div>
 </template>
 
@@ -765,27 +717,33 @@ import eventBus from '@/utils/eventBus';
 import VirtualUserApplyPopup from '@/components/popup/meta/mcg/VirtualUserApplyPopup.vue';
 import ChrgrListPopup from '@/components/popup/bizcomm/ChrgrListPopup.vue';
 import ChnlListPopup from '@/components/popup/meta/mcg/ChnListPopup.vue';
-import ProcMsgPopup from '@/components/popup/ifRegInfo/ProcMsgPopup.vue';
+import McgChnlDetailPopup from '@/components/popup/meta/mcg/McgChnlDetailPopup.vue';
+import McgDealDetailPopup from '@/components/popup/meta/mcg/McgDealDetailPopup.vue';
 import { fetchPutIfStepAprvReqAdmin } from '@/api/ifRegApi';
 
 export default {
   name: 'RegStep2ApplyChMCG',
 
   components: {
-    VirtualUserApplyPopup, ChrgrListPopup, ProcMsgPopup, ChnlListPopup,
+    McgChnlDetailPopup, McgDealDetailPopup,
   },
-
 
   data() {
     return {
       isChnlShow: false,
       isDealShow: false,
 
-      procMsgPopup: false,
-      popupProp: {
-        procSt: '',
+      showChnlDetail: false,
+      showDealDetail: false,
+      propsChnl: { // 조회 시 parameter에 사용자 정보를 담아주려면 여기를 통해 넘겨주세요.
+        message: '', // 사용방법 예시 데이터
       },
-      hstRmk: '',
+      propsDeal: { // 조회 시 parameter에 사용자 정보를 담아주려면 여기를 통해 넘겨주세요.
+        message: '', // 사용방법 예시 데이터
+      },
+
+      popupType: 'new',
+      currIdx: 0,
 
       virtual: true,
       isStatusOn: '',
@@ -1050,14 +1008,18 @@ export default {
 
 
     showAddView(type) {
-      this.emptyMcgChnlFields();
-      this.emptyMcgDealFields();
+      // this.emptyMcgChnlFields();
+      // this.emptyMcgDealFields();
       if (type === 'CHNL') {
-        this.isDealShow = false;
-        this.isChnlShow = true;
+        // this.isDealShow = false;
+        // this.isChnlShow = true;
+        this.propsChnl = this.mcgChnlRowData;
+        this.popupType = 'update';
+        this.showChnlDetail = true;
       } else if (type === 'DEAL') {
-        this.isChnlShow = false;
-        this.isDealShow = true;
+        // this.isChnlShow = false;
+        // this.isDealShow = true;
+        this.showDealDetail = true;
       }
     },
     reqsetting() {
@@ -1311,36 +1273,40 @@ export default {
       }
     },
 
-    dtlChnlUpdate(idx) {
-      if (this.checkChnlSave() === 0) {
+    dtlChnlUpdate(val) {
+      // if (this.checkChnlSave() === 0) {
+      //   return;
+      // }
+      if (this.currIdx === '') {
+        this.$gf.alertOn('수정한 데이터를 클릭하세요.');
         return;
       }
-      this.reqList[idx].mcgReqNum = this.mcgChnlRowData.mcgReqNum;
-      this.reqList[idx].mcgType = this.mcgChnlRowData.mcgType;
-      this.reqList[idx].chnlNm = this.mcgChnlRowData.chnlNm;
-      this.reqList[idx].chnlId = this.mcgChnlRowData.chnlId;
-      this.reqList[idx].lnkMthd = this.mcgChnlRowData.lnkMthd;
-      this.reqList[idx].chnlTyp = this.mcgChnlRowData.chnlTyp;
-      this.reqList[idx].reqPurp = this.mcgChnlRowData.reqPurp;
-      this.reqList[idx].chnlCnt = this.mcgChnlRowData.chnlCnt;
-      this.reqList[idx].maxTps = this.mcgChnlRowData.maxTps;
-      this.reqList[idx].tp = this.mcgChnlRowData.tp;
-      this.reqList[idx].serviceId = this.mcgChnlRowData.serviceId;
-      this.reqList[idx].serviceNm = this.mcgChnlRowData.serviceNm;
-      this.reqList[idx].servletUrl = this.mcgChnlRowData.servletUrl;
-      this.reqList[idx].tcpIp = this.mcgChnlRowData.tcpIp;
-      this.reqList[idx].tcpPort = this.mcgChnlRowData.tcpPort;
-      this.reqList[idx].dailyTps = this.mcgChnlRowData.dailyTps;
-      this.reqList[idx].dablInflu = this.mcgChnlRowData.dablInflu;
-      this.reqList[idx].mcgRmk = this.mcgChnlRowData.mcgRmk;
-      this.reqList[idx].reqDt = this.mcgChnlRowData.reqDt;
-      this.reqList[idx].chnlCom = this.mcgChnlRowData.chnlCom;
+      this.reqList[this.currIdx].mcgReqNum = val.mcgReqNum;
+      this.reqList[this.currIdx].mcgType = val.mcgType;
+      this.reqList[this.currIdx].chnlNm = val.chnlNm;
+      this.reqList[this.currIdx].chnlId = val.chnlId;
+      this.reqList[this.currIdx].lnkMthd = val.lnkMthd;
+      this.reqList[this.currIdx].chnlTyp = val.chnlTyp;
+      this.reqList[this.currIdx].reqPurp = val.reqPurp;
+      this.reqList[this.currIdx].chnlCnt = val.chnlCnt;
+      this.reqList[this.currIdx].maxTps = val.maxTps;
+      this.reqList[this.currIdx].tp = val.tp;
+      this.reqList[this.currIdx].serviceId = val.serviceId;
+      this.reqList[this.currIdx].serviceNm = val.serviceNm;
+      this.reqList[this.currIdx].servletUrl = val.servletUrl;
+      this.reqList[this.currIdx].tcpIp = val.tcpIp;
+      this.reqList[this.currIdx].tcpPort = val.tcpPort;
+      this.reqList[this.currIdx].dailyTps = val.dailyTps;
+      this.reqList[this.currIdx].dablInflu = val.dablInflu;
+      this.reqList[this.currIdx].mcgRmk = val.mcgRmk;
+      this.reqList[this.currIdx].reqDt = val.reqDt;
+      this.reqList[this.currIdx].chnlCom = val.chnlCom;
 
-      this.reqList[idx].svrList = this.mcgChnlRowData.svrRows;
-      this.reqList[idx].chrgrList = this.mcgChnlRowData.chrgrRows;
+      this.reqList[this.currIdx].svrList = val.svrRows;
+      this.reqList[this.currIdx].chrgrList = val.chrgrRows;
 
-      this.$gf.alertOn(`${this.mcgChnlRowData.chnlNm}의 채널 정보가 수정되었습니다.`);
-      this.emptyMcgChnlFields();
+      // this.$gf.alertOn(`${this.mcgChnlRowData.chnlNm}의 채널 정보가 수정되었습니다.`);
+      // this.emptyMcgChnlFields();
     },
 
     dtlDealUpdate(idx) {
@@ -1375,38 +1341,37 @@ export default {
       this.emptyMcgDealFields();
     },
 
-    addMcgChnlReq() {
-      if (this.checkChnlSave() === 0) {
-        return;
-      }
-      this.mcgChnlRowData.mcgReqNum = this.reqList.length;
+    addMcgChnlReq(val) {
+      // if (this.checkChnlSave() === 0) {
+      //   return;
+      // }
       console.log(this.mcgReqNum);
       this.reqList.push({
-        mcgReqNum: this.mcgChnlRowData.mcgReqNum,
+        mcgReqNum: this.reqList.length,
         reqNum: this.reqNum,
-        mcgType: this.mcgChnlRowData.mcgType,
-        opCd: this.mcgChnlRowData.opCd,
-        chnlNm: this.mcgChnlRowData.chnlNm,
-        chnlId: this.mcgChnlRowData.chnlId,
-        lnkMthd: this.mcgChnlRowData.lnkMthd,
-        chnlTyp: this.mcgChnlRowData.chnlTyp,
-        reqPurp: this.mcgChnlRowData.reqPurp,
-        chnlCnt: this.mcgChnlRowData.chnlCnt,
-        maxTps: this.mcgChnlRowData.maxTps,
-        tp: this.mcgChnlRowData.tp,
-        serviceId: this.mcgChnlRowData.serviceId,
-        serviceNm: this.mcgChnlRowData.serviceNm,
-        servletUrl: this.mcgChnlRowData.servletUrl,
-        tcpIpPort: this.mcgChnlRowData.tcpIpPort,
-        dailyTps: this.mcgChnlRowData.dailyTps,
-        dablInflu: this.mcgChnlRowData.dablInflu,
-        mcgRmk: this.mcgChnlRowData.mcgRmk,
-        reqDt: this.mcgChnlRowData.reqDt,
-        chnlCom: this.mcgChnlRowData.chnlCom,
-        svrList: this.mcgChnlRowData.svrRows,
-        chrgrList: this.mcgChnlRowData.chrgrRows,
+        mcgType: val.mcgType,
+        opCd: val.opCd,
+        chnlNm: val.chnlNm,
+        chnlId: val.chnlId,
+        lnkMthd: val.lnkMthd,
+        chnlTyp: val.chnlTyp,
+        reqPurp: val.reqPurp,
+        chnlCnt: val.chnlCnt,
+        maxTps: val.maxTps,
+        tp: val.tp,
+        serviceId: val.serviceId,
+        serviceNm: val.serviceNm,
+        servletUrl: val.servletUrl,
+        tcpIpPort: val.tcpIpPort,
+        dailyTps: val.dailyTps,
+        dablInflu: val.dablInflu,
+        mcgRmk: val.mcgRmk,
+        reqDt: val.reqDt,
+        chnlCom: val.chnlCom,
+        svrList: val.svrRows,
+        chrgrList: val.chrgrRows,
       });
-      this.emptyMcgChnlFields();
+      // this.emptyMcgChnlFields();
     },
 
     addMcgDealReq() {
@@ -1590,27 +1555,6 @@ export default {
 
       console.log(this.reqdtl);
     },
-    aprvMsgReq(tgtProcSt) {
-      if (tgtProcSt === 1) {
-        this.$gf.alertOn('반려는 아직 지원하지 않습니다.');
-        return;
-      }
-      this.tgtProcSt = tgtProcSt;
-      this.turnOnProcMsg();
-    },
-    turnOnProcMsg() {
-      this.popupProp.procSt = this.tgtProcSt;
-      this.procMsgPopup = true;
-    },
-    turnOffProcMsg(val) {
-      console.log(`Popup에서 받아온 Data : ${val}`);
-      this.procMsgPopup = false;
-    },
-    addProcMsg(val) {
-      this.procMsgPopup = false;
-      this.hstRmk = val;
-      this.saveAprvReq();
-    },
     saveAprvReq() {
       fetchPutIfStepAprvReqAdmin({
         reqNum: this.reqNum,
@@ -1640,16 +1584,27 @@ export default {
     },
 
 
+    turOnSvrPopChnl() {
+      this.popupType = 'new';
+      this.showChnlDetail = true;
+    },
+    turOffSvrPopChnl(val) {
+      console.log(`Popup에서 받아온 Data : ${val}`);
+      this.showChnlDetail = false;
+    },
     addDataChnl(val) {
       console.log(`Popup에서 받아온 Data : ${val}`);
-      this.chnlpopupstate = false;
-      this.mcgDealRowData.chnlId = val.chnlId;
-      this.mcgDealRowData.chnlNm = val.chnlNm;
-      this.mcgDealRowData.chnlTyp = val.chnlTyp;
-      this.mcgDealRowData.lnkMthd = val.lnkMthd;
-
-      console.log();
+      // val.reqNum = this.reqNum;
+      if (this.popupType === 'update') {
+        this.dtlChnlUpdate(val);
+      } else {
+        this.addMcgChnlReq(val);
+      }
+      // this.onlineInfo = val;
+      // this.addOnlineInfo();
+      this.showOnlineDetail = false;
     },
+
   },
 };
 </script>
