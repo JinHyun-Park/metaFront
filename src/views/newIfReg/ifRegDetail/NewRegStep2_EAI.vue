@@ -379,43 +379,43 @@
             >
               <li
                 class="td_cell on"
-                @click="getDetailInfo(eaiIf)"
+                @click="getDetailInfo(i)"
               >
                 {{ eaiIf.eaiIfId }}
               </li>
               <li
                 class="td_cell on"
-                @click="getDetailInfo(eaiIf)"
+                @click="getDetailInfo(i)"
               >
                 {{ eaiIf.eaiIfNmKor }}
               </li>
               <li
                 class="td_cell on"
-                @click="getDetailInfo(eaiIf)"
+                @click="getDetailInfo(i)"
               >
                 {{ eaiIf.eaiIfNmEng }}
               </li>
               <li
                 class="td_cell"
-                @click="getDetailInfo(eaiIf)"
+                @click="getDetailInfo(i)"
               >
                 {{ eaiIf.drctnNm }}
               </li>
               <li
                 class="td_cell"
-                @click="getDetailInfo(eaiIf)"
+                @click="getDetailInfo(i)"
               >
                 {{ eaiIf.ifTypNm }}
               </li>
               <li
                 class="td_cell"
-                @click="getDetailInfo(eaiIf)"
+                @click="getDetailInfo(i)"
               >
                 {{ eaiIf.roundTypNm }}
               </li>
               <li
                 class="td_cell"
-                @click="getDetailInfo(eaiIf)"
+                @click="getDetailInfo(i)"
               >
                 {{ eaiIf.syncTypNm }}
               </li>
@@ -476,6 +476,7 @@ export default {
       propsDetail: {
         message: {},
       },
+      popupType: 'new',
       checkIfEng: '',
       checkIfKor: '',
       eaiSeqNum: '',
@@ -927,60 +928,64 @@ export default {
       return 1;
     },
     addNewEmptyIf() {
-      this.eaiIfList.push({});
-      this.showDetailInfo = false;
+      // this.eaiIfList.push({});
+      this.emptyIfFields();
+      this.popupType = 'new';
+      this.showDetailInfo = true;
     },
-    getDetailInfo(eaiIf) {
+    getDetailInfo(i) {
+      this.emptyIfFields();
+      this.popupType = 'update';
       this.showDetailInfo = true;
 
-      this.eaiIfDetail.eaiIfId = eaiIf.eaiIfId;
-      this.eaiIfDetail.eaiIfNmKor = eaiIf.eaiIfNmKor;
-      this.eaiIfDetail.eaiIfNmEng = eaiIf.eaiIfNmEng;
-      this.eaiIfDetail.ifDesc = eaiIf.ifDesc;
-      this.eaiIfDetail.drctnCd = eaiIf.drctnCd;
-      this.eaiIfDetail.ifTypCd = eaiIf.ifTypCd;
-      this.eaiIfDetail.roundTypCd = eaiIf.roundTypCd;
-      this.eaiIfDetail.syncTypCd = eaiIf.syncTypCd;
-      this.eaiIfDetail.rcvOpCd = eaiIf.rcvOpCd;
-      this.eaiIfDetail.rcvTr = eaiIf.rcvTr;
-      this.eaiIfDetail.drctnNm = eaiIf.drctnNm;
-      this.eaiIfDetail.ifTypNm = eaiIf.ifTypNm;
-      this.eaiIfDetail.roundTypNm = eaiIf.roundTypNm;
-      this.eaiIfDetail.syncTypNm = eaiIf.syncTypNm;
-      this.eaiIfDetail.fileIfTypCd = eaiIf.fileIfTypCd;
-      this.eaiIfDetail.fileIfTypNm = eaiIf.fileIfTypNm;
-      this.eaiIfDetail.sndDir = eaiIf.sndDir;
-      this.eaiIfDetail.rcvDir = eaiIf.rcvDir;
-      this.eaiIfDetail.rcvShNm = eaiIf.rcvShNm;
-      this.eaiIfDetail.fileOpCode = eaiIf.fileOpCode;
+      this.eaiIfDetail.eaiIfId = this.eaiIfList[i].eaiIfId;
+      this.eaiIfDetail.eaiIfNmKor = this.eaiIfList[i].eaiIfNmKor;
+      this.eaiIfDetail.eaiIfNmEng = this.eaiIfList[i].eaiIfNmEng;
+      this.eaiIfDetail.ifDesc = this.eaiIfList[i].ifDesc;
+      this.eaiIfDetail.drctnCd = this.eaiIfList[i].drctnCd;
+      this.eaiIfDetail.ifTypCd = this.eaiIfList[i].ifTypCd;
+      this.eaiIfDetail.roundTypCd = this.eaiIfList[i].roundTypCd;
+      this.eaiIfDetail.syncTypCd = this.eaiIfList[i].syncTypCd;
+      this.eaiIfDetail.rcvOpCd = this.eaiIfList[i].rcvOpCd;
+      this.eaiIfDetail.rcvTr = this.eaiIfList[i].rcvTr;
+      this.eaiIfDetail.drctnNm = this.eaiIfList[i].drctnNm;
+      this.eaiIfDetail.ifTypNm = this.eaiIfList[i].ifTypNm;
+      this.eaiIfDetail.roundTypNm = this.eaiIfList[i].roundTypNm;
+      this.eaiIfDetail.syncTypNm = this.eaiIfList[i].syncTypNm;
+      this.eaiIfDetail.fileIfTypCd = this.eaiIfList[i].fileIfTypCd;
+      this.eaiIfDetail.fileIfTypNm = this.eaiIfList[i].fileIfTypNm;
+      this.eaiIfDetail.sndDir = this.eaiIfList[i].sndDir;
+      this.eaiIfDetail.rcvDir = this.eaiIfList[i].rcvDir;
+      this.eaiIfDetail.rcvShNm = this.eaiIfList[i].rcvShNm;
+      this.eaiIfDetail.fileOpCode = this.eaiIfList[i].fileOpCode;
 
-      this.eaiIfDetail.sndMid = eaiIf.sndMid;
-      this.eaiIfDetail.sndChrgrId1 = eaiIf.sndChrgrId1;
-      this.eaiIfDetail.sndChrgrNm1 = eaiIf.sndChrgrNm1;
-      this.eaiIfDetail.sndChrgrId2 = eaiIf.sndChrgrId2;
-      this.eaiIfDetail.sndChrgrNm2 = eaiIf.sndChrgrNm2;
-      this.eaiIfDetail.sndChrgrMngrId = eaiIf.sndChrgrMngrId;
-      this.eaiIfDetail.sndChrgrMngrNm = eaiIf.sndChrgrMngrNm;
+      this.eaiIfDetail.sndMid = this.eaiIfList[i].sndMid;
+      this.eaiIfDetail.sndChrgrId1 = this.eaiIfList[i].sndChrgrId1;
+      this.eaiIfDetail.sndChrgrNm1 = this.eaiIfList[i].sndChrgrNm1;
+      this.eaiIfDetail.sndChrgrId2 = this.eaiIfList[i].sndChrgrId2;
+      this.eaiIfDetail.sndChrgrNm2 = this.eaiIfList[i].sndChrgrNm2;
+      this.eaiIfDetail.sndChrgrMngrId = this.eaiIfList[i].sndChrgrMngrId;
+      this.eaiIfDetail.sndChrgrMngrNm = this.eaiIfList[i].sndChrgrMngrNm;
 
-      this.eaiIfDetail.rcvMid = eaiIf.rcvMid;
-      this.eaiIfDetail.rcvChrgrId1 = eaiIf.rcvChrgrId1;
-      this.eaiIfDetail.rcvChrgrNm1 = eaiIf.rcvChrgrNm1;
-      this.eaiIfDetail.rcvChrgrId2 = eaiIf.rcvChrgrId2;
-      this.eaiIfDetail.rcvChrgrNm2 = eaiIf.rcvChrgrNm2;
-      this.eaiIfDetail.rcvChrgrMngrId = eaiIf.rcvChrgrMngrId;
-      this.eaiIfDetail.rcvChrgrMngrNm = eaiIf.rcvChrgrMngrNm;
+      this.eaiIfDetail.rcvMid = this.eaiIfList[i].rcvMid;
+      this.eaiIfDetail.rcvChrgrId1 = this.eaiIfList[i].rcvChrgrId1;
+      this.eaiIfDetail.rcvChrgrNm1 = this.eaiIfList[i].rcvChrgrNm1;
+      this.eaiIfDetail.rcvChrgrId2 = this.eaiIfList[i].rcvChrgrId2;
+      this.eaiIfDetail.rcvChrgrNm2 = this.eaiIfList[i].rcvChrgrNm2;
+      this.eaiIfDetail.rcvChrgrMngrId = this.eaiIfList[i].rcvChrgrMngrId;
+      this.eaiIfDetail.rcvChrgrMngrNm = this.eaiIfList[i].rcvChrgrMngrNm;
 
-      this.eaiIfDetail.sndChrgrOrgNm1 = eaiIf.sndChrgrOrgNm1;
-      this.eaiIfDetail.sndChrgrOrgNm2 = eaiIf.sndChrgrOrgNm2;
-      this.eaiIfDetail.sndChrgrMngrOrgNm = eaiIf.sndChrgrMngrOrgNm;
-      this.eaiIfDetail.rcvChrgrOrgNm1 = eaiIf.rcvChrgrOrgNm1;
-      this.eaiIfDetail.rcvChrgrOrgNm2 = eaiIf.rcvChrgrOrgNm2;
-      this.eaiIfDetail.rcvChrgrMngrOrgNm = eaiIf.rcvChrgrMngrOrgNm;
+      this.eaiIfDetail.sndChrgrOrgNm1 = this.eaiIfList[i].sndChrgrOrgNm1;
+      this.eaiIfDetail.sndChrgrOrgNm2 = this.eaiIfList[i].sndChrgrOrgNm2;
+      this.eaiIfDetail.sndChrgrMngrOrgNm = this.eaiIfList[i].sndChrgrMngrOrgNm;
+      this.eaiIfDetail.rcvChrgrOrgNm1 = this.eaiIfList[i].rcvChrgrOrgNm1;
+      this.eaiIfDetail.rcvChrgrOrgNm2 = this.eaiIfList[i].rcvChrgrOrgNm2;
+      this.eaiIfDetail.rcvChrgrMngrOrgNm = this.eaiIfList[i].rcvChrgrMngrOrgNm;
 
-      this.eaiIfDetail.svcImpt = eaiIf.svcImpt;
-      this.eaiIfDetail.eaiRmk = eaiIf.eaiRmk;
+      this.eaiIfDetail.svcImpt = this.eaiIfList[i].svcImpt;
+      this.eaiIfDetail.eaiRmk = this.eaiIfList[i].eaiRmk;
 
-      this.currRow = eaiIf;
+      this.currRow = i;
 
       this.propsDetail = this.eaiIfDetail;
     },
@@ -992,62 +997,62 @@ export default {
       // if (this.checkFields() === 0) {
       //   return;
       // }
-      this.currRow.eaiIfId = val.eaiIfId;
-      this.currRow.eaiIfNmKor = val.eaiIfNmKor;
-      this.currRow.eaiIfNmEng = val.eaiIfNmEng;
-      this.currRow.ifDesc = val.ifDesc;
-      this.currRow.drctnCd = val.drctnCd;
-      this.currRow.ifTypCd = val.ifTypCd;
-      this.currRow.roundTypCd = val.roundTypCd;
-      this.currRow.syncTypCd = val.syncTypCd;
-      this.currRow.rcvOpCd = val.rcvOpCd;
-      this.currRow.rcvTr = val.rcvTr;
-      this.currRow.syncTypCd = val.syncTypCd;
-      this.currRow.rcvOpCd = val.rcvOpCd;
-      this.currRow.rcvTr = val.rcvTr;
-      this.currRow.drctnNm = val.drctnNm;
-      this.currRow.ifTypNm = val.ifTypNm;
-      this.currRow.roundTypNm = val.roundTypNm;
-      this.currRow.syncTypNm = val.syncTypNm;
-      this.currRow.fileIfTypCd = val.fileIfTypCd;
-      this.currRow.fileIfTypNm = val.fileIfTypNm;
-      this.currRow.sndDir = val.sndDir;
-      this.currRow.rcvDir = val.rcvDir;
-      this.currRow.rcvShNm = val.rcvShNm;
-      this.currRow.fileOpCode = val.fileOpCode;
-      this.currRow.sndMid = val.sndMid;
-      this.currRow.sndChrgrId1 = val.sndChrgrId1;
-      this.currRow.sndChrgrNm1 = val.sndChrgrNm1;
-      this.currRow.sndChrgrId2 = val.sndChrgrId2;
-      this.currRow.sndChrgrNm2 = val.sndChrgrNm2;
-      this.currRow.sndChrgrMngrId = val.sndChrgrMngrId;
-      this.currRow.sndChrgrMngrNm = val.sndChrgrMngrNm;
-      this.currRow.rcvMid = val.rcvMid;
-      this.currRow.rcvChrgrId1 = val.rcvChrgrId1;
-      this.currRow.rcvChrgrNm1 = val.rcvChrgrNm1;
-      this.currRow.rcvChrgrId2 = val.rcvChrgrId2;
-      this.currRow.rcvChrgrNm2 = val.rcvChrgrNm2;
-      this.currRow.rcvChrgrMngrId = val.rcvChrgrMngrId;
-      this.currRow.rcvChrgrMngrNm = val.rcvChrgrMngrNm;
+      this.eaiIfList[this.currRow].eaiIfId = val.eaiIfId;
+      this.eaiIfList[this.currRow].eaiIfNmKor = val.eaiIfNmKor;
+      this.eaiIfList[this.currRow].eaiIfNmEng = val.eaiIfNmEng;
+      this.eaiIfList[this.currRow].ifDesc = val.ifDesc;
+      this.eaiIfList[this.currRow].drctnCd = val.drctnCd;
+      this.eaiIfList[this.currRow].ifTypCd = val.ifTypCd;
+      this.eaiIfList[this.currRow].roundTypCd = val.roundTypCd;
+      this.eaiIfList[this.currRow].syncTypCd = val.syncTypCd;
+      this.eaiIfList[this.currRow].rcvOpCd = val.rcvOpCd;
+      this.eaiIfList[this.currRow].rcvTr = val.rcvTr;
+      this.eaiIfList[this.currRow].syncTypCd = val.syncTypCd;
+      this.eaiIfList[this.currRow].rcvOpCd = val.rcvOpCd;
+      this.eaiIfList[this.currRow].rcvTr = val.rcvTr;
+      this.eaiIfList[this.currRow].drctnNm = val.drctnNm;
+      this.eaiIfList[this.currRow].ifTypNm = val.ifTypNm;
+      this.eaiIfList[this.currRow].roundTypNm = val.roundTypNm;
+      this.eaiIfList[this.currRow].syncTypNm = val.syncTypNm;
+      this.eaiIfList[this.currRow].fileIfTypCd = val.fileIfTypCd;
+      this.eaiIfList[this.currRow].fileIfTypNm = val.fileIfTypNm;
+      this.eaiIfList[this.currRow].sndDir = val.sndDir;
+      this.eaiIfList[this.currRow].rcvDir = val.rcvDir;
+      this.eaiIfList[this.currRow].rcvShNm = val.rcvShNm;
+      this.eaiIfList[this.currRow].fileOpCode = val.fileOpCode;
+      this.eaiIfList[this.currRow].sndMid = val.sndMid;
+      this.eaiIfList[this.currRow].sndChrgrId1 = val.sndChrgrId1;
+      this.eaiIfList[this.currRow].sndChrgrNm1 = val.sndChrgrNm1;
+      this.eaiIfList[this.currRow].sndChrgrId2 = val.sndChrgrId2;
+      this.eaiIfList[this.currRow].sndChrgrNm2 = val.sndChrgrNm2;
+      this.eaiIfList[this.currRow].sndChrgrMngrId = val.sndChrgrMngrId;
+      this.eaiIfList[this.currRow].sndChrgrMngrNm = val.sndChrgrMngrNm;
+      this.eaiIfList[this.currRow].rcvMid = val.rcvMid;
+      this.eaiIfList[this.currRow].rcvChrgrId1 = val.rcvChrgrId1;
+      this.eaiIfList[this.currRow].rcvChrgrNm1 = val.rcvChrgrNm1;
+      this.eaiIfList[this.currRow].rcvChrgrId2 = val.rcvChrgrId2;
+      this.eaiIfList[this.currRow].rcvChrgrNm2 = val.rcvChrgrNm2;
+      this.eaiIfList[this.currRow].rcvChrgrMngrId = val.rcvChrgrMngrId;
+      this.eaiIfList[this.currRow].rcvChrgrMngrNm = val.rcvChrgrMngrNm;
 
-      this.currRow.sndChrgrOrgNm1 = val.sndChrgrOrgNm1;
-      this.currRow.sndChrgrOrgNm2 = val.sndChrgrOrgNm2;
-      this.currRow.sndChrgrMngrOrgNm = val.sndChrgrMngrOrgNm;
-      this.currRow.rcvChrgrOrgNm1 = val.rcvChrgrOrgNm1;
-      this.currRow.rcvChrgrOrgNm2 = val.rcvChrgrOrgNm2;
-      this.currRow.rcvChrgrMngrOrgNm = val.rcvChrgrMngrOrgNm;
+      this.eaiIfList[this.currRow].sndChrgrOrgNm1 = val.sndChrgrOrgNm1;
+      this.eaiIfList[this.currRow].sndChrgrOrgNm2 = val.sndChrgrOrgNm2;
+      this.eaiIfList[this.currRow].sndChrgrMngrOrgNm = val.sndChrgrMngrOrgNm;
+      this.eaiIfList[this.currRow].rcvChrgrOrgNm1 = val.rcvChrgrOrgNm1;
+      this.eaiIfList[this.currRow].rcvChrgrOrgNm2 = val.rcvChrgrOrgNm2;
+      this.eaiIfList[this.currRow].rcvChrgrMngrOrgNm = val.rcvChrgrMngrOrgNm;
 
-      this.currRow.svcImpt = val.svcImpt;
-      this.currRow.eaiRmk = val.eaiRmk;
+      this.eaiIfList[this.currRow].svcImpt = val.svcImpt;
+      this.eaiIfList[this.currRow].eaiRmk = val.eaiRmk;
 
       // this.emptyIfFields();
       // this.showDetailInfo = false;
     },
 
     addNewIf() {
-      if (this.checkFields() === 0) {
-        return;
-      }
+      // if (this.checkFields() === 0) {
+      //   return;
+      // }
       this.eaiIfList.push({
         eaiIfId: this.eaiIfId,
         eaiIfNmKor: this.eaiIfNmKor,
@@ -1200,42 +1205,42 @@ export default {
       }
     },
     emptyIfFields() {
-      this.eaiIfId = '';
-      this.eaiIfNmKor = '';
-      this.eaiIfNmEng = '';
-      this.ifDesc = '';
-      this.drctnCd = '';
-      this.ifTypCd = '';
-      this.roundTypCd = '';
-      this.syncTypCd = '';
-      this.rcvOpCd = '';
-      this.rcvTr = '';
-      this.drctnNm = '';
-      this.ifTypNm = '';
-      this.roundTypNm = '';
-      this.syncTypNm = '';
-      this.fileIfTypCd = '';
-      this.fileIfTypNm = '';
-      this.sndDir = '';
-      this.rcvDir = '';
-      this.rcvShNm = '';
-      this.fileOpCode = '';
-      this.sndMid = '';
-      this.sndChrgrId1 = '';
-      this.sndChrgrNm1 = '';
-      this.sndChrgrId2 = '';
-      this.sndChrgrNm2 = '';
-      this.sndChrgrMngrId = '';
-      this.sndChrgrMngrNm = '';
-      this.rcvMid = '';
-      this.rcvChrgrId1 = '';
-      this.rcvChrgrNm1 = '';
-      this.rcvChrgrId2 = '';
-      this.rcvChrgrNm2 = '';
-      this.rcvChrgrMngrId = '';
-      this.rcvChrgrMngrNm = '';
-      this.svcImpt = '';
-      this.eaiRmk = '';
+      this.eaiIfDetail.eaiIfId = '';
+      this.eaiIfDetail.eaiIfNmKor = '';
+      this.eaiIfDetail.eaiIfNmEng = '';
+      this.eaiIfDetail.ifDesc = '';
+      this.eaiIfDetail.drctnCd = '';
+      this.eaiIfDetail.ifTypCd = '';
+      this.eaiIfDetail.roundTypCd = '';
+      this.eaiIfDetail.syncTypCd = '';
+      this.eaiIfDetail.rcvOpCd = '';
+      this.eaiIfDetail.rcvTr = '';
+      this.eaiIfDetail.drctnNm = '';
+      this.eaiIfDetail.ifTypNm = '';
+      this.eaiIfDetail.roundTypNm = '';
+      this.eaiIfDetail.syncTypNm = '';
+      this.eaiIfDetail.fileIfTypCd = '';
+      this.eaiIfDetail.fileIfTypNm = '';
+      this.eaiIfDetail.sndDir = '';
+      this.eaiIfDetail.rcvDir = '';
+      this.eaiIfDetail.rcvShNm = '';
+      this.eaiIfDetail.fileOpCode = '';
+      this.eaiIfDetail.sndMid = '';
+      this.eaiIfDetail.sndChrgrId1 = '';
+      this.eaiIfDetail.sndChrgrNm1 = '';
+      this.eaiIfDetail.sndChrgrId2 = '';
+      this.eaiIfDetail.sndChrgrNm2 = '';
+      this.eaiIfDetail.sndChrgrMngrId = '';
+      this.eaiIfDetail.sndChrgrMngrNm = '';
+      this.eaiIfDetail.rcvMid = '';
+      this.eaiIfDetail.rcvChrgrId1 = '';
+      this.eaiIfDetail.rcvChrgrNm1 = '';
+      this.eaiIfDetail.rcvChrgrId2 = '';
+      this.eaiIfDetail.rcvChrgrNm2 = '';
+      this.eaiIfDetail.rcvChrgrMngrId = '';
+      this.eaiIfDetail.rcvChrgrMngrNm = '';
+      this.eaiIfDetail.svcImpt = '';
+      this.eaiIfDetail.eaiRmk = '';
 
       this.currRow = [];
     },
@@ -1258,8 +1263,11 @@ export default {
     addDataIfDetail(val) {
       console.log(`Popup에서 받아온 Data : ${val}`);
       this.showDetailInfo = false;
-      this.updateIf(val);
-      // this.eaiIfList.push(val);
+      if (this.popupType === 'update') {
+        this.updateIf(val);
+      } else {
+        this.eaiIfList.push(val);
+      }
     },
     addDataChrgr(val) {
       console.log(`Popup에서 받아온 Data : ${val}`);

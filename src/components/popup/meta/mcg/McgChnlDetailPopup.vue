@@ -112,6 +112,46 @@
               />
             </div>
           </div>
+          <div class="column w-2">
+            <label class="column_label">가상사용자신청여부</label>
+            <div class="select_group disabled">
+              <select v-model="isVirtualUserYn">
+                <option value="Y">
+                  신청
+                </option>
+                <option value="N">
+                  미신청
+                </option>
+              </select>
+              <span class="select" />
+            </div>
+          </div>
+        </div>
+        <div
+          v-show="isVirtualUserYn==='Y'"
+          class="row_contain"
+        >
+          <div class="column on w-2">
+            <label class="column_label">가상사용자_팀</label>
+            <input
+              v-model="mcgChnlRowData.virtualUserTeam"
+              type="text"
+            >
+          </div>
+          <div class="column on w-2">
+            <label class="column_label">가상사용자_조직</label>
+            <input
+              v-model="mcgChnlRowData.virtualUserOrg"
+              type="text"
+            >
+          </div>
+          <div class="column on w-2">
+            <label class="column_label">가상사용자_한글명</label>
+            <input
+              v-model="mcgChnlRowData.virtualUserHannm"
+              type="text"
+            >
+          </div>
           <div class="column w-1" />
         </div>
         <h5 class="s_tit type-2">
@@ -208,29 +248,10 @@
               </ul>
             </div>
           </div>
-          <div class="column w-1" />
         </div>
         <h5 class="s_tit type-2">
           MCG 채널 담당자 정보
         </h5>
-        <div class="row_contain type-2 except-2">
-          <div class="column w-1">
-            <label class="column_label">담당자 조회</label>
-            <div class="search_group">
-              <input
-                type="text"
-                @click="searchOnChrgr()"
-              >
-              <span class="search">
-                <i
-                  class="ico-search"
-                  @click="searchOnChrgr()"
-                />
-              </span>
-            </div>
-          </div>
-          <div class="column w-3" />
-        </div>
         <div class="table_colgroup">
           <div class="table_grid">
             <div class="table_head w-auto">
@@ -346,6 +367,7 @@ export default {
   data() {
     return {
       chrgrpopupstate: false,
+      isVirtualUserYn: 'N',
 
       datePickerSet: {
         dayStr: this.$gf.getCalDaySet(),
@@ -429,6 +451,11 @@ export default {
       opClCd: 'MCG', cdId: 'LNKG_MTHD', allYn: 'N', listNm: 'mcgChnlLnkgMthdR',
     });
     this.mcgChnlRowData = this.propData;
+    if (this.mcgChnlRowData.virtualUserHannm === '') {
+      this.isVirtualUserYn = 'N';
+    } else {
+      this.isVirtualUserYn = 'Y';
+    }
     // this.$refs.queueListPop.focus(); // keyup 이벤트가 바로 적용될 수 있도록 focusing
   },
   methods: {
@@ -442,8 +469,6 @@ export default {
       }
       this.$emit('addData', this.mcgChnlRowData);
     },
-
-
     checkChnlSave() {
       if (this.mcgChnlRowData.chnlNm === '') {
         this.$gf.alertOn('채널명을 입력 해주세요.');
@@ -512,6 +537,23 @@ export default {
 
     inputreqDt(val) {
       this.reqDt = val;
+    },
+    addcRow() {
+      console.log('채널 담당자 목록 추가!');
+      this.mcgChnlRowData.chrgrRows.push({});
+    },
+    removecRow(idx) {
+      console.log('담당자 목록에서 삭제!');
+      this.mcgChnlRowData.chrgrRows.splice(idx, 1);
+      if (idx === 0) { this.mcgChnlRowData.chrgrRows.push({}); }
+    },
+    addsRow() {
+      this.mcgChnlRowData.svrRows.push({});
+    },
+    removesRow(idx) {
+      console.log('서버 목록에서 삭제!');
+      this.mcgChnlRowData.svrRows.splice(idx, 1);
+      if (idx === 0) { this.mcgChnlRowData.svrRows.push({}); }
     },
   },
 };

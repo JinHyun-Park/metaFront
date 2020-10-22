@@ -416,6 +416,10 @@ export default {
         return 0;
       }
 
+      if (this.onlineUserList == null) {
+        this.$gf.alertOn('담당자 정보를 입력하세요');
+      }
+
       for (let i = 0; i < this.onlineUserList.length; i++) {
         if (this.onlineUserList[i].chrgrTyp === '' || this.onlineUserList[i].chrgrTyp === undefined) {
           this.$gf.alertOn('담당자 구분을 선택하세요');

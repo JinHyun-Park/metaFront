@@ -385,35 +385,6 @@ export default {
 
       // this.emptyOnlineIfFields();
     },
-    addOnlineInfo() {
-      if (this.checkOnlineFields() === 0) {
-        return;
-      }
-      console.log(`인터페이스 추가: ${this.reqNum}`);
-
-      this.onlineList.push({
-        reqNum: this.reqNum,
-        eigwIfId: this.onlineInfo.eigwIfId,
-        eigwIfNm: this.onlineInfo.eigwIfNm,
-        instNm: this.onlineInfo.instNm,
-        instCd: this.onlineInfo.instCd,
-        eigwType: 'online',
-        procSt: 1,
-        eigwRmk: this.onlineInfo.eigwRmk,
-        pgmTyp: this.onlineInfo.pgmTyp,
-        linkTyp: this.onlineInfo.linkTyp,
-        devRealIp: this.onlineInfo.devRealIp,
-        devPort: this.onlineInfo.devPort,
-        prodRealIp: this.onlineInfo.prodRealIp,
-        prodPort: this.onlineInfo.prodPort,
-        onlineUserList: this.onlineUserList,
-      });
-
-      /* this.onlineSaveData = { onlineList: this.onlineList, reqNum: this.reqNum }; */
-      console.log(this.saveData);
-
-      this.emptyOnlineIfFields();
-    },
     saveEigwTemp() {
       this.saveData = {
         reqNum: this.reqNum,
@@ -472,7 +443,7 @@ export default {
       this.onlineInfo.devPort = '';
       this.onlineInfo.prodRealIp = '';
       this.onlineInfo.prodPort = '';
-      this.onlineUserList = [
+      this.onlineInfo.onlineUserList = [
         {
           chrgrTyp: '',
           userId: '',
@@ -557,11 +528,6 @@ export default {
         this.$gf.alertOn('인터페이스 목록에서 수정할 대상을 선택하세요');
         return;
       }
-
-      // if (this.checkFileFields() === 0) {
-      //   return;
-      // }
-
       this.fileList[this.currRow].eigwIfNm = val.eigwIfNm;
       this.fileList[this.currRow].eigwIfId = val.eigwIfId;
       this.fileList[this.currRow].instNm = val.instNm;
@@ -578,31 +544,6 @@ export default {
       this.fileList[this.currRow].prodPort = val.prodPort;
       this.fileList[this.currRow].fileUserList = val.fileUserList;
 
-      this.emptyFileIfFields();
-    },
-    addFileInfo() {
-      if (this.checkFileFields() === 0) {
-        return;
-      }
-
-      this.fileList.push({
-        reqNum: this.reqNum,
-        eigwIfId: this.fileInfo.eigwIfId,
-        eigwIfNm: this.fileInfo.eigwIfNm,
-        instNm: this.fileInfo.instNm,
-        instCd: this.fileInfo.instCd,
-        fileNm: this.fileInfo.fileNm,
-        eigwType: 'file',
-        procSt: 1,
-        srFlag: this.fileInfo.srFlag,
-        eigwRmk: this.fileInfo.eigwRmk,
-        outPath: this.fileInfo.outPath,
-        devRealIp: this.fileInfo.devRealIp,
-        devPort: this.fileInfo.devPort,
-        prodRealIp: this.fileInfo.prodRealIp,
-        prodPort: this.fileInfo.prodPort,
-        fileUserList: this.fileUserList,
-      });
       this.emptyFileIfFields();
     },
     addFileUser(i) {
@@ -646,7 +587,7 @@ export default {
       this.fileInfo.eigwRmk = '';
       this.fileInfo.id = '';
       this.fileInfo.pwd = '';
-      this.fileUserList = [
+      this.fileInfo.fileUserList = [
         {
           chrgrTyp: '',
           userId: '',
@@ -724,28 +665,10 @@ export default {
         this.turnOnSvrPopInstList(row, 'on');
       }
     },
-    searchFileChrgr(row) {
-      this.row = row;
-      if (this.fileUserList[row].chrgrTyp === '' || this.fileUserList[row].chrgrTyp === undefined) {
-        this.$gf.alertOn('구분을 선택하세요');
-        return;
-      }
-      console.log('담당자 추가!');
-      this.addFileChrgrRow(row);
-    },
-    addFileChrgrRow(row) {
-      this.type = 'file';
-      console.log('행 추가!');
-      if (this.fileUserList[row].chrgrTyp === 'in') {
-        this.svrOnChrgr = true;
-      } else if (this.fileUserList[row].chrgrTyp === 'out') {
-        this.svrOnEigwChrgr = true;
-      } else {
-        this.turnOnSvrPopInstList(row, 'file');
-      }
-    },
     turOnSvrPopOnline() {
       this.popupType = 'new';
+      this.emptyOnlineIfFields();
+      this.propsOnline = this.onlineInfo;
       this.showOnlineDetail = true;
     },
     turOffSvrPopOnline(val) {
@@ -766,6 +689,8 @@ export default {
     },
     turOnSvrPopFile() {
       this.popupType = 'new';
+      this.emptyFileIfFields();
+      this.propsFile = this.fileInfo;
       this.showFileDetail = true;
     },
     turOffSvrPopFile(val) {
