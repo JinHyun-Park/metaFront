@@ -771,7 +771,8 @@ export default {
       this.svrRows.splice(0, this.svrRows.length);
 
       for (let i = 0; i < this.eaiIfList.length; i++) {
-        if (this.$gf.isEmpty(this.eaiIfList[i].eaiIfNmKor) || this.$gf.isEmpty(this.eaiIfList[i].eaiIfNmEng)) {
+        if (this.$gf.isEmpty(this.eaiIfList[i].eaiIfNmKor)
+            || this.$gf.isEmpty(this.eaiIfList[i].eaiIfNmEng)) {
           this.$gf.alertOn('미입력된 신청 건이 있습니다. 삭제하시거나 재 등록 후에 다시 저장 부탁드립니다.');
           return 0;
         }

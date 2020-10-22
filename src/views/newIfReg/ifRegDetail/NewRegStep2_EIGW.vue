@@ -365,11 +365,9 @@ export default {
         this.$gf.alertOn('인터페이스 목록에서 수정할 대상을 선택하세요');
         return;
       }
-
       // if (this.checkOnlineFields() === 0) {
       //   return;
       // }
-
       this.onlineList[this.currRow].eigwIfNm = val.eigwIfNm;
       this.onlineList[this.currRow].eigwIfId = val.eigwIfId;
       this.onlineList[this.currRow].instNm = val.instNm;
@@ -677,6 +675,7 @@ export default {
     },
     addDataOnline(val) {
       console.log(`Popup에서 받아온 Data : ${val}`);
+      // eslint-disable-next-line no-param-reassign
       val.reqNum = this.reqNum;
       if (this.popupType === 'update') {
         this.updateOnlineInfo(val);
@@ -699,6 +698,7 @@ export default {
     },
     addDataFile(val) {
       console.log(`Popup에서 받아온 Data : ${val}`);
+      // eslint-disable-next-line no-param-reassign
       val.reqNum = this.reqNum;
       if (this.popupType === 'update') {
         this.updateFileInfo(val);

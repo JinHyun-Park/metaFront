@@ -22,154 +22,148 @@
         신청내역
       </h5>
     </section>
-
-    <section class="info_title small">
-      <em class="sub_tit">EAI</em>
-    </section>
-    <section class="form_area border_group">
-      <div class="table_grid">
-        <div class="table_head w-auto">
-          <ul>
-            <li class="th_cell">
-              인터페이스명(영문)
-            </li>
-            <li class="th_cell">
-              인터페이스명(한글)
-            </li>
-            <li class="th_cell">
-              송신업무
-            </li>
-            <li class="th_cell">
-              수신업무
-            </li>
-            <li class="th_cell">
-              연동방식
-            </li>
-          </ul>
+    <div v-if="ifKind==='EAI'">
+      <section class="form_area border_group">
+        <div class="table_grid">
+          <div class="table_head w-auto">
+            <ul>
+              <li class="th_cell">
+                인터페이스명(영문)
+              </li>
+              <li class="th_cell">
+                인터페이스명(한글)
+              </li>
+              <li class="th_cell">
+                송신업무
+              </li>
+              <li class="th_cell">
+                수신업무
+              </li>
+              <li class="th_cell">
+                연동방식
+              </li>
+            </ul>
+          </div>
+          <div class="table_body">
+            <ul
+              v-for="(row, i) in eaiList"
+              :key="i"
+              class="table_row w-auto"
+            >
+              <li class="td_cell">
+                {{ row.eaiIfNmEng }}
+              </li>
+              <li class="td_cell">
+                {{ row.eaiIfNmKor }}
+              </li>
+              <li class="td_cell">
+                {{ row.sndMid }}
+              </li>
+              <li class="td_cell">
+                {{ row.rcvMid }}
+              </li>
+              <li class="td_cell">
+                {{ row.ifTypNm }}
+              </li>
+            </ul>
+          </div>
         </div>
-        <div class="table_body">
-          <ul
-            v-for="(row, i) in eaiList"
-            :key="i"
-            class="table_row w-auto"
-          >
-            <li class="td_cell">
-              {{ row.eaiIfNmEng }}
-            </li>
-            <li class="td_cell">
-              {{ row.eaiIfNmKor }}
-            </li>
-            <li class="td_cell">
-              {{ row.sndMid }}
-            </li>
-            <li class="td_cell">
-              {{ row.rcvMid }}
-            </li>
-            <li class="td_cell">
-              {{ row.ifTypNm }}
-            </li>
-          </ul>
+      </section>
+    </div>
+    <div v-if="ifKind==='EIGW'">
+      <section class="form_area border_group">
+        <div class="table_grid">
+          <div class="table_head w-auto">
+            <ul>
+              <li class="th_cell">
+                연동구분
+              </li>
+              <li class="th_cell">
+                인터페이스ID
+              </li>
+              <li class="th_cell">
+                인터페이스명
+              </li>
+              <li class="th_cell">
+                대외기관
+              </li>
+              <li class="th_cell">
+                -
+              </li>
+            </ul>
+          </div>
+          <div class="table_body">
+            <ul
+              v-for="(row, i) in eigwList"
+              :key="i"
+              class="table_row w-auto"
+            >
+              <li class="td_cell">
+                {{ row.eigwType }}
+              </li>
+              <li class="td_cell">
+                {{ row.eigwIfId }}
+              </li>
+              <li class="td_cell">
+                {{ row.eigwIfNm }}
+              </li>
+              <li class="td_cell">
+                {{ row.instNm }}({{ row.instCd }})
+              </li>
+              <li class="td_cell" />
+            </ul>
+          </div>
         </div>
-      </div>
-    </section>
-
-    <section class="info_title small">
-      <em class="sub_tit">EIGW</em>
-    </section>
-    <section class="form_area border_group">
-      <div class="table_grid">
-        <div class="table_head w-auto">
-          <ul>
-            <li class="th_cell">
-              연동구분
-            </li>
-            <li class="th_cell">
-              인터페이스ID
-            </li>
-            <li class="th_cell">
-              인터페이스명
-            </li>
-            <li class="th_cell">
-              대외기관
-            </li>
-            <li class="th_cell">
-              -
-            </li>
-          </ul>
+      </section>
+    </div>
+    <div v-if="ifKind==='MCG'">
+      <section class="form_area border_group">
+        <div class="table_grid">
+          <div class="table_head w-auto">
+            <ul>
+              <li class="th_cell">
+                구분
+              </li>
+              <li class="th_cell">
+                채널ID
+              </li>
+              <li class="th_cell">
+                연동방식
+              </li>
+              <li class="th_cell">
+                채널유형
+              </li>
+              <li class="th_cell">
+                거래명
+              </li>
+            </ul>
+          </div>
+          <div class="table_body">
+            <ul
+              v-for="(row, i) in mcgList"
+              :key="i"
+              class="table_row w-auto"
+            >
+              <li class="td_cell">
+                {{ row.mcgType }}
+              </li>
+              <li class="td_cell">
+                {{ row.chnlId }}
+              </li>
+              <li class="td_cell">
+                {{ row.lnkMthd }}
+              </li>
+              <li class="td_cell">
+                {{ row.chnlTyp }}
+              </li>
+              <li class="td_cell">
+                {{ row.tp }}
+              </li>
+            </ul>
+          </div>
         </div>
-        <div class="table_body">
-          <ul
-            v-for="(row, i) in eigwList"
-            :key="i"
-            class="table_row w-auto"
-          >
-            <li class="td_cell">
-              {{ row.eigwType }}
-            </li>
-            <li class="td_cell">
-              {{ row.eigwIfId }}
-            </li>
-            <li class="td_cell">
-              {{ row.eigwIfNm }}
-            </li>
-            <li class="td_cell">
-              {{ row.instNm }}({{ row.instCd }})
-            </li>
-            <li class="td_cell" />
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <section class="info_title small">
-      <em class="sub_tit">MCG</em>
-    </section>
-    <section class="form_area border_group">
-      <div class="table_grid">
-        <div class="table_head w-auto">
-          <ul>
-            <li class="th_cell">
-              구분
-            </li>
-            <li class="th_cell">
-              채널ID
-            </li>
-            <li class="th_cell">
-              연동방식
-            </li>
-            <li class="th_cell">
-              채널유형
-            </li>
-            <li class="th_cell">
-              거래명
-            </li>
-          </ul>
-        </div>
-        <div class="table_body">
-          <ul
-            v-for="(row, i) in mcgList"
-            :key="i"
-            class="table_row w-auto"
-          >
-            <li class="td_cell">
-              {{ row.mcgType }}
-            </li>
-            <li class="td_cell">
-              {{ row.chnlId }}
-            </li>
-            <li class="td_cell">
-              {{ row.lnkMthd }}
-            </li>
-            <li class="td_cell">
-              {{ row.chnlTyp }}
-            </li>
-            <li class="td_cell">
-              {{ row.tp }}
-            </li>
-          </ul>
-        </div>
-      </div>
-    </section>
+      </section>
+    </div>
 
     <section class="table_grid border_group">
       <div class="table_head">
@@ -270,6 +264,8 @@ export default {
   data() {
     return {
       svrOnChrgr: false,
+      ifKind: '',
+
       aprvInfo: [],
 
       eaiList: [],
@@ -292,6 +288,9 @@ export default {
     });
   },
   mounted() {
+    if (this.$route.params.ifKind !== null) {
+      this.ifKind = this.$route.params.ifKind;
+    }
     this.getStep3AprvReqList();
   },
   destroyed() {
@@ -366,7 +365,7 @@ export default {
         .then((res) => {
           console.log(res);
           this.$gf.alertOn('승인 요청되었습니다');
-          this.movePage('regList');
+          this.movePage('newIfRegList');
         })
         .catch((ex) => {
           console.log(`error occur!! : ${ex}`);

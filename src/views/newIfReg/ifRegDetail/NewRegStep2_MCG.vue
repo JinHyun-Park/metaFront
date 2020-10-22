@@ -128,17 +128,10 @@
 import { mapState, mapActions } from 'vuex';
 import {
   fetchGetMcgReqList,
-  fetchGetMcgReqChrgrList,
   fetchGetMcgReqSvrList,
   fetchPutMcgReq,
-  fetchPutMcgReqChrgr,
-  fetchPutMcgReqServer,
-  fetchGetMcgReqNum,
 } from '@/api/mcgApi';
 import eventBus from '@/utils/eventBus';
-import VirtualUserApplyPopup from '@/components/popup/meta/mcg/VirtualUserApplyPopup.vue';
-import ChrgrListPopup from '@/components/popup/bizcomm/ChrgrListPopup.vue';
-import ChnlListPopup from '@/components/popup/meta/mcg/ChnListPopup.vue';
 import McgChnlDetailPopup from '@/components/popup/meta/mcg/McgChnlDetailPopup.vue';
 import McgDealDetailPopup from '@/components/popup/meta/mcg/McgDealDetailPopup.vue';
 import { fetchPutIfStepAprvReqAdmin } from '@/api/ifRegApi';

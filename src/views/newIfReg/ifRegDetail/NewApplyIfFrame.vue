@@ -1,5 +1,11 @@
 <template>
   <div class="right_space">
+    <ProcMsgPopup
+      v-if="procMsgPopup"
+      v-bind="popupProp"
+      @closePop="turnOffProcMsg"
+      @addData="addProcMsg"
+    />
     <section class="title style-1">
       <h2>
         <div>
@@ -77,6 +83,30 @@
         임시저장
       </button>
       <button
+        v-if="ifRegBotBtnSet.isBtnApprReq"
+        type="button"
+        class="default_button on"
+        @click="aprvMsgReq(2)"
+      >
+        승인요청
+      </button>
+      <button
+        v-if="ifRegBotBtnSet.isBtnAppr"
+        type="button"
+        class="default_button on"
+        @click="aprvMsgReq(3)"
+      >
+        승인
+      </button>
+      <button
+        v-if="ifRegBotBtnSet.isBtnReject"
+        type="button"
+        class="default_button on"
+        @click="aprvMsgReq(1)"
+      >
+        반려
+      </button>
+      <button
         v-if="ifRegBotBtnSet.isBtnForw"
         type="button"
         class="default_button btn_next"
@@ -97,6 +127,7 @@ import NewRegStep2Eigw from '@/views/newIfReg/ifRegDetail/NewRegStep2_EIGW.vue';
 import NewRegStep2Mcg from '@/views/newIfReg/ifRegDetail/NewRegStep2_MCG.vue'; // 2단계 EAI
 import NewRegStep3Applicant from '@/views/newIfReg/ifRegDetail/NewRegStep3Applicant.vue'; // 3단계 신청자
 import NewRegStep3Approver from '@/views/newIfReg/ifRegDetail/NewRegStep3Approver.vue'; // 3단계 승인자
+import ProcMsgPopup from '@/components/popup/ifRegInfo/ProcMsgPopup.vue';
 import { getIfRegBotBtnSet, tabChange } from '@/utils/ifRegComm';
 
 export default {
@@ -108,6 +139,7 @@ export default {
     NewRegStep2Mcg,
     NewRegStep3Applicant,
     NewRegStep3Approver,
+    ProcMsgPopup,
   },
   data() {
     return {
@@ -129,6 +161,9 @@ export default {
         isBtnPrev: true,
         isBtnForw: true,
         isBtnTempSave: true,
+        isBtnApprReq: false,
+        isBtnAppr: false,
+        isBtnReject: false,
       },
     };
   },
@@ -266,6 +301,30 @@ export default {
     },
     tabChanged(val) {
       tabChange(val, this.procSt);
+    },
+    aprvMsgReq(tgtProcSt) {
+      this.tgtProcSt = tgtProcSt;
+      this.turnOnProcMsg();
+    },
+    aprvReq() {
+      if (this.tabNum === 3) {
+        eventBus.$emit('Step3AprvReq', { reqNum: this.reqNum, procSt: this.tgtProcSt, hstRmk: this.hstRmk });
+      } else if (this.tabNum === 4) {
+        eventBus.$emit('Step4AprvReq', { reqNum: this.reqNum, procSt: this.tgtProcSt, hstRmk: this.hstRmk });
+      }
+    },
+    turnOnProcMsg() {
+      this.popupProp.procSt = this.tgtProcSt;
+      this.procMsgPopup = true;
+    },
+    turnOffProcMsg(val) {
+      console.log(`Popup에서 받아온 Data : ${val}`);
+      this.procMsgPopup = false;
+    },
+    addProcMsg(val) {
+      this.procMsgPopup = false;
+      this.hstRmk = val;
+      this.aprvReq();
     },
   },
 };
