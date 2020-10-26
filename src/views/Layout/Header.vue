@@ -32,7 +32,7 @@
         </div>
         <nav>
           <ul class="menu">
-            <li @click="movePage('ifSummary')">
+            <li @click="movePage('naruSummary')">
               <span>개요</span>
             </li>
             <li @click="movePage('notice')">
@@ -42,6 +42,17 @@
               <span>인터페이스 신청</span>
               <ul class="sub_menu">
                 <li @click="movePage('regList')">
+                  신청목록
+                </li>
+                <li @click="movePage('applyIf')">
+                  신청등록
+                </li>
+              </ul>
+            </li>
+            <li>
+              <span>New 인터페이스 신청</span>
+              <ul class="sub_menu">
+                <li @click="movePage('newIfRegList')">
                   신청목록
                 </li>
                 <li @click="movePage('applyIf')">

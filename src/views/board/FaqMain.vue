@@ -127,7 +127,7 @@
             <ul
               v-for="board in boardList"
               :key="board.BOARD_NUM"
-              class="table_row w-auto"
+              class="table_row w-auto click_btn"
             >
               <li class="td_cell">
                 {{ board.BOARD_NUM }}

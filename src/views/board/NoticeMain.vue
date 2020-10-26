@@ -80,7 +80,7 @@
       <div class="row_contain type-3">
         <div class="column w-4">
           <label class="column_label">관련 인터페이스</label>
-          <div class="table_body">
+          <div class="check_group">
             <ul class="table_row w-auto">
               <li class="td_cell">
                 <input
@@ -117,8 +117,21 @@
               <li class="th_cell">
                 Num
               </li>
+<<<<<<< HEAD
               <li class="th_cell">
                 제목
+=======
+            </ul>
+          </div>
+          <div class="table_body">
+            <ul
+              v-for="board in boardList"
+              :key="board.BOARD_NUM"
+              class="table_row w-auto click_btn"
+            >
+              <li class="td_cell">
+                {{ board.BOARD_NUM }}
+>>>>>>> 7a16ea224c48bc8363415c3ad3f011af26aece42
               </li>
               <li class="th_cell">
                 게시상태

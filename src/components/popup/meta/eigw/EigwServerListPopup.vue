@@ -205,7 +205,7 @@ export default {
     this.setCcCdList({
       opClCd: 'COMM', cdId: 'IP_TYP', allYn: 'Y', listNm: 'ipTyp',
     });
-    this.$refs.svrListPop.focus(); // keyup 이벤트가 바로 적용될 수 있도록 focusing
+    // this.$refs.svrListPop.focus(); // keyup 이벤트가 바로 적용될 수 있도록 focusing
   },
   methods: {
     ...mapActions('frameSet', ['setResetPopOn']),
@@ -256,3 +256,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.popup {
+  z-index: 13;
+}
+</style>

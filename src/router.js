@@ -132,6 +132,33 @@ const router = new Router({
     },
     ],
   },
+  // 2-1. 인터페이스 신청(신청버전)
+  {
+    path: '/newIfReg',
+    name: 'newIfReg',
+    component: () => import('@/views/newIfReg/NewIfReg.vue'),
+    children: [{
+      path: '/newIfReg/newIfRegList',
+      name: 'newIfRegList',
+      component: () => import('@/views/newIfReg/NewIfRegList.vue'),
+    },
+    { // 인터페이스 신청 탭 구분 적용
+      path: '/newIfReg/newApplyIf',
+      name: 'newApplyIf',
+      component: () => import('@/views/newIfReg/ifRegDetail/NewApplyIfFrame.vue'),
+    },
+    { // 인터페이스 정보 변경 요청 탭 구분 적용
+      path: '/newIfReg/chgIfinfo',
+      name: 'chgIfinfo',
+      component: () => import('@/views/ifReg/ChangeIfInfoFrame.vue'),
+    },
+    {
+      path: '/newIfReg/eaiReg',
+      name: 'eaiReg',
+      component: () => import('@/views/ifReg/EaiReg.vue'),
+    },
+    ],
+  },
   // 3. 메타정보 조회
   {
     path: '/meta',

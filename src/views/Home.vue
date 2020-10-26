@@ -17,6 +17,7 @@
         <number-count style="width: 100%;" />
       </div> -->
       <queue-monitor />
+      <eigw-monitor />
       <!--<queue-stat />-->
       <div class="board_area">
         <eai-daily-trms-stat />
@@ -41,6 +42,7 @@ import { fetchGetBoardList } from '@/api/bizCommApi';
 import NotiBoard from '@/components/dashboard/NotiBoard.vue';
 import FaqBoard from '@/components/dashboard/FaqBoard.vue';
 import QueueMonitor from '@/components/dashboard/QueueMonitor.vue';
+import EigwMonitor from '@/components/dashboard/EigwMonitor.vue';
 // import QueueTransStat from '../components/dashboard/QueueTransStat.vue';
 import RegList from '@/components/dashboard/RegList.vue';
 import RegListExtend from '@/components/dashboard/RegListExtend.vue';
@@ -61,6 +63,7 @@ export default {
     'faq-board': FaqBoard,
     // 'queue-stat': QueueTransStat,
     'queue-monitor': QueueMonitor,
+    'eigw-monitor': EigwMonitor,
     'reg-list': RegList,
     'reg-list-extend': RegListExtend,
     'mcg-daily-trms-stat': McgDailyTrmsStat,

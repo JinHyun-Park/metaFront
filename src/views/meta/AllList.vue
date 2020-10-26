@@ -113,9 +113,18 @@
           >
         </div>
         <div class="column on w-2">
-          <label class="column_label">IP</label>
+          <label class="column_label">대외기관</label>
           <input
-            v-model="svrIp"
+            v-model="reqInstCd"
+            type="text"
+            value=""
+            @keydown.enter="searchList()"
+          >
+        </div>
+        <div class="column on w-2">
+          <label class="column_label">수신TR</label>
+          <input
+            v-model="rcvTr"
             type="text"
             value=""
             @keydown.enter="searchList()"
@@ -169,6 +178,7 @@
               v-for="(row, i) in allMetaList"
               :key="i"
               class="table_row w-auto"
+              @dblclick="movePage(i)"
             >
               <td class="td_cell on">
                 {{ (i+1)+((pageSet.pageNo-1)*pageSet.size) }}
@@ -258,9 +268,14 @@ export default {
       opCode: '',
       dealCd: '',
       reqMid: '',
+      rcvTr: '',
+      reqInstCd: '',
 
       allMetaList: [],
     };
+  },
+  mounted() {
+    this.searchList();
   },
   methods: {
     pageMove() {
@@ -280,6 +295,9 @@ export default {
           eaiIfId: this.eaiIfId,
           hostNm: this.hostNm,
           reqMid: this.reqMid,
+          rcvTr: this.rcvTr,
+          reqInstCd: this.reqInstCd,
+          useYn: 'Y',
         },
       })
         .then((res) => {
@@ -295,6 +313,15 @@ export default {
         .catch((ex) => {
           console.log(`error occur!! : ${ex}`);
         });
+    },
+    movePage(index) {
+      this.$router.push({
+        name: 'ifIdListAdmin',
+        params: {
+          eaiIfSeq: this.allMetaList[index].eaiIfSeq,
+          callType: 'update',
+        },
+      });
     },
   },
 

@@ -108,3 +108,9 @@
     </article>
   </div>
 </template>
+
+<style scoped>
+.popup {
+  z-index: 13;
+}
+</style>

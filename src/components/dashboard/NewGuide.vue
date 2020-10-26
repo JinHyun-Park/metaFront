@@ -16,38 +16,29 @@
       <button
         type="button"
         class="click_btn"
-        aria-placeholder="인터페이스 신규 혹은 변경 신청이 궁금하십니까?"
-        @click="aa"
+        style="background-color:white;"
+        @click="movePage('naruSummary')"
       >
-        <label class="tooltips right">
-          <span
-            class="tip_contn"
-          >
-            <em class="tip_text">
-              인터페이스 신규 혹은 변경 신청이 궁금하십니까?
-            </em></span>
-
-          <h2>
-            신청프로세스
-          </h2>
-          <img
-            src="@/assets/images/img-eai-btn.png"
-            width="100"
-          >
-        </label>
+        <h2>
+          NARU란?
+        </h2>
+        <img
+          src="@/assets/images/businessman.png"
+          width="100"
+        >
       </button>
 
       <button
         type="button"
         class="click_btn"
         style="background-color:white;"
-        @click="aa"
+        @click="movePage('ifSummary')"
       >
         <h2>
-          EAI
+          Who??
         </h2>
         <img
-          src="@/assets/images/img-eai-btn.png"
+          src="@/assets/images/hierarchical-structure.png"
           width="100"
         >
       </button>
@@ -55,26 +46,27 @@
         type="button"
         class="click_btn"
         style="background-color:white;"
-        @click="aa"
+        @click="movePage('decideIf')"
       >
         <h2 style="text-align:center;">
-          EiGW
+          What??
         </h2>
         <img
-          src="@/assets/images/img-eigw-btn.png"
+          src="@/assets/images/exchange.png"
           width="100"
         >
       </button>
       <button
         type="button"
         class="click_btn"
-        @click="aa"
+        style="background-color:white;"
+        @click="movePage('procGuide')"
       >
         <h2>
-          MCG
+          How??
         </h2>
         <img
-          src="@/assets/images/img-mcg-btn.png"
+          src="@/assets/images/clipboard.png"
           width="100"
         >
       </button>
@@ -114,8 +106,10 @@ export default {
     // this.searchQueueDepth();
   },
   methods: {
-    aa() {
-      console.log('clicked');
+    movePage(val) {
+      this.$router.push({
+        name: val,
+      });
     },
   },
 };

@@ -819,10 +819,6 @@ export default {
     ...mapState('ifRegInfo', ['reqNum']),
   },
   created() {
-    if (this.$route.params.callType === 'update') {
-      this.searchList(this.reqNum);
-    }
-
     eventBus.$on('Step2EigwSave', () => {
       this.saveEigwTemp();
     });
@@ -834,6 +830,9 @@ export default {
     this.setCcCdList({
       opClCd: 'EIGW', cdId: 'OFC_LVL_CD', allYn: 'Y', listNm: 'ofcLvlCd',
     });
+    if (this.$route.params.callType === 'update') {
+      this.searchList(this.reqNum);
+    }
     console.log('step2eigw mounted');
   },
   methods: {
