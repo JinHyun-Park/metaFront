@@ -547,8 +547,9 @@ export default {
       opClCd: 'EAI', cdId: 'SYS_TYP_CD', allYn: 'N', listNm: 'sysTypCd',
     });
     // this.$refs.queueListPop.focus(); // keyup 이벤트가 바로 적용될 수 있도록 focusing
-
-    this.eaiIfDetail = this.propData;
+    if (!this.$gf.isEmpty(this.propData)) {
+      this.eaiIfDetail = this.propData;
+    }
     this.changeRoundStatus(1);
     this.changeSyncStatus(1);
   },

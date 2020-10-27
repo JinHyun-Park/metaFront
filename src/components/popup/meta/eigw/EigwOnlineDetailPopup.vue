@@ -381,6 +381,7 @@ export default {
     });
     this.onlineInfo = this.propData;
     this.onlineUserList = this.propData.onlineUserList;
+
     // this.$refs.queueListPop.focus(); // keyup 이벤트가 바로 적용될 수 있도록 focusing
   },
   methods: {
