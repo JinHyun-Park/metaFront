@@ -169,7 +169,7 @@ export default {
   created() {
     this.setActiveItem();
     this.getMyInfo();
-    this.setMenuAllList({ adminYn: this.adminYn }); // 서버로부터 menu 내 left list 수신
+    this.setMenuAllList({ adminYn: this.adminYn, useYn: 'Y' }); // 서버로부터 menu 내 left list 수신
     this.$gf.resetCount();
     this.intervalFuc = setInterval(() => {
       this.remainTime = this.$gf.getSessionCount(1);
