@@ -1231,17 +1231,23 @@ export default {
       this.eaiIfDetail.sndMid = '';
       this.eaiIfDetail.sndChrgrId1 = '';
       this.eaiIfDetail.sndChrgrNm1 = '';
+      this.eaiIfDetail.sndChrgrOrgNm1 = '';
       this.eaiIfDetail.sndChrgrId2 = '';
       this.eaiIfDetail.sndChrgrNm2 = '';
+      this.eaiIfDetail.sndChrgrOrgNm2 = '';
       this.eaiIfDetail.sndChrgrMngrId = '';
       this.eaiIfDetail.sndChrgrMngrNm = '';
+      this.eaiIfDetail.sndChrgrMngrOrgNm = '';
       this.eaiIfDetail.rcvMid = '';
       this.eaiIfDetail.rcvChrgrId1 = '';
       this.eaiIfDetail.rcvChrgrNm1 = '';
+      this.eaiIfDetail.rcvChrgrOrgNm1 = '';
       this.eaiIfDetail.rcvChrgrId2 = '';
       this.eaiIfDetail.rcvChrgrNm2 = '';
+      this.eaiIfDetail.rcvChrgrOrgNm2 = '';
       this.eaiIfDetail.rcvChrgrMngrId = '';
       this.eaiIfDetail.rcvChrgrMngrNm = '';
+      this.eaiIfDetail.rcvChrgrMngrOrgNm = '';
       this.eaiIfDetail.svcImpt = '';
       this.eaiIfDetail.eaiRmk = '';
 
