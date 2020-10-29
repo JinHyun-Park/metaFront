@@ -680,7 +680,7 @@ export default {
     },
     changeRoundStatus(x) {
       if (x === 1) {
-        if (this.ifTypCd === '1') {
+        if (this.eaiIfDetail.ifTypCd === '1') {
           this.$refs.selectRound.disabled = false;
           this.$refs.selectSync.disabled = false;
           this.$refs.rcvTrInput.disabled = false;
@@ -690,7 +690,7 @@ export default {
           this.$refs.rcvDirInput.disabled = true;
           this.$refs.rcvShNmInput.disabled = true;
           this.$refs.fileOpCodeInput.disabled = true;
-        } if (this.ifTypCd === '2') {
+        } if (this.eaiIfDetail.ifTypCd === '2') {
           this.$refs.selectRound.disabled = true;
           this.$refs.selectSync.disabled = true;
           this.$refs.rcvTrInput.disabled = true;
@@ -702,7 +702,7 @@ export default {
           this.$refs.fileOpCodeInput.disabled = false;
         }
       } else {
-        if (this.ifTypCd === '1') {
+        if (this.eaiIfDetail.ifTypCd === '1') {
           this.eaiIfDetail.roundTypCd = '';
           this.eaiIfDetail.roundTypNm = '';
           this.eaiIfDetail.syncTypCd = '';
@@ -725,7 +725,7 @@ export default {
           this.$refs.rcvDirInput.disabled = true;
           this.$refs.rcvShNmInput.disabled = true;
           this.$refs.fileOpCodeInput.disabled = true;
-        } if (this.ifTypCd === '2') {
+        } if (this.eaiIfDetail.ifTypCd === '2') {
           this.eaiIfDetail.roundTypCd = '';
           this.eaiIfDetail.roundTypNm = '';
           this.eaiIfDetail.syncTypCd = '';
