@@ -663,6 +663,47 @@ export default {
         this.turnOnSvrPopInstList(row, 'on');
       }
     },
+    addOnlineInfo(val) {
+      console.log(`인터페이스 추가: ${this.reqNum}`);
+
+      this.onlineList.push({
+        reqNum: this.reqNum,
+        eigwIfId: val.eigwIfId,
+        eigwIfNm: val.eigwIfNm,
+        instNm: val.instNm,
+        instCd: val.instCd,
+        eigwType: 'online',
+        procSt: 1,
+        eigwRmk: val.eigwRmk,
+        pgmTyp: val.pgmTyp,
+        linkTyp: val.linkTyp,
+        devRealIp: val.devRealIp,
+        devPort: val.devPort,
+        prodRealIp: val.prodRealIp,
+        prodPort: val.prodPort,
+        onlineUserList: val.onlineUserList,
+      });
+    },
+    addFileInfo(val) {
+      this.fileList.push({
+        reqNum: this.reqNum,
+        eigwIfId: val.eigwIfId,
+        eigwIfNm: val.eigwIfNm,
+        instNm: val.instNm,
+        instCd: val.instCd,
+        fileNm: val.fileNm,
+        eigwType: 'file',
+        procSt: 1,
+        srFlag: val.srFlag,
+        eigwRmk: val.eigwRmk,
+        outPath: val.outPath,
+        devRealIp: val.devRealIp,
+        devPort: val.devPort,
+        prodRealIp: val.prodRealIp,
+        prodPort: val.prodPort,
+        fileUserList: val.fileUserList,
+      });
+    },
     turOnSvrPopOnline() {
       this.popupType = 'new';
       this.emptyOnlineIfFields();
@@ -680,10 +721,10 @@ export default {
       if (this.popupType === 'update') {
         this.updateOnlineInfo(val);
       } else {
-        this.onlineList.push(val);
+        this.addOnlineInfo(val);
       }
       // this.onlineInfo = val;
-      // this.addOnlineInfo();
+
       this.showOnlineDetail = false;
     },
     turOnSvrPopFile() {
@@ -703,7 +744,8 @@ export default {
       if (this.popupType === 'update') {
         this.updateFileInfo(val);
       } else {
-        this.fileList.push(val);
+        // this.fileList.push(val);
+        this.addFileInfo(val);
       }
 
       // this.onlineInfo = val;

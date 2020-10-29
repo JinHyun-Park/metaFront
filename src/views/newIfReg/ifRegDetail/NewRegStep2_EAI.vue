@@ -932,6 +932,8 @@ export default {
       // this.eaiIfList.push({});
       this.emptyIfFields();
       this.popupType = 'new';
+      this.propsDetail = this.eaiIfDetail;
+
       this.showDetailInfo = true;
     },
     getDetailInfo(i) {
@@ -991,7 +993,7 @@ export default {
       this.propsDetail = this.eaiIfDetail;
     },
     updateIf(val) {
-      if (this.currRow.length === 0) {
+      if (this.currRow === '') {
         this.$gf.alertOn('인터페이스 신청 목록에서 수정할 대상을 선택하세요');
         return;
       }
@@ -1050,47 +1052,47 @@ export default {
       // this.showDetailInfo = false;
     },
 
-    addNewIf() {
+    addNewIf(val) {
       // if (this.checkFields() === 0) {
       //   return;
       // }
       this.eaiIfList.push({
-        eaiIfId: this.eaiIfId,
-        eaiIfNmKor: this.eaiIfNmKor,
-        eaiIfNmEng: this.eaiIfNmEng,
-        drctnCd: this.drctnCd,
-        ifTypCd: this.ifTypCd,
-        ifDesc: this.ifDesc,
-        roundTypCd: this.roundTypCd,
-        syncTypCd: this.syncTypCd,
-        rcvOpCd: this.rcvOpCd,
-        rcvTr: this.rcvTr,
-        drctnNm: this.drctnNm,
-        ifTypNm: this.ifTypNm,
-        roundTypNm: this.roundTypNm,
-        syncTypNm: this.syncTypNm,
-        fileIfTypCd: this.fileIfTypCd,
-        fileIfTypNm: this.fileIfTypNm,
-        sndDir: this.sndDir,
-        rcvDir: this.rcvDir,
-        rcvShNm: this.rcvShNm,
-        fileOpCode: this.fileOpCode,
-        sndMid: this.sndMid,
-        sndChrgrId1: this.sndChrgrId1,
-        sndChrgrNm1: this.sndChrgrNm1,
-        sndChrgrId2: this.sndChrgrId2,
-        sndChrgrNm2: this.sndChrgrNm2,
-        sndChrgrMngrId: this.sndChrgrMngrId,
-        sndChrgrMngrNm: this.sndChrgrMngrNm,
-        rcvMid: this.rcvMid,
-        rcvChrgrId1: this.rcvChrgrId1,
-        rcvChrgrNm1: this.rcvChrgrNm1,
-        rcvChrgrId2: this.rcvChrgrId2,
-        rcvChrgrNm2: this.rcvChrgrNm2,
-        rcvChrgrMngrId: this.rcvChrgrMngrId,
-        rcvChrgrMngrNm: this.rcvChrgrMngrNm,
-        svcImpt: this.svcImpt,
-        eaiRmk: this.eaiRmk,
+        eaiIfId: val.eaiIfId,
+        eaiIfNmKor: val.eaiIfNmKor,
+        eaiIfNmEng: val.eaiIfNmEng,
+        drctnCd: val.drctnCd,
+        ifTypCd: val.ifTypCd,
+        ifDesc: val.ifDesc,
+        roundTypCd: val.roundTypCd,
+        syncTypCd: val.syncTypCd,
+        rcvOpCd: val.rcvOpCd,
+        rcvTr: val.rcvTr,
+        drctnNm: val.drctnNm,
+        ifTypNm: val.ifTypNm,
+        roundTypNm: val.roundTypNm,
+        syncTypNm: val.syncTypNm,
+        fileIfTypCd: val.fileIfTypCd,
+        fileIfTypNm: val.fileIfTypNm,
+        sndDir: val.sndDir,
+        rcvDir: val.rcvDir,
+        rcvShNm: val.rcvShNm,
+        fileOpCode: val.fileOpCode,
+        sndMid: val.sndMid,
+        sndChrgrId1: val.sndChrgrId1,
+        sndChrgrNm1: val.sndChrgrNm1,
+        sndChrgrId2: val.sndChrgrId2,
+        sndChrgrNm2: val.sndChrgrNm2,
+        sndChrgrMngrId: val.sndChrgrMngrId,
+        sndChrgrMngrNm: val.sndChrgrMngrNm,
+        rcvMid: val.rcvMid,
+        rcvChrgrId1: val.rcvChrgrId1,
+        rcvChrgrNm1: val.rcvChrgrNm1,
+        rcvChrgrId2: val.rcvChrgrId2,
+        rcvChrgrNm2: val.rcvChrgrNm2,
+        rcvChrgrMngrId: val.rcvChrgrMngrId,
+        rcvChrgrMngrNm: val.rcvChrgrMngrNm,
+        svcImpt: val.svcImpt,
+        eaiRmk: val.eaiRmk,
       });
 
       // this.currRow = this.eaiIfList[this.eaiIfList.length - 1];
@@ -1243,7 +1245,7 @@ export default {
       this.eaiIfDetail.svcImpt = '';
       this.eaiIfDetail.eaiRmk = '';
 
-      this.currRow = [];
+      this.currRow = '';
     },
     turnOnSvrPopChrgr(callChrgr) {
       this.callChrgr = callChrgr;
@@ -1267,7 +1269,8 @@ export default {
       if (this.popupType === 'update') {
         this.updateIf(val);
       } else {
-        this.eaiIfList.push(val);
+        this.addNewIf(val);
+        // this.eaiIfList.push(val);
       }
     },
     addDataChrgr(val) {
