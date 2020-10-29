@@ -49,15 +49,16 @@
                 </li>
               </ul>
             </li>
-            <li>
+            <li @click="movePage('newIfRegList')">
               <span>New 인터페이스 신청</span>
               <ul class="sub_menu">
                 <li @click="movePage('newIfRegList')">
                   신청목록
                 </li>
+                <!--
                 <li @click="movePage('applyIf')">
                   신청등록
-                </li>
+                </li>-->
               </ul>
             </li>
             <li>
