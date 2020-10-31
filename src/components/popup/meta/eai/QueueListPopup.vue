@@ -83,6 +83,9 @@
                 유형<i class="ico-sort-down" />
               </li>
               <li class="th_cell">
+                호스트명<i class="ico-sort-down" />
+              </li>
+              <li class="th_cell">
                 담당자<i class="ico-sort-down" />
               </li>
               <li class="th_cell">
@@ -108,7 +111,10 @@
                 {{ queue.queueNm }}
               </li>
               <li class="td_cell">
-                {{ queue.qTypeCd }}
+                {{ queue.qTypeNm }}
+              </li>
+              <li class="td_cell">
+                {{ queue.hostNm }}
               </li>
               <li class="td_cell">
                 {{ queue.chrgrNm }}
@@ -179,6 +185,8 @@ export default {
       crtcVal: '',
       useYn: 'Y',
       qTypeCd: '',
+      qTypeNm: '',
+      hostNm: '',
       pageSet: { pageNo: 1, pageCount: 0, size: 5 },
       pageMoveChk: 0,
     };
@@ -210,6 +218,8 @@ export default {
           queueNm: this.queueNm,
           mqMngrNm: this.mqMngrNm,
           queueType: this.qTypeCd,
+          qTypeNm: this.qTypeNm,
+          hostNm: this.hostNm,
           useYn: this.useYn,
         },
       })

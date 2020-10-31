@@ -12,6 +12,12 @@
       @closePop="turOffSvrPopChrgr"
       @addData="addDataChrgr"
     />
+    <EaiServerListPopup
+      v-if="svrOnServer"
+      v-bind="propsServer"
+      @closePop="turOffSvrPopServer"
+      @returnData="getData"
+    />
     <section class="title style-1">
       <h2>
         <div>
@@ -46,37 +52,41 @@
             </li>
             <li
               class="th_cell"
-              style="width:40%;"
+              style="width:30%;"
             >
               큐
             </li>
             <li
               class="th_cell"
-              style="width:28%;"
+              style="width:10%;"
             >
               유형
             </li>
             <li
               class="th_cell"
-              style="width:2%;"
+              style="width:10%;"
+            >
+              호스트명
+            </li>
+            <li
+              class="th_cell"
+              style="width:10%;"
             >
               담당자
             </li>
             <li
               class="th_cell"
-              style="width:5%;"
+              style="width:10%;"
             >
               최대 적체
             </li>
             <li
               class="th_cell"
-              style="width:2%;"
             >
               사용 여부
             </li>
             <li
               class="th_cell"
-              style="width:8%;"
             >
               EDIT
             </li>
@@ -111,6 +121,16 @@
                   </option>
                 </select>
               </div>
+            </li>
+            <li
+              class="td_cell"
+            >
+              <input
+                v-model="hostNm"
+                type="text"
+                value=""
+                @click="turnOnSvrPopServer(-1)"
+              >
             </li>
             <li
               class="td_cell"
@@ -195,6 +215,14 @@
             </li>
             <li class="td_cell">
               <input
+                v-model="queue.hostNm"
+                type="text"
+                value=""
+                @click="turnOnSvrPopServer(i)"
+              >
+            </li>
+            <li class="td_cell">
+              <input
                 v-model="queue.chrgrNm"
                 type="text"
                 value=""
@@ -206,7 +234,7 @@
                 v-model="queue.crtcVal"
                 type="number"
                 min="0"
-                value=""
+                oninput="this.value = Math.abs(this.value)"
                 style="text-align:right"
               >
             </li>
@@ -257,16 +285,19 @@ import { mapState, mapActions } from 'vuex';
 import { fetchGetEaiQueueList } from '@/api/eaiApi';
 import MqMngrListPopup from '@/components/popup/meta/eai/MqMngrListPopup.vue';
 import ChrgrListPopup from '@/components/popup/bizcomm/ChrgrListPopup.vue';
+import EaiServerListPopup from '@/components/popup/meta/eai/EaiServerListPopup.vue';
 
 export default {
   components: {
     MqMngrListPopup,
     ChrgrListPopup,
+    EaiServerListPopup,
   },
   data() {
     return {
       svrOn: false,
       svrOnChrgr: false,
+      svrOnServer: false,
       props: { // 조회 시 parameter에 사용자 정보를 담아주려면 여기를 통해 넘겨주세요.
         message: 'Hi', // 사용방법 예시 데이터
       },
@@ -278,6 +309,7 @@ export default {
       chrgrNm: '',
       chrgrId: '',
       crtcVal: '',
+      hostNm: '',
       useYn: '',
       qTypeCd: '',
       op: '',
@@ -314,6 +346,7 @@ export default {
           qTypeCd: this.qTypeCd,
           crtcVal: this.crtcVal,
           chrgrId: this.chrgrId,
+          hostNm: this.hostNm,
           useYn: this.useYn,
         },
       })
@@ -336,6 +369,9 @@ export default {
       } if (this.qTypeCd === '') {
         this.$gf.alertOn('큐 유형을 선택하세요');
         return;
+      } if (this.hostNm === '') {
+        this.$gf.alertOn('호스트명을 선택하세요');
+        return;
       } if (this.chrgrId === '') {
         this.$gf.alertOn('담당자를 선택하세요');
         return;
@@ -353,6 +389,7 @@ export default {
         mqMngrNm: this.mqMngrNm,
         qTypeCd: this.qTypeCd,
         crtcVal: this.crtcVal,
+        hostNm: this.hostNm,
         chrgrId: this.chrgrId,
         useYn: this.useYn,
       };
@@ -418,11 +455,30 @@ export default {
         this.qList[this.op].chrgrNm = val.hanNm;
       }
     },
+    turnOnSvrPopServer(op) {
+      this.op = op;
+      this.svrOnServer = true;
+    },
+    turOffSvrPopServer(val) {
+      console.log(`가져온 데이터 : ${val}`);
+      this.svrOnServer = false;
+    },
+    getData(val) {
+      console.log(`가져온 데이터2 : ${val.hostNm}`);
+      this.svrOnServer = false;
+
+      if (this.op === -1) {
+        this.hostNm = val.hostNm;
+      } else {
+        this.qList[this.op].hostNm = val.hostNm;
+      }
+    },
     resetField() {
       this.mqMngrNm = '';
       this.queueNm = '';
       this.qTypeCd = '';
       this.crtcVal = '';
+      this.hostNm = '';
       this.chrgrId = '';
       this.chrgrNm = '';
       this.useYn = '';
