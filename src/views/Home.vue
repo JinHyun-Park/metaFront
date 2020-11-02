@@ -16,6 +16,7 @@
       <!-- <div class="board_area">
         <number-count style="width: 100%;" />
       </div> -->
+      <queue-monitor-real />
       <queue-monitor />
       <eigw-monitor />
       <!--<queue-stat />-->
@@ -41,6 +42,7 @@ import { fetchGetBoardList } from '@/api/bizCommApi';
 
 import NotiBoard from '@/components/dashboard/NotiBoard.vue';
 import FaqBoard from '@/components/dashboard/FaqBoard.vue';
+import QueueMonitorReal from '@/components/dashboard/QueueMonitorReal.vue';
 import QueueMonitor from '@/components/dashboard/QueueMonitor.vue';
 import EigwMonitor from '@/components/dashboard/EigwMonitor.vue';
 // import QueueTransStat from '../components/dashboard/QueueTransStat.vue';
@@ -63,6 +65,7 @@ export default {
     'faq-board': FaqBoard,
     // 'queue-stat': QueueTransStat,
     'queue-monitor': QueueMonitor,
+    'queue-monitor-real': QueueMonitorReal,
     'eigw-monitor': EigwMonitor,
     'reg-list': RegList,
     'reg-list-extend': RegListExtend,
