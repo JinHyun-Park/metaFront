@@ -717,7 +717,7 @@
               </li>
               <li
                 class="th_cell"
-                style="width:20%"
+                style="width:15%"
               >
                 유형
               </li>
@@ -747,7 +747,7 @@
               </li>
               <li
                 class="th_cell"
-                style="width:5%"
+                style="width:10%"
               >
                 임계
               </li>
