@@ -396,8 +396,10 @@ export default {
     });
   },
   mounted() {
-    if (this.$route.params.ifKind === 'MCG') {
-      this.listing(this.reqNum);
+    if (this.$route.params.callType === 'update') {
+      if (this.$route.params.ifKind === 'MCG') {
+        this.listing(this.reqNum);
+      }
     }
     this.today = this.$gf.dateToString(new Date(), '', 'Y');
     this.reqList.splice(0, 1);
