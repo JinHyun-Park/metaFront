@@ -19,15 +19,15 @@
         <div class="column on w-2">
           <label class="column_label">조회기준</label>
           <div class="select_group">
-            <select v-model="ifKind">
-              <option value="EAI">
-                EAI
+            <select v-model="srchType">
+              <option value="">
+                전체
               </option>
-              <option value="EIGW">
-                EIGW
+              <option value="IN_PART">
+                파트내
               </option>
-              <option value="MCG">
-                MCG
+              <option value="IN_MY">
+                내것만
               </option>
             </select>
           </div>
@@ -261,7 +261,8 @@ export default {
       pageSet: { pageNo: 1, pageCount: 0, size: 10 },
       pageMoveChk: 0,
 
-      ifKind: '',
+      ifKind: 'EAI',
+      srchType: '',
       eaiIfId: '',
       hostNm: '',
       svrIp: '',
@@ -291,6 +292,8 @@ export default {
           pageNo: this.pageMoveChk === 1 ? this.pageSet.pageNo : 1,
           pageCount: this.pageMoveChk === 1 ? this.pageSet.pageCount : 0,
           size: this.pageSet.size,
+
+          srchType: this.srchType,
 
           eaiIfId: this.eaiIfId,
           hostNm: this.hostNm,
