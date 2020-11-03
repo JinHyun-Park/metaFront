@@ -208,10 +208,19 @@
                 class="table_row w-auto"
               >
                 <li class="td_cell">
-                  <input
-                    v-model="svrdtl.svrTyp"
-                    type="text"
-                  >
+                  <div class="select_group">
+                    <select
+                      v-model="svrdtl.svrTyp"
+                    >
+                      <option
+                        v-for="(code, i) in ccCdList.mcgSvrTyp"
+                        :key="i"
+                        :value="code.cdDtlId"
+                      >
+                        {{ code.cdNm }}
+                      </option>
+                    </select>
+                  </div>
                 </li>
                 <li class="td_cell">
                   <input
@@ -467,6 +476,9 @@ export default {
     this.setCcCdList({
       opClCd: 'MCG', cdId: 'CHNL_TYP', allYn: 'N', listNm: 'mcgChnlTyp',
     });
+    this.setCcCdList({
+      opClCd: 'MCG', cdId: 'SVR_TYP', allYn: 'N', listNm: 'mcgSvrTyp',
+    });
     this.mcgChnlRowData = this.propData;
     if (this.mcgChnlRowData.virtualUserHannm === '') {
       this.isVirtualUserYn = 'N';
@@ -554,7 +566,7 @@ export default {
     },
 
     inputreqDt(val) {
-      this.reqDt = val;
+      this.mcgChnlRowData.reqDt = val;
     },
     addcRow() {
       console.log('채널 담당자 목록 추가!');
