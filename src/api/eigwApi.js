@@ -90,6 +90,23 @@ function fetchEigwReqSave(param) {
   return axios.post(`${preUrl}/ifReqInfo`, param);
 }
 
+// 추가
+function fetchGetEigwOnlineList(param) {
+  return axios.get(`${preUrl}/online2List`, param);
+}
+
+function fetchGetEigwProcListByOnlineMetaNum(param) {
+  return axios.get(`${preUrl}/procList`, param);
+}
+
+function fetchPostProcInfo(param) {
+  return axios.post(`${preUrl}/procInfo`, param);
+}
+
+function fetchDeleteProcInfo(param) {
+  return axios.delete(`${preUrl}/procInfo`, param);
+}
+
 export {
   fetchEigwServerList,
   fetchEigwAdFileList,
@@ -113,4 +130,9 @@ export {
   fetchDeleteOnlineChrgrInfo,
   fetchEigwReqList,
   fetchEigwReqSave,
+
+  fetchGetEigwOnlineList,
+  fetchGetEigwProcListByOnlineMetaNum,
+  fetchPostProcInfo,
+  fetchDeleteProcInfo,
 };

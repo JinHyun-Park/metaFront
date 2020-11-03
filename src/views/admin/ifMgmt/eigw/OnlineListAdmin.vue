@@ -4,7 +4,7 @@
       v-if="svrOn"
       v-bind="props"
       @closePop="turOffSvrPop"
-      @addData="addData"
+      @addData="setSvr"
     />
     <ChrgrListPopup
       v-if="svrOnChrgr"
@@ -44,13 +44,13 @@
       <h5 class="s_tit type-2">
         조회 조건
         <div class="right_button_area">
-          <button
+          <!-- <button
             type="button"
             class="default_button"
-            @click="emptyFields()"
+            @click="initSearchCondition()"
           >
-            초기화
-          </button>
+            검색조건 초기화
+          </button> -->
           <button
             type="button"
             class="default_button"
@@ -68,7 +68,7 @@
           <button
             type="button"
             class="default_button on"
-            @click="searchList()"
+            @click="searchList2(), initOnlineIfListItem(), initProcList(), initProcDetail()"
           >
             검색
           </button>
@@ -146,79 +146,37 @@
           <div class="table_head">
             <ul>
               <li class="th_cell">
-                서버
-              </li>
-              <li class="th_cell">
                 I/F ID
-              </li>
-              <li class="th_cell">
-                거래명
               </li>
               <li class="th_cell">
                 대외기관
               </li>
               <li class="th_cell">
-                프로그램 유형
+                거래명
               </li>
               <li class="th_cell">
-                프로그램
-              </li>
-              <li class="th_cell">
-                설정파일
-              </li>
-              <li class="th_cell">
-                개발IP(NAT)
-              </li>
-              <li class="th_cell">
-                개발 PORT
-              </li>
-              <li class="th_cell">
-                운영IP(NAT)
-              </li>
-              <li class="th_cell">
-                운영 PORT
+                서버
               </li>
             </ul>
           </div>
           <div class="table_body">
             <ul
-              v-for="(row, index) in onlineIfList"
+              v-for="(row, index) in onlineIfList2"
               :key="row.onlineMetaNum"
               class="table_row w-auto"
-              @click="detailInfo(index)"
+              @click="onlineDetailInfo(index), initProcDetail()"
             >
               <li class="td_cell">
-                {{ row.mqMngr }}
+                {{ row.eaiIfId }}
               </li>
               <li class="td_cell">
-                {{ row.eaiIfId }}
+                {{ row.instCd }}
               </li>
               <li class="td_cell">
                 {{ row.onlineDealNm }}
               </li>
               <li class="td_cell">
-                {{ row.instNm }}
-              </li>
-              <li class="td_cell">
-                {{ row.pgmTypNm }}
-              </li>
-              <li class="td_cell">
-                {{ row.pgmId }}
-              </li>
-              <li class="td_cell">
-                {{ row.confFile }}
-              </li>
-              <li class="td_cell">
-                {{ row.dvpSvrRealIp }}<br>({{ row.dvpSvrNatIp }})
-              </li>
-              <li class="td_cell">
-                {{ row.dvpSvrPort }}
-              </li>
-              <li class="td_cell">
-                {{ row.prodSvrRealIp }}<br>({{ row.prodSvrNatIp }})
-              </li>
-              <li class="td_cell">
-                {{ row.prodSvrPort }}
+                {{ row.mqMngrNm }}
               </li>
             </ul>
           </div>
@@ -238,9 +196,9 @@
         />
       </div>
     </section>
-    <section class="form_area border_group">
+    <!-- <section class="form_area border_group">
       <h5 class="s_tit">
-        기본정보
+        인터페이스 정보
       </h5>
       <div class="row_contain type-2">
         <div class="column on w-1">
@@ -326,10 +284,212 @@
           >
         </div>
       </div>
-    </section>
+    </section> -->
     <section class="form_area border_group">
       <h5 class="s_tit">
+        인터페이스 정보
+      </h5>
+      <div class="row_contain type-2">
+        <div class="column on w-1">
+          <label class="column_label">I/F ID</label>
+          <input
+            v-model="onlineIfListItem.eaiIfId"
+            type="text"
+            @click="turnOnSvrPopEaiList()"
+          >
+        </div>
+        <div class="column w-1">
+          <label class="column_label">대외기관</label>
+          <input
+            v-model="onlineIfListItem.instNm"
+            type="text"
+            @click="turnOnSvrPopInstList(-2)"
+          >
+        </div>
+        <div class="column w-1">
+          <label class="column_label">EiGW구분</label>
+          <select v-model="onlineIfListItem.mqMngrNm">
+            <option value="EIGW1P">
+              1호기
+            </option>
+            <option value="EIGW2P">
+              2호기
+            </option>
+          </select>
+          <span class="select" />
+        </div>
+      </div>
+      <div class="row_contain">
+        <div class="column w-2">
+          <label class="column_label">거래명</label>
+          <input
+            v-model="onlineIfListItem.onlineDealNm"
+            type="text"
+          >
+        </div>
+        <div class="column w-2">
+          <label class="column_label">거래설명</label>
+          <input
+            v-model="onlineIfListItem.onlineDealDesc"
+            type="text"
+          >
+        </div>
+        <div class="column w-1">
+          <input
+            v-model="onlineIfListItem.instCd"
+            type="hidden"
+          >
+        </div>
+      </div>
+      <div class="row_contain">
+        <div class="column w-2">
+          <label class="column_label">사용유무</label>
+          <select v-model="onlineIfListItem.useYn">
+            <option value="Y">
+              사용
+            </option>
+            <option value="N">
+              미사용
+            </option>
+          </select>
+          <span class="select" />
+        </div>
+        <div class="column w-2">
+          <label class="column_label">모니터링유무</label>
+          <select v-model="onlineIfListItem.useYn">
+            <option value="Y">
+              사용
+            </option>
+            <option value="N">
+              미사용
+            </option>
+          </select>
+          <span class="select" />
+        </div>
+        <div class="column w-1">
+          <input
+            v-model="onlineIfListItem.onlineMetaNum"
+            type="hidden"
+          >
+        </div>
+      </div>
+    </section>
+    <section class="form_area border_group">
+      <h5 class="s_tit type-2">
         프로세스 정보
+      </h5>
+      <div class="table_colgroup">
+        <div class="table_grid">
+          <div class="table_head">
+            <ul>
+              <li class="th_cell">
+                프로그램명
+              </li>
+              <li class="th_cell">
+                설정파일
+              </li>
+              <li class="th_cell">
+                개발IP(NAT)
+              </li>
+              <li class="th_cell">
+                개발 PORT
+              </li>
+              <li class="th_cell">
+                운영IP(NAT)
+              </li>
+              <li class="th_cell">
+                운영 PORT
+              </li>
+              <li class="th_cell">
+                삭제
+              </li>
+            </ul>
+          </div>
+          <div
+            v-if="!procList"
+            class="table_body"
+          >
+            <ul class="table_row">
+              <li class="td_cell">
+                I/F목록에서 I/F를 선택해주세요.
+              </li>
+            </ul>
+          </div>
+          <!-- <div
+            v-else-if="porcList.length == 0"
+            class="table_body"
+          >
+            <ul class="table_row">
+              <li class="td_cell">
+                해당 I/F의 프로세스가 없습니다.
+              </li>
+            </ul>
+          </div> -->
+          <div
+            v-else
+            class="table_body"
+          >
+            <ul
+              v-for="(row, index) in procList"
+              :key="row.onlineMetaNum"
+              class="table_row w-auto"
+              @click="procDetailInfo(index)"
+            >
+              <li class="td_cell">
+                {{ row.pgmId }}
+              </li>
+              <li class="td_cell">
+                {{ row.confFile }}
+              </li>
+              <li class="td_cell">
+                {{ row.dvpSvrRealIp }}<br>({{ row.dvpSvrNatIp }})
+              </li>
+              <li class="td_cell">
+                {{ row.dvpSvrPort }}
+              </li>
+              <li class="td_cell">
+                {{ row.prodSvrRealIp }}<br>({{ row.prodSvrNatIp }})
+              </li>
+              <li class="td_cell">
+                {{ row.prodSvrPort }}
+              </li>
+              <li class="td_cell">
+                <i
+                  class="ico-del"
+                  @click="deleteProc(row.procNum, onlineIfListItem.onlineMetaNum, index)"
+                />
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="form_area border_group">
+      <h5 class="s_tit type-2">
+        프로세스 세부정보
+        <div class="right_button_area">
+          <!-- <button
+            type="button"
+            class="default_button"
+            @click="initProcDetail()"
+          >
+            초기화
+          </button> -->
+          <button
+            type="button"
+            class="default_button"
+            @click="addProcInfo()"
+          >
+            신규신청
+          </button>
+          <button
+            type="button"
+            class="default_button"
+            @click="update()"
+          >
+            수정
+          </button>
+        </div>
       </h5>
       <div class="row_contain type-2">
         <div class="column on w-1">
@@ -340,9 +500,9 @@
           >
         </div>
         <div class="column w-2">
-          <label class="column_label">프로그램설명</label>
+          <label class="column_label">프로세스설명</label>
           <input
-            v-model="procInfo.pgmDesc"
+            v-model="procInfo.procDesc"
             type="text"
           >
         </div>
@@ -382,6 +542,15 @@
           >
         </div>
         <div class="column w-2">
+          <label class="column_label">MQ타임아웃</label>
+          <input
+            v-model="procInfo.mqTimeout"
+            type="text"
+          >
+        </div>
+      </div>
+      <div class="row_contain">
+        <div class="column w-3">
           <label class="column_label">연결유형</label>
           <select v-model="procInfo.linkTyp">
             <option value="CONN">
@@ -393,29 +562,38 @@
           </select>
           <span class="select" />
         </div>
-      </div>
-      <div class="row_contain">
-        <div class="column w-2">
+        <div class="column w-3">
           <label class="column_label">Log파일명</label>
           <input
             v-model="procInfo.logFileNm"
             type="text"
           >
         </div>
-        <div class="column w-2">
+        <div class="column w-3">
           <label class="column_label">Log파일경로</label>
           <input
             v-model="procInfo.logPath"
             type="text"
           >
         </div>
-        <div class="column w-1">
+        <div class="column w-3">
+          <label class="column_label">사용유무</label>
+          <select v-model="procInfo.useYn">
+            <option value="Y">
+              사용
+            </option>
+            <option value="N">
+              미사용
+            </option>
+          </select>
+          <span class="select" />
+        </div>
+        <div class="column w-2">
           <input
             v-model="procInfo.procNum"
             type="hidden"
           >
         </div>
-        <div class="column w-4" />
       </div>
       <div class="row_contain">
         <div class="column w-2">
@@ -707,17 +885,11 @@ export default {
         message: '', // 사용방법 예시 데이터
       },
 
-      mqMngrNm: '',
-      instCd: '',
       instNm: '',
       pgmId: '',
       confFile: '',
-      eaiIfId: '',
       reqIp: '',
-
       onlineIfList: '',
-      pageSet: { pageNo: 1, pageCount: 0, size: 5 },
-      pageMoveChk: 0,
       onlineMst: {
         onlineMetaNum: '',
         eaiIfId: '',
@@ -727,26 +899,6 @@ export default {
         onlineDealDesc: '',
         instCd: '',
         instNm: '',
-      },
-      procInfo: {
-        procNum: '',
-        pgmId: '',
-        pgmDesc: '',
-        useYn: '',
-        sesnCnt: '',
-        logPath: '',
-        logFileNm: '',
-        socketTimeout: '',
-        mqTimeout: '',
-        pgmTyp: '',
-        linkTyp: '',
-        confFile: '',
-        dvpSvrNum: '',
-        dvpSvrIp: '',
-        prodSvrNum: '',
-        prodSvrIp: '',
-        dvpSvrPort: '',
-        prodSvrPort: '',
       },
       relInfo: {},
 
@@ -776,6 +928,58 @@ export default {
           emailAddr: '',
         },
       ],
+
+      // 추가
+      onlineIfList2: '',
+      pageSet: { pageNo: 1, pageCount: 0, size: 5 },
+      pageMoveChk: 0,
+      onlineMetaNum: '',
+      eaiIfId: '',
+      mqMngrNm: '',
+      onlineDealNm: '',
+      useYn: '',
+      creId: '',
+      creDt: '',
+      chgId: '',
+      chgDt: '',
+      mntgYn: '',
+      onlineDealDesc: '',
+      instCd: '',
+      onlineIfListItem: {
+        onlineMetaNum: 0,
+        eaiIfId: '',
+        mqMngrNm: '',
+        onlineDealNm: '',
+        useYn: '',
+        creId: '',
+        creDt: '',
+        chgId: '',
+        chgDt: '',
+        mntgYn: '',
+        onlineDealDesc: '',
+        instCd: '',
+      },
+      procList: '',
+      procInfo: {
+        procNum: 0,
+        pgmId: '',
+        procDesc: '',
+        useYn: '',
+        sesnCnt: '',
+        logPath: '',
+        logFileNm: '',
+        socketTimeout: '',
+        mqTimeout: '',
+        pgmTyp: '',
+        linkTyp: '',
+        confFile: '',
+        dvpSvrNum: '',
+        dvpSvrIp: '',
+        prodSvrNum: '',
+        prodSvrIp: '',
+        dvpSvrPort: '',
+        prodSvrPort: '',
+      },
     };
   },
   computed: {
@@ -792,7 +996,7 @@ export default {
     ...mapActions('ccCdLst', ['setCcCdList']),
     pageMove() {
       this.pageMoveChk = 1;
-      this.searchList();
+      this.searchList2();
       this.pageMoveChk = 0;
     },
     searchList() {
@@ -822,20 +1026,182 @@ export default {
           console.log(`error occur!! : ${ex}`);
         });
     },
-    detailInfo(i) {
-      eigwApi.fetchEigwOnlineDetail({
+    searchList2() {
+      eigwApi.fetchGetEigwOnlineList({
         params: {
-          onlineMetaNum: this.onlineIfList[i].onlineMetaNum,
-          procNum: this.onlineIfList[i].procNum,
+          onlineMetaNum: this.onlineMetaNum,
+          eaiIfId: this.eaiIfId,
+          mqMngrNm: this.mqMngrNm,
+          onlineDealNm: this.onlineDealNm,
+          useYn: this.useYn,
+          creId: this.creId,
+          creDt: this.creDt,
+          chgId: this.chgId,
+          chgDt: this.chgDt,
+          mntgYn: this.mntgYn,
+          onlineDealDesc: this.onlineDealDesc,
+          instCd: this.instCd,
+          pageNo: this.pageMoveChk === 1 ? this.pageSet.pageNo : 1,
+          pageCount: this.pageMoveChk === 1 ? this.pageSet.pageCount : 0,
+          size: this.pageSet.size,
         },
       })
         .then((res) => {
           console.log(res);
           if (res.data.rstCd === 'S') {
-            this.onlineMst = res.data.rstData.rstData.onlineMst;
-            this.procInfo = res.data.rstData.rstData.procInfo;
-            this.inChrgrList = res.data.rstData.rstData.inChrgrList;
-            this.outChrgrList = res.data.rstData.rstData.outChrgrList;
+            this.onlineIfList2 = res.data.rstData.searchList2;
+            this.pageSet = res.data.rstData.pageSet;
+          } else {
+            this.$gf.alertOn('failed');
+          }
+        })
+        .catch((ex) => {
+          console.log(`error occur!! : ${ex}`);
+        });
+    },
+    // detailInfo(i) {
+    //   eigwApi.fetchEigwOnlineDetail({
+    //     params: {
+    //       onlineMetaNum: this.onlineIfList[i].onlineMetaNum,
+    //       procNum: this.onlineIfList[i].procNum,
+    //     },
+    //   })
+    //     .then((res) => {
+    //       console.log(res);
+    //       if (res.data.rstCd === 'S') {
+    //         this.onlineMst = res.data.rstData.rstData.onlineMst;
+    //         this.procInfo = res.data.rstData.rstData.procInfo;
+    //         this.inChrgrList = res.data.rstData.rstData.inChrgrList;
+    //         this.outChrgrList = res.data.rstData.rstData.outChrgrList;
+    //       } else {
+    //         this.$gf.alertOn('failed');
+    //       }
+    //     })
+    //     .catch((ex) => {
+    //       console.log(`error occur!! : ${ex}`);
+    //     });
+    // },
+    searchProcListByOnlineMetaNum(onlineMetaNum) {
+      eigwApi.fetchGetEigwProcListByOnlineMetaNum({
+        params: {
+          onlineMetaNum,
+        },
+      })
+        .then((res) => {
+          console.log(res);
+          if (res.data.rstCd === 'S') {
+            this.procList = res.data.rstData.procList;
+          } else {
+            this.$gf.alertOn('failed');
+          }
+        })
+        .catch((ex) => {
+          console.log(`error occur!! : ${ex}`);
+        });
+    },
+    onlineDetailInfo(i) {
+      this.onlineIfListItem = (this.onlineIfList2[i]);
+      this.searchProcListByOnlineMetaNum(this.onlineIfList2[i].onlineMetaNum);
+    },
+    procDetailInfo(i) {
+      this.procInfo = this.procList[i];
+    },
+    initOnlineIfListItem() {
+      this.onlineIfListItem.onlineMetaNum = 0;
+      this.onlineIfListItem.eaiIfId = '';
+      this.onlineIfListItem.mqMngrNm = '';
+      this.onlineIfListItem.onlineDealNm = '';
+      this.onlineIfListItem.useYn = '';
+      this.onlineIfListItem.creId = '';
+      this.onlineIfListItem.creDt = '';
+      this.onlineIfListItem.chgId = '';
+      this.onlineIfListItem.chgDt = '';
+      this.onlineIfListItem.mntgYn = '';
+      this.onlineIfListItem.onlineDealDesc = '';
+      this.onlineIfListItem.instCd = '';
+    },
+    initProcList() {
+      this.procList = '';
+    },
+    initProcDetail() {
+      this.procInfo.procNum = 0;
+      this.procInfo.pgmId = '';
+      this.procInfo.procDesc = '';
+      this.procInfo.useYn = '';
+      this.procInfo.sesnCnt = '';
+      this.procInfo.logPath = '';
+      this.procInfo.logFileNm = '';
+      this.procInfo.socketTimeout = '';
+      this.procInfo.mqTimeout = '';
+      this.procInfo.pgmTyp = '';
+      this.procInfo.linkTyp = '';
+      this.procInfo.confFile = '';
+      this.procInfo.dvpSvrNum = '';
+      this.procInfo.dvpSvrIp = '';
+      this.procInfo.dvpSvrRealIp = '';
+      this.procInfo.dvpSvrNatIp = '';
+      this.procInfo.prodSvrNum = '';
+      this.procInfo.prodSvrIp = '';
+      this.procInfo.prodSvrRealIp = '';
+      this.procInfo.prodSvrNatIp = '';
+      this.procInfo.dvpSvrPort = '';
+      this.procInfo.prodSvrPort = '';
+    },
+    addProcInfo() {
+      if (this.onlineIfListItem === '' || this.onlineIfListItem.onlineMetaNum === 0) {
+        this.$gf.alertOn('I/F를 선택해주세요.');
+        return;
+      }
+      if (this.procInfo.pgmId === '' || this.procInfo.pgmId === undefined) {
+        this.$gf.alertOn('프로그램 정보를 입력해주세요.');
+        return;
+      }
+      eigwApi.fetchPostProcInfo({
+        onlineMetaNum: this.onlineIfListItem.onlineMetaNum,
+        pgmId: this.procInfo.pgmId,
+        confFile: this.procInfo.confFile,
+        procDesc: this.procInfo.procDesc,
+        useYn: this.procInfo.useYn,
+        sensCtn: this.procInfo.sensCtn,
+        logPath: this.procInfo.logPath,
+        logFileNm: this.procInfo.logFileNm,
+        socketTimeout: this.procInfo.socketTimeout,
+        mqTimeout: this.procInfo.mqTimeout,
+        pgmTyp: this.procInfo.pgmTyp,
+        linkTyp: this.procInfo.linkTyp,
+        dvpSvrNum: this.procInfo.dvpSvrNum,
+        dvpSvrPort: this.procInfo.dvpSvrPort,
+        prodSvrNum: this.procInfo.prodSvrNum,
+        prodSvrPort: this.procInfo.prodSvrPort,
+      })
+        .then((res) => {
+          console.log(res);
+          if (res.data.rstCd === 'S') {
+            this.procInfo.procNum = res.data.rstData.procNum;
+            this.searchProcListByOnlineMetaNum(this.onlineIfListItem.onlineMetaNum);
+            this.$gf.alertOn('프로세스가 추가되었습니다.');
+            this.initProcDetail();
+          } else {
+            this.$gf.alertOn('failed');
+          }
+        })
+        .catch((ex) => {
+          console.log(`error occur!! : ${ex}`);
+        });
+    },
+    deleteProc(procNum, onlineMetaNum, index) {
+      eigwApi.fetchDeleteProcInfo({
+        params: {
+          onlineMetaNum,
+          procNum,
+        },
+      })
+        .then((res) => {
+          console.log(res);
+          if (res.data.rstCd === 'S') {
+            this.$gf.alertOn('프로세스가 삭제되었습니다.');
+            this.procList.splice(index, 1);
+            this.initProcDetail();
           } else {
             this.$gf.alertOn('failed');
           }
@@ -1134,6 +1500,20 @@ export default {
       console.log(`Popup에서 받아온 Data : ${val}`);
       this.onlineMst.eaiIfId = val.eaiIfId;
       this.svrOnEaiList = false;
+    },
+
+    setSvr(val) {
+      console.log(`Popup에서 받아온 Data : ${val}`);
+      if (this.serverPopupCase === 1) {
+        this.procInfo.dvpSvrNum = val.svrNum;
+        this.procInfo.dvpSvrRealIp = val.svrRealIp;
+        this.procInfo.dvpSvrNatIp = val.svrNatIp;
+      } else {
+        this.procInfo.prodSvrNum = val.svrNum;
+        this.procInfo.prodSvrRealIp = val.svrRealIp;
+        this.procInfo.prodSvrNatIp = val.svrNatIp;
+      }
+      this.svrOn = false;
     },
   },
 };
