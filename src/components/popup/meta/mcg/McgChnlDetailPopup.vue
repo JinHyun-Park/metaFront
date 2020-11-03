@@ -38,15 +38,29 @@
           </div>
           <div class="column w-2">
             <label class="column_label">채널유형</label>
-            <input
-              v-model="mcgChnlRowData.chnlTyp"
-              type="text"
-            >
+            <div class="select_group">
+              <select
+                v-model="mcgChnlRowData.chnlTyp"
+                @change="onChangeChnlTyp"
+              >
+                <option
+                  v-for="(code, m) in ccCdList.mcgChnlTyp"
+                  :key="m"
+                  :value="code.cdDtlId"
+                >
+                  {{ code.cdNm }}
+                </option>
+              </select>
+              <span class="select" />
+            </div>
           </div>
           <div class="column w-2">
             <label class="column_label">연동방식</label>
-            <div class="select_group disabled">
-              <select v-model="mcgChnlRowData.lnkMthd">
+            <div class="select_group">
+              <select
+                ref="selectlnkMthd"
+                v-model="mcgChnlRowData.lnkMthd"
+              >
                 <option
                   v-for="(code, m) in ccCdList.mcgChnlLnkgMthdR"
                   :key="m"
@@ -162,25 +176,25 @@
             <div class="table_head w-auto">
               <ul>
                 <li class="th_cell">
-                  서버유형<i class="ico-sort-down" />
+                  서버유형
                 </li>
                 <li class="th_cell">
-                  시스템명<i class="ico-sort-up" />
+                  시스템명
                 </li>
                 <li class="th_cell">
-                  HOST명<i class="ico-sort-down" />
+                  HOST명
                 </li>
                 <li class="th_cell">
-                  IP<i class="ico-sort-down" />
+                  IP
                 </li>
                 <li class="th_cell">
-                  Port<i class="ico-sort-down" />
+                  Port
                 </li>
                 <li class="th_cell">
-                  OS<i class="ico-sort-down" />
+                  OS
                 </li>
                 <li class="th_cell">
-                  IP유형<i class="ico-sort-up" />
+                  IP유형
                 </li>
                 <li class="th_cell">
                   추가/삭제
@@ -194,10 +208,19 @@
                 class="table_row w-auto"
               >
                 <li class="td_cell">
-                  <input
-                    v-model="svrdtl.svrTyp"
-                    type="text"
-                  >
+                  <div class="select_group">
+                    <select
+                      v-model="svrdtl.svrTyp"
+                    >
+                      <option
+                        v-for="(code, i) in ccCdList.mcgSvrTyp"
+                        :key="i"
+                        :value="code.cdDtlId"
+                      >
+                        {{ code.cdNm }}
+                      </option>
+                    </select>
+                  </div>
                 </li>
                 <li class="td_cell">
                   <input
@@ -257,19 +280,19 @@
             <div class="table_head w-auto">
               <ul>
                 <li class="th_cell">
-                  이름<i class="ico-sort-down" />
+                  이름
                 </li>
                 <li class="th_cell">
-                  회사<i class="ico-sort-up" />
+                  회사
                 </li>
                 <li class="th_cell">
-                  연락처<i class="ico-sort-down" />
+                  연락처
                 </li>
                 <li class="th_cell">
-                  이메일<i class="ico-sort-down" />
+                  이메일
                 </li>
                 <li class="th_cell">
-                  역할<i class="ico-sort-down" />
+                  역할
                 </li>
                 <li class="th_cell">
                   수정
@@ -450,12 +473,19 @@ export default {
     this.setCcCdList({
       opClCd: 'MCG', cdId: 'LNKG_MTHD', allYn: 'N', listNm: 'mcgChnlLnkgMthdR',
     });
+    this.setCcCdList({
+      opClCd: 'MCG', cdId: 'CHNL_TYP', allYn: 'N', listNm: 'mcgChnlTyp',
+    });
+    this.setCcCdList({
+      opClCd: 'MCG', cdId: 'SVR_TYP', allYn: 'N', listNm: 'mcgSvrTyp',
+    });
     this.mcgChnlRowData = this.propData;
     if (this.mcgChnlRowData.virtualUserHannm === '') {
       this.isVirtualUserYn = 'N';
     } else {
       this.isVirtualUserYn = 'Y';
     }
+    this.onChangeChnlTyp();
     // this.$refs.queueListPop.focus(); // keyup 이벤트가 바로 적용될 수 있도록 focusing
   },
   methods: {
@@ -482,7 +512,7 @@ export default {
         this.$gf.alertOn('채널유형을 선택 해주세요.');
         return 0;
       }
-      if (this.mcgChnlRowData.lnkMthd === '') {
+      if (this.mcgChnlRowData.lnkMthd === '' && this.mcgChnlRowData.chnlTyp !== 'INBOUND') {
         this.$gf.alertOn('연동방식을 선택 해주세요.');
         return 0;
       }
@@ -515,7 +545,7 @@ export default {
       console.log(`Popup에서 받아온 Data : ${val}`);
 
       this.mcgChnlRowData.chrgrRows[this.row].name = val.hanNm;
-      this.mcgChnlRowData.chrgrRows[this.row].company = val.orgCd;
+      this.mcgChnlRowData.chrgrRows[this.row].company = val.orgNm;
       this.mcgChnlRowData.chrgrRows[this.row].chrgrId = val.userId;
       this.mcgChnlRowData.chrgrRows[this.row].phonNum = val.mblPhonNum;
       this.mcgChnlRowData.chrgrRows[this.row].email = val.emailAddr;
@@ -536,7 +566,7 @@ export default {
     },
 
     inputreqDt(val) {
-      this.reqDt = val;
+      this.mcgChnlRowData.reqDt = val;
     },
     addcRow() {
       console.log('채널 담당자 목록 추가!');
@@ -554,6 +584,15 @@ export default {
       console.log('서버 목록에서 삭제!');
       this.mcgChnlRowData.svrRows.splice(idx, 1);
       if (idx === 0) { this.mcgChnlRowData.svrRows.push({}); }
+    },
+
+    onChangeChnlTyp() {
+      if (this.mcgChnlRowData.chnlTyp === 'INBOUND') {
+        this.$refs.selectlnkMthd.disabled = true;
+        this.mcgChnlRowData.lnkMthd = '';
+      } else if (this.mcgChnlRowData.chnlTyp !== 'INBOUND') {
+        this.$refs.selectlnkMthd.disabled = false;
+      }
     },
   },
 };

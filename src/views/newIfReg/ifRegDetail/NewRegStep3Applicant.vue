@@ -2,7 +2,7 @@
   <div>
     <ChrgrListPopup
       v-if="svrOnChrgr"
-      v-bind="aprvInfo"
+      :prop-data="propsData"
       @closePop="turOffSvrPopChrgr"
       @addData="addDataChrgr"
     />
@@ -266,6 +266,10 @@ export default {
       svrOnChrgr: false,
       ifKind: '',
 
+      propsData: { // 조회 시 parameter에 사용자 정보를 담아주려면 여기를 통해 넘겨주세요.
+        message: '', // 사용방법 예시 데이터
+      },
+
       aprvInfo: [],
 
       eaiList: [],
@@ -373,6 +377,8 @@ export default {
     },
     turnOnSvrPopChrgr(callChrgr) {
       this.callChrgr = callChrgr;
+      // 파트내 인원만 조회(IN_PART)
+      this.propsData.searchType = 'IN_PART';
       this.svrOnChrgr = true;
     },
     turOffSvrPopChrgr(val) {

@@ -49,15 +49,16 @@
                 </li>
               </ul>
             </li>
-            <li>
+            <li @click="movePage('newIfRegList')">
               <span>New 인터페이스 신청</span>
               <ul class="sub_menu">
                 <li @click="movePage('newIfRegList')">
                   신청목록
                 </li>
+                <!--
                 <li @click="movePage('applyIf')">
                   신청등록
-                </li>
+                </li>-->
               </ul>
             </li>
             <li>
@@ -169,7 +170,7 @@ export default {
   created() {
     this.setActiveItem();
     this.getMyInfo();
-    this.setMenuAllList({ adminYn: this.adminYn }); // 서버로부터 menu 내 left list 수신
+    this.setMenuAllList({ adminYn: this.adminYn, useYn: 'Y' }); // 서버로부터 menu 내 left list 수신
     this.$gf.resetCount();
     this.intervalFuc = setInterval(() => {
       this.remainTime = this.$gf.getSessionCount(1);

@@ -701,251 +701,108 @@
         </div>
       </div>
     </section>
-    <section class="grid_form border_group">
+    <section class="from_area border_group">
       <h5 class="s_tit type-2">
         Queue 상세 정보
-        <div class="right_button_area">
-          <button
-            type="button"
-            class="default_button extend on"
-            @click="resetQInfo()"
-          >
-            Reset
-          </button>
-        </div>
       </h5>
-      <div class="division_row">
-        <div>
-          <label class="column_label">요청 송신 OUT</label>
-          <div
-            class="search_group"
-            @click="turnOnSvrPop(1)"
-          >
-            <input
-              v-model="qInfo.qType01Mngr"
-              type="text"
-              value=""
-            >
-            <span class="search">
-              <i class="ico-search" />
-            </span>
+      <div class="table_colgroup">
+        <div class="table_grid tb_layout">
+          <div class="table_head w-auto">
+            <ul>
+              <li
+                class="th_cell"
+                style="width:30%"
+              >
+                큐
+              </li>
+              <li
+                class="th_cell"
+                style="width:15%"
+              >
+                유형
+              </li>
+              <li
+                class="th_cell"
+                style="width:10%"
+              >
+                큐매니저
+              </li>
+              <li
+                class="th_cell"
+                style="width:10%"
+              >
+                호스트명
+              </li>
+              <li
+                class="th_cell"
+                style="width:10%"
+              >
+                담당자
+              </li>
+              <li
+                class="th_cell"
+                style="width:10%"
+              >
+                소속
+              </li>
+              <li
+                class="th_cell"
+                style="width:10%"
+              >
+                임계
+              </li>
+              <li
+                class="th_cell"
+                style="width:5%"
+              >
+                Edit
+              </li>
+            </ul>
           </div>
-          <input
-            v-model="qInfo.qType01"
-            type="text"
-            value=""
-          >
-          <label class="column_label">요청 송신 XQ</label>
-          <div
-            class="search_group"
-            @click="turnOnSvrPop(2)"
-          >
-            <input
-              v-model="qInfo.qType02Mngr"
-              type="text"
-              value=""
+          <div class="table_body">
+            <ul
+              v-for="(qRow, n) in qRows"
+              :key="n"
+              class="table_row w-auto"
             >
-            <span class="search">
-              <i class="ico-search" />
-            </span>
+              <li class="td_cell">
+                <input
+                  v-model="qRow.queueNm"
+                  type="text"
+                  style="readonly"
+                  @click="turnOnSvrPop(n)"
+                >
+              </li>
+              <li class="td_cell">
+                {{ qRow.qTypeNm }}
+              </li>
+              <li class="td_cell">
+                {{ qRow.mqMngrNm }}
+              </li>
+              <li class="td_cell">
+                {{ qRow.hostNm }}
+              </li>
+              <li class="td_cell">
+                {{ qRow.chrgrNm }}
+              </li>
+              <li class="td_cell">
+                {{ qRow.orgNm }}
+              </li>
+              <li class="td_cell">
+                {{ qRow.crtcVal }}
+              </li>
+              <li class="td_cell">
+                <i
+                  class="ico-add"
+                  @click="addQueueRow(n)"
+                />
+                <i
+                  class="ico-del"
+                  @click="removeQueueRow(qRow)"
+                />
+              </li>
+            </ul>
           </div>
-          <input
-            v-model="qInfo.qType02"
-            type="text"
-            value=""
-          >
-          <label class="column_label">HUB 요청 수신 IN</label>
-          <div
-            class="search_group"
-            @click="turnOnSvrPop(3)"
-          >
-            <input
-              v-model="qInfo.qType03Mngr"
-              type="text"
-              value=""
-            >
-            <span class="search">
-              <i class="ico-search" />
-            </span>
-          </div>
-          <input
-            v-model="qInfo.qType03"
-            type="text"
-            value=""
-          >
-          <label class="column_label">HUB 요청 송신 OUT</label>
-          <div
-            class="search_group"
-            @click="turnOnSvrPop(4)"
-          >
-            <input
-              v-model="qInfo.qType04Mngr"
-              type="text"
-              value=""
-            >
-            <span class="search">
-              <i class="ico-search" />
-            </span>
-          </div>
-          <input
-            v-model="qInfo.qType04"
-            type="text"
-            value=""
-          >
-          <label class="column_label">HUB 요청 XQ</label>
-          <div
-            class="search_group"
-            @click="turnOnSvrPop(5)"
-          >
-            <input
-              v-model="qInfo.qType05Mngr"
-              type="text"
-              value=""
-            >
-            <span class="search">
-              <i class="ico-search" />
-            </span>
-          </div>
-          <input
-            v-model="qInfo.qType05"
-            type="text"
-            value=""
-          >
-          <label class="column_label">요청 수신 IN</label>
-          <div
-            class="search_group"
-            @click="turnOnSvrPop(6)"
-          >
-            <input
-              v-model="qInfo.qType06Mngr"
-              type="text"
-              value=""
-            >
-            <span class="search">
-              <i class="ico-search" />
-            </span>
-          </div>
-          <input
-            v-model="qInfo.qType06"
-            type="text"
-            value=""
-          >
-        </div>
-        <div>
-          <label class="column_label">응답 회신 OUT</label>
-          <div
-            class="search_group"
-            @click="turnOnSvrPop(7)"
-          >
-            <input
-              v-model="qInfo.qType07Mngr"
-              type="text"
-              value=""
-            >
-            <span class="search">
-              <i class="ico-search" />
-            </span>
-          </div>
-          <input
-            v-model="qInfo.qType07"
-            type="text"
-            value=""
-          >
-          <label class="column_label">응답 회신 XQ</label>
-          <div
-            class="search_group"
-            @click="turnOnSvrPop(8)"
-          >
-            <input
-              v-model="qInfo.qType08Mngr"
-              type="text"
-              value=""
-            >
-            <span class="search">
-              <i class="ico-search" />
-            </span>
-          </div>
-          <input
-            v-model="qInfo.qType08"
-            type="text"
-            value=""
-          >
-          <label class="column_label">HUB 응답 회신 IN</label>
-          <div
-            class="search_group"
-            @click="turnOnSvrPop(9)"
-          >
-            <input
-              v-model="qInfo.qType09Mngr"
-              type="text"
-              value=""
-            >
-            <span class="search">
-              <i class="ico-search" />
-            </span>
-          </div>
-          <input
-            v-model="qInfo.qType09"
-            type="text"
-            value=""
-          >
-          <label class="column_label">HUB 응답 회신 OUT</label>
-          <div
-            class="search_group"
-            @click="turnOnSvrPop(10)"
-          >
-            <input
-              v-model="qInfo.qType10Mngr"
-              type="text"
-              value=""
-            >
-            <span class="search">
-              <i class="ico-search" />
-            </span>
-          </div>
-          <input
-            v-model="qInfo.qType10"
-            type="text"
-            value=""
-          >
-          <label class="column_label">HUB 응답 회신 XQ</label>
-          <div
-            class="search_group"
-            @click="turnOnSvrPop(11)"
-          >
-            <input
-              v-model="qInfo.qType11Mngr"
-              type="text"
-              value=""
-            >
-            <span class="search">
-              <i class="ico-search" />
-            </span>
-          </div>
-          <input
-            v-model="qInfo.qType11"
-            type="text"
-            value=""
-          >
-          <label class="column_label">응답 수신 IN</label>
-          <div
-            class="search_group"
-            @click="turnOnSvrPop(12)"
-          >
-            <input
-              v-model="qInfo.qType12Mngr"
-              type="text"
-              value=""
-            >
-            <span class="search">
-              <i class="ico-search" />
-            </span>
-          </div>
-          <input
-            v-model="qInfo.qType12"
-            type="text"
-            value=""
-          >
         </div>
       </div>
     </section>
@@ -1143,6 +1000,19 @@ export default {
         },
       ],
 
+      qRows: [
+        {
+          queueNm: '',
+          mqMngrNm: '',
+          qTypeNm: '',
+          qTypeCd: '',
+          hostNm: '',
+          chrgrNm: '',
+          orgNm: '',
+          crtcVal: '',
+        },
+      ],
+
     };
   },
   computed: {
@@ -1196,6 +1066,9 @@ export default {
     this.setCcCdList({
       opClCd: 'EAI', cdId: 'SYS_TYP_CD', allYn: 'N', listNm: 'sysTypCd',
     });
+    this.setCcCdList({
+      opClCd: 'EAI', cdId: 'Q_TYP_CD', allYn: 'N', listNm: 'qTypCd',
+    });
   },
   methods: {
 
@@ -1218,7 +1091,10 @@ export default {
             this.svrList = res.data.rstData.svrList;
           }
           if (res.data.rstData.qInfo) {
-            this.qInfo = res.data.rstData.qInfo;
+            this.qRows = res.data.rstData.qInfo;
+            if (this.qRows.length === 0) {
+              this.qRows.push({});
+            }
           }
           this.sndRows.splice(0, this.sndRows.length);
           this.rcvRows.splice(0, this.rcvRows.length);
@@ -1279,7 +1155,7 @@ export default {
           eaiIfSeq: '',
           ifDetail: this.ifDetailInfo,
           svrList: this.svrList,
-          qInfo: this.qInfo,
+          qInfo: this.qRows,
         };
 
 
@@ -1321,7 +1197,7 @@ export default {
           eaiIfSeq: this.eaiIfSeq,
           ifDetail: this.ifDetailInfo,
           svrList: this.svrList,
-          qInfo: this.qInfo,
+          qInfo: this.qRows,
         };
 
         this.$axios.put('/api/eai/eaiDetail', this.eaiIfInfo)
@@ -1335,8 +1211,9 @@ export default {
       }
     },
 
-    turnOnSvrPop(val) {
-      this.serverPopupCase = val;
+    turnOnSvrPop(idx) {
+      // this.serverPopupCase = val;
+      this.idx = idx;
       this.svrOn = true;
     },
     turOffSvrPop(val) {
@@ -1346,46 +1223,17 @@ export default {
     addData(val) {
       console.log(`Popup에서 받아온 Data : ${val}`);
 
-      if (this.serverPopupCase === 1) {
-        this.qInfo.qType01Mngr = val.mqMngrNm;
-        this.qInfo.qType01 = val.queueNm;
-      } else if (this.serverPopupCase === 2) {
-        this.qInfo.qType02Mngr = val.mqMngrNm;
-        this.qInfo.qType02 = val.queueNm;
-      } else if (this.serverPopupCase === 3) {
-        this.qInfo.qType03Mngr = val.mqMngrNm;
-        this.qInfo.qType03 = val.queueNm;
-      } else if (this.serverPopupCase === 4) {
-        this.qInfo.qType04Mngr = val.mqMngrNm;
-        this.qInfo.qType04 = val.queueNm;
-      } else if (this.serverPopupCase === 5) {
-        this.qInfo.qType05Mngr = val.mqMngrNm;
-        this.qInfo.qType05 = val.queueNm;
-      } else if (this.serverPopupCase === 6) {
-        this.qInfo.qType06Mngr = val.mqMngrNm;
-        this.qInfo.qType06 = val.queueNm;
-      } else if (this.serverPopupCase === 7) {
-        this.qInfo.qType07Mngr = val.mqMngrNm;
-        this.qInfo.qType07 = val.queueNm;
-      } else if (this.serverPopupCase === 8) {
-        this.qInfo.qType08Mngr = val.mqMngrNm;
-        this.qInfo.qType08 = val.queueNm;
-      } else if (this.serverPopupCase === 9) {
-        this.qInfo.qType09Mngr = val.mqMngrNm;
-        this.qInfo.qType09 = val.queueNm;
-      } else if (this.serverPopupCase === 10) {
-        this.qInfo.qType10Mngr = val.mqMngrNm;
-        this.qInfo.qType10 = val.queueNm;
-      } else if (this.serverPopupCase === 11) {
-        this.qInfo.qType11Mngr = val.mqMngrNm;
-        this.qInfo.qType11 = val.queueNm;
-      } else if (this.serverPopupCase === 12) {
-        this.qInfo.qType12Mngr = val.mqMngrNm;
-        this.qInfo.qType12 = val.queueNm;
-      }
       this.svrOn = false;
-    },
 
+      this.qRows[this.idx].queueNm = val.queueNm;
+      this.qRows[this.idx].qTypeNm = val.qTypeNm;
+      this.qRows[this.idx].qTypeCd = val.qTypeCd;
+      this.qRows[this.idx].mqMngrNm = val.mqMngrNm;
+      this.qRows[this.idx].hostNm = val.hostNm;
+      this.qRows[this.idx].chrgrNm = val.chrgrNm;
+      this.qRows[this.idx].orgNm = val.orgNm;
+      this.qRows[this.idx].crtcVal = val.crtcVal;
+    },
     test() {
       this.$gf.alertOn(this.ifDetailInfo.ifTypCd);
     },
@@ -1621,6 +1469,28 @@ export default {
 
     resetQInfo() {
       this.qInfo = {};
+    },
+
+    addQueueRow(n) {
+      console.log('행 추가!');
+      this.qRows.splice(n + 1, 0, {});
+    },
+    removeQueueRow(qRow) {
+      if (this.qRows.length > 1) {
+        console.log('행 삭제!');
+        console.log(qRow);
+        const idx = this.qRows.indexOf(qRow);
+        this.qRows.splice(idx, 1);
+      } else {
+        this.qRows[0].queueNm = '';
+        this.qRows[0].mqMngrNm = '';
+        this.qRows[0].qTypeCd = '';
+        this.qRows[0].qTypeNm = '';
+        this.qRows[0].hostNm = '';
+        this.qRows[0].chrgrNm = '';
+        this.qRows[0].orgNm = '';
+        this.qRows[0].crtcVal = '';
+      }
     },
 
     movePage(page) { // 페이지 이동

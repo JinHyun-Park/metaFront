@@ -8,6 +8,25 @@
       <section class="form_area border_group">
         <div class="row_contain type-3 last">
           <div class="column on w-2">
+            <label class="column_label">검색범위</label>
+            <div class="select_group">
+              <select
+                ref="selectSrchTyp"
+                v-model="searchType"
+              >
+                <option value="">
+                  전체
+                </option>
+                <option value="SKT">
+                  SKT매니저
+                </option>
+                <option value="IN_PART">
+                  파트내
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="column on w-2">
             <label class="column_label">사용자ID</label>
             <input
               v-model="userId"
@@ -188,11 +207,18 @@ import { mapState, mapActions } from 'vuex';
 import { fetchGetChrgrInfo } from '@/api/bizCommApi';
 
 export default {
+  props: {
+    propData: {
+      type: Object,
+      default: null,
+    },
+  },
   data() {
     return {
       chrgrList: [],
       tgtUrl: '',
       userId: '',
+      searchType: '',
       hanNm: '',
       pageSet: { pageNo: 1, pageCount: 0, size: 5 },
       pageMoveChk: 0,
@@ -200,6 +226,14 @@ export default {
   },
   computed: {
     ...mapState('frameSet', ['resetPopOn']),
+  },
+  mounted() {
+    if (!this.$gf.isEmpty(this.propData.searchType)) {
+      this.searchType = this.propData.searchType;
+      // this.searchType.disabled = false;
+      // this.$refs.searchType.disabled = false;
+      this.$refs.selectSrchTyp.disabled = true;
+    }
   },
   methods: {
     ...mapActions('frameSet', ['setResetPopOn']),
@@ -212,6 +246,7 @@ export default {
       const param = {
         userId: this.userId,
         hanNm: this.hanNm,
+        searchType: this.searchType,
         pageNo: this.pageMoveChk === 1 ? this.pageSet.pageNo : 1,
         pageCount: this.pageMoveChk === 1 ? this.pageSet.pageCount : 0,
         size: this.pageSet.size,

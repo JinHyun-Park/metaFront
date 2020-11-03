@@ -70,7 +70,7 @@
                 class="th_cell"
                 style="width:15%;"
               >
-                변경
+                삭제
               </li>
             </ul>
           </div>
@@ -79,38 +79,38 @@
               v-for="(req, idx) in reqList"
               :key="idx"
               class="table_row w-auto"
-              @click="dtlReq(req, idx)"
             >
               <li
                 class="td_cell"
+                @click="dtlReq(req, idx)"
               >
                 {{ req.mcgType }}
               </li>
               <li
                 class="td_cell"
+                @click="dtlReq(req, idx)"
               >
                 {{ req.chnlId }}
               </li>
               <li
                 class="td_cell"
+                @click="dtlReq(req, idx)"
               >
                 {{ req.lnkMthd }}
               </li>
               <li
                 class="td_cell"
+                @click="dtlReq(req, idx)"
               >
                 {{ req.chnlTyp }}
               </li>
               <li
                 class="td_cell"
+                @click="dtlReq(req, idx)"
               >
                 {{ req.tp }}
               </li>
               <li class="td_cell">
-                <i
-                  class="ico-edit"
-                  @click="dtlupdate(idx)"
-                />
                 <i
                   class="ico-del"
                   @click="remove(req)"
@@ -396,8 +396,10 @@ export default {
     });
   },
   mounted() {
-    if (this.$route.params.ifKind === 'MCG') {
-      this.listing(this.reqNum);
+    if (this.$route.params.callType === 'update') {
+      if (this.$route.params.ifKind === 'MCG') {
+        this.listing(this.reqNum);
+      }
     }
     this.today = this.$gf.dateToString(new Date(), '', 'Y');
     this.reqList.splice(0, 1);

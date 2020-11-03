@@ -56,6 +56,7 @@
             <input
               v-model="mcgDealRowData.chnlTyp"
               type="text"
+              readonly
             >
           </div>
           <div class="column w-2">
@@ -63,6 +64,7 @@
             <input
               v-model="mcgDealRowData.lnkMthd"
               type="text"
+              readonly
             >
           </div>
         </div>

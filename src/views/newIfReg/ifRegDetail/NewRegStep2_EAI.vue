@@ -1080,17 +1080,23 @@ export default {
         sndMid: val.sndMid,
         sndChrgrId1: val.sndChrgrId1,
         sndChrgrNm1: val.sndChrgrNm1,
+        sndChrgrOrgNm1: val.sndsndChrgrOrgNm1,
         sndChrgrId2: val.sndChrgrId2,
         sndChrgrNm2: val.sndChrgrNm2,
+        sndChrgrOrgNm2: val.sndChrgrOrgNm2,
         sndChrgrMngrId: val.sndChrgrMngrId,
         sndChrgrMngrNm: val.sndChrgrMngrNm,
+        sndChrgrMngrOrgNm: val.sndChrgrMngrOrgNm,
         rcvMid: val.rcvMid,
         rcvChrgrId1: val.rcvChrgrId1,
         rcvChrgrNm1: val.rcvChrgrNm1,
+        rcvChrgrOrgNm1: val.rcvChrgrOrgNm1,
         rcvChrgrId2: val.rcvChrgrId2,
         rcvChrgrNm2: val.rcvChrgrNm2,
+        rcvChrgrOrgNm2: val.rcvChrgrOrgNm2,
         rcvChrgrMngrId: val.rcvChrgrMngrId,
         rcvChrgrMngrNm: val.rcvChrgrMngrNm,
+        rcvChrgrMngrOrgNm: val.rcvChrgrMngrOrgNm,
         svcImpt: val.svcImpt,
         eaiRmk: val.eaiRmk,
       });
@@ -1231,17 +1237,23 @@ export default {
       this.eaiIfDetail.sndMid = '';
       this.eaiIfDetail.sndChrgrId1 = '';
       this.eaiIfDetail.sndChrgrNm1 = '';
+      this.eaiIfDetail.sndChrgrOrgNm1 = '';
       this.eaiIfDetail.sndChrgrId2 = '';
       this.eaiIfDetail.sndChrgrNm2 = '';
+      this.eaiIfDetail.sndChrgrOrgNm2 = '';
       this.eaiIfDetail.sndChrgrMngrId = '';
       this.eaiIfDetail.sndChrgrMngrNm = '';
+      this.eaiIfDetail.sndChrgrMngrOrgNm = '';
       this.eaiIfDetail.rcvMid = '';
       this.eaiIfDetail.rcvChrgrId1 = '';
       this.eaiIfDetail.rcvChrgrNm1 = '';
+      this.eaiIfDetail.rcvChrgrOrgNm1 = '';
       this.eaiIfDetail.rcvChrgrId2 = '';
       this.eaiIfDetail.rcvChrgrNm2 = '';
+      this.eaiIfDetail.rcvChrgrOrgNm2 = '';
       this.eaiIfDetail.rcvChrgrMngrId = '';
       this.eaiIfDetail.rcvChrgrMngrNm = '';
+      this.eaiIfDetail.rcvChrgrMngrOrgNm = '';
       this.eaiIfDetail.svcImpt = '';
       this.eaiIfDetail.eaiRmk = '';
 

@@ -29,7 +29,7 @@
               v-model="eaiIfDetail.eaiIfId"
               type="text"
               oninput="this.value = this.value.toUpperCase()"
-              placeholder="신청 승인 후 발급되며 별도로 희망하는 ID가 있는 경우만 기입 바랍니다."
+              placeholder="승인 후 발급되며, 희망 ID가 있는 경우 기입"
             >
           </div>
           <div class="column w-2">
@@ -50,7 +50,7 @@
               placeholder="CUST_ADDR_INFO  (예시)"
             >
           </div>
-          <div class="column w-3">
+          <div class="column w-2">
             <label class="column_label">연동 목적</label>
             <input
               v-model="eaiIfDetail.ifDesc"
@@ -229,7 +229,7 @@
             <input
               v-model="eaiIfDetail.sndMid"
               type="text"
-              placeholder="MID 없는 경우 시스템명 약자 입력"
+              placeholder="MID or 시스템명 약자"
               oninput="this.value = this.value.toUpperCase()"
             >
           </div>
@@ -321,7 +321,7 @@
             <input
               v-model="eaiIfDetail.rcvMid"
               type="text"
-              placeholder="MID 없는 경우 시스템명 약자 입력"
+              placeholder="MID or 시스템명 약자"
               oninput="this.value = this.value.toUpperCase()"
             >
           </div>
@@ -680,7 +680,7 @@ export default {
     },
     changeRoundStatus(x) {
       if (x === 1) {
-        if (this.ifTypCd === '1') {
+        if (this.eaiIfDetail.ifTypCd === '1') {
           this.$refs.selectRound.disabled = false;
           this.$refs.selectSync.disabled = false;
           this.$refs.rcvTrInput.disabled = false;
@@ -690,7 +690,7 @@ export default {
           this.$refs.rcvDirInput.disabled = true;
           this.$refs.rcvShNmInput.disabled = true;
           this.$refs.fileOpCodeInput.disabled = true;
-        } if (this.ifTypCd === '2') {
+        } if (this.eaiIfDetail.ifTypCd === '2') {
           this.$refs.selectRound.disabled = true;
           this.$refs.selectSync.disabled = true;
           this.$refs.rcvTrInput.disabled = true;
@@ -702,7 +702,7 @@ export default {
           this.$refs.fileOpCodeInput.disabled = false;
         }
       } else {
-        if (this.ifTypCd === '1') {
+        if (this.eaiIfDetail.ifTypCd === '1') {
           this.eaiIfDetail.roundTypCd = '';
           this.eaiIfDetail.roundTypNm = '';
           this.eaiIfDetail.syncTypCd = '';
@@ -725,7 +725,7 @@ export default {
           this.$refs.rcvDirInput.disabled = true;
           this.$refs.rcvShNmInput.disabled = true;
           this.$refs.fileOpCodeInput.disabled = true;
-        } if (this.ifTypCd === '2') {
+        } if (this.eaiIfDetail.ifTypCd === '2') {
           this.eaiIfDetail.roundTypCd = '';
           this.eaiIfDetail.roundTypNm = '';
           this.eaiIfDetail.syncTypCd = '';

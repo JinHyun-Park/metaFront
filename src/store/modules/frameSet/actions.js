@@ -31,8 +31,13 @@ export default {
     helpers.scrollPrevent(payload.alertOn);
     store.commit('setAlertSet', payload);
   },
-  setMenuAllList: (store) => {
-    fetchGetMenuList()
+  setMenuAllList: (store, payload) => {
+    fetchGetMenuList({
+      params: {
+        useYn: payload.useYn,
+        adminYn: payload.adminYn,
+      },
+    })
       .then((res) => {
         if (res.data.rstCd === 'S') {
           store.commit('setMenuAllList', res.data.rstData.menuList);
