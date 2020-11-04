@@ -144,8 +144,11 @@
           <div class="column w-1">
             <label class="column_label">타임아웃</label>
             <input
-              type="text"
-              value=""
+              v-model="mcgDealRowData.timeOut"
+              type="number"
+              min="0"
+              oninput="this.value = Math.abs(this.value)"
+              style="text-align:right"
             >
           </div>
           <div class="column w-1">
@@ -154,7 +157,6 @@
               <input
                 v-model="mcgDealRowData.reqDt"
                 type="text"
-                value=""
               >
               <span class="calander">
                 <i class="ico-cal" />
@@ -178,19 +180,19 @@
             <div class="table_head w-auto">
               <ul>
                 <li class="th_cell">
-                  이름<i class="ico-sort-down" />
+                  이름
                 </li>
                 <li class="th_cell">
-                  회사<i class="ico-sort-up" />
+                  회사
                 </li>
                 <li class="th_cell">
-                  연락처<i class="ico-sort-down" />
+                  연락처
                 </li>
                 <li class="th_cell">
-                  이메일<i class="ico-sort-down" />
+                  이메일
                 </li>
                 <li class="th_cell">
-                  역할<i class="ico-sort-down" />
+                  역할
                 </li>
                 <li class="th_cell">
                   수정
@@ -329,6 +331,7 @@ export default {
         mcgRmk: '',
         reqDt: '',
         chnlCom: '',
+        timeOut: '',
         chrgrList: '',
 
         chrgrRows: [
@@ -442,7 +445,7 @@ export default {
       this.chrgrpopon(row);
     },
     inputreqDt(val) {
-      this.reqDt = val;
+      this.mcgDealRowData.reqDt = val;
     },
     addcRow() {
       console.log('채널 담당자 목록 추가!');

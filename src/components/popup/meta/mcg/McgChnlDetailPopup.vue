@@ -41,7 +41,7 @@
             <div class="select_group">
               <select
                 v-model="mcgChnlRowData.chnlTyp"
-                @change="onChangeChnlTyp"
+                @change="onChangeChnlTyp(0)"
               >
                 <option
                   v-for="(code, m) in ccCdList.mcgChnlTyp"
@@ -128,8 +128,11 @@
           </div>
           <div class="column w-2">
             <label class="column_label">가상사용자신청여부</label>
-            <div class="select_group disabled">
-              <select v-model="isVirtualUserYn">
+            <div class="select_group">
+              <select
+                v-model="isVirtualUserYn"
+                @change="onChangeVtUser(0)"
+              >
                 <option value="Y">
                   신청
                 </option>
@@ -485,7 +488,7 @@ export default {
     } else {
       this.isVirtualUserYn = 'Y';
     }
-    this.onChangeChnlTyp();
+    this.onChangeChnlTyp(1);
     // this.$refs.queueListPop.focus(); // keyup 이벤트가 바로 적용될 수 있도록 focusing
   },
   methods: {
@@ -512,7 +515,7 @@ export default {
         this.$gf.alertOn('채널유형을 선택 해주세요.');
         return 0;
       }
-      if (this.mcgChnlRowData.lnkMthd === '' && this.mcgChnlRowData.chnlTyp !== 'INBOUND') {
+      if (this.mcgChnlRowData.lnkMthd === '') {
         this.$gf.alertOn('연동방식을 선택 해주세요.');
         return 0;
       }
@@ -586,12 +589,22 @@ export default {
       if (idx === 0) { this.mcgChnlRowData.svrRows.push({}); }
     },
 
-    onChangeChnlTyp() {
+    onChangeChnlTyp(val) {
       if (this.mcgChnlRowData.chnlTyp === 'INBOUND') {
         this.$refs.selectlnkMthd.disabled = true;
-        this.mcgChnlRowData.lnkMthd = '';
+        this.mcgChnlRowData.lnkMthd = 'TP';
       } else if (this.mcgChnlRowData.chnlTyp !== 'INBOUND') {
         this.$refs.selectlnkMthd.disabled = false;
+        if (val === 0) {
+          this.mcgChnlRowData.lnkMthd = '';
+        }
+      }
+    },
+    onChangeVtUser(val) {
+      if (val === 0 && this.isVirtualUserYn === 'N') {
+        this.mcgChnlRowData.virtualUserTeam = '';
+        this.mcgChnlRowData.virtualUserOrg = '';
+        this.mcgChnlRowData.virtualUserHannm = '';
       }
     },
   },

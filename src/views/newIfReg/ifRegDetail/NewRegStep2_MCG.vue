@@ -52,13 +52,13 @@
                 class="th_cell"
                 style="width:15%;"
               >
-                연동방식
+                채널유형
               </li>
               <li
                 class="th_cell"
                 style="width:15%;"
               >
-                채널유형
+                연동방식
               </li>
               <li
                 class="th_cell"
@@ -96,13 +96,13 @@
                 class="td_cell"
                 @click="dtlReq(req, idx)"
               >
-                {{ req.lnkMthd }}
+                {{ req.chnlTyp }}
               </li>
               <li
                 class="td_cell"
                 @click="dtlReq(req, idx)"
               >
-                {{ req.chnlTyp }}
+                {{ req.lnkMthd }}
               </li>
               <li
                 class="td_cell"
@@ -248,6 +248,7 @@ export default {
         mcgRmk: '',
         reqDt: '',
         chnlCom: '',
+        timeOut: '',
         chrgrList: '',
 
         chrgrRows: [
@@ -576,6 +577,7 @@ export default {
       this.mcgDealRowData.mcgRmk = dtl.mcgRmk;
       this.mcgDealRowData.reqDt = dtl.reqDt;
       this.mcgDealRowData.chnlCom = dtl.chnlCom;
+      this.mcgDealRowData.timeOut = dtl.timeOut;
 
       this.mcgDealRowData.chrgrRows = dtl.chrgrList;
 
@@ -661,6 +663,7 @@ export default {
       this.reqList[this.currIdx].mcgRmk = val.mcgRmk;
       this.reqList[this.currIdx].reqDt = val.reqDt;
       this.reqList[this.currIdx].chnlCom = val.chnlCom;
+      this.reqList[this.currIdx].timeOut = val.timeOut;
 
       this.reqList[this.currIdx].chrgrList = val.chrgrRows;
 
@@ -731,6 +734,7 @@ export default {
         mcgRmk: this.mcgDealRowData.mcgRmk,
         reqDt: this.mcgDealRowData.reqDt,
         chnlCom: this.mcgDealRowData.chnlCom,
+        timeOut: this.mcgDealRowData.timeOut,
         chrgrList: this.mcgDealRowData.chrgrRows,
       });
 
@@ -765,6 +769,7 @@ export default {
       this.mcgDealRowData.mcgRmk = '';
       this.mcgDealRowData.reqDt = '';
       this.mcgDealRowData.chnlCom = '';
+      this.mcgDealRowData.timeOut = '';
       this.mcgDealRowData.chrgrRows = [];
       this.mcgDealRowData.chrgrRows.push({});
     },
@@ -808,7 +813,7 @@ export default {
         this.notInsert = 'N';
         for (let i = 0; i < this.reqList.length; i++) {
           this.reqList[i].reqNum = this.reqNum;
-          this.reqList[i].procSt = '3';
+          this.reqList[i].procSt = '1';
 
           if (this.reqList[i].svrList != null && this.reqList[i].svrList.length > 0) {
             for (let is = 0; is < this.reqList[i].svrList.length; is++) {

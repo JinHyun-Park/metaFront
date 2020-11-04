@@ -73,9 +73,9 @@
           </div>
           <div class="column w-1">
             <label class="column_label">연동방식</label>
-            <select v-model="lnkgMthd">
+            <select v-model="lnkMthd">
               <option
-                v-for="(code, m) in ccCdList.mcgChnlLnkgMthd"
+                v-for="(code, m) in ccCdList.mcgChnlLnkMthd"
                 :key="m"
                 :value="code.cdDtlId"
               >
@@ -91,22 +91,22 @@
               <ul>
                 <li class="th_cell" />
                 <li class="th_cell">
-                  기관코드<i class="ico-sort-down" />
+                  기관코드
                 </li>
                 <li class="th_cell">
-                  업무코드<i class="ico-sort-down" />
+                  업무코드
                 </li>
                 <li class="th_cell">
-                  채널ID<i class="ico-sort-up" />
+                  채널ID
                 </li>
                 <li class="th_cell">
-                  채널명<i class="ico-sort-down" />
+                  채널명
                 </li>
                 <li class="th_cell">
-                  채널유형<i class="ico-sort-up" />
+                  채널유형
                 </li>
                 <li class="th_cell">
-                  연동방식<i class="ico-sort-down" />
+                  연동방식
                 </li>
               </ul>
             </div>
@@ -141,7 +141,7 @@
                   {{ chn.chnlTyp }}
                 </li>
                 <li class="td_cell">
-                  {{ chn.lnkgMthd }}
+                  {{ chn.lnkMthd }}
                 </li>
               </ul>
             </div>
@@ -202,7 +202,7 @@ export default {
       mcgInstCd: '',
       chnlTyp: '',
       chnlGrp: '',
-      lnkgMthd: '',
+      lnkMthd: '',
       chnlId: '',
       chnlNm: '',
       containerNum: '',
@@ -276,7 +276,7 @@ export default {
           mcgInstCd: this.mcgInstCd,
           chnlTyp: this.chnlTyp,
           chnlGrp: this.chnlGrp,
-          lnkgMthd: this.lnkgMthd,
+          lnkMthd: this.lnkMthd,
           chnlId: this.chnlId,
           chnlNm: this.chnlNm,
           containerNum: this.containerNum,
