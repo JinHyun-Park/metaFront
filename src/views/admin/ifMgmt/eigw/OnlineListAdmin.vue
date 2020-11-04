@@ -485,7 +485,7 @@
           <button
             type="button"
             class="default_button"
-            @click="update()"
+            @click="updateProc()"
           >
             수정
           </button>
@@ -1162,7 +1162,7 @@ export default {
         confFile: this.procInfo.confFile,
         procDesc: this.procInfo.procDesc,
         useYn: this.procInfo.useYn,
-        sensCtn: this.procInfo.sensCtn,
+        sesnCnt: this.procInfo.sesnCnt,
         logPath: this.procInfo.logPath,
         logFileNm: this.procInfo.logFileNm,
         socketTimeout: this.procInfo.socketTimeout,
@@ -1179,8 +1179,42 @@ export default {
           if (res.data.rstCd === 'S') {
             this.procInfo.procNum = res.data.rstData.procNum;
             this.searchProcListByOnlineMetaNum(this.onlineIfListItem.onlineMetaNum);
-            this.$gf.alertOn('프로세스가 추가되었습니다.');
             this.initProcDetail();
+            this.$gf.alertOn('프로세스가 추가되었습니다.');
+          } else {
+            this.$gf.alertOn('failed');
+          }
+        })
+        .catch((ex) => {
+          console.log(`error occur!! : ${ex}`);
+        });
+    },
+    updateProc() {
+      eigwApi.fetchPutProcInfo({
+        procNum: this.procInfo.procNum,
+        pgmId: this.procInfo.pgmId,
+        confFile: this.procInfo.confFile,
+        procDesc: this.procInfo.procDesc,
+        useYn: this.procInfo.useYn,
+        sesnCnt: this.procInfo.sesnCnt,
+        logPath: this.procInfo.logPath,
+        logFileNm: this.procInfo.logFileNm,
+        socketTimeout: this.procInfo.socketTimeout,
+        mqTimeout: this.procInfo.mqTimeout,
+        pgmTyp: this.procInfo.pgmTyp,
+        linkTyp: this.procInfo.linkTyp,
+        dvpSvrNum: this.procInfo.dvpSvrNum,
+        dvpSvrPort: this.procInfo.dvpSvrPort,
+        prodSvrNum: this.procInfo.prodSvrNum,
+        prodSvrPort: this.procInfo.prodSvrPort,
+      })
+        .then((res) => {
+          console.log(res);
+          if (res.data.rstCd === 'S') {
+            this.searchProcListByOnlineMetaNum(this.onlineIfListItem.onlineMetaNum);
+            this.initProcDetail();
+            this.$gf.alertOn('프로세스 정보가 변경되었습니다.');
+            console.log(this.procList);
           } else {
             this.$gf.alertOn('failed');
           }

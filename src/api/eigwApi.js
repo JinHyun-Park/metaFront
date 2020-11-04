@@ -107,6 +107,10 @@ function fetchDeleteProcInfo(param) {
   return axios.delete(`${preUrl}/procInfo`, param);
 }
 
+function fetchPutProcInfo(param) {
+  return axios.put(`${preUrl}/procInfo`, param);
+}
+
 export {
   fetchEigwServerList,
   fetchEigwAdFileList,
@@ -135,4 +139,5 @@ export {
   fetchGetEigwProcListByOnlineMetaNum,
   fetchPostProcInfo,
   fetchDeleteProcInfo,
+  fetchPutProcInfo,
 };
