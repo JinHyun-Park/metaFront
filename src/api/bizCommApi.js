@@ -9,6 +9,10 @@ function fetchGetBoardList(param) {
   return axios.get(`${preUrl}/board/list`, param);
 }
 
+function fetchGetBoardNotiCnt(param) {
+  return axios.get(`${preUrl}/board/notiCnt`, param);
+}
+
 function fetchPostBoard(param) {
   return axios.post(`${preUrl}/board`, param);
 }
@@ -89,6 +93,10 @@ function fetchGetAllMetaList(param) {
   return axios.get(`${preUrl}/allmeta`, param);
 }
 
+function fetchGetAllMetaCnt(param) {
+  return axios.get(`${preUrl}/allmeta/count`, param);
+}
+
 function fetchGetKeepSession(param) {
   return axios.get(`${preUrl}/keepsession`, param);
 }
@@ -96,6 +104,7 @@ function fetchGetKeepSession(param) {
 export {
   fetchGetBoard,
   fetchGetBoardList,
+  fetchGetBoardNotiCnt,
   fetchPutBoard,
   fetchPostBoard,
   fetchDeleteBoard,
@@ -116,5 +125,6 @@ export {
   fetchGetMenuList,
   fetchGetMyChrgrInfo,
   fetchGetAllMetaList,
+  fetchGetAllMetaCnt,
   fetchGetKeepSession,
 };

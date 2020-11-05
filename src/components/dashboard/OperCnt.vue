@@ -19,10 +19,10 @@
       &nbsp;
       </div>
       <div
-        class
         style="font-size:50px;"
+        @click="movePage()"
       >
-        10 개
+        {{ allMetaCnt }} 개
       </div>
 
       &nbsp;
@@ -32,7 +32,7 @@
 
 <script>
 // import ReactiveBarChart from '@/views/chart/ReactiveBarChart.vue';
-// import { fetchGetQueueDepthList, fetchGetQueueDepthByQueueNmList } from '@/api/monitoringApi';
+import { fetchGetAllMetaCnt } from '@/api/bizCommApi';
 
 export default {
   name: 'QueueTransStat',
@@ -40,29 +40,32 @@ export default {
   },
   data() {
     return {
-      datacollection: {},
-      queueDepthList: [],
-      queueDepthForQueueNmList: [],
-      remainTime: 5,
-      chkAutoRefresh: false,
-
-      isChartOn: true,
-      tgtQueueNm: '',
-      tgtIfNm: '',
-      tgtQueueManager: '',
-      curLine: '0',
+      allMetaCnt: 0,
     };
   },
-  created() {
-    // this.searchQueueDepth();
-  },
   mounted() {
-    // this.fillData();
-    // this.searchQueueDepth();
+    this.searchAllMetaCnt();
   },
   methods: {
-    aa() {
-      console.log('clicked');
+    searchAllMetaCnt() {
+      fetchGetAllMetaCnt()
+        .then((res) => {
+          console.log(res);
+          if (res.data.rstCd === 'S') {
+            this.allMetaCnt = res.data.rstData.allMetaCnt;
+          }
+        })
+        .catch((ex) => {
+          console.log(`error occur!! : ${ex}`);
+        });
+    },
+    movePage() {
+      this.$router.push({
+        name: 'allList',
+        params: {
+          srchType: 'IN_MY',
+        },
+      });
     },
   },
 };
