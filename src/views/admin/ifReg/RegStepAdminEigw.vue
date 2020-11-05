@@ -576,7 +576,7 @@
           <label class="column_label">운영 REAL IP</label>
           <input
             v-model="fileInfo.prodRealIp"
-            type="number"
+            type="text"
             class="add_text on"
           >
         </div>
@@ -584,7 +584,7 @@
           <label class="column_label">운영 Port</label>
           <input
             v-model="fileInfo.prodPort"
-            type="text"
+            type="number"
             class="add_text on"
           >
         </div>
