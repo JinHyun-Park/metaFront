@@ -102,7 +102,7 @@
 <script>
 // import ReactiveBarChart from '@/views/chart/ReactiveBarChart.vue';
 import LineChart from '@/views/chart/LineChart.vue';
-import { fetchGetQueueDepthList, fetchGetQueueDepthByQueueNmList } from '@/api/monitoringApi';
+import { fetchGetQueueDepthList, fetchGetQueueDepthByQueueNmList, fetchGetQueueDepthListReal } from '@/api/monitoringApi';
 import { fetchGetEaiIfList } from '@/api/eaiApi';
 
 export default {
@@ -225,12 +225,14 @@ export default {
         });
     },
     searchQueueDepth() {
-      this.tgtUrl = 'http://172.31.165.185:8060/IFMonitor/dashboard/selectMonitoringMainData.do';
-      this.$axios.get(this.tgtUrl)
+      // this.tgtUrl = 'http://172.31.165.185:8060/IFMonitor/dashboard/selectMonitoringMainData.do';
+      // this.$axios.get(this.tgtUrl)
+      fetchGetQueueDepthListReal({})
         .then((res) => {
           console.log(res);
-          this.queueDepthList = res.data.qdepthList;
-          this.queueDepthList.splice(10, res.data.qdepthList.length - 10);
+          // this.queueDepthList = res.data.qdepthList;
+          this.queueDepthList = res.data.rstData.queueDepthLow.qdepthList;
+          this.queueDepthList.splice(20, this.queueDepthList.length - 20);
           // this.$gf.alertOn(res.data.interfaceCount);
           // if (res.data.rstCd === 'S') {
           // // this.boardList = this.$gf.parseRtnData(this.pageSet, res.data.rstData.board, 'Y')

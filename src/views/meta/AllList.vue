@@ -276,6 +276,9 @@ export default {
     };
   },
   mounted() {
+    if (!this.$gf.isEmpty(this.$route.params.srchType)) {
+      this.srchType = this.$route.params.srchType;
+    }
     this.searchList();
   },
   methods: {

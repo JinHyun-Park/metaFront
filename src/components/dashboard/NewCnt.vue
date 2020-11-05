@@ -22,7 +22,7 @@
         class
         style="font-size:50px;"
       >
-        2 건
+        {{ notiCnt }} 건
       </div>
 
       &nbsp;
@@ -32,7 +32,7 @@
 
 <script>
 // import ReactiveBarChart from '@/views/chart/ReactiveBarChart.vue';
-// import { fetchGetQueueDepthList, fetchGetQueueDepthByQueueNmList } from '@/api/monitoringApi';
+import { fetchGetBoardNotiCnt } from '@/api/bizCommApi';
 
 export default {
   name: 'QueueTransStat',
@@ -40,29 +40,25 @@ export default {
   },
   data() {
     return {
-      datacollection: {},
-      queueDepthList: [],
-      queueDepthForQueueNmList: [],
-      remainTime: 5,
-      chkAutoRefresh: false,
+      notiCnt: 0,
 
-      isChartOn: true,
-      tgtQueueNm: '',
-      tgtIfNm: '',
-      tgtQueueManager: '',
-      curLine: '0',
     };
   },
-  created() {
-    // this.searchQueueDepth();
-  },
   mounted() {
-    // this.fillData();
-    // this.searchQueueDepth();
+    this.searchNotiCnt();
   },
   methods: {
-    aa() {
-      console.log('clicked');
+    searchNotiCnt() {
+      fetchGetBoardNotiCnt()
+        .then((res) => {
+          console.log(res);
+          if (res.data.rstCd === 'S') {
+            this.notiCnt = res.data.rstData.boardCnt;
+          }
+        })
+        .catch((ex) => {
+          console.log(`error occur!! : ${ex}`);
+        });
     },
   },
 };

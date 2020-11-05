@@ -131,28 +131,28 @@
           <div class="table_head w-auto">
             <ul>
               <li class="th_cell">
-                업무코드<i class="ico-sort-down" />
+                업무코드
               </li>
               <li class="th_cell">
-                기관코드<i class="ico-sort-up" />
+                기관코드
               </li>
               <li class="th_cell">
-                채널그룹<i class="ico-sort-down" />
+                채널그룹
               </li>
               <li class="th_cell">
-                채널유형<i class="ico-sort-down" />
+                채널유형
               </li>
               <li class="th_cell">
-                연동방식<i class="ico-sort-down" />
+                연동방식
               </li>
               <li class="th_cell">
-                채널ID<i class="ico-sort-up" />
+                채널ID
               </li>
               <li class="th_cell">
-                채널명<i class="ico-sort-up" />
+                채널명
               </li>
               <li class="th_cell">
-                사용여부<i class="ico-sort-down" />
+                사용여부
               </li>
             </ul>
           </div>
@@ -179,7 +179,7 @@
                 {{ chn.chnlTyp }}
               </li>
               <li class="td_cell">
-                {{ chn.lnkgMthd }}
+                {{ chn.lnkMthd }}
               </li>
               <li class="td_cell">
                 {{ chn.chnlId }}
@@ -270,7 +270,7 @@
         <div class="column w-1">
           <label class="column_label">연동방식</label>
           <div class="select_group disabled">
-            <select v-model="chnldtl.lnkgMthd">
+            <select v-model="chnldtl.lnkMthd">
               <option
                 v-for="(code, m) in ccCdList.mcgChnlLnkgMthdR"
                 :key="m"
@@ -536,7 +536,7 @@ export default {
       mcgInstCd: '',
       chnlTyp: '',
       chnlGrp: '',
-      lnkgMthd: '',
+      lnkMthd: '',
       chnlId: '',
       chnlNm: '',
       mcgInstCdin: '',
@@ -616,7 +616,7 @@ export default {
           mcgInstCd: this.mcgInstCdin,
           chnlTyp: this.chnlTypin,
           chnlGrp: this.chnlGrpin,
-          lnkgMthd: this.lnkgMthdin,
+          lnkMthd: this.lnkgMthdin,
           chnlId: this.chnlIdin,
           chnlNm: this.chnlNmin,
           containerNum: this.containerNum,
@@ -804,7 +804,7 @@ export default {
         mcgInstCd: this.mcgInstCdin,
         chnlTyp: this.chnlTypin,
         chnlGrp: this.chnlGrpin,
-        lnkgMthd: this.lnkgMthdin,
+        lnkMthd: this.lnkgMthdin,
         chnlId: this.chnlIdin,
         chnlNm: this.chnlNmin,
         useYn: this.useYnin,
