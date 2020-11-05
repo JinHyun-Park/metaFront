@@ -100,22 +100,22 @@
         <div class="table_head">
           <ul>
             <li class="th_cell">
-              업무코드<i class="ico-sort-down" />
+              업무코드
             </li>
             <li class="th_cell">
-              채널ID<i class="ico-sort-up" />
+              채널ID
             </li>
             <li class="th_cell">
-              채널유형<i class="ico-sort-down" />
+              채널유형
             </li>
             <li class="th_cell">
-              거래코드<i class="ico-sort-up" />
+              거래코드
             </li>
             <li class="th_cell">
-              거래명<i class="ico-sort-up" />
+              거래명
             </li>
             <li class="th_cell">
-              사용여부<i class="ico-sort-up" />
+              사용여부
             </li>
           </ul>
         </div>
@@ -124,7 +124,7 @@
             v-for="deal in dealList"
             :key="deal.index"
             class="table_row w-auto"
-            @click="dtlDeal(deal), Chrgrinfodtl(deal.opCd, deal.dealCd)"
+            @click="dtlDeal(deal)"
           >
             <li class="td_cell">
               {{ deal.opCd }}
@@ -449,6 +449,7 @@ export default {
         .then((res) => {
           this.dealList = res.data.rstData.searchList;
           this.pageSet = res.data.rstData.pageSet;
+
           console.log(res.data.rstData.searchList);
           console.log(this.dealList);
         })
@@ -518,10 +519,15 @@ export default {
       if (this.chrgrn === 'REQ') {
         this.chrgrReq.chrgrId = val.userId;
         this.chrgrReq.hanNm = val.hanNm;
+
+        this.dealdtl.reqChrgr = val.userId;
+
         console.log('REQ');
       } else if (this.chrgrn === 'RPS') {
         this.chrgrRps.chrgrId = val.userId;
         this.chrgrRps.hanNm = val.hanNm;
+
+        this.dealdtl.rpsChrgr = val.userId;
         console.log('RPS');
       }
       console.log(val.userId, this.chrgrReq.chrgrId, this.chrgrRps.chrgrId);
@@ -548,6 +554,10 @@ export default {
       // let svrinfotemp = [];
       console.log('상세거래조회!');
       this.dealdtl = deal;
+
+      this.chrgrReq.hanNm = this.dealdtl.reqChrgrNm;
+      this.chrgrRps.hanNm = this.dealdtl.rpsChrgrNm;
+
       console.log(this.dealdtl);
       this.isStatusOn = true;
       console.log(this.isStatusOn);
@@ -587,6 +597,7 @@ export default {
 
     modify(deal) {
       console.log('거래 정보 수정!');
+
       // this.$axios.post('/api/mcg/chnl/post', {
       fetchPostMcgDealList(deal)
         .then((res) => {
