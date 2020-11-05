@@ -110,7 +110,7 @@
             <ul class="table_row w-auto">
               <li class="td_cell">
                 <input
-                  v-model="boardIF"
+                  v-model="tgtIfKind"
                   type="checkbox"
                   name="interface"
                   value="EAI"
@@ -118,15 +118,15 @@
               </li>
               <li class="td_cell">
                 <input
-                  v-model="boardIF"
+                  v-model="tgtIfKind"
                   type="checkbox"
                   name="interface"
-                  value="EiGW"
+                  value="EIGW"
                 > <label>EiGW</label>
               </li>
               <li class="td_cell">
                 <input
-                  v-model="boardIF"
+                  v-model="tgtIfKind"
                   type="checkbox"
                   name="interface"
                   value="MCG"
@@ -280,7 +280,11 @@ export default {
         },
       },
 
-      boardIF: [],
+      srchIfKind: [],
+      srchIfKind1: 'EAI',
+      srchIfKind2: 'EIGW',
+      srchIfKind3: 'MCG',
+      tgtIfKind: [],
       newIfRegChosePopup: false,
       popupProp: {
         procSt: 0,
@@ -346,9 +350,13 @@ export default {
           size: this.pageSet.size,
           reqTitle: this.reqTitle,
           procSt: this.tgtProcSt,
+          srchIfKind1: this.tgtIfKind[0],
+          srchIfKind2: this.tgtIfKind[1],
+          srchIfKind3: this.tgtIfKind[2],
           startReqDtm: this.startReqDtm.replace(/\-/g, ''),
           endReqDtm: this.endReqDtm.replace(/\-/g, ''),
         },
+        
       })
         .then((res) => {
           console.log(res);

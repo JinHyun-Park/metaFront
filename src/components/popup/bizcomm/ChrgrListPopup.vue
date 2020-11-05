@@ -228,7 +228,7 @@ export default {
     ...mapState('frameSet', ['resetPopOn']),
   },
   mounted() {
-    if (!this.$gf.isEmpty(this.propData.searchType)) {
+    if (!this.$gf.isEmpty(this.propData) && !this.$gf.isEmpty(this.propData.searchType)) {
       this.searchType = this.propData.searchType;
       // this.searchType.disabled = false;
       // this.$refs.searchType.disabled = false;
