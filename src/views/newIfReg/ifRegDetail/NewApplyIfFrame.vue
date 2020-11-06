@@ -179,11 +179,12 @@ export default {
     if (this.$route.params.reqNum != null) {
       this.setReqNum({ reqNum: this.$route.params.reqNum });
     }
-    if (this.$gf.isEmpty(localStorage.getItem('APPLY_TABNUM'))) {
-      this.tabNum = 1;
-    } else {
-      this.tabNum = Number(localStorage.getItem('APPLY_TABNUM'));
-    }
+    this.tabNum = 1;
+    // if (this.$gf.isEmpty(localStorage.getItem('APPLY_TABNUM'))) {
+    //   this.tabNum = 1;
+    // } else {
+    //   this.tabNum = Number(localStorage.getItem('APPLY_TABNUM'));
+    // }
 
     this.setMovePossible({ movePossible: 'Y' });
   },
