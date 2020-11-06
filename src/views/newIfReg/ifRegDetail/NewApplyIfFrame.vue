@@ -194,6 +194,7 @@ export default {
   },
   destroyed() {
     localStorage.setItem('APPLY_TABNUM', '');
+    this.setReqNum({ reqNum: '' });
   },
   methods: {
     ...mapActions('ifRegInfo', ['setReqNum', 'resetTempSaveFlag', 'setMovePossible']),
