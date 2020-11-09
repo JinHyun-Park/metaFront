@@ -19,7 +19,7 @@
       &nbsp;
       </div>
       <div
-        style="font-size:50px;"
+        class="meta_cnt"
         @click="movePage()"
       >
         {{ allMetaCnt }} 개
@@ -70,3 +70,10 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.meta_cnt {
+  font-size:50px;
+  margin-top:25px;
+}
+</style>

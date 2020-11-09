@@ -19,8 +19,7 @@
       &nbsp;
       </div>
       <div
-        class
-        style="font-size:50px;"
+        class="noti_cnt"
       >
         {{ notiCnt }} 건
       </div>
@@ -63,3 +62,10 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.noti_cnt{
+  font-size:50px;
+  margin-top:25px;
+}
+</style>
