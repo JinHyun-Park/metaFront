@@ -44,24 +44,17 @@
       <h5 class="s_tit type-2">
         조회 조건
         <div class="right_button_area">
-          <!-- <button
-            type="button"
-            class="default_button"
-            @click="initSearchCondition()"
-          >
-            검색조건 초기화
-          </button> -->
           <button
             type="button"
             class="default_button"
-            @click="save()"
+            @click="addOnlineIf()"
           >
             신규신청
           </button>
           <button
             type="button"
             class="default_button"
-            @click="update()"
+            @click="updateOnlineIf()"
           >
             수정
           </button>
@@ -157,6 +150,9 @@
               <li class="th_cell">
                 서버
               </li>
+              <li class="th_cell">
+                삭제
+              </li>
             </ul>
           </div>
           <div class="table_body">
@@ -178,6 +174,12 @@
               <li class="td_cell">
                 {{ row.mqMngrNm }}
               </li>
+              <li class="td_cell">
+                <i
+                  class="ico-del"
+                  @click="deleteOnlineIf(row.onlineMetaNum)"
+                />
+              </li>
             </ul>
           </div>
         </div>
@@ -196,95 +198,6 @@
         />
       </div>
     </section>
-    <!-- <section class="form_area border_group">
-      <h5 class="s_tit">
-        인터페이스 정보
-      </h5>
-      <div class="row_contain type-2">
-        <div class="column on w-1">
-          <label class="column_label">I/F ID</label>
-          <input
-            v-model="onlineMst.eaiIfId"
-            type="text"
-            @click="turnOnSvrPopEaiList()"
-          >
-        </div>
-        <div class="column w-1">
-          <label class="column_label">대외기관</label>
-          <input
-            v-model="onlineMst.instNm"
-            type="text"
-            @click="turnOnSvrPopInstList(-2)"
-          >
-        </div>
-        <div class="column w-1">
-          <label class="column_label">EiGW구분</label>
-          <select v-model="onlineMst.mqMngrNm">
-            <option value="EIGW1P">
-              1호기
-            </option>
-            <option value="EIGW2P">
-              2호기
-            </option>
-          </select>
-          <span class="select" />
-        </div>
-      </div>
-      <div class="row_contain">
-        <div class="column w-2">
-          <label class="column_label">거래명</label>
-          <input
-            v-model="onlineMst.onlineDealNm"
-            type="text"
-          >
-        </div>
-        <div class="column w-2">
-          <label class="column_label">거래설명</label>
-          <input
-            v-model="onlineMst.onlineDealDesc"
-            type="text"
-          >
-        </div>
-        <div class="column w-1">
-          <input
-            v-model="onlineMst.instCd"
-            type="hidden"
-          >
-        </div>
-      </div>
-      <div class="row_contain">
-        <div class="column w-2">
-          <label class="column_label">사용유무</label>
-          <select v-model="onlineMst.useYn">
-            <option value="Y">
-              사용
-            </option>
-            <option value="N">
-              미사용
-            </option>
-          </select>
-          <span class="select" />
-        </div>
-        <div class="column w-2">
-          <label class="column_label">모니터링유무</label>
-          <select v-model="onlineMst.useYn">
-            <option value="Y">
-              사용
-            </option>
-            <option value="N">
-              미사용
-            </option>
-          </select>
-          <span class="select" />
-        </div>
-        <div class="column w-1">
-          <input
-            v-model="onlineMst.onlineMetaNum"
-            type="hidden"
-          >
-        </div>
-      </div>
-    </section> -->
     <section class="form_area border_group">
       <h5 class="s_tit">
         인터페이스 정보
@@ -356,7 +269,7 @@
         </div>
         <div class="column w-2">
           <label class="column_label">모니터링유무</label>
-          <select v-model="onlineIfListItem.useYn">
+          <select v-model="onlineIfListItem.mntgYn">
             <option value="Y">
               사용
             </option>
@@ -415,16 +328,6 @@
               </li>
             </ul>
           </div>
-          <!-- <div
-            v-else-if="porcList.length == 0"
-            class="table_body"
-          >
-            <ul class="table_row">
-              <li class="td_cell">
-                해당 I/F의 프로세스가 없습니다.
-              </li>
-            </ul>
-          </div> -->
           <div
             v-else
             class="table_body"
@@ -456,7 +359,7 @@
               <li class="td_cell">
                 <i
                   class="ico-del"
-                  @click="deleteProc(row.procNum, onlineIfListItem.onlineMetaNum, index)"
+                  @click="deleteProc(row.procNum, index)"
                 />
               </li>
             </ul>
@@ -468,13 +371,6 @@
       <h5 class="s_tit type-2">
         프로세스 세부정보
         <div class="right_button_area">
-          <!-- <button
-            type="button"
-            class="default_button"
-            @click="initProcDetail()"
-          >
-            초기화
-          </button> -->
           <button
             type="button"
             class="default_button"
@@ -1059,28 +955,6 @@ export default {
           console.log(`error occur!! : ${ex}`);
         });
     },
-    // detailInfo(i) {
-    //   eigwApi.fetchEigwOnlineDetail({
-    //     params: {
-    //       onlineMetaNum: this.onlineIfList[i].onlineMetaNum,
-    //       procNum: this.onlineIfList[i].procNum,
-    //     },
-    //   })
-    //     .then((res) => {
-    //       console.log(res);
-    //       if (res.data.rstCd === 'S') {
-    //         this.onlineMst = res.data.rstData.rstData.onlineMst;
-    //         this.procInfo = res.data.rstData.rstData.procInfo;
-    //         this.inChrgrList = res.data.rstData.rstData.inChrgrList;
-    //         this.outChrgrList = res.data.rstData.rstData.outChrgrList;
-    //       } else {
-    //         this.$gf.alertOn('failed');
-    //       }
-    //     })
-    //     .catch((ex) => {
-    //       console.log(`error occur!! : ${ex}`);
-    //     });
-    // },
     searchProcListByOnlineMetaNum(onlineMetaNum) {
       eigwApi.fetchGetEigwProcListByOnlineMetaNum({
         params: {
@@ -1223,10 +1097,9 @@ export default {
           console.log(`error occur!! : ${ex}`);
         });
     },
-    deleteProc(procNum, onlineMetaNum, index) {
+    deleteProc(procNum, index) {
       eigwApi.fetchDeleteProcInfo({
         params: {
-          onlineMetaNum,
           procNum,
         },
       })
@@ -1244,15 +1117,12 @@ export default {
           console.log(`error occur!! : ${ex}`);
         });
     },
-    save() {
-      if (this.onlineMst.eaiIfId === '') {
+    addOnlineIf() {
+      if (this.onlineIfListItem.eaiIfId === '') {
         this.$gf.alertOn('I/F ID를 입력해주세요.');
       }
-      if (this.onlineMst.instCd === '') {
+      if (this.onlineIfListItem.instCd === '') {
         this.$gf.alertOn('대외기관을 입력해주세요.');
-      }
-      if (this.procInfo.pgmId === '') {
-        this.$gf.alertOn('프로그램 정보를 입력해주세요.');
       }
       for (let i = 0; i < this.inChrgrList.length; i++) {
         if (this.inChrgrList[i].userId === '' || this.outChrgrList[i].userId === undefined) {
@@ -1260,7 +1130,6 @@ export default {
           return;
         }
       }
-
       for (let i = 0; i < this.outChrgrList.length; i++) {
         if (this.outChrgrList[i].chrgrTyp === '' || this.outChrgrList[i].chrgrTyp === undefined) {
           this.$gf.alertOn('대외기관 담당자 구분을 선택하세요');
@@ -1283,27 +1152,35 @@ export default {
           return;
         }
       }
-
-      console.log('I/F 정보 등록');
       this.saveInfo = {
-        onlineMst: this.onlineMst,
-        procInfo: this.procInfo,
-        relInfo: this.relInfo,
+        onlineIfListItem: this.onlineIfListItem,
         inChrgrList: this.inChrgrList,
         outChrgrList: this.outChrgrList,
       };
-      eigwApi.fetchEigwOnlineSaveInfo(this.saveInfo)
+      eigwApi.fetchPostOnlineIf(this.saveInfo)
         .then((res) => {
-          console.log('meta data save!');
           console.log(res);
-          this.$gf.alertOn('등록되었습니다.');
-          this.emptyFields();
+          this.$gf.alertOn('인터페이스가 등록되었습니다.');
         })
         .catch((ex) => {
           console.log(`metainfo save error occur!! : ${ex}`);
         });
     },
-    update() {
+    deleteOnlineIf(onlineMetaNum) {
+      eigwApi.fetchDeleteOnlineIf({
+        params: {
+          onlineMetaNum,
+        },
+      })
+        .then((res) => {
+          console.log(res);
+          this.$gf.alertOn('인터페이스가 삭제되었습니다.');
+        })
+        .catch((ex) => {
+          console.log(`인터페이스 삭제 에러! : ${ex}`);
+        });
+    },
+    updateOnlineIf() {
       for (let i = 0; i < this.inChrgrList.length; i++) {
         if (this.inChrgrList[i].userId === '' || this.outChrgrList[i].userId === undefined) {
           this.$gf.alertOn('담당자 정보를 입력하세요');
@@ -1334,16 +1211,13 @@ export default {
         }
       }
       this.saveInfo = {
-        onlineMetaNum: this.onlineMst.onlineMetaNum,
-        procNum: this.procInfo.procNum,
-        onlineMst: this.onlineMst,
-        procInfo: this.procInfo,
+        onlineMetaNum: this.onlineIfListItem.onlineMetaNum,
+        onlineIfListItem: this.onlineIfListItem,
         inChrgrList: this.inChrgrList,
         outChrgrList: this.outChrgrList,
       };
       eigwApi.fetchEigwOninePutInfo(this.saveInfo)
         .then((res) => {
-          console.log('meta data save!');
           console.log(res);
           this.$gf.alertOn('수정되었습니다.');
         })
@@ -1511,12 +1385,13 @@ export default {
     },
     addDataInstList(val) {
       console.log(`Popup에서 받아온 Data : ${val}`);
+      console.log(this.instPopupCase);
       if (this.instPopupCase === -1) {
         this.instCd = val.instCd;
         this.instNm = val.instNm;
       } else if (this.instPopupCase === -2) {
-        this.onlineMst.instCd = val.instCd;
-        this.onlineMst.instNm = val.instNm;
+        this.onlineIfListItem.instCd = val.instCd;
+        this.onlineIfListItem.instNm = val.instNm;
       } else {
         this.outChrgrList[this.instPopupCase].instCd = val.instCd;
         this.outChrgrList[this.instPopupCase].instNm = val.instNm;
@@ -1532,7 +1407,7 @@ export default {
     },
     addDataEaiList(val) {
       console.log(`Popup에서 받아온 Data : ${val}`);
-      this.onlineMst.eaiIfId = val.eaiIfId;
+      this.onlineIfListItem.eaiIfId = val.eaiIfId;
       this.svrOnEaiList = false;
     },
 

@@ -111,6 +111,18 @@ function fetchPutProcInfo(param) {
   return axios.put(`${preUrl}/procInfo`, param);
 }
 
+function fetchPostOnlineIf(param) {
+  return axios.post(`${preUrl}/online2Info`, param);
+}
+
+function fetchDeleteOnlineIf(param) {
+  return axios.delete(`${preUrl}/onlineInfo`, param);
+}
+
+function fetchPutOnlineIf(param) {
+  return axios.put(`${preurl}/online2Info`, param);
+}
+
 export {
   fetchEigwServerList,
   fetchEigwAdFileList,
@@ -140,4 +152,7 @@ export {
   fetchPostProcInfo,
   fetchDeleteProcInfo,
   fetchPutProcInfo,
+  fetchPostOnlineIf,
+  fetchDeleteOnlineIf,
+  fetchPutOnlineIf,
 };
