@@ -3601,6 +3601,10 @@ position: absolute
     width: 1200px
 }
 
+.contents.popup .layer_popup.xlarge>section {
+    width: 1700px;
+}
+
 .contents.popup .layer_popup>.form_area {
     padding: 26px 17px 30px
 }
@@ -4039,7 +4043,7 @@ body {
     min-width: 1369px
 } */
     aside {
-        width: 15%;
+        width: 13%;
         margin-right: 40px
     }
     aside>h3 {
