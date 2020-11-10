@@ -23,7 +23,6 @@
     </div>
     <div
       class="table_colgroup"
-      style="display: flex; justify-content:space-between; align-content:center;"
     >
       <div
         class="row_contain chart_area"
