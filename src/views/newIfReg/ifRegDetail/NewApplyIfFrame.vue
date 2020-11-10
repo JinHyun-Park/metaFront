@@ -250,6 +250,11 @@ export default {
       }
     },
     toNextTab() {
+      if (this.$gf.isEmpty(this.reqNum)) {
+        this.$gf.alertOn('임시저장 후에 이동해주기 바랍니다.');
+        return;
+      }
+
       if (this.procSt === '1' || this.procSt == null) {
         if (this.tabNum === 1) {
           window.scrollTo(0, 0);
