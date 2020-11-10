@@ -35,7 +35,7 @@
 import { fetchGetAllMetaCnt } from '@/api/bizCommApi';
 
 export default {
-  name: 'QueueTransStat',
+  name: 'MyOperCnt',
   components: {
   },
   data() {

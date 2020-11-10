@@ -1,5 +1,8 @@
 <template>
   <section class="form_area border_group dashboard">
+    <CommFullView
+      v-if="isFullView"
+    />
     <div>
       <h4 class="l_tit">
         모니터링
@@ -7,6 +10,19 @@
       <h5 class="s_tit type-2">
         큐 적체량(EAI)
         <div class="right_button_area">
+          <div class="select_group">
+            <select v-model="srchType">
+              <option value="">
+                전체
+              </option>
+              <option value="IN_PART">
+                파트내
+              </option>
+              <option value="IN_MY">
+                내것만
+              </option>
+            </select>
+          </div>
           <input
             v-model="chkAutoRefresh"
             type="checkbox"
@@ -17,6 +33,12 @@
             @click="searchQueueDepth()"
           >
             새로고침 : {{ remainTime }}s
+          </button>
+          <button
+            class="button is-primary"
+            @click="showFullView()"
+          >
+            전체화면
           </button>
         </div>
       </h5>
@@ -103,12 +125,14 @@
 import LineChart from '@/views/chart/LineChart.vue';
 import { fetchGetQueueDepthList, fetchGetQueueDepthByQueueNmList } from '@/api/monitoringApi';
 import { fetchGetEaiIfList } from '@/api/eaiApi';
+import CommFullView from '@/components/popup/common/CommFullView.vue';
 
 export default {
   name: 'QueueTransStat',
   components: {
     // 'reactive-bar-chart': ReactiveBarChart,
     'line-chart': LineChart,
+    CommFullView,
   },
   data() {
     return {
@@ -118,12 +142,15 @@ export default {
       remainTime: 5,
       chkAutoRefresh: false,
 
+      isFullView: false,
+
       isChartOn: true,
       tgtQueueNm: '',
       tgtIfNm: '',
       tgtQueueManager: '',
       tgtIfId: '',
       curLine: '0',
+      srchType: '',
 
       eaiIfList: [],
     };
@@ -230,6 +257,7 @@ export default {
         params: {
           time: Math.floor(Math.random() * 1000) + 1000,
           date: '20200625',
+          srchType: this.srchType,
         },
       })
         .then((res) => {
@@ -301,6 +329,9 @@ export default {
         return 'on';
       }
       return '';
+    },
+    showFullView() {
+      // this.isFullView = true;
     },
   },
 };

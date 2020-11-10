@@ -84,6 +84,12 @@ export default {
       } else if (path.indexOf('/ifReg/') > -1) {
         this.subNm = '인터페이스 신청';
         this.menuLists = this.menuAllList.filter(item => item.menuLcl === 'IFREG');
+      } else if (path.indexOf('/newIfReg/newIfRegList') > -1) {
+        this.subNm = '신청목록';
+        this.menuLists = this.menuAllList.filter(item => item.menuLcl === 'NEWIFREGLIST');
+      } else if (path.indexOf('/newIfReg/') > -1) {
+        this.subNm = '인터페이스 신청';
+        this.menuLists = this.menuAllList.filter(item => item.menuLcl === 'NEWIFREG');
       } else if (path.indexOf('/meta/allList') > -1) { // 메타정보 전체 조회
         this.subNm = '메타정보 조회';
         this.menuLists = this.menuAllList.filter(item => item.menuLcl === 'META_ALL');
