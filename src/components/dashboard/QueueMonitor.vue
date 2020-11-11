@@ -1,9 +1,11 @@
 <template>
   <section class="form_area border_group dashboard">
-    <CommFullView
-      v-if="isFullView"
-      @closePop="turnOffFullView"
-    />
+    <transition name="slide-fade">
+      <CommFullView
+        v-if="isFullView"
+        @closePop="turnOffFullView"
+      />
+    </transition>
     <div>
       <h4 class="l_tit">
         모니터링

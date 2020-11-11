@@ -7,7 +7,11 @@
       tabindex="0"
       @keydown.prevent.esc="closePop"
     >
-      <div class="board_area2">
+      <div class="board_area">
+        <total-monitor-full :mode="mode" />
+        <eigw-monitor />
+      </div>
+      <div class="board_area">
         <total-monitor-full :mode="mode" />
         <eigw-monitor />
       </div>
@@ -32,7 +36,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
+// import { mapState, mapActions } from 'vuex';
 import TotalMonitorFull from '@/components/dashboard/TotalMonitorFull.vue';
 import EigwMonitor from '@/components/dashboard/EigwMonitor.vue';
 
@@ -62,3 +66,13 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.contents .right_space.main .board_area .form_area.dashboard{
+  width: 50%;
+}
+
+.contents.popup .layer_popup {
+    max-height: 950px;
+}
+</style>

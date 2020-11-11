@@ -19,7 +19,7 @@
       &nbsp;
       </div>
       <div
-        class="meta_cnt"
+        class="meta_cnt click_btn"
         @click="movePage()"
       >
         {{ allMetaCnt }} 개

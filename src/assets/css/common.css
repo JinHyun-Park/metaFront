@@ -2839,6 +2839,12 @@ display: table-column
 
 .contents .right_space.main .board_area .table_colgroup .table_grid .table_head.w-auto .th_cell:last-child,
 .contents .right_space.main .board_area .table_colgroup .table_grid .table_body .table_row.w-auto .td_cell:last-child {
+    min-width: 85px;
+    width: 85px
+}
+
+.contents .right_space.main .board_area .table_colgroup .table_grid .table_head.w-auto .th_cell:last-child,
+.contents .right_space.main .board_area .table_colgroup .table_grid .table_body .table_row.w-auto .td_cell:last-child .onpop {
     min-width: 35px;
     width: 35px
 }
@@ -4217,3 +4223,42 @@ body {
 .contents .form_area.border_group .row_contain.type-3.last label_space label.label-default.color-green {
     border-color: #82BEA3
 }
+
+/* Animation effect start */
+.fade-enter-active, .fade-leave-active {
+    transition: opacity 1s;
+  }
+  .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+    opacity: 0;
+  }
+
+  .slide-fade-enter-active {
+    transition: all .7s ease;
+  }
+  .slide-fade-leave-active {
+    transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+  }
+  .slide-fade-enter, .slide-fade-leave-to
+  /* .slide-fade-leave-active below version 2.1.8 */ {
+    transform: translateX(10px);
+    opacity: 0;
+  }
+
+  .bounce-enter-active {
+    animation: bounce-in .5s;
+  }
+  .bounce-leave-active {
+    animation: bounce-in .5s reverse;
+  }
+  @keyframes bounce-in {
+    0% {
+      transform: scale(0);
+    }
+    50% {
+      transform: scale(1.1);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  /* Animation effect end */

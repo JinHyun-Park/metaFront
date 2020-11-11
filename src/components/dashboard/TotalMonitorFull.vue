@@ -87,7 +87,7 @@
             <td class="td_cell">
               {{ queueDepth.nm }}({{ queueDepth.domainNm }})
             </td>
-            <li class="td_cell">
+            <li class="td_cell onpop">
               <label
                 class="label-default color-gray click_btn"
                 @click="moveIfIdDetail(i)"
