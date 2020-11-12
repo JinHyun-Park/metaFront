@@ -407,10 +407,10 @@ export default {
         .then((res) => {
           console.log(res);
           if (res.data.rstCd === 'S') {
-            this.onlineMst = res.data.rstData.rstData.onlineMst;
+            this.onlineMst = res.data.rstData.onlineInfo;
             // this.procInfo = res.data.rstData.rstData.procInfo;
-            this.inChrgrList = res.data.rstData.rstData.inChrgrList;
-            this.outChrgrList = res.data.rstData.rstData.outChrgrList;
+            this.inChrgrList = res.data.rstData.inChrgrList;
+            this.outChrgrList = res.data.rstData.outChrgrList;
           } else {
             this.$gf.alertOn('failed');
           }

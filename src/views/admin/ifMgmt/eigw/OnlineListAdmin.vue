@@ -961,6 +961,11 @@ export default {
           pageNo: this.pageMoveChk === 1 ? this.pageSet.pageNo : 1,
           pageCount: this.pageMoveChk === 1 ? this.pageSet.pageCount : 0,
           size: this.pageSet.size,
+
+          instNm: this.instNm,
+          pgmId: this.pgmId,
+          confFile: this.confFile,
+          reqIp: this.reqIp,
         },
       })
         .then((res) => {
