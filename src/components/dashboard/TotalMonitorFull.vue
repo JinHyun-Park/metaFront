@@ -1,16 +1,9 @@
 <template>
-  <section class="form_area border_group dashboard">
-    <transition name="slide-fade">
-      <CommFullView
-        v-if="isFullView"
-        @closePop="turnOffFullView"
-      />
-    </transition>
+  <section
+    class="form_area border_group dashboard"
+  >
     <div>
-      <h4
-        v-if="viewMode != 'FULL'"
-        class="l_tit"
-      >
+      <h4 class="l_tit">
         모니터링
       </h4>
       <h5 class="s_tit type-2">
@@ -29,29 +22,17 @@
               </option>
             </select>
           </div>
-          &nbsp;&nbsp;
           <input
             v-model="chkAutoRefresh"
             type="checkbox"
           >
-          Auto Refresh&nbsp;&nbsp;
+          Auto Refresh
           <button
-            class="button is-primary home_btn"
+            class="button is-primary"
             @click="searchQueueDepth()"
           >
             새로고침 : {{ remainTime }}s
           </button>
-          <!--
-          <button
-            class="button is-primary"
-            @click="showFullView()"
-          >
-            <img
-              src="@/assets/images/ico-sizeup3.png"
-              width="13"
-            >
-            전체화면
-          </button>-->
         </div>
       </h5>
     </div>
@@ -61,7 +42,6 @@
     >
       <div
         class="table_grid radio_group"
-        style="width:60%"
       >
         <div class="table_head w-auto">
           <tr>
@@ -91,7 +71,6 @@
             :key="i"
             class="table_row w-auto click_btn"
             :class="checkCurLine(i)"
-            @click="showChart(i), setCurLine(i)"
           >
             <td class="td_cell">
               {{ i+1 }}
@@ -108,7 +87,7 @@
             <td class="td_cell">
               {{ queueDepth.nm }}({{ queueDepth.domainNm }})
             </td>
-            <li class="td_cell">
+            <li class="td_cell onpop">
               <label
                 class="label-default color-gray click_btn"
                 @click="moveIfIdDetail(i)"
@@ -119,15 +98,6 @@
           </tr>
         </div>
       </div>
-      <div
-        class="row_contain chart_area"
-        style="width:40%"
-      >
-        <line-chart
-          v-show="isChartOn"
-          :chart-data="datacollection"
-        />
-      </div>
     </div>
   </section>
 </template>
@@ -137,20 +107,14 @@
 import LineChart from '@/views/chart/LineChart.vue';
 import { fetchGetQueueDepthList, fetchGetQueueDepthByQueueNmList } from '@/api/monitoringApi';
 import { fetchGetEaiIfList } from '@/api/eaiApi';
-import CommFullView from '@/components/popup/common/CommFullView.vue';
+import EigwMonitor from '@/components/dashboard/EigwMonitor.vue';
 
 export default {
   name: 'QueueTransStat',
   components: {
     // 'reactive-bar-chart': ReactiveBarChart,
     'line-chart': LineChart,
-    CommFullView,
-  },
-  props: {
-    viewMode: {
-      type: String,
-      default: null,
-    },
+    'eigw-monitor': EigwMonitor,
   },
   data() {
     return {
@@ -161,6 +125,7 @@ export default {
       chkAutoRefresh: false,
 
       isFullView: false,
+      widthPer: 100,
 
       isChartOn: true,
       tgtQueueNm: '',
@@ -283,12 +248,9 @@ export default {
           if (res.data.rstCd === 'S') {
           // this.boardList = this.$gf.parseRtnData(this.pageSet, res.data.rstData.board, 'Y')
             this.queueDepthList = res.data.rstData.queueDepthList;
-            if (this.queueDepthList.length > 10) {
-              this.queueDepthList.splice(10, this.queueDepthList.length - 10);
-            }
-            if (this.isChartOn) {
-              this.searchQueueDepthByQueueNm();
-            }
+            // if (this.isChartOn) {
+            //   this.searchQueueDepthByQueueNm();
+            // }
             // this.makeChartData();
           } else {
           // eslint-disable-next-line no-alert
@@ -353,9 +315,6 @@ export default {
     },
     showFullView() {
       this.isFullView = true;
-    },
-    turnOffFullView() {
-      this.isFullView = false;
     },
   },
 };

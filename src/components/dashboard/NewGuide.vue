@@ -1,10 +1,7 @@
 <template>
   <section class="form_area border_group dashboard">
     <div>
-      <h4 class="l_tit">
-        연동 가이드
-      </h4>
-      <h5 class="s_tit type-2">
+      <h5 class="s_tit type-1">
         첫 사용자를 위한 간단 Guide!!
       </h5>
     </div>
@@ -24,7 +21,7 @@
         </h2>
         <img
           src="@/assets/images/businessman.png"
-          width="100"
+          width="90"
         >
       </button>
 
@@ -39,7 +36,7 @@
         </h2>
         <img
           src="@/assets/images/hierarchical-structure.png"
-          width="100"
+          width="90"
         >
       </button>
       <button
@@ -53,7 +50,7 @@
         </h2>
         <img
           src="@/assets/images/exchange.png"
-          width="100"
+          width="90"
         >
       </button>
       <button
@@ -67,7 +64,7 @@
         </h2>
         <img
           src="@/assets/images/clipboard.png"
-          width="100"
+          width="90"
         >
       </button>
       &nbsp;
@@ -80,7 +77,7 @@
 // import { fetchGetQueueDepthList, fetchGetQueueDepthByQueueNmList } from '@/api/monitoringApi';
 
 export default {
-  name: 'QueueTransStat',
+  name: 'NewGuideDashboard',
   components: {
   },
   data() {

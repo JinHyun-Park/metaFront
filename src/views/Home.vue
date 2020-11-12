@@ -1,11 +1,27 @@
 <template>
   <article class="contents index except">
     <div class="right_space main">
+      <transition name="slide-fade">
+        <CommFullView
+          v-if="isFullView"
+          @closePop="turnOffFullView"
+        />
+      </transition>
       <section class="title style-1">
         <h2>
           <div>
             <i class="ico-bar" />Main Dashboard
           </div>
+          <button
+            class="home_btn"
+            @click="showFullView()"
+          >
+            <img
+              src="@/assets/images/ico-sizeup3.png"
+              width="13"
+            >
+            &nbsp;전체화면
+          </button>
         </h2>
       </section>
       <div class="board_area">
@@ -40,6 +56,7 @@
 import { fetchGetBoardList } from '@/api/bizCommApi';
 // import RadarChart from './chart/RadarChart.vue';
 
+import CommFullView from '@/components/popup/common/CommFullView.vue';
 import NotiBoard from '@/components/dashboard/NotiBoard.vue';
 import FaqBoard from '@/components/dashboard/FaqBoard.vue';
 import QueueMonitorReal from '@/components/dashboard/QueueMonitorReal.vue';
@@ -64,6 +81,7 @@ export default {
     'noti-board': NotiBoard,
     'faq-board': FaqBoard,
     // 'queue-stat': QueueTransStat,
+    CommFullView,
     'queue-monitor': QueueMonitor,
     'queue-monitor-real': QueueMonitorReal,
     'eigw-monitor': EigwMonitor,
@@ -90,6 +108,8 @@ export default {
       },
       pageSet: { pageNo: 1, pageCount: 0, size: 10 },
       boardList: [],
+
+      isFullView: false,
     };
   },
   created() {
@@ -102,6 +122,12 @@ export default {
     this.searchList();
   },
   methods: {
+    showFullView() {
+      this.isFullView = true;
+    },
+    turnOffFullView() {
+      this.isFullView = false;
+    },
     fillData() {
       this.datacollection = {
         // Data for the y-axis of the chart

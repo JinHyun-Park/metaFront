@@ -896,6 +896,25 @@ right:0
 
 
 /* HOME */
+.home_btn {
+    display: inline-flex;
+    display: -ms-inline-flexbox;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    top: 1px;
+    width: auto;
+    height: 24px;
+    border: 1px solid #888;
+    border-radius: 2px;
+    color: #787878;
+    font-size: 14px;
+    font-family: Moebius_Bold_kor, Moebius_Bold_eng;
+    line-height: 1;
+    background: #f7f3f2;
+    cursor: pointer;
+    border-radius: 5px;
+}
 
 .contents .home {
     display: flex;
@@ -1342,6 +1361,19 @@ background:#fcfcfc
     width: 16px;
     height: 16px;
     background: url(../images/ico-set.png) center center no-repeat;
+    background-size: 100%;
+    cursor: pointer
+}
+
+.ico-sizeup {
+    display: flex;
+    display: -ms-flexbox;
+    position: relative;
+    top: -1px;
+    margin-left: 2px;
+    width: 16px;
+    height: 16px;
+    background: url(../images/ico-sizeup.png) center center no-repeat;
     background-size: 100%;
     cursor: pointer
 }
@@ -2839,6 +2871,12 @@ display: table-column
 
 .contents .right_space.main .board_area .table_colgroup .table_grid .table_head.w-auto .th_cell:last-child,
 .contents .right_space.main .board_area .table_colgroup .table_grid .table_body .table_row.w-auto .td_cell:last-child {
+    min-width: 85px;
+    width: 85px
+}
+
+.contents .right_space.main .board_area .table_colgroup .table_grid .table_head.w-auto .th_cell:last-child,
+.contents .right_space.main .board_area .table_colgroup .table_grid .table_body .table_row.w-auto .td_cell:last-child .onpop {
     min-width: 35px;
     width: 35px
 }
@@ -3462,7 +3500,9 @@ color: inherit
 }
 
 label.ov.tooltips.top .tip_contn,
-label:hover.tooltips.top .tip_contn {
+label:hover.tooltips.top .tip_contn,
+span.ov.tooltips.top .tip_contn,
+span:hover.tooltips.top .tip_contn {
     visibility: visible;
     opacity: 0.8;
     bottom: 32px;
@@ -3547,8 +3587,8 @@ span:hover.tooltips.right .tip_contn {
     flex-direction: column;
     width: auto;
     height: auto;
-    min-height: 0;
-    border-radius: 3px;
+    min-height: 0px;
+    border-radius: 5px;
     background: #fff;
     box-shadow: 2px 2px 8px 0 rgba(0, 0, 0, .18);
     max-height: 800px;
@@ -3599,6 +3639,10 @@ position: absolute
 
 .contents.popup .layer_popup.large>section {
     width: 1200px
+}
+
+.contents.popup .layer_popup.xlarge>section {
+    width: 1700px;
 }
 
 .contents.popup .layer_popup>.form_area {
@@ -3666,6 +3710,7 @@ position: absolute
     background: url(../images/ico-cancel.png) center center no-repeat;
     background-size: 100%
 }
+
 
 .contents.popup .layer_popup .confirm_area label {
     width: auto;
@@ -4039,7 +4084,7 @@ body {
     min-width: 1369px
 } */
     aside {
-        width: 15%;
+        width: 13%;
         margin-right: 40px
     }
     aside>h3 {
@@ -4213,3 +4258,42 @@ body {
 .contents .form_area.border_group .row_contain.type-3.last label_space label.label-default.color-green {
     border-color: #82BEA3
 }
+
+/* Animation effect start */
+.fade-enter-active, .fade-leave-active {
+    transition: opacity 1s;
+  }
+  .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+    opacity: 0;
+  }
+
+  .slide-fade-enter-active {
+    transition: all .7s ease;
+  }
+  .slide-fade-leave-active {
+    transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+  }
+  .slide-fade-enter, .slide-fade-leave-to
+  /* .slide-fade-leave-active below version 2.1.8 */ {
+    transform: translateX(10px);
+    opacity: 0;
+  }
+
+  .bounce-enter-active {
+    animation: bounce-in .5s;
+  }
+  .bounce-leave-active {
+    animation: bounce-in .5s reverse;
+  }
+  @keyframes bounce-in {
+    0% {
+      transform: scale(0);
+    }
+    50% {
+      transform: scale(1.1);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  /* Animation effect end */

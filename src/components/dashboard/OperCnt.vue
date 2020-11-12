@@ -19,7 +19,7 @@
       &nbsp;
       </div>
       <div
-        class="meta_cnt"
+        class="meta_cnt click_btn"
         @click="movePage()"
       >
         {{ allMetaCnt }} 개
@@ -35,7 +35,7 @@
 import { fetchGetAllMetaCnt } from '@/api/bizCommApi';
 
 export default {
-  name: 'QueueTransStat',
+  name: 'MyOperCnt',
   components: {
   },
   data() {

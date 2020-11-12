@@ -34,7 +34,7 @@
 import { fetchGetBoardNotiCnt } from '@/api/bizCommApi';
 
 export default {
-  name: 'QueueTransStat',
+  name: 'NewNotiCnt',
   components: {
   },
   data() {

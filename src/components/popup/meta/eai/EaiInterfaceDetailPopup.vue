@@ -161,10 +161,16 @@
             >
           </div>
         </div>
-        <h5 class="s_tit type-2">
+        <h5
+          v-show="eaiIfDetail.ifTypCd ==2"
+          class="s_tit type-2"
+        >
           파일 연동 정보
         </h5>
-        <div class="row_contain">
+        <div
+          v-show="eaiIfDetail.ifTypCd ==2"
+          class="row_contain"
+        >
           <div class="column w-2">
             <label class="column_label">파일 연동 방식</label>
             <div class="select_group">
@@ -830,3 +836,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.contents.popup .layer_popup {
+    max-height: 940px;
+}
+</style>

@@ -57,25 +57,25 @@
           <div class="table_head w-auto">
             <ul>
               <li class="th_cell">
-                업무코드<i class="ico-sort-down" />
+                업무코드
               </li>
               <li class="th_cell">
-                거래코드<i class="ico-sort-up" />
+                거래코드
               </li>
               <li class="th_cell">
-                서버유형<i class="ico-sort-down" />
+                서버유형
               </li>
               <li class="th_cell">
-                IP<i class="ico-sort-down" />
+                IP
               </li>
               <li class="th_cell">
-                Port<i class="ico-sort-down" />
+                Port
               </li>
               <li class="th_cell">
-                IP유형<i class="ico-sort-up" />
+                IP유형
               </li>
               <li class="th_cell">
-                담당자<i class="ico-sort-up" />
+                담당자
               </li>
               <li class="th_cell">
                 수정

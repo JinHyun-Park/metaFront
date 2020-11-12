@@ -38,6 +38,7 @@
             <li @click="movePage('notice')">
               <span>게시판</span>
             </li>
+            <!--
             <li>
               <span>인터페이스 신청</span>
               <ul class="sub_menu">
@@ -48,9 +49,9 @@
                   신청등록
                 </li>
               </ul>
-            </li>
+            </li>-->
             <li @click="movePage('newIfRegList')">
-              <span>New 인터페이스 신청</span>
+              <span>인터페이스 신청</span>
               <ul class="sub_menu">
                 <li @click="movePage('newIfRegList')">
                   신청목록
