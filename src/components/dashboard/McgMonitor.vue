@@ -25,15 +25,11 @@
       </h5>
     </div>
     <div
-      class="table_colgroup"
+      class="row_contain chart_area"
     >
-      <div
-        class="row_contain chart_area"
-      >
-        <line-chart
-          :chart-data="datacollection"
-        />
-      </div>
+      <line-chart
+        :chart-data="datacollection"
+      />
     </div>
   </section>
 </template>

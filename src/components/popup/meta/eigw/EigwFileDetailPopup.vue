@@ -21,7 +21,7 @@
     <i class="dim" />
     <article
       ref="queueListPop"
-      class="layer_popup"
+      class="layer_popup large"
       tabindex="0"
       @keydown.prevent.esc="closePop"
     >
@@ -36,31 +36,6 @@
         </h5>
 
         <div class="row_contain type-2">
-          <div class="column w-1">
-            <label class="column_label">I/F ID</label>
-            <div class="search_group">
-              <input
-                v-model="fileInfo.eigwIfId"
-                type="text"
-                class="add_text on"
-              >
-            </div>
-          </div>
-          <div class="column w-1">
-            <label class="column_label">I/F명</label>
-            <div class="search_group">
-              <input
-                v-model="fileInfo.eigwIfNm"
-                type="text"
-                class="add_text on"
-              >
-              <span class="tooltips right ov">
-                <i class="tip_contn"><em class="tip_text">신규 I/F의 경우, EAI에서 등록 후 신청바랍니다.</em></i>
-              </span>
-            </div>
-          </div>
-        </div>
-        <div class="row_contain type-1">
           <div class="column w-1">
             <label class="column_label">대외기관</label>
             <div class="search_group">
@@ -84,6 +59,32 @@
             >
           </div>
           <div class="column w-1">
+            <label class="column_label">I/F ID</label>
+            <div class="search_group">
+              <input
+                v-model="fileInfo.eigwIfId"
+                type="text"
+                class="add_text on"
+              >
+            </div>
+          </div>
+          <div class="column w-1">
+            <label class="column_label">I/F명</label>
+            <span class="tooltips top ov">
+              <i class="tip_contn"><em class="tip_text">신규 I/F의 경우, EAI에서 등록 후 신청바랍니다.</em></i>
+            </span>
+            <div class="search_group">
+              <input
+                v-model="fileInfo.eigwIfNm"
+                type="text"
+                class="add_text on"
+              >
+            </div>
+          </div>
+        </div>
+        <!-- FILE -->
+        <div class="row_contain">
+          <div class="column w-1">
             <label class="column_label">송수신</label>
             <select v-model="fileInfo.srFlag">
               <option value="S">
@@ -94,16 +95,6 @@
               </option>
             </select>
           </div>
-          <div class="column w-1">
-            <input
-              v-model="fileInfo.instCd"
-              type="hidden"
-              class="add_text on"
-            >
-          </div>
-        </div>
-        <!-- FILE -->
-        <div class="row_contain">
           <div class="column w-2">
             <label class="column_label">파일경로</label>
             <input

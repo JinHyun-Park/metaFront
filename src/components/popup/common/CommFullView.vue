@@ -8,8 +8,10 @@
       @keydown.prevent.esc="closePop"
     >
       <!--<total-monitor-full :mode="mode" />-->
-      <queue-monitor :view-mode="viewMode" />
-      <div class="board_area">
+      <div class="board_area type_1">
+        <queue-monitor :view-mode="viewMode" />
+      </div>
+      <div class="board_area type_2">
         <eigw-monitor :view-mode="viewMode" />
         <mcg-monitor :view-mode="viewMode" />
       </div>
@@ -63,8 +65,15 @@ export default {
 </script>
 
 <style scoped>
-.contents .right_space.main .board_area .form_area.dashboard{
+.contents .right_space.main .board_area.type_1 .form_area.dashboard{
+  width: 100%;
+  height: 470px;
+  max-height: 490px;
+}
+
+.contents .right_space.main .board_area.type_2 .form_area.dashboard{
   width: 50%;
+  height: 400px;
 }
 
 .contents.popup .layer_popup {

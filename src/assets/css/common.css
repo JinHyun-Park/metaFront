@@ -3481,7 +3481,9 @@ color: inherit
 }
 
 label.ov.tooltips.top .tip_contn,
-label:hover.tooltips.top .tip_contn {
+label:hover.tooltips.top .tip_contn,
+span.ov.tooltips.top .tip_contn,
+span:hover.tooltips.top .tip_contn {
     visibility: visible;
     opacity: 0.8;
     bottom: 32px;
@@ -3566,8 +3568,8 @@ span:hover.tooltips.right .tip_contn {
     flex-direction: column;
     width: auto;
     height: auto;
-    min-height: 0;
-    border-radius: 3px;
+    min-height: 0px;
+    border-radius: 5px;
     background: #fff;
     box-shadow: 2px 2px 8px 0 rgba(0, 0, 0, .18);
     max-height: 800px;

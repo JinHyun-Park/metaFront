@@ -149,14 +149,14 @@ const router = new Router({
     },
     { // 인터페이스 정보 변경 요청 탭 구분 적용
       path: '/newIfReg/chgIfinfo',
-      name: 'chgIfinfo',
+      name: 'newChgIfinfo',
       component: () => import('@/views/ifReg/ChangeIfInfoFrame.vue'),
     },
-    {
-      path: '/newIfReg/eaiReg',
-      name: 'eaiReg',
-      component: () => import('@/views/ifReg/EaiReg.vue'),
-    },
+    // {
+    //   path: '/newIfReg/eaiReg',
+    //   name: 'eaiReg',
+    //   component: () => import('@/views/ifReg/EaiReg.vue'),
+    // },
     ],
   },
   // 3. 메타정보 조회
