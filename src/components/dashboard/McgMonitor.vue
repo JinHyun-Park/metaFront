@@ -8,7 +8,7 @@
         모니터링
       </h4>
       <h5 class="s_tit type-2">
-        대외연동 오류(EiGW)
+        MCG 채널 현황
         <div class="right_button_area">
           <input
             v-model="chkAutoRefresh"

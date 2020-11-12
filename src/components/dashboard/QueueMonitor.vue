@@ -7,7 +7,10 @@
       />
     </transition>
     <div>
-      <h4 class="l_tit">
+      <h4
+        v-if="viewMode != 'FULL'"
+        class="l_tit"
+      >
         모니터링
       </h4>
       <h5 class="s_tit type-2">
@@ -37,12 +40,17 @@
           >
             새로고침 : {{ remainTime }}s
           </button>
+          <!--
           <button
             class="button is-primary"
             @click="showFullView()"
           >
+            <img
+              src="@/assets/images/ico-sizeup3.png"
+              width="13"
+            >
             전체화면
-          </button>
+          </button>-->
         </div>
       </h5>
     </div>
@@ -136,6 +144,12 @@ export default {
     // 'reactive-bar-chart': ReactiveBarChart,
     'line-chart': LineChart,
     CommFullView,
+  },
+  props: {
+    viewMode: {
+      type: String,
+      default: null,
+    },
   },
   data() {
     return {
@@ -268,6 +282,9 @@ export default {
           if (res.data.rstCd === 'S') {
           // this.boardList = this.$gf.parseRtnData(this.pageSet, res.data.rstData.board, 'Y')
             this.queueDepthList = res.data.rstData.queueDepthList;
+            if (this.queueDepthList.length > 10) {
+              this.queueDepthList.splice(10, this.queueDepthList.length - 10);
+            }
             if (this.isChartOn) {
               this.searchQueueDepthByQueueNm();
             }

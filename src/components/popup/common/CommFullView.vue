@@ -7,13 +7,11 @@
       tabindex="0"
       @keydown.prevent.esc="closePop"
     >
+      <!--<total-monitor-full :mode="mode" />-->
+      <queue-monitor :view-mode="viewMode" />
       <div class="board_area">
-        <total-monitor-full :mode="mode" />
-        <eigw-monitor />
-      </div>
-      <div class="board_area">
-        <total-monitor-full :mode="mode" />
-        <eigw-monitor />
+        <eigw-monitor :view-mode="viewMode" />
+        <mcg-monitor :view-mode="viewMode" />
       </div>
       <section class="btm_button_area">
         <button
@@ -23,13 +21,6 @@
         >
           닫기
         </button>
-        <button
-          type="button"
-          class="default_button on"
-          @click="addData"
-        >
-          저장
-        </button>
       </section>
     </article>
   </div>
@@ -38,13 +29,17 @@
 <script>
 // import { mapState, mapActions } from 'vuex';
 import TotalMonitorFull from '@/components/dashboard/TotalMonitorFull.vue';
+import QueueMonitor from '@/components/dashboard/QueueMonitor.vue';
 import EigwMonitor from '@/components/dashboard/EigwMonitor.vue';
+import McgMonitor from '@/components/dashboard/McgMonitor.vue';
 
 export default {
   name: 'EaiIfDetailPopup',
   components: {
     'total-monitor-full': TotalMonitorFull,
+    'queue-monitor': QueueMonitor,
     'eigw-monitor': EigwMonitor,
+    'mcg-monitor': McgMonitor,
   },
   props: {
     propData: {
@@ -54,7 +49,7 @@ export default {
   },
   data() {
     return {
-      mode: 'FULL',
+      viewMode: 'FULL',
 
     };
   },
