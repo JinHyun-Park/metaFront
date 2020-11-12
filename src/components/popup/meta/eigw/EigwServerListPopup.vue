@@ -216,8 +216,6 @@ export default {
       this.pageMoveChk = 0;
     },
     searchList() {
-      // this.tgtUrl = '/api/eigw/serverList';
-      // this.$axios.get(this.tgtUrl, {
       fetchGetEigwServerList({
         params: {
           pageNo: this.pageMoveChk === 1 ? this.pageSet.pageNo : 1,

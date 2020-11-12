@@ -341,7 +341,7 @@
 </template>
 
 <script>
-import { fetchEigwAdOnlineList, fetchEigwOnlineDetail } from '@/api/eigwApi';
+import { fetchEigwAdOnlineList, fetchGetEigwOnlineInfo } from '@/api/eigwApi';
 import InstListPopup from '@/components/popup/bizcomm/InstListPopup.vue';
 
 export default {
@@ -398,17 +398,17 @@ export default {
         });
     },
     detailInfo(i) {
-      fetchEigwOnlineDetail({
+      fetchGetEigwOnlineInfo({
         params: {
           onlineMetaNum: this.onlineIfList[i].onlineMetaNum,
-          procNum: this.onlineIfList[i].procNum,
+          // procNum: this.onlineIfList[i].procNum,
         },
       })
         .then((res) => {
           console.log(res);
           if (res.data.rstCd === 'S') {
             this.onlineMst = res.data.rstData.rstData.onlineMst;
-            this.procInfo = res.data.rstData.rstData.procInfo;
+            // this.procInfo = res.data.rstData.rstData.procInfo;
             this.inChrgrList = res.data.rstData.rstData.inChrgrList;
             this.outChrgrList = res.data.rstData.rstData.outChrgrList;
           } else {

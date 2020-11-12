@@ -2,7 +2,12 @@
 
 const preUrl = '/api/eigw';
 
+// Server
 function fetchEigwServerList(param) {
+  return axios.get(`${preUrl}/serverList`, param);
+}
+
+function fetchGetEigwServerList(param) {
   return axios.get(`${preUrl}/serverList`, param);
 }
 
@@ -14,6 +19,29 @@ function fetchPutEigwServerInfo(param) {
   return axios.put(`${preUrl}/serverInfo`, param);
 }
 
+// Chrgr
+function fetchGetEigwChrgrInfo(param) {
+  return axios.get(`${preUrl}/chrgrInfo`, param);
+}
+
+function fetchSaveEigwChrgrInfo(param) {
+  return axios.post(`${preUrl}/chrgrInfo`, param);
+}
+
+function fetchPutEigwChrgrInfo(param) {
+  return axios.put(`${preUrl}/chrgrInfo`, param);
+}
+
+// Req
+function fetchEigwReqList(param) {
+  return axios.get(`${preUrl}/ifReqList`, param);
+}
+
+function fetchEigwReqSave(param) {
+  return axios.post(`${preUrl}/ifReqInfo`, param);
+}
+
+// File
 function fetchEigwAdFileList(param) {
   return axios.get(`${preUrl}/fileList`, param);
 }
@@ -30,129 +58,74 @@ function fetchEigwMetaPutInfo(param) {
   return axios.put(`${preUrl}/fileInfo`, param);
 }
 
-function fetchEigwMetaSaveChrgr(param) {
-  return axios.post(`${preUrl}/fileChrgrInfo`, param);
-}
-
-function fetchDeleteChrgrInfo(param) {
-  return axios.delete(`${preUrl}/fileChrgrInfo`, param);
-}
-
-function fetchEigwMetaSaveServe(param) {
-  return axios.post(`${fileUrl}/servesave`, param);
-}
-
-function fetchGetEigwServerList(param) {
-  return axios.get(`${preUrl}/serverList`, param);
-}
-
-function fetchGetEigwChrgrInfo(param) {
-  return axios.get(`${preUrl}/chrgrInfo`, param);
-}
-
-function fetchSaveEigwChrgrInfo(param) {
-  return axios.post(`${preUrl}/chrgrInfo`, param);
-}
-
-function fetchPutEigwChrgrInfo(param) {
-  return axios.put(`${preUrl}/chrgrInfo`, param);
-}
-
+// Online
 function fetchEigwAdOnlineList(param) {
   return axios.get(`${preUrl}/onlineList`, param);
 }
 
-function fetchEigwOnlineDetail(param) {
-  return axios.get(`${preUrl}/onlineDetail`, param);
+function fetchGetEigwOnlineList(param) {
+  return axios.get(`${preUrl}/onlineList`, param);
 }
 
-function fetchEigwOnlineSaveInfo(param) {
+function fetchGetEigwOnlineInfo(param) {
+  return axios.get(`${preUrl}/onlineInfo`, param);
+}
+
+function fetchPostEigwOnlineInfo(param) {
   return axios.post(`${preUrl}/onlineInfo`, param);
 }
 
-function fetchEigwOninePutInfo(param) {
+function fetchPutEigwOnlineInfo(param) {
   return axios.put(`${preUrl}/onlineInfo`, param);
 }
 
-function fetchEigwOnlineSaveChrgr(param) {
-  return axios.post(`${preUrl}/onlineChrgrInfo`, param);
-}
-
-function fetchDeleteOnlineChrgrInfo(param) {
-  return axios.delete(`${preUrl}/onlineChrgrInfo`, param);
-}
-
-function fetchEigwReqList(param) {
-  return axios.get(`${preUrl}/ifReqList`, param);
-}
-
-function fetchEigwReqSave(param) {
-  return axios.post(`${preUrl}/ifReqInfo`, param);
-}
-
-// 추가
-function fetchGetEigwOnlineList(param) {
-  return axios.get(`${preUrl}/online2List`, param);
-}
-
-function fetchGetEigwProcListByOnlineMetaNum(param) {
-  return axios.get(`${preUrl}/procList`, param);
-}
-
-function fetchPostProcInfo(param) {
-  return axios.post(`${preUrl}/procInfo`, param);
-}
-
-function fetchDeleteProcInfo(param) {
-  return axios.delete(`${preUrl}/procInfo`, param);
-}
-
-function fetchPutProcInfo(param) {
-  return axios.put(`${preUrl}/procInfo`, param);
-}
-
-function fetchPostOnlineIf(param) {
-  return axios.post(`${preUrl}/online2Info`, param);
-}
-
-function fetchDeleteOnlineIf(param) {
+function fetchDeleteEigwOnlineInfo(param) {
   return axios.delete(`${preUrl}/onlineInfo`, param);
 }
 
-function fetchPutOnlineIf(param) {
-  return axios.put(`${preurl}/online2Info`, param);
+function fetchGetEigwProcList(param) {
+  return axios.get(`${preUrl}/procList`, param);
+}
+
+function fetchPostEigwProcInfo(param) {
+  return axios.post(`${preUrl}/procInfo`, param);
+}
+
+function fetchPutEigwProcInfo(param) {
+  return axios.put(`${preUrl}/procInfo`, param);
+}
+
+function fetchDeleteEigwProcInfo(param) {
+  return axios.delete(`${preUrl}/procInfo`, param);
 }
 
 export {
+  // Server
+  fetchGetEigwServerList,
+  fetchSaveEigwServerInfo,
+  fetchPutEigwServerInfo,
   fetchEigwServerList,
+  // Chrgr
+  fetchGetEigwChrgrInfo,
+  fetchSaveEigwChrgrInfo,
+  fetchPutEigwChrgrInfo,
+  // ReqfetchPut
+  fetchEigwReqList,
+  fetchEigwReqSave,
+  // File
   fetchEigwAdFileList,
   fetchEigwFileDetail,
   fetchEigwMetaSaveInfo,
-  fetchEigwMetaSaveServe,
-  fetchEigwMetaSaveChrgr,
-  fetchGetEigwServerList,
-  fetchGetEigwChrgrInfo,
-  fetchEigwAdOnlineList,
-  fetchEigwOnlineDetail,
-  fetchDeleteChrgrInfo,
-  fetchSaveEigwChrgrInfo,
-  fetchPutEigwChrgrInfo,
-  fetchSaveEigwServerInfo,
-  fetchPutEigwServerInfo,
   fetchEigwMetaPutInfo,
-  fetchEigwOnlineSaveInfo,
-  fetchEigwOninePutInfo,
-  fetchEigwOnlineSaveChrgr,
-  fetchDeleteOnlineChrgrInfo,
-  fetchEigwReqList,
-  fetchEigwReqSave,
-
+  // Online
+  fetchEigwAdOnlineList,
   fetchGetEigwOnlineList,
-  fetchGetEigwProcListByOnlineMetaNum,
-  fetchPostProcInfo,
-  fetchDeleteProcInfo,
-  fetchPutProcInfo,
-  fetchPostOnlineIf,
-  fetchDeleteOnlineIf,
-  fetchPutOnlineIf,
+  fetchGetEigwOnlineInfo,
+  fetchPostEigwOnlineInfo,
+  fetchPutEigwOnlineInfo,
+  fetchDeleteEigwOnlineInfo,
+  fetchGetEigwProcList,
+  fetchPutEigwProcInfo,
+  fetchPostEigwProcInfo,
+  fetchDeleteEigwProcInfo,
 };

@@ -713,11 +713,11 @@
               <td class="td_cell">
                 <i
                   class="ico-add"
-                  @click="addInList(i)"
+                  @click="addInChrgrList(i)"
                 />
                 <i
                   class="ico-del"
-                  @click="delInList(i)"
+                  @click="deleteInChrgrList(i)"
                 />
               </td>
             </ul>
@@ -820,11 +820,11 @@
               <td class="td_cell">
                 <i
                   class="ico-add"
-                  @click="addOutList(i)"
+                  @click="addOutChrgrList(i)"
                 />
                 <i
                   class="ico-del"
-                  @click="delOutList(i)"
+                  @click="deleteOutChrgrList(i)"
                 />
               </td>
             </ul>
@@ -1157,14 +1157,11 @@ export default {
           console.log(`metainfo save error occur!! : ${ex}`);
         });
     },
-    addInList(i) {
-      console.log('행 추가!');
+    addInChrgrList(i) {
       this.inChrgrList.splice(i + 1, 0, {});
     },
-    delInList(i) {
-      console.log('행 삭제!');
+    deleteInChrgrList(i) {
       if (this.inChrgrList.length > 1) {
-        console.log('행 삭제!');
         const idx = this.inChrgrList.indexOf(i);
         this.inChrgrList.splice(idx, 1);
       } else {
@@ -1178,14 +1175,11 @@ export default {
         this.inChrgrList[0].emailAddr = '';
       }
     },
-    addOutList(i) {
-      console.log('행 추가!');
+    addOutChrgrList(i) {
       this.outChrgrList.splice(i + 1, 0, {});
     },
-    delOutList(i) {
-      console.log('행 삭제!');
+    deleteOutChrgrList(i) {
       if (this.outChrgrList.length > 1) {
-        console.log('행 삭제!');
         const idx = this.outChrgrList.indexOf(i);
         this.outChrgrList.splice(idx, 1);
       } else {
