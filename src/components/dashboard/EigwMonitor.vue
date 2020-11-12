@@ -15,8 +15,9 @@
             type="checkbox"
           >
           Auto Refresh
+          &nbsp;&nbsp;
           <button
-            class="button is-primary"
+            class="button is-primary home_btn"
             @click="searchEigwTransError()"
           >
             새로고침 : {{ remainTime }}s

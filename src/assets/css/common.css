@@ -896,6 +896,25 @@ right:0
 
 
 /* HOME */
+.home_btn {
+    display: inline-flex;
+    display: -ms-inline-flexbox;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    top: 1px;
+    width: auto;
+    height: 24px;
+    border: 1px solid #888;
+    border-radius: 2px;
+    color: #787878;
+    font-size: 14px;
+    font-family: Moebius_Bold_kor, Moebius_Bold_eng;
+    line-height: 1;
+    background: #f7f3f2;
+    cursor: pointer;
+    border-radius: 5px;
+}
 
 .contents .home {
     display: flex;

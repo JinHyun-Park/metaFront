@@ -29,13 +29,14 @@
               </option>
             </select>
           </div>
+          &nbsp;&nbsp;
           <input
             v-model="chkAutoRefresh"
             type="checkbox"
           >
-          Auto Refresh
+          Auto Refresh&nbsp;&nbsp;
           <button
-            class="button is-primary"
+            class="button is-primary home_btn"
             @click="searchQueueDepth()"
           >
             새로고침 : {{ remainTime }}s

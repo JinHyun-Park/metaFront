@@ -13,14 +13,14 @@
             <i class="ico-bar" />Main Dashboard
           </div>
           <button
-            class="button is-primary"
+            class="home_btn"
             @click="showFullView()"
           >
             <img
               src="@/assets/images/ico-sizeup3.png"
               width="13"
             >
-            전체화면
+            &nbsp;전체화면
           </button>
         </h2>
       </section>
