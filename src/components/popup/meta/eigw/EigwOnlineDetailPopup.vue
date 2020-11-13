@@ -525,6 +525,26 @@ export default {
       this.svrOnChrgr = false;
       this.svrOnEigwChrgr = false;
     },
+    addOnlineUser(i) {
+      console.log('행 추가!');
+      this.onlineUserList.splice(i + 1, 0, {});
+    },
+    delOnlineUser(i) {
+      console.log('행 삭제!');
+      if (this.onlineUserList.length > 1) {
+        console.log('행 삭제!');
+        const idx = this.onlineUserList.indexOf(i);
+        this.onlineUserList.splice(idx, 1);
+      } else {
+        this.onlineUserList[0].chrgrTyp = '';
+        this.onlineUserList[0].userId = '';
+        this.onlineUserList[0].instNm = '';
+        this.onlineUserList[0].instCd = '';
+        this.onlineUserList[0].hanNm = '';
+        this.onlineUserList[0].mblPhonNum = '';
+        this.onlineUserList[0].emailAddr = '';
+      }
+    },
   },
 };
 </script>
