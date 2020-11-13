@@ -75,23 +75,11 @@
               <li class="th_cell">
                 프로그램 유형
               </li>
-              <li class="th_cell">
-                개발IP(NAT)
-              </li>
-              <li class="th_cell">
-                개발 PORT
-              </li>
-              <li class="th_cell">
-                운영IP(NAT)
-              </li>
-              <li class="th_cell">
-                운영 PORT
-              </li>
             </ul>
           </div>
           <div class="table_body">
             <ul
-              v-for="(row, index) in onlineIfList"
+              v-for="(row, index) in onlineList"
               :key="row.onlineMetaNum"
               class="table_row w-auto"
               @click="detailInfo(index)"
@@ -107,18 +95,6 @@
               </li>
               <li class="td_cell">
                 {{ row.pgmTypNm }}
-              </li>
-              <li class="td_cell">
-                {{ row.dvpSvrRealIp }}<br>({{ row.dvpSvrNatIp }})
-              </li>
-              <li class="td_cell">
-                {{ row.dvpSvrPort }}
-              </li>
-              <li class="td_cell">
-                {{ row.prodSvrRealIp }}<br>({{ row.prodSvrNatIp }})
-              </li>
-              <li class="td_cell">
-                {{ row.prodSvrPort }}
               </li>
             </ul>
           </div>
@@ -139,100 +115,94 @@
       </div>
     </section>
     <section class="form_area border_group">
-      <h5 class="s_tit">
-        상세정보
+      <h5 class="s_tit type-2">
+        프로세스 정보
       </h5>
-      <div class="row_contain type-2">
-        <div class="column on w-1">
-          <label class="column_label">I/F ID</label>
-          <input
-            v-model="onlineMst.eaiIfId"
-            type="text"
-            readonly
+      <div class="table_colgroup">
+        <div class="table_grid">
+          <div class="table_head">
+            <ul>
+              <li class="th_cell">
+                프로그램명
+              </li>
+              <li class="th_cell">
+                설정파일
+              </li>
+              <li class="th_cell">
+                개발IP(NAT)
+              </li>
+              <li class="th_cell">
+                개발 PORT
+              </li>
+              <li class="th_cell">
+                운영IP(NAT)
+              </li>
+              <li class="th_cell">
+                운영 PORT
+              </li>
+              <li class="th_cell">
+                프로그램 유형
+              </li>
+              <li class="th_cell">
+                연결 유형
+              </li>
+            </ul>
+          </div>
+          <div
+            v-if="!procList"
+            class="table_body"
           >
-        </div>
-        <div class="column w-1">
-          <label class="column_label">대외기관</label>
-          <input
-            v-model="onlineMst.instNm"
-            type="text"
-            readonly
+            <ul class="table_row">
+              <li class="td_cell">
+                I/F목록에서 I/F를 선택해주세요.
+              </li>
+            </ul>
+          </div>
+          <div
+            v-else-if="procList.length === 0"
+            class="table_body"
           >
-        </div>
-      </div>
-      <div class="row_contain type-2">
-        <div class="column on w-1">
-          <label class="column_label">프로그램 유형</label>
-          <input
-            v-model="procInfo.pgmTypNm"
-            type="text"
-            readonly
+            <ul class="table_row">
+              <li class="td_cell">
+                해당 인터페이스의 프로세스가 없습니다.
+              </li>
+            </ul>
+          </div>
+          <div
+            v-else
+            class="table_body"
           >
-        </div>
-        <div class="column w-1">
-          <label class="column_label">연결유형</label>
-          <input
-            v-model="procInfo.linkTypNm"
-            type="text"
-            readonly
-          >
-        </div>
-      </div>
-    </section>
-    <section class="form_area border_group">
-      <h5 class="s_tit">
-        서버정보
-      </h5>
-      <div class="row_contain type-2">
-        <div class="column w-1">
-          <label class="column_label">개발기_REAL IP</label>
-          <input
-            v-model="procInfo.dvpSvrRealIp"
-            type="text"
-            readonly
-          >
-        </div>
-        <div class="column w-1">
-          <label class="column_label">개발기_NAT IP</label>
-          <input
-            v-model="procInfo.dvpSvrNatIp"
-            type="text"
-            readonly
-          >
-        </div>
-        <div class="column w-1">
-          <label class="column_label">개발기_PORT</label>
-          <input
-            v-model="procInfo.dvpSvrPort"
-            type="text"
-            readonly
-          >
-        </div>
-      </div>
-      <div class="row_contain type-2">
-        <div class="column w-1">
-          <label class="column_label">운영기_REAL IP</label>
-          <input
-            v-model="procInfo.prodSvrRealIp"
-            type="text"
-            readonly
-          >
-        </div>
-        <div class="column w-1">
-          <label class="column_label">운영기_NAT IP</label>
-          <input
-            v-model="procInfo.prodSvrNatIp"
-            type="text"
-            readonly
-          >
-        </div>
-        <div class="column w-1">
-          <label class="column_label">운영기_PORT</label>
-          <input
-            v-model="procInfo.prodSvrPort"
-            type="text"
-            readonly
-          >
+            <ul
+              v-for="row in procList"
+              :key="row.procNum"
+              class="table_row w-auto"
+            >
+              <li class="td_cell">
+                {{ row.pgmId }}
+              </li>
+              <li class="td_cell">
+                {{ row.confFile }}
+              </li>
+              <li class="td_cell">
+                {{ row.dvpSvrRealIp }}<br>({{ row.dvpSvrNatIp }})
+              </li>
+              <li class="td_cell">
+                {{ row.dvpSvrPort }}
+              </li>
+              <li class="td_cell">
+                {{ row.prodSvrRealIp }}<br>({{ row.prodSvrNatIp }})
+              </li>
+              <li class="td_cell">
+                {{ row.prodSvrPort }}
+              </li>
+              <li class="td_cell">
+                {{ row.pgmTyp }}
+              </li>
+              <li class="td_cell">
+                {{ row.linkTyp }}
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </section>
@@ -341,7 +311,7 @@
 </template>
 
 <script>
-import { fetchEigwAdOnlineList, fetchGetEigwOnlineInfo } from '@/api/eigwApi';
+import { fetchGetEigwOnlineList, fetchGetEigwOnlineInfo } from '@/api/eigwApi';
 import InstListPopup from '@/components/popup/bizcomm/InstListPopup.vue';
 
 export default {
@@ -356,13 +326,13 @@ export default {
       },
       pageSet: { pageNo: 1, pageCount: 0, size: 5 },
       pageMoveChk: 0,
-      onlineIfList: '',
+      onlineList: '',
       eaiIfId: '',
       svrIp: '',
       instNm: '',
       inChrgrList: '',
       outChrgrList: '',
-      onlineMst: {},
+      onlineInfo: {},
       procInfo: {},
       reqIp: '',
     };
@@ -374,7 +344,7 @@ export default {
       this.pageMoveChk = 0;
     },
     searchList() {
-      fetchEigwAdOnlineList({
+      fetchGetEigwOnlineList({
         params: {
           eaiIfId: this.eaiIfId,
           reqIp: this.reqIp,
@@ -387,7 +357,7 @@ export default {
         .then((res) => {
           console.log(res);
           if (res.data.rstCd === 'S') {
-            this.onlineIfList = res.data.rstData.searchList;
+            this.onlineList = res.data.rstData.searchList;
             this.pageSet = res.data.rstData.pageSet;
           } else {
             this.$gf.alertOn('failed');
@@ -400,17 +370,17 @@ export default {
     detailInfo(i) {
       fetchGetEigwOnlineInfo({
         params: {
-          onlineMetaNum: this.onlineIfList[i].onlineMetaNum,
-          // procNum: this.onlineIfList[i].procNum,
+          onlineMetaNum: this.onlineList[i].onlineMetaNum,
         },
       })
         .then((res) => {
           console.log(res);
           if (res.data.rstCd === 'S') {
-            this.onlineMst = res.data.rstData.onlineInfo;
-            // this.procInfo = res.data.rstData.rstData.procInfo;
+            this.onlineInfo = res.data.rstData.onlineInfo;
+            this.procList = res.data.rstData.procList;
             this.inChrgrList = res.data.rstData.inChrgrList;
             this.outChrgrList = res.data.rstData.outChrgrList;
+            console.log(this.procList);
           } else {
             this.$gf.alertOn('failed');
           }

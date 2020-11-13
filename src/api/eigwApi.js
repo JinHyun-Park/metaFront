@@ -3,10 +3,6 @@
 const preUrl = '/api/eigw';
 
 // Server
-function fetchEigwServerList(param) {
-  return axios.get(`${preUrl}/serverList`, param);
-}
-
 function fetchGetEigwServerList(param) {
   return axios.get(`${preUrl}/serverList`, param);
 }
@@ -59,10 +55,6 @@ function fetchEigwMetaPutInfo(param) {
 }
 
 // Online
-function fetchEigwAdOnlineList(param) {
-  return axios.get(`${preUrl}/onlineList`, param);
-}
-
 function fetchGetEigwOnlineList(param) {
   return axios.get(`${preUrl}/onlineList`, param);
 }
@@ -104,7 +96,6 @@ export {
   fetchGetEigwServerList,
   fetchSaveEigwServerInfo,
   fetchPutEigwServerInfo,
-  fetchEigwServerList,
   // Chrgr
   fetchGetEigwChrgrInfo,
   fetchSaveEigwChrgrInfo,
@@ -118,7 +109,6 @@ export {
   fetchEigwMetaSaveInfo,
   fetchEigwMetaPutInfo,
   // Online
-  fetchEigwAdOnlineList,
   fetchGetEigwOnlineList,
   fetchGetEigwOnlineInfo,
   fetchPostEigwOnlineInfo,

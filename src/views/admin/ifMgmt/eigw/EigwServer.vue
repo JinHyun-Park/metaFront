@@ -214,7 +214,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex';
-import { fetchEigwServerList, fetchSaveEigwServerInfo, fetchPutEigwServerInfo } from '@/api/eigwApi';
+import { fetchGetEigwServerList, fetchSaveEigwServerInfo, fetchPutEigwServerInfo } from '@/api/eigwApi';
 import InstListPopup from '@/components/popup/bizcomm/InstListPopup.vue';
 
 export default {
@@ -261,7 +261,7 @@ export default {
       this.pageMoveChk = 0;
     },
     searchList() {
-      fetchEigwServerList({
+      fetchGetEigwServerList({
         params: {
           pageNo: this.pageMoveChk === 1 ? this.pageSet.pageNo : 1,
           pageCount: this.pageMoveChk === 1 ? this.pageSet.pageCount : 0,
