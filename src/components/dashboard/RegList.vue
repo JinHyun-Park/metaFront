@@ -12,6 +12,9 @@
               번호
             </td>
             <td class="th_cell">
+              구분
+            </td>
+            <td class="th_cell">
               신청제목
             </td>
             <td class="th_cell">
@@ -35,6 +38,26 @@
               class="td_cell"
             >
               {{ row.reqNum }}
+            </li>
+            <li class="td_cell on">
+              <label
+                v-if="(row.ifKind === 'EAI')"
+                class="label-default color-green on"
+              >
+                EAI
+              </label>
+              <label
+                v-else-if="(row.ifKind === 'EIGW')"
+                class="label-default color-blue on"
+              >
+                EiGW
+              </label>
+              <label
+                v-else-if="(row.ifKind === 'MCG')"
+                class="label-default color-yellow on"
+              >
+                MCG
+              </label>
             </li>
             <li
               class="td_cell"
@@ -146,12 +169,13 @@ export default {
       this.endReqDtm = val;
       console.log(val);
     },
-    newApply() {
-      // ifReg/applyIf
-      this.$router.push({ name: 'applyIf', params: { reqNum: null, callType: 'insert' } });
-    },
     detail(i) {
-      this.$router.push({ name: 'applyIf', params: { reqNum: this.ifReqList[i].reqNum, callType: 'update', procSt: this.ifReqList[i].procSt } });
+      this.$router.push({
+        name: 'newApplyIf',
+        params: {
+          reqNum: this.ifReqList[i].reqNum, callType: 'update', procSt: this.ifReqList[i].procSt, ifKind: this.ifReqList[i].ifKind,
+        },
+      });
     },
   },
 };

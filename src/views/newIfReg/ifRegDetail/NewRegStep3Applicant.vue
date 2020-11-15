@@ -270,7 +270,7 @@ export default {
         message: '', // 사용방법 예시 데이터
       },
 
-      aprvInfo: [],
+      aprvInfo: {},
 
       eaiList: [],
       eigwList: [],
@@ -337,7 +337,7 @@ export default {
     },
     saveStep3AprvId() {
       // 승인자 정보 등록
-      if (this.aprvInfo.aprvId === '') {
+      if (this.$gf.isEmpty(this.aprvInfo.aprvId)) {
         this.$gf.alertOn('승인자 지정은 필수입니다.');
         return;
       }
@@ -355,7 +355,7 @@ export default {
     },
     saveStep3AprvReq() {
       // 승인요청
-      if (this.aprvInfo.aprvId === '') {
+      if (this.$gf.isEmpty(this.aprvInfo.aprvId)) {
         this.$gf.alertOn('승인자 지정은 필수입니다.');
         return;
       }

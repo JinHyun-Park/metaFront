@@ -135,8 +135,8 @@
 </template>
 
 <script>
-import ReactiveLineChart from '../../chart/ReactiveLineChart.vue';
 import { fetchGetStatEaiHourlyTrms, fetchGetStatEaiDailyTrms, fetchGetStatEaiMonthlyTrms } from '@/api/statApi';
+import ReactiveLineChart from '../../chart/ReactiveLineChart.vue';
 
 export default {
   /* eslint-disable */
@@ -173,6 +173,10 @@ export default {
   mounted() {
     this.statDate = this.$gf.dateToString(new Date(), '', 'Y');
     this.statItemList = this.statHourlyItemList;
+
+    //시연용 temp todo
+    this.statDate = '20200504';
+
   },
   methods: {
     dynamicColors() {
@@ -206,18 +210,24 @@ export default {
       this.dayOnClass = this.monthOnClass = false;
       this.inputTimeLabel = '날짜 입력 (YYYY-MM-DD)';
       this.statDate = '';
+      // 임시 시연용
+      this.statDate = '20200504';
     },
     dayOn(){
       this.dayOnClass = true;
       this.hourOnClass = this.monthOnClass = false;
       this.inputTimeLabel = '연월 입력 (YYYY-MM)';
       this.statDate = '';
+      // 임시 시연용
+      this.statDate = '202005';
     },
     monthOn(){
       this.monthOnClass = true;
       this.hourOnClass = this.dayOnClass = false;
       this.inputTimeLabel = '연 입력 (YYYY)';
       this.statDate = '';
+      // 임시 시연용
+      this.statDate = '2020';
     },
 
     searchHourlyList() {
