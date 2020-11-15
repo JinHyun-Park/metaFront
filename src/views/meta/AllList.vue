@@ -325,7 +325,7 @@ export default {
         name: 'ifIdListAdmin',
         params: {
           eaiIfSeq: this.allMetaList[index].eaiIfSeq,
-          callType: 'update',
+          callType: 'viewAll',
         },
       });
     },

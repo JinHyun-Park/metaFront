@@ -847,6 +847,13 @@
         목록
       </button>
       <button
+        v-if="callType === 'viewAll'"
+        class="default_button on"
+        @click="movePage('allList')"
+      >
+        목록
+      </button>
+      <button
         v-if="callType === 'new' || callType === 'appro'"
         class="default_button on"
         @click="saveEaiInterfaceInfo()"
@@ -854,7 +861,7 @@
         등록
       </button>
       <button
-        v-if="callType === 'update'"
+        v-if="callType === 'update' && adminYn ==='Y'"
         class="default_button"
         @click="updateEaiInterfaceInfo()"
       >
@@ -1016,9 +1023,10 @@ export default {
   },
   computed: {
     ...mapState('ccCdLst', ['ccCdList']),
+    ...mapState('login', ['adminYn']),
   },
   created() {
-    if (this.$route.params.callType === 'update') {
+    if (this.$route.params.callType === 'update' || this.$route.params.callType === 'viewAll') {
       this.eaiIfSeq = this.$route.params.eaiIfSeq;
       this.callType = this.$route.params.callType;
 
