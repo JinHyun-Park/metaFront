@@ -22,13 +22,13 @@
                 인터페이스 명
               </li>
               <li class="th_cell">
-                개요
+                연동 환경
               </li>
               <li class="th_cell">
-                담당자
+                담당자(C&C)
               </li>
               <li class="th_cell">
-                담당자
+                담당자(SKT)
               </li>
             </ul>
           </div>
@@ -38,10 +38,13 @@
                 EAI
               </li>
               <li class="td_cell">
-                EAI는 큐덩어리~!!
+                SKT내부 및 관계사 EAI 시스템 간 비동기 연동을 위한 인터페이스 제공
               </li>
               <li class="td_cell">
                 전창후 수석
+              </li>
+              <li class="td_cell">
+                김정태 님/MNO IT최적화팀
               </li>
             </ul>
             <ul class="table_row w-auto">
@@ -52,7 +55,10 @@
                 대외기관 연동은 EiGW와 함께
               </li>
               <li class="td_cell">
-                강태훈 선임
+                유영준 수석/강태훈 선임
+              </li>
+              <li class="td_cell">
+                김정태 님/MNO IT최적화팀
               </li>
             </ul>
             <ul class="table_row w-auto">
@@ -60,10 +66,13 @@
                 MCG
               </li>
               <li class="td_cell">
-                채널 - Swing 정기 PM 반영 가능 / 거래 - 매주 정기배포일 반영 가능
+                Swing 정보 조회성, 실시간성 (데이터 보장 되지 않음)
               </li>
               <li class="td_cell">
                 장호은 선임
+              </li>
+              <li class="td_cell">
+                김정태 님/MNO IT최적화팀
               </li>
             </ul>
           </div>
@@ -131,10 +140,11 @@
                 >
               </li>
               <li class="td_cell">
-                <input
-                  type="button"
-                  value="큐 모니터링"
+                <button
+                  class="button is-primary home_btn"
                 >
+                  큐 모니터링
+                </button>
               </li>
             </ul>
             <ul class="table_row w-auto">
@@ -164,18 +174,26 @@
                 >
               </li>
               <li class="td_cell">
-                <input
-                  type="button"
-                  value="EiGW 모니터링"
+                <button
+                  class="button is-primary home_btn"
                 >
+                  EiGW 모니터링
+                </button>
               </li>
             </ul>
             <ul class="table_row w-auto">
               <li class="td_cell">
-                파일/온라인 구분 필요
+                EAI/EIGW 연동 정보 조회
               </li>
               <li class="td_cell">
-                파일 송/수신 및 온라인 송/수신 여부를 명확히 해야 한다.
+                IF ID를 기준으로 상세 연동 정보를 조회한다.
+              </li>
+              <li class="td_cell">
+                <input
+                  type="checkbox"
+                  checked
+                  disabled
+                >
               </li>
               <li class="td_cell">
                 <input
@@ -191,21 +209,19 @@
                 >
               </li>
               <li class="td_cell">
-                <input
-                  type="checkbox"
-                  disabled
+                <button
+                  class="button is-primary home_btn"
                 >
-              </li>
-              <li class="td_cell">
-                구현중
+                  메타정보 조회
+                </button>
               </li>
             </ul>
             <ul class="table_row w-auto">
               <li class="td_cell">
-                기존에 연동 중인 시스템인지??
+                MCG 연동 정보 조회
               </li>
               <li class="td_cell">
-                기 연동 시스템의 경우에는 여러 확인사항에 대해서 좀 더 쉽게 접근할 수 있다.
+                MCG 의 거래/채널 정보를 조회한다.
               </li>
               <li class="td_cell">
                 <input
@@ -227,7 +243,11 @@
                 >
               </li>
               <li class="td_cell">
-                구현중
+                <button
+                  class="button is-primary home_btn"
+                >
+                  MCG 정보 조회
+                </button>
               </li>
             </ul>
           </div>

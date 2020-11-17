@@ -9,9 +9,6 @@
           <span class="subtitle2">
             인터페이스 신청 목록에서 오른쪽 상단의 "신규 신청" 버튼이나 작성 중인 신청 목록의 제목을 클릭하면 수정할 수 있다.
           </span>
-          <span class="subtitle2">
-            인터페이스 신청 Top 메뉴의 "신청 등록" 메뉴를 직접 클릭한다.
-          </span>
             &nbsp;
           <span class="subtitle1">
             2. 신청 단계별 주요 입력 항목

@@ -7,9 +7,6 @@
             1. 어떤 인터페이스를 선택해야되는 지 결정한다.
           </span>
           <span class="subtitle2">
-            SKT 인터페이스는 많다.
-          </span>
-          <span class="subtitle2">
             여러 환경에 맞는 인터페이스를 우선 고민 후에 신청을 진행할 필요가 있다.
           </span>
         </div>
@@ -22,13 +19,13 @@
                 인터페이스 명
               </li>
               <li class="th_cell">
-                개요
+                연동 환경
               </li>
               <li class="th_cell">
-                담당자
+                담당자(C&C)
               </li>
               <li class="th_cell">
-                담당자
+                담당자(SKT)
               </li>
             </ul>
           </div>
@@ -38,10 +35,13 @@
                 EAI
               </li>
               <li class="td_cell">
-                EAI는 큐덩어리~!!
+                SKT내부 및 관계사 EAI 시스템 간 비동기 연동을 위한 인터페이스 제공
               </li>
               <li class="td_cell">
                 전창후 수석
+              </li>
+              <li class="td_cell">
+                김정태 님/MNO IT최적화팀
               </li>
             </ul>
             <ul class="table_row w-auto">
@@ -52,7 +52,10 @@
                 대외기관 연동은 EiGW와 함께
               </li>
               <li class="td_cell">
-                강태훈 선임
+                유영준 수석/강태훈 선임
+              </li>
+              <li class="td_cell">
+                김정태 님/MNO IT최적화팀
               </li>
             </ul>
             <ul class="table_row w-auto">
@@ -64,6 +67,9 @@
               </li>
               <li class="td_cell">
                 장호은 선임
+              </li>
+              <li class="td_cell">
+                김정태 님/MNO IT최적화팀
               </li>
             </ul>
           </div>

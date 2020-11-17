@@ -70,10 +70,10 @@ export default {
       // // sample data
       transErrorTime: [2100, 2101, 2102, 2103, 2104, 2105, 2106, 2107, 2108, 2109],
       transErrorE001DataLabel: ['', '', '', 'KAIT.SEND', ''],
-      transErrorE001DataValue: [0, 0, 0, 1, 0, 0, 0, 1, 0, 0],
-      transErrorE002DataValue: [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-      transErrorE003DataValue: [0, 0, 2, 0, 0, 0, 0, 0, 5, 0],
-      transErrorE004DataValue: [1, 1, 0, 1, 0, 1, 0, 1, 0, 0],
+      transErrorE001DataValue: [0, 0, 3, 0, 0, 0, 0, 3, 0, 0],
+      transErrorE002DataValue: [0, 0, 0, 0, 3, 3, 3, 3, 3, 3],
+      transErrorE003DataValue: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      transErrorE004DataValue: [3, 3, 0, 0, 0, 0, 0, 0, 0, 0],
 
       transErrorCnt: {
         errorE001: [{
@@ -130,7 +130,7 @@ export default {
   },
   created() {
     // this.searchQueueDepth();
-    this.searchEigwTransError();
+    this.searchMcgTransError();
   },
   mounted() {
     // this.fillData();
@@ -142,7 +142,7 @@ export default {
     clearInterval(this.remainTimeFuc);
   },
   methods: {
-    searchEigwTransError() {
+    searchMcgTransError() {
       // this.searchQueueDepthByQueueNm();
       this.makeChartData();
     },
@@ -153,13 +153,13 @@ export default {
       return `rgb(${r},${g},${b})`;
     },
     getRandomValue() {
-      return Math.floor(Math.random() * ((10 - 0) + 1));
+      return Math.floor(Math.random() * ((3 - 0) + 1));
     },
     makeChartData() {
       this.datacollection = {
         labels: this.transErrorTime,
         datasets: [{
-          label: '대외기관 접속 불가',
+          label: 'TWORLD',
           // label: this.transErrorE001DataLabel,
           // data: this.computeGraphRowValue(),
           borderColor: this.dynamicColors(),
@@ -167,7 +167,7 @@ export default {
           fill: false,
         },
         {
-          label: '대외기관 프로세스 이상',
+          label: 'T Gate',
           // label: this.transErrorE001DataLabel,
           // data: this.computeGraphRowValue(),
           borderColor: this.dynamicColors(),
@@ -175,7 +175,7 @@ export default {
           fill: false,
         },
         {
-          label: '내부 전문 오류',
+          label: 'CSP',
           // label: this.transErrorE001DataLabel,
           // data: this.computeGraphRowValue(),
           borderColor: this.dynamicColors(),
@@ -183,7 +183,7 @@ export default {
           fill: false,
         },
         {
-          label: '전문 수신오류(Timeout)',
+          label: 'API HUB',
           // label: this.transErrorE001DataLabel,
           // data: this.computeGraphRowValue(),
           borderColor: this.dynamicColors(),
