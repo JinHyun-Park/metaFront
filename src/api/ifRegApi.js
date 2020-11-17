@@ -9,6 +9,10 @@ function fetchGetIfReqMst(param) {
   return axios.get(`${preUrl}/detail/step1`, param);
 }
 
+function fetchGetIfReqHst(param) {
+  return axios.get(`${preUrl}/hstlist`, param);
+}
+
 function fetchPostIfStep1Reg(param) {
   return axios.post(`${preUrl}/reqInfo/step1`, param);
 }
@@ -53,6 +57,7 @@ function fetchPutIfStepAprvReqAdmin(param) {
 export {
   fetchGetIfRegList,
   fetchGetIfReqMst,
+  fetchGetIfReqHst,
   fetchPostIfStep1Reg,
   fetchPutIfStep1Reg,
   fetchPostIfStep2Reg,

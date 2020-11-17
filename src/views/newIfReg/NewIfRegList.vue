@@ -6,6 +6,12 @@
       @closePop="turnOffNewIfRegChose"
       @addData="addNewIfRegChose"
     />
+    <IfReqHstPopup
+      v-if="showIfReqHstPopup"
+      :prop-data="popupReqHstProp"
+      @closePop="turnOffIfRegHst"
+    />
+
     <section class="title style-1">
       <h2>
         <div>
@@ -160,6 +166,9 @@
             <li class="th_cell">
               승인자
             </li>
+            <li class="th_cell">
+              결제이력
+            </li>
           </ul>
         </div>
         <div class="table_body">
@@ -232,6 +241,14 @@
               v-else
               class="td_cell"
             />
+            <li class="td_cell">
+              <button
+                class="button is-primary home_btn"
+                @click="turnOnIfRegHst(row.reqNum)"
+              >
+                보기
+              </button>
+            </li>
           </ul>
         </div>
       </div>
@@ -256,11 +273,13 @@
 import { mapState, mapActions } from 'vuex';
 import { fetchGetIfRegList } from '@/api/ifRegApi';
 import NewIfRegChose from '@/components/popup/ifRegInfo/NewIfRegChose.vue';
+import IfReqHstPopup from '@/components/popup/ifRegInfo/IfReqHstPopup.vue';
 
 export default {
   /* eslint-disable */
   components: {
     NewIfRegChose,
+    IfReqHstPopup,
   },
   data() {
     return {
@@ -290,6 +309,11 @@ export default {
         procSt: 0,
       },
       ifKind: 'EAI',
+
+      showIfReqHstPopup: false,
+      popupReqHstProp: {
+        reqNum : '',
+      },
 
       procNmList: {
         '1': '임시저장',
@@ -405,6 +429,13 @@ export default {
       this.newIfRegChosePopup = false;
       this.ifKind = val;
       this.newApply();
+    },
+    turnOnIfRegHst(val) {
+      this.popupReqHstProp.reqNum = val;
+      this.showIfReqHstPopup = true;
+    },
+    turnOffIfRegHst() {
+      this.showIfReqHstPopup = false;
     },
   },
 }
