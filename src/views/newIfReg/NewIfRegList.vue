@@ -243,8 +243,15 @@
             />
             <li class="td_cell">
               <button
+                v-if="(row.reqHstCnt > 0)"
                 class="button is-primary home_btn"
                 @click="turnOnIfRegHst(row.reqNum)"
+              >
+                보기
+              </button>
+              <button
+                v-else
+                disabled
               >
                 보기
               </button>
