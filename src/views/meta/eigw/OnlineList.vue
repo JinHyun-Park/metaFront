@@ -80,7 +80,7 @@
           <div class="table_body">
             <ul
               v-for="(row, index) in onlineList"
-              :key="row.onlineMetaNum"
+              :key="index"
               class="table_row w-auto"
               @click="detailInfo(index)"
             >

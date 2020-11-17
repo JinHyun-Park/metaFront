@@ -400,17 +400,10 @@ export default {
     },
     delFileUser(i) {
       console.log('행 삭제!');
-      if (this.fileUserList.length > 1) {
-        console.log('행 삭제!');
-        const idx = this.fileUserList.indexOf(i);
-        this.fileUserList.splice(idx, 1);
-      } else {
-        this.fileUserList[0].chrgrTyp = '';
-        this.fileUserList[0].instNm = '';
-        this.fileUserList[0].instCd = '';
-        this.fileUserList[0].hanNm = '';
-        this.fileUserList[0].mblPhonNum = '';
-        this.fileUserList[0].emailAddr = '';
+
+      this.fileUserList.splice(i, 1);
+      if (this.fileUserList.length === 0) {
+        this.fileUserList.push({});
       }
     },
     delFileInfo(row) {
