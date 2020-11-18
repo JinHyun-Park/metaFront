@@ -82,9 +82,9 @@
         </div>
         <div class="column w-1">
           <label class="column_label">연동방식</label>
-          <select v-model="lnkgMthdin">
+          <select v-model="lnkMthdin">
             <option
-              v-for="(code, m) in ccCdList.mcgChnlLnkgMthd"
+              v-for="(code, m) in ccCdList.mcgChnlLnkMthd"
               :key="m"
               :value="code.cdDtlId"
             >
@@ -163,8 +163,7 @@
               :class="checkCurLine(idx)"
               class="table_row w-auto click_btn"
 
-              @click="dtlChnl(chn), Serverinfodtl(chn.opCd), Chrgrinfodtl(chn.opCd),
-                      setCurLine(idx)"
+              @click="dtlChnl(idx)"
             >
               <li class="td_cell">
                 {{ chn.opCd }}
@@ -272,7 +271,7 @@
           <div class="select_group disabled">
             <select v-model="chnldtl.lnkMthd">
               <option
-                v-for="(code, m) in ccCdList.mcgChnlLnkgMthdR"
+                v-for="(code, m) in ccCdList.mcgChnlLnkMthdR"
                 :key="m"
                 :value="code.cdDtlId"
               >
@@ -451,7 +450,7 @@
           <button
             type="button"
             class="default_button on"
-            @click="modify(chnldtl, chrgrm)"
+            @click="modify()"
           >
             수정
           </button>
@@ -469,7 +468,7 @@ import {
   fetchGetMcgChnlChrgrList,
   fetchPostMcgChnlList,
   // fetchPostMcgServerList,
-  fetchPostMcgChnlChrgr1, fetchPostMcgChnlChrgr2,
+  // fetchPostMcgChnlChrgr1, fetchPostMcgChnlChrgr2,
   fetchPutMcgChnlList,
 // fetchPutMcgServerList,
 // fetchPutMcgChrgrList,
@@ -511,20 +510,20 @@ export default {
       svrinfo1: [],
       svrinfo2: [],
       svrinfo3: [],
-      chrgrinfom: {
+      chrgrm: {
         chrgrTyp: '',
         hanNm: '',
         chrgrId: '',
         mblPhonNum: '',
+        callType: 'NEW', // 신규등록
       },
-      chrgrinfos: {
+      chrgrs: {
         chrgrTyp: '',
         hanNm: '',
         chrgrId: '',
         mblPhonNum: '',
+        callType: 'NEW', // 신규등록
       },
-      chrgrm: [],
-      chrgrs: [],
       chrgrnm: '',
       pageSet: { pageNo: 1, pageCount: 0, size: 10 },
       pageMoveChk: 0,
@@ -542,7 +541,7 @@ export default {
       mcgInstCdin: '',
       chnlTypin: '',
       chnlGrpin: '',
-      lnkgMthdin: '',
+      lnkMthdin: '',
       chnlIdin: '',
       chnlNmin: '',
       containerNum: '',
@@ -581,10 +580,10 @@ export default {
       opClCd: 'MCG', cdId: 'CHNL_TYP', allYn: 'Y', listNm: 'mcgChnlTyp',
     });
     this.setCcCdList({
-      opClCd: 'MCG', cdId: 'LNKG_MTHD', allYn: 'Y', listNm: 'mcgChnlLnkgMthd',
+      opClCd: 'MCG', cdId: 'LNK_MTHD', allYn: 'Y', listNm: 'mcgChnlLnkMthd',
     });
     this.setCcCdList({
-      opClCd: 'MCG', cdId: 'LNKG_MTHD', allYn: 'N', listNm: 'mcgChnlLnkgMthdR',
+      opClCd: 'MCG', cdId: 'LNK_MTHD', allYn: 'N', listNm: 'mcgChnlLnkMthdR',
     });
     this.setCcCdList({
       opClCd: 'MCG', cdId: 'CHNL_GRP', allYn: 'N', listNm: 'mcgChnlGrpR',
@@ -616,7 +615,7 @@ export default {
           mcgInstCd: this.mcgInstCdin,
           chnlTyp: this.chnlTypin,
           chnlGrp: this.chnlGrpin,
-          lnkMthd: this.lnkgMthdin,
+          lnkMthd: this.lnkMthdin,
           chnlId: this.chnlIdin,
           chnlNm: this.chnlNmin,
           containerNum: this.containerNum,
@@ -626,98 +625,18 @@ export default {
           useYn: this.useYnin,
         },
       })
-
         .then((res) => {
-          this.chnList = res.data.rstData.searchList;
-          this.pageSet = res.data.rstData.pageSet;
-          console.log(res.data.rstData.searchList);
-          console.log(this.chnList);
-        })
-        .catch((ex) => {
-          console.log(`error occur!! : ${ex}`);
-        });
-    },
-
-    Serverinfodtl(opCdr) {
-      console.log('채널 서버 조회!');
-      // 데이터 초기화!
-      this.svrinfo00.svrIp = ' ';
-      this.svrinfo00.svrPort = ' ';
-      this.svrinfo01.svrIp = ' ';
-      this.svrinfo01.svrPort = ' ';
-      this.svrinfo02.svrIp = ' ';
-      this.svrinfo02.svrPort = ' ';
-      this.svrinfo03.svrIp = ' ';
-      this.svrinfo03.svrPort = ' ';
-      // this.$axios.get('/api/mcg/chnl', {
-      fetchGetMcgServerList({
-        params: {
-          svrTyp: this.svrTyp,
-          svrIp: this.svrIp,
-          svrPort: this.svrPort,
-          mcgServerNum: this.mcgServerNum,
-          svrNum: this.svrNum,
-          dealCd: this.dealCd,
-          opCd: opCdr,
-        },
-      })
-
-        .then((res) => {
-          console.log('서버 조회!');
-          this.svrinfo0 = res.data.rstData.searchList.svrdev1;
-          this.svrinfo1 = res.data.rstData.searchList.svrdev2;
-          this.svrinfo2 = res.data.rstData.searchList.svrprd1;
-          this.svrinfo3 = res.data.rstData.searchList.svrprd2;
-
-          console.log('서버 조회 완료!');
-          console.log(this.svrinfo0, this.svrinfo1, this.svrinfo2, this.svrinfo3);
-          if (this.svrinfo0 === null) { this.svrinfo0 = this.svrinfo00; }
-          if (this.svrinfo1 === null) { this.svrinfo1 = this.svrinfo01; }
-          if (this.svrinfo2 === null) { this.svrinfo2 = this.svrinfo02; }
-          if (this.svrinfo3 === null) { this.svrinfo3 = this.svrinfo03; }
-          // console.log(res.data.rstData.searchList);
-        })
-        .catch((ex) => {
-          console.log(`error occur!! : ${ex}`);
-        });
-    },
-
-    Chrgrinfodtl(opCdr) {
-      console.log('채널 담당자 조회!');
-      console.log(this.chrgrinfom, this.chrgrinfos);
-      fetchGetMcgChnlChrgrList({
-        params: {
-          chrgrTyp: this.chrgrTyp,
-          hanNm: this.hanNm,
-          chrgrId: this.chrgrId,
-          mblPhonNum: this.mblPhonNum,
-          opCd: opCdr,
-
-        },
-      })
-
-        .then((res) => {
-          this.chrgrm = res.data.rstData.searchList.chrgr1;
-          this.chrgrs = res.data.rstData.searchList.chrgr2;
-          if (this.chrgrm === null) {
-            this.chrgrinfom.hanNm = '';
-            this.chrgrinfom.chrgrId = '';
-            this.chrgrm = this.chrgrinfom;
+          if (res.data.rstCd === 'S') {
+            this.chnList = res.data.rstData.searchList;
+            this.pageSet = res.data.rstData.pageSet;
+          } else {
+            this.$gf.alertOn('조회 실패하였습니다.');
           }
-          if (this.chrgrs === null) {
-            this.chrgrinfos.hanNm = '';
-            this.chrgrinfos.chrgrId = '';
-            this.chrgrs = this.chrgrinfos;
-          }
-          console.log(this.chrgrm, this.chrgrs);
-
-          console.log('대표 담당자 조회!');
         })
         .catch((ex) => {
           console.log(`error occur!! : ${ex}`);
         });
     },
-
 
     noshow() {
       this.isStatusOn = false;
@@ -741,120 +660,189 @@ export default {
       if (this.chrgrn === 'M') {
         this.chrgrm.chrgrId = val.userId;
         this.chrgrm.hanNm = val.hanNm;
-        console.log('M');
       } else if (this.chrgrn === 'S') {
         this.chrgrs.chrgrId = val.userId;
         this.chrgrs.hanNm = val.hanNm;
-        console.log('S');
       }
 
-      console.log(this.chrgrn, val.userId, this.chrgrm.chrgrId, this.chrgrs.chrgrId);
       this.chrgrpopupstate = false;
     },
 
-    dtlChnl(chn) {
-      // let svrinfotemp = [];
+    dtlChnl(i) {
       console.log('상세채널조회!');
-      console.log(chn);
-      this.chnldtl = chn;
-      console.log(this.chnldtl);
+      // 상세정보
+      this.chnldtl = this.chnList[i];
+      this.serverinfodtl(this.chnldtl.opCd);
+      this.chrgrinfodtl(this.chnldtl.opCd);
+
+      this.curLine = i;
       this.isStatusOn = true;
-      console.log(this.isStatusOn);
-      // setTimeout(function sleep() {
-      // 1초 후 작동해야할 코드
-      // console.log(this.svrinfo0);
-      // console.log(this.svrinfo1);
-      // console.log(this.svrinfo2);
-      // console.log(this.svrinfo3);
-
-
-      //  }, 2000);
-
-
-      // svrinfotemp = this.Serverinfo(opCdr, '0');
-      // this.svrinfo0 = svrinfotemp;
-      // svrinfotemp = this.Serverinfo(opCdr, '1');
-      // this.svrinfo1 = svrinfotemp;
-      // svrinfotemp = this.Serverinfo(opCdr, '2');
-      // this.svrinfo2 = svrinfotemp;
-      // svrinfotemp = this.Serverinfo(opCdr, '3');
-      // this.svrinfo3 = svrinfotemp;
-      // console.log('서버조회시작!');
-      // this.serverinfo(opCdr, '0');
-      // this.svrinfo0 = this.svrinfo;
-      // console.log('서버조회0');
-      // this.serverinfo(opCdr, '1');
-      // this.svrinfo1 = this.svrinfo;
-      // console.log('서버조회1');
-      // this.serverinfo(opCdr, '2');
-      // this.svrinfo2 = this.svrinfo;
-      // console.log('서버조회2');
-      // this.serverinfo(opCdr, '3');
-      // this.svrinfo3 = this.svrinfo;
-      // console.log('서버조회3');
     },
 
+    serverinfodtl(opCdr) {
+      console.log('채널 서버 조회!');
+      // 데이터 초기화!
+      this.svrinfo00.svrIp = '';
+      this.svrinfo00.svrPort = '';
+      this.svrinfo01.svrIp = '';
+      this.svrinfo01.svrPort = '';
+      this.svrinfo02.svrIp = '';
+      this.svrinfo02.svrPort = '';
+      this.svrinfo03.svrIp = '';
+      this.svrinfo03.svrPort = '';
+      // this.$axios.get('/api/mcg/chnl', {
+      fetchGetMcgServerList({
+        params: {
+          svrTyp: this.svrTyp,
+          svrIp: this.svrIp,
+          svrPort: this.svrPort,
+          mcgServerNum: this.mcgServerNum,
+          svrNum: this.svrNum,
+          dealCd: this.dealCd,
+          opCd: opCdr,
+        },
+      })
+        .then((res) => {
+          console.log('서버 조회!');
+          this.svrinfo0 = res.data.rstData.searchList.svrdev1;
+          this.svrinfo1 = res.data.rstData.searchList.svrdev2;
+          this.svrinfo2 = res.data.rstData.searchList.svrprd1;
+          this.svrinfo3 = res.data.rstData.searchList.svrprd2;
+
+          console.log('서버 조회 완료!');
+          console.log(this.svrinfo0, this.svrinfo1, this.svrinfo2, this.svrinfo3);
+          if (this.svrinfo0 === null) { this.svrinfo0 = this.svrinfo00; }
+          if (this.svrinfo1 === null) { this.svrinfo1 = this.svrinfo01; }
+          if (this.svrinfo2 === null) { this.svrinfo2 = this.svrinfo02; }
+          if (this.svrinfo3 === null) { this.svrinfo3 = this.svrinfo03; }
+          // console.log(res.data.rstData.searchList);
+        })
+        .catch((ex) => {
+          console.log(`error occur!! : ${ex}`);
+        });
+    },
+
+    chrgrinfodtl(opCdr) {
+      console.log('채널 담당자 조회!');
+      fetchGetMcgChnlChrgrList({
+        params: {
+          chrgrTyp: this.chrgrTyp,
+          hanNm: this.hanNm,
+          chrgrId: this.chrgrId,
+          mblPhonNum: this.mblPhonNum,
+          opCd: opCdr,
+
+        },
+      })
+        .then((res) => {
+          if (res.data.rstCd === 'S') {
+            if (res.data.rstData.searchList.chrgr1 != null) {
+              this.chrgrm = res.data.rstData.searchList.chrgr1;
+              this.chrgrm.callType = 'UPDATE';
+            } else {
+              this.chrgrm.hanNm = '';
+              this.chrgrm.chrgrId = '';
+              this.chrgrm.callType = 'NEW';
+            }
+            if (res.data.rstData.searchList.chrgr2 != null) {
+              this.chrgrs = res.data.rstData.searchList.chrgr2;
+              this.chrgrs.callType = 'UPDATE';
+            } else {
+              this.chrgrs.hanNm = '';
+              this.chrgrs.chrgrId = '';
+              this.chrgrs.callType = 'NEW';
+            }
+            // this.chrgrm = res.data.rstData.searchList.chrgr1;
+            // this.chrgrs = res.data.rstData.searchList.chrgr2;
+            // if (this.chrgrm === null) {
+            //   this.chrgrm.hanNm = '';
+            //   this.chrgrm.chrgrId = '';
+            //   this.chrgrm.callType = 'NEW';
+            // }
+            // if (this.chrgrs === null) {
+            //   this.chrgrs.hanNm = '';
+            //   this.chrgrs.chrgrId = '';
+            //   this.chrgrs.callType = 'NEW';
+            // }
+            console.log(this.chrgrm, this.chrgrs);
+          } else {
+            this.$gf.alertOn('담당자 정보 조회 실패');
+          }
+        })
+        .catch((ex) => {
+          console.log(`error occur!! : ${ex}`);
+        });
+    },
 
     save() {
       console.log('채널 정보 등록!');
-      console.log(this.chnlNm, this.opCd);
+      console.log(`chnlNm[${this.chnlNm}] opcd : [${this.opCdin}`);
       // this.$axios.post('/api/mcg/chnl/post', {
       fetchPutMcgChnlList({
         opCd: this.opCdin,
         mcgInstCd: this.mcgInstCdin,
         chnlTyp: this.chnlTypin,
         chnlGrp: this.chnlGrpin,
-        lnkMthd: this.lnkgMthdin,
+        lnkMthd: this.lnkMthdin,
         chnlId: this.chnlIdin,
         chnlNm: this.chnlNmin,
         useYn: this.useYnin,
       })
         .then((res) => {
-          console.log(res);
-          this.$gf.alertOn('채널 추가 완료!');
-          this.listing();
+          if (res.data.rstCd === 'S') {
+            console.log(res);
+            this.$gf.alertOn('채널 추가 완료!');
+            this.listing();
+          } else {
+            this.$gf.alertOn('채널 추가 실패');
+          }
         })
         .catch((ex) => {
           console.log(`error occur!! : ${ex}`);
         });
     },
 
-    modify(chn, chrgrm) {
+    modify() {
       console.log('채널 정보 수정!');
       console.log(this.chnlNm, this.opCd);
       // this.$axios.post('/api/mcg/chnl/post', {
-      fetchPostMcgChnlList(chn)
+      fetchPostMcgChnlList({
+        chnl: this.chnldtl,
+        chrgrMst: this.chrgrm,
+        chrgrSlv: this.chrgrs,
+      })
         .then((res) => {
           console.log(res);
-          this.$gf.alertOn('채널 수정 완료!');
-          this.listing();
+          if (res.data.rstCd === 'S') {
+            this.$gf.alertOn('채널 정보 수정 완료!');
+            // this.listing();
+          } else {
+            this.$gf.alertOn('채널 정보 수정 실패!');
+          }
         })
         .catch((ex) => {
           console.log(`error occur!! : ${ex}`);
         });
 
-      fetchPostMcgChnlChrgr1(chrgrm)
-        .then((res) => {
-          console.log(res);
-          this.$gf.alertOn('채널 담당자 수정 완료!');
-          this.listing();
-        })
-        .catch((ex) => {
-          console.log(`error occur!! : ${ex}`);
-        });
+      // fetchPostMcgChnlChrgr1(chrgrm)
+      //   .then((res) => {
+      //     console.log(res);
+      //     this.$gf.alertOn('채널 담당자 수정 완료!');
+      //     // this.listing();
+      //   })
+      //   .catch((ex) => {
+      //     console.log(`error occur!! : ${ex}`);
+      //   });
 
-      fetchPostMcgChnlChrgr2(chrgrm)
-        .then((res) => {
-          console.log(res);
-          this.$gf.alertOn('채널 담당자 수정 완료!');
-          this.listing();
-        })
-        .catch((ex) => {
-          console.log(`error occur!! : ${ex}`);
-        });
-    },
-    setCurLine(val) {
-      this.curLine = val;
+      // fetchPostMcgChnlChrgr2(chrgrm)
+      //   .then((res) => {
+      //     console.log(res);
+      //     this.$gf.alertOn('채널 담당자 수정 완료!');
+      //     // this.listing();
+      //   })
+      //   .catch((ex) => {
+      //     console.log(`error occur!! : ${ex}`);
+      //   });
     },
     checkCurLine(idx) {
       if (this.curLine === idx) {

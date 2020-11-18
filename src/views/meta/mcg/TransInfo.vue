@@ -256,7 +256,7 @@
           <label class="column_label">연동주기</label>
           <div class="select_group">
             <input
-              v-model="dealdtl.lnkgCycl"
+              v-model="dealdtl.lnkCycl"
               type="text"
             >
           </div>
@@ -377,7 +377,7 @@ export default {
       dealNm: '',
       reqChrgr: '',
       rpsChrgr: '',
-      lnkgCycl: '',
+      lnkCycl: '',
       ifSz: '',
       servletUrl: '',
       tcpIp: '',
@@ -434,7 +434,7 @@ export default {
           dealNm: this.dealNm,
           reqChrgr: this.reqChrgr,
           rpsChrgr: this.rpsChrgr,
-          lnkgCycl: this.lnkgCycl,
+          lnkCycl: this.lnkCycl,
           ifSz: this.ifSz,
           servletUrl: this.servletUrl,
           tcpIp: this.tcpIp,
@@ -576,7 +576,7 @@ export default {
         dealNm: this.dealNm,
         //  reqChrgr: this.reqChrgr,
         //   rpsChrgr: this.rpsChrgr,
-        //  lnkgCycl: this.lnkgCycl,
+        //  lnkCycl: this.lnkCycl,
         //   ifSz: this.ifSz,
         //    servletUrl: this.servletUrl,
         //     tcpIp: this.tcpIp,
