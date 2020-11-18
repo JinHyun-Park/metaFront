@@ -493,18 +493,22 @@ export default {
       svrinfo00: {
         svrIp: '',
         svrPort: '',
+        callType: 'NEW',
       },
       svrinfo01: {
         svrIp: '',
         svrPort: '',
+        callType: 'NEW',
       },
       svrinfo02: {
         svrIp: '',
         svrPort: '',
+        callType: 'NEW',
       },
       svrinfo03: {
         svrIp: '',
         svrPort: '',
+        callType: 'NEW',
       },
       svrinfo0: [],
       svrinfo1: [],
@@ -752,18 +756,6 @@ export default {
               this.chrgrs.chrgrId = '';
               this.chrgrs.callType = 'NEW';
             }
-            // this.chrgrm = res.data.rstData.searchList.chrgr1;
-            // this.chrgrs = res.data.rstData.searchList.chrgr2;
-            // if (this.chrgrm === null) {
-            //   this.chrgrm.hanNm = '';
-            //   this.chrgrm.chrgrId = '';
-            //   this.chrgrm.callType = 'NEW';
-            // }
-            // if (this.chrgrs === null) {
-            //   this.chrgrs.hanNm = '';
-            //   this.chrgrs.chrgrId = '';
-            //   this.chrgrs.callType = 'NEW';
-            // }
             console.log(this.chrgrm, this.chrgrs);
           } else {
             this.$gf.alertOn('담당자 정보 조회 실패');
@@ -810,6 +802,13 @@ export default {
         chnl: this.chnldtl,
         chrgrMst: this.chrgrm,
         chrgrSlv: this.chrgrs,
+        serverInfo: {
+          svrinfo0: this.svrinfo0,
+          svrinfo1: this.svrinfo1,
+          svrinfo2: this.svrinfo2,
+          svrinfo3: this.svrinfo3,
+        },
+
       })
         .then((res) => {
           console.log(res);
