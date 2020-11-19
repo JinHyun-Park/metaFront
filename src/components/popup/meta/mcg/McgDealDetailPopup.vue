@@ -359,10 +359,10 @@ export default {
   mounted() {
     this.today = this.$gf.dateToString(new Date(), '', 'Y');
     this.setCcCdList({
-      opClCd: 'MCG', cdId: 'LNKG_MTHD', allYn: 'Y', listNm: 'mcgChnlLnkgMthd',
+      opClCd: 'MCG', cdId: 'LNK_MTHD', allYn: 'Y', listNm: 'mcgChnlLnkMthd',
     });
     this.setCcCdList({
-      opClCd: 'MCG', cdId: 'LNKG_MTHD', allYn: 'N', listNm: 'mcgChnlLnkgMthdR',
+      opClCd: 'MCG', cdId: 'LNK_MTHD', allYn: 'N', listNm: 'mcgChnlLnkMthdR',
     });
     this.mcgDealRowData = this.propData;
     // this.$refs.queueListPop.focus(); // keyup 이벤트가 바로 적용될 수 있도록 focusing

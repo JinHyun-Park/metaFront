@@ -240,10 +240,10 @@ export default {
       opClCd: 'MCG', cdId: 'CHNL_TYP', allYn: 'Y', listNm: 'mcgChnlTyp',
     });
     this.setCcCdList({
-      opClCd: 'MCG', cdId: 'LNKG_MTHD', allYn: 'Y', listNm: 'mcgChnlLnkgMthd',
+      opClCd: 'MCG', cdId: 'LNK_MTHD', allYn: 'Y', listNm: 'mcgChnlLnkMthd',
     });
     this.setCcCdList({
-      opClCd: 'MCG', cdId: 'LNKG_MTHD', allYn: 'N', listNm: 'mcgChnlLnkgMthdR',
+      opClCd: 'MCG', cdId: 'LNK_MTHD', allYn: 'N', listNm: 'mcgChnlLnkMthdR',
     });
     this.setCcCdList({
       opClCd: 'MCG', cdId: 'CHNL_GRP', allYn: 'N', listNm: 'mcgChnlGrpR',

@@ -191,7 +191,7 @@
           <div class="select_group disabled">
             <select v-model="lnkMthd">
               <option
-                v-for="(code, m) in ccCdList.mcgChnlLnkgMthdR"
+                v-for="(code, m) in ccCdList.mcgChnlLnkMthdR"
                 :key="m"
                 :value="code.cdDtlId"
               >
@@ -623,10 +623,10 @@ export default {
     });
 
     this.setCcCdList({
-      opClCd: 'MCG', cdId: 'LNKG_MTHD', allYn: 'Y', listNm: 'mcgChnlLnkgMthd',
+      opClCd: 'MCG', cdId: 'LNK_MTHD', allYn: 'Y', listNm: 'mcgChnlLnkMthd',
     });
     this.setCcCdList({
-      opClCd: 'MCG', cdId: 'LNKG_MTHD', allYn: 'N', listNm: 'mcgChnlLnkgMthdR',
+      opClCd: 'MCG', cdId: 'LNK_MTHD', allYn: 'N', listNm: 'mcgChnlLnkMthdR',
     });
   },
   destroyed() {
