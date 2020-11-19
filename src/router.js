@@ -299,6 +299,11 @@ const router = new Router({
       component: () => import('@/views/admin/ifMgmt/eigw/OnlineListAdmin.vue'),
     },
     {
+      path: '/admin/ifMgmt/eigw/prodCompleteList',
+      name: 'prodCompleteList',
+      component: () => import('@/views/admin/ifMgmt/eigw/ProdCompleteList'),
+    },
+    {
       path: '/admin/ifMgmt/mcg/virtualUserList_MCG',
       name: 'virtualUserList_MCG',
       component: () => import('@/views/admin/ifMgmt/mcg/VirtualUserList_MCG.vue'),

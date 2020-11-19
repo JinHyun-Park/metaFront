@@ -91,6 +91,11 @@ function fetchDeleteEigwProcInfo(param) {
   return axios.delete(`${preUrl}/procInfo`, param);
 }
 
+// prodComplete
+function fetchGetEigwProdCompleteList(param) {
+  return axios.get(`${preUrl}/prodCompleteList`, param);
+}
+
 export {
   // Server
   fetchGetEigwServerList,
@@ -118,4 +123,6 @@ export {
   fetchPutEigwProcInfo,
   fetchPostEigwProcInfo,
   fetchDeleteEigwProcInfo,
+  // prodComplete
+  fetchGetEigwProdCompleteList,
 };
