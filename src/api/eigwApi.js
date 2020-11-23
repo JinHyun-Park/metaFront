@@ -96,6 +96,10 @@ function fetchGetEigwProdCompleteList(param) {
   return axios.get(`${preUrl}/prodCompleteList`, param);
 }
 
+function fetchGetEigwReqOnlineInfo(param) {
+  return axios.get(`${preUrl}/reqOnlineInfo`, param);
+}
+
 export {
   // Server
   fetchGetEigwServerList,
@@ -125,4 +129,6 @@ export {
   fetchDeleteEigwProcInfo,
   // prodComplete
   fetchGetEigwProdCompleteList,
+  fetchGetEigwReqOnlineInfo,
+
 };

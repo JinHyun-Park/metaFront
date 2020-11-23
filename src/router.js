@@ -301,7 +301,17 @@ const router = new Router({
     {
       path: '/admin/ifMgmt/eigw/prodCompleteList',
       name: 'prodCompleteList',
-      component: () => import('@/views/admin/ifMgmt/eigw/ProdCompleteList'),
+      component: () => import('@/views/admin/ifMgmt/eigw/ProdCompleteList.vue'),
+    },
+    {
+      path: '/admin/ifMgmt/eigw/regOnline/:eigwReqNum',
+      name: 'regOnline',
+      component: () => import('@/views/admin/ifMgmt/eigw/regOnline.vue'),
+    },
+    {
+      path: '/admin/ifMgmt/eigw/regFile/:eigwReqNum',
+      name: 'regFile',
+      component: () => import('@/views/admin/ifMgmt/eigw/regFile.vue'),
     },
     {
       path: '/admin/ifMgmt/mcg/virtualUserList_MCG',

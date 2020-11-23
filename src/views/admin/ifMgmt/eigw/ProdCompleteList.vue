@@ -3,10 +3,10 @@
     <section class="title style-1">
       <h2>
         <div>
-          <i class="ico-bar" />EiGW 메타 정보(온라인)
+          <i class="ico-bar" />운영기 반영 목록
         </div>
         <div class="breadcrumb">
-          <span>EiGW</span><em class="on">메타정보(온라인)</em>
+          <span>EiGW</span><em class="on">운영기 반영 목록</em>
         </div>
       </h2>
     </section>
@@ -39,6 +39,7 @@
               <li class="th_cell">
                 대외기관
               </li>
+              <li class="th_cell" />
             </ul>
           </div>
           <div
@@ -63,7 +64,7 @@
           </div>
           <div class="table_body">
             <ul
-              v-for="item in prodCompleteList"
+              v-for="(item, idx) in prodCompleteList"
               :key="item.eigwReqNum"
               class="table_row w-auto"
             >
@@ -79,7 +80,15 @@
               <li class="td_cell">
                 {{ item.instCd }}
               </li>
-              
+              <li class="th_cell">
+                <button
+                  type="button"
+                  class="default_button on"
+                  @click="goToRegIf(idx)"
+                >
+                  등록하러 가기
+                </button>
+              </li>
             </ul>
           </div>
         </div>
@@ -140,7 +149,16 @@ export default {
         .catch((ex) => {
           console.log(`error occur!! : ${ex}`);
         });
-    }
+    },
+    goToRegIf(idx) {
+      const type = this.prodCompleteList[idx].eigwType;
+      const eigwReqNum = this.prodCompleteList[idx].eigwReqNum;
+      if (type === 'online') {
+        this.$router.push({ name: 'regOnline', params: { eigwReqNum } });
+      } else if (type === 'file') {
+        this.$router.push({ name: 'regFile', params: { eigwReqNum } });
+      }
+    },
   },
 };
 </script>
