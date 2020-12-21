@@ -274,11 +274,6 @@ const router = new Router({
       component: () => import('@/views/admin/ifMgmt/CcCdList.vue'),
     },
     {
-      path: '/admin/ifMgmt/eigw/programInfo',
-      name: 'programInfo',
-      component: () => import('@/views/admin/ifMgmt/eigw/ProgramInfo.vue'),
-    },
-    {
       path: '/admin/ifMgmt/eigw/accListEigw',
       name: 'accListEigw',
       component: () => import('@/views/admin/ifMgmt/eigw/AccListEigw.vue'),

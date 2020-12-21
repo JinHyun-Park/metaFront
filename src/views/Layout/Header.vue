@@ -100,7 +100,7 @@
                 <li @click="movePage('ccCdList')">
                   공통
                 </li>
-                <li @click="movePage('programInfo')">
+                <li @click="movePage('accListEigw')">
                   EiGW
                 </li>
                 <li @click="movePage('virtualUserList_MCG')">

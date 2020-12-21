@@ -14,7 +14,6 @@
       <h5 class="s_tit type-2">
         프로그램 정보
         <div class="right_button_area">
-          <!--<button type="button" class="default_button">추가</button>-->
           <button
             type="button"
             class="default_button on"

@@ -156,7 +156,7 @@
                 <i
                   v-if="(`${auth}` == 'ADMIN')"
                   class="ico-del"
-                  @click="deleteBoard(board.BOARD_NUM)"
+                  @click="confirmDeleteBoard(board.BOARD_NUM)"
                 />
               </li>
             </ul>
@@ -242,14 +242,13 @@ export default {
     log2(val) {
       this.endReqDtm = val;
     },
-    // eslint-disable-next-line consistent-return
     setBoardStName(boardState) {
-      // eslint-disable-next-line default-case
       switch (boardState) {
         case '0': return '유효';
         case '1': return '기간만료';
         case '2': return '완료';
         case '9': return '삭제';
+        default: return '에러';
       }
     },
     pageMove() {
@@ -281,19 +280,21 @@ export default {
         .then((res) => {
           console.log(res);
           if (res.data.rstCd === 'S') {
-          // this.boardList = this.$gf.parseRtnData(this.pageSet, res.data.rstData.board, 'Y')
             this.boardList = res.data.rstData.board;
             this.pageSet = res.data.rstData.pageSet;
           } else {
           // eslint-disable-next-line no-alert
-          // alert('fetchGetBoardList failed');
+            alert('검색에 실패했습니다.');
           }
         })
         .catch((ex) => {
           console.log(`error occur!! : ${ex}`);
         });
     },
-
+    confirmDeleteBoard(boardNum) {
+      const confirmText = '게시물을 삭제하시겠습니까?';
+      this.$gf.confirmOn(confirmText, this.deleteBoard, boardNum);
+    },
     deleteBoard(boardNum) {
       fetchDeleteBoard({
         params: {

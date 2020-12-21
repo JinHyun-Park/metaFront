@@ -114,22 +114,13 @@
         <div class="table_grid radio_group">
           <div class="table_head w-auto">
             <ul>
-              <li class="th_cell">
-                Num
+              <li
+                v-for="tableHeadItem in tableHeadList"
+                :key="tableHeadItem"
+                class="th_cell"
+              >
+                {{ tableHeadItem }}
               </li>
-              <li class="th_cell">
-                제목
-              </li>
-              <li class="th_cell">
-                게시상태
-              </li>
-              <li class="th_cell">
-                작성자
-              </li>
-              <li class="th_cell">
-                작성일자
-              </li>
-              <li class="th_cell" />
             </ul>
           </div>
           <div class="table_body">
@@ -176,7 +167,7 @@
                   <i
                     v-if="(`${auth}` == 'ADMIN')"
                     class="ico-del"
-                    @click="deleteBoard(board.BOARD_NUM)"
+                    @click="confirmDeleteBoard(board.BOARD_NUM)"
                   />
                 </li>
               </ul>
@@ -236,6 +227,7 @@ export default {
       boardCtyp1: 'EAI',
       boardCtyp2: 'EiGW',
       boardCtyp3: 'MCG',
+      tableHeadList: ['Num', '제목', '게시상태', '작성자', '작성일자', ''],
       auth: '',
     };
   },
@@ -316,7 +308,6 @@ export default {
           console.log(`error occur!! : ${ex}`);
         });
     },
-
     deleteBoard(boardNum) {
       fetchDeleteBoard({
         params: {
@@ -336,7 +327,10 @@ export default {
           console.log(`error occur!! : ${ex}`);
         });
     },
-
+    confirmDeleteBoard(boardNum) {
+      const confirmText = '게시물을 삭제하시겠습니까?';
+      this.$gf.confirmOn(confirmText, this.deleteBoard, boardNum);
+    },
     getUserAuth() {
       fetchGetUserAuth({
       })
