@@ -6,7 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "serves": "vue-cli-service serve --mode staging",
+    "serves": "vue-cli-service serve --mode development",
     "builds": "vue-cli-service build --mode development",
     "buildp": "vue-cli-service build --mode production"
   },
