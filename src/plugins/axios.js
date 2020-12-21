@@ -27,7 +27,7 @@ _axios.interceptors.request.use(
     config =>
     // Do something before request is sent
     {
-        if( process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'development') {
+        if( process.env.NODE_ENV === 'production') {
             config.baseURL = process.env.VUE_APP_BASE_URL;
             config.url = config.url.replace('/api', '')
         }
