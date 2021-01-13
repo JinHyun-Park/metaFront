@@ -27,10 +27,10 @@ _axios.interceptors.request.use(
     config =>
     // Do something before request is sent
     {
-        if( process.env.NODE_ENV === 'production') {
-            config.baseURL = process.env.VUE_APP_BASE_URL;
-            config.url = config.url.replace('/api', '')
-        }
+        // if( process.env.NODE_ENV === 'production') {
+        //     config.baseURL = process.env.VUE_APP_BASE_URL;
+        //     config.url = config.url.replace('/api', '')
+        // }
         helpers.showLoading(5000); // 로딩 화면 노출
 
         return config
