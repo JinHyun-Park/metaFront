@@ -32,7 +32,7 @@
       <!-- <div class="board_area">
         <number-count style="width: 100%;" />
       </div> -->
-      <queue-monitor-real />
+      <!--<queue-monitor-real />-->
       <queue-monitor />
       <eigw-monitor />
       <!--<queue-stat />-->
