@@ -256,6 +256,7 @@ export default {
           console.log(res);
           if(res.data.rstCd === 'S'){
             this.statList = res.data.rstData.hourlyTrmsList;
+            this.pageSet = res.data.rstData.pageSet;
             this.makeHourlyChartData();
           }
         })
