@@ -42,7 +42,7 @@
               v-model="statDate"
               type="text"
               value=""
-              @keyup.enter="searchList()"
+              @keyup.enter="searchList(1)"
             >
           </div>
         </div>
@@ -53,7 +53,7 @@
               v-model="inputKeyword"
               type="text"
               value=""
-              @keyup.enter="searchList()"
+              @keyup.enter="searchList(1)"
             >
           </div>
         </div>
@@ -62,7 +62,7 @@
             <button
               type="button"
               class="default_button on"
-              @click="searchList()"
+              @click="searchList(1)"
             >
               검색
             </button>
@@ -130,6 +130,19 @@
           </div>
         </div>
       </div>
+      <div class="pagination_space">
+        <paginate
+          v-model="pageSet.pageNo"
+          :page-count="pageSet.pageCount"
+          :page-range="3"
+          :margin-pages="1"
+          :click-handler="searchList"
+          :prev-text="'이전'"
+          :next-text="'다음'"
+          :container-class="'pagination'"
+          :page-class="'page-item'"
+        />
+      </div>
     </section>
   </div>
 </template>
@@ -145,6 +158,7 @@ export default {
   },
   data() {
     return {
+      pageSet: {pageNo: 1, pageCount:0, size:15},
       datePickerSet: {
         dayStr: this.$gf.getCalDaySet(),
         popperProps: {
@@ -185,21 +199,21 @@ export default {
       var b = Math.floor(Math.random() * 255);
       return "rgb(" + r + "," + g + "," + b + ")";
     },
-    searchList(){
+    searchList(pageNo){
       if(this.hourOnClass){
-        this.searchHourlyList();
+        this.searchHourlyList(pageNo);
         this.statItemList = this.statHourlyItemList;
         this.maxTime = 24;
         this.timeUnit = '시';
       }
       else if(this.dayOnClass){
-        this.searchDailyList();
+        this.searchDailyList(pageNo);
         this.statItemList = this.statDailyItemList;
         this.maxTime = 31;
         this.timeUnit = '일';
       }
       else if(this.monthOnClass){
-        this.searchMonthlyList();
+        this.searchMonthlyList(pageNo);
         this.statItemList = this.statMonthlyItemList;
         this.maxTime = 12;
         this.timeUnit = '월';
@@ -230,7 +244,7 @@ export default {
       this.statDate = '2020';
     },
 
-    searchHourlyList() {
+    searchHourlyList(pageNo) {
       if(this.statDate == null || this.statDate === "") {
         this.$gf.alertOn('조회할 일자를 입력 바랍니다.(YYYY-MM-DD)');
         return;
@@ -238,6 +252,8 @@ export default {
 
       fetchGetStatEaiHourlyTrms({
         params: {
+          pageNo: pageNo,
+          size: this.pageSet.size,
           statDate: this.statDate.replace(/\-/g, ''),
           inputKeyword: this.inputKeyword,
           //statDate: '20200520',
@@ -247,6 +263,7 @@ export default {
           console.log(res);
           if(res.data.rstCd === 'S'){
             this.statList = res.data.rstData.hourlyTrmsList;
+            this.pageSet = res.data.rstData.pageSet;
             this.makeHourlyChartData();
           }
         })
