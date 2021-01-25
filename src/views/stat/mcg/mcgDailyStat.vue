@@ -42,7 +42,7 @@
               v-model="statDate"
               type="text"
               value=""
-              @keyup.enter="searchList()"
+              @keyup.enter="searchList(1)"
             >
           </div>
         </div>
@@ -53,7 +53,7 @@
               v-model="inputKeyword"
               type="text"
               value=""
-              @keyup.enter="searchList()"
+              @keyup.enter="searchList(1)"
             >
           </div>
         </div>
@@ -62,7 +62,7 @@
             <button
               type="button"
               class="default_button on"
-              @click="searchList()"
+              @click="searchList(1)"
             >
               검색
             </button>
@@ -198,9 +198,9 @@ export default {
       var b = Math.floor(Math.random() * 255);
       return "rgb(" + r + "," + g + "," + b + ")";
     },
-    searchList(){
+    searchList(pageNo){
       if(this.hourOnClass){
-        this.searchHourlyList();
+        this.searchHourlyList(pageNo);
         this.statItemList = this.statHourlyItemList;
         this.maxTime = 24;
         this.timeUnit = '시';
@@ -237,7 +237,7 @@ export default {
       this.statDate = '';
     },
     
-    searchHourlyList() {
+    searchHourlyList(pageNo) {
       if(this.statDate == null || this.statDate === "") {
         this.$gf.alertOn('조회할 일자를 입력 바랍니다.(YYYY-MM-DD)');
         return;
@@ -245,7 +245,7 @@ export default {
 
       fetchGetStatMcgHourlyTrms({
         params: {
-          pageNo: this.pageSet.pageNo,
+          pageNo: pageNo,
           size: this.pageSet.size,
           statDate: this.statDate.replace(/\-/g, ''),
           inputKeyword: this.inputKeyword,
