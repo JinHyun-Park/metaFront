@@ -133,6 +133,19 @@
           </div>
         </div>
       </div>
+      <div class="pagination_space">
+        <paginate
+          v-model="pageSet.pageNo"
+          :page-count="pageSet.pageCount"
+          :page-range="3"
+          :margin-pages="1"
+          :click-handler="searchList"
+          :prev-text="'이전'"
+          :next-text="'다음'"
+          :container-class="'pagination'"
+          :page-class="'page-item'"
+        />
+      </div>
     </section>
   </div>
 </template>
@@ -148,6 +161,7 @@ export default {
   },
   data() {
     return {
+      pageSet: {pageNo: 1, pageCount:0, size:15},
       datePickerSet: {
         dayStr: this.$gf.getCalDaySet(),
         popperProps: {
@@ -186,7 +200,7 @@ export default {
     },
     searchList(){
       if(this.hourOnClass){
-        this.searchHourlyList();
+        this.searchHourlyList(1);
         this.statItemList = this.statHourlyItemList;
         this.maxTime = 24;
         this.timeUnit = '시';
@@ -223,7 +237,7 @@ export default {
       this.statDate = '';
     },
     
-    searchHourlyList() {
+    searchHourlyList(pageNo) {
       if(this.statDate == null || this.statDate === "") {
         this.$gf.alertOn('조회할 일자를 입력 바랍니다.(YYYY-MM-DD)');
         return;
@@ -231,6 +245,8 @@ export default {
 
       fetchGetStatMcgHourlyTrms({
         params: {
+          pageNo: pageNo,
+          size: this.pageSet.size,
           statDate: this.statDate.replace(/\-/g, ''),
           inputKeyword: this.inputKeyword,
           //statDate: '20200705',
