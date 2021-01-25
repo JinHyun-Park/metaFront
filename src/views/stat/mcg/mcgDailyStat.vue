@@ -200,7 +200,7 @@ export default {
     },
     searchList(){
       if(this.hourOnClass){
-        this.searchHourlyList(1);
+        this.searchHourlyList();
         this.statItemList = this.statHourlyItemList;
         this.maxTime = 24;
         this.timeUnit = '시';
@@ -237,7 +237,7 @@ export default {
       this.statDate = '';
     },
     
-    searchHourlyList(pageNo) {
+    searchHourlyList() {
       if(this.statDate == null || this.statDate === "") {
         this.$gf.alertOn('조회할 일자를 입력 바랍니다.(YYYY-MM-DD)');
         return;
@@ -245,7 +245,7 @@ export default {
 
       fetchGetStatMcgHourlyTrms({
         params: {
-          pageNo: pageNo,
+          pageNo: this.pageSet.pageNo,
           size: this.pageSet.size,
           statDate: this.statDate.replace(/\-/g, ''),
           inputKeyword: this.inputKeyword,
