@@ -194,7 +194,7 @@ export default {
     };
   },
   mounted() {
-    this.statDate = this.$gf.dateToString(new Date(), '', 'Y');
+    this.statDate = this.$gf.dateToString(new Date(), '-1d', 'Y');
     this.statItemList = this.statHourlyItemList;
   },
   methods: {
@@ -322,13 +322,15 @@ export default {
       return Object.values(a);
     },
 
-    searchDailyList() {
+    searchDailyList(pageNo) {
       if(this.statDate == null || this.statDate === "") {
         this.$gf.alertOn('조회할 달을 바랍니다.(YYYY-MM)');
         return;
       }
       fetchGetStatEigwDailyTrms({
         params: {
+          pageNo: pageNo,
+          size: this.pageSet.size,
           statDate: this.statDate.replace(/\-/g, ''),
           inputKeyword: this.inputKeyword,
           //statDate: '202007',
@@ -338,6 +340,7 @@ export default {
           console.log(res);
           if (res.data.rstCd === 'S') {
             this.statList = res.data.rstData.dailyTrmsList;
+            this.pageSet = res.data.rstData.pageSet;
             this.makeDailyChartData();
           } else {
           // eslint-disable-next-line no-alert
@@ -406,13 +409,15 @@ export default {
       return Object.values(a);
     },
 
-    searchMonthlyList() {
+    searchMonthlyList(pageNo) {
       if(this.statDate == null || this.statDate === "") {
         this.$gf.alertOn('조회할 연도를 입력 바랍니다.(YYYY)');
         return;
       }
       fetchGetStatEigwMonthlyTrms({
         params: {
+          pageNo: pageNo,
+          size: this.pageSet.size,
           statDate: this.statDate,
           inputKeyword: this.inputKeyword,
           //statDate: '2020',
@@ -422,6 +427,7 @@ export default {
           console.log(res);
           if (res.data.rstCd === 'S') {
             this.statList = res.data.rstData.monthlyTrmsList;
+            this.pageSet = res.data.rstData.pageSet;
             this.makeMonthlyChartData();
           } else {
           // eslint-disable-next-line no-alert
