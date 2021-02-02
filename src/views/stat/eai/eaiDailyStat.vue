@@ -185,12 +185,8 @@ export default {
     };
   },
   mounted() {
-    this.statDate = this.$gf.dateToString(new Date(), '', 'Y');
+    this.statDate = this.$gf.dateToString(new Date(), '-1d', 'Y');
     this.statItemList = this.statHourlyItemList;
-
-    //시연용 temp todo
-    this.statDate = '20200504';
-
   },
   methods: {
     dynamicColors() {
@@ -224,24 +220,21 @@ export default {
       this.dayOnClass = this.monthOnClass = false;
       this.inputTimeLabel = '날짜 입력 (YYYY-MM-DD)';
       this.statDate = '';
-      // 임시 시연용
-      this.statDate = '20200504';
+      
     },
     dayOn(){
       this.dayOnClass = true;
       this.hourOnClass = this.monthOnClass = false;
       this.inputTimeLabel = '연월 입력 (YYYY-MM)';
       this.statDate = '';
-      // 임시 시연용
-      this.statDate = '202005';
+      
     },
     monthOn(){
       this.monthOnClass = true;
       this.hourOnClass = this.dayOnClass = false;
       this.inputTimeLabel = '연 입력 (YYYY)';
       this.statDate = '';
-      // 임시 시연용
-      this.statDate = '2020';
+      
     },
 
     searchHourlyList(pageNo) {
@@ -323,13 +316,15 @@ export default {
       return Object.values(a);
     },
 
-    searchDailyList() {
+    searchDailyList(pageNo) {
       if(this.statDate == null || this.statDate === "") {
         this.$gf.alertOn('조회할 달을 입력 바랍니다.(YYYY-MM)');
         return;
       }
       fetchGetStatEaiDailyTrms({
         params: {
+          pageNo: pageNo,
+          size: this.pageSet.size,
           statDate: this.statDate.replace(/\-/g, ''),
           inputKeyword: this.inputKeyword,
           //statDate: '20200520',
@@ -339,6 +334,7 @@ export default {
           console.log(res);
           if (res.data.rstCd === 'S') {
             this.statList = res.data.rstData.dailyTrmsList;
+            this.pageSet = res.data.rstData.pageSet;
             this.makeDailyChartData();
           } else {
           // eslint-disable-next-line no-alert
@@ -407,13 +403,15 @@ export default {
       return Object.values(a);
     },
 
-    searchMonthlyList() {
+    searchMonthlyList(pageNo) {
       if(this.statDate == null || this.statDate === "") {
         this.$gf.alertOn('조회할 연도를 입력 바랍니다.(YYYY)');
         return;
       }
       fetchGetStatEaiMonthlyTrms({
         params: {
+          pageNo: pageNo,
+          size: this.pageSet.size,
           statDate: this.statDate,
           inputKeyword: this.inputKeyword,
           //statDate: '20200520',
@@ -423,6 +421,7 @@ export default {
           console.log(res);
           if (res.data.rstCd === 'S') {
             this.statList = res.data.rstData.monthlyTrmsList;
+            this.pageSet = res.data.rstData.pageSet;
             this.makeMonthlyChartData();
           } else {
           // eslint-disable-next-line no-alert
