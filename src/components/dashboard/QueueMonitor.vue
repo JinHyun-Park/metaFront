@@ -274,7 +274,7 @@ export default {
       fetchGetQueueDepthList({
         params: {
           time: null,
-          date: this.$gf.dateToString(new Date(), '', 'N');,
+          date: this.$gf.dateToString(new Date(), '', 'N'),
           srchType: this.srchType,
         },
       })
