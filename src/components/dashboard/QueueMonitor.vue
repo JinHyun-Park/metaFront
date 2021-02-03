@@ -69,6 +69,9 @@
               Num
             </td>
             <td class="th_cell">
+              큐매니저
+            </td>
+            <td class="th_cell">
               큐명
             </td>
             <td class="th_cell">
@@ -95,6 +98,9 @@
           >
             <td class="td_cell">
               {{ i+1 }}
+            </td>
+            <td class="td_cell">
+              {{ queueDepth.queueManager }}
             </td>
             <td class="td_cell">
               {{ queueDepth.queueNm }}
@@ -245,9 +251,8 @@ export default {
       }
       fetchGetQueueDepthByQueueNmList({
         params: {
-          // date, time은 추후 데이터가 들어올때 다시 추가(back-end todo)
-          // time: Math.floor(Math.random() * 1000) + 1000,
-          // date: '20200625',
+          time: this.queueDepthList[0].time,
+          date: this.queueDepthList[0].date,
           queueNm: this.tgtQueueNm,
           ifNm: this.tgtIfNm,
           queueManager: this.tgtQueueManager,
