@@ -273,8 +273,8 @@ export default {
     // this.$axios.get(this.tgtUrl, {
       fetchGetQueueDepthList({
         params: {
-          time: Math.floor(Math.random() * 1000) + 1000,
-          date: '20200625',
+          time: null,
+          date: this.$gf.dateToString(new Date(), '', 'N');,
           srchType: this.srchType,
         },
       })
