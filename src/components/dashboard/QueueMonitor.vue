@@ -61,7 +61,7 @@
     >
       <div
         class="table_grid radio_group"
-        style="width:60%"
+        style="width:70%"
       >
         <div class="table_head w-auto">
           <tr>
@@ -127,7 +127,7 @@
       </div>
       <div
         class="row_contain chart_area"
-        style="width:40%"
+        style="width:30%"
       >
         <line-chart
           v-show="isChartOn"
@@ -163,7 +163,7 @@ export default {
       datacollection: {},
       queueDepthList: [],
       queueDepthForQueueNmList: [],
-      remainTime: 5,
+      remainTime: 60,
       chkAutoRefresh: false,
 
       isFullView: false,
@@ -186,7 +186,7 @@ export default {
       } else {
         clearInterval(this.intervalFuc);
         clearInterval(this.remainTimeFuc);
-        this.remainTime = 5;
+        this.remainTime = 60;
       }
     },
   },
@@ -341,7 +341,7 @@ export default {
     setAutoRefresh() {
       this.intervalFuc = setInterval(() => {
         this.searchQueueDepth();
-        this.remainTime = 6;
+        this.remainTime = 61;
       }, 5000);
       this.remainTimeFuc = setInterval(() => {
         this.remainTime -= 1;
