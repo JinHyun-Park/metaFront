@@ -342,10 +342,10 @@ export default {
       this.intervalFuc = setInterval(() => {
         this.searchQueueDepth();
         this.remainTime = 61;
-      }, 5000);
+      }, 60*1000);
       this.remainTimeFuc = setInterval(() => {
         this.remainTime -= 1;
-      }, 1000);
+      }, 1*1000);
     },
     setCurLine(val) {
       this.curLine = val;
