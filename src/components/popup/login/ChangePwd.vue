@@ -16,7 +16,7 @@
                 <label class="column_label">기존 비밀번호</label>
                 <input
                   type="password"
-                  value="SKCC1234"
+                  value=""
                 >
               </div>
             </div>
@@ -24,8 +24,8 @@
               <div class="column w-4">
                 <label class="column_label">신규 비밀번호</label>
                 <input
+                  v-model="newPassWd"
                   type="password"
-                  value="SKCC123456*"
                 >
               </div>
             </div>
@@ -33,8 +33,8 @@
               <div class="column w-4">
                 <label class="column_label">신규 비밀번호 확인</label>
                 <input
+                  v-model="newPassWd"
                   type="password"
-                  value="SKCC123456*"
                 >
               </div>
             </div>
@@ -50,7 +50,7 @@
             <button
               type="button"
               class="default_button on"
-              @click="movePage('login')"
+              @click="confirmChgPw()"
             >
               확인
             </button>
@@ -62,13 +62,58 @@
 </template>
 
 <script>
+import { fetchChangePasswd } from '@/api/loginApi';
+
 export default {
+  data() {
+    return {
+      passwd: '',
+      newPassWd: '',
+      newPassWd2: '',
+    };
+  },
   methods: {
-    movePage(page) {
-      this.$router.push({ name: page });
+    confirmChgPw() {
+      if(this.chkParamerter()) {
+        fetchChangePasswd({
+        params: {
+          passWd: this.passwd,
+          newPassWd: this.newPassWd
+        },
+      })
+        .then((res) => {
+          if (res.status === 200) {
+            if (res.data.rstCd === 'S') {
+              this.$gf.alertOn('성공적으로 변경되었습니다.');
+              this.exitPop();
+            }
+          }
+        })
+        .catch((ex) => {
+          console.log(`error occur!! : ${ex}`);
+        });
+      }
+    },
+    chkParamerter() {
+      if(this.$gf.ifEmpty(passWd) == '') {
+        this.$gf.alertOn('현재 비밀번호를 입력해주시기 바랍니다.');
+        return false;
+      }
+      if(this.$gf.ifEmpty(newPassWd) || this.$gf.ifEmpty(newPassWd)) {
+        this.$gf.alertOn('신규 비밀번호를 입력해주시기 바랍니다.');
+        return false;
+      }
+      if(newPasswd != newPasswd2) {
+        this.$gf.alertOn('새로 입력하신 신규 비밀번호가 상이합니다.');
+        return false;
+      }
+      return true;
     },
     exitPop() {
       this.$emit('closePop', 'none');
+    },
+    movePage(page) {
+      this.$router.push({ name: page });
     },
   },
 };
