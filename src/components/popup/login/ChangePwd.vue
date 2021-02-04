@@ -100,7 +100,7 @@ export default {
       }
     },
     chkParamerter() {
-      if(this.$gf.isEmpty(this.passwd) == '') {
+      if(this.$gf.isEmpty(this.passwd)) {
         this.$gf.alertOn('현재 비밀번호를 입력해주시기 바랍니다.');
         return false;
       }
