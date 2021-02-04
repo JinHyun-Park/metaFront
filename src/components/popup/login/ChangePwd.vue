@@ -33,7 +33,7 @@
               <div class="column w-4">
                 <label class="column_label">신규 비밀번호 확인</label>
                 <input
-                  v-model="newPassWd"
+                  v-model="newPassWd2"
                   type="password"
                 >
               </div>
@@ -95,15 +95,15 @@ export default {
       }
     },
     chkParamerter() {
-      if(this.$gf.ifEmpty(passWd) == '') {
+      if(this.$gf.ifEmpty(passwd) == '') {
         this.$gf.alertOn('현재 비밀번호를 입력해주시기 바랍니다.');
         return false;
       }
-      if(this.$gf.ifEmpty(newPassWd) || this.$gf.ifEmpty(newPassWd)) {
+      if(this.$gf.ifEmpty(newPassWd) || this.$gf.ifEmpty(newPassWd2)) {
         this.$gf.alertOn('신규 비밀번호를 입력해주시기 바랍니다.');
         return false;
       }
-      if(newPasswd != newPasswd2) {
+      if(newPassWd != newPassWd2) {
         this.$gf.alertOn('새로 입력하신 신규 비밀번호가 상이합니다.');
         return false;
       }
