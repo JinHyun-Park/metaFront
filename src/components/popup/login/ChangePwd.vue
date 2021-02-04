@@ -95,15 +95,15 @@ export default {
       }
     },
     chkParamerter() {
-      if(this.$gf.ifEmpty(passwd) == '') {
+      if(this.$gf.ifEmpty(this.passwd) == '') {
         this.$gf.alertOn('현재 비밀번호를 입력해주시기 바랍니다.');
         return false;
       }
-      if(this.$gf.ifEmpty(newPassWd) || this.$gf.ifEmpty(newPassWd2)) {
+      if(this.$gf.ifEmpty(this.newPassWd) || this.$gf.ifEmpty(this.newPassWd2)) {
         this.$gf.alertOn('신규 비밀번호를 입력해주시기 바랍니다.');
         return false;
       }
-      if(newPassWd != newPassWd2) {
+      if(this.newPassWd != this.newPassWd2) {
         this.$gf.alertOn('새로 입력하신 신규 비밀번호가 상이합니다.');
         return false;
       }
