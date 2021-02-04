@@ -15,8 +15,8 @@
               <div class="column on w-4">
                 <label class="column_label">기존 비밀번호</label>
                 <input
+                  v-model="passwd"
                   type="password"
-                  value=""
                 >
               </div>
             </div>
@@ -71,6 +71,11 @@ export default {
       newPassWd: '',
       newPassWd2: '',
     };
+  },
+  mounted() {
+    this.passwd = '';
+    this.newPassWd = '';
+    this.newPassWd2 = '';
   },
   methods: {
     confirmChgPw() {
