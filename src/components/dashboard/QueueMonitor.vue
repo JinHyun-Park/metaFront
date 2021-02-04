@@ -61,12 +61,15 @@
     >
       <div
         class="table_grid radio_group"
-        style="width:60%"
+        style="width:70%"
       >
         <div class="table_head w-auto">
           <tr>
             <td class="th_cell">
               Num
+            </td>
+            <td class="th_cell">
+              큐매니저
             </td>
             <td class="th_cell">
               큐명
@@ -97,6 +100,9 @@
               {{ i+1 }}
             </td>
             <td class="td_cell">
+              {{ queueDepth.queueManager }}
+            </td>
+            <td class="td_cell">
               {{ queueDepth.queueNm }}
             </td>
             <td class="td_cell">
@@ -121,7 +127,7 @@
       </div>
       <div
         class="row_contain chart_area"
-        style="width:40%"
+        style="width:30%"
       >
         <line-chart
           v-show="isChartOn"
@@ -157,7 +163,7 @@ export default {
       datacollection: {},
       queueDepthList: [],
       queueDepthForQueueNmList: [],
-      remainTime: 5,
+      remainTime: 60,
       chkAutoRefresh: false,
 
       isFullView: false,
@@ -180,7 +186,7 @@ export default {
       } else {
         clearInterval(this.intervalFuc);
         clearInterval(this.remainTimeFuc);
-        this.remainTime = 5;
+        this.remainTime = 60;
       }
     },
   },
@@ -245,9 +251,8 @@ export default {
       }
       fetchGetQueueDepthByQueueNmList({
         params: {
-          // date, time은 추후 데이터가 들어올때 다시 추가(back-end todo)
-          // time: Math.floor(Math.random() * 1000) + 1000,
-          // date: '20200625',
+          time: this.queueDepthList[0].time,
+          date: this.queueDepthList[0].date,
           queueNm: this.tgtQueueNm,
           ifNm: this.tgtIfNm,
           queueManager: this.tgtQueueManager,
@@ -273,8 +278,8 @@ export default {
     // this.$axios.get(this.tgtUrl, {
       fetchGetQueueDepthList({
         params: {
-          time: Math.floor(Math.random() * 1000) + 1000,
-          date: '20200625',
+          time: null,
+          date: this.$gf.dateToString(new Date(), '', 'N'),
           srchType: this.srchType,
         },
       })
@@ -336,11 +341,11 @@ export default {
     setAutoRefresh() {
       this.intervalFuc = setInterval(() => {
         this.searchQueueDepth();
-        this.remainTime = 6;
-      }, 5000);
+        this.remainTime = 61;
+      }, 60*1000);
       this.remainTimeFuc = setInterval(() => {
         this.remainTime -= 1;
-      }, 1000);
+      }, 1*1000);
     },
     setCurLine(val) {
       this.curLine = val;
