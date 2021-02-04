@@ -81,10 +81,8 @@ export default {
     confirmChgPw() {
       if(this.chkParamerter()) {
         fetchChangePasswd({
-        params: {
           passWd: this.passwd,
           newPassWd: this.newPassWd
-        },
       })
         .then((res) => {
           if (res.status === 200) {
