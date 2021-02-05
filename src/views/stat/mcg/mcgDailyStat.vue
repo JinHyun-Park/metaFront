@@ -47,6 +47,17 @@
           </div>
         </div>
         <div class="column w-1">
+          <label class="column_label">채널코드</label>
+          <div class="search_grroup">
+            <input
+              v-model="inputOpCd"
+              type="text"
+              value=""
+              @keyup.enter="searchList(1)"
+            >
+          </div>
+        </div>
+        <div class="column w-1">
           <label class="column_label">거래코드</label>
           <div class="search_grroup">
             <input
@@ -185,6 +196,7 @@ export default {
       timeUnit: '시',
       inputTimeLabel: '날짜 입력 (YYYY-MM-DD)',
       inputKeyword:'',
+      inpurtOpCd:'',
     };
   },
   mounted() {
@@ -249,6 +261,7 @@ export default {
           size: this.pageSet.size,
           statDate: this.statDate.replace(/\-/g, ''),
           inputKeyword: this.inputKeyword,
+          inputOpCd: this.inputOpCd,
           //statDate: '20200705',
         }
       })
@@ -327,6 +340,7 @@ export default {
           size: this.pageSet.size,
           statDate: this.statDate.replace(/\-/g, ''),
           inputKeyword: this.inputKeyword,
+          inputOpCd: this.inputOpCd,
           //statDate: '202007',
         },
       })
@@ -414,6 +428,7 @@ export default {
           size: this.pageSet.size,
           statDate: this.statDate,
           inputKeyword: this.inputKeyword,
+          inputOpCd: this.inputOpCd,
           //statDate: '2020',
         },
       })
