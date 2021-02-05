@@ -47,6 +47,17 @@
           </div>
         </div>
         <div class="column w-1">
+          <label class="column_label">큐매니저</label>
+          <div class="search_grroup">
+            <input
+              v-model="mqMngrNm"
+              type="text"
+              value=""
+              @keyup.enter="searchList()"
+            >
+          </div>
+        </div>
+        <div class="column w-1">
           <label class="column_label">인터페이스 ID</label>
           <div class="search_grroup">
             <input
@@ -191,6 +202,7 @@ export default {
       timeUnit: '시',
       inputTimeLabel: '날짜 입력 (YYYY-MM-DD)',
       inputKeyword: '',
+      mqMngrNm: '',
     };
   },
   mounted() {
@@ -255,6 +267,7 @@ export default {
           size: this.pageSet.size,
           statDate: this.statDate.replace(/\-/g, ''),
           inputKeyword: this.inputKeyword,
+          mqMngrNm: this.mqMngrNm,
           //statDate: '20200705',
         }
       })
@@ -333,6 +346,7 @@ export default {
           size: this.pageSet.size,
           statDate: this.statDate.replace(/\-/g, ''),
           inputKeyword: this.inputKeyword,
+          mqMngrNm: this.mqMngrNm,
           //statDate: '202007',
         },
       })
@@ -420,6 +434,7 @@ export default {
           size: this.pageSet.size,
           statDate: this.statDate,
           inputKeyword: this.inputKeyword,
+          mqMngrNm: this.mqMngrNm,
           //statDate: '2020',
         },
       })
