@@ -92,8 +92,14 @@
                 인터페이스ID
               </td>
               <td class="th_cell">
-                합계
+                송신큐매니저
               </td>
+              <td class="th_cell">
+                수신큐매니저
+              </td>
+              <td class="th_cell">
+                합계
+              </td> 
               <td
                 v-for="time in maxTime"
                 :key="time"
