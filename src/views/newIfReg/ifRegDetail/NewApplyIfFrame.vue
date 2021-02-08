@@ -147,6 +147,8 @@ export default {
       callType: 'new',
       ifKind: 'EAI',
       eventTabMove: '',
+      reqrId: '',
+      aprvId: '',
 
       tabNum: '',
 
@@ -169,6 +171,7 @@ export default {
   },
   computed: {
     ...mapState('ifRegInfo', ['reqNum', 'saveFlag', 'movePossible']),
+    ...mapState('login', ['hanNm', 'userId', 'adminYn']),
   },
   watch: {
     tabNum() {
@@ -213,6 +216,12 @@ export default {
       if (this.$route.params.setApplyIfType != null) {
         this.tabNum = 1;
       }
+      if (!this.$gf.isEmpty(this.$route.params.reqrId)) {
+        this.reqrId = reqrId;
+      }
+      if (!this.$gf.isEmpty(this.$route.params.aprvId)) {
+        this.aprvId = aprvId;
+      }
       this.procSt = this.$route.params.procSt;
     },
     // tabChange(val) {
@@ -230,6 +239,11 @@ export default {
     // },
     setBottomBtn() {
       this.ifRegBotBtnSet = getIfRegBotBtnSet(this.tabNum, this.procSt);
+      //임시저장, 승인 등은 작성자, 승인자 등에 맞춰서 한번더 권한 체크
+      //임시저장
+      if (this.userId != this.reqrId && this.adminYn != "Y") {
+        this.isBtnTempSave = false;
+      }
     },
     isActive(val) {
       return this.tabNum === val;

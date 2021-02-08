@@ -422,7 +422,14 @@ export default {
     },
     detail(i) {
       //this.$router.push({ name: 'applyIf', params: { reqNum: this.ifReqList[i].reqNum, callType:'update', procSt: this.ifReqList[i].procSt }})
-      this.$router.push({ name: 'newApplyIf', params: { reqNum: this.ifReqList[i].reqNum, callType:'update', procSt: this.ifReqList[i].procSt, ifKind:  this.ifReqList[i].ifKind }})
+      this.$router.push({ name: 'newApplyIf', params: { 
+                                                        reqNum: this.ifReqList[i].reqNum, 
+                                                        callType:'update', 
+                                                        procSt: this.ifReqList[i].procSt, 
+                                                        ifKind:  this.ifReqList[i].ifKind,
+                                                        reqrId : this.ifReqList[i].reqrId,
+                                                        aprvId : this.ifReqList[i].aprvId,
+                                                    }})
     },
     turnOnNewIfRegChose() {
       //this.popupProp.procSt = this.tgtProcSt;

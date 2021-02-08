@@ -213,8 +213,9 @@ export default {
           if (res.status === 200) {
             this.lv_hanNm = res.data.rstData.myInfo.hanNm;
             this.adminYn = res.data.rstData.myInfo.adminYn;
+            this.userId = res.data.rstData.myInfo.userId;
 
-            this.setLoginInfo({ hanNm: this.lv_hanNm, adminYn: this.adminYn });
+            this.setLoginInfo({ userId : this.userId, hanNm: this.lv_hanNm, adminYn: this.adminYn });
             // eslint-disable-next-line no-alert
             // this.$gf.alertOn(`${this.hanNm}님 환영합니다.`);
           }
