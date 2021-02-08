@@ -47,6 +47,17 @@
           </div>
         </div>
         <div class="column w-1">
+          <label class="column_label">큐매니저</label>
+          <div class="search_grroup">
+            <input
+              v-model="mqMngrNm"
+              type="text"
+              value=""
+              @keyup.enter="searchList(1)"
+            >
+          </div>
+        </div>
+        <div class="column w-1">
           <label class="column_label">인터페이스 ID</label>
           <div class="search_grroup">
             <input
@@ -172,16 +183,17 @@ export default {
       dayOnClass: false,
       monthOnClass: false,
       statItemList: [],
-      statHourlyItemList: ['ifId', 'totCnt', 't0', 't1', 't2', 't3', 't4', 't5', 't6', 't7', 't8', 't9', 't10', 't11', 
+      statHourlyItemList: ['ifId','sendMqMngrNm','recvMqMngrNm', 'totCnt', 't0', 't1', 't2', 't3', 't4', 't5', 't6', 't7', 't8', 't9', 't10', 't11', 
       't12', 't13', 't14', 't15', 't16', 't17', 't18', 't19', 't20', 't21', 't22', 't23'],
-      statDailyItemList: ['ifId', 'totCnt', 'd1', 'd2', 'd3', 'd4', 'd5', 'd6', 'd7', 'd8', 'd9', 'd10',
+      statDailyItemList: ['ifId','sendMqMngrNm','recvMqMngrNm', 'totCnt', 'd1', 'd2', 'd3', 'd4', 'd5', 'd6', 'd7', 'd8', 'd9', 'd10',
       'd11', 'd12', 'd13', 'd14', 'd15', 'd16', 'd17', 'd18', 'd19', 'd20',
       'd21', 'd22', 'd23', 'd24', 'd25', 'd26', 'd27', 'd28', 'd29', 'd30', 'd31'],
-      statMonthlyItemList: ['ifId', 'totCnt', 'm1', 'm2', 'm3', 'm4', 'm5', 'm6', 'm7', 'm8', 'm9', 'm10', 'm11', 'm12'],
+      statMonthlyItemList: ['ifId','sendMqMngrNm','recvMqMngrNm', 'totCnt', 'm1', 'm2', 'm3', 'm4', 'm5', 'm6', 'm7', 'm8', 'm9', 'm10', 'm11', 'm12'],
       maxTime: 24,
       timeUnit: '시',
       inputTimeLabel: '날짜 입력 (YYYY-MM-DD)',
       inputKeyword:'',
+      mqMngrNm: '',
     };
   },
   mounted() {
@@ -249,6 +261,7 @@ export default {
           size: this.pageSet.size,
           statDate: this.statDate.replace(/\-/g, ''),
           inputKeyword: this.inputKeyword,
+          mqMngrNm: this.mqMngrNm,
           //statDate: '20200520',
         }
       })
@@ -327,6 +340,7 @@ export default {
           size: this.pageSet.size,
           statDate: this.statDate.replace(/\-/g, ''),
           inputKeyword: this.inputKeyword,
+          mqMngrNm: this.mqMngrNm,
           //statDate: '20200520',
         },
       })
@@ -412,8 +426,9 @@ export default {
         params: {
           pageNo: pageNo,
           size: this.pageSet.size,
-          statDate: this.statDate,
+          statDate: this.statDate,  
           inputKeyword: this.inputKeyword,
+          mqMngrNm: this.mqMngrNm,
           //statDate: '20200520',
         },
       })
