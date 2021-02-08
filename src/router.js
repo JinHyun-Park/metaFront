@@ -179,16 +179,7 @@ const router = new Router({
       name: 'queueMgrList',
       component: () => import('@/views/meta/eai/QueueMgrList.vue'),
     },
-    {
-      path: '/meta/eai/chnList',
-      name: 'chnList',
-      component: () => import('@/views/meta/eai/ChnList.vue'),
-    },
-    {
-      path: '/meta/eai/nodeList',
-      name: 'nodeList',
-      component: () => import('@/views/meta/eai/NodeList.vue'),
-    },
+    
     {
       path: '/meta/eai/ifIdList',
       name: 'ifIdList',
@@ -327,6 +318,16 @@ const router = new Router({
       path: '/admin/ifMgmt/eai/ifIdListAdminMgmt',
       name: 'ifIdListAdminMgmt',
       component: () => import('@/views/admin/ifMgmt/eai/IfIdListAdminMgmt.vue'),
+    },
+    {
+      path: '/admin/ifMgmt/eai/chnList',
+      name: 'chnList',
+      component: () => import('@/views/admin/ifMgmt/eai/ChnList.vue'),
+    },
+    {
+      path: '/admin/ifMgmt/eai/nodeList',
+      name: 'nodeList',
+      component: () => import('@/views/admin/ifMgmt/eai/NodeList.vue'),
     },
     {
       path: '/admin/portalMgmt/opsAccList',
