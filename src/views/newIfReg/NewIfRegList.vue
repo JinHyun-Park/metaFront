@@ -100,6 +100,7 @@
           </div>
         </div>
         <div class="column w-1">
+          <label class="column_label">검색범위</label>
           <div class="select_group">
             <select v-model="srchType">
               <option value="">
@@ -331,7 +332,7 @@ export default {
         procSt: 0,
       },
       ifKind: 'EAI',
-      srchType: '',
+      srchType: 'IN_MY',
 
       showIfReqHstPopup: false,
       popupReqHstProp: {
