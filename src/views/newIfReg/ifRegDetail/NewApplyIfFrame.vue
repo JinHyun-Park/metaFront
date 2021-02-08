@@ -242,8 +242,14 @@ export default {
       //임시저장, 승인 등은 작성자, 승인자 등에 맞춰서 한번더 권한 체크
       //임시저장
       if (this.userId != this.reqrId && this.adminYn != "Y") {
-        console.log(`userId : ${this.userId} / reqrId : ${this.reqrId} / adminYn : ${this.adminYn}` );
-        this.isBtnTempSave = false;
+        this.ifRegBotBtnSet.isBtnTempSave = false;
+        this.ifRegBotBtnSet.isBtnApprReq = false;
+        this.ifRegBotBtnSet.isBtnAppr = false;
+        this.ifRegBotBtnSet.isBtnReject = false;
+      }
+      if (this.userId != this.aprvId && this.adminYn != "Y") {
+        this.ifRegBotBtnSet.isBtnAppr = false;
+        this.ifRegBotBtnSet.isBtnReject = false;
       }
     },
     isActive(val) {
