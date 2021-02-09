@@ -22,6 +22,7 @@
         기본 정보
         <div class="right_button_area">
           <button
+            v-if="(adminYn === 'Y')"
             type="button"
             class="default_button"
             @click="save()"
@@ -448,6 +449,7 @@
         <div class="column w-1">
           <label class="column_label">&nbsp;</label>
           <button
+            v-if="(adminYn === 'Y')"
             type="button"
             class="default_button on"
             @click="modify()"
@@ -573,8 +575,8 @@ export default {
     };
   },
   computed: {
-    // ...mapState('frameSet', ['resetPopOn']),
     ...mapState('ccCdLst', ['ccCdList']),
+    ...mapState('login', ['adminYn']),
   },
   mounted() {
     this.setCcCdList({
