@@ -72,6 +72,7 @@
             <li
               class="th_cell"
               style="width:5%;"
+              v-if="(adminYn === 'Y')"
             >
               EDIT
             </li>
@@ -154,7 +155,9 @@
                 </select>
               </div>
             </li>
-            <li class="td_cell">
+            <li 
+              class="td_cell"
+              v-if="(adminYn === 'Y')">
               <i
                 class="ico-add"
                 @click="saveRcv()"
@@ -224,7 +227,9 @@
                 </select>
               </div>
             </li>
-            <li class="td_cell">
+            <li 
+              class="td_cell"
+              v-if="(adminYn === 'Y')">
               <i
                 class="ico-edit"
                 @click="editList(i, 'r')"
@@ -318,7 +323,9 @@
             <li class="th_cell">
               사용 여부
             </li>
-            <li class="th_cell">
+            <li 
+              class="th_cell"
+              v-if="(adminYn === 'Y')">
               EDIT
             </li>
           </ul>
@@ -367,7 +374,9 @@
                 </select>
               </div>
             </li>
-            <li class="td_cell">
+            <li 
+              class="td_cell"
+              v-if="(adminYn === 'Y')">
               <i
                 class="ico-add"
                 @click="saveSnd()"
@@ -416,7 +425,9 @@
                 </select>
               </div>
             </li>
-            <li class="td_cell">
+            <li 
+              class="td_cell"
+              v-if="(adminYn === 'Y')">
               <i
                 class="ico-edit"
                 @click="editList(i, 's')"
@@ -443,6 +454,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import { fetchGetEaiSwgSndList, fetchGetEaiSwgRcvList } from '@/api/eaiApi';
 
 export default {
@@ -471,6 +483,9 @@ export default {
       rcvQueue: '',
       rUseYn: '',
     };
+  },
+  computed: {
+    ...mapState('login', ['adminYn']),
   },
   methods: {
     pageMoveSndList() {
