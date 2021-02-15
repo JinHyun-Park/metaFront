@@ -220,7 +220,8 @@ export default {
   },
   mounted() {
     // 3달 전 보기
-    this.startReqDtm = this.$gf.dateToString(new Date(), '-3m', 'Y');
+    //this.startReqDtm = this.$gf.dateToString(new Date(), '-3m', 'Y');
+    this.startReqDtm = "2021-01-01";
     this.endReqDtm = this.$gf.dateToString(new Date(), '', 'Y');
     this.searchList();
     this.getUserAuth();

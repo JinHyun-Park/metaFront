@@ -34,14 +34,14 @@
       </div> -->
       <!--<queue-monitor-real />-->
       <queue-monitor />
-      <eigw-monitor />
+      <!--<eigw-monitor />-->
       <!--<queue-stat />-->
       <div class="board_area">
         <eai-daily-trms-stat />
         <mcg-daily-trms-stat />
         <eigw-daily-trms-stat />
       </div>
-      <reg-list-extend />
+      <!--<reg-list-extend />-->
 
       <div class="board_area">
         <noti-board />
