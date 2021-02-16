@@ -3,14 +3,14 @@
     <section class="title style-1">
       <h2>
         <div>
-          <i class="ico-bar" />EAI
+          <i class="ico-bar" />개발 시 진행 프로세스(신규 연동 시스템 기준)
         </div>
       </h2>
     </section>
     <section>
       <div>
         <span class="subtitle1">
-          1. 개발 시 진행 프로세스(신규 연동 시스템 기준)
+          1. EAI
         </span>
       </div>
     </section>
@@ -38,7 +38,7 @@
               1
             </li>
             <li class="td_cell">
-              연동 대상 시스템과 EAI 시스템 간 방화벽 Open
+              신규 연동 시스템과 EAI HUB 간 방화벽 Open
             </li>
             <li class="td_cell">
               신청자
@@ -52,7 +52,7 @@
               2
             </li>
             <li class="td_cell">
-              EAI 환경 설치를 위해 시스템 계정(eaiadmin) 생성 및 권한 부여와 파일 시스템 구성
+              EAI 파일 시스템 구성(10GB)
             </li>
             <li class="td_cell">
               신청자
@@ -66,10 +66,10 @@
               3
             </li>
             <li class="td_cell">
-              서버 접근 권한 신청 및 승인
+              EAI 환경 구성 및 관리를 위한 OS 계정(eaiadmin) 생성
             </li>
             <li class="td_cell">
-              EAI 담당자(신청), 신청 시스템 담당 매니저(승인)
+              신청자
             </li>
             <li class="td_cell">
               <input type="checkbox">
@@ -80,10 +80,52 @@
               4
             </li>
             <li class="td_cell">
-              EAI Component 설치 및 연동 설정
+              EAI 사용을 위한 eaiadmin 및 application 서비스 계정 권한 설정
+            </li>
+            <li class="td_cell">
+              신청자
+            </li>
+            <li class="td_cell">
+              <input type="checkbox">
+            </li>
+          </ul>
+          <ul class="table_row w-auto">
+            <li class="td_cell">
+              5
+            </li>
+            <li class="td_cell">
+              신규 연동 시스템 서버 접근 권한 신청
+            </li>
+            <li class="td_cell">
+              EAI 담당자 or 신청자
+            </li>
+            <li class="td_cell">
+              <input type="checkbox">
+            </li>
+          </ul>
+          <ul class="table_row w-auto">
+            <li class="td_cell">
+              6
+            </li>
+            <li class="td_cell">
+              EAI Component 설치 및 인터페이스 환경 구성
             </li>
             <li class="td_cell">
               EAI 담당자
+            </li>
+            <li class="td_cell">
+              <input type="checkbox">
+            </li>
+          </ul>
+          <ul class="table_row w-auto">
+            <li class="td_cell">
+              7
+            </li>
+            <li class="td_cell">
+              프로그램 개발 및 테스트
+            </li>
+            <li class="td_cell">
+              신청자
             </li>
             <li class="td_cell">
               <input type="checkbox">
@@ -95,85 +137,83 @@
     <section>
       <div>
         <span class="subtitle1">
-          2. 문제 발생 시 이슈별 해결 방안
+          2. MCG
         </span>
       </div>
     </section>
     <section class="form_area">
-      <div
-        class="table_grid"
-      >
+      <div class="table_grid">
         <div class="table_head w-auto">
           <ul>
             <li class="th_cell">
-              Case
+              순번
             </li>
             <li class="th_cell">
-              설명
-            </li>
-            <li class="th_cell">
-              해결방안
+              진행내용
             </li>
             <li class="th_cell">
               담당자
+            </li>
+            <li class="th_cell">
+              Check
             </li>
           </ul>
         </div>
         <div class="table_body">
           <ul class="table_row w-auto">
             <li class="td_cell">
-              Queue Connection Error
+              1
             </li>
             <li class="td_cell">
-              큐에 접근하지 못하는 경우
+              신규 연동 채널과 MCG 간 방화벽 Open
             </li>
             <li class="td_cell">
-              큐에 잘 접근한다.
+              신청자
             </li>
             <li class="td_cell">
-              여인진 차장(전창후 수석)
-            </li>
-          </ul>
-          <ul class="table_row w-auto">
-            <li class="td_cell">
-              큐 채널 접속 오류
-            </li>
-            <li class="td_cell">
-              채널에 접속이 안된다.
-            </li>
-            <li class="td_cell">
-              왜 그런지 생각해본다
-            </li>
-            <li class="td_cell">
-              여인진 차장(전창후 수석)
+              <input type="checkbox">
             </li>
           </ul>
           <ul class="table_row w-auto">
             <li class="td_cell">
-              데이터 미수신
+              2
             </li>
             <li class="td_cell">
-              양방향 연동인데, 응답 데이터를 받지 못하는 것 같다.
+              Inbound 채널의 경우 가상사용자 신청
             </li>
             <li class="td_cell">
-              내 잘못은 아닌가 자책을 한다.
+              신청자
             </li>
             <li class="td_cell">
-              여인진 차장(전창후 수석)
+              <input type="checkbox">
             </li>
           </ul>
           <ul class="table_row w-auto">
             <li class="td_cell">
-              큐 채널 접속 오류
+              3
             </li>
             <li class="td_cell">
-              채널에 접속이 안된다.
+              신규 채널 및 거래 등록
             </li>
             <li class="td_cell">
-              왜 그런지 생각해본다
+              MCG 담당자
             </li>
             <li class="td_cell">
-              여인진 차장(전창후 수석)
+              <input type="checkbox">
+            </li>
+          </ul>
+          <ul class="table_row w-auto">
+            <li class="td_cell">
+              4
+            </li>
+            <li class="td_cell">
+              프로그램 개발 및 테스트
+            </li>
+            <li class="td_cell">
+              신청자
+            </li>
+            <li class="td_cell">
+              <input type="checkbox">
             </li>
           </ul>
         </div>
