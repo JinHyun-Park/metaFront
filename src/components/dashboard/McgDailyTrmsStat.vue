@@ -41,7 +41,7 @@ export default {
     // this.$axios.get(this.tgtUrl, {
       fetchGetStatMcgDailyTrms({
         params: {
-          statDate: '20200505',
+          statDate: this.$gf.dateToString(new Date(), '', 'N'),
         },
       })
         .then((res) => {
