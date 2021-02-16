@@ -19,7 +19,7 @@
 
 <script>
 import BarChart from '@/views/chart/BarChart.vue';
-import { fetchGetStatEaiDailyTrms } from '@/api/statApi';
+import { fetchGetStatEaiHourlyTrms } from '@/api/statApi';
 
 export default {
   name: 'EaiDailyTrmsStat',
