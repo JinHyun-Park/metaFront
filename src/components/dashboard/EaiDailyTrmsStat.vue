@@ -4,7 +4,7 @@
       통계
     </h4>
     <h5 class="s_tit type-2">
-      EAI 거래량(전일)
+      EAI 거래량(전일) * 매일 8시 갱신
       <!--<div class="label_space">
         <label class="label-default">EAI</label>
         <label class="label-default on">EiGW</label>
@@ -41,7 +41,7 @@ export default {
     // this.$axios.get(this.tgtUrl, {
       fetchGetStatEaiHourlyTrms({
         params: {
-          statDate: this.$gf.dateToString(new Date(), '', 'N'),
+          statDate: this.$gf.dateToString(new Date(), '-1d', 'N'),
         },
       })
         .then((res) => {

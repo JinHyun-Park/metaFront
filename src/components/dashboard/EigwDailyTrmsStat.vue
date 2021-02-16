@@ -4,7 +4,7 @@
       통계
     </h4>
     <h5 class="s_tit type-2">
-      EiGW 거래량(전일)
+      EiGW 거래량(전일) * 매일 8시 갱신
       <!--<div class="label_space">
         <label class="label-default">EAI</label>
         <label class="label-default on">EiGW</label>
@@ -19,7 +19,7 @@
 
 <script>
 import BarChart from '@/views/chart/BarChart.vue';
-import { fetchGetStatEigwDailyTrms } from '@/api/statApi';
+import { fetchGetStatEigwHourlyTrms } from '@/api/statApi';
 
 export default {
   name: 'EigwDailyTrmsStat',
@@ -39,9 +39,9 @@ export default {
     searchStat() {
     // this.tgtUrl = '/api/bizcomm/board';
     // this.$axios.get(this.tgtUrl, {
-      fetchGetStatEigwDailyTrms({
+      fetchGetStatEigwHourlyTrms({
         params: {
-          statDate: this.$gf.dateToString(new Date(), '', 'N'),
+          statDate: this.$gf.dateToString(new Date(), '-1d', 'N'),
         },
       })
         .then((res) => {
