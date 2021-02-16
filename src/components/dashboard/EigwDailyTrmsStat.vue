@@ -48,7 +48,7 @@ export default {
           console.log(res);
           if (res.data.rstCd === 'S') {
           // this.boardList = this.$gf.parseRtnData(this.pageSet, res.data.rstData.board, 'Y')
-            this.dailyTrmsList = res.data.rstData.dailyTrmsList;
+            this.dailyTrmsList = res.data.rstData.hourlyTrmsList;
             this.makeChartData();
           } else {
           // eslint-disable-next-line no-alert
