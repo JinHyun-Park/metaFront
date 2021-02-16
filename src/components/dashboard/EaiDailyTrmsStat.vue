@@ -39,7 +39,7 @@ export default {
     searchStat() {
     // this.tgtUrl = '/api/bizcomm/board';
     // this.$axios.get(this.tgtUrl, {
-      fetchGetStatEaiDailyTrms({
+      fetchGetStatEaiHourlyTrms({
         params: {
           statDate: this.$gf.dateToString(new Date(), '', 'N'),
         },
