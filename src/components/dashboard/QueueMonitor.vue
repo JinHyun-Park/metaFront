@@ -353,7 +353,7 @@ export default {
           // 적체량
           type:'bar',
           yAxisID: 'first-y-axis',
-          label: 큐적체건수,
+          label: '큐적체건수',
           // backgroundColor: this.dynamicColors(),
           data: this.computeGraphRowValue(),
         }],
