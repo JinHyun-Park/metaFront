@@ -333,7 +333,7 @@ export default {
           type:'line',
           yAxisID: 'second-y-axis',
           label: 'OUT Q',
-          // backgroundColor: this.dynamicColors(),
+          backgroundColor: `rgb(Math.floor(Math.random() * 255),Math.floor(Math.random() * 255),Math.floor(Math.random() * 255))`,
           data: this.computeGraphRowValueOutQ(),
         }, {
           // 적체량
