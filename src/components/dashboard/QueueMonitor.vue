@@ -353,11 +353,13 @@ export default {
           fill: false,
         }, {
           // 적체량
-          type:'bar',
+          type:'line',
           yAxisID: 'first-y-axis',
           label: '큐적체건수',
           // backgroundColor: this.dynamicColors(),
+          backgroundColor: this.dynamicColor(),
           data: this.computeGraphRowValue(),
+          fill: true,
         }],
       };
     },
