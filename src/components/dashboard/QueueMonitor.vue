@@ -340,14 +340,14 @@ export default {
           type:'line',
           yAxisID: 'second-y-axis',
           label: 'OUT Q',
-          backgroundColor: 'rgb(Math.floor(Math.random() * 255), Math.floor(Math.random() * 255), Math.floor(Math.random() * 255))',
+          borderColor: 'rgb(Math.floor(Math.random() * 255), Math.floor(Math.random() * 255), Math.floor(Math.random() * 255))',
           data: this.computeGraphRowValueOutQ(),
         }, {
           // in큐
           type:'line',
           yAxisID: 'second-y-axis',
           label: 'IN Q',
-          backgroundColor: 'rgb(Math.floor(Math.random() * 255), Math.floor(Math.random() * 255), Math.floor(Math.random() * 255))',
+          borderColor: 'rgb(Math.floor(Math.random() * 255), Math.floor(Math.random() * 255), Math.floor(Math.random() * 255))',
           data: this.computeGraphRowValueInQ(),
         }, {
           // 적체량
