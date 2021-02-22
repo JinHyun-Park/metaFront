@@ -357,7 +357,6 @@ export default {
           yAxisID: 'first-y-axis',
           label: '큐적체건수',
           // backgroundColor: this.dynamicColors(),
-          backgroundColor: this.dynamicColor(),
           data: this.computeGraphRowValue(),
           fill: true,
         }],
