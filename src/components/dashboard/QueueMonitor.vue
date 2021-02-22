@@ -322,6 +322,12 @@ export default {
       this.datacollection = {
         labels: this.computeGraphRowKey(),
         datasets: [{
+          type:'line',
+          label: this.queueDepthForQueueNmList[0].queueNm,
+          // backgroundColor: this.dynamicColors(),
+          data: this.computeGraphRowValue(),
+        }, {
+          type:'bar',
           label: this.queueDepthForQueueNmList[0].queueNm,
           // backgroundColor: this.dynamicColors(),
           data: this.computeGraphRowValue(),
