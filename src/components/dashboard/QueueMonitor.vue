@@ -140,7 +140,7 @@
 
 <script>
 // import ReactiveBarChart from '@/views/chart/ReactiveBarChart.vue';
-import LineChart from '@/views/chart/LineChart.vue';
+import MultipleLineChart from '@/views/chart/MultipleLineChart.vue';
 import { fetchGetQueueDepthList, fetchGetQueueDepthByQueueNmList } from '@/api/monitoringApi';
 import { fetchGetEaiIfList } from '@/api/eaiApi';
 import CommFullView from '@/components/popup/common/CommFullView.vue';
@@ -149,7 +149,7 @@ export default {
   name: 'QueueTransStat',
   components: {
     // 'reactive-bar-chart': ReactiveBarChart,
-    'line-chart': LineChart,
+    'line-chart': MultipleLineChart,
     CommFullView,
   },
   props: {
@@ -331,12 +331,14 @@ export default {
         datasets: [{
           // in/out큐
           type:'line',
+          yAxisID: 'second-y-axis',
           label: 'OUT Q',
-          backgroundColor: this.dynamicColors(),
+          // backgroundColor: this.dynamicColors(),
           data: this.computeGraphRowValueOutQ(),
         }, {
           // 적체량
           type:'bar',
+          yAxisID: 'first-y-axis',
           label: this.queueDepthForQueueNmList[0].queueNm,
           // backgroundColor: this.dynamicColors(),
           data: this.computeGraphRowValue(),
