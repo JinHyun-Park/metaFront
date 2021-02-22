@@ -318,15 +318,24 @@ export default {
       }
       return a;
     },
+    computeGraphRowValueOutQ() {
+      const a = [];
+      for (let i = 0; i < this.queueDepthForQueueNmList.length; i++) {
+        a.push(this.queueDepthForQueueNmList[i].outQ);
+      }
+      return a;
+    },
     makeChartData() {
       this.datacollection = {
         labels: this.computeGraphRowKey(),
         datasets: [{
+          // in/out큐
           type:'line',
-          label: this.queueDepthForQueueNmList[0].queueNm,
-          // backgroundColor: this.dynamicColors(),
-          data: this.computeGraphRowValue(),
+          label: 'OUT Q',
+          backgroundColor: this.dynamicColors(),
+          data: this.computeGraphRowValueOutQ(),
         }, {
+          // 적체량
           type:'bar',
           label: this.queueDepthForQueueNmList[0].queueNm,
           // backgroundColor: this.dynamicColors(),
