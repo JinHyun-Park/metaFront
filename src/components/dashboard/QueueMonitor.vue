@@ -318,6 +318,13 @@ export default {
       }
       return a;
     },
+    computeGraphRowValueInQ() {
+      const a = [];
+      for (let i = 0; i < this.queueDepthForQueueNmList.length; i++) {
+        a.push(this.queueDepthForQueueNmList[i].inQ);
+      }
+      return a;
+    },
     computeGraphRowValueOutQ() {
       const a = [];
       for (let i = 0; i < this.queueDepthForQueueNmList.length; i++) {
@@ -329,17 +336,24 @@ export default {
       this.datacollection = {
         labels: this.computeGraphRowKey(),
         datasets: [{
-          // in/out큐
+          // out큐
           type:'line',
           yAxisID: 'second-y-axis',
           label: 'OUT Q',
-          backgroundColor: `rgb(Math.floor(Math.random() * 255),Math.floor(Math.random() * 255),Math.floor(Math.random() * 255))`,
+          backgroundColor: 'rgb(Math.floor(Math.random() * 255), Math.floor(Math.random() * 255), Math.floor(Math.random() * 255))',
           data: this.computeGraphRowValueOutQ(),
+        }, {
+          // in큐
+          type:'line',
+          yAxisID: 'second-y-axis',
+          label: 'IN Q',
+          backgroundColor: 'rgb(Math.floor(Math.random() * 255), Math.floor(Math.random() * 255), Math.floor(Math.random() * 255))',
+          data: this.computeGraphRowValueInQ(),
         }, {
           // 적체량
           type:'bar',
           yAxisID: 'first-y-axis',
-          label: this.queueDepthForQueueNmList[0].queueNm,
+          label: 큐적체건수,
           // backgroundColor: this.dynamicColors(),
           data: this.computeGraphRowValue(),
         }],

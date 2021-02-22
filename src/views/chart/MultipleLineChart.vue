@@ -11,6 +11,7 @@ export default {
         scales: {
           yAxes: [{
             id:'first-y-axis',
+            position: 'left',
             ticks: {
               suggestedMax: 5,
               beginAtZero: true,
@@ -24,6 +25,7 @@ export default {
             },
           }, {
             id:'second-y-axis',
+            position: 'right',
             ticks: {
               suggestedMax: 5,
               beginAtZero: true,
