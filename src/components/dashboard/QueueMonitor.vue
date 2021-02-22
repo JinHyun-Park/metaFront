@@ -340,15 +340,17 @@ export default {
           type:'line',
           yAxisID: 'second-y-axis',
           label: 'OUT Q',
-          borderColor: 'rgb(Math.floor(Math.random() * 255), Math.floor(Math.random() * 255), Math.floor(Math.random() * 255))',
+          borderColor: this.dynamicColor(),
           data: this.computeGraphRowValueOutQ(),
+          fill: false,
         }, {
           // in큐
           type:'line',
           yAxisID: 'second-y-axis',
           label: 'IN Q',
-          borderColor: 'rgb(Math.floor(Math.random() * 255), Math.floor(Math.random() * 255), Math.floor(Math.random() * 255))',
+          borderColor: this.dynamicColor(),
           data: this.computeGraphRowValueInQ(),
+          fill: false,
         }, {
           // 적체량
           type:'bar',
@@ -358,6 +360,12 @@ export default {
           data: this.computeGraphRowValue(),
         }],
       };
+    },
+    dynamicColor() {
+      const r = Math.floor(Math.random() * 255);
+      const g = Math.floor(Math.random() * 255);
+      const b = Math.floor(Math.random() * 255);
+      return `rgb(${r},${g},${b})`;
     },
     dynamicColors() {
       const a = [];
