@@ -7,7 +7,7 @@
         </div>
       </h2>
     </section>
-    <section>
+    <section class="form_area">
       <div class="table_grid tb_layout">
         <div class="table_head w-auto">
           <ul>
@@ -85,14 +85,37 @@
               2
             </li>
             <li class="td_cell">
-              연동 설정 작업 요청/확인
+              초기 연동 서버 설정<br/>
+              (기존연동 중인 경우 skip)
             </li>
             <li class="td_cell">
               . EAI 파일 시스템 구성 (10GB)<br/>
               . EAI 환경을 위한 OS 계정(eaiadmin) 생성<br/>
-              . eaiadmin 및 application 서비스 계정 권한 설정<br/>
-              . 신규 연동 시스템 서버 접근 권한 신청<br/>
-              . EAI Component 설치 및 인터페이스 환경 구성
+              . eaiadmin / application 계정 권한 설정<br/>
+              . 신규 연동 시스템 서버 접근 권한 신청
+            </li>
+            <li class="td_cell">
+              EAI 환경 구성(좌동)
+            </li>
+            <li class="td_cell">
+              WebToB 연동 라이브러리 구성
+            </li>
+            <li class="td_cell">
+              신청자
+            </li>
+            <li class="td_cell">
+              <input type="checkbox">
+            </li>
+          </ul>
+          <ul class="table_row w-auto">
+            <li class="td_cell">
+              3
+            </li>
+            <li class="td_cell">
+              연동 설정 작업 요청/확인
+            </li>
+            <li class="td_cell">
+              EAI Component 설치 및 인터페이스 환경 구성
             </li>
             <li class="td_cell">
               관련 EAI 인터페이스 구성 확인
@@ -109,7 +132,7 @@
           </ul>
           <ul class="table_row w-auto">
             <li class="td_cell">
-              3
+              4
             </li>
             <li class="td_cell">
               신청 인터페이스 구성
@@ -132,16 +155,36 @@
           </ul>
           <ul class="table_row w-auto">
             <li class="td_cell">
-              4
+              5
             </li>
             <li class="td_cell">
-              프로그램 개발 및 테스트
+              단위 프로그램 개발
+            </li>
+            <li class="td_cell"></li>
+            <li class="td_cell">
+              각 시스템 별 연동 모듈 개발
+            </li>
+            <li class="td_cell"></li>
+            <li class="td_cell">
+              신청자
+            </li>
+            <li class="td_cell">
+              <input type="checkbox">
+            </li>
+          </ul>
+          <ul class="table_row w-auto">
+            <li class="td_cell">
+              6
+            </li>
+            <li class="td_cell">
+              개발 테스트
             </li>
             <li class="td_cell">
               
             </li>
             <li class="td_cell">
-              
+              . 내부 EAI 연동 이상여부 점검<br/>
+              . 외부 대외기관 연동 여부 점검
             </li>
             <li class="td_cell"></li>
             <li class="td_cell">
