@@ -336,20 +336,20 @@ export default {
       this.datacollection = {
         labels: this.computeGraphRowKey(),
         datasets: [{
-          // out큐
-          type:'line',
-          yAxisID: 'second-y-axis',
-          label: 'OUT Q',
-          borderColor: 'rgb(63,0,153)',
-          data: this.computeGraphRowValueOutQ(),
-          fill: false,
-        }, {
           // in큐
           type:'line',
           yAxisID: 'second-y-axis',
           label: 'IN Q',
-          borderColor: 'rgb(90,209,229)',
+          borderColor: 'rgb(108,91,123)',
           data: this.computeGraphRowValueInQ(),
+          fill: false,
+        }, {
+          // out큐
+          type:'line',
+          yAxisID: 'second-y-axis',
+          label: 'OUT Q',
+          borderColor: 'rgb(53,92,125)',
+          data: this.computeGraphRowValueOutQ(),
           fill: false,
         }, {
           // 적체량
