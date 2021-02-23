@@ -24,7 +24,7 @@
         </div>
       </h5>
       <div class="row_contain type-3">
-        <div class="column w-2">
+        <!--<div class="column w-2">
           <label class="column_label">조회기간</label>
           <div class="calander_group first_cal">
             <input
@@ -66,7 +66,8 @@
             />
           </div>
         </div>
-        <div class="column w-4">
+        -->
+        <div class="column w-6">
           <label class="column_label">검색어</label>
           <div class="search_group">
             <input
@@ -76,9 +77,7 @@
             >
           </div>
         </div>
-      </div>
-      <div class="row_contain type-3">
-        <div class="column w-4">
+        <div class="column w-2 ">
           <label class="column_label">관련 인터페이스</label>
           <div class="table_body">
             <ul class="table_row w-auto">
@@ -237,12 +236,6 @@ export default {
     moveToCreate() {
       this.$router.push({ name: 'faqCreate' });
     },
-    log(val) {
-      this.startReqDtm = val;
-    },
-    log2(val) {
-      this.endReqDtm = val;
-    },
     setBoardStName(boardState) {
       switch (boardState) {
         case '0': return '유효';
@@ -272,9 +265,11 @@ export default {
           boardCtyp2: this.boardIF[1],
           boardCtyp3: this.boardIF[2],
           // eslint-disable-next-line no-useless-escape
-          startReqDtm: this.startReqDtm.replace(/\-/g, ''),
+          // startReqDtm: this.startReqDtm.replace(/\-/g, ''),
           // eslint-disable-next-line no-useless-escape
-          endReqDtm: this.endReqDtm.replace(/\-/g, ''),
+          // endReqDtm: this.endReqDtm.replace(/\-/g, ''),
+          startReqDtm: '',
+          endReqDtm: '',
           titleKeyword: this.titleKeyword,
         },
       })
