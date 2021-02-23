@@ -340,7 +340,7 @@ export default {
           type:'line',
           yAxisID: 'second-y-axis',
           label: 'OUT Q',
-          borderColor: this.dynamicColor(),
+          borderColor: 'rgb(63,0,153)',
           data: this.computeGraphRowValueOutQ(),
           fill: false,
         }, {
@@ -348,7 +348,7 @@ export default {
           type:'line',
           yAxisID: 'second-y-axis',
           label: 'IN Q',
-          borderColor: this.dynamicColor(),
+          borderColor: 'rgb(90,209,229)',
           data: this.computeGraphRowValueInQ(),
           fill: false,
         }, {
