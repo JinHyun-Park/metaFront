@@ -314,7 +314,7 @@ const helpers = {
   resetCount() {
     remainingTime = TIME_LIMIT;
   },
-
+  /*
   checkPasswd(passwd1, passwd2) {
     if(passwd1 != passwd2) {
       return false, '비밀번호가 상이합니다.';
@@ -349,7 +349,7 @@ const helpers = {
 
     return true, "";
 
-  },
+  },*/
 
   /**
    * 예시 함수 - 이 함수를 변형/삭제해서 사용해주세요.
