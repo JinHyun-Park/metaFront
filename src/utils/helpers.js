@@ -7,7 +7,7 @@ import store from '@/store';
 let loader;
 let loaderOn = false;
 
-const TIME_LIMIT = 89 * 60;
+const TIME_LIMIT = 59 * 60;
 let remainingTime = TIME_LIMIT;
 
 const helpers = {
@@ -313,6 +313,42 @@ const helpers = {
 
   resetCount() {
     remainingTime = TIME_LIMIT;
+  },
+
+  checkPasswd(passwd1, passwd2) {
+    if(passwd1 != passwd2) {
+      return false, '비밀번호가 상이합니다.';
+    }
+
+    var pattern1 = /[0-9]/;
+    var pattern2 = /[a-zA-Z]/;
+    var pattern3 = /[~!@#$%^&*()_-[]\|]/;
+
+    if(passwd1.length < 8) {
+      return false, "비밀번호는 8자리 이상이여야 합니다.";
+    }
+
+    // 10자리 이하면, 3가지 종류로 구성되야함
+    if(passwd1.length < 10) {
+      if(!pattern1.test(passwd1)||!pattern2.test(passwd1)||!pattern3.test(passwd1)) {
+        return false, "10자리이하인 경우, 3가지 종류(숫자, 영문, 특수문자)를 포함해야 합니다."
+      }
+    }
+
+    // 10자리 이상이면 2가지 종류여도 됨
+    if(passwd1.length > 10) {
+      let rstPtRst = 0;
+      rstPtRst += pattern1.test(passwd1);
+      rstPtRst += pattern2.test(passwd1);
+      rstPtRst += pattern3.test(passwd1);
+
+      if(rstPtRst < 2) {
+        return false, "2가지 종류 이상 포함해야 합니다."
+      }
+    }
+
+    return true, "";
+
   },
 
   /**
