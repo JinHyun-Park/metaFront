@@ -112,6 +112,10 @@ export default {
         this.$gf.alertOn('새로 입력하신 신규 비밀번호가 상이합니다.');
         return false;
       }
+      if(this.passwd === this.newPassWd) {
+        this.$gf.alertOn('기존 비밀번호와 동일한 비밀번호로 변경은 불가합니다.');
+        return false;
+      }
       return true;
     },
     exitPop() {
