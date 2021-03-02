@@ -108,22 +108,22 @@ export default {
       } else if (path.indexOf('/stat/') > -1) {
         this.subNm = '통계';
         this.menuLists = this.menuAllList.filter(item => item.menuLcl === 'STAT');
-      } else if (path.indexOf('/admin/ifMgmt/comm/') > -1) {
+      } else if (path.indexOf('/innerMgmt/ifMgmt/comm/') > -1) {
         this.subNm = '공통';
         this.menuLists = this.menuAllList.filter(item => item.menuLcl === 'MGMT_COMM');
-      } else if (path.indexOf('/admin/ifMgmt/eigw/') > -1) {
+      } else if (path.indexOf('/innerMgmt/ifMgmt/eigw/') > -1) {
         this.subNm = 'EIGW 관리';
         this.menuLists = this.menuAllList.filter(item => item.menuLcl === 'MGMT_EIGW');
-      } else if (path.indexOf('/admin/ifMgmt/mcg/') > -1) {
+      } else if (path.indexOf('/innerMgmt/ifMgmt/mcg/') > -1) {
         this.subNm = 'MCG 관리';
         this.menuLists = this.menuAllList.filter(item => item.menuLcl === 'MGMT_MCG');
-      } else if (path.indexOf('/admin/ifMgmt/eai/') > -1) {
+      } else if (path.indexOf('/innerMgmt/ifMgmt/eai/') > -1) {
         this.subNm = 'EAI 관리';
         this.menuLists = this.menuAllList.filter(item => item.menuLcl === 'MGMT_EAI');
-      } else if (path.indexOf('/admin/portalMgmt/') > -1) {
+      } else if (path.indexOf('/innerMgmt/portalMgmt/') > -1) {
         this.subNm = '포탈 관리';
         this.menuLists = this.menuAllList.filter(item => item.menuLcl === 'PORTAL_MGMT');
-      } else if (path.indexOf('/admin/ifreg/') > -1) {
+      } else if (path.indexOf('/innerMgmt/ifreg/') > -1) {
         this.subNm = '인터페이스 신청 관리';
         this.menuLists = this.menuAllList.filter(item => item.menuLcl === 'MGMT_IFREG');
       }
