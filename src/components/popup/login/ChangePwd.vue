@@ -89,6 +89,8 @@ export default {
             if (res.data.rstCd === 'S') {
               this.$gf.alertOn('성공적으로 변경되었습니다.');
               this.exitPop();
+            } else {
+              this.$gf.alertOn(res.data.rstMsg);
             }
           }
         })
