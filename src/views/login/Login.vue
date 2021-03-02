@@ -137,9 +137,6 @@ export default {
         })
         .catch((ex) => {
           console.log(`error occur!! : ${ex}`);
-          if(res.status === 500 && !this.$gf.isEmpty(res.data.rstData.message)) {
-            this.$gf.alertOn(res.data.rstData.message);  
-          }
           // eslint-disable-next-line no-alert
           this.$gf.alertOn('로그인에 실패했습니다.\n ID나 비밀번호가 일치하지 않습니다.');
         });
