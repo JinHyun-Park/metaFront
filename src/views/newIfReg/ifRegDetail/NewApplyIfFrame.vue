@@ -251,6 +251,10 @@ export default {
         this.ifRegBotBtnSet.isBtnAppr = false;
         this.ifRegBotBtnSet.isBtnReject = false;
       }
+      //혹시 신규 연동 건인 경우에 대해서만 tempsave = true
+      if (this.callType === 'new') {
+        this.ifRegBotBtnSet.isBtnTempSave = true;
+      }
     },
     isActive(val) {
       return this.tabNum === val;
