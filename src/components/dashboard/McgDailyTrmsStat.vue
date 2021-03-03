@@ -4,7 +4,7 @@
       통계
     </h4>
     <h5 class="s_tit type-2">
-      MCG 거래량(전일) * 매일 12시에 갱신
+      MCG 거래량({{ tgtStatDate }}) * 매일 12시에 갱신
       <!--<div class="label_space">
         <label class="label-default">EAI</label>
         <label class="label-default on">EiGW</label>
@@ -30,6 +30,7 @@ export default {
     return {
       datacollection: {},
       dailyTrmsList: [],
+      tgtStatDate: this.$gf.dateToString(new Date(), '-36h', 'N'),
     };
   },
   mounted() {
@@ -41,7 +42,7 @@ export default {
     // this.$axios.get(this.tgtUrl, {
       fetchGetStatMcgHourlyTrms({
         params: {
-          statDate: this.$gf.dateToString(new Date(), '-1d', 'N'),
+          statDate: this.tgtStatDate,
         },
       })
         .then((res) => {

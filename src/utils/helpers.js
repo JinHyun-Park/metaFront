@@ -86,12 +86,20 @@ const helpers = {
         case 'm':
           offRtnDate.setMonth(format.getMonth() + parseInt(offsetValue, 10));
           break;
-
         case 'y':
           offRtnDate.setYear(format.getFullYear() + parseInt(offsetValue, 10));
           break;
         case 'd':
           offRtnDate.setDate(format.getDate() + parseInt(offsetValue, 10));
+          break;
+        case 'h':
+          let offHour = parseInt(offsetValue, 10);
+          if(offHour > 23 || offHour < -23) {
+            offRtnDate.setDate(format.getDate() + parseInt(offHour/24, 10));
+            offRtnDate.setHours(format.getHours() + parseInt(offHour%24, 10));
+          } else {
+            offRtnDate.setHours(format.getHours() + parseInt(offsetValue, 10));
+          }
           break;
         default:
           offRtnDate = format;
