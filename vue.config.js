@@ -16,4 +16,5 @@ module.exports = {
   css: {
     sourceMap: true,
   },
+  indexPath: 'naru.html',
 };
