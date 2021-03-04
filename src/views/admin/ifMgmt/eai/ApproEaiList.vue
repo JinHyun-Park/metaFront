@@ -105,7 +105,7 @@
       <button
         type="button"
         class="default_button on"
-        @click="movePage('ifIdListAdmin', 0)"
+        @click="movePage('ifIdListDetailAdmin', 0)"
       >
         신규 등록
       </button>
