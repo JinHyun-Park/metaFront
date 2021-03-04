@@ -179,7 +179,7 @@ export default {
           if (res.data.rstCd === 'S') {
             this.eaiIfList = res.data.rstData.searchList;
             this.$router.push({
-              name: 'ifIdListAdmin',
+              name: 'ifIdListDetail',
               params: {
                 eaiIfSeq: this.eaiIfList[0].eaiIfSeq,
                 callType: 'update',

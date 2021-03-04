@@ -22,14 +22,6 @@
         기본 정보
         <div class="right_button_area">
           <button
-            v-if="(adminYn === 'Y')"
-            type="button"
-            class="default_button"
-            @click="save()"
-          >
-            추가
-          </button>
-          <button
             type="button"
             class="default_button on"
             @click="listing()"
@@ -446,17 +438,6 @@
             <span class="select" />
           </div>
         </div>
-        <div class="column w-1">
-          <label class="column_label">&nbsp;</label>
-          <button
-            v-if="(adminYn === 'Y')"
-            type="button"
-            class="default_button on"
-            @click="modify()"
-          >
-            수정
-          </button>
-        </div>
       </div>
     </section>
   </div>
@@ -576,7 +557,6 @@ export default {
   },
   computed: {
     ...mapState('ccCdLst', ['ccCdList']),
-    ...mapState('login', ['adminYn']),
   },
   mounted() {
     this.setCcCdList({
