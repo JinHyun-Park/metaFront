@@ -35,6 +35,10 @@ function fetchGetUserAuth() {
   return axios.get(`${preUrl}/user/auth`);
 }
 
+function fetchGetIsAdmin() {
+  return axios.get(`${preUrl}/user/isAdmin`);
+}
+
 export {
   fetchResetPasswd,
   fetchLoginProc,
@@ -44,4 +48,5 @@ export {
   fetchResetPasswdAdmin,
   fetchGetUserAuth,
   fetchChangePasswd,
+  fetchGetIsAdmin,
 };
