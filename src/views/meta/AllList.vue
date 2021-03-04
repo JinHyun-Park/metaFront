@@ -349,7 +349,7 @@ export default {
     },
     movePage(index) {
       this.$router.push({
-        name: 'ifIdListAdmin',
+        name: 'ifIdListDetail',
         params: {
           eaiIfSeq: this.allMetaList[index].eaiIfSeq,
           callType: 'viewAll',
