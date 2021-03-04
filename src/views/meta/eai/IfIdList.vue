@@ -233,7 +233,7 @@
             v-for="(eaiIf, i) in ifList"
             :key="i"
             class="table_row w-auto"
-            @click="getRowData(eaiIf);movePage('ifIdListAdmin', 1)"
+            @click="getRowData(eaiIf);movePage('ifIdListDetail', 1)"
           >
             <li class="td_cell">
               {{ eaiIf.eaiIfId }}
@@ -272,7 +272,7 @@
       <button
         type="button"
         class="default_button on"
-        @click="movePage('ifIdListAdmin', 0)"
+        @click="movePage('ifIdListDetail', 0)"
       >
         등록
       </button>
