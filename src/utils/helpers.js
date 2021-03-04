@@ -50,7 +50,7 @@ const helpers = {
 
     if (path.indexOf('/login/') >= 0) { // 로그인 영역 페이지 - 헤더, left side 없음
       store.dispatch('frameSet/setLoginPageOn', { loginPageOn: true });
-    } else if (page === '/' || page === 'home') { // 메인 페이지
+    } else if (page === '/' || page === 'home' || path.indexOf('/error/')) { // 메인 페이지
       store.dispatch('frameSet/setLoginPageOn', { loginPageOn: false });
       store.dispatch('frameSet/setHeaderOn', { headerOn: true });
       store.dispatch('frameSet/setAsideOn', { asideOn: false });
