@@ -171,35 +171,14 @@ const router = new Router({
       component: () => import('@/views/meta/AllList.vue'),
     },
     { // EAI 시작
-      path: '/meta/eai/queueList',
-      name: 'queueList',
-      component: () => import('@/views/meta/eai/QueueList.vue'),
-    },
-    {
-      path: '/meta/eai/queueMgrList',
-      name: 'queueMgrList',
-      component: () => import('@/views/meta/eai/QueueMgrList.vue'),
-    },
-    
-    {
       path: '/meta/eai/ifIdList',
       name: 'ifIdList',
       component: () => import('@/views/meta/eai/IfIdList.vue'),
     },
     {
-      path: '/meta/eai/swingDbInfo',
-      name: 'swingDbInfo',
-      component: () => import('@/views/meta/eai/SwingDbInfo.vue'),
-    },
-    {
-      path: '/meta/eai/eaiServer',
-      name: 'eaiServer',
-      component: () => import('@/views/meta/eai/EaiServer.vue'),
-    },
-    {
-      path: '/meta/eai/ifIdListAdmin',
-      name: 'ifIdListAdmin',
-      component: () => import('@/views/meta/eai/IfIdListAdmin.vue'),
+      path: '/meta/eai/ifIdListDetail',
+      name: 'ifIdListDetail',
+      component: () => import('@/views/meta/eai/IfIdListDetail.vue'),
     }, // EAI 끝
     {
       path: '/meta/eigw/onlineList',
@@ -301,6 +280,16 @@ const router = new Router({
       component: () => import('@/views/admin/ifMgmt/eigw/regFile.vue'),
     },
     {
+      path: '/innerMgmt/ifMgmt/mcg/mcgDtlList',
+      name: 'mcgDtlListAdmin',
+      component: () => import('@/views/admin/ifMgmt/mcg/DtlList.vue'),
+    },
+    {
+      path: '/innerMgmt/ifMgmt/mcg/mcgTransInfo',
+      name: 'mcgTransInfoAdmin',
+      component: () => import('@/views/admin/ifMgmt/mcg/TransInfo.vue'),
+    },
+    {
       path: '/innerMgmt/ifMgmt/mcg/virtualUserList_MCG',
       name: 'virtualUserList_MCG',
       component: () => import('@/views/admin/ifMgmt/mcg/VirtualUserList_MCG.vue'),
@@ -315,6 +304,36 @@ const router = new Router({
       name: 'mcgServer',
       component: () => import('@/views/admin/ifMgmt/mcg/McgServer.vue'),
     },
+    { // EAI 시작
+      path: '/innerMgmt/ifMgmt/eai/queueList',
+      name: 'queueListAdmin',
+      component: () => import('@/views/admin/ifMgmt/eai/QueueList.vue'),
+    },
+    {
+      path: '/innerMgmt/ifMgmt/eai/queueMgrList',
+      name: 'queueMgrListAdmin',
+      component: () => import('@/views/admin/ifMgmt/eai/QueueMgrList.vue'),
+    },
+    {
+      path: '/innerMgmt/ifMgmt/eai/ifIdList',
+      name: 'ifIdListAdmin',
+      component: () => import('@/views/admin/ifMgmt/eai/IfIdList.vue'),
+    },
+    {
+      path: '/innerMgmt/ifMgmt/eai/swingDbInfo',
+      name: 'swingDbInfoAdmin',
+      component: () => import('@/views/admin/ifMgmt/eai/SwingDbInfo.vue'),
+    },
+    {
+      path: '/innerMgmt/ifMgmt/eai/eaiServer',
+      name: 'eaiServerAdmin',
+      component: () => import('@/views/admin/ifMgmt/eai/EaiServer.vue'),
+    },
+    {
+      path: '/innerMgmt/ifMgmt/eai/ifIdListDetail',
+      name: 'ifIdListDetailAdmin',
+      component: () => import('@/views/admin/ifMgmt/eai/IfIdListDetail.vue'),
+    }, // EAI 끝
     {
       path: '/innerMgmt/ifMgmt/eai/ifIdListAdminMgmt',
       name: 'ifIdListAdminMgmt',
@@ -322,12 +341,12 @@ const router = new Router({
     },
     {
       path: '/innerMgmt/ifMgmt/eai/chnList',
-      name: 'chnList',
+      name: 'chnListAdmin',
       component: () => import('@/views/admin/ifMgmt/eai/ChnList.vue'),
     },
     {
       path: '/innerMgmt/ifMgmt/eai/nodeList',
-      name: 'nodeList',
+      name: 'nodeListAdmin',
       component: () => import('@/views/admin/ifMgmt/eai/NodeList.vue'),
     },
     {

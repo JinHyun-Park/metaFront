@@ -88,8 +88,8 @@
                   MCG
                 </li>
                 <li
-                  :class="{ov: isActive('queueList')}"
-                  @click="movePage('queueList')"
+                  :class="{ov: isActive('ifIdList')}"
+                  @click="movePage('ifIdList')"
                 >
                   EAI
                 </li>

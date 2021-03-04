@@ -1,11 +1,120 @@
 <template>
   <section class="form_area border_group">
-    <section class="title style-1">
-      <h2>
-        <div>
-          <i class="ico-bar" />개발 시 진행 프로세스(신규/추가 연동 시스템 기준)
+    <section>
+        <span class="subtitle1">
+            1. 신청 프로세스 진행 단계
+          </span>
+    </section>
+    <section class="form_area">
+      <div class="table_grid tb_layout">
+        <div class="table_head w-auto">
+          <ul>
+            <li
+              class="th_cell"
+              style="width:5%;"
+            >
+              순번
+            </li>
+            <li
+              class="th_cell"
+              style="width:15%;"
+            >
+              단계
+            </li>
+            <li
+              class="th_cell"
+              style="width:25%;"
+            >
+              설명
+            </li>
+            <li
+              class="th_cell"
+              style="width:24%;"
+            >
+              신청자
+            </li>
+            <li
+              class="th_cell"
+              style="width:24%;"
+            >
+              승인자
+            </li>
+            <li
+              class="th_cell"
+              style="width:20%;"
+            >
+              인터페이스담당자
+            </li>
+          </ul>
         </div>
-      </h2>
+        <div class="table_body">
+          <ul class="table_row">
+            <li class="td_cell" >
+              1
+            </li>
+            <li class="td_cell">
+              임시저장
+            </li>
+            <li class="td_cell">
+              임시저장한다.
+            </li>
+            <li class="td_cell">
+              <input type="checkbox" checked disabled>
+            </li>
+            <li class="td_cell">
+              <input type="checkbox" disabled>
+            </li>
+            <li class="td_cell">
+              <input type="checkbox" disabled>
+            </li>
+          </ul>
+          <ul class="table_row">
+            <li class="td_cell" >
+              2
+            </li>
+            <li class="td_cell">
+              승인요청
+            </li>
+            <li class="td_cell">
+              승인자에게 승인요청을 한 상태
+            </li>
+            <li class="td_cell">
+              <input type="checkbox" checked disabled>
+            </li>
+            <li class="td_cell">
+              <input type="checkbox" checked disabled>
+            </li>
+            <li class="td_cell">
+              <input type="checkbox" disabled>
+            </li>
+          </ul>
+          <ul class="table_row">
+            <li class="td_cell" >
+              3
+            </li>
+            <li class="td_cell">
+              접수중
+            </li>
+            <li class="td_cell">
+              승인완료되어 인터페이스 담당자가 접수 중인 상태
+            </li>
+            <li class="td_cell">
+              <input type="checkbox" disabled>
+            </li>
+            <li class="td_cell">
+              <input type="checkbox" disabled>
+            </li>
+            <li class="td_cell">
+              <input type="checkbox" checked disabled>
+            </li>
+          </ul>
+        </div>
+      </div>
+     </section>
+    <section>
+        <span class="subtitle1">
+            2. 개발 시 진행 프로세스(신규/추가 연동 시스템 기준)
+          </span>
     </section>
     <section class="form_area">
       <div class="table_grid tb_layout">
