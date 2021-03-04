@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import helpers from '@/utils/helpers';
 import Home from './views/Home.vue';
+import { fetchGetIsAdmin } from '@/api/loginApi';
 
 Vue.use(Router);
 
@@ -388,8 +389,26 @@ router.beforeEach((to, from, next) => {
   //     canCancel: false,
   //     // onCancel: this.onCancel,
   //   });
-  helpers.showLoading(100);
-  next();
+  if(to.fullPath.indexOf('/innerMgmt') != -1) {
+    fetchGetIsAdmin().then((res) => {
+      if(res.data.rstCd === 'S') {
+        helpers.showLoading(100);
+        next();
+      } else {
+        helpers.alertOn('접근할 수 없는 페이지입니다.');
+        helpers.showLoading(100);
+        router.go(-1);
+      }
+    })
+    .catch((ex) => {
+      helpers.alertOn('알 수 없는 접근입니다.');
+      helpers.showLoading(100);
+      router.go(-1);
+    })
+  } else {
+    helpers.showLoading(100);
+    next();
+  }
 });
 
 router.afterEach((to) => {
