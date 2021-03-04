@@ -300,6 +300,16 @@ const router = new Router({
       component: () => import('@/views/admin/ifMgmt/eigw/regFile.vue'),
     },
     {
+      path: '/innerMgmt/ifMgmt/mcg/mcgDtlList',
+      name: 'mcgDtlListAdmin',
+      component: () => import('@/views/admin/ifMgmt/mcg/DtlList.vue'),
+    },
+    {
+      path: '/innerMgmt/ifMgmt/mcg/mcgTransInfo',
+      name: 'mcgTransInfoAdmin',
+      component: () => import('@/views/admin/ifMgmt/mcg/TransInfo.vue'),
+    },
+    {
       path: '/innerMgmt/ifMgmt/mcg/virtualUserList_MCG',
       name: 'virtualUserList_MCG',
       component: () => import('@/views/admin/ifMgmt/mcg/VirtualUserList_MCG.vue'),
