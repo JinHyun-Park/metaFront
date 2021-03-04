@@ -416,13 +416,17 @@ router.beforeEach((to, from, next) => {
       } else {
         helpers.alertOn('접근할 수 없는 페이지입니다.');
         helpers.showLoading(100);
-        router.go(-1);
+        setTimeout(function() {
+          router.go(-1);
+        }, 1000);
       }
     })
     .catch((ex) => {
       helpers.alertOn('알 수 없는 접근입니다.');
       helpers.showLoading(100);
-      router.go(-1);
+      setTimeout(function() {
+        router.go(-1);
+      }, 1000);
     })
   } else {
     helpers.showLoading(100);
