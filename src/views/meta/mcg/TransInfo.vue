@@ -21,18 +21,10 @@
       </h2>
     </section>
 
-    <section class="border_group">
+    <section class="form_area border_group">
       <h5 class="s_tit type-2">
         기본 정보
         <div class="right_button_area">
-          <button
-            v-if="(adminYn === 'Y')"
-            type="button"
-            class="default_button"
-            @click="save()"
-          >
-            추가
-          </button>
           <button
             type="button"
             class="default_button on"
@@ -42,52 +34,59 @@
           </button>
         </div>
       </h5>
-      <div class="add_info">
-        <input
-          v-model="opCd"
-          type="text"
-          class="add_text on"
-          placeholder="업무코드"
-        >
-        <div class="search_group">
-          <label class="column_label tooltips ov top">
-            <span class="tip_contn">
-              <em class="tip_text">   MCG 채널ID 로 조회
-              </em></span></label>
+      <div class="row_contain type-3">
+        <div class="column w-1">
+          <label class="column_label">업무코드</label>
+          <input
+            v-model="opCd"
+            type="text"
+            value=""
+          >
+        </div>
+        <div class="column w-1">
+          <label class="column_label">채널ID</label>
+          <div class="search_group">
           <input
             v-model="chnlId"
             type="text"
-            class="add_text"
-            placeholder="채널ID"
+            value=""
           >
-          <span class="search">
-            <i
-              class="ico-search"
+    
+          <span
+              class="search"
               @click="chnlpopon()"
-            />
+            ><i class="ico-search" /></span>
+            
           </span>
+          </div>
         </div>
-
-        <input
-          v-model="chnlTyp"
-          type="text"
-          class="add_text"
-          placeholder="채널유형"
-        >
-        <input
-          v-model="dealCd"
-          type="text"
-          class="add_text"
-          placeholder="거래코드"
-        >
-        <input
-          v-model="dealNm"
-          type="text"
-          class="add_text"
-          placeholder="거래명"
-        >
-
-        <select v-model="useYn">
+        <div class="column w-1">
+          <label class="column_label">채널유형</label>
+          <input
+            v-model="chnlTyp"
+            type="text"
+            value=""
+          >
+        </div>
+        <div class="column w-1">
+          <label class="column_label">거래코드</label>
+          <input
+            v-model="dealCd"
+            type="text"
+            value=""
+          >
+        </div>
+        <div class="column w-1">
+          <label class="column_label">거래명</label>
+          <input
+            v-model="dealNm"
+            type="text"
+            value=""
+          >
+        </div>
+        <div class="column w-1">
+          <label class="column_label">사용여부</label>
+          <select v-model="useYn">
           <option value="Y">
             Y
           </option>
@@ -95,7 +94,7 @@
             N
           </option>
         </select>
-        <span class="select" />
+        </div>
       </div>
       <div class="table_grid">
         <div class="table_head">
@@ -295,17 +294,7 @@
             <span class="select" />
           </div>
         </div>
-        <div class="column w-1">
-          <label class="column_label">&nbsp;</label>
-          <button
-            v-if="(adminYn === 'Y')"
-            type="button"
-            class="default_button on"
-            @click="modify(dealdtl)"
-          >
-            수정
-          </button>
-        </div>
+        <div class="column w-1"/>
       </div>
     </section>
   </div>
