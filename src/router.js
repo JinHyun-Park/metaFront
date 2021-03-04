@@ -170,30 +170,9 @@ const router = new Router({
       component: () => import('@/views/meta/AllList.vue'),
     },
     { // EAI 시작
-      path: '/meta/eai/queueList',
-      name: 'queueList',
-      component: () => import('@/views/meta/eai/QueueList.vue'),
-    },
-    {
-      path: '/meta/eai/queueMgrList',
-      name: 'queueMgrList',
-      component: () => import('@/views/meta/eai/QueueMgrList.vue'),
-    },
-    
-    {
       path: '/meta/eai/ifIdList',
       name: 'ifIdList',
       component: () => import('@/views/meta/eai/IfIdList.vue'),
-    },
-    {
-      path: '/meta/eai/swingDbInfo',
-      name: 'swingDbInfo',
-      component: () => import('@/views/meta/eai/SwingDbInfo.vue'),
-    },
-    {
-      path: '/meta/eai/eaiServer',
-      name: 'eaiServer',
-      component: () => import('@/views/meta/eai/EaiServer.vue'),
     },
     {
       path: '/meta/eai/ifIdListDetail',
@@ -361,12 +340,12 @@ const router = new Router({
     },
     {
       path: '/innerMgmt/ifMgmt/eai/chnList',
-      name: 'chnList',
+      name: 'chnListAdmin',
       component: () => import('@/views/admin/ifMgmt/eai/ChnList.vue'),
     },
     {
       path: '/innerMgmt/ifMgmt/eai/nodeList',
-      name: 'nodeList',
+      name: 'nodeListAdmin',
       component: () => import('@/views/admin/ifMgmt/eai/NodeList.vue'),
     },
     {
