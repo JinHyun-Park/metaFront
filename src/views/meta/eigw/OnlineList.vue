@@ -32,13 +32,18 @@
       <div class="row_contain type-2">
         <div class="column w-1">
           <label class="column_label">대외기관</label>
+          <div class="search_group">
           <input
             v-model="instNm"
             type="text"
             class="add_text on"
-            @keyup.13="searchList()"
-            @click="turnOnSvrPopInstList()"
+            disabled
           >
+          <span
+              class="search"
+              @click="turnOnSvrPopInstList()"
+            ><i class="ico-search" /></span>
+          </div>
         </div>
         <div class="column w-1">
           <label class="column_label">I/F ID</label>
