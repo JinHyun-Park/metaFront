@@ -12,6 +12,7 @@
           <div>
             <i class="ico-bar" />Main Dashboard
           </div>
+          <!-- 2차 개발분 TO-DO
           <button
             class="home_btn"
             @click="showFullView()"
@@ -21,7 +22,7 @@
               width="13"
             >
             &nbsp;전체화면
-          </button>
+          </button>-->
         </h2>
       </section>
       <div class="board_area">

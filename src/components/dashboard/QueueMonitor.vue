@@ -225,7 +225,6 @@ export default {
         },
       })
         .then((res) => {
-          console.log(res);
           if (res.data.rstCd === 'S') {
             this.eaiIfList = res.data.rstData.searchList;
             this.$router.push({
@@ -259,7 +258,6 @@ export default {
         },
       })
         .then((res) => {
-          console.log(res);
           if (res.data.rstCd === 'S') {
           // this.boardList = this.$gf.parseRtnData(this.pageSet, res.data.rstData.board, 'Y')
             this.queueDepthForQueueNmList = res.data.rstData.queueDepthList;
@@ -284,7 +282,6 @@ export default {
         },
       })
         .then((res) => {
-          console.log(res);
           if (res.data.rstCd === 'S') {
           // this.boardList = this.$gf.parseRtnData(this.pageSet, res.data.rstData.board, 'Y')
             this.queueDepthList = res.data.rstData.queueDepthList;
@@ -340,7 +337,7 @@ export default {
           type:'line',
           yAxisID: 'second-y-axis',
           label: 'IN Q',
-          borderColor: 'rgb(108,91,123)',
+          borderColor: 'rgb(135,206,255)',
           data: this.computeGraphRowValueInQ(),
           fill: false,
         }, {
@@ -348,7 +345,7 @@ export default {
           type:'line',
           yAxisID: 'second-y-axis',
           label: 'OUT Q',
-          borderColor: 'rgb(53,92,125)',
+          borderColor: 'rgb(255,215,0)',
           data: this.computeGraphRowValueOutQ(),
           fill: false,
         }, {
@@ -356,7 +353,8 @@ export default {
           type:'line',
           yAxisID: 'first-y-axis',
           label: '큐적체건수',
-          // backgroundColor: this.dynamicColors(),
+          borderColor: 'rgb(255,165,0)',
+          //backgroundColor: 'rgb(255,165,0)',
           data: this.computeGraphRowValue(),
           fill: true,
         }],
