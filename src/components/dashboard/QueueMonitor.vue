@@ -61,12 +61,15 @@
     >
       <div
         class="table_grid radio_group"
-        style="width:60%"
+        style="width:70%"
       >
         <div class="table_head w-auto">
           <tr>
             <td class="th_cell">
               Num
+            </td>
+            <td class="th_cell">
+              큐매니저
             </td>
             <td class="th_cell">
               큐명
@@ -97,6 +100,9 @@
               {{ i+1 }}
             </td>
             <td class="td_cell">
+              {{ queueDepth.queueManager }}
+            </td>
+            <td class="td_cell">
               {{ queueDepth.queueNm }}
             </td>
             <td class="td_cell">
@@ -121,7 +127,7 @@
       </div>
       <div
         class="row_contain chart_area"
-        style="width:40%"
+        style="width:30%"
       >
         <line-chart
           v-show="isChartOn"
@@ -134,7 +140,7 @@
 
 <script>
 // import ReactiveBarChart from '@/views/chart/ReactiveBarChart.vue';
-import LineChart from '@/views/chart/LineChart.vue';
+import MultipleLineChart from '@/views/chart/MultipleLineChart.vue';
 import { fetchGetQueueDepthList, fetchGetQueueDepthByQueueNmList } from '@/api/monitoringApi';
 import { fetchGetEaiIfList } from '@/api/eaiApi';
 import CommFullView from '@/components/popup/common/CommFullView.vue';
@@ -143,7 +149,7 @@ export default {
   name: 'QueueTransStat',
   components: {
     // 'reactive-bar-chart': ReactiveBarChart,
-    'line-chart': LineChart,
+    'line-chart': MultipleLineChart,
     CommFullView,
   },
   props: {
@@ -157,7 +163,7 @@ export default {
       datacollection: {},
       queueDepthList: [],
       queueDepthForQueueNmList: [],
-      remainTime: 5,
+      remainTime: 60,
       chkAutoRefresh: false,
 
       isFullView: false,
@@ -180,7 +186,7 @@ export default {
       } else {
         clearInterval(this.intervalFuc);
         clearInterval(this.remainTimeFuc);
-        this.remainTime = 5;
+        this.remainTime = 60;
       }
     },
   },
@@ -219,11 +225,10 @@ export default {
         },
       })
         .then((res) => {
-          console.log(res);
           if (res.data.rstCd === 'S') {
             this.eaiIfList = res.data.rstData.searchList;
             this.$router.push({
-              name: 'ifIdListAdmin',
+              name: 'ifIdListDetail',
               params: {
                 eaiIfSeq: this.eaiIfList[0].eaiIfSeq,
                 callType: 'update',
@@ -245,16 +250,14 @@ export default {
       }
       fetchGetQueueDepthByQueueNmList({
         params: {
-          // date, time은 추후 데이터가 들어올때 다시 추가(back-end todo)
-          // time: Math.floor(Math.random() * 1000) + 1000,
-          // date: '20200625',
+          time: this.queueDepthList[0].time,
+          date: this.queueDepthList[0].date,
           queueNm: this.tgtQueueNm,
           ifNm: this.tgtIfNm,
           queueManager: this.tgtQueueManager,
         },
       })
         .then((res) => {
-          console.log(res);
           if (res.data.rstCd === 'S') {
           // this.boardList = this.$gf.parseRtnData(this.pageSet, res.data.rstData.board, 'Y')
             this.queueDepthForQueueNmList = res.data.rstData.queueDepthList;
@@ -273,13 +276,12 @@ export default {
     // this.$axios.get(this.tgtUrl, {
       fetchGetQueueDepthList({
         params: {
-          time: Math.floor(Math.random() * 1000) + 1000,
-          date: '20200625',
+          time: null,
+          date: this.$gf.dateToString(new Date(), '', 'N'),
           srchType: this.srchType,
         },
       })
         .then((res) => {
-          console.log(res);
           if (res.data.rstCd === 'S') {
           // this.boardList = this.$gf.parseRtnData(this.pageSet, res.data.rstData.board, 'Y')
             this.queueDepthList = res.data.rstData.queueDepthList;
@@ -313,15 +315,56 @@ export default {
       }
       return a;
     },
+    computeGraphRowValueInQ() {
+      const a = [];
+      for (let i = 0; i < this.queueDepthForQueueNmList.length; i++) {
+        a.push(this.queueDepthForQueueNmList[i].inQ);
+      }
+      return a;
+    },
+    computeGraphRowValueOutQ() {
+      const a = [];
+      for (let i = 0; i < this.queueDepthForQueueNmList.length; i++) {
+        a.push(this.queueDepthForQueueNmList[i].outQ);
+      }
+      return a;
+    },
     makeChartData() {
       this.datacollection = {
         labels: this.computeGraphRowKey(),
         datasets: [{
-          label: this.queueDepthForQueueNmList[0].queueNm,
-          // backgroundColor: this.dynamicColors(),
+          // in큐
+          type:'line',
+          yAxisID: 'second-y-axis',
+          label: 'IN Q',
+          borderColor: 'rgb(135,206,255)',
+          data: this.computeGraphRowValueInQ(),
+          fill: false,
+        }, {
+          // out큐
+          type:'line',
+          yAxisID: 'second-y-axis',
+          label: 'OUT Q',
+          borderColor: 'rgb(255,215,0)',
+          data: this.computeGraphRowValueOutQ(),
+          fill: false,
+        }, {
+          // 적체량
+          type:'line',
+          yAxisID: 'first-y-axis',
+          label: '큐적체건수',
+          borderColor: 'rgb(255,165,0)',
+          //backgroundColor: 'rgb(255,165,0)',
           data: this.computeGraphRowValue(),
+          fill: true,
         }],
       };
+    },
+    dynamicColor() {
+      const r = Math.floor(Math.random() * 255);
+      const g = Math.floor(Math.random() * 255);
+      const b = Math.floor(Math.random() * 255);
+      return `rgb(${r},${g},${b})`;
     },
     dynamicColors() {
       const a = [];
@@ -336,11 +379,11 @@ export default {
     setAutoRefresh() {
       this.intervalFuc = setInterval(() => {
         this.searchQueueDepth();
-        this.remainTime = 6;
-      }, 5000);
+        this.remainTime = 61;
+      }, 60*1000);
       this.remainTimeFuc = setInterval(() => {
         this.remainTime -= 1;
-      }, 1000);
+      }, 1*1000);
     },
     setCurLine(val) {
       this.curLine = val;

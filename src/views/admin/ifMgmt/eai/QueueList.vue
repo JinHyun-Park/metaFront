@@ -87,6 +87,7 @@
             </li>
             <li
               class="th_cell"
+              v-if="(adminYn ==='Y')"
             >
               EDIT
             </li>
@@ -178,6 +179,7 @@
             </li>
             <li
               class="td_cell"
+              v-if="(adminYn ==='Y')"
             >
               <i
                 class="ico-add"
@@ -254,7 +256,9 @@
                 </select>
               </div>
             </li>
-            <li class="td_cell">
+            <li 
+              class="td_cell"
+              v-if="(adminYn ==='Y')">
               <i
                 class="ico-edit"
                 @click="editList(i)"
@@ -320,6 +324,7 @@ export default {
   computed: {
     // ...mapState('frameSet', ['resetPopOn']),
     ...mapState('ccCdLst', ['ccCdList']),
+    ...mapState('login', ['adminYn']),
   },
   mounted() {
     this.setCcCdList({

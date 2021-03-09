@@ -1,44 +1,186 @@
 <template>
   <section class="form_area border_group">
-    <section class="title style-1">
-      <h2>
-        <div>
-          <i class="ico-bar" />EAI
-        </div>
-      </h2>
-    </section>
     <section>
-      <div>
         <span class="subtitle1">
-          1. 개발 시 진행 프로세스(신규 연동 시스템 기준)
-        </span>
-      </div>
+            1. 신청 프로세스 진행 단계
+          </span>
     </section>
     <section class="form_area">
-      <div class="table_grid">
+      <div class="table_grid tb_layout">
         <div class="table_head w-auto">
           <ul>
-            <li class="th_cell">
+            <li
+              class="th_cell"
+              style="width:5%;"
+            >
               순번
             </li>
-            <li class="th_cell">
-              진행내용
+            <li
+              class="th_cell"
+              style="width:15%;"
+            >
+              단계
             </li>
-            <li class="th_cell">
+            <li
+              class="th_cell"
+              style="width:25%;"
+            >
+              설명
+            </li>
+            <li
+              class="th_cell"
+              style="width:24%;"
+            >
+              신청자
+            </li>
+            <li
+              class="th_cell"
+              style="width:24%;"
+            >
+              승인자
+            </li>
+            <li
+              class="th_cell"
+              style="width:20%;"
+            >
+              인터페이스담당자
+            </li>
+          </ul>
+        </div>
+        <div class="table_body">
+          <ul class="table_row">
+            <li class="td_cell" >
+              1
+            </li>
+            <li class="td_cell">
+              임시저장
+            </li>
+            <li class="td_cell">
+              임시저장한다.
+            </li>
+            <li class="td_cell">
+              <input type="checkbox" checked disabled>
+            </li>
+            <li class="td_cell">
+              <input type="checkbox" disabled>
+            </li>
+            <li class="td_cell">
+              <input type="checkbox" disabled>
+            </li>
+          </ul>
+          <ul class="table_row">
+            <li class="td_cell" >
+              2
+            </li>
+            <li class="td_cell">
+              승인요청
+            </li>
+            <li class="td_cell">
+              승인자에게 승인요청을 한 상태
+            </li>
+            <li class="td_cell">
+              <input type="checkbox" checked disabled>
+            </li>
+            <li class="td_cell">
+              <input type="checkbox" checked disabled>
+            </li>
+            <li class="td_cell">
+              <input type="checkbox" disabled>
+            </li>
+          </ul>
+          <ul class="table_row">
+            <li class="td_cell" >
+              3
+            </li>
+            <li class="td_cell">
+              접수중
+            </li>
+            <li class="td_cell">
+              승인완료되어 인터페이스 담당자가 접수 중인 상태
+            </li>
+            <li class="td_cell">
+              <input type="checkbox" disabled>
+            </li>
+            <li class="td_cell">
+              <input type="checkbox" disabled>
+            </li>
+            <li class="td_cell">
+              <input type="checkbox" checked disabled>
+            </li>
+          </ul>
+        </div>
+      </div>
+     </section>
+    <section>
+        <span class="subtitle1">
+            2. 개발 시 진행 프로세스(신규/추가 연동 시스템 기준)
+          </span>
+    </section>
+    <section class="form_area">
+      <div class="table_grid tb_layout">
+        <div class="table_head w-auto">
+          <ul>
+            <li
+              class="th_cell"
+              style="width:5%;"
+            >
+              순번
+            </li>
+            <li
+              class="th_cell"
+              style="width:15%;"
+            >
+              단계
+            </li>
+            <li
+              class="th_cell"
+              style="width:25%;"
+            >
+              EAI
+            </li>
+            <li
+              class="th_cell"
+              style="width:24%;"
+            >
+              EIGW
+            </li>
+            <li
+              class="th_cell"
+              style="width:20%;"
+            >
+              MCG
+            </li>
+            <li
+              class="th_cell"
+              style="width:8%;"
+            >
               담당자
             </li>
-            <li class="th_cell">
+            <li
+              class="th_cell"
+              style="width:4%;"
+            >
               Check
             </li>
           </ul>
         </div>
         <div class="table_body">
-          <ul class="table_row w-auto">
-            <li class="td_cell">
+          <ul class="table_row">
+            <li class="td_cell" >
               1
             </li>
             <li class="td_cell">
-              연동 대상 시스템과 EAI 시스템 간 방화벽 Open
+              사전작업 완료 확인
+            </li>
+            <li class="td_cell">
+              신규 연동 시스템과 EAI HUB 간 방화벽 Open
+            </li>
+            <li class="td_cell">
+              신규 연동 기관 서버 정보 EIGW담당자와 공유<br/>
+              (방화벽 신청은 EIGW담당자가 진행)
+            </li>
+            <li class="td_cell">
+              신규 채널과 MCG 간 방화벽 Open
             </li>
             <li class="td_cell">
               신청자
@@ -52,7 +194,20 @@
               2
             </li>
             <li class="td_cell">
-              EAI 환경 설치를 위해 시스템 계정(eaiadmin) 생성 및 권한 부여와 파일 시스템 구성
+              초기 연동 서버 설정<br/>
+              (기존연동 중인 경우 skip)
+            </li>
+            <li class="td_cell">
+              . EAI 파일 시스템 구성 (10GB)<br/>
+              . EAI 환경을 위한 OS 계정(eaiadmin) 생성<br/>
+              . eaiadmin / application 계정 권한 설정<br/>
+              . 신규 연동 시스템 서버 접근 권한 신청
+            </li>
+            <li class="td_cell">
+              EAI 환경 구성(좌동)
+            </li>
+            <li class="td_cell">
+              WebToB 연동 라이브러리 구성
             </li>
             <li class="td_cell">
               신청자
@@ -66,10 +221,19 @@
               3
             </li>
             <li class="td_cell">
-              서버 접근 권한 신청 및 승인
+              연동 설정 작업 요청/확인
             </li>
             <li class="td_cell">
-              EAI 담당자(신청), 신청 시스템 담당 매니저(승인)
+              EAI Component 설치 및 인터페이스 환경 구성
+            </li>
+            <li class="td_cell">
+              관련 EAI 인터페이스 구성 확인
+            </li>
+            <li class="td_cell">
+              Inbound 채널의 경우, 가상신청자 신청
+            </li>
+            <li class="td_cell">
+              신청자
             </li>
             <li class="td_cell">
               <input type="checkbox">
@@ -80,100 +244,63 @@
               4
             </li>
             <li class="td_cell">
-              EAI Component 설치 및 연동 설정
+              신청 인터페이스 구성
             </li>
             <li class="td_cell">
-              EAI 담당자
+              EAI 신청 인터페이스 구성
+            </li>
+            <li class="td_cell">
+              EIGW 연동 모듈 개발
+            </li>
+            <li class="td_cell">
+              신규 채널 및 거래 등록
+            </li>
+            <li class="td_cell">
+              인터페이스 담당자
             </li>
             <li class="td_cell">
               <input type="checkbox">
             </li>
           </ul>
-        </div>
-      </div>
-    </section>
-    <section>
-      <div>
-        <span class="subtitle1">
-          2. 문제 발생 시 이슈별 해결 방안
-        </span>
-      </div>
-    </section>
-    <section class="form_area">
-      <div
-        class="table_grid"
-      >
-        <div class="table_head w-auto">
-          <ul>
-            <li class="th_cell">
-              Case
-            </li>
-            <li class="th_cell">
-              설명
-            </li>
-            <li class="th_cell">
-              해결방안
-            </li>
-            <li class="th_cell">
-              담당자
-            </li>
-          </ul>
-        </div>
-        <div class="table_body">
           <ul class="table_row w-auto">
             <li class="td_cell">
-              Queue Connection Error
+              5
             </li>
             <li class="td_cell">
-              큐에 접근하지 못하는 경우
+              단위 프로그램 개발
+            </li>
+            <li class="td_cell"></li>
+            <li class="td_cell">
+              각 시스템 별 연동 모듈 개발
+            </li>
+            <li class="td_cell"></li>
+            <li class="td_cell">
+              신청자
             </li>
             <li class="td_cell">
-              큐에 잘 접근한다.
-            </li>
-            <li class="td_cell">
-              여인진 차장(전창후 수석)
+              <input type="checkbox">
             </li>
           </ul>
           <ul class="table_row w-auto">
             <li class="td_cell">
-              큐 채널 접속 오류
+              6
             </li>
             <li class="td_cell">
-              채널에 접속이 안된다.
+              개발 테스트
             </li>
             <li class="td_cell">
-              왜 그런지 생각해본다
+              
             </li>
             <li class="td_cell">
-              여인진 차장(전창후 수석)
+              . 내부 EAI 연동 이상여부 점검<br/>
+              . 외부 대외기관 연동 여부 점검
             </li>
-          </ul>
-          <ul class="table_row w-auto">
+            <li class="td_cell"></li>
             <li class="td_cell">
-              데이터 미수신
-            </li>
-            <li class="td_cell">
-              양방향 연동인데, 응답 데이터를 받지 못하는 것 같다.
+              신청자
             </li>
             <li class="td_cell">
-              내 잘못은 아닌가 자책을 한다.
-            </li>
-            <li class="td_cell">
-              여인진 차장(전창후 수석)
-            </li>
-          </ul>
-          <ul class="table_row w-auto">
-            <li class="td_cell">
-              큐 채널 접속 오류
-            </li>
-            <li class="td_cell">
-              채널에 접속이 안된다.
-            </li>
-            <li class="td_cell">
-              왜 그런지 생각해본다
-            </li>
-            <li class="td_cell">
-              여인진 차장(전창후 수석)
+              <input type="checkbox">
             </li>
           </ul>
         </div>

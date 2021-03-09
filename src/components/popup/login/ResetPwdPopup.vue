@@ -37,7 +37,7 @@
             <label class="column_label">휴대전화번호</label>
             <input
               v-model="mblPhonNum"
-              type="number"
+              type="text"
               value="0101231234"
             >
           </div>

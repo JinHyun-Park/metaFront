@@ -136,7 +136,9 @@
               >
                 사용 여부
               </li>
-              <li class="th_cell">
+              <li 
+                v-if="(adminYn ==='Y')"
+                class="th_cell">
                 EDIT
               </li>
             </ul>
@@ -220,7 +222,9 @@
                   </select>
                 </div>
               </li>
-              <li class="td_cell">
+              <li 
+                v-if="(adminYn ==='Y')"
+                class="td_cell">
                 <i
                   class="ico-add"
                   @click="saveEaiServer()"
@@ -310,7 +314,9 @@
                   </select>
                 </div>
               </li>
-              <li class="td_cell">
+              <li 
+                v-if="(adminYn ==='Y')"
+                class="td_cell">
                 <i
                   class="ico-edit"
                   @click="editList(i)"
@@ -365,6 +371,7 @@ export default {
   computed: {
     ...mapState('frameSet', ['resetPopOn']),
     ...mapState('ccCdLst', ['ccCdList']),
+    ...mapState('login', ['adminYn']),
   },
   mounted() {
     this.setCcCdList({

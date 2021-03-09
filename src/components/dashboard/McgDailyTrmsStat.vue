@@ -4,7 +4,7 @@
       통계
     </h4>
     <h5 class="s_tit type-2">
-      MCG 거래량(전일)
+      MCG 거래량({{ tgtStatDate }}) * 매일 12시에 갱신
       <!--<div class="label_space">
         <label class="label-default">EAI</label>
         <label class="label-default on">EiGW</label>
@@ -19,7 +19,7 @@
 
 <script>
 import BarChart from '@/views/chart/BarChart.vue';
-import { fetchGetStatMcgDailyTrms } from '@/api/statApi';
+import { fetchGetStatMcgHourlyTrms } from '@/api/statApi';
 
 export default {
   name: 'McgDailyTrmsStat',
@@ -30,6 +30,7 @@ export default {
     return {
       datacollection: {},
       dailyTrmsList: [],
+      tgtStatDate: this.$gf.dateToString(new Date(), '-36h', 'N'),
     };
   },
   mounted() {
@@ -39,16 +40,16 @@ export default {
     searchStat() {
     // this.tgtUrl = '/api/bizcomm/board';
     // this.$axios.get(this.tgtUrl, {
-      fetchGetStatMcgDailyTrms({
+      fetchGetStatMcgHourlyTrms({
         params: {
-          statDate: '20200505',
+          statDate: this.tgtStatDate,
         },
       })
         .then((res) => {
           console.log(res);
           if (res.data.rstCd === 'S') {
           // this.boardList = this.$gf.parseRtnData(this.pageSet, res.data.rstData.board, 'Y')
-            this.dailyTrmsList = res.data.rstData.dailyTrmsList;
+            this.dailyTrmsList = res.data.rstData.hourlyTrmsList;
             this.makeChartData();
           } else {
           // eslint-disable-next-line no-alert
@@ -62,7 +63,7 @@ export default {
     computeGraphRowKey() {
       const a = [];
       for (let i = 0; i < this.dailyTrmsList.length; i++) {
-        a.push(this.dailyTrmsList[i].txNm);
+        a.push(""+this.dailyTrmsList[i].opCd+"-"+this.dailyTrmsList[i].tx);
       }
       return a;
     },

@@ -180,7 +180,7 @@ export default {
       userId: '',
       hanNm: '',
       pageSet: {pageNo: 1, pageCount:0, size:10},
-      pageMove: 0,
+      pageMoveChk: 0,
     };
   },
   computed: {

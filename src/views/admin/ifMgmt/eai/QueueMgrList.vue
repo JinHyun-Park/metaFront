@@ -154,6 +154,7 @@
             <li
               class="th_cell"
               style="width:10%;"
+              v-if="(adminYn ==='Y')"
             >
               EDIT
             </li>
@@ -214,7 +215,9 @@
                 </select>
               </div>
             </li>
-            <li class="td_cell">
+            <li 
+              class="td_cell"
+              v-if="(adminYn ==='Y')">
               <i
                 class="ico-add"
                 @click="saveMqMngr()"
@@ -274,7 +277,9 @@
                 </select>
               </div>
             </li>
-            <li class="td_cell">
+            <li 
+              class="td_cell"
+              v-if="(adminYn ==='Y')">
               <i
                 class="ico-edit"
                 @click="editList(index)"
@@ -301,6 +306,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import EaiServerListPopup from '@/components/popup/meta/eai/EaiServerListPopup.vue';
 import { fetchGetEaiMqMngrList } from '@/api/eaiApi';
 
@@ -330,6 +336,9 @@ export default {
       serverData: {},
       op: '',
     };
+  },
+  computed: {
+    ...mapState('login', ['adminYn']),
   },
   methods: {
     pageMove() {

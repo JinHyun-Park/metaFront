@@ -7,6 +7,10 @@ function fetchResetPasswd(reqData) {
   return axios.post(`${preUrl}/user/reqresetpasswd`, reqData);
 }
 
+function fetchChangePasswd(reqData) {
+  return axios.post(`${preUrl}/user/reqchgpasswd`, reqData);
+}
+
 function fetchResetPasswdAdmin(reqData) {
   return axios.post(`${preUrl}/user/resetpasswdadmin`, reqData);
 }
@@ -31,6 +35,10 @@ function fetchGetUserAuth() {
   return axios.get(`${preUrl}/user/auth`);
 }
 
+function fetchGetIsAdmin() {
+  return axios.get(`${preUrl}/user/isAdmin`);
+}
+
 export {
   fetchResetPasswd,
   fetchLoginProc,
@@ -39,4 +47,6 @@ export {
   fetchGetLogout,
   fetchResetPasswdAdmin,
   fetchGetUserAuth,
+  fetchChangePasswd,
+  fetchGetIsAdmin,
 };

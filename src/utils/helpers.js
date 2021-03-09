@@ -7,7 +7,7 @@ import store from '@/store';
 let loader;
 let loaderOn = false;
 
-const TIME_LIMIT = 89 * 60;
+const TIME_LIMIT = 59 * 60;
 let remainingTime = TIME_LIMIT;
 
 const helpers = {
@@ -50,7 +50,7 @@ const helpers = {
 
     if (path.indexOf('/login/') >= 0) { // 로그인 영역 페이지 - 헤더, left side 없음
       store.dispatch('frameSet/setLoginPageOn', { loginPageOn: true });
-    } else if (page === '/' || page === 'home') { // 메인 페이지
+    } else if (page === '/' || page === 'home' || path.indexOf('/error/') >= 0) { // 메인 페이지
       store.dispatch('frameSet/setLoginPageOn', { loginPageOn: false });
       store.dispatch('frameSet/setHeaderOn', { headerOn: true });
       store.dispatch('frameSet/setAsideOn', { asideOn: false });
@@ -86,12 +86,20 @@ const helpers = {
         case 'm':
           offRtnDate.setMonth(format.getMonth() + parseInt(offsetValue, 10));
           break;
-
         case 'y':
           offRtnDate.setYear(format.getFullYear() + parseInt(offsetValue, 10));
           break;
         case 'd':
           offRtnDate.setDate(format.getDate() + parseInt(offsetValue, 10));
+          break;
+        case 'h':
+          let offHour = parseInt(offsetValue, 10);
+          if(offHour > 23 || offHour < -23) {
+            offRtnDate.setDate(format.getDate() + parseInt(offHour/24, 10));
+            offRtnDate.setHours(format.getHours() + parseInt(offHour%24, 10));
+          } else {
+            offRtnDate.setHours(format.getHours() + parseInt(offsetValue, 10));
+          }
           break;
         default:
           offRtnDate = format;
@@ -314,6 +322,42 @@ const helpers = {
   resetCount() {
     remainingTime = TIME_LIMIT;
   },
+  /*
+  checkPasswd(passwd1, passwd2) {
+    if(passwd1 != passwd2) {
+      return false, '비밀번호가 상이합니다.';
+    }
+
+    var pattern1 = /[0-9]/;
+    var pattern2 = /[a-zA-Z]/;
+    var pattern3 = /[~!@#$%^&*()_-[]\|]/;
+
+    if(passwd1.length < 8) {
+      return false, "비밀번호는 8자리 이상이여야 합니다.";
+    }
+
+    // 10자리 이하면, 3가지 종류로 구성되야함
+    if(passwd1.length < 10) {
+      if(!pattern1.test(passwd1)||!pattern2.test(passwd1)||!pattern3.test(passwd1)) {
+        return false, "10자리이하인 경우, 3가지 종류(숫자, 영문, 특수문자)를 포함해야 합니다."
+      }
+    }
+
+    // 10자리 이상이면 2가지 종류여도 됨
+    if(passwd1.length > 10) {
+      let rstPtRst = 0;
+      rstPtRst += pattern1.test(passwd1);
+      rstPtRst += pattern2.test(passwd1);
+      rstPtRst += pattern3.test(passwd1);
+
+      if(rstPtRst < 2) {
+        return false, "2가지 종류 이상 포함해야 합니다."
+      }
+    }
+
+    return true, "";
+
+  },*/
 
   /**
    * 예시 함수 - 이 함수를 변형/삭제해서 사용해주세요.

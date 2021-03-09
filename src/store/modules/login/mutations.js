@@ -17,6 +17,7 @@ export default {
     // 로그인한 한글 이름
     state.hanNm = payload.hanNm;
     state.adminYn = payload.adminYn;
+    state.userId = payload.userId;
   },
 
 };

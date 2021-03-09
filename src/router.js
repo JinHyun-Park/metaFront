@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import helpers from '@/utils/helpers';
 import Home from './views/Home.vue';
+import { fetchGetIsAdmin } from '@/api/loginApi';
 
 Vue.use(Router);
 
@@ -170,44 +171,14 @@ const router = new Router({
       component: () => import('@/views/meta/AllList.vue'),
     },
     { // EAI 시작
-      path: '/meta/eai/queueList',
-      name: 'queueList',
-      component: () => import('@/views/meta/eai/QueueList.vue'),
-    },
-    {
-      path: '/meta/eai/queueMgrList',
-      name: 'queueMgrList',
-      component: () => import('@/views/meta/eai/QueueMgrList.vue'),
-    },
-    {
-      path: '/meta/eai/chnList',
-      name: 'chnList',
-      component: () => import('@/views/meta/eai/ChnList.vue'),
-    },
-    {
-      path: '/meta/eai/nodeList',
-      name: 'nodeList',
-      component: () => import('@/views/meta/eai/NodeList.vue'),
-    },
-    {
       path: '/meta/eai/ifIdList',
       name: 'ifIdList',
       component: () => import('@/views/meta/eai/IfIdList.vue'),
     },
     {
-      path: '/meta/eai/swingDbInfo',
-      name: 'swingDbInfo',
-      component: () => import('@/views/meta/eai/SwingDbInfo.vue'),
-    },
-    {
-      path: '/meta/eai/eaiServer',
-      name: 'eaiServer',
-      component: () => import('@/views/meta/eai/EaiServer.vue'),
-    },
-    {
-      path: '/meta/eai/ifIdListAdmin',
-      name: 'ifIdListAdmin',
-      component: () => import('@/views/meta/eai/IfIdListAdmin.vue'),
+      path: '/meta/eai/ifIdListDetail',
+      name: 'ifIdListDetail',
+      component: () => import('@/views/meta/eai/IfIdListDetail.vue'),
     }, // EAI 끝
     {
       path: '/meta/eigw/onlineList',
@@ -255,116 +226,166 @@ const router = new Router({
   },
   // 4. 메타정보 관리
   {
-    path: '/admin',
+    path: '/innerMgmt',
     name: 'adminForm',
     component: () => import('@/views/admin/AdminForm.vue'),
     children: [{
-      path: '/admin/ifMgmt/comm/instList',
+      path: '/innerMgmt/ifMgmt/comm/instList',
       name: 'instList',
       component: () => import('@/views/admin/ifMgmt/InstList.vue'),
     },
     {
-      path: '/admin/ifMgmt/comm/serverList',
+      path: '/innerMgmt/ifMgmt/comm/serverList',
       name: 'serverList',
       component: () => import('@/views/admin/ifMgmt/ServerList.vue'),
     },
     {
-      path: '/admin/ifMgmt/comm/ccCdList',
+      path: '/innerMgmt/ifMgmt/comm/ccCdList',
       name: 'ccCdList',
       component: () => import('@/views/admin/ifMgmt/CcCdList.vue'),
     },
     {
-      path: '/admin/ifMgmt/eigw/accListEigw',
+      path: '/innerMgmt/ifMgmt/eigw/accListEigw',
       name: 'accListEigw',
       component: () => import('@/views/admin/ifMgmt/eigw/AccListEigw.vue'),
     },
     {
-      path: '/admin/ifMgmt/eigw/eigwServer',
+      path: '/innerMgmt/ifMgmt/eigw/eigwServer',
       name: 'eigwServer',
       component: () => import('@/views/admin/ifMgmt/eigw/EigwServer.vue'),
     },
     {
-      path: '/admin/ifMgmt/eigw/fileListAdmin',
+      path: '/innerMgmt/ifMgmt/eigw/fileListAdmin',
       name: 'fileListAdmin',
       component: () => import('@/views/admin/ifMgmt/eigw/FileListAdmin.vue'),
     },
     {
-      path: '/admin/ifMgmt/eigw/onlineListAdmin',
+      path: '/innerMgmt/ifMgmt/eigw/onlineListAdmin',
       name: 'onlineListAdmin',
       component: () => import('@/views/admin/ifMgmt/eigw/OnlineListAdmin.vue'),
     },
     {
-      path: '/admin/ifMgmt/eigw/prodCompleteList',
+      path: '/innerMgmt/ifMgmt/eigw/prodCompleteList',
       name: 'prodCompleteList',
       component: () => import('@/views/admin/ifMgmt/eigw/ProdCompleteList.vue'),
     },
     {
-      path: '/admin/ifMgmt/eigw/regOnline/:eigwReqNum',
+      path: '/innerMgmt/ifMgmt/eigw/regOnline/:eigwReqNum',
       name: 'regOnline',
       component: () => import('@/views/admin/ifMgmt/eigw/regOnline.vue'),
     },
     {
-      path: '/admin/ifMgmt/eigw/regFile/:eigwReqNum',
+      path: '/innerMgmt/ifMgmt/eigw/regFile/:eigwReqNum',
       name: 'regFile',
       component: () => import('@/views/admin/ifMgmt/eigw/regFile.vue'),
     },
     {
-      path: '/admin/ifMgmt/mcg/virtualUserList_MCG',
+      path: '/innerMgmt/ifMgmt/mcg/mcgDtlList',
+      name: 'mcgDtlListAdmin',
+      component: () => import('@/views/admin/ifMgmt/mcg/DtlList.vue'),
+    },
+    {
+      path: '/innerMgmt/ifMgmt/mcg/mcgTransInfo',
+      name: 'mcgTransInfoAdmin',
+      component: () => import('@/views/admin/ifMgmt/mcg/TransInfo.vue'),
+    },
+    {
+      path: '/innerMgmt/ifMgmt/mcg/virtualUserList_MCG',
       name: 'virtualUserList_MCG',
       component: () => import('@/views/admin/ifMgmt/mcg/VirtualUserList_MCG.vue'),
     },
     {
-      path: '/admin/ifMgmt/mcg/mcgChrgr',
+      path: '/innerMgmt/ifMgmt/mcg/mcgChrgr',
       name: 'mcgChrgr',
       component: () => import('@/views/admin/ifMgmt/mcg/McgChrgr.vue'),
     },
     {
-      path: '/admin/ifMgmt/mcg/mcgServer',
+      path: '/innerMgmt/ifMgmt/mcg/mcgServer',
       name: 'mcgServer',
       component: () => import('@/views/admin/ifMgmt/mcg/McgServer.vue'),
     },
+    { // EAI 시작
+      path: '/innerMgmt/ifMgmt/eai/queueList',
+      name: 'queueListAdmin',
+      component: () => import('@/views/admin/ifMgmt/eai/QueueList.vue'),
+    },
     {
-      path: '/admin/ifMgmt/eai/ifIdListAdminMgmt',
+      path: '/innerMgmt/ifMgmt/eai/queueMgrList',
+      name: 'queueMgrListAdmin',
+      component: () => import('@/views/admin/ifMgmt/eai/QueueMgrList.vue'),
+    },
+    {
+      path: '/innerMgmt/ifMgmt/eai/ifIdList',
+      name: 'ifIdListAdmin',
+      component: () => import('@/views/admin/ifMgmt/eai/IfIdList.vue'),
+    },
+    {
+      path: '/innerMgmt/ifMgmt/eai/swingDbInfo',
+      name: 'swingDbInfoAdmin',
+      component: () => import('@/views/admin/ifMgmt/eai/SwingDbInfo.vue'),
+    },
+    {
+      path: '/innerMgmt/ifMgmt/eai/eaiServer',
+      name: 'eaiServerAdmin',
+      component: () => import('@/views/admin/ifMgmt/eai/EaiServer.vue'),
+    },
+    {
+      path: '/innerMgmt/ifMgmt/eai/ifIdListDetail',
+      name: 'ifIdListDetailAdmin',
+      component: () => import('@/views/admin/ifMgmt/eai/IfIdListDetail.vue'),
+    }, // EAI 끝
+    {
+      path: '/innerMgmt/ifMgmt/eai/ifIdListAdminMgmt',
       name: 'ifIdListAdminMgmt',
       component: () => import('@/views/admin/ifMgmt/eai/IfIdListAdminMgmt.vue'),
     },
     {
-      path: '/admin/portalMgmt/opsAccList',
+      path: '/innerMgmt/ifMgmt/eai/chnList',
+      name: 'chnListAdmin',
+      component: () => import('@/views/admin/ifMgmt/eai/ChnList.vue'),
+    },
+    {
+      path: '/innerMgmt/ifMgmt/eai/nodeList',
+      name: 'nodeListAdmin',
+      component: () => import('@/views/admin/ifMgmt/eai/NodeList.vue'),
+    },
+    {
+      path: '/innerMgmt/portalMgmt/opsAccList',
       name: 'opsAccList',
       component: () => import('@/views/admin/portalMgmt/OpsAccList.vue'),
     },
     {
-      path: '/admin/portalMgmt/accList',
+      path: '/innerMgmt/portalMgmt/accList',
       name: 'accList',
       component: () => import('@/views/admin/portalMgmt/AccList.vue'),
     },
     {
-      path: '/admin/ifMgmt/eai/approEaiList',
+      path: '/innerMgmt/ifMgmt/eai/approEaiList',
       name: 'approEaiList',
       component: () => import('@/views/admin/ifMgmt/eai/ApproEaiList.vue'),
     },
     {
-      path: '/admin/ifreg/regListAdmin',
+      path: '/innerMgmt/ifreg/regListAdmin',
       name: 'regListAdmin',
       component: () => import('@/views/admin/ifReg/RegListAdmin.vue'),
     },
     {
-      path: '/admin/ifreg/RegStepAdminAll',
+      path: '/innerMgmt/ifreg/RegStepAdminAll',
       name: 'regStepAdminAll',
       component: () => import('@/views/admin/ifReg/RegStepAdminAll.vue'),
     },
     {
-      path: '/admin/ifreg/RegStepAdminEai',
+      path: '/innerMgmt/ifreg/RegStepAdminEai',
       name: 'regStepAdminEai',
       component: () => import('@/views/admin/ifReg/RegStepAdminEai.vue'),
     },
     {
-      path: '/admin/ifreg/RegStepAdminEigw',
+      path: '/innerMgmt/ifreg/RegStepAdminEigw',
       name: 'regStepAdminEigw',
       component: () => import('@/views/admin/ifReg/RegStepAdminEigw.vue'),
     },
     {
-      path: '/admin/ifreg/RegStepAdminMcg',
+      path: '/innerMgmt/ifreg/RegStepAdminMcg',
       name: 'regStepAdminMcg',
       component: () => import('@/views/admin/ifReg/RegStepAdminMcg.vue'),
     },
@@ -372,7 +393,8 @@ const router = new Router({
   },
   {
     path: '*',
-    redirect: '/',
+    name: 'notFound',
+    component: () => import('@/views/error/404.vue'),
   },
   ],
 
@@ -387,8 +409,30 @@ router.beforeEach((to, from, next) => {
   //     canCancel: false,
   //     // onCancel: this.onCancel,
   //   });
-  helpers.showLoading(100);
-  next();
+  if(to.fullPath.indexOf('/innerMgmt') != -1) {
+    fetchGetIsAdmin().then((res) => {
+      if(res.data.rstCd === 'S') {
+        helpers.showLoading(100);
+        next();
+      } else {
+        helpers.alertOn('접근할 수 없는 페이지입니다.');
+        helpers.showLoading(100);
+        setTimeout(function() {
+          router.go(-1);
+        }, 1000);
+      }
+    })
+    .catch((ex) => {
+      helpers.alertOn('알 수 없는 접근입니다.');
+      helpers.showLoading(100);
+      setTimeout(function() {
+        router.go(-1);
+      }, 1000);
+    })
+  } else {
+    helpers.showLoading(100);
+    next();
+  }
 });
 
 router.afterEach((to) => {

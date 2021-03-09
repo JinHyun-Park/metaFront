@@ -12,70 +12,7 @@
           <span class="subtitle2">
             운영 반영은 선 반영되는 경우도 있고, 업무 측 일정과 동일하게 진행될 수도 있다. 이는 담당자와 협의가 필요하다.
           </span>
-        </div>
-      </section>
-      <section class="form_area">
-        <div class="table_grid">
-          <div class="table_head w-auto">
-            <ul>
-              <li class="th_cell">
-                인터페이스 명
-              </li>
-              <li class="th_cell">
-                연동 환경
-              </li>
-              <li class="th_cell">
-                담당자(C&C)
-              </li>
-              <li class="th_cell">
-                담당자(SKT)
-              </li>
-            </ul>
-          </div>
-          <div class="table_body">
-            <ul class="table_row w-auto">
-              <li class="td_cell">
-                EAI
-              </li>
-              <li class="td_cell">
-                SKT내부 및 관계사 EAI 시스템 간 비동기 연동을 위한 인터페이스 제공
-              </li>
-              <li class="td_cell">
-                전창후 수석
-              </li>
-              <li class="td_cell">
-                김정태 님/MNO IT최적화팀
-              </li>
-            </ul>
-            <ul class="table_row w-auto">
-              <li class="td_cell">
-                EiGW
-              </li>
-              <li class="td_cell">
-                대외기관 연동은 EiGW와 함께
-              </li>
-              <li class="td_cell">
-                유영준 수석/강태훈 선임
-              </li>
-              <li class="td_cell">
-                김정태 님/MNO IT최적화팀
-              </li>
-            </ul>
-            <ul class="table_row w-auto">
-              <li class="td_cell">
-                MCG
-              </li>
-              <li class="td_cell">
-                Swing 정보 조회성, 실시간성 (데이터 보장 되지 않음)
-              </li>
-              <li class="td_cell">
-                장호은 선임
-              </li>
-              <li class="td_cell">
-                김정태 님/MNO IT최적화팀
-              </li>
-            </ul>
-          </div>
+          <span class="subtitle2"> <br/></span>
         </div>
       </section>
       <section>

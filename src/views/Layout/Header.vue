@@ -25,6 +25,13 @@
           <em><i class="ico-user" />[{{ lv_hanNm }}] 님 환영합니다!</em>
           <button
             class="log"
+            @click="turnChgPwd('')"
+          >
+            PW변경
+          </button>
+          <em />
+          <button
+            class="log"
             @click="logout()"
           >
             로그아웃<i class="ico-logout" />
@@ -81,8 +88,8 @@
                   MCG
                 </li>
                 <li
-                  :class="{ov: isActive('queueList')}"
-                  @click="movePage('queueList')"
+                  :class="{ov: isActive('ifIdList')}"
+                  @click="movePage('ifIdList')"
                 >
                   EAI
                 </li>
@@ -143,6 +150,10 @@
         </nav>
       </div>
     </div>
+    <ChangePwd
+      :style="{display: changePopOn}"
+      @closePop="turnChgPwd"
+    />
   </header>
 </template>
 
@@ -151,9 +162,14 @@ import { mapState, mapActions } from 'vuex';
 import { fetchGetLogout } from '@/api/loginApi';
 import { fetchGetMyChrgrInfo, fetchGetKeepSession } from '@/api/bizCommApi';
 
+import ChangePwd from '@/components/popup/login/ChangePwd.vue';
+
 export default {
 //   mixins: [common],
   name: 'Header',
+  components: {
+    ChangePwd,
+  },
   data() {
     return {
       activeItem: '',
@@ -163,6 +179,7 @@ export default {
       adminYn: 'N',
       remainTime: ':  :  ',
       intervalFuc: '',
+      changePopOn: 'none',
     };
   },
   computed: {
@@ -196,8 +213,9 @@ export default {
           if (res.status === 200) {
             this.lv_hanNm = res.data.rstData.myInfo.hanNm;
             this.adminYn = res.data.rstData.myInfo.adminYn;
+            this.userId = res.data.rstData.myInfo.userId;
 
-            this.setLoginInfo({ hanNm: this.lv_hanNm, adminYn: this.adminYn });
+            this.setLoginInfo({ userId : this.userId, hanNm: this.lv_hanNm, adminYn: this.adminYn });
             // eslint-disable-next-line no-alert
             // this.$gf.alertOn(`${this.hanNm}님 환영합니다.`);
           }
@@ -254,6 +272,9 @@ export default {
           this.logoutCall();
           this.movePage('login');
         });
+    },
+    turnChgPwd(flag) {
+      this.changePopOn = flag;
     },
   },
 };

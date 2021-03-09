@@ -3,4 +3,5 @@ export default {
   role: '',
   hanNm: '',
   adminYn: '',
+  userId : '',
 };

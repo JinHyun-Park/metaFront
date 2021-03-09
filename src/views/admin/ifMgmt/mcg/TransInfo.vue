@@ -21,10 +21,18 @@
       </h2>
     </section>
 
-    <section class="form_area border_group">
+    <section class="border_group">
       <h5 class="s_tit type-2">
         기본 정보
         <div class="right_button_area">
+          <button
+            v-if="(adminYn === 'Y')"
+            type="button"
+            class="default_button"
+            @click="save()"
+          >
+            추가
+          </button>
           <button
             type="button"
             class="default_button on"
@@ -34,60 +42,52 @@
           </button>
         </div>
       </h5>
-      <div class="row_contain type-3">
-        <div class="column w-1">
-          <label class="column_label">업무코드</label>
-          <input
-            v-model="opCd"
-            type="text"
-            value=""
-          >
-        </div>
-        <div class="column w-1">
-          <label class="column_label">채널ID</label>
-          <div class="search_group">
+      <div class="add_info">
+        <input
+          v-model="opCd"
+          type="text"
+          class="add_text on"
+          placeholder="업무코드"
+        >
+        <div class="search_group">
+          <label class="column_label tooltips ov top">
+            <span class="tip_contn">
+              <em class="tip_text">   MCG 채널ID 로 조회
+              </em></span></label>
           <input
             v-model="chnlId"
             type="text"
-            value=""
-            disabled
+            class="add_text"
+            placeholder="채널ID"
           >
-    
-          <span
-              class="search"
+          <span class="search">
+            <i
+              class="ico-search"
               @click="chnlpopon()"
-            ><i class="ico-search" /></span>
-            
+            />
           </span>
-          </div>
         </div>
-        <div class="column w-1">
-          <label class="column_label">채널유형</label>
-          <input
-            v-model="chnlTyp"
-            type="text"
-            value=""
-          >
-        </div>
-        <div class="column w-1">
-          <label class="column_label">거래코드</label>
-          <input
-            v-model="dealCd"
-            type="text"
-            value=""
-          >
-        </div>
-        <div class="column w-1">
-          <label class="column_label">거래명</label>
-          <input
-            v-model="dealNm"
-            type="text"
-            value=""
-          >
-        </div>
-        <div class="column w-1">
-          <label class="column_label">사용여부</label>
-          <select v-model="useYn">
+
+        <input
+          v-model="chnlTyp"
+          type="text"
+          class="add_text"
+          placeholder="채널유형"
+        >
+        <input
+          v-model="dealCd"
+          type="text"
+          class="add_text"
+          placeholder="거래코드"
+        >
+        <input
+          v-model="dealNm"
+          type="text"
+          class="add_text"
+          placeholder="거래명"
+        >
+
+        <select v-model="useYn">
           <option value="Y">
             Y
           </option>
@@ -95,7 +95,7 @@
             N
           </option>
         </select>
-        </div>
+        <span class="select" />
       </div>
       <div class="table_grid">
         <div class="table_head">
@@ -178,21 +178,19 @@
       v-if="isStatusOn"
       class="form_area border_group"
     >
-      <div class="row_contain">
+      <div class="row_contain odd type-3">
         <div class="column on w-1">
           <label class="column_label">거래코드</label>
           <input
             v-model="dealdtl.dealCd"
             type="text"
-            disabled
           >
         </div>
-        <div class="column w-2">
+        <div class="column w-1">
           <label class="column_label">거래명</label>
           <input
             v-model="dealdtl.dealNm"
             type="text"
-            disabled
           >
         </div>
         <div class="column w-2">
@@ -200,65 +198,75 @@
           <input
             v-model="dealdtl.servletUrl"
             type="text"
-            disabled
           >
         </div>
         <div class="column w-1">
-          <label class="column_label">IP</label>
+          <label class="column_label">TCP IP/PORT</label>
           <input
             v-model="dealdtl.tcpIp"
             type="text"
-            disabled
           >
         </div>
-        <div class="column on w-1">
-          <label class="column_label">Port</label>
+        <div class="column w-1">
+          <label class="column_label">&nbsp;</label>
           <input
             v-model="dealdtl.tcvPort"
             type="text"
-            disabled
           >
         </div>
       </div>
       <div class="row_contain type-3">
         <div class="column w-1">
           <label class="column_label">요청담당자</label>
-          <input
-            v-model="chrgrReq.hanNm"
-            type="text"
-            disabled
-          >
+          <div class="search_group">
+            <input
+              v-model="chrgrReq.hanNm"
+              type="text"
+            >
+            <span class="search">
+              <i
+                class="ico-search"
+                @click="chrgrpopon('REQ', dealdtl.opCd)"
+              />
+            </span>
+          </div>
         </div>
         <div class="column w-1">
           <label class="column_label">응답담당자</label>
-          <input
-            v-model="chrgrRps.hanNm"
-            type="text"
-            disabled
-          >
+          <div class="search_group">
+            <input
+              v-model="chrgrRps.hanNm"
+              type="text"
+            >
+            <span class="search">
+              <i
+                class="ico-search"
+                @click="chrgrpopon('RPS', dealdtl.opCd)"
+              />
+            </span>
+          </div>
         </div>
         <div class="column w-1">
           <label class="column_label">전문 크기(byte)</label>
           <input
             v-model="dealdtl.ifSz"
             type="text"
-            disabled
           >
         </div>
         <div class="column w-1">
           <label class="column_label">연동주기</label>
-          <input
-            v-model="dealdtl.lnkCycl"
-            type="text"
-            disabled
-          >
+          <div class="select_group">
+            <input
+              v-model="dealdtl.lnkCycl"
+              type="text"
+            >
+          </div>
         </div>
         <div class="column w-1">
           <label class="column_label">타임아웃</label>
           <input
             v-model="dealdtl.dealTimeout"
             type="text"
-            disabled
           >
         </div>
       </div>
@@ -268,13 +276,12 @@
           <input
             v-model="dealdtl.dealRmk"
             type="text"
-            disabled
           >
         </div>
         <div class="column w-1">
           <label class="column_label">사용여부</label>
           <div class="select_group">
-            <select v-model="dealdtl.useYn" disabled>
+            <select v-model="dealdtl.useYn">
               <option
                 value="Y"
                 selected
@@ -288,11 +295,16 @@
             <span class="select" />
           </div>
         </div>
-        <div class="column w-1"/>
-      </div>
-      <div >
-        <div class="board_area">
-        <mcg-stat-chart style="width:45%;" :search-data="tgtMcgData" /> 
+        <div class="column w-1">
+          <label class="column_label">&nbsp;</label>
+          <button
+            v-if="(adminYn === 'Y')"
+            type="button"
+            class="default_button on"
+            @click="modify(dealdtl)"
+          >
+            수정
+          </button>
         </div>
       </div>
     </section>
@@ -306,7 +318,6 @@ background-color: rgb(223, 219, 219);
 
 <script>
 import { mapState, mapActions } from 'vuex';
-import McgStatChart from '@/views/meta/mcg/McgStatChart.vue';
 import {
   fetchPutMcgDealList,
   fetchPostMcgDealList,
@@ -321,7 +332,6 @@ export default {
   components: {
     ChrgrListPopup,
     ChnlListPopup,
-    'mcg-stat-chart': McgStatChart,
   },
   data() {
     return {
@@ -398,10 +408,6 @@ export default {
       chnlpopupstate: false,
       chrgrn: '',
       chrgropCd: '',
-
-      tgtMcgData: {
-        message: {},
-      },
     };
   },
   computed: {
@@ -454,6 +460,45 @@ export default {
           console.log(`error occur!! : ${ex}`);
         });
     },
+
+
+    Chrgrinfodtl(opCdr, dealCdr) {
+      console.log('채널 담당자 조회!');
+      console.log(this.chrgrinfoReq, this.chrgrinfoRps);
+      fetchGetMcgDealChrgrList({
+        params: {
+          chrgrTyp: this.chrgrTyp,
+          hanNm: this.hanNm,
+          chrgrId: this.chrgrId,
+          mblPhonNum: this.mblPhonNum,
+          opCd: opCdr,
+          dealCd: dealCdr,
+
+        },
+      })
+
+        .then((res) => {
+          this.chrgrReq = res.data.rstData.searchList.chrgr1;
+          this.chrgrRps = res.data.rstData.searchList.chrgr2;
+          if (this.chrgrReq === null) {
+            this.chrgrinfoReq.hanNm = '';
+            this.chrgrinfoReq.chrgrId = '';
+            this.chrgrReq = this.chrgrinfoReq;
+          }
+          if (this.chrgrRps === null) {
+            this.chrgrinfoRps.hanNm = '';
+            this.chrgrinfoRps.chrgrId = '';
+            this.chrgrRps = this.chrgrinfoRps;
+          }
+          console.log(this.chrgrReq, this.chrgrRps);
+
+          console.log('대표 담당자 조회!');
+        })
+        .catch((ex) => {
+          console.log(`error occur!! : ${ex}`);
+        });
+    },
+
     noshow() {
       this.isStatusOn = false;
       console.log(this.isStatusOn);
@@ -516,10 +561,56 @@ export default {
       this.chrgrReq.hanNm = this.dealdtl.reqChrgrNm;
       this.chrgrRps.hanNm = this.dealdtl.rpsChrgrNm;
 
-      this.tgtMcgData = { dealCd: deal.dealCd, chnlId: deal.chnlId, opCd: deal.opCd, };
-      //console.log(this.tgtMcgData);
+      console.log(this.dealdtl);
       this.isStatusOn = true;
-      //console.log(this.isStatusOn);
+      console.log(this.isStatusOn);
+    },
+
+
+    save() {
+      console.log('거래 정보 등록!');
+
+      // this.$axios.post('/api/mcg/chnl/post', {
+      fetchPutMcgDealList({
+        opCd: this.opCd,
+        dealCd: this.dealCd,
+        realDealCd: this.realDealCd,
+        dealModuleNm: this.dealModuleNm,
+        dealNm: this.dealNm,
+        //  reqChrgr: this.reqChrgr,
+        //   rpsChrgr: this.rpsChrgr,
+        //  lnkCycl: this.lnkCycl,
+        //   ifSz: this.ifSz,
+        //    servletUrl: this.servletUrl,
+        //     tcpIp: this.tcpIp,
+        //      tcpPort: this.tcpPort,
+        //    dealTimeout: this.dealTimeout,
+        //     dealRmk: this.dealRmk,
+        useYn: this.useYn,
+      })
+        .then((res) => {
+          console.log(res);
+          this.$gf.alertOn('거래 추가 완료!');
+          this.listing();
+        })
+        .catch((ex) => {
+          console.log(`error occur!! : ${ex}`);
+        });
+    },
+
+    modify(deal) {
+      console.log('거래 정보 수정!');
+
+      // this.$axios.post('/api/mcg/chnl/post', {
+      fetchPostMcgDealList(deal)
+        .then((res) => {
+          console.log(res);
+          this.$gf.alertOn('거래 수정 완료!');
+          this.listing();
+        })
+        .catch((ex) => {
+          console.log(`error occur!! : ${ex}`);
+        });
     },
   },
 };

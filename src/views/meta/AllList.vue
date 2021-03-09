@@ -32,6 +32,23 @@
             </select>
           </div>
         </div>
+        <div class="column on w-2">
+          <label class="column_label">연동 방식</label>
+          <div class="select_group">
+            <select
+              v-model="ifTypCd"
+              disabled
+            >
+              <option
+                v-for="(code, i) in ccCdList.ifTypCd"
+                :key="i"
+                :value="code.cdDtlId"
+              >
+                {{ code.cdNm }}
+              </option>
+            </select>
+          </div>
+        </div>
         <div class="right_button_area">
           <button
             type="button"
@@ -252,6 +269,7 @@
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex';
 import { fetchGetAllMetaList } from '@/api/bizCommApi';
 
 export default {
@@ -262,6 +280,7 @@ export default {
       pageMoveChk: 0,
 
       ifKind: 'EAI',
+      ifTypCd: '1',
       srchType: '',
       eaiIfId: '',
       hostNm: '',
@@ -275,13 +294,20 @@ export default {
       allMetaList: [],
     };
   },
+  computed: {
+    ...mapState('ccCdLst', ['ccCdList']),
+  },
   mounted() {
     if (!this.$gf.isEmpty(this.$route.params.srchType)) {
       this.srchType = this.$route.params.srchType;
     }
+    this.setCcCdList({
+      opClCd: 'EAI', cdId: 'IF_TYP_CD', allYn: 'N', listNm: 'ifTypCd',
+    });
     this.searchList();
   },
   methods: {
+    ...mapActions('ccCdLst', ['setCcCdList']),
     pageMove() {
       this.pageMoveChk = 1;
       this.searchList();
@@ -297,6 +323,7 @@ export default {
           size: this.pageSet.size,
 
           srchType: this.srchType,
+          ifTypCd: this.ifTypCd,
 
           eaiIfId: this.eaiIfId,
           hostNm: this.hostNm,
@@ -322,7 +349,7 @@ export default {
     },
     movePage(index) {
       this.$router.push({
-        name: 'ifIdListAdmin',
+        name: 'ifIdListDetail',
         params: {
           eaiIfSeq: this.allMetaList[index].eaiIfSeq,
           callType: 'viewAll',

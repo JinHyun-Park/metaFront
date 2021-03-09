@@ -85,7 +85,7 @@
             />
           </div>
         </div>
-        <div class="column w-2">
+        <div class="column w-1">
           <label class="column_label">진행상태</label>
           <div class="select_group">
             <select v-model="tgtProcSt">
@@ -95,6 +95,22 @@
                 :value="code.cdDtlId"
               >
                 {{ code.cdNm }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="column w-1">
+          <label class="column_label">검색범위</label>
+          <div class="select_group">
+            <select v-model="srchType">
+              <option value="">
+                전체
+              </option>
+              <option value="IN_PART">
+                파트내
+              </option>
+              <option value="IN_MY">
+                내것만
               </option>
             </select>
           </div>
@@ -316,6 +332,7 @@ export default {
         procSt: 0,
       },
       ifKind: 'EAI',
+      srchType: 'IN_MY',
 
       showIfReqHstPopup: false,
       popupReqHstProp: {
@@ -381,6 +398,7 @@ export default {
           size: this.pageSet.size,
           reqTitle: this.reqTitle,
           procSt: this.tgtProcSt,
+          srchType: this.srchType,
           srchIfKind1: this.tgtIfKind[0],
           srchIfKind2: this.tgtIfKind[1],
           srchIfKind3: this.tgtIfKind[2],
@@ -422,7 +440,14 @@ export default {
     },
     detail(i) {
       //this.$router.push({ name: 'applyIf', params: { reqNum: this.ifReqList[i].reqNum, callType:'update', procSt: this.ifReqList[i].procSt }})
-      this.$router.push({ name: 'newApplyIf', params: { reqNum: this.ifReqList[i].reqNum, callType:'update', procSt: this.ifReqList[i].procSt, ifKind:  this.ifReqList[i].ifKind }})
+      this.$router.push({ name: 'newApplyIf', params: { 
+                                                        reqNum: this.ifReqList[i].reqNum, 
+                                                        callType:'update', 
+                                                        procSt: this.ifReqList[i].procSt, 
+                                                        ifKind:  this.ifReqList[i].ifKind,
+                                                        reqrId : this.ifReqList[i].reqrId,
+                                                        aprvId : this.ifReqList[i].aprvId,
+                                                    }})
     },
     turnOnNewIfRegChose() {
       //this.popupProp.procSt = this.tgtProcSt;
