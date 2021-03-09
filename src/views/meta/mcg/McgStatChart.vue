@@ -55,6 +55,9 @@ export default {
   },
   watch: {
     searchData() {
+      this.tgtOpCd = this.searchData.opCd;
+      this.tgtDealId = this.searchData.dealCd;
+      
       this.searchStat();
     },
   },
