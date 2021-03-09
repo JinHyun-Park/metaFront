@@ -878,7 +878,6 @@ export default {
   },
   watch: {
     procSt() {
-      console.log(`procst changed : ${this.procSt}`);
       this.setBtnShow();
     },
   },

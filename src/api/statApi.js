@@ -37,6 +37,10 @@ function fetchGetStatMcgHourlyTrms(param) {
   return axios.get(`${preUrl}/hourly/mcg`, param);
 }
 
+function fetchPostStatMcgHourlyTrmsDetail(param) {
+  return axios.post(`${preUrl}/hourly/mcg/detail`, param);
+}
+
 export {
   fetchGetStatEaiMonthlyTrms,
   fetchGetStatEigwMonthlyTrms,
@@ -47,4 +51,5 @@ export {
   fetchGetStatEaiHourlyTrms,
   fetchGetStatEigwHourlyTrms,
   fetchGetStatMcgHourlyTrms,
+  fetchPostStatMcgHourlyTrmsDetail,
 };

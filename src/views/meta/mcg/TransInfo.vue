@@ -454,45 +454,6 @@ export default {
           console.log(`error occur!! : ${ex}`);
         });
     },
-
-
-    Chrgrinfodtl(opCdr, dealCdr) {
-      console.log('채널 담당자 조회!');
-      console.log(this.chrgrinfoReq, this.chrgrinfoRps);
-      fetchGetMcgDealChrgrList({
-        params: {
-          chrgrTyp: this.chrgrTyp,
-          hanNm: this.hanNm,
-          chrgrId: this.chrgrId,
-          mblPhonNum: this.mblPhonNum,
-          opCd: opCdr,
-          dealCd: dealCdr,
-
-        },
-      })
-
-        .then((res) => {
-          this.chrgrReq = res.data.rstData.searchList.chrgr1;
-          this.chrgrRps = res.data.rstData.searchList.chrgr2;
-          if (this.chrgrReq === null) {
-            this.chrgrinfoReq.hanNm = '';
-            this.chrgrinfoReq.chrgrId = '';
-            this.chrgrReq = this.chrgrinfoReq;
-          }
-          if (this.chrgrRps === null) {
-            this.chrgrinfoRps.hanNm = '';
-            this.chrgrinfoRps.chrgrId = '';
-            this.chrgrRps = this.chrgrinfoRps;
-          }
-          console.log(this.chrgrReq, this.chrgrRps);
-
-          console.log('대표 담당자 조회!');
-        })
-        .catch((ex) => {
-          console.log(`error occur!! : ${ex}`);
-        });
-    },
-
     noshow() {
       this.isStatusOn = false;
       console.log(this.isStatusOn);
@@ -559,53 +520,6 @@ export default {
       //console.log(this.tgtMcgData);
       this.isStatusOn = true;
       //console.log(this.isStatusOn);
-    },
-
-
-    save() {
-      console.log('거래 정보 등록!');
-
-      // this.$axios.post('/api/mcg/chnl/post', {
-      fetchPutMcgDealList({
-        opCd: this.opCd,
-        dealCd: this.dealCd,
-        realDealCd: this.realDealCd,
-        dealModuleNm: this.dealModuleNm,
-        dealNm: this.dealNm,
-        //  reqChrgr: this.reqChrgr,
-        //   rpsChrgr: this.rpsChrgr,
-        //  lnkCycl: this.lnkCycl,
-        //   ifSz: this.ifSz,
-        //    servletUrl: this.servletUrl,
-        //     tcpIp: this.tcpIp,
-        //      tcpPort: this.tcpPort,
-        //    dealTimeout: this.dealTimeout,
-        //     dealRmk: this.dealRmk,
-        useYn: this.useYn,
-      })
-        .then((res) => {
-          console.log(res);
-          this.$gf.alertOn('거래 추가 완료!');
-          this.listing();
-        })
-        .catch((ex) => {
-          console.log(`error occur!! : ${ex}`);
-        });
-    },
-
-    modify(deal) {
-      console.log('거래 정보 수정!');
-
-      // this.$axios.post('/api/mcg/chnl/post', {
-      fetchPostMcgDealList(deal)
-        .then((res) => {
-          console.log(res);
-          this.$gf.alertOn('거래 수정 완료!');
-          this.listing();
-        })
-        .catch((ex) => {
-          console.log(`error occur!! : ${ex}`);
-        });
     },
   },
 };

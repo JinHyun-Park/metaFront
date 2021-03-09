@@ -4,7 +4,7 @@
       시간별 통계
     </h4>
     <h5 class="s_tit type-2">
-      MCG 거래량({{ tgtStatDate }}) * 매일 12시에 갱신
+      거래량(전일, 전주, 전달)
       <!--<div class="label_space">
         <label class="label-default">EAI</label>
         <label class="label-default on">EiGW</label>
@@ -19,7 +19,7 @@
 
 <script>
 import LineChart from '@/views/chart/LineChart.vue';
-import { fetchGetStatMcgHourlyTrms } from '@/api/statApi';
+import { fetchPostStatMcgHourlyTrmsDetail } from '@/api/statApi';
 
 export default {
   name: 'McgTrmsStat',
@@ -37,26 +37,34 @@ export default {
       datacollection: {},
       dailyTrmsList: [],
       statList:[],
-      tgtStatDate: this.$gf.dateToString(new Date(), '-36h', 'N'),
+      tgtStatDate: [],
       tgtOpCd : '',
       tgtDealId : '',
 
     };
   },
   mounted() {
-    console.log(`searchData : ${this.searchData}`);
     this.tgtOpCd = this.searchData.opCd;
     this.tgtDealId = this.searchData.dealCd;
+
+    this.tgtStatDate = [{statDate: this.$gf.dateToString(new Date(), '-36h', 'N')}, 
+                        {statDate: this.$gf.dateToString(new Date(), '-180h', 'N')},
+                        {statDate: this.$gf.dateToString(new Date(), '-1m', 'N')}];
+
     this.searchStat();
   },
+  watch: {
+    searchData() {
+      this.searchStat();
+    },
+  },
   methods: {
+    
     searchStat() {
-      fetchGetStatMcgHourlyTrms({
-        params: {
-          inputKeyword: this.tgtDealId,
-          inputOpCd: this.tgtOpCd,
-          statDate: this.tgtStatDate,
-        },
+      fetchPostStatMcgHourlyTrmsDetail({
+        inputKeyword: this.tgtDealId,
+        inputOpCd: this.tgtOpCd,
+        inputDate: this.tgtStatDate,
       })
         .then((res) => {
           console.log(res);
@@ -98,10 +106,10 @@ export default {
       var datasets = [];
       for(var i=0; i<this.statList.length; i++){
         var dataset = {
-          label: this.statList[i].opCd + '-' + this.statList[i].tx,
+          label: this.statList[i].statDate,
           data: this.computeHourlyGraphRowValue(i),
-          backgroundColor: this.dynamicColors(),
-          borderColor: this.dynamicColors(),
+          backgroundColor: this.dynamicColor(),
+          borderColor: this.dynamicColor(),
           lineTension: 0.2,
           fill: false,
         };
@@ -136,6 +144,12 @@ export default {
       a.t22 = this.statList[index].t22;
       a.t23 = this.statList[index].t23;
       return Object.values(a);
+    },
+    dynamicColor() {
+      const r = Math.floor(Math.random() * 255);
+      const g = Math.floor(Math.random() * 255);
+      const b = Math.floor(Math.random() * 255);
+      return `rgb(${r},${g},${b})`;
     },
     dynamicColors() {
       const a = [];
