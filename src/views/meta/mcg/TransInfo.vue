@@ -50,6 +50,7 @@
             v-model="chnlId"
             type="text"
             value=""
+            disabled
           >
     
           <span
@@ -177,19 +178,21 @@
       v-if="isStatusOn"
       class="form_area border_group"
     >
-      <div class="row_contain odd type-3">
+      <div class="row_contain">
         <div class="column on w-1">
           <label class="column_label">거래코드</label>
           <input
             v-model="dealdtl.dealCd"
             type="text"
+            disabled
           >
         </div>
-        <div class="column w-1">
+        <div class="column w-2">
           <label class="column_label">거래명</label>
           <input
             v-model="dealdtl.dealNm"
             type="text"
+            disabled
           >
         </div>
         <div class="column w-2">
@@ -197,75 +200,65 @@
           <input
             v-model="dealdtl.servletUrl"
             type="text"
+            disabled
           >
         </div>
         <div class="column w-1">
-          <label class="column_label">TCP IP/PORT</label>
+          <label class="column_label">IP</label>
           <input
             v-model="dealdtl.tcpIp"
             type="text"
+            disabled
           >
         </div>
-        <div class="column w-1">
-          <label class="column_label">&nbsp;</label>
+        <div class="column on w-1">
+          <label class="column_label">Port</label>
           <input
             v-model="dealdtl.tcvPort"
             type="text"
+            disabled
           >
         </div>
       </div>
       <div class="row_contain type-3">
         <div class="column w-1">
           <label class="column_label">요청담당자</label>
-          <div class="search_group">
-            <input
-              v-model="chrgrReq.hanNm"
-              type="text"
-            >
-            <span class="search">
-              <i
-                class="ico-search"
-                @click="chrgrpopon('REQ', dealdtl.opCd)"
-              />
-            </span>
-          </div>
+          <input
+            v-model="chrgrReq.hanNm"
+            type="text"
+            disabled
+          >
         </div>
         <div class="column w-1">
           <label class="column_label">응답담당자</label>
-          <div class="search_group">
-            <input
-              v-model="chrgrRps.hanNm"
-              type="text"
-            >
-            <span class="search">
-              <i
-                class="ico-search"
-                @click="chrgrpopon('RPS', dealdtl.opCd)"
-              />
-            </span>
-          </div>
+          <input
+            v-model="chrgrRps.hanNm"
+            type="text"
+            disabled
+          >
         </div>
         <div class="column w-1">
           <label class="column_label">전문 크기(byte)</label>
           <input
             v-model="dealdtl.ifSz"
             type="text"
+            disabled
           >
         </div>
         <div class="column w-1">
           <label class="column_label">연동주기</label>
-          <div class="select_group">
-            <input
-              v-model="dealdtl.lnkCycl"
-              type="text"
-            >
-          </div>
+          <input
+            v-model="dealdtl.lnkCycl"
+            type="text"
+            disabled
+          >
         </div>
         <div class="column w-1">
           <label class="column_label">타임아웃</label>
           <input
             v-model="dealdtl.dealTimeout"
             type="text"
+            disabled
           >
         </div>
       </div>
@@ -275,12 +268,13 @@
           <input
             v-model="dealdtl.dealRmk"
             type="text"
+            disabled
           >
         </div>
         <div class="column w-1">
           <label class="column_label">사용여부</label>
           <div class="select_group">
-            <select v-model="dealdtl.useYn">
+            <select v-model="dealdtl.useYn" disabled>
               <option
                 value="Y"
                 selected
@@ -296,6 +290,11 @@
         </div>
         <div class="column w-1"/>
       </div>
+      <div >
+        <div class="board_area">
+        <mcg-stat-chart style="width:45%;" :search-data="tgtMcgData" /> 
+        </div>
+      </div>
     </section>
   </div>
 </template>
@@ -307,6 +306,7 @@ background-color: rgb(223, 219, 219);
 
 <script>
 import { mapState, mapActions } from 'vuex';
+import McgStatChart from '@/views/meta/mcg/McgStatChart.vue';
 import {
   fetchPutMcgDealList,
   fetchPostMcgDealList,
@@ -321,6 +321,7 @@ export default {
   components: {
     ChrgrListPopup,
     ChnlListPopup,
+    'mcg-stat-chart': McgStatChart,
   },
   data() {
     return {
@@ -397,6 +398,10 @@ export default {
       chnlpopupstate: false,
       chrgrn: '',
       chrgropCd: '',
+
+      tgtMcgData: {
+        message: {},
+      },
     };
   },
   computed: {
@@ -449,45 +454,6 @@ export default {
           console.log(`error occur!! : ${ex}`);
         });
     },
-
-
-    Chrgrinfodtl(opCdr, dealCdr) {
-      console.log('채널 담당자 조회!');
-      console.log(this.chrgrinfoReq, this.chrgrinfoRps);
-      fetchGetMcgDealChrgrList({
-        params: {
-          chrgrTyp: this.chrgrTyp,
-          hanNm: this.hanNm,
-          chrgrId: this.chrgrId,
-          mblPhonNum: this.mblPhonNum,
-          opCd: opCdr,
-          dealCd: dealCdr,
-
-        },
-      })
-
-        .then((res) => {
-          this.chrgrReq = res.data.rstData.searchList.chrgr1;
-          this.chrgrRps = res.data.rstData.searchList.chrgr2;
-          if (this.chrgrReq === null) {
-            this.chrgrinfoReq.hanNm = '';
-            this.chrgrinfoReq.chrgrId = '';
-            this.chrgrReq = this.chrgrinfoReq;
-          }
-          if (this.chrgrRps === null) {
-            this.chrgrinfoRps.hanNm = '';
-            this.chrgrinfoRps.chrgrId = '';
-            this.chrgrRps = this.chrgrinfoRps;
-          }
-          console.log(this.chrgrReq, this.chrgrRps);
-
-          console.log('대표 담당자 조회!');
-        })
-        .catch((ex) => {
-          console.log(`error occur!! : ${ex}`);
-        });
-    },
-
     noshow() {
       this.isStatusOn = false;
       console.log(this.isStatusOn);
@@ -550,56 +516,10 @@ export default {
       this.chrgrReq.hanNm = this.dealdtl.reqChrgrNm;
       this.chrgrRps.hanNm = this.dealdtl.rpsChrgrNm;
 
-      console.log(this.dealdtl);
+      this.tgtMcgData = { dealCd: deal.dealCd, chnlId: deal.chnlId, opCd: deal.opCd, };
+      //console.log(this.tgtMcgData);
       this.isStatusOn = true;
-      console.log(this.isStatusOn);
-    },
-
-
-    save() {
-      console.log('거래 정보 등록!');
-
-      // this.$axios.post('/api/mcg/chnl/post', {
-      fetchPutMcgDealList({
-        opCd: this.opCd,
-        dealCd: this.dealCd,
-        realDealCd: this.realDealCd,
-        dealModuleNm: this.dealModuleNm,
-        dealNm: this.dealNm,
-        //  reqChrgr: this.reqChrgr,
-        //   rpsChrgr: this.rpsChrgr,
-        //  lnkCycl: this.lnkCycl,
-        //   ifSz: this.ifSz,
-        //    servletUrl: this.servletUrl,
-        //     tcpIp: this.tcpIp,
-        //      tcpPort: this.tcpPort,
-        //    dealTimeout: this.dealTimeout,
-        //     dealRmk: this.dealRmk,
-        useYn: this.useYn,
-      })
-        .then((res) => {
-          console.log(res);
-          this.$gf.alertOn('거래 추가 완료!');
-          this.listing();
-        })
-        .catch((ex) => {
-          console.log(`error occur!! : ${ex}`);
-        });
-    },
-
-    modify(deal) {
-      console.log('거래 정보 수정!');
-
-      // this.$axios.post('/api/mcg/chnl/post', {
-      fetchPostMcgDealList(deal)
-        .then((res) => {
-          console.log(res);
-          this.$gf.alertOn('거래 수정 완료!');
-          this.listing();
-        })
-        .catch((ex) => {
-          console.log(`error occur!! : ${ex}`);
-        });
+      //console.log(this.isStatusOn);
     },
   },
 };

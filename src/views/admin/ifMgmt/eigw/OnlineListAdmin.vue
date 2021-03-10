@@ -772,34 +772,31 @@ export default {
   data() {
     return {
       svrOn: false,
-      props: { // 조회 시 parameter에 사용자 정보를 담아주려면 여기를 통해 넘겨주세요.
-        message: '', // 사용방법 예시 데이터
+      props: {
+        message: '',
       },
       svrOnChrgr: false,
       svrOnEigwChrgr: false,
-      propsChrgr: { // 조회 시 parameter에 사용자 정보를 담아주려면 여기를 통해 넘겨주세요.
-        message: '', // 사용방법 예시 데이터
+      propsChrgr: {
+        message: '',
       },
-      propsEigwChrgr: { // 조회 시 parameter에 사용자 정보를 담아주려면 여기를 통해 넘겨주세요.
-        message: '', // 사용방법 예시 데이터
+      propsEigwChrgr: {
+        message: '',
       },
       serverPopupCase: '',
       svrOnInstList: false,
-      propsInstList: { // 조회 시 parameter에 사용자 정보를 담아주려면 여기를 통해 넘겨주세요.
-        message: '', // 사용방법 예시 데이터
+      propsInstList: {
+        message: '',
       },
       svrOnEaiList: false,
-      propsEaiList: { // 조회 시 parameter에 사용자 정보를 담아주려면 여기를 통해 넘겨주세요.
-        message: '', // 사용방법 예시 데이터
+      propsEaiList: {
+        message: '',
       },
-
       instNm: '',
       pgmId: '',
       confFile: '',
       reqIp: '',
-
       relInfo: {},
-
       inChrgrList: [
         {
           chrgrTyp: '',
@@ -892,7 +889,6 @@ export default {
   methods: {
     ...mapActions('frameSet', ['setResetPopOn']),
     ...mapActions('ccCdLst', ['setCcCdList']),
-    // 사용
     initOnlineInfo() {
       this.onlineInfo.onlineMetaNum = 0;
       this.onlineInfo.eaiIfId = '';
@@ -906,6 +902,7 @@ export default {
       this.onlineInfo.mntgYn = '';
       this.onlineInfo.onlineDealDesc = '';
       this.onlineInfo.instCd = '';
+      this.instNm = '';
     },
     initProcList() {
       this.procList = '';
@@ -961,7 +958,6 @@ export default {
           pageNo: this.pageMoveChk === 1 ? this.pageSet.pageNo : 1,
           pageCount: this.pageMoveChk === 1 ? this.pageSet.pageCount : 0,
           size: this.pageSet.size,
-
           instNm: this.instNm,
           pgmId: this.pgmId,
           confFile: this.confFile,

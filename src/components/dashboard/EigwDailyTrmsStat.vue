@@ -63,7 +63,7 @@ export default {
     computeGraphRowKey() {
       const a = [];
       for (let i = 0; i < this.dailyTrmsList.length; i++) {
-        a.push(this.dailyTrmsList[i].ifNm);
+        a.push(this.dailyTrmsList[i].ifId);
       }
       return a;
     },
