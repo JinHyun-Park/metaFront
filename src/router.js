@@ -392,9 +392,14 @@ const router = new Router({
     ],
   },
   {
-    path: '*',
+    path: '/error/404.vue',
     name: 'notFound',
     component: () => import('@/views/error/404.vue'),
+  },
+  {
+    path: '*',
+    redirect: '/error/404.vue',
+    // component: () => import('@/views/error/404.vue'),
   },
   ],
 
